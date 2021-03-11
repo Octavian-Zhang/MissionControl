@@ -1,0 +1,12 @@
+#include "CircleFormation.h"
+#include <vector>
+int main()
+{
+  CircleFormation *circle = new CircleFormation();
+  circle->init();
+  circle->updatePos(1, 2, 3, 4, 5, 6, 7);
+  circle->rt_OneStep();
+  std::vector<double> expPos;
+  circle->getExpectedPos(expPos);
+  printf("%f, %f, %f, %f\n", expPos[0], expPos[1], expPos[2], expPos[3]);
+}
