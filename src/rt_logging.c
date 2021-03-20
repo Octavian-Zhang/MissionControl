@@ -1,6 +1,6 @@
 /* 
  *
- * Copyright 1994-2019 The MathWorks, Inc.
+ * Copyright 1994-2020 The MathWorks, Inc.
  *
  * File: rt_logging.c
  *
@@ -137,6 +137,7 @@ static const char_T rtStructLogVarFieldNames[] =
                   "time\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0" ZERO_PAD
                   "signals\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0" ZERO_PAD
                   "blockName\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0" ZERO_PAD;
+
 static const char_T rtLocalLoggingSignalsStructFieldNames[] =
                   "values\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0" ZERO_PAD
                   "valueDimensions\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0" ZERO_PAD
@@ -144,6 +145,7 @@ static const char_T rtLocalLoggingSignalsStructFieldNames[] =
                   "label\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0" ZERO_PAD
                   "title\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0" ZERO_PAD
                   "plotStyle\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0" ZERO_PAD;
+
 static const char_T rtGlobalLoggingSignalsStructFieldNames[] =
                   "values\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0" ZERO_PAD
                   "valueDimensions\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0" ZERO_PAD
@@ -152,6 +154,8 @@ static const char_T rtGlobalLoggingSignalsStructFieldNames[] =
                   "blockName\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0" ZERO_PAD
                   "stateName\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0" ZERO_PAD
                   "inReferencedModel\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0" ZERO_PAD;
+                  
+
 #define TIME_FIELD_NAME      (rtStructLogVarFieldNames[0*mxMAXNAM])
 #define SIGNALS_FIELD_NAME   (rtStructLogVarFieldNames[1*mxMAXNAM])
 #define BLOCKNAME_FIELD_NAME (rtStructLogVarFieldNames[2*mxMAXNAM])
@@ -1568,7 +1572,6 @@ static const char_T *rt_InitSignalsStruct(RTWLogInfo             *li,
     const char_T         **blockNames  = sigInfo->blockNames.cptr;
     const char_T         **stateNames  = sigInfo->stateNames.cptr;
     const boolean_T      *crossMdlRef  = sigInfo->crossMdlRef;
-
     void                 **currSigDims = sigInfo->currSigDims;
     int_T                *currSigDimsSize = sigInfo->currSigDimsSize;
     LogVar               *prevValues   = NULL;
@@ -2082,7 +2085,6 @@ static const char_T *rt_InitSignalsStruct(RTWLogInfo             *li,
     FREE(sig->blockNames);
     FREE(sig->stateNames);
     FREE(sig->crossMdlRef);
-
     return(*errStatus);
 
 } /* end rt_InitSignalsStruct */

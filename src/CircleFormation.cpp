@@ -15,6 +15,8 @@
 // Validation result: Not run
 //
 #include "CircleFormation.h"
+#include <chrono>
+#include <iostream>
 
 //
 // Associating rt_OneStep with a real-time clock or interrupt service routine
@@ -29,7 +31,6 @@
 //
 void CircleFormation::init(void)
 {
-  codegenReal2Mission_Obj.initialize();
   if (background_thread == NULL)
   {
     background_thread = new std::thread(&CircleFormation::MissionMonitor, this);
@@ -38,26 +39,43 @@ void CircleFormation::init(void)
 //--------------此函数为任务控制线程，可添加时序控制等相关代码//
 void CircleFormation::MissionMonitor()
 {
+  // Initialize model
+  codegenReal2Mission_Obj.initialize();
+
+  // Initiate std::chrono based real-time interrupt
+  auto SimulationStart = std::chrono::high_resolution_clock::now();
+  std::chrono::duration<double> TimeElapsed{};
+  std::chrono::milliseconds SimulationTime{};
+
   while ((rtmGetErrorStatus(codegenReal2Mission_Obj.getRTM()) == (NULL)) &&
          !rtmGetStopRequested(codegenReal2Mission_Obj.getRTM()))
   {
-    if (this->commonData != NULL && this->commonData->getCtrlCmd() == 1) //开始任务
+    rt_OneStep();
+    std::cout << "Simulation Time: " << SimulationTime.count() << " milliseconds" << std::endl;
+
+    // increment SimulationTime for 100ms
+    const std::chrono::milliseconds tick{ 100 };
+    SimulationTime += tick;
+
+    if (this->commonData != NULL && this->commonData->getCtrlCmd() == 0) //结束任务
     {
-      rt_OneStep();
-      // Matfile logging
-      rt_StopDataLogging(MATFILE, codegenReal2Mission_Obj.getRTM()->rtwLogInfo);
+      rtmSetErrorStatus(codegenReal2Mission_Obj.getRTM(), "Terminate");
     }
-    else if (this->commonData != NULL && this->commonData->getCtrlCmd() == 0) //结束任务
+
+    while (TimeElapsed < SimulationTime) // delay execution until next simulation tick
     {
-      // Terminate model
-      codegenReal2Mission_Obj.terminate();
+      std::this_thread::sleep_for(std::chrono::milliseconds(1));
+      TimeElapsed = std::chrono::high_resolution_clock::now() - SimulationStart;
     }
-    else
-    {
-      std::this_thread::sleep_for(std::chrono::milliseconds(100));
-    }
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    
   }
+
+  // Matfile logging
+  rt_StopDataLogging(MATFILE, codegenReal2Mission_Obj.getRTM()->rtwLogInfo);
+
+  // Terminate model
+  codegenReal2Mission_Obj.terminate();
+
 }
 
 void CircleFormation::rt_OneStep(void)

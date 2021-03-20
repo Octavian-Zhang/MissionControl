@@ -3,12 +3,12 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 1.343
-// Simulink Coder version         : 9.4 (R2020b) 29-Jul-2020
-// C/C++ source code generated on : Thu Mar 11 17:48:09 2021
+// Model version                  : 2.98
+// Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
+// C/C++ source code generated on : Sat Mar 20 14:48:46 2021
 //
 // Target selection: ert.tlc
-// Embedded hardware selection: ARM Compatible->ARM 64-bit (LP64)
+// Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
 // Code generation objectives:
 //    1. Safety precaution
 //    2. Execution efficiency
@@ -35,7 +35,6 @@
 #include "multiword_types.h"
 #include "rt_nonfinite.h"
 #include "rt_defines.h"
-#include "rtGetInf.h"
 
 // Macros for accessing real-time model data structure
 #ifndef rtmGetFinalTime
@@ -78,135 +77,186 @@
 #define ODE4_INTG
 
 // ODE4 Integration Data
-typedef struct {
+struct ODE4_IntgData {
   real_T *y;                           // output
   real_T *f[4];                        // derivatives
-} ODE4_IntgData;
+};
 
 #endif
+
+//
+//  Exported Global Parameters
+//
+//  Note: Exported global parameters are tunable parameters with an exported
+//  global storage class designation.  Code generation will declare the memory for
+//  these parameters and exports their symbols.
+//
+
+extern real_T b0;                      // Variable: b0
+                                          //  Referenced by:
+                                          //    '<S66>/Gain'
+                                          //    '<S71>/Gain4'
+
+extern real_T c;                       // Variable: c
+                                          //  Referenced by: '<S72>/Gain'
+
+extern real_T h1;                      // Variable: h1
+                                          //  Referenced by: '<S72>/Constant1'
+
 
 // Class declaration for model codegenReal2Mission
 class codegenReal2MissionModelClass {
   // public data and function members
  public:
   // Block signals (default storage)
-  typedef struct {
-    FixedWingGuidanceStateBus SimUAVStateZOH;// '<S10>/SimUAVStateZOH'
+  struct B_codegenReal2Mission_T {
+    FixedWingGuidanceStateBus SimUAVStateZOH;// '<S12>/SimUAVStateZOH'
     FixedWingGuidanceEnvironmentBus FixedWingGuidanceEnvironmentB_g;
-                                     // '<S10>/FixedWingGuidanceEnvironmentBus'
-    FixedWingGuidanceControlBus SlewGuidanceBus;// '<S10>/Slew Guidance Bus'
-    real_T Down;                       // '<S2>/Gain2'
-    real_T Down2Height;                // '<S2>/Down2Height'
-    real_T Gain7;                      // '<S3>/Gain7'
-    real_T TakeOffGathering_o2;        // '<S2>/TakeOffGathering'
+                                     // '<S12>/FixedWingGuidanceEnvironmentBus'
+    FixedWingGuidanceControlBus SlewGuidanceBus;// '<S12>/Slew Guidance Bus'
+    real_T Down;                       // '<S3>/Gain2'
+    real_T Switch;                     // '<S3>/Switch'
+    real_T Down2Height;                // '<S3>/Down2Height'
+    real_T ExecutionTrigger;           // '<Root>/TriggerTermination'
+    real_T Gain1;                      // '<S7>/Gain1'
+    real_T Gain;                       // '<S7>/Gain'
+    real_T Gain3;                      // '<S71>/Gain3'
+    real_T Integrator2;                // '<S73>/Integrator2'
+    real_T Gain_o;                     // '<S66>/Gain'
+    real_T Sum;                        // '<S71>/Sum'
+    real_T Sum1;                       // '<S71>/Sum1'
+    real_T Sum4;                       // '<S66>/Sum4'
+    real_T fh;                         // '<S73>/fhan(v1-v0,v2,r0,h)1'
+    real_T Gain7;                      // '<S4>/Gain7'
+    real_T TakeOffGathering_o2;        // '<S3>/TakeOffGathering'
     real_T ComputeDerivative[8];       // '<S16>/ComputeDerivative'
+    real_T Seletion;                   // '<S3>/Chart'
     boolean_T Terminate;               // '<Root>/TriggerTermination'
-  } B_codegenReal2Mission_T;
+    boolean_T TakeOffTrigger;          // '<Root>/TASgreaterthan15for1Sec'
+  };
 
   // Block states (default storage) for system '<Root>'
-  typedef struct {
+  struct DW_codegenReal2Mission_T {
     uav_sluav_internal_system_Way_T obj;// '<Root>/TrackSimPath'
-    uav_sluav_internal_system_Orb_T obj_m;// '<S2>/TakeOffGathering'
+    uav_sluav_internal_system_Orb_T obj_m;// '<S3>/TakeOffGathering'
     robotics_core_internal_syst_b_T obj_a;// '<S16>/ComputeDerivative'
-    real_T Delay_DSTATE;               // '<S2>/Delay'
-    real_T UD_DSTATE;                  // '<S98>/UD'
-    real_T Speed2d3Path_DSTATE[20];    // '<S6>/Speed2d3Path'
-    real_T EastSequence_X[60];         // '<S3>/EastSequence'
-    real_T HeightSequence_X[60];       // '<S3>/HeightSequence'
-    real_T NorthSequence_X[60];        // '<S3>/NorthSequence'
-    real_T UD_DSTATE_f;                // '<S12>/UD'
-    real_T UD_DSTATE_j;                // '<S14>/UD'
-    real_T UD_DSTATE_jn;               // '<S17>/UD'
-    real_T Memory_PreviousInput;       // '<S2>/Memory'
+    real_T Delay_DSTATE;               // '<S3>/Delay'
+    real_T Speed2d3Path_DSTATE[20];    // '<S7>/Speed2d3Path'
+    real_T EastSequence_X[60];         // '<S4>/EastSequence'
+    real_T HeightSequence_X[60];       // '<S4>/HeightSequence'
+    real_T NorthSequence_X[60];        // '<S4>/NorthSequence'
+    real_T Memory_PreviousInput;       // '<S3>/Memory'
+    real_T Memory1_PreviousInput;      // '<S3>/Memory1'
     real_T AltitudeGCS;                // '<Root>/AltitudeGCS'
     real_T LatitudeGCS;                // '<Root>/LatitudeGCS'
     real_T LongitudeGCS;               // '<Root>/LongitudeGCS'
+    real_T numMissionUAV;              // '<Root>/numMissionUAV'
     real_T DataCounter;                // '<Root>/TriggerTermination'
-    real_T DataCounter_f;              // '<Root>/TASgreaterthan15for1Sec'
-    real_T PrevY;                      // '<S10>/ClimbRateLimiter'
+    real_T DataCounter_j;              // '<Root>/TASgreaterthan15for1Sec'
+    real_T PrevY;                      // '<S12>/ClimbRateLimiter'
     struct {
-      void *LoggedData[7];
+      void *LoggedData[9];
     } ModelLogging_PWORK;              // '<Root>/ModelLogging'
 
     int32_T UAVidx;                    // '<Root>/UAVidx'
-    int32_T numMissionUAV;             // '<Root>/numMissionUAV'
-    uint8_T icLoad;                    // '<S2>/Delay'
     uint8_T is_active_c4_codegenReal2Missio;// '<Root>/TriggerTermination'
     uint8_T is_c4_codegenReal2Mission; // '<Root>/TriggerTermination'
     uint8_T is_active_c1_codegenReal2Missio;// '<Root>/TASgreaterthan15for1Sec'
     uint8_T is_c1_codegenReal2Mission; // '<Root>/TASgreaterthan15for1Sec'
-  } DW_codegenReal2Mission_T;
+    uint8_T is_active_c10_codegenReal2Missi;// '<S3>/Chart'
+    uint8_T is_c10_codegenReal2Mission;// '<S3>/Chart'
+    boolean_T icLoad;                  // '<S3>/Delay'
+  };
 
   // Continuous states (default storage)
-  typedef struct {
-    real_T Integrator_CSTATE[8];       // '<S16>/Integrator'
-  } X_codegenReal2Mission_T;
+  struct X_codegenReal2Mission_T {
+    real_T Integrator2_CSTATE;         // '<S71>/Integrator2'
+    real_T Integrator3_CSTATE;         // '<S73>/Integrator3'
+    real_T Integrator2_CSTATE_l;       // '<S73>/Integrator2'
+    real_T Integrator1_CSTATE;         // '<S71>/Integrator1'
+    real_T Integrator_CSTATE;          // '<S71>/Integrator'
+    real_T Integrator_CSTATE_g[8];     // '<S16>/Integrator'
+  };
 
   // State derivatives (default storage)
-  typedef struct {
-    real_T Integrator_CSTATE[8];       // '<S16>/Integrator'
-  } XDot_codegenReal2Mission_T;
+  struct XDot_codegenReal2Mission_T {
+    real_T Integrator2_CSTATE;         // '<S71>/Integrator2'
+    real_T Integrator3_CSTATE;         // '<S73>/Integrator3'
+    real_T Integrator2_CSTATE_l;       // '<S73>/Integrator2'
+    real_T Integrator1_CSTATE;         // '<S71>/Integrator1'
+    real_T Integrator_CSTATE;          // '<S71>/Integrator'
+    real_T Integrator_CSTATE_g[8];     // '<S16>/Integrator'
+  };
 
   // State disabled
-  typedef struct {
-    boolean_T Integrator_CSTATE[8];    // '<S16>/Integrator'
-  } XDis_codegenReal2Mission_T;
+  struct XDis_codegenReal2Mission_T {
+    boolean_T Integrator2_CSTATE;      // '<S71>/Integrator2'
+    boolean_T Integrator3_CSTATE;      // '<S73>/Integrator3'
+    boolean_T Integrator2_CSTATE_l;    // '<S73>/Integrator2'
+    boolean_T Integrator1_CSTATE;      // '<S71>/Integrator1'
+    boolean_T Integrator_CSTATE;       // '<S71>/Integrator'
+    boolean_T Integrator_CSTATE_g[8];  // '<S16>/Integrator'
+  };
 
   // Zero-crossing (trigger) state
-  typedef struct {
-    ZCSigState UD_Reset_ZCE;           // '<S98>/UD'
-  } PrevZCX_codegenReal2Mission_T;
+  struct PrevZCX_codegenReal2Mission_T {
+    ZCSigState Integrator2_Reset_ZCE;  // '<S71>/Integrator2'
+    ZCSigState Integrator3_Reset_ZCE;  // '<S73>/Integrator3'
+    ZCSigState Integrator2_Reset_ZCE_i;// '<S73>/Integrator2'
+    ZCSigState Integrator1_Reset_ZCE;  // '<S71>/Integrator1'
+    ZCSigState Integrator_Reset_ZCE;   // '<S71>/Integrator'
+  };
 
   // Invariant block signals (default storage)
-  typedef const struct tag_ConstB_codegenReal2Missio_T {
-    real_T Sum;                        // '<S65>/Sum'
-    real_T Product1;                   // '<S66>/Product1'
-    real_T Sum1;                       // '<S66>/Sum1'
-    real_T sqrt_l;                     // '<S66>/sqrt'
-    real_T Product2;                   // '<S61>/Product2'
-    real_T Sum1_f;                     // '<S61>/Sum1'
-    real_T UnitConversion;             // '<S62>/Unit Conversion'
-    real_T SinCos_o1;                  // '<S47>/SinCos'
-    real_T SinCos_o2;                  // '<S47>/SinCos'
-    real_T UnitConversion_l;           // '<S38>/Unit Conversion'
-    real_T Sum_m;                      // '<S42>/Sum'
-    real_T Product1_i;                 // '<S43>/Product1'
-    real_T Sum1_fg;                    // '<S43>/Sum1'
-    real_T sqrt_c;                     // '<S43>/sqrt'
-    real_T Product2_m;                 // '<S39>/Product2'
-    real_T Sum1_m;                     // '<S39>/Sum1'
-    real_T SinCos_o1_l;                // '<S24>/SinCos'
-    real_T SinCos_o2_o;                // '<S24>/SinCos'
-  } ConstB_codegenReal2Mission_T;
+  struct ConstB_codegenReal2Mission_T {
+    real_T Sum;                        // '<S64>/Sum'
+    real_T Product1;                   // '<S65>/Product1'
+    real_T Sum1;                       // '<S65>/Sum1'
+    real_T sqrt_l;                     // '<S65>/sqrt'
+    real_T Product2;                   // '<S60>/Product2'
+    real_T Sum1_f;                     // '<S60>/Sum1'
+    real_T UnitConversion;             // '<S61>/Unit Conversion'
+    real_T SinCos_o1;                  // '<S46>/SinCos'
+    real_T SinCos_o2;                  // '<S46>/SinCos'
+    real_T UnitConversion_l;           // '<S37>/Unit Conversion'
+    real_T Sum_m;                      // '<S41>/Sum'
+    real_T Product1_i;                 // '<S42>/Product1'
+    real_T Sum1_fg;                    // '<S42>/Sum1'
+    real_T sqrt_c;                     // '<S42>/sqrt'
+    real_T Product2_m;                 // '<S38>/Product2'
+    real_T Sum1_m;                     // '<S38>/Sum1'
+    real_T SinCos_o1_l;                // '<S23>/SinCos'
+    real_T SinCos_o2_o;                // '<S23>/SinCos'
+  };
 
   // External inputs (root inport signals with default storage)
-  typedef struct {
+  struct ExtU_codegenReal2Mission_T {
     RealUAVStateBus RealUAVLatLonState;// '<Root>/RealUAVLatLonState'
-  } ExtU_codegenReal2Mission_T;
+  };
 
   // External outputs (root outports fed by signals with default storage)
-  typedef struct {
+  struct ExtY_codegenReal2Mission_T {
     real_T RefAirspeed;                // '<Root>/RefAirspeed'
     LookAheadPoint LookAheadPoint_j;   // '<Root>/LookAheadPoint'
     boolean_T EngagedFlag;             // '<Root>/EngagedFlag'
-  } ExtY_codegenReal2Mission_T;
+  };
 
   // Parameters (default storage)
   struct P_codegenReal2Mission_T {
     real_T GCS_Altitude;               // Variable: GCS_Altitude
-                                          //  Referenced by: '<S13>/AltitudeGCS'
+                                          //  Referenced by: '<S14>/AltitudeGCS'
 
     real_T GCS_Latitude;               // Variable: GCS_Latitude
-                                          //  Referenced by: '<S13>/LatitudeGCS'
+                                          //  Referenced by: '<S14>/LatitudeGCS'
 
     real_T GCS_Longitude;              // Variable: GCS_Longitude
-                                          //  Referenced by: '<S13>/LongitudeGCS'
+                                          //  Referenced by: '<S14>/LongitudeGCS'
+
+    real_T numMissionUAV;              // Variable: numMissionUAV
+                                          //  Referenced by: '<S14>/Number Of Mission UAV'
 
     int32_T UAVidx;                    // Variable: UAVidx
-                                          //  Referenced by: '<S13>/UAVidx'
-
-    int32_T numMissionUAV;             // Variable: numMissionUAV
-                                          //  Referenced by: '<S13>/Number Of Mission UAV'
+                                          //  Referenced by: '<S14>/UAVidx'
 
   };
 
@@ -223,8 +273,8 @@ class codegenReal2MissionModelClass {
     boolean_T zCCacheNeedsReset;
     boolean_T derivCacheNeedsReset;
     boolean_T CTOutputIncnstWithState;
-    real_T odeY[8];
-    real_T odeF[4][8];
+    real_T odeY[13];
+    real_T odeF[4][13];
     ODE4_IntgData intgData;
 
     //
@@ -314,6 +364,14 @@ class codegenReal2MissionModelClass {
   // Real-Time Model
   RT_MODEL_codegenReal2Mission_T codegenReal2Mission_M;
 
+  // private member function(s) for subsystem '<S71>/fal(e,0.25,h)'
+  static void codegenReal2Mission_fale025h(real_T rtu_u, real_T rtu_u_a, real_T
+    rtu_u_c, real_T *rty_y);
+
+  // private member function(s) for subsystem '<S72>/fhan(e1,ce2,r,h1)'
+  static void codegenReal2Missio_fhane1ce2rh1(real_T rtu_u, real_T rtu_u_e,
+    real_T rtu_u_h, real_T rtu_u_d, real_T *rty_fh);
+
   // private member function(s) for subsystem '<Root>'
   void WaypointFollowerBase_getDistinc(const real_T waypoints[183], real_T
     distinctWpts_data[], int32_T distinctWpts_size[2]);
@@ -322,9 +380,9 @@ class codegenReal2MissionModelClass {
   real_T codegenReal2Mission_norm_b(const real_T x[3]);
   void codege_emxEnsureCapacity_real_T(emxArray_real_T_codegenReal2M_T *emxArray,
     int32_T oldNumel);
-  boolean_T codegenReal2Mission_isequal(real_T varargin_1, real_T varargin_2);
   void codegenReal2Miss_emxFree_real_T(emxArray_real_T_codegenReal2M_T
     **pEmxArray);
+  real_T codegenReal2Mission_angdiff(real_T x, real_T y);
   real_T codegenReal2Mission_norm(const real_T x[2]);
   void codegenReal2Mis_Model_resetImpl(robotics_core_internal_syst_b_T *obj);
 
@@ -341,15 +399,10 @@ extern const codegenReal2MissionModelClass::ConstB_codegenReal2Mission_T
 //-
 //  These blocks were eliminated from the model due to optimizations:
 //
-//  Block '<S12>/Data Type Duplicate' : Unused code path elimination
-//  Block '<S14>/Data Type Duplicate' : Unused code path elimination
-//  Block '<S17>/Data Type Duplicate' : Unused code path elimination
-//  Block '<S98>/DTDup' : Unused code path elimination
-//  Block '<S13>/Reshape' : Reshape block reduction
 //  Block '<S16>/Data Type Conversion' : Eliminate redundant data type conversion
 //  Block '<S16>/Data Type Conversion1' : Eliminate redundant data type conversion
 //  Block '<Root>/LookaheadPoint_ZOH' : Eliminated since input and output rates are identical
-//  Block '<S6>/AirspeedZOH' : Eliminated since input and output rates are identical
+//  Block '<S71>/Gain2' : Eliminated nontunable gain of 1
 
 
 //-
@@ -367,127 +420,83 @@ extern const codegenReal2MissionModelClass::ConstB_codegenReal2Mission_T
 //  Here is the system hierarchy for this model
 //
 //  '<Root>' : 'codegenReal2Mission'
-//  '<S1>'   : 'codegenReal2Mission/EngagementTruthTable'
-//  '<S2>'   : 'codegenReal2Mission/FlightMission'
-//  '<S3>'   : 'codegenReal2Mission/GenerateTrack'
-//  '<S4>'   : 'codegenReal2Mission/LatLon2NorthEast'
-//  '<S5>'   : 'codegenReal2Mission/NorthEast2LatLon'
-//  '<S6>'   : 'codegenReal2Mission/SpeedControl'
-//  '<S7>'   : 'codegenReal2Mission/TASgreaterthan15for1Sec'
-//  '<S8>'   : 'codegenReal2Mission/TriggerTermination'
-//  '<S9>'   : 'codegenReal2Mission/VisualizeSimUAV'
-//  '<S10>'  : 'codegenReal2Mission/FlightMission/MissionSimUAV'
-//  '<S11>'  : 'codegenReal2Mission/FlightMission/Ramp'
-//  '<S12>'  : 'codegenReal2Mission/FlightMission/MissionSimUAV/HeightTF'
-//  '<S13>'  : 'codegenReal2Mission/FlightMission/MissionSimUAV/InitializeSimLocation'
-//  '<S14>'  : 'codegenReal2Mission/FlightMission/MissionSimUAV/RollTF'
+//  '<S1>'   : 'codegenReal2Mission/AngLog'
+//  '<S2>'   : 'codegenReal2Mission/EngagementTruthTable'
+//  '<S3>'   : 'codegenReal2Mission/FlightMission'
+//  '<S4>'   : 'codegenReal2Mission/GenerateTrack'
+//  '<S5>'   : 'codegenReal2Mission/LatLon2NorthEast'
+//  '<S6>'   : 'codegenReal2Mission/NorthEast2LatLon'
+//  '<S7>'   : 'codegenReal2Mission/SpeedControl'
+//  '<S8>'   : 'codegenReal2Mission/TASgreaterthan15for1Sec'
+//  '<S9>'   : 'codegenReal2Mission/TriggerTermination'
+//  '<S10>'  : 'codegenReal2Mission/VisualizeSimUAV'
+//  '<S11>'  : 'codegenReal2Mission/FlightMission/Chart'
+//  '<S12>'  : 'codegenReal2Mission/FlightMission/MissionSimUAV'
+//  '<S13>'  : 'codegenReal2Mission/FlightMission/Ramp'
+//  '<S14>'  : 'codegenReal2Mission/FlightMission/MissionSimUAV/InitializeSimLocation'
 //  '<S15>'  : 'codegenReal2Mission/FlightMission/MissionSimUAV/SimHeadingControl'
 //  '<S16>'  : 'codegenReal2Mission/FlightMission/MissionSimUAV/SimUAV'
-//  '<S17>'  : 'codegenReal2Mission/FlightMission/MissionSimUAV/TASTF'
-//  '<S18>'  : 'codegenReal2Mission/LatLon2NorthEast/Degrees to Radians'
-//  '<S19>'  : 'codegenReal2Mission/LatLon2NorthEast/Degrees to Radians1'
-//  '<S20>'  : 'codegenReal2Mission/LatLon2NorthEast/Degrees to Radians2'
-//  '<S21>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth'
-//  '<S22>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap'
-//  '<S23>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap LL0'
-//  '<S24>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth/Subsystem'
-//  '<S25>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth/pos_rad'
-//  '<S26>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap/Latitude Wrap 90'
-//  '<S27>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap/Wrap Longitude'
-//  '<S28>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap/Latitude Wrap 90/Compare To Constant'
-//  '<S29>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap/Latitude Wrap 90/Wrap Angle 180'
-//  '<S30>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap/Latitude Wrap 90/Wrap Angle 180/Compare To Constant'
-//  '<S31>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap/Wrap Longitude/Compare To Constant'
-//  '<S32>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap LL0/Latitude Wrap 90'
-//  '<S33>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap LL0/Wrap Longitude'
-//  '<S34>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap LL0/Latitude Wrap 90/Compare To Constant'
-//  '<S35>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap LL0/Latitude Wrap 90/Wrap Angle 180'
-//  '<S36>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap LL0/Latitude Wrap 90/Wrap Angle 180/Compare To Constant'
-//  '<S37>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap LL0/Wrap Longitude/Compare To Constant'
-//  '<S38>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth/Subsystem/Angle Conversion2'
-//  '<S39>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth/Subsystem/Find Radian//Distance'
-//  '<S40>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth/Subsystem/Find Radian//Distance/Angle Conversion2'
-//  '<S41>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth/Subsystem/Find Radian//Distance/denom'
-//  '<S42>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth/Subsystem/Find Radian//Distance/e'
-//  '<S43>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth/Subsystem/Find Radian//Distance/e^4'
-//  '<S44>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA'
-//  '<S45>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA/LatLong wrap'
-//  '<S46>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA/LatLong wrap1'
-//  '<S47>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA/LongLat_offset'
-//  '<S48>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA/pos_deg'
-//  '<S49>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA/LatLong wrap/Latitude Wrap 90'
-//  '<S50>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA/LatLong wrap/Wrap Longitude'
-//  '<S51>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA/LatLong wrap/Latitude Wrap 90/Compare To Constant'
-//  '<S52>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA/LatLong wrap/Latitude Wrap 90/Wrap Angle 180'
-//  '<S53>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA/LatLong wrap/Latitude Wrap 90/Wrap Angle 180/Compare To Constant'
-//  '<S54>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA/LatLong wrap/Wrap Longitude/Compare To Constant'
-//  '<S55>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA/LatLong wrap1/Latitude Wrap 90'
-//  '<S56>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA/LatLong wrap1/Wrap Longitude'
-//  '<S57>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA/LatLong wrap1/Latitude Wrap 90/Compare To Constant'
-//  '<S58>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA/LatLong wrap1/Latitude Wrap 90/Wrap Angle 180'
-//  '<S59>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA/LatLong wrap1/Latitude Wrap 90/Wrap Angle 180/Compare To Constant'
-//  '<S60>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA/LatLong wrap1/Wrap Longitude/Compare To Constant'
-//  '<S61>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA/LongLat_offset/Find Radian//Distance'
-//  '<S62>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA/LongLat_offset/rotation_rad'
-//  '<S63>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA/LongLat_offset/Find Radian//Distance/Angle Conversion2'
-//  '<S64>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA/LongLat_offset/Find Radian//Distance/denom'
-//  '<S65>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA/LongLat_offset/Find Radian//Distance/e'
-//  '<S66>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA/LongLat_offset/Find Radian//Distance/e^4'
-//  '<S67>'  : 'codegenReal2Mission/SpeedControl/FrontController'
-//  '<S68>'  : 'codegenReal2Mission/SpeedControl/Range2CurrentSim'
-//  '<S69>'  : 'codegenReal2Mission/SpeedControl/RangeSim2Track1d3'
-//  '<S70>'  : 'codegenReal2Mission/SpeedControl/RangeSim2Track2d3'
-//  '<S71>'  : 'codegenReal2Mission/SpeedControl/RangeSim2Track3d3'
-//  '<S72>'  : 'codegenReal2Mission/SpeedControl/FrontController/Anti-windup'
-//  '<S73>'  : 'codegenReal2Mission/SpeedControl/FrontController/D Gain'
-//  '<S74>'  : 'codegenReal2Mission/SpeedControl/FrontController/Filter'
-//  '<S75>'  : 'codegenReal2Mission/SpeedControl/FrontController/Filter ICs'
-//  '<S76>'  : 'codegenReal2Mission/SpeedControl/FrontController/I Gain'
-//  '<S77>'  : 'codegenReal2Mission/SpeedControl/FrontController/Ideal P Gain'
-//  '<S78>'  : 'codegenReal2Mission/SpeedControl/FrontController/Ideal P Gain Fdbk'
-//  '<S79>'  : 'codegenReal2Mission/SpeedControl/FrontController/Integrator'
-//  '<S80>'  : 'codegenReal2Mission/SpeedControl/FrontController/Integrator ICs'
-//  '<S81>'  : 'codegenReal2Mission/SpeedControl/FrontController/N Copy'
-//  '<S82>'  : 'codegenReal2Mission/SpeedControl/FrontController/N Gain'
-//  '<S83>'  : 'codegenReal2Mission/SpeedControl/FrontController/P Copy'
-//  '<S84>'  : 'codegenReal2Mission/SpeedControl/FrontController/Parallel P Gain'
-//  '<S85>'  : 'codegenReal2Mission/SpeedControl/FrontController/Reset Signal'
-//  '<S86>'  : 'codegenReal2Mission/SpeedControl/FrontController/Saturation'
-//  '<S87>'  : 'codegenReal2Mission/SpeedControl/FrontController/Saturation Fdbk'
-//  '<S88>'  : 'codegenReal2Mission/SpeedControl/FrontController/Sum'
-//  '<S89>'  : 'codegenReal2Mission/SpeedControl/FrontController/Sum Fdbk'
-//  '<S90>'  : 'codegenReal2Mission/SpeedControl/FrontController/Tracking Mode'
-//  '<S91>'  : 'codegenReal2Mission/SpeedControl/FrontController/Tracking Mode Sum'
-//  '<S92>'  : 'codegenReal2Mission/SpeedControl/FrontController/Tsamp - Integral'
-//  '<S93>'  : 'codegenReal2Mission/SpeedControl/FrontController/Tsamp - Ngain'
-//  '<S94>'  : 'codegenReal2Mission/SpeedControl/FrontController/postSat Signal'
-//  '<S95>'  : 'codegenReal2Mission/SpeedControl/FrontController/preSat Signal'
-//  '<S96>'  : 'codegenReal2Mission/SpeedControl/FrontController/Anti-windup/Disabled'
-//  '<S97>'  : 'codegenReal2Mission/SpeedControl/FrontController/D Gain/Internal Parameters'
-//  '<S98>'  : 'codegenReal2Mission/SpeedControl/FrontController/Filter/Differentiator'
-//  '<S99>'  : 'codegenReal2Mission/SpeedControl/FrontController/Filter/Differentiator/Tsamp'
-//  '<S100>' : 'codegenReal2Mission/SpeedControl/FrontController/Filter/Differentiator/Tsamp/Internal Ts'
-//  '<S101>' : 'codegenReal2Mission/SpeedControl/FrontController/Filter ICs/Internal IC - Differentiator'
-//  '<S102>' : 'codegenReal2Mission/SpeedControl/FrontController/I Gain/Disabled'
-//  '<S103>' : 'codegenReal2Mission/SpeedControl/FrontController/Ideal P Gain/Passthrough'
-//  '<S104>' : 'codegenReal2Mission/SpeedControl/FrontController/Ideal P Gain Fdbk/Disabled'
-//  '<S105>' : 'codegenReal2Mission/SpeedControl/FrontController/Integrator/Disabled'
-//  '<S106>' : 'codegenReal2Mission/SpeedControl/FrontController/Integrator ICs/Disabled'
-//  '<S107>' : 'codegenReal2Mission/SpeedControl/FrontController/N Copy/Disabled wSignal Specification'
-//  '<S108>' : 'codegenReal2Mission/SpeedControl/FrontController/N Gain/Passthrough'
-//  '<S109>' : 'codegenReal2Mission/SpeedControl/FrontController/P Copy/Disabled'
-//  '<S110>' : 'codegenReal2Mission/SpeedControl/FrontController/Parallel P Gain/Internal Parameters'
-//  '<S111>' : 'codegenReal2Mission/SpeedControl/FrontController/Reset Signal/External Reset'
-//  '<S112>' : 'codegenReal2Mission/SpeedControl/FrontController/Saturation/Passthrough'
-//  '<S113>' : 'codegenReal2Mission/SpeedControl/FrontController/Saturation Fdbk/Disabled'
-//  '<S114>' : 'codegenReal2Mission/SpeedControl/FrontController/Sum/Sum_PD'
-//  '<S115>' : 'codegenReal2Mission/SpeedControl/FrontController/Sum Fdbk/Disabled'
-//  '<S116>' : 'codegenReal2Mission/SpeedControl/FrontController/Tracking Mode/Disabled'
-//  '<S117>' : 'codegenReal2Mission/SpeedControl/FrontController/Tracking Mode Sum/Passthrough'
-//  '<S118>' : 'codegenReal2Mission/SpeedControl/FrontController/Tsamp - Integral/Disabled wSignal Specification'
-//  '<S119>' : 'codegenReal2Mission/SpeedControl/FrontController/Tsamp - Ngain/Passthrough'
-//  '<S120>' : 'codegenReal2Mission/SpeedControl/FrontController/postSat Signal/Forward_Path'
-//  '<S121>' : 'codegenReal2Mission/SpeedControl/FrontController/preSat Signal/Forward_Path'
+//  '<S17>'  : 'codegenReal2Mission/LatLon2NorthEast/Degrees to Radians'
+//  '<S18>'  : 'codegenReal2Mission/LatLon2NorthEast/Degrees to Radians1'
+//  '<S19>'  : 'codegenReal2Mission/LatLon2NorthEast/Degrees to Radians2'
+//  '<S20>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth'
+//  '<S21>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap'
+//  '<S22>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap LL0'
+//  '<S23>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth/Subsystem'
+//  '<S24>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth/pos_rad'
+//  '<S25>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap/Latitude Wrap 90'
+//  '<S26>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap/Wrap Longitude'
+//  '<S27>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap/Latitude Wrap 90/Compare To Constant'
+//  '<S28>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap/Latitude Wrap 90/Wrap Angle 180'
+//  '<S29>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap/Latitude Wrap 90/Wrap Angle 180/Compare To Constant'
+//  '<S30>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap/Wrap Longitude/Compare To Constant'
+//  '<S31>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap LL0/Latitude Wrap 90'
+//  '<S32>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap LL0/Wrap Longitude'
+//  '<S33>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap LL0/Latitude Wrap 90/Compare To Constant'
+//  '<S34>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap LL0/Latitude Wrap 90/Wrap Angle 180'
+//  '<S35>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap LL0/Latitude Wrap 90/Wrap Angle 180/Compare To Constant'
+//  '<S36>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap LL0/Wrap Longitude/Compare To Constant'
+//  '<S37>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth/Subsystem/Angle Conversion2'
+//  '<S38>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth/Subsystem/Find Radian//Distance'
+//  '<S39>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth/Subsystem/Find Radian//Distance/Angle Conversion2'
+//  '<S40>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth/Subsystem/Find Radian//Distance/denom'
+//  '<S41>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth/Subsystem/Find Radian//Distance/e'
+//  '<S42>'  : 'codegenReal2Mission/LatLon2NorthEast/LLA to Flat Earth/Subsystem/Find Radian//Distance/e^4'
+//  '<S43>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA'
+//  '<S44>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA/LatLong wrap'
+//  '<S45>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA/LatLong wrap1'
+//  '<S46>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA/LongLat_offset'
+//  '<S47>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA/pos_deg'
+//  '<S48>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA/LatLong wrap/Latitude Wrap 90'
+//  '<S49>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA/LatLong wrap/Wrap Longitude'
+//  '<S50>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA/LatLong wrap/Latitude Wrap 90/Compare To Constant'
+//  '<S51>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA/LatLong wrap/Latitude Wrap 90/Wrap Angle 180'
+//  '<S52>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA/LatLong wrap/Latitude Wrap 90/Wrap Angle 180/Compare To Constant'
+//  '<S53>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA/LatLong wrap/Wrap Longitude/Compare To Constant'
+//  '<S54>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA/LatLong wrap1/Latitude Wrap 90'
+//  '<S55>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA/LatLong wrap1/Wrap Longitude'
+//  '<S56>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA/LatLong wrap1/Latitude Wrap 90/Compare To Constant'
+//  '<S57>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA/LatLong wrap1/Latitude Wrap 90/Wrap Angle 180'
+//  '<S58>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA/LatLong wrap1/Latitude Wrap 90/Wrap Angle 180/Compare To Constant'
+//  '<S59>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA/LatLong wrap1/Wrap Longitude/Compare To Constant'
+//  '<S60>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA/LongLat_offset/Find Radian//Distance'
+//  '<S61>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA/LongLat_offset/rotation_rad'
+//  '<S62>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA/LongLat_offset/Find Radian//Distance/Angle Conversion2'
+//  '<S63>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA/LongLat_offset/Find Radian//Distance/denom'
+//  '<S64>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA/LongLat_offset/Find Radian//Distance/e'
+//  '<S65>'  : 'codegenReal2Mission/NorthEast2LatLon/Flat Earth to LLA/LongLat_offset/Find Radian//Distance/e^4'
+//  '<S66>'  : 'codegenReal2Mission/SpeedControl/ADRC'
+//  '<S67>'  : 'codegenReal2Mission/SpeedControl/Range2CurrentSim'
+//  '<S68>'  : 'codegenReal2Mission/SpeedControl/RangeSim2Track1d3'
+//  '<S69>'  : 'codegenReal2Mission/SpeedControl/RangeSim2Track2d3'
+//  '<S70>'  : 'codegenReal2Mission/SpeedControl/RangeSim2Track3d3'
+//  '<S71>'  : 'codegenReal2Mission/SpeedControl/ADRC/ESO'
+//  '<S72>'  : 'codegenReal2Mission/SpeedControl/ADRC/NLSEF'
+//  '<S73>'  : 'codegenReal2Mission/SpeedControl/ADRC/TD'
+//  '<S74>'  : 'codegenReal2Mission/SpeedControl/ADRC/ESO/fal(e,0.25,h)'
+//  '<S75>'  : 'codegenReal2Mission/SpeedControl/ADRC/ESO/fal(e,0.5,h)'
+//  '<S76>'  : 'codegenReal2Mission/SpeedControl/ADRC/NLSEF/fhan(e1,ce2,r,h1)'
+//  '<S77>'  : 'codegenReal2Mission/SpeedControl/ADRC/TD/fhan(v1-v0,v2,r0,h)1'
 
 #endif                                 // RTW_HEADER_codegenReal2Mission_h_
 

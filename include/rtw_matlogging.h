@@ -1,4 +1,4 @@
-/* Copyright 1990-2015 The MathWorks, Inc. */
+/* Copyright 1990-2020 The MathWorks, Inc. */
 
 /*
  * File: rtw_matlogging.h     
@@ -69,7 +69,7 @@ typedef struct RTWLogSignalInfo_tag {
     } stateNames;
 
     boolean_T      *crossMdlRef;
-
+    
     RTWLogDataTypeConvert *dataTypeConvert;
 
 } RTWLogSignalInfo;

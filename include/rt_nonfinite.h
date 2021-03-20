@@ -3,12 +3,12 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 1.343
-// Simulink Coder version         : 9.4 (R2020b) 29-Jul-2020
-// C/C++ source code generated on : Thu Mar 11 17:48:09 2021
+// Model version                  : 2.98
+// Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
+// C/C++ source code generated on : Sat Mar 20 14:48:46 2021
 //
 // Target selection: ert.tlc
-// Embedded hardware selection: ARM Compatible->ARM 64-bit (LP64)
+// Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
 // Code generation objectives:
 //    1. Safety precaution
 //    2. Execution efficiency
@@ -37,26 +37,26 @@ extern "C" {
   extern boolean_T rtIsInfF(real32_T value);
   extern boolean_T rtIsNaN(real_T value);
   extern boolean_T rtIsNaNF(real32_T value);
-  typedef struct {
+  struct BigEndianIEEEDouble {
     struct {
       uint32_T wordH;
       uint32_T wordL;
     } words;
-  } BigEndianIEEEDouble;
+  };
 
-  typedef struct {
+  struct LittleEndianIEEEDouble {
     struct {
       uint32_T wordL;
       uint32_T wordH;
     } words;
-  } LittleEndianIEEEDouble;
+  };
 
-  typedef struct {
+  struct IEEESingle {
     union {
       real32_T wordLreal;
       uint32_T wordLuint;
     } wordL;
-  } IEEESingle;
+  };
 
 #ifdef __cplusplus
 

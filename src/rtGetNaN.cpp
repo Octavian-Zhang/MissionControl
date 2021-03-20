@@ -3,12 +3,12 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 1.343
-// Simulink Coder version         : 9.4 (R2020b) 29-Jul-2020
-// C/C++ source code generated on : Thu Mar 11 17:48:09 2021
+// Model version                  : 2.98
+// Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
+// C/C++ source code generated on : Sat Mar 20 14:48:46 2021
 //
 // Target selection: ert.tlc
-// Embedded hardware selection: ARM Compatible->ARM 64-bit (LP64)
+// Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
 // Code generation objectives:
 //    1. Safety precaution
 //    2. Execution efficiency
@@ -54,7 +54,7 @@ extern "C" {
   //
   real32_T rtGetNaNF(void)
   {
-    IEEESingle nanF = { { 0 } };
+    IEEESingle nanF = { { 0.0F } };
 
     nanF.wordL.wordLuint = 0xFFC00000U;
     return nanF.wordL.wordLreal;

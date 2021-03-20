@@ -1,4 +1,4 @@
-/* Copyright 2012-2015 The MathWorks, Inc. */
+/* Copyright 2012-2020 The MathWorks, Inc. */
 
 #ifndef rt_logging_h
 #define rt_logging_h
@@ -131,6 +131,7 @@ typedef struct SignalsStruct_Tag {
                                          we also should log 'valueDimensions'
                                          field                                 */
     boolean_T    *isVarDims;         /* is this signal a variable-size signal? */
+
 } SignalsStruct;
 
 struct StructLogVar_Tag {

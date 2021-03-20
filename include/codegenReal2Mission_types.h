@@ -3,12 +3,12 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 1.343
-// Simulink Coder version         : 9.4 (R2020b) 29-Jul-2020
-// C/C++ source code generated on : Thu Mar 11 17:48:09 2021
+// Model version                  : 2.98
+// Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
+// C/C++ source code generated on : Sat Mar 20 14:48:46 2021
 //
 // Target selection: ert.tlc
-// Embedded hardware selection: ARM Compatible->ARM 64-bit (LP64)
+// Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
 // Code generation objectives:
 //    1. Safety precaution
 //    2. Execution efficiency
@@ -27,30 +27,33 @@
 #ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceControlBus_
 #define DEFINED_TYPEDEF_FOR_FixedWingGuidanceControlBus_
 
-typedef struct {
+struct FixedWingGuidanceControlBus
+{
   real_T Height;
   real_T AirSpeed;
   real_T RollAngle;
-} FixedWingGuidanceControlBus;
+};
 
 #endif
 
 #ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceEnvironmentBus_
 #define DEFINED_TYPEDEF_FOR_FixedWingGuidanceEnvironmentBus_
 
-typedef struct {
+struct FixedWingGuidanceEnvironmentBus
+{
   real_T WindNorth;
   real_T WindEast;
   real_T WindDown;
   real_T Gravity;
-} FixedWingGuidanceEnvironmentBus;
+};
 
 #endif
 
 #ifndef DEFINED_TYPEDEF_FOR_RealUAVStateBus_
 #define DEFINED_TYPEDEF_FOR_RealUAVStateBus_
 
-typedef struct {
+struct RealUAVStateBus
+{
   real_T Latitude_deg;
   real_T Longitude_deg;
   real_T Height_meter;
@@ -58,25 +61,27 @@ typedef struct {
   real_T HeadingAngle_deg;
   real_T FlightPathAngle_deg;
   real_T RollAngle_deg;
-} RealUAVStateBus;
+};
 
 #endif
 
 #ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
 #define DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
 
-typedef struct {
+struct FixedWingGuidanceBus
+{
   real_T Height;
   real_T AirSpeed;
   real_T HeadingAngle;
-} FixedWingGuidanceBus;
+};
 
 #endif
 
 #ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceStateBus_
 #define DEFINED_TYPEDEF_FOR_FixedWingGuidanceStateBus_
 
-typedef struct {
+struct FixedWingGuidanceStateBus
+{
   real_T North;
   real_T East;
   real_T Height;
@@ -85,38 +90,40 @@ typedef struct {
   real_T FlightPathAngle;
   real_T RollAngle;
   real_T RollAngleRate;
-} FixedWingGuidanceStateBus;
+};
 
 #endif
 
 #ifndef DEFINED_TYPEDEF_FOR_LookAheadPoint_
 #define DEFINED_TYPEDEF_FOR_LookAheadPoint_
 
-typedef struct {
+struct LookAheadPoint
+{
   real_T Latitude_deg;
   real_T Longitude_deg;
   real_T Height_meter;
-} LookAheadPoint;
+};
 
 #endif
 
 #ifndef DEFINED_TYPEDEF_FOR_struct_pAzQu3LPpISTV2tr3rS1KE_
 #define DEFINED_TYPEDEF_FOR_struct_pAzQu3LPpISTV2tr3rS1KE_
 
-typedef struct {
+struct struct_pAzQu3LPpISTV2tr3rS1KE
+{
   real_T PDRoll[2];
   real_T PHeight;
   real_T PFlightPathAngle;
   real_T PAirSpeed;
   real_T FlightPathAngleLimits[2];
-} struct_pAzQu3LPpISTV2tr3rS1KE;
+};
 
 #endif
 
-#ifndef struct_tag_DpZtOK5dGwCPaUdGDbuEQF
-#define struct_tag_DpZtOK5dGwCPaUdGDbuEQF
+#ifndef struct_d_uav_internal_impl_fixedwing_T
+#define struct_d_uav_internal_impl_fixedwing_T
 
-struct tag_DpZtOK5dGwCPaUdGDbuEQF
+struct d_uav_internal_impl_fixedwing_T
 {
   real_T North;
   real_T East;
@@ -128,110 +135,54 @@ struct tag_DpZtOK5dGwCPaUdGDbuEQF
   real_T RollAngleRate;
 };
 
-#endif                                 //struct_tag_DpZtOK5dGwCPaUdGDbuEQF
+#endif                                // struct_d_uav_internal_impl_fixedwing_T
 
-#ifndef typedef_d_uav_internal_impl_fixedwing_T
-#define typedef_d_uav_internal_impl_fixedwing_T
+#ifndef struct_robotics_core_internal_system_T
+#define struct_robotics_core_internal_system_T
 
-typedef tag_DpZtOK5dGwCPaUdGDbuEQF d_uav_internal_impl_fixedwing_T;
-
-#endif                                 //typedef_d_uav_internal_impl_fixedwing_T
-
-#ifndef struct_tag_80cOlreDzuSCuWWluR7A8F
-#define struct_tag_80cOlreDzuSCuWWluR7A8F
-
-struct tag_80cOlreDzuSCuWWluR7A8F
+struct robotics_core_internal_system_T
 {
   int32_T isInitialized;
   d_uav_internal_impl_fixedwing_T OutputTemplate;
 };
 
-#endif                                 //struct_tag_80cOlreDzuSCuWWluR7A8F
+#endif                                // struct_robotics_core_internal_system_T
 
-#ifndef typedef_robotics_core_internal_system_T
-#define typedef_robotics_core_internal_system_T
+#ifndef struct_robotics_slcore_internal_bloc_T
+#define struct_robotics_slcore_internal_bloc_T
 
-typedef tag_80cOlreDzuSCuWWluR7A8F robotics_core_internal_system_T;
-
-#endif                                 //typedef_robotics_core_internal_system_T
-
-#ifndef struct_tag_vxHWSOYrO9xtYchIOe7EKG
-#define struct_tag_vxHWSOYrO9xtYchIOe7EKG
-
-struct tag_vxHWSOYrO9xtYchIOe7EKG
+struct robotics_slcore_internal_bloc_T
 {
   int32_T isInitialized;
 };
 
-#endif                                 //struct_tag_vxHWSOYrO9xtYchIOe7EKG
+#endif                                // struct_robotics_slcore_internal_bloc_T
 
-#ifndef typedef_robotics_slcore_internal_bloc_T
-#define typedef_robotics_slcore_internal_bloc_T
+#ifndef struct_e_robotics_slcore_internal_bl_T
+#define struct_e_robotics_slcore_internal_bl_T
 
-typedef tag_vxHWSOYrO9xtYchIOe7EKG robotics_slcore_internal_bloc_T;
-
-#endif                                 //typedef_robotics_slcore_internal_bloc_T
-
-#ifndef struct_tag_KSdGoEc2IyOHz4CLi4rcCD
-#define struct_tag_KSdGoEc2IyOHz4CLi4rcCD
-
-struct tag_KSdGoEc2IyOHz4CLi4rcCD
+struct e_robotics_slcore_internal_bl_T
 {
   int32_T __dummy;
 };
 
-#endif                                 //struct_tag_KSdGoEc2IyOHz4CLi4rcCD
+#endif                                // struct_e_robotics_slcore_internal_bl_T
 
-#ifndef typedef_e_robotics_slcore_internal_bl_T
-#define typedef_e_robotics_slcore_internal_bl_T
+#ifndef struct_uav_sluav_internal_system_UAV_T
+#define struct_uav_sluav_internal_system_UAV_T
 
-typedef tag_KSdGoEc2IyOHz4CLi4rcCD e_robotics_slcore_internal_bl_T;
-
-#endif                                 //typedef_e_robotics_slcore_internal_bl_T
-
-#ifndef struct_tag_mNPv5qrrP1EqstZULsDJuH
-#define struct_tag_mNPv5qrrP1EqstZULsDJuH
-
-struct tag_mNPv5qrrP1EqstZULsDJuH
+struct uav_sluav_internal_system_UAV_T
 {
   int32_T isInitialized;
   e_robotics_slcore_internal_bl_T SampleTimeHandler;
 };
 
-#endif                                 //struct_tag_mNPv5qrrP1EqstZULsDJuH
+#endif                                // struct_uav_sluav_internal_system_UAV_T
 
-#ifndef typedef_uav_sluav_internal_system_UAV_T
-#define typedef_uav_sluav_internal_system_UAV_T
+#ifndef struct_h_uav_internal_impl_fixedwing_T
+#define struct_h_uav_internal_impl_fixedwing_T
 
-typedef tag_mNPv5qrrP1EqstZULsDJuH uav_sluav_internal_system_UAV_T;
-
-#endif                                 //typedef_uav_sluav_internal_system_UAV_T
-
-#ifndef struct_emxArray_real_T
-#define struct_emxArray_real_T
-
-struct emxArray_real_T
-{
-  real_T *data;
-  int32_T *size;
-  int32_T allocatedSize;
-  int32_T numDimensions;
-  boolean_T canFreeData;
-};
-
-#endif                                 //struct_emxArray_real_T
-
-#ifndef typedef_emxArray_real_T_codegenReal2M_T
-#define typedef_emxArray_real_T_codegenReal2M_T
-
-typedef emxArray_real_T emxArray_real_T_codegenReal2M_T;
-
-#endif                                 //typedef_emxArray_real_T_codegenReal2M_T
-
-#ifndef struct_tag_ABWza1iaEA8Y5abywxspAD
-#define struct_tag_ABWza1iaEA8Y5abywxspAD
-
-struct tag_ABWza1iaEA8Y5abywxspAD
+struct h_uav_internal_impl_fixedwing_T
 {
   real_T PDRoll[2];
   real_T PHeight;
@@ -240,74 +191,46 @@ struct tag_ABWza1iaEA8Y5abywxspAD
   real_T FlightPathAngleLimits[2];
 };
 
-#endif                                 //struct_tag_ABWza1iaEA8Y5abywxspAD
+#endif                                // struct_h_uav_internal_impl_fixedwing_T
 
-#ifndef typedef_h_uav_internal_impl_fixedwing_T
-#define typedef_h_uav_internal_impl_fixedwing_T
+#ifndef struct_f_uav_internal_impl_fixedwing_T
+#define struct_f_uav_internal_impl_fixedwing_T
 
-typedef tag_ABWza1iaEA8Y5abywxspAD h_uav_internal_impl_fixedwing_T;
-
-#endif                                 //typedef_h_uav_internal_impl_fixedwing_T
-
-#ifndef struct_tag_IbOa21kY7bU07ga2IA41uF
-#define struct_tag_IbOa21kY7bU07ga2IA41uF
-
-struct tag_IbOa21kY7bU07ga2IA41uF
+struct f_uav_internal_impl_fixedwing_T
 {
   h_uav_internal_impl_fixedwing_T Configuration;
 };
 
-#endif                                 //struct_tag_IbOa21kY7bU07ga2IA41uF
+#endif                                // struct_f_uav_internal_impl_fixedwing_T
 
-#ifndef typedef_f_uav_internal_impl_fixedwing_T
-#define typedef_f_uav_internal_impl_fixedwing_T
+#ifndef struct_robotics_core_internal_syst_b_T
+#define struct_robotics_core_internal_syst_b_T
 
-typedef tag_IbOa21kY7bU07ga2IA41uF f_uav_internal_impl_fixedwing_T;
-
-#endif                                 //typedef_f_uav_internal_impl_fixedwing_T
-
-#ifndef struct_tag_cRQ8LJ4aHh1ii35euuuWVE
-#define struct_tag_cRQ8LJ4aHh1ii35euuuWVE
-
-struct tag_cRQ8LJ4aHh1ii35euuuWVE
+struct robotics_core_internal_syst_b_T
 {
   int32_T isInitialized;
   f_uav_internal_impl_fixedwing_T ModelImpl;
 };
 
-#endif                                 //struct_tag_cRQ8LJ4aHh1ii35euuuWVE
+#endif                                // struct_robotics_core_internal_syst_b_T
 
-#ifndef typedef_robotics_core_internal_syst_b_T
-#define typedef_robotics_core_internal_syst_b_T
+#ifndef struct_cell_wrap_codegenReal2Mission_T
+#define struct_cell_wrap_codegenReal2Mission_T
 
-typedef tag_cRQ8LJ4aHh1ii35euuuWVE robotics_core_internal_syst_b_T;
-
-#endif                                 //typedef_robotics_core_internal_syst_b_T
-
-#ifndef struct_tag_PMfBDzoakfdM9QAdfx2o6D
-#define struct_tag_PMfBDzoakfdM9QAdfx2o6D
-
-struct tag_PMfBDzoakfdM9QAdfx2o6D
+struct cell_wrap_codegenReal2Mission_T
 {
   uint32_T f1[8];
 };
 
-#endif                                 //struct_tag_PMfBDzoakfdM9QAdfx2o6D
+#endif                                // struct_cell_wrap_codegenReal2Mission_T
 
-#ifndef typedef_cell_wrap_codegenReal2Mission_T
-#define typedef_cell_wrap_codegenReal2Mission_T
+#ifndef struct_uav_sluav_internal_system_Orb_T
+#define struct_uav_sluav_internal_system_Orb_T
 
-typedef tag_PMfBDzoakfdM9QAdfx2o6D cell_wrap_codegenReal2Mission_T;
-
-#endif                                 //typedef_cell_wrap_codegenReal2Mission_T
-
-#ifndef struct_tag_hTfQEE47D0mspESapJM7ZB
-#define struct_tag_hTfQEE47D0mspESapJM7ZB
-
-struct tag_hTfQEE47D0mspESapJM7ZB
+struct uav_sluav_internal_system_Orb_T
 {
   int32_T isInitialized;
-  cell_wrap_codegenReal2Mission_T inputVarSize[5];
+  cell_wrap_codegenReal2Mission_T inputVarSize[6];
   real_T NumCircles;
   real_T PrevPosition[3];
   boolean_T StartFlag;
@@ -321,19 +244,12 @@ struct tag_hTfQEE47D0mspESapJM7ZB
   real_T PrevResetSignal;
 };
 
-#endif                                 //struct_tag_hTfQEE47D0mspESapJM7ZB
+#endif                                // struct_uav_sluav_internal_system_Orb_T
 
-#ifndef typedef_uav_sluav_internal_system_Orb_T
-#define typedef_uav_sluav_internal_system_Orb_T
+#ifndef struct_uav_sluav_internal_system_Way_T
+#define struct_uav_sluav_internal_system_Way_T
 
-typedef tag_hTfQEE47D0mspESapJM7ZB uav_sluav_internal_system_Orb_T;
-
-#endif                                 //typedef_uav_sluav_internal_system_Orb_T
-
-#ifndef struct_tag_Qc4GHH92VZlAxtOz1lExsE
-#define struct_tag_Qc4GHH92VZlAxtOz1lExsE
-
-struct tag_Qc4GHH92VZlAxtOz1lExsE
+struct uav_sluav_internal_system_Way_T
 {
   int32_T isInitialized;
   cell_wrap_codegenReal2Mission_T inputVarSize[3];
@@ -349,22 +265,21 @@ struct tag_Qc4GHH92VZlAxtOz1lExsE
   uint8_T LookaheadDistFlag;
 };
 
-#endif                                 //struct_tag_Qc4GHH92VZlAxtOz1lExsE
+#endif                                // struct_uav_sluav_internal_system_Way_T
 
-#ifndef typedef_uav_sluav_internal_system_Way_T
-#define typedef_uav_sluav_internal_system_Way_T
+#ifndef struct_emxArray_real_T_codegenReal2M_T
+#define struct_emxArray_real_T_codegenReal2M_T
 
-typedef tag_Qc4GHH92VZlAxtOz1lExsE uav_sluav_internal_system_Way_T;
+struct emxArray_real_T_codegenReal2M_T
+{
+  real_T *data;
+  int32_T *size;
+  int32_T allocatedSize;
+  int32_T numDimensions;
+  boolean_T canFreeData;
+};
 
-#endif                                 //typedef_uav_sluav_internal_system_Way_T
-
-#ifndef SS_INT64
-#define SS_INT64                       29
-#endif
-
-#ifndef SS_UINT64
-#define SS_UINT64                      30
-#endif
+#endif                                // struct_emxArray_real_T_codegenReal2M_T
 #endif                               // RTW_HEADER_codegenReal2Mission_types_h_
 
 //
