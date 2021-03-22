@@ -3,20 +3,66 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 1.187
-// Simulink Coder version         : 9.4 (R2020b) 29-Jul-2020
-// C/C++ source code generated on : Wed Jan 27 16:59:13 2021
+// Model version                  : 2.137
+// Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
+// C/C++ source code generated on : Mon Mar 22 20:09:14 2021
 //
 // Target selection: ert.tlc
-// Embedded hardware selection: Intel->x86-64 (Windows64)
+// Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
 // Code generation objectives:
 //    1. Safety precaution
 //    2. Execution efficiency
+//    3. RAM efficiency
+//    4. ROM efficiency
 // Validation result: Not run
 //
 #include "CircleFormation.h"
 #include <chrono>
 #include <iostream>
+#include <string>
+#include <fstream>
+
+void CircleFormation::init(void)
+{
+  if (background_thread == NULL)
+  {
+    background_thread = new std::thread(&CircleFormation::MissionMonitor, this);
+  }
+}
+
+void CircleFormation::setCommonDataField(MissionData *data)
+{
+  this->commonData = data;
+}
+
+void CircleFormation::renameMATfile(void)
+{
+  // declare automatic model file name
+  const std::string src_name = "MODEL.mat";
+
+  // define source file stream
+  std::ifstream src(src_name.c_str(), std::ios::binary);
+
+  // generate destination file name with timestamp
+  auto end_t = std::chrono::high_resolution_clock::now();
+  auto epoch_end_t = end_t.time_since_epoch();
+  auto value = std::chrono::duration_cast<std::chrono::nanoseconds>(epoch_end_t);
+  long timestamp = value.count();
+  std::string des_name = std::to_string(timestamp) + ".mat";
+
+  // define destination file stream
+  std::ofstream dst(des_name.c_str(), std::ios::binary);
+
+  // write file to destination
+  dst << src.rdbuf();
+}
+
+// temporal logic of mission algorithm 
+void CircleFormation::MissionMonitor()
+{
+  ert_main();
+  renameMATfile();
+}
 
 //
 // Associating rt_OneStep with a real-time clock or interrupt service routine
@@ -29,55 +75,6 @@
 // your application needs.  This example simply sets an error status in the
 // real-time model and returns from rt_OneStep.
 //
-void CircleFormation::init(void)
-{
-  if (background_thread == NULL)
-  {
-    background_thread = new std::thread(&CircleFormation::MissionMonitor, this);
-  }
-}
-//--------------此函数为任务控制线程，可添加时序控制等相关代码//
-void CircleFormation::MissionMonitor()
-{
-  // Initialize model
-  codegenReal2Mission_Obj.initialize();
-
-  // Initiate std::chrono based real-time interrupt
-  auto SimulationStart = std::chrono::high_resolution_clock::now();
-  std::chrono::duration<double> TimeElapsed{};
-  std::chrono::milliseconds SimulationTime{};
-
-  while ((rtmGetErrorStatus(codegenReal2Mission_Obj.getRTM()) == (NULL)) &&
-         !rtmGetStopRequested(codegenReal2Mission_Obj.getRTM()))
-  {
-    rt_OneStep();
-    std::cout << "Simulation Time: " << SimulationTime.count() << " milliseconds" << std::endl;
-
-    // increment SimulationTime for 100ms
-    const std::chrono::milliseconds tick{ 100 };
-    SimulationTime += tick;
-
-    if (this->commonData != NULL && this->commonData->getCtrlCmd() == 0) //结束任务
-    {
-      rtmSetErrorStatus(codegenReal2Mission_Obj.getRTM(), "Terminate");
-    }
-
-    while (TimeElapsed < SimulationTime) // delay execution until next simulation tick
-    {
-      std::this_thread::sleep_for(std::chrono::milliseconds(1));
-      TimeElapsed = std::chrono::high_resolution_clock::now() - SimulationStart;
-    }
-    
-  }
-
-  // Matfile logging
-  rt_StopDataLogging(MATFILE, codegenReal2Mission_Obj.getRTM()->rtwLogInfo);
-
-  // Terminate model
-  codegenReal2Mission_Obj.terminate();
-
-}
-
 void CircleFormation::rt_OneStep(void)
 {
   static boolean_T OverrunFlag = false;
@@ -114,48 +111,46 @@ void CircleFormation::rt_OneStep(void)
   // Restore FPU context here (if necessary)
   // Enable interrupts here
 }
-void CircleFormation::logData()
-{
-  rt_StopDataLogging(MATFILE, codegenReal2Mission_Obj.getRTM()->rtwLogInfo);
-}
 
-void CircleFormation::setCommonDataField(MissionData *data)
+void CircleFormation::ert_main(void)
 {
-  this->commonData = data;
-}
-
-/*
-//
-// The example "main" function illustrates what is required by your
-// application code to initialize, execute, and terminate the generated code.
-// Attaching rt_OneStep to a real-time clock is target specific.  This example
-// illustrates how you do this relative to initializing the model.
-//
-int_T main(int_T argc, const char *argv[])
-{
-  // Unused arguments
-  (void)(argc);
-  (void)(argv);
-
   // Initialize model
   codegenReal2Mission_Obj.initialize();
 
-  // Simulating the model step behavior (in non real-time) to
-  //   simulate model behavior at stop time.
+  // Initiate std::chrono based real-time interrupt
+  auto SimulationStart = std::chrono::high_resolution_clock::now();
+  std::chrono::duration<double> TimeElapsed{};
+  std::chrono::milliseconds SimulationTime{};
 
   while ((rtmGetErrorStatus(codegenReal2Mission_Obj.getRTM()) == (NULL)) &&
          !rtmGetStopRequested(codegenReal2Mission_Obj.getRTM()))
   {
     rt_OneStep();
+    std::cout << "Simulation Time: " << SimulationTime.count() << " milliseconds" << std::endl;
+
+    // increment SimulationTime for 100ms
+    const std::chrono::milliseconds tick{ 100 };
+    SimulationTime += tick;
+
+    if (this->commonData != NULL && this->commonData->getCtrlCmd() == 0) //结束任务
+    {
+      rtmSetErrorStatus(codegenReal2Mission_Obj.getRTM(), "Terminate");
+    }  
+
+    while (TimeElapsed < SimulationTime) // delay execution until next simulation tick
+    {
+      std::this_thread::sleep_for(std::chrono::milliseconds(1));
+      TimeElapsed = std::chrono::high_resolution_clock::now() - SimulationStart;
+    }
+    
   }
 
-  // Disable rt_OneStep() here
+  // Matfile logging
+  rt_StopDataLogging(MATFILE, codegenReal2Mission_Obj.getRTM()->rtwLogInfo);
 
   // Terminate model
   codegenReal2Mission_Obj.terminate();
-  return 0;
 }
-*/
 //
 // File trailer for generated code.
 //

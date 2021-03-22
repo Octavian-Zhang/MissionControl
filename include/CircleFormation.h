@@ -34,9 +34,10 @@ private:
 public:
     void init(void);//初始化任务
     void rt_OneStep(void);
-    void logData();
+    void ert_main(void);
     void MissionMonitor();//任务监控函数，监听公共数据域的任务指令
     void setCommonDataField(MissionData *data);//设置公共数据域指针
+    void renameMATfile(void);
 };
 
 #endif
