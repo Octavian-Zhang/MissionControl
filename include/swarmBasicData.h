@@ -17,13 +17,6 @@
 #define MSG_CIRCLE_FS "/etc/circleFSInfo"
 #define MSG_CIRCLE_EXPFS "/etc/circleEXPFSInfo"
 
-
-struct AvoidCtrl
-{
-    long msgType;       //消息类型996
-    int cmd;            //控制消息，0准备接收正常航路，1准备接受障碍物信息，2开始避障
-};
-
 struct CircleCtrl
 {
     long msgType;      //消息类型896
@@ -39,15 +32,7 @@ struct AirRoutePoint
     double latitude;   // 纬度
     double altitude;   // 高度
 };
-//威胁信息
-struct AirObstacle
-{
-    long msgType;      // 消息类型999
-    double longtitude; // 经度
-    double latitude;   // 纬度
-    double altitude;   // 高度
-    double radius;     // 半径
-};
+
 //实时位姿
 struct FlightStatus
 {
@@ -78,44 +63,4 @@ struct ExpectedPosSpd
     double airspeed;    //空速
 };
 
-
-//编队控制参数
-struct DebugParam
-{
-    long msgType;
-    double kp;       /*<  unit:0.01, 0-10 */
-    double ki;       /*<  unit:0.01, 0-10 */
-    double kd;       /*<  unit:0.01, 0-10 */
-    double distance; /*<  feedforward distance, unit:1 0-500 */
-    double angle;     /*<  feedforward angle, unit:1, 0-90*/
-    double offset;    /*<  feedforward offset, unit:1, 0-50*/
-};
-//僚机偏移量
-struct FollowerOffset
-{
-    long msgType;
-    int16_t x;
-    int16_t y;
-    int16_t z;
-};
-//位置参数
-//本机及临机位姿信息
-struct CenterPosition
-{
-    long msgType;
-    double lon;        //经度
-    double lat;        //纬度
-    double alt;        //海拔
-};
-
-//障碍物参数
-struct ThreatPos
-{
-    int id;
-    double lon;
-    double lat;
-    double height;
-    double radius;
-    int type;
-};
 #endif

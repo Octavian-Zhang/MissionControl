@@ -21,17 +21,8 @@ file(GLOB_RECURSE SWARMCIRCLE_SRC_CPP "src/*.cpp")
 file(GLOB_RECURSE SWARMCIRCLE_SRC_C "src/*.c")
 
 link_directories(
-	#${PROJECT_SOURCE_DIR}/lib
 	/usr/lib/aarch64-linux-gnu
 	${CMAKE_BINARY_DIR}/generated
 )
-#add_library(UavPlane SHARED src/geometry.cpp src/ObstacleAvoidance.cpp src/position.cpp)
-#add_library(UavPlane STATIC src/geometry.cpp 
-#			   src/ObstacleAvoidance.cpp src/position.cpp src/video_capture.cpp src/mnet.cpp
-#			   src/plugin_factory.cpp)
-
-#add_library(SwarmCircleFmAlg SHARED ${SWARMCIRCLE_SRC_CPP} ${SWARMCIRCLE_SRC_C})
 
 add_executable(${PROJECT_NAME} ${SWARMCIRCLE_SRC_CPP} ${SWARMCIRCLE_SRC_C})
-
-#target_link_libraries(${PROJECT_NAME})
