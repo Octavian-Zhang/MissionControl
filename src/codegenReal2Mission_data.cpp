@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 2.98
+// Model version                  : 2.130
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Sat Mar 20 14:48:46 2021
+// C/C++ source code generated on : Mon Mar 22 15:22:27 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -23,41 +23,41 @@
 const codegenReal2MissionModelClass::ConstB_codegenReal2Mission_T
   codegenReal2Mission_ConstB = {
   0.99664718933525254
-  ,                                    // '<S64>/Sum'
+  ,                                    // '<S66>/Sum'
   0.99330562000985867
-  ,                                    // '<S65>/Product1'
+  ,                                    // '<S67>/Product1'
   0.00669437999014133
-  ,                                    // '<S65>/Sum1'
+  ,                                    // '<S67>/Sum1'
   0.08181919084262157
-  ,                                    // '<S65>/sqrt'
+  ,                                    // '<S67>/sqrt'
   0.0066943799901413295
-  ,                                    // '<S60>/Product2'
+  ,                                    // '<S62>/Product2'
   0.99330562000985867
-  ,                                    // '<S60>/Sum1'
+  ,                                    // '<S62>/Sum1'
   0.0
-  ,                                    // '<S61>/Unit Conversion'
+  ,                                    // '<S63>/Unit Conversion'
   0.0
-  ,                                    // '<S46>/SinCos'
+  ,                                    // '<S48>/SinCos'
   1.0
-  ,                                    // '<S46>/SinCos'
+  ,                                    // '<S48>/SinCos'
   0.0
-  ,                                    // '<S37>/Unit Conversion'
+  ,                                    // '<S39>/Unit Conversion'
   0.99664718933525254
-  ,                                    // '<S41>/Sum'
+  ,                                    // '<S43>/Sum'
   0.99330562000985867
-  ,                                    // '<S42>/Product1'
+  ,                                    // '<S44>/Product1'
   0.00669437999014133
-  ,                                    // '<S42>/Sum1'
+  ,                                    // '<S44>/Sum1'
   0.08181919084262157
-  ,                                    // '<S42>/sqrt'
+  ,                                    // '<S44>/sqrt'
   0.0066943799901413295
-  ,                                    // '<S38>/Product2'
+  ,                                    // '<S40>/Product2'
   0.99330562000985867
-  ,                                    // '<S38>/Sum1'
+  ,                                    // '<S40>/Sum1'
   0.0
-  ,                                    // '<S23>/SinCos'
+  ,                                    // '<S25>/SinCos'
   1.0
-  // '<S23>/SinCos'
+  // '<S25>/SinCos'
 };
 
 // Block parameters (default storage)
