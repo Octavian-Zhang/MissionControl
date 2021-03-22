@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 2.130
+// Model version                  : 2.137
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Mar 22 15:22:27 2021
+// C/C++ source code generated on : Mon Mar 22 20:09:14 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -1272,7 +1272,7 @@ void codegenReal2MissionModelClass::step()
 
     codegenReal2Miss_fhanv1v0v2r0h1(codegenReal2Mission_X.Integrator3_CSTATE_b -
       codegenReal2Mission_B.RollAngle, codegenReal2Mission_B.Integrator2_e,
-      0.17453292519943295, 0.1, &codegenReal2Mission_B.fh_n);
+      0.087266462599716474, 0.1, &codegenReal2Mission_B.fh_n);
 
     // End of Outputs for SubSystem: '<S3>/MissionSimUAV'
     if (rtmIsMajorTimeStep((&codegenReal2Mission_M))) {
@@ -2625,7 +2625,7 @@ void codegenReal2MissionModelClass::step()
     if ((&codegenReal2Mission_M)->Timing.t[0] < 0.0) {
       rtb_Integrator1 = 0.0;
     } else {
-      rtb_Integrator1 = 0.069813170079773182;
+      rtb_Integrator1 = 0.057119866428905326;
     }
 
     // End of Step: '<S13>/Step'
