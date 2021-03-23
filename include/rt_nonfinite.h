@@ -3,18 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 2.137
+// Model version                  : 2.167
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Mar 22 20:09:14 2021
-//
-// Target selection: ert.tlc
-// Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
-// Code generation objectives:
-//    1. Safety precaution
-//    2. Execution efficiency
-//    3. RAM efficiency
-//    4. ROM efficiency
-// Validation result: Not run
+// C/C++ source code generated on : Tue Mar 23 16:05:29 2021
 //
 #ifndef RTW_HEADER_rt_nonfinite_h_
 #define RTW_HEADER_rt_nonfinite_h_

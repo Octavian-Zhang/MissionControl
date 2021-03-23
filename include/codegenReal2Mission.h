@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 2.137
+// Model version                  : 2.167
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Mar 22 20:09:14 2021
+// C/C++ source code generated on : Tue Mar 23 16:05:29 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -19,11 +19,11 @@
 #ifndef RTW_HEADER_codegenReal2Mission_h_
 #define RTW_HEADER_codegenReal2Mission_h_
 #include <stddef.h>
-#include <cfloat>
 #include <cmath>
 #include <cstdlib>
 #include <cstring>
 #include <math.h>
+#include <cfloat>
 #include "rtwtypes.h"
 #include "zero_crossing_types.h"
 #include "rtw_continuous.h"
@@ -33,9 +33,7 @@
 
 // Shared type includes
 #include "multiword_types.h"
-#include "rtGetNaN.h"
 #include "rt_nonfinite.h"
-#include "rt_defines.h"
 
 // Macros for accessing real-time model data structure
 #ifndef rtmGetFinalTime
@@ -94,28 +92,28 @@ class codegenReal2MissionModelClass {
     FixedWingGuidanceStateBus SimUAVStateZOH;// '<S12>/SimUAVStateZOH'
     FixedWingGuidanceEnvironmentBus FixedWingGuidanceEnvironmentB_g;
                                      // '<S12>/FixedWingGuidanceEnvironmentBus'
-    real_T Down;                       // '<S3>/Gain2'
-    real_T Switch;                     // '<S3>/Switch'
+    real_T Down;                       // '<S3>/InvH2D'
+    real_T CircleOscillation;          // '<S3>/CircleOscillation'
     real_T Down2Height;                // '<S3>/Down2Height'
     real_T ExecutionTrigger;           // '<Root>/TriggerTermination'
-    real_T Gain1;                      // '<S7>/Gain1'
-    real_T Gain;                       // '<S7>/Gain'
-    real_T Gain3;                      // '<S73>/Gain3'
-    real_T Integrator2;                // '<S75>/Integrator2'
-    real_T Sum2;                       // '<S68>/Sum2'
-    real_T Sum;                        // '<S73>/Sum'
-    real_T Sum1;                       // '<S73>/Sum1'
-    real_T Sum4;                       // '<S68>/Sum4'
-    real_T fh;                         // '<S75>/fhan(v1-v0,v2,r0,h)1'
-    real_T Gain7;                      // '<S4>/Gain7'
+    real_T InverseY;                   // '<S7>/InverseY'
+    real_T InverseR;                   // '<S7>/InverseR'
+    real_T dotTD;                      // '<S75>/dotTD'
+    real_T ESOpNLSEF;                  // '<S68>/ESOpNLSEF'
+    real_T ESOdotdotsum;               // '<S73>/ESOdotdotsum'
+    real_T ESOdotsum;                  // '<S73>/ESOdotsum'
+    real_T Inverse;                    // '<S73>/Inverse'
+    real_T LagDistanceSum;             // '<S68>/LagDistanceSum'
+    real_T fh;                         // '<S75>/fhan_AirSpdADRC'
+    real_T TrackInvH;                  // '<S4>/TrackInvH'
     real_T TakeOffGathering_o2;        // '<S3>/TakeOffGathering'
     real_T Airspeed;                   // '<S12>/AirspeedSaturation'
     real_T ClimbRateLimiter;           // '<S12>/ClimbRateLimiter'
     real_T RollAngle;                  // '<S12>/RollAngleSaturation'
-    real_T Integrator2_e;              // '<S17>/Integrator2'
-    real_T fh_n;                       // '<S17>/fhan(v1-v0,v2,r0,h)1'
+    real_T dotBankTD;                  // '<S17>/dotBankTD'
+    real_T fh_n;                       // '<S17>/fhan_Bank'
     real_T ComputeDerivative[8];       // '<S16>/ComputeDerivative'
-    real_T Seletion;                   // '<S3>/Chart'
+    real_T Seletion;                   // '<S3>/ChartExecutionMode'
     boolean_T Terminate;               // '<Root>/TriggerTermination'
     boolean_T TakeOffTrigger;          // '<Root>/TASgreaterthan15for1Sec'
   };
@@ -125,22 +123,22 @@ class codegenReal2MissionModelClass {
     uav_sluav_internal_system_Way_T obj;// '<Root>/TrackSimPath'
     uav_sluav_internal_system_Orb_T obj_m;// '<S3>/TakeOffGathering'
     robotics_core_internal_syst_b_T obj_a;// '<S16>/ComputeDerivative'
-    real_T Delay_DSTATE;               // '<S3>/Delay'
-    real_T Speed2d3Path_DSTATE[20];    // '<S7>/Speed2d3Path'
+    real_T InitHdg_DSTATE;             // '<S3>/InitHdg'
     real_T EastSequence_X[60];         // '<S4>/EastSequence'
     real_T HeightSequence_X[60];       // '<S4>/HeightSequence'
     real_T NorthSequence_X[60];        // '<S4>/NorthSequence'
-    real_T Memory_PreviousInput;       // '<S3>/Memory'
-    real_T Memory1_PreviousInput;      // '<S3>/Memory1'
+    real_T MemoryFlowerMode_PreviousInput;// '<S3>/MemoryFlowerMode'
+    real_T PrevY;                      // '<Root>/Rate Limiter'
+    real_T MemoryLookAheadP_PreviousInput;// '<S3>/MemoryLookAheadP'
     real_T AltitudeGCS;                // '<Root>/AltitudeGCS'
     real_T LatitudeGCS;                // '<Root>/LatitudeGCS'
     real_T LongitudeGCS;               // '<Root>/LongitudeGCS'
     real_T numMissionUAV;              // '<Root>/numMissionUAV'
     real_T DataCounter;                // '<Root>/TriggerTermination'
-    real_T DataCounter_j;              // '<Root>/TASgreaterthan15for1Sec'
-    real_T PrevY;                      // '<S12>/ClimbRateLimiter'
+    real_T Count;                      // '<Root>/TASgreaterthan15for1Sec'
+    real_T PrevY_f;                    // '<S12>/ClimbRateLimiter'
     struct {
-      void *LoggedData[9];
+      void *LoggedData[10];
     } ModelLogging_PWORK;              // '<Root>/ModelLogging'
 
     int32_T UAVidx;                    // '<Root>/UAVidx'
@@ -148,54 +146,54 @@ class codegenReal2MissionModelClass {
     uint8_T is_c4_codegenReal2Mission; // '<Root>/TriggerTermination'
     uint8_T is_active_c1_codegenReal2Missio;// '<Root>/TASgreaterthan15for1Sec'
     uint8_T is_c1_codegenReal2Mission; // '<Root>/TASgreaterthan15for1Sec'
-    uint8_T is_active_c10_codegenReal2Missi;// '<S3>/Chart'
-    uint8_T is_c10_codegenReal2Mission;// '<S3>/Chart'
-    boolean_T icLoad;                  // '<S3>/Delay'
+    uint8_T is_active_c10_codegenReal2Missi;// '<S3>/ChartExecutionMode'
+    uint8_T is_c10_codegenReal2Mission;// '<S3>/ChartExecutionMode'
+    boolean_T icLoad;                  // '<S3>/InitHdg'
   };
 
   // Continuous states (default storage)
   struct X_codegenReal2Mission_T {
-    real_T Integrator2_CSTATE;         // '<S73>/Integrator2'
-    real_T Integrator_CSTATE;          // '<S73>/Integrator'
-    real_T Integrator1_CSTATE;         // '<S73>/Integrator1'
-    real_T Integrator3_CSTATE;         // '<S75>/Integrator3'
-    real_T Integrator2_CSTATE_l;       // '<S75>/Integrator2'
-    real_T Integrator_CSTATE_g[8];     // '<S16>/Integrator'
-    real_T Integrator3_CSTATE_b;       // '<S17>/Integrator3'
-    real_T Integrator2_CSTATE_n;       // '<S17>/Integrator2'
+    real_T ESO_CSTATE;                 // '<S73>/ESO'
+    real_T ESO_dot_CSTATE;             // '<S73>/ESO_dot'
+    real_T ESO_dotdot_CSTATE;          // '<S73>/ESO_dotdot'
+    real_T TD_AirSpdADRC_CSTATE;       // '<S75>/TD_AirSpdADRC'
+    real_T dotTD_CSTATE;               // '<S75>/dotTD'
+    real_T Integrator_CSTATE[8];       // '<S16>/Integrator'
+    real_T TD_Bank_CSTATE;             // '<S17>/TD_Bank'
+    real_T dotBankTD_CSTATE;           // '<S17>/dotBankTD'
   };
 
   // State derivatives (default storage)
   struct XDot_codegenReal2Mission_T {
-    real_T Integrator2_CSTATE;         // '<S73>/Integrator2'
-    real_T Integrator_CSTATE;          // '<S73>/Integrator'
-    real_T Integrator1_CSTATE;         // '<S73>/Integrator1'
-    real_T Integrator3_CSTATE;         // '<S75>/Integrator3'
-    real_T Integrator2_CSTATE_l;       // '<S75>/Integrator2'
-    real_T Integrator_CSTATE_g[8];     // '<S16>/Integrator'
-    real_T Integrator3_CSTATE_b;       // '<S17>/Integrator3'
-    real_T Integrator2_CSTATE_n;       // '<S17>/Integrator2'
+    real_T ESO_CSTATE;                 // '<S73>/ESO'
+    real_T ESO_dot_CSTATE;             // '<S73>/ESO_dot'
+    real_T ESO_dotdot_CSTATE;          // '<S73>/ESO_dotdot'
+    real_T TD_AirSpdADRC_CSTATE;       // '<S75>/TD_AirSpdADRC'
+    real_T dotTD_CSTATE;               // '<S75>/dotTD'
+    real_T Integrator_CSTATE[8];       // '<S16>/Integrator'
+    real_T TD_Bank_CSTATE;             // '<S17>/TD_Bank'
+    real_T dotBankTD_CSTATE;           // '<S17>/dotBankTD'
   };
 
   // State disabled
   struct XDis_codegenReal2Mission_T {
-    boolean_T Integrator2_CSTATE;      // '<S73>/Integrator2'
-    boolean_T Integrator_CSTATE;       // '<S73>/Integrator'
-    boolean_T Integrator1_CSTATE;      // '<S73>/Integrator1'
-    boolean_T Integrator3_CSTATE;      // '<S75>/Integrator3'
-    boolean_T Integrator2_CSTATE_l;    // '<S75>/Integrator2'
-    boolean_T Integrator_CSTATE_g[8];  // '<S16>/Integrator'
-    boolean_T Integrator3_CSTATE_b;    // '<S17>/Integrator3'
-    boolean_T Integrator2_CSTATE_n;    // '<S17>/Integrator2'
+    boolean_T ESO_CSTATE;              // '<S73>/ESO'
+    boolean_T ESO_dot_CSTATE;          // '<S73>/ESO_dot'
+    boolean_T ESO_dotdot_CSTATE;       // '<S73>/ESO_dotdot'
+    boolean_T TD_AirSpdADRC_CSTATE;    // '<S75>/TD_AirSpdADRC'
+    boolean_T dotTD_CSTATE;            // '<S75>/dotTD'
+    boolean_T Integrator_CSTATE[8];    // '<S16>/Integrator'
+    boolean_T TD_Bank_CSTATE;          // '<S17>/TD_Bank'
+    boolean_T dotBankTD_CSTATE;        // '<S17>/dotBankTD'
   };
 
   // Zero-crossing (trigger) state
   struct PrevZCX_codegenReal2Mission_T {
-    ZCSigState Integrator2_Reset_ZCE;  // '<S73>/Integrator2'
-    ZCSigState Integrator_Reset_ZCE;   // '<S73>/Integrator'
-    ZCSigState Integrator1_Reset_ZCE;  // '<S73>/Integrator1'
-    ZCSigState Integrator3_Reset_ZCE;  // '<S75>/Integrator3'
-    ZCSigState Integrator2_Reset_ZCE_i;// '<S75>/Integrator2'
+    ZCSigState ESO_Reset_ZCE;          // '<S73>/ESO'
+    ZCSigState ESO_dot_Reset_ZCE;      // '<S73>/ESO_dot'
+    ZCSigState ESO_dotdot_Reset_ZCE;   // '<S73>/ESO_dotdot'
+    ZCSigState TD_AirSpdADRC_Reset_ZCE;// '<S75>/TD_AirSpdADRC'
+    ZCSigState dotTD_Reset_ZCE;        // '<S75>/dotTD'
   };
 
   // Invariant block signals (default storage)
@@ -355,10 +353,6 @@ class codegenReal2MissionModelClass {
   // Real-Time Model
   RT_MODEL_codegenReal2Mission_T codegenReal2Mission_M;
 
-  // private member function(s) for subsystem '<S17>/fhan(v1-v0,v2,r0,h)1'
-  static void codegenReal2Miss_fhanv1v0v2r0h1(real_T rtu_u, real_T rtu_u_n,
-    real_T rtu_u_f, real_T rtu_u_c, real_T *rty_fh);
-
   // private member function(s) for subsystem '<S73>/fal(e,0.25,h)'
   static void codegenReal2Mission_fale025h(real_T rtu_u, real_T rtu_u_a, real_T
     rtu_u_c, real_T *rty_y);
@@ -373,7 +367,6 @@ class codegenReal2MissionModelClass {
     int32_T oldNumel);
   void codegenReal2Miss_emxFree_real_T(emxArray_real_T_codegenReal2M_T
     **pEmxArray);
-  real_T codegenReal2Mission_angdiff(real_T x, real_T y);
   real_T codegenReal2Mission_norm(const real_T x[2]);
   void codegenReal2Mis_Model_resetImpl(robotics_core_internal_syst_b_T *obj);
 
@@ -414,7 +407,7 @@ extern const codegenReal2MissionModelClass::ConstB_codegenReal2Mission_T
 //
 //  '<Root>' : 'codegenReal2Mission'
 //  '<S1>'   : 'codegenReal2Mission/AngLog'
-//  '<S2>'   : 'codegenReal2Mission/EngagementTruthTable'
+//  '<S2>'   : 'codegenReal2Mission/Engagement'
 //  '<S3>'   : 'codegenReal2Mission/FlightMission'
 //  '<S4>'   : 'codegenReal2Mission/GenerateTrack'
 //  '<S5>'   : 'codegenReal2Mission/LatLon2NorthEast'
@@ -423,14 +416,14 @@ extern const codegenReal2MissionModelClass::ConstB_codegenReal2Mission_T
 //  '<S8>'   : 'codegenReal2Mission/TASgreaterthan15for1Sec'
 //  '<S9>'   : 'codegenReal2Mission/TriggerTermination'
 //  '<S10>'  : 'codegenReal2Mission/VisualizeSimUAV'
-//  '<S11>'  : 'codegenReal2Mission/FlightMission/Chart'
+//  '<S11>'  : 'codegenReal2Mission/FlightMission/ChartExecutionMode'
 //  '<S12>'  : 'codegenReal2Mission/FlightMission/MissionSimUAV'
 //  '<S13>'  : 'codegenReal2Mission/FlightMission/Ramp'
 //  '<S14>'  : 'codegenReal2Mission/FlightMission/MissionSimUAV/InitializeSimLocation'
 //  '<S15>'  : 'codegenReal2Mission/FlightMission/MissionSimUAV/SimHeadingControl'
 //  '<S16>'  : 'codegenReal2Mission/FlightMission/MissionSimUAV/SimUAV'
 //  '<S17>'  : 'codegenReal2Mission/FlightMission/MissionSimUAV/TD'
-//  '<S18>'  : 'codegenReal2Mission/FlightMission/MissionSimUAV/TD/fhan(v1-v0,v2,r0,h)1'
+//  '<S18>'  : 'codegenReal2Mission/FlightMission/MissionSimUAV/TD/fhan_Bank'
 //  '<S19>'  : 'codegenReal2Mission/LatLon2NorthEast/Degrees to Radians'
 //  '<S20>'  : 'codegenReal2Mission/LatLon2NorthEast/Degrees to Radians1'
 //  '<S21>'  : 'codegenReal2Mission/LatLon2NorthEast/Degrees to Radians2'
@@ -491,7 +484,7 @@ extern const codegenReal2MissionModelClass::ConstB_codegenReal2Mission_T
 //  '<S76>'  : 'codegenReal2Mission/SpeedControl/ADRC/ESO/fal(e,0.25,h)'
 //  '<S77>'  : 'codegenReal2Mission/SpeedControl/ADRC/ESO/fal(e,0.5,h)'
 //  '<S78>'  : 'codegenReal2Mission/SpeedControl/ADRC/NLSEF/fhan(e1,ce2,r,h1)'
-//  '<S79>'  : 'codegenReal2Mission/SpeedControl/ADRC/TD/fhan(v1-v0,v2,r0,h)1'
+//  '<S79>'  : 'codegenReal2Mission/SpeedControl/ADRC/TD/fhan_AirSpdADRC'
 
 #endif                                 // RTW_HEADER_codegenReal2Mission_h_
 

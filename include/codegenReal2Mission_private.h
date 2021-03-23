@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 2.137
+// Model version                  : 2.167
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Mar 22 20:09:14 2021
+// C/C++ source code generated on : Tue Mar 23 16:05:29 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -39,10 +39,6 @@
 #ifndef rtmSetTPtr
 #define rtmSetTPtr(rtm, val)           ((rtm)->Timing.t = (val))
 #endif
-
-extern real_T rt_powd_snf(real_T u0, real_T u1);
-extern real_T rt_modd_snf(real_T u0, real_T u1);
-extern real_T rt_atan2d_snf(real_T u0, real_T u1);
 
 // private model entry point functions
 extern void codegenReal2Mission_derivatives();
