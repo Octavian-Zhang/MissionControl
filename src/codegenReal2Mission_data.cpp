@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 2.167
+// Model version                  : 2.168
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Tue Mar 23 16:05:29 2021
+// C/C++ source code generated on : Wed Mar 24 09:02:36 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -71,12 +71,12 @@ codegenReal2MissionModelClass::P_codegenReal2Mission_T
   // Variable: GCS_Latitude
   //  Referenced by: '<S14>/LatitudeGCS'
 
-  34.95,
+  34.93914083,
 
   // Variable: GCS_Longitude
   //  Referenced by: '<S14>/LongitudeGCS'
 
-  113.24,
+  113.2316744,
 
   // Variable: numMissionUAV
   //  Referenced by: '<S14>/Number Of Mission UAV'
