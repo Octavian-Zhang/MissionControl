@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 2.229
+// Model version                  : 2.239
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Mar 29 09:26:04 2021
+// C/C++ source code generated on : Mon Mar 29 11:17:03 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -23,68 +23,68 @@
 const codegenReal2MissionModelClass::ConstB_codegenReal2Mission_T
   codegenReal2Mission_ConstB = {
   0.99664718933525254
-  ,                                    // '<S67>/Sum'
+  ,                                    // '<S68>/Sum'
   0.99330562000985867
-  ,                                    // '<S68>/Product1'
+  ,                                    // '<S69>/Product1'
   0.00669437999014133
-  ,                                    // '<S68>/Sum1'
+  ,                                    // '<S69>/Sum1'
   0.08181919084262157
-  ,                                    // '<S68>/sqrt'
+  ,                                    // '<S69>/sqrt'
   0.0066943799901413295
-  ,                                    // '<S63>/Product2'
+  ,                                    // '<S64>/Product2'
   0.99330562000985867
-  ,                                    // '<S63>/Sum1'
+  ,                                    // '<S64>/Sum1'
   0.0
-  ,                                    // '<S64>/Unit Conversion'
+  ,                                    // '<S65>/Unit Conversion'
   0.0
-  ,                                    // '<S49>/SinCos'
+  ,                                    // '<S50>/SinCos'
   1.0
-  ,                                    // '<S49>/SinCos'
+  ,                                    // '<S50>/SinCos'
   0.0
-  ,                                    // '<S40>/Unit Conversion'
+  ,                                    // '<S41>/Unit Conversion'
   0.99664718933525254
-  ,                                    // '<S44>/Sum'
+  ,                                    // '<S45>/Sum'
   0.99330562000985867
-  ,                                    // '<S45>/Product1'
+  ,                                    // '<S46>/Product1'
   0.00669437999014133
-  ,                                    // '<S45>/Sum1'
+  ,                                    // '<S46>/Sum1'
   0.08181919084262157
-  ,                                    // '<S45>/sqrt'
+  ,                                    // '<S46>/sqrt'
   0.0066943799901413295
-  ,                                    // '<S41>/Product2'
+  ,                                    // '<S42>/Product2'
   0.99330562000985867
-  ,                                    // '<S41>/Sum1'
+  ,                                    // '<S42>/Sum1'
   0.0
-  ,                                    // '<S26>/SinCos'
+  ,                                    // '<S27>/SinCos'
   1.0
-  // '<S26>/SinCos'
+  // '<S27>/SinCos'
 };
 
 // Block parameters (default storage)
 codegenReal2MissionModelClass::P_codegenReal2Mission_T
   codegenReal2MissionModelClass::codegenReal2Mission_P = {
   // Variable: GCS_Altitude
-  //  Referenced by: '<S15>/AltitudeGCS'
+  //  Referenced by: '<S6>/AltitudeGCS'
 
   30.0,
 
   // Variable: GCS_Latitude
-  //  Referenced by: '<S15>/LatitudeGCS'
+  //  Referenced by: '<S6>/LatitudeGCS'
 
   34.93914083,
 
   // Variable: GCS_Longitude
-  //  Referenced by: '<S15>/LongitudeGCS'
+  //  Referenced by: '<S6>/LongitudeGCS'
 
   113.2316744,
 
   // Variable: numMissionUAV
-  //  Referenced by: '<S15>/Number Of Mission UAV'
+  //  Referenced by: '<S6>/Number Of Mission UAV'
 
   50.0,
 
   // Variable: UAVidx
-  //  Referenced by: '<S15>/UAVidx'
+  //  Referenced by: '<S6>/UAVidx'
 
   1
 };
