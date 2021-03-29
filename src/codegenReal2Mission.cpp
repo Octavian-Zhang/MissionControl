@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 2.239
+// Model version                  : 2.241
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Mar 29 11:17:03 2021
+// C/C++ source code generated on : Mon Mar 29 11:29:58 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -113,7 +113,7 @@ void codegenReal2MissionModelClass::rt_ertODEUpdateContinuousStates
 //    '<S18>/fhan_Alt'
 //
 void codegenReal2MissionModelClass::codegenReal2Mission_fhan_Bank(real_T rtu_u,
-  real_T rtu_u_n, real_T rtu_u_f, real_T rtu_u_c, real_T *rty_fh)
+  real_T rtu_u_b, real_T rtu_u_d, real_T rtu_u_m, real_T *rty_fh)
 {
   real_T a0;
   real_T a2;
@@ -123,8 +123,8 @@ void codegenReal2MissionModelClass::codegenReal2Mission_fhan_Bank(real_T rtu_u,
   real_T y_0;
 
   // SignalConversion generated from: '<S10>/ SFunction '
-  d = rtu_u_f * rtu_u_c * rtu_u_c;
-  a0 = rtu_u_n * rtu_u_c;
+  d = rtu_u_d * rtu_u_m * rtu_u_m;
+  a0 = rtu_u_b * rtu_u_m;
   y = rtu_u + a0;
   if (y < 0.0) {
     y_0 = -1.0;
@@ -193,7 +193,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_fhan_Bank(real_T rtu_u,
   }
 
   // SignalConversion generated from: '<S10>/ SFunction '
-  *rty_fh = (a0 / d - y) * -rtu_u_f * ((y_0 - u) / 2.0) - rtu_u_f * y;
+  *rty_fh = (a0 / d - y) * -rtu_u_d * ((y_0 - u) / 2.0) - rtu_u_d * y;
 }
 
 //
@@ -1027,13 +1027,13 @@ void codegenReal2MissionModelClass::step()
     // End of Delay: '<S1>/InitHdg'
 
     // Outputs for Atomic SubSystem: '<S1>/MissionSimUAV'
-    // Saturate: '<S4>/AirspeedSaturation' incorporates:
+    // Saturate: '<S5>/AirspeedSaturation' incorporates:
     //   BusCreator: '<S1>/Bus Creator'
     //   Constant: '<S1>/MissionAirspeed'
 
     codegenReal2Mission_B.Airspeed = 35.0;
 
-    // Saturate: '<S4>/AltitudeSaturation' incorporates:
+    // Saturate: '<S5>/AltitudeSaturation' incorporates:
     //   BusCreator: '<S1>/Bus Creator'
 
     if (rtb_East_p > 500.0) {
@@ -1044,42 +1044,42 @@ void codegenReal2MissionModelClass::step()
       rtb_Sum_nn = rtb_East_p;
     }
 
-    // End of Saturate: '<S4>/AltitudeSaturation'
+    // End of Saturate: '<S5>/AltitudeSaturation'
 
-    // RateLimiter: '<S4>/ClimbRateLimiter'
+    // RateLimiter: '<S5>/ClimbRateLimiter'
     rtb_TD_AirSpdADRC = rtb_Sum_nn - codegenReal2Mission_DW.PrevY;
     if (rtb_TD_AirSpdADRC > 0.5) {
-      // RateLimiter: '<S4>/ClimbRateLimiter'
+      // RateLimiter: '<S5>/ClimbRateLimiter'
       codegenReal2Mission_B.ClimbRateLimiter = codegenReal2Mission_DW.PrevY +
         0.5;
     } else if (rtb_TD_AirSpdADRC < -0.5) {
-      // RateLimiter: '<S4>/ClimbRateLimiter'
+      // RateLimiter: '<S5>/ClimbRateLimiter'
       codegenReal2Mission_B.ClimbRateLimiter = codegenReal2Mission_DW.PrevY +
         -0.5;
     } else {
-      // RateLimiter: '<S4>/ClimbRateLimiter'
+      // RateLimiter: '<S5>/ClimbRateLimiter'
       codegenReal2Mission_B.ClimbRateLimiter = rtb_Sum_nn;
     }
 
     codegenReal2Mission_DW.PrevY = codegenReal2Mission_B.ClimbRateLimiter;
 
-    // End of RateLimiter: '<S4>/ClimbRateLimiter'
+    // End of RateLimiter: '<S5>/ClimbRateLimiter'
 
-    // BusCreator: '<S4>/FixedWingGuidanceEnvironmentBus' incorporates:
-    //   Constant: '<S4>/Gravity'
-    //   Constant: '<S4>/NoWind'
+    // BusCreator: '<S5>/FixedWingGuidanceEnvironmentBus' incorporates:
+    //   Constant: '<S5>/Gravity'
+    //   Constant: '<S5>/NoWind'
 
-    codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindNorth = 0.0;
-    codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindEast = 0.0;
-    codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindDown = 0.0;
-    codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.Gravity = 9.807;
+    codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_n.WindNorth = 0.0;
+    codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_n.WindEast = 0.0;
+    codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_n.WindDown = 0.0;
+    codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_n.Gravity = 9.807;
 
     // End of Outputs for SubSystem: '<S1>/MissionSimUAV'
   }
 
   // Outputs for Atomic SubSystem: '<S1>/MissionSimUAV'
   if (rtmIsMajorTimeStep((&codegenReal2Mission_M))) {
-    // MATLAB Function: '<S4>/SimHeadingControl' incorporates:
+    // MATLAB Function: '<S5>/SimHeadingControl' incorporates:
     //   BusCreator: '<S1>/Bus Creator'
     //   Integrator: '<S8>/Integrator'
 
@@ -1088,11 +1088,11 @@ void codegenReal2MissionModelClass::step()
     rtb_Output = std::sin(codegenReal2Mission_X.Integrator_CSTATE[4]);
     Vg = std::cos(codegenReal2Mission_X.Integrator_CSTATE[4]);
     rtb_TD_AirSpdADRC = (Vg * rtb_TD_AirSpdADRC *
-                         codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindNorth
+                         codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_n.WindNorth
                          + rtb_Output * rtb_TD_AirSpdADRC *
-                         codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindEast)
+                         codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_n.WindEast)
       + -std::sin(codegenReal2Mission_X.Integrator_CSTATE[5]) *
-      codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindDown;
+      codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_n.WindDown;
     d = codegenReal2Mission_DW.InitHdg_DSTATE -
       codegenReal2Mission_X.Integrator_CSTATE[4];
     if (std::abs(d) > 3.1415926535897931) {
@@ -1127,39 +1127,39 @@ void codegenReal2MissionModelClass::step()
 
     codegenReal2Mission_B.RollAngle = rt_atan2d_snf((std::sqrt(rtb_TD_AirSpdADRC
       * rtb_TD_AirSpdADRC -
-      (((codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindNorth *
-         codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindNorth +
-         codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindEast *
-         codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindEast) +
-        codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindDown *
-        codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindDown) -
+      (((codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_n.WindNorth *
+         codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_n.WindNorth +
+         codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_n.WindEast *
+         codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_n.WindEast) +
+        codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_n.WindDown *
+        codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_n.WindDown) -
        codegenReal2Mission_X.Integrator_CSTATE[3] *
        codegenReal2Mission_X.Integrator_CSTATE[3])) + -rtb_TD_AirSpdADRC) *
       (0.39 * d), std::cos(codegenReal2Mission_X.Integrator_CSTATE[4] -
       (codegenReal2Mission_X.Integrator_CSTATE[4] - std::asin(rtb_Sum_nn *
-      codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindNorth *
+      codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_n.WindNorth *
       -rtb_Output + rtb_Sum_nn *
-      codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindEast * Vg))) *
-      codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.Gravity);
+      codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_n.WindEast * Vg))) *
+      codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_n.Gravity);
 
-    // Saturate: '<S4>/RollAngleSaturation'
+    // Saturate: '<S5>/RollAngleSaturation'
     if (codegenReal2Mission_B.RollAngle > 0.3490658503988659) {
-      // MATLAB Function: '<S4>/SimHeadingControl' incorporates:
-      //   Saturate: '<S4>/RollAngleSaturation'
+      // MATLAB Function: '<S5>/SimHeadingControl' incorporates:
+      //   Saturate: '<S5>/RollAngleSaturation'
 
       codegenReal2Mission_B.RollAngle = 0.3490658503988659;
     } else if (codegenReal2Mission_B.RollAngle < -0.3490658503988659) {
-      // MATLAB Function: '<S4>/SimHeadingControl' incorporates:
-      //   Saturate: '<S4>/RollAngleSaturation'
+      // MATLAB Function: '<S5>/SimHeadingControl' incorporates:
+      //   Saturate: '<S5>/RollAngleSaturation'
 
       codegenReal2Mission_B.RollAngle = -0.3490658503988659;
     }
 
-    // End of Saturate: '<S4>/RollAngleSaturation'
+    // End of Saturate: '<S5>/RollAngleSaturation'
   }
 
   // MATLABSystem: '<S8>/ComputeDerivative' incorporates:
-  //   BusCreator: '<S4>/Slew Guidance Bus'
+  //   BusCreator: '<S5>/Slew Guidance Bus'
   //   Integrator: '<S8>/Integrator'
   //   Integrator: '<S9>/TD_Bank'
 
@@ -1168,17 +1168,17 @@ void codegenReal2MissionModelClass::step()
   rtb_Output = std::sin(codegenReal2Mission_X.Integrator_CSTATE[4]);
   d = std::sin(codegenReal2Mission_X.Integrator_CSTATE[5]);
   Vg = (-(rtb_TD_AirSpdADRC * rtb_Sum_nn) *
-        codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindNorth +
+        codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_n.WindNorth +
         -(rtb_Output * rtb_Sum_nn) *
-        codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindEast) + d *
-    codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindDown;
+        codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_n.WindEast) + d *
+    codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_n.WindDown;
   Vg = std::sqrt(Vg * Vg -
-                 (((codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindNorth
-                    * codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindNorth
-                    + codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindEast
-                    * codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindEast)
-                   + codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindDown
-                   * codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindDown)
+                 (((codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_n.WindNorth
+                    * codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_n.WindNorth
+                    + codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_n.WindEast
+                    * codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_n.WindEast)
+                   + codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_n.WindDown
+                   * codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_n.WindDown)
                   - codegenReal2Mission_X.Integrator_CSTATE[3] *
                   codegenReal2Mission_X.Integrator_CSTATE[3])) + -Vg;
   codegenReal2Mission_B.ComputeDerivative[0] = Vg * rtb_TD_AirSpdADRC *
@@ -1187,7 +1187,7 @@ void codegenReal2MissionModelClass::step()
   codegenReal2Mission_B.ComputeDerivative[2] = Vg * d;
   codegenReal2Mission_B.ComputeDerivative[3] = (codegenReal2Mission_B.Airspeed -
     codegenReal2Mission_X.Integrator_CSTATE[3]) *
-    codegenReal2Mission_DW.obj_a.ModelImpl.Configuration.PAirSpeed;
+    codegenReal2Mission_DW.obj_gs.ModelImpl.Configuration.PAirSpeed;
   if (Vg == 0.0) {
     codegenReal2Mission_B.ComputeDerivative[4] = 0.0;
     codegenReal2Mission_B.ComputeDerivative[5] = 0.0;
@@ -1196,21 +1196,21 @@ void codegenReal2MissionModelClass::step()
       codegenReal2Mission_B.ComputeDerivative[4] = 0.0;
     } else {
       rtb_Sum_nn = 1.0 / (std::cos(std::asin((Vg * d +
-        codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindDown) /
+        codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_n.WindDown) /
         codegenReal2Mission_X.Integrator_CSTATE[3])) *
                           codegenReal2Mission_X.Integrator_CSTATE[3]);
       codegenReal2Mission_B.ComputeDerivative[4] = std::cos(std::asin(rtb_Sum_nn
-        * codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindNorth *
+        * codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_n.WindNorth *
         -rtb_Output + rtb_Sum_nn *
-        codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindEast *
+        codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_n.WindEast *
         rtb_TD_AirSpdADRC)) *
-        (codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.Gravity / Vg *
+        (codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_n.Gravity / Vg *
          std::tan(codegenReal2Mission_X.Integrator_CSTATE[6]));
     }
 
     rtb_Sum_nn = (codegenReal2Mission_B.ClimbRateLimiter -
                   codegenReal2Mission_X.Integrator_CSTATE[2]) *
-      codegenReal2Mission_DW.obj_a.ModelImpl.Configuration.PHeight / Vg;
+      codegenReal2Mission_DW.obj_gs.ModelImpl.Configuration.PHeight / Vg;
     if (!(rtb_Sum_nn < 1.0)) {
       rtb_Sum_nn = 1.0;
     }
@@ -1221,28 +1221,28 @@ void codegenReal2MissionModelClass::step()
 
     rtb_Sum_nn = std::asin(rtb_Sum_nn);
     if ((!(rtb_Sum_nn <
-           codegenReal2Mission_DW.obj_a.ModelImpl.Configuration.FlightPathAngleLimits
+           codegenReal2Mission_DW.obj_gs.ModelImpl.Configuration.FlightPathAngleLimits
            [1])) && (!rtIsNaN
-                     (codegenReal2Mission_DW.obj_a.ModelImpl.Configuration.FlightPathAngleLimits
+                     (codegenReal2Mission_DW.obj_gs.ModelImpl.Configuration.FlightPathAngleLimits
                       [1]))) {
       rtb_Sum_nn =
-        codegenReal2Mission_DW.obj_a.ModelImpl.Configuration.FlightPathAngleLimits
+        codegenReal2Mission_DW.obj_gs.ModelImpl.Configuration.FlightPathAngleLimits
         [1];
     }
 
     if ((!(rtb_Sum_nn >
-           codegenReal2Mission_DW.obj_a.ModelImpl.Configuration.FlightPathAngleLimits
+           codegenReal2Mission_DW.obj_gs.ModelImpl.Configuration.FlightPathAngleLimits
            [0])) && (!rtIsNaN
-                     (codegenReal2Mission_DW.obj_a.ModelImpl.Configuration.FlightPathAngleLimits
+                     (codegenReal2Mission_DW.obj_gs.ModelImpl.Configuration.FlightPathAngleLimits
                       [0]))) {
       rtb_Sum_nn =
-        codegenReal2Mission_DW.obj_a.ModelImpl.Configuration.FlightPathAngleLimits
+        codegenReal2Mission_DW.obj_gs.ModelImpl.Configuration.FlightPathAngleLimits
         [0];
     }
 
     codegenReal2Mission_B.ComputeDerivative[5] = (rtb_Sum_nn -
       codegenReal2Mission_X.Integrator_CSTATE[5]) *
-      codegenReal2Mission_DW.obj_a.ModelImpl.Configuration.PFlightPathAngle;
+      codegenReal2Mission_DW.obj_gs.ModelImpl.Configuration.PFlightPathAngle;
   }
 
   codegenReal2Mission_B.ComputeDerivative[6] =
@@ -1259,13 +1259,13 @@ void codegenReal2MissionModelClass::step()
 
   codegenReal2Mission_B.ComputeDerivative[7] = (rtb_Sum_nn -
     codegenReal2Mission_X.Integrator_CSTATE[6]) *
-    codegenReal2Mission_DW.obj_a.ModelImpl.Configuration.PDRoll[0] +
-    codegenReal2Mission_DW.obj_a.ModelImpl.Configuration.PDRoll[1] *
+    codegenReal2Mission_DW.obj_gs.ModelImpl.Configuration.PDRoll[0] +
+    codegenReal2Mission_DW.obj_gs.ModelImpl.Configuration.PDRoll[1] *
     -codegenReal2Mission_X.Integrator_CSTATE[7];
 
   // End of MATLABSystem: '<S8>/ComputeDerivative'
   if (rtmIsMajorTimeStep((&codegenReal2Mission_M))) {
-    // ZeroOrderHold: '<S4>/SimUAVStateZOH' incorporates:
+    // ZeroOrderHold: '<S5>/SimUAVStateZOH' incorporates:
     //   Integrator: '<S8>/Integrator'
 
     codegenReal2Mission_B.SimUAVStateZOH.North =
@@ -1297,7 +1297,7 @@ void codegenReal2MissionModelClass::step()
 
   codegenReal2Mission_fhan_Bank(codegenReal2Mission_X.TD_Bank_CSTATE -
     codegenReal2Mission_B.RollAngle, codegenReal2Mission_B.dotBankTD,
-    0.087266462599716474, 0.1, &codegenReal2Mission_B.fh_n4);
+    0.087266462599716474, 0.1, &codegenReal2Mission_B.fh_b);
 
   // End of Outputs for SubSystem: '<S1>/MissionSimUAV'
 
@@ -1801,7 +1801,7 @@ void codegenReal2MissionModelClass::step()
     }
   }
 
-  // Sum: '<S5>/Output' incorporates:
+  // Sum: '<S6>/Output' incorporates:
   //   Integrator: '<S75>/ESO'
 
   rtb_Output = codegenReal2Mission_X.ESO_CSTATE;
@@ -2668,18 +2668,18 @@ void codegenReal2MissionModelClass::step()
     codegenReal2Mission_B.Down = -codegenReal2Mission_B.SimUAVStateZOH.Height;
   }
 
-  // Step: '<S5>/Step'
+  // Step: '<S6>/Step'
   if ((&codegenReal2Mission_M)->Timing.t[0] < 0.0) {
     rtb_TD_AirSpdADRC = 0.0;
   } else {
     rtb_TD_AirSpdADRC = 0.057119866428905326;
   }
 
-  // End of Step: '<S5>/Step'
+  // End of Step: '<S6>/Step'
 
-  // Sum: '<S5>/Output' incorporates:
-  //   Clock: '<S5>/Clock'
-  //   Product: '<S5>/Product'
+  // Sum: '<S6>/Output' incorporates:
+  //   Clock: '<S6>/Clock'
+  //   Product: '<S6>/Product'
 
   rtb_Output = rtb_TD_AirSpdADRC * (&codegenReal2Mission_M)->Timing.t[0];
   if (rtmIsMajorTimeStep((&codegenReal2Mission_M))) {
@@ -3012,7 +3012,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_derivatives()
   _rtXdot->TD_Bank_CSTATE = codegenReal2Mission_B.dotBankTD;
 
   // Derivatives for Integrator: '<S9>/dotBankTD'
-  _rtXdot->dotBankTD_CSTATE = codegenReal2Mission_B.fh_n4;
+  _rtXdot->dotBankTD_CSTATE = codegenReal2Mission_B.fh_b;
 
   // End of Derivatives for SubSystem: '<S1>/MissionSimUAV'
 
@@ -3140,7 +3140,7 @@ void codegenReal2MissionModelClass::initialize()
     codegenReal2Mission_DW.icLoad = true;
 
     // SystemInitialize for Atomic SubSystem: '<S1>/MissionSimUAV'
-    // InitializeConditions for RateLimiter: '<S4>/ClimbRateLimiter'
+    // InitializeConditions for RateLimiter: '<S5>/ClimbRateLimiter'
     codegenReal2Mission_DW.PrevY = 150.0;
 
     // InitializeConditions for Integrator: '<S8>/Integrator'
@@ -3154,84 +3154,13 @@ void codegenReal2MissionModelClass::initialize()
     codegenReal2Mission_X.dotBankTD_CSTATE = 0.0;
 
     // Start for MATLABSystem: '<S8>/ComputeDerivative'
-    codegenReal2Mission_DW.obj_a.isInitialized = 0;
-    codegenReal2Mission_DW.obj_a.isInitialized = 1;
-    codegenReal2Mis_Model_resetImpl(&codegenReal2Mission_DW.obj_a);
+    codegenReal2Mission_DW.obj_gs.isInitialized = 0;
+    codegenReal2Mission_DW.obj_gs.isInitialized = 1;
+    codegenReal2Mis_Model_resetImpl(&codegenReal2Mission_DW.obj_gs);
 
     // InitializeConditions for MATLABSystem: '<S8>/ComputeDerivative'
-    codegenReal2Mis_Model_resetImpl(&codegenReal2Mission_DW.obj_a);
+    codegenReal2Mis_Model_resetImpl(&codegenReal2Mission_DW.obj_gs);
 
-    // Outputs for Atomic SubSystem: '<S4>/InitializeSimLocation'
-    // DataStoreWrite: '<S6>/DSnumMissionUAV' incorporates:
-    //   Constant: '<S6>/Number Of Mission UAV'
-
-    codegenReal2Mission_DW.numMissionUAV = codegenReal2Mission_P.numMissionUAV;
-
-    // DataStoreWrite: '<S6>/DSuavIDX' incorporates:
-    //   Constant: '<S6>/UAVidx'
-
-    codegenReal2Mission_DW.UAVidx = codegenReal2Mission_P.UAVidx;
-
-    // DataStoreWrite: '<S6>/DSAltitudeGCS' incorporates:
-    //   Constant: '<S6>/AltitudeGCS'
-
-    codegenReal2Mission_DW.AltitudeGCS = codegenReal2Mission_P.GCS_Altitude;
-
-    // DataStoreWrite: '<S6>/DSLatitudeGCS' incorporates:
-    //   Constant: '<S6>/LatitudeGCS'
-
-    codegenReal2Mission_DW.LatitudeGCS = codegenReal2Mission_P.GCS_Latitude;
-
-    // DataStoreWrite: '<S6>/DSLongitudeGCS' incorporates:
-    //   Constant: '<S6>/LongitudeGCS'
-
-    codegenReal2Mission_DW.LongitudeGCS = codegenReal2Mission_P.GCS_Longitude;
-
-    // Product: '<S6>/Map2Radian' incorporates:
-    //   Bias: '<S6>/Bias'
-    //   Constant: '<S6>/2pi'
-    //   Constant: '<S6>/Number Of Mission UAV'
-    //   Constant: '<S6>/UAVidx'
-    //   DataTypeConversion: '<S6>/Cast To Double'
-    //   Gain: '<S6>/Gain'
-    //   Product: '<S6>/Divide'
-    //   Sum: '<S6>/Minus'
-
-    rtb_ClockwiseRotation = (static_cast<real_T>(codegenReal2Mission_P.UAVidx) -
-      (codegenReal2Mission_P.numMissionUAV + 1.0) * 0.5) * (6.2831853071795862 /
-      codegenReal2Mission_P.numMissionUAV);
-
-    // StateWriter: '<S6>/SimUAVState' incorporates:
-    //   Bias: '<S6>/ClockwiseRotation'
-    //   Constant: '<S6>/InitialFlightPathAngle'
-    //   Constant: '<S6>/InitialHeight'
-    //   Constant: '<S6>/InitialRollAngle'
-    //   Constant: '<S6>/InitialRollAngleRate'
-    //   Constant: '<S6>/InitialUAVAirspeed'
-    //   Constant: '<S6>/Radius'
-    //   Product: '<S6>/EastDis'
-    //   Product: '<S6>/NorthDis'
-    //   Reshape: '<S6>/Reshape'
-    //   Trigonometry: '<S6>/Cos'
-    //   Trigonometry: '<S6>/Sin'
-
-    codegenReal2Mission_X.Integrator_CSTATE[0] = std::cos(rtb_ClockwiseRotation)
-      * 1000.0;
-    codegenReal2Mission_X.Integrator_CSTATE[1] = 1000.0 * std::sin
-      (rtb_ClockwiseRotation);
-    codegenReal2Mission_X.Integrator_CSTATE[2] = 150.0;
-    codegenReal2Mission_X.Integrator_CSTATE[3] = 35.0;
-    codegenReal2Mission_X.Integrator_CSTATE[4] = rtb_ClockwiseRotation +
-      1.5707963267948966;
-    codegenReal2Mission_X.Integrator_CSTATE[5] = 0.0;
-    codegenReal2Mission_X.Integrator_CSTATE[6] = 0.0;
-    codegenReal2Mission_X.Integrator_CSTATE[7] = 0.0;
-    rtsiSetBlockStateForSolverChangedAtMajorStep(&(&codegenReal2Mission_M)
-      ->solverInfo, true);
-    rtsiSetContTimeOutputInconsistentWithStateAtMajorStep
-      (&(&codegenReal2Mission_M)->solverInfo, true);
-
-    // End of Outputs for SubSystem: '<S4>/InitializeSimLocation'
     // End of SystemInitialize for SubSystem: '<S1>/MissionSimUAV'
 
     // SystemInitialize for Atomic SubSystem: '<Root>/Real2SimGuidance'
@@ -3419,6 +3348,78 @@ void codegenReal2MissionModelClass::initialize()
     codegenReal2Mission_DW.obj_m.TurnDirectionInternal = 1.0;
     codegenReal2Mission_DW.obj_m.OrbitRadiusFlag = 0U;
     codegenReal2Mission_DW.obj_m.LookaheadDistFlag = 0U;
+
+    // Outputs for Atomic SubSystem: '<S1>/InitializeSimLocation'
+    // DataStoreWrite: '<S4>/DSnumMissionUAV' incorporates:
+    //   Constant: '<S4>/Number Of Mission UAV'
+
+    codegenReal2Mission_DW.numMissionUAV = codegenReal2Mission_P.numMissionUAV;
+
+    // DataStoreWrite: '<S4>/DSuavIDX' incorporates:
+    //   Constant: '<S4>/UAVidx'
+
+    codegenReal2Mission_DW.UAVidx = codegenReal2Mission_P.UAVidx;
+
+    // DataStoreWrite: '<S4>/DSAltitudeGCS' incorporates:
+    //   Constant: '<S4>/AltitudeGCS'
+
+    codegenReal2Mission_DW.AltitudeGCS = codegenReal2Mission_P.GCS_Altitude;
+
+    // DataStoreWrite: '<S4>/DSLatitudeGCS' incorporates:
+    //   Constant: '<S4>/LatitudeGCS'
+
+    codegenReal2Mission_DW.LatitudeGCS = codegenReal2Mission_P.GCS_Latitude;
+
+    // DataStoreWrite: '<S4>/DSLongitudeGCS' incorporates:
+    //   Constant: '<S4>/LongitudeGCS'
+
+    codegenReal2Mission_DW.LongitudeGCS = codegenReal2Mission_P.GCS_Longitude;
+
+    // Product: '<S4>/Map2Radian' incorporates:
+    //   Bias: '<S4>/Bias'
+    //   Constant: '<S4>/2pi'
+    //   Constant: '<S4>/Number Of Mission UAV'
+    //   Constant: '<S4>/UAVidx'
+    //   DataTypeConversion: '<S4>/Cast To Double'
+    //   Gain: '<S4>/Gain'
+    //   Product: '<S4>/Divide'
+    //   Sum: '<S4>/Minus'
+
+    rtb_ClockwiseRotation = (static_cast<real_T>(codegenReal2Mission_P.UAVidx) -
+      (codegenReal2Mission_P.numMissionUAV + 1.0) * 0.5) * (6.2831853071795862 /
+      codegenReal2Mission_P.numMissionUAV);
+
+    // StateWriter: '<S4>/SimUAVState' incorporates:
+    //   Bias: '<S4>/ClockwiseRotation'
+    //   Constant: '<S4>/InitialFlightPathAngle'
+    //   Constant: '<S4>/InitialHeight'
+    //   Constant: '<S4>/InitialRollAngle'
+    //   Constant: '<S4>/InitialRollAngleRate'
+    //   Constant: '<S4>/InitialUAVAirspeed'
+    //   Constant: '<S4>/Radius'
+    //   Product: '<S4>/EastDis'
+    //   Product: '<S4>/NorthDis'
+    //   Reshape: '<S4>/Reshape'
+    //   Trigonometry: '<S4>/Cos'
+    //   Trigonometry: '<S4>/Sin'
+
+    codegenReal2Mission_X.Integrator_CSTATE[0] = std::cos(rtb_ClockwiseRotation)
+      * 1000.0;
+    codegenReal2Mission_X.Integrator_CSTATE[1] = 1000.0 * std::sin
+      (rtb_ClockwiseRotation);
+    codegenReal2Mission_X.Integrator_CSTATE[2] = 150.0;
+    codegenReal2Mission_X.Integrator_CSTATE[3] = 35.0;
+    codegenReal2Mission_X.Integrator_CSTATE[4] = rtb_ClockwiseRotation +
+      1.5707963267948966;
+    codegenReal2Mission_X.Integrator_CSTATE[5] = 0.0;
+    codegenReal2Mission_X.Integrator_CSTATE[6] = 0.0;
+    codegenReal2Mission_X.Integrator_CSTATE[7] = 0.0;
+    rtsiSetBlockStateForSolverChangedAtMajorStep(&(&codegenReal2Mission_M)
+      ->solverInfo, true);
+    rtsiSetContTimeOutputInconsistentWithStateAtMajorStep
+      (&(&codegenReal2Mission_M)->solverInfo, true);
+
+    // End of Outputs for SubSystem: '<S1>/InitializeSimLocation'
   }
 }
 

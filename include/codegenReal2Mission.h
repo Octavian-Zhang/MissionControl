@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 2.239
+// Model version                  : 2.241
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Mar 29 11:17:03 2021
+// C/C++ source code generated on : Mon Mar 29 11:29:58 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -90,9 +90,9 @@ class codegenReal2MissionModelClass {
  public:
   // Block signals (default storage)
   struct B_codegenReal2Mission_T {
-    FixedWingGuidanceStateBus SimUAVStateZOH;// '<S4>/SimUAVStateZOH'
-    FixedWingGuidanceEnvironmentBus FixedWingGuidanceEnvironmentB_g;
-                                      // '<S4>/FixedWingGuidanceEnvironmentBus'
+    FixedWingGuidanceStateBus SimUAVStateZOH;// '<S5>/SimUAVStateZOH'
+    FixedWingGuidanceEnvironmentBus FixedWingGuidanceEnvironmentB_n;
+                                      // '<S5>/FixedWingGuidanceEnvironmentBus'
     real_T Down;                       // '<S1>/InvH2D'
     real_T CircleOscillation;          // '<S1>/CircleOscillation'
     real_T Down2Height;                // '<S1>/Down2Height'
@@ -112,11 +112,11 @@ class codegenReal2MissionModelClass {
     real_T fh_n;                       // '<S77>/fhan_AirSpdADRC'
     real_T TrackInvH;                  // '<S13>/TrackInvH'
     real_T TakeOffGathering_o2;        // '<S1>/TakeOffGathering'
-    real_T Airspeed;                   // '<S4>/AirspeedSaturation'
-    real_T ClimbRateLimiter;           // '<S4>/ClimbRateLimiter'
-    real_T RollAngle;                  // '<S4>/RollAngleSaturation'
+    real_T Airspeed;                   // '<S5>/AirspeedSaturation'
+    real_T ClimbRateLimiter;           // '<S5>/ClimbRateLimiter'
+    real_T RollAngle;                  // '<S5>/RollAngleSaturation'
     real_T dotBankTD;                  // '<S9>/dotBankTD'
-    real_T fh_n4;                      // '<S9>/fhan_Bank'
+    real_T fh_b;                       // '<S9>/fhan_Bank'
     real_T ComputeDerivative[8];       // '<S8>/ComputeDerivative'
     real_T Seletion;                   // '<S1>/ChartExecutionMode'
     boolean_T Terminate;               // '<S2>/TriggerTermination'
@@ -127,7 +127,7 @@ class codegenReal2MissionModelClass {
   struct DW_codegenReal2Mission_T {
     uav_sluav_internal_system_Way_T obj;// '<S2>/TrackSimPath'
     uav_sluav_internal_system_Orb_T obj_m;// '<S1>/TakeOffGathering'
-    robotics_core_internal_syst_b_T obj_a;// '<S8>/ComputeDerivative'
+    robotics_core_internal_syst_b_T obj_gs;// '<S8>/ComputeDerivative'
     real_T InitHdg_DSTATE;             // '<S1>/InitHdg'
     real_T EastSequence_X[72];         // '<S13>/EastSequence'
     real_T HeightSequence_X[72];       // '<S13>/HeightSequence'
@@ -141,7 +141,7 @@ class codegenReal2MissionModelClass {
     real_T MemoryRefHeight_PreviousInput;// '<S2>/MemoryRefHeight'
     real_T DataCounter;                // '<S2>/TriggerTermination'
     real_T Count;                      // '<S2>/TASgreaterthan15for1Sec'
-    real_T PrevY;                      // '<S4>/ClimbRateLimiter'
+    real_T PrevY;                      // '<S5>/ClimbRateLimiter'
     struct {
       void *LoggedData[10];
     } ModelLogging_PWORK;              // '<S2>/ModelLogging'
@@ -244,19 +244,19 @@ class codegenReal2MissionModelClass {
   // Parameters (default storage)
   struct P_codegenReal2Mission_T {
     real_T GCS_Altitude;               // Variable: GCS_Altitude
-                                          //  Referenced by: '<S6>/AltitudeGCS'
+                                          //  Referenced by: '<S4>/AltitudeGCS'
 
     real_T GCS_Latitude;               // Variable: GCS_Latitude
-                                          //  Referenced by: '<S6>/LatitudeGCS'
+                                          //  Referenced by: '<S4>/LatitudeGCS'
 
     real_T GCS_Longitude;              // Variable: GCS_Longitude
-                                          //  Referenced by: '<S6>/LongitudeGCS'
+                                          //  Referenced by: '<S4>/LongitudeGCS'
 
     real_T numMissionUAV;              // Variable: numMissionUAV
-                                          //  Referenced by: '<S6>/Number Of Mission UAV'
+                                          //  Referenced by: '<S4>/Number Of Mission UAV'
 
     int32_T UAVidx;                    // Variable: UAVidx
-                                          //  Referenced by: '<S6>/UAVidx'
+                                          //  Referenced by: '<S4>/UAVidx'
 
   };
 
@@ -365,8 +365,8 @@ class codegenReal2MissionModelClass {
   RT_MODEL_codegenReal2Mission_T codegenReal2Mission_M;
 
   // private member function(s) for subsystem '<S9>/fhan_Bank'
-  static void codegenReal2Mission_fhan_Bank(real_T rtu_u, real_T rtu_u_n, real_T
-    rtu_u_f, real_T rtu_u_c, real_T *rty_fh);
+  static void codegenReal2Mission_fhan_Bank(real_T rtu_u, real_T rtu_u_b, real_T
+    rtu_u_d, real_T rtu_u_m, real_T *rty_fh);
 
   // private member function(s) for subsystem '<S75>/fal(e,0.25,h)'
   static void codegenReal2Mission_fale025h(real_T rtu_u, real_T rtu_u_g, real_T
@@ -434,9 +434,9 @@ extern const codegenReal2MissionModelClass::ConstB_codegenReal2Mission_T
 //  '<S1>'   : 'codegenReal2Mission/FlightMission'
 //  '<S2>'   : 'codegenReal2Mission/Real2SimGuidance'
 //  '<S3>'   : 'codegenReal2Mission/FlightMission/ChartExecutionMode'
-//  '<S4>'   : 'codegenReal2Mission/FlightMission/MissionSimUAV'
-//  '<S5>'   : 'codegenReal2Mission/FlightMission/Ramp'
-//  '<S6>'   : 'codegenReal2Mission/FlightMission/MissionSimUAV/InitializeSimLocation'
+//  '<S4>'   : 'codegenReal2Mission/FlightMission/InitializeSimLocation'
+//  '<S5>'   : 'codegenReal2Mission/FlightMission/MissionSimUAV'
+//  '<S6>'   : 'codegenReal2Mission/FlightMission/Ramp'
 //  '<S7>'   : 'codegenReal2Mission/FlightMission/MissionSimUAV/SimHeadingControl'
 //  '<S8>'   : 'codegenReal2Mission/FlightMission/MissionSimUAV/SimUAV'
 //  '<S9>'   : 'codegenReal2Mission/FlightMission/MissionSimUAV/TD'
