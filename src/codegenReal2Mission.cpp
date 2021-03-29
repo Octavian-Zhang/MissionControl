@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 2.168
+// Model version                  : 2.229
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Wed Mar 24 09:02:36 2021
+// C/C++ source code generated on : Mon Mar 29 09:26:04 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -35,7 +35,6 @@ const uint8_T codegenReal2Mission_IN_InAir = 1U;
 const uint8_T codegenRea_IN_MissionCompletion = 2U;
 const uint8_T codegenReal2M_IN_InitialPersuit = 1U;
 const uint8_T codegenReal_IN_MissionExecution = 3U;
-const real_T codegenReal2Mission_period = 0.1;
 
 //
 // This function updates continuous states using the ODE4 fixed-step
@@ -56,7 +55,7 @@ void codegenReal2MissionModelClass::rt_ertODEUpdateContinuousStates
   real_T *f3 = id->f[3];
   real_T temp;
   int_T i;
-  int_T nXc = 15;
+  int_T nXc = 17;
   rtsiSetSimTimeStep(si,MINOR_TIME_STEP);
 
   // Save the state values at time t in y, we'll use x as ynew.
@@ -110,8 +109,97 @@ void codegenReal2MissionModelClass::rt_ertODEUpdateContinuousStates
 
 //
 // Output and update for atomic system:
-//    '<S73>/fal(e,0.25,h)'
-//    '<S73>/fal(e,0.5,h)'
+//    '<S18>/fhan_Bank'
+//    '<S9>/fhan_Alt'
+//
+void codegenReal2MissionModelClass::codegenReal2Mission_fhan_Bank(real_T rtu_u,
+  real_T rtu_u_n, real_T rtu_u_f, real_T rtu_u_c, real_T *rty_fh)
+{
+  real_T a0;
+  real_T a2;
+  real_T d;
+  real_T u;
+  real_T y;
+  real_T y_0;
+
+  // SignalConversion generated from: '<S19>/ SFunction '
+  d = rtu_u_f * rtu_u_c * rtu_u_c;
+  a0 = rtu_u_n * rtu_u_c;
+  y = rtu_u + a0;
+  if (y < 0.0) {
+    y_0 = -1.0;
+  } else if (y > 0.0) {
+    y_0 = 1.0;
+  } else if (y == 0.0) {
+    y_0 = 0.0;
+  } else {
+    y_0 = (rtNaN);
+  }
+
+  a2 = (std::sqrt((8.0 * std::abs(y) + d) * d) - d) * y_0 / 2.0 + a0;
+  y_0 = y + d;
+  u = y - d;
+  if (y_0 < 0.0) {
+    y_0 = -1.0;
+  } else if (y_0 > 0.0) {
+    y_0 = 1.0;
+  } else if (y_0 == 0.0) {
+    y_0 = 0.0;
+  } else {
+    y_0 = (rtNaN);
+  }
+
+  if (u < 0.0) {
+    u = -1.0;
+  } else if (u > 0.0) {
+    u = 1.0;
+  } else if (u == 0.0) {
+    u = 0.0;
+  } else {
+    u = (rtNaN);
+  }
+
+  a0 = ((a0 + y) - a2) * ((y_0 - u) / 2.0) + a2;
+  if (a0 < 0.0) {
+    y = -1.0;
+  } else if (a0 > 0.0) {
+    y = 1.0;
+  } else if (a0 == 0.0) {
+    y = 0.0;
+  } else {
+    y = (rtNaN);
+  }
+
+  y_0 = a0 + d;
+  u = a0 - d;
+  if (y_0 < 0.0) {
+    y_0 = -1.0;
+  } else if (y_0 > 0.0) {
+    y_0 = 1.0;
+  } else if (y_0 == 0.0) {
+    y_0 = 0.0;
+  } else {
+    y_0 = (rtNaN);
+  }
+
+  if (u < 0.0) {
+    u = -1.0;
+  } else if (u > 0.0) {
+    u = 1.0;
+  } else if (u == 0.0) {
+    u = 0.0;
+  } else {
+    u = (rtNaN);
+  }
+
+  // SignalConversion generated from: '<S19>/ SFunction '
+  *rty_fh = (a0 / d - y) * -rtu_u_f * ((y_0 - u) / 2.0) - rtu_u_f * y;
+}
+
+//
+// Output and update for atomic system:
+//    '<S74>/fal(e,0.25,h)'
+//    '<S74>/fal(e,0.5,h)'
 //
 void codegenReal2MissionModelClass::codegenReal2Mission_fale025h(real_T rtu_u,
   real_T rtu_u_a, real_T rtu_u_c, real_T *rty_y)
@@ -119,7 +207,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_fale025h(real_T rtu_u,
   real_T rtu_u_0;
   real_T tmp;
 
-  // SignalConversion generated from: '<S76>/ SFunction '
+  // SignalConversion generated from: '<S77>/ SFunction '
   tmp = std::abs(rtu_u);
   if (tmp <= rtu_u_c) {
     *rty_y = rtu_u / rt_powd_snf(rtu_u_c, 1.0 - rtu_u_a);
@@ -137,34 +225,34 @@ void codegenReal2MissionModelClass::codegenReal2Mission_fale025h(real_T rtu_u,
     *rty_y = rt_powd_snf(tmp, rtu_u_a) * rtu_u_0;
   }
 
-  // End of SignalConversion generated from: '<S76>/ SFunction '
+  // End of SignalConversion generated from: '<S77>/ SFunction '
 }
 
 void codegenReal2MissionModelClass::WaypointFollowerBase_getDistinc(const real_T
-  waypoints[183], real_T distinctWpts_data[], int32_T distinctWpts_size[2])
+  waypoints[219], real_T distinctWpts_data[], int32_T distinctWpts_size[2])
 {
   int32_T i1;
   int32_T i2;
   int32_T ix;
   int32_T j;
   int32_T x_tmp;
-  int8_T c_data[61];
-  boolean_T x[183];
-  boolean_T b[61];
+  int8_T c_data[73];
+  boolean_T x[219];
+  boolean_T b[73];
   boolean_T exitg1;
   for (i1 = 0; i1 < 3; i1++) {
-    for (i2 = 0; i2 < 60; i2++) {
-      x_tmp = 61 * i1 + i2;
-      x[x_tmp] = (waypoints[((i2 + 2) + 61 * i1) - 1] != waypoints[x_tmp]);
+    for (i2 = 0; i2 < 72; i2++) {
+      x_tmp = 73 * i1 + i2;
+      x[x_tmp] = (waypoints[((i2 + 2) + 73 * i1) - 1] != waypoints[x_tmp]);
     }
 
-    x[61 * i1 + 60] = true;
+    x[73 * i1 + 72] = true;
   }
 
   i1 = 0;
-  i2 = 122;
+  i2 = 146;
   x_tmp = 0;
-  for (j = 0; j < 61; j++) {
+  for (j = 0; j < 73; j++) {
     b[j] = false;
     i1++;
     i2++;
@@ -172,7 +260,7 @@ void codegenReal2MissionModelClass::WaypointFollowerBase_getDistinc(const real_T
     exitg1 = false;
     while ((!exitg1) && (ix <= i2)) {
       if (!x[ix - 1]) {
-        ix += 61;
+        ix += 73;
       } else {
         b[j] = true;
         exitg1 = true;
@@ -185,7 +273,7 @@ void codegenReal2MissionModelClass::WaypointFollowerBase_getDistinc(const real_T
   }
 
   i1 = 0;
-  for (i2 = 0; i2 < 61; i2++) {
+  for (i2 = 0; i2 < 73; i2++) {
     if (b[i2]) {
       c_data[i1] = static_cast<int8_T>(i2 + 1);
       i1++;
@@ -196,27 +284,9 @@ void codegenReal2MissionModelClass::WaypointFollowerBase_getDistinc(const real_T
   distinctWpts_size[1] = 3;
   for (i1 = 0; i1 < 3; i1++) {
     for (i2 = 0; i2 < x_tmp; i2++) {
-      distinctWpts_data[i2 + distinctWpts_size[0] * i1] = waypoints[(61 * i1 +
+      distinctWpts_data[i2 + distinctWpts_size[0] * i1] = waypoints[(73 * i1 +
         c_data[i2]) - 1];
     }
-  }
-}
-
-void codegenReal2MissionModelClass::codegenReal2Miss_emxInit_real_T
-  (emxArray_real_T_codegenReal2M_T **pEmxArray, int32_T numDimensions)
-{
-  emxArray_real_T_codegenReal2M_T *emxArray;
-  int32_T i;
-  *pEmxArray = (emxArray_real_T_codegenReal2M_T *)std::malloc(sizeof
-    (emxArray_real_T_codegenReal2M_T));
-  emxArray = *pEmxArray;
-  emxArray->data = (real_T *)NULL;
-  emxArray->numDimensions = numDimensions;
-  emxArray->size = (int32_T *)std::malloc(sizeof(int32_T) * numDimensions);
-  emxArray->allocatedSize = 0;
-  emxArray->canFreeData = true;
-  for (i = 0; i < numDimensions; i++) {
-    emxArray->size[i] = 0;
   }
 }
 
@@ -258,6 +328,24 @@ real_T codegenReal2MissionModelClass::codegenReal2Mission_norm_b(const real_T x
   }
 
   return scale * std::sqrt(y);
+}
+
+void codegenReal2MissionModelClass::codegenReal2Miss_emxInit_real_T
+  (emxArray_real_T_codegenReal2M_T **pEmxArray, int32_T numDimensions)
+{
+  emxArray_real_T_codegenReal2M_T *emxArray;
+  int32_T i;
+  *pEmxArray = (emxArray_real_T_codegenReal2M_T *)std::malloc(sizeof
+    (emxArray_real_T_codegenReal2M_T));
+  emxArray = *pEmxArray;
+  emxArray->data = (real_T *)NULL;
+  emxArray->numDimensions = numDimensions;
+  emxArray->size = (int32_T *)std::malloc(sizeof(int32_T) * numDimensions);
+  emxArray->allocatedSize = 0;
+  emxArray->canFreeData = true;
+  for (i = 0; i < numDimensions; i++) {
+    emxArray->size[i] = 0;
+  }
 }
 
 void codegenReal2MissionModelClass::codege_emxEnsureCapacity_real_T
@@ -317,6 +405,475 @@ void codegenReal2MissionModelClass::codegenReal2Miss_emxFree_real_T
   }
 }
 
+void codegenReal2MissionModelClass::WaypointFollowerBase_searchClos
+  (uav_sluav_internal_system_Way_T *obj, const real_T waypoints_data[], const
+   int32_T waypoints_size[2], const real_T currentPose[4])
+{
+  emxArray_real_T_codegenReal2M_T *d;
+  real_T currentPose_0[3];
+  real_T currentPose_1[3];
+  real_T currentPose_2[3];
+  real_T currentPose_tmp;
+  real_T currentPose_tmp_0;
+  real_T lambda;
+  real_T lambda_tmp_tmp;
+  real_T lambda_tmp_tmp_0;
+  real_T lambda_tmp_tmp_1;
+  real_T lambda_tmp_tmp_tmp;
+  real_T lambda_tmp_tmp_tmp_0;
+  real_T lambda_tmp_tmp_tmp_tmp;
+  int32_T b_idx;
+  int32_T b_idx_0;
+  int32_T b_k;
+  int32_T last;
+  boolean_T exitg1;
+  codegenReal2Miss_emxInit_real_T(&d, 2);
+  b_k = d->size[0] * d->size[1];
+  d->size[0] = 1;
+  d->size[1] = static_cast<int32_T>(obj->NumWaypoints - 1.0);
+  codege_emxEnsureCapacity_real_T(d, b_k);
+  last = static_cast<int32_T>(obj->NumWaypoints - 1.0) - 1;
+  for (b_k = 0; b_k <= last; b_k++) {
+    d->data[b_k] = 0.0;
+    lambda_tmp_tmp_tmp = waypoints_data[static_cast<int32_T>((static_cast<real_T>
+      (b_k) + 1.0) + 1.0) - 1];
+    lambda_tmp_tmp_tmp_0 = waypoints_data[b_k];
+    lambda_tmp_tmp = lambda_tmp_tmp_tmp - lambda_tmp_tmp_tmp_0;
+    lambda = currentPose[0] - lambda_tmp_tmp_tmp_0;
+    currentPose_0[0] = lambda;
+    currentPose_1[0] = currentPose[0] - lambda_tmp_tmp_tmp;
+    lambda_tmp_tmp_tmp = waypoints_data[(static_cast<int32_T>
+      ((static_cast<real_T>(b_k) + 1.0) + 1.0) + waypoints_size[0]) - 1];
+    lambda_tmp_tmp_tmp_0 = waypoints_data[b_k + waypoints_size[0]];
+    lambda_tmp_tmp_0 = lambda_tmp_tmp_tmp - lambda_tmp_tmp_tmp_0;
+    currentPose_tmp = currentPose[1] - lambda_tmp_tmp_tmp_0;
+    currentPose_0[1] = currentPose_tmp;
+    currentPose_1[1] = currentPose[1] - lambda_tmp_tmp_tmp;
+    lambda_tmp_tmp_1 = waypoints_data[(static_cast<int32_T>((static_cast<real_T>
+      (b_k) + 1.0) + 1.0) + (waypoints_size[0] << 1)) - 1];
+    lambda_tmp_tmp_tmp_tmp = waypoints_data[b_k + (waypoints_size[0] << 1)];
+    lambda_tmp_tmp_tmp = lambda_tmp_tmp_1 - lambda_tmp_tmp_tmp_tmp;
+    currentPose_tmp_0 = currentPose[2] - lambda_tmp_tmp_tmp_tmp;
+    currentPose_0[2] = currentPose_tmp_0;
+    currentPose_1[2] = currentPose[2] - lambda_tmp_tmp_1;
+    lambda = (currentPose_tmp_0 * lambda_tmp_tmp_tmp + (currentPose_tmp *
+               lambda_tmp_tmp_0 + lambda * lambda_tmp_tmp)) /
+      (lambda_tmp_tmp_tmp * lambda_tmp_tmp_tmp + (lambda_tmp_tmp_0 *
+        lambda_tmp_tmp_0 + lambda_tmp_tmp * lambda_tmp_tmp));
+    currentPose_2[0] = currentPose[0] - (lambda_tmp_tmp * lambda +
+      waypoints_data[b_k]);
+    currentPose_2[1] = currentPose[1] - (lambda_tmp_tmp_0 * lambda +
+      lambda_tmp_tmp_tmp_0);
+    currentPose_2[2] = currentPose[2] - (lambda_tmp_tmp_tmp * lambda +
+      lambda_tmp_tmp_tmp_tmp);
+    if (lambda < 0.0) {
+      d->data[b_k] = codegenReal2Mission_norm_b(currentPose_0);
+    } else if (lambda > 1.0) {
+      d->data[b_k] = codegenReal2Mission_norm_b(currentPose_1);
+    } else {
+      d->data[b_k] = codegenReal2Mission_norm_b(currentPose_2);
+    }
+  }
+
+  last = d->size[1];
+  if (d->size[1] <= 2) {
+    if (d->size[1] == 1) {
+      b_idx = 1;
+    } else if ((d->data[0] > d->data[d->size[1] - 1]) || (rtIsNaN(d->data[0]) &&
+                (!rtIsNaN(d->data[d->size[1] - 1])))) {
+      b_idx = d->size[1];
+    } else {
+      b_idx = 1;
+    }
+  } else {
+    if (!rtIsNaN(d->data[0])) {
+      b_idx = 1;
+    } else {
+      b_idx = 0;
+      b_k = 2;
+      exitg1 = false;
+      while ((!exitg1) && (b_k <= last)) {
+        if (!rtIsNaN(d->data[b_k - 1])) {
+          b_idx = b_k;
+          exitg1 = true;
+        } else {
+          b_k++;
+        }
+      }
+    }
+
+    if (b_idx == 0) {
+      b_idx = 1;
+    } else {
+      lambda_tmp_tmp = d->data[b_idx - 1];
+      b_idx_0 = b_idx;
+      for (b_k = b_idx + 1; b_k <= last; b_k++) {
+        lambda_tmp_tmp_0 = d->data[b_k - 1];
+        if (lambda_tmp_tmp > lambda_tmp_tmp_0) {
+          lambda_tmp_tmp = lambda_tmp_tmp_0;
+          b_idx_0 = b_k;
+        }
+      }
+
+      b_idx = b_idx_0;
+    }
+  }
+
+  codegenReal2Miss_emxFree_real_T(&d);
+  obj->WaypointIndex = b_idx;
+  obj->SearchFlag = false;
+}
+
+void codegenReal2MissionModelClass::WaypointFollowerBase_endWaypo_b
+  (uav_sluav_internal_system_Way_T *obj, const real_T waypoints_data[], const
+   int32_T waypoints_size[2], real_T curStartWaypoint[3], real_T curEndWaypoint
+   [3], const real_T currentPose[4])
+{
+  real_T curEndWaypoint_0[3];
+  real_T tmp[3];
+  real_T curEndWaypoint_1;
+  real_T curEndWaypoint_tmp;
+  real_T curEndWaypoint_tmp_0;
+  real_T curEndWaypoint_tmp_1;
+  real_T tmp_0;
+  boolean_T guard1 = false;
+  boolean_T p;
+  tmp[0] = currentPose[0] - curEndWaypoint[0];
+  tmp[1] = currentPose[1] - curEndWaypoint[1];
+  tmp[2] = currentPose[2] - curEndWaypoint[2];
+  curEndWaypoint_1 = codegenReal2Mission_norm_b(tmp);
+  guard1 = false;
+  if (curEndWaypoint_1 <= 1.0) {
+    guard1 = true;
+  } else {
+    curEndWaypoint_tmp = curEndWaypoint[0] - curStartWaypoint[0];
+    curEndWaypoint_0[0] = curEndWaypoint_tmp;
+    curEndWaypoint_tmp_0 = curEndWaypoint[1] - curStartWaypoint[1];
+    curEndWaypoint_0[1] = curEndWaypoint_tmp_0;
+    curEndWaypoint_tmp_1 = curEndWaypoint[2] - curStartWaypoint[2];
+    curEndWaypoint_0[2] = curEndWaypoint_tmp_1;
+    tmp_0 = codegenReal2Mission_norm_b(curEndWaypoint_0);
+    curEndWaypoint_1 = (curEndWaypoint_tmp / tmp_0 * (tmp[0] / curEndWaypoint_1)
+                        + curEndWaypoint_tmp_0 / tmp_0 * (tmp[1] /
+      curEndWaypoint_1)) + curEndWaypoint_tmp_1 / tmp_0 * (tmp[2] /
+      curEndWaypoint_1);
+    if (curEndWaypoint_1 < 0.0) {
+      curEndWaypoint_1 = -1.0;
+    } else if (curEndWaypoint_1 > 0.0) {
+      curEndWaypoint_1 = 1.0;
+    } else if (curEndWaypoint_1 == 0.0) {
+      curEndWaypoint_1 = 0.0;
+    } else {
+      curEndWaypoint_1 = (rtNaN);
+    }
+
+    if (curEndWaypoint_1 >= 0.0) {
+      guard1 = true;
+    }
+  }
+
+  if (guard1) {
+    obj->WaypointIndex++;
+    p = false;
+    if (obj->WaypointIndex == obj->NumWaypoints) {
+      p = true;
+    }
+
+    if (p) {
+      obj->LastWaypointFlag = true;
+      obj->WaypointIndex--;
+    }
+
+    curStartWaypoint[0] = waypoints_data[static_cast<int32_T>(obj->WaypointIndex)
+      - 1];
+    curEndWaypoint[0] = waypoints_data[static_cast<int32_T>(obj->WaypointIndex +
+      1.0) - 1];
+    curStartWaypoint[1] = waypoints_data[(static_cast<int32_T>
+      (obj->WaypointIndex) + waypoints_size[0]) - 1];
+    curEndWaypoint[1] = waypoints_data[(static_cast<int32_T>(obj->WaypointIndex
+      + 1.0) + waypoints_size[0]) - 1];
+    curStartWaypoint[2] = waypoints_data[(static_cast<int32_T>
+      (obj->WaypointIndex) + (waypoints_size[0] << 1)) - 1];
+    curEndWaypoint[2] = waypoints_data[(static_cast<int32_T>(obj->WaypointIndex
+      + 1.0) + (waypoints_size[0] << 1)) - 1];
+  }
+}
+
+void codegenReal2MissionModelClass::WaypointFollowerBase_stepIntern
+  (uav_sluav_internal_system_Way_T *obj, const real_T currentPose[4], const
+   real_T waypointsIn[219], real_T lookaheadDist, real_T lookaheadPoint[3],
+   real_T *desiredHeading, real_T *desiredYaw, uint8_T *lookaheadDistFlag,
+   real_T *crossTrackError, uint8_T *status)
+{
+  real_T b_waypointsIn_data[219];
+  real_T waypoints_data[219];
+  real_T appendedWaypoints_data[6];
+  real_T currentPose_0[3];
+  real_T currentPose_1[3];
+  real_T currentPose_2[3];
+  real_T virtualWaypoint[3];
+  real_T b;
+  real_T b_tmp_idx_2_tmp;
+  real_T currentPose_tmp;
+  real_T currentPose_tmp_0;
+  real_T lambda;
+  real_T lambda_tmp_tmp;
+  real_T lambda_tmp_tmp_0;
+  int32_T b_waypointsIn_size[2];
+  int32_T waypoints_size[2];
+  int32_T b_exponent;
+  int32_T b_exponent_0;
+  int32_T b_k;
+  boolean_T exitg1;
+  boolean_T guard1 = false;
+  boolean_T p;
+  boolean_T p_0;
+  obj->LookaheadDistFlag = 0U;
+  if (lookaheadDist < 10.0) {
+    lookaheadDist = 10.0;
+    obj->LookaheadDistFlag = 1U;
+  }
+
+  *lookaheadDistFlag = obj->LookaheadDistFlag;
+  obj->InitialPose[0] = 0.0;
+  obj->InitialPose[1] = 0.0;
+  obj->InitialPose[2] = 0.0;
+  obj->InitialPose[3] = 0.0;
+  p = false;
+  p_0 = true;
+  b_k = 0;
+  exitg1 = false;
+  while ((!exitg1) && (b_k < 219)) {
+    if ((obj->WaypointsInternal[b_k] == waypointsIn[b_k]) || (rtIsNaN
+         (obj->WaypointsInternal[b_k]) && rtIsNaN(waypointsIn[b_k]))) {
+      b_k++;
+    } else {
+      p_0 = false;
+      exitg1 = true;
+    }
+  }
+
+  if (p_0) {
+    p = true;
+  }
+
+  if (!p) {
+    std::memcpy(&obj->WaypointsInternal[0], &waypointsIn[0], 219U * sizeof
+                (real_T));
+    obj->WaypointIndex = 1.0;
+    obj->SearchFlag = true;
+  }
+
+  WaypointFollowerBase_getDistinc(waypointsIn, b_waypointsIn_data,
+    b_waypointsIn_size);
+  obj->NumWaypoints = b_waypointsIn_size[0];
+  obj->LookaheadDistance = lookaheadDist;
+  if (b_waypointsIn_size[0] == 0) {
+    lookaheadPoint[0] = lookaheadDist * std::cos(currentPose[3]) + currentPose[0];
+    lookaheadPoint[1] = lookaheadDist * std::sin(currentPose[3]) + currentPose[1];
+    lookaheadPoint[2] = lookaheadDist * 0.0 + currentPose[2];
+    *desiredHeading = currentPose[3];
+    *desiredYaw = currentPose[3];
+    *crossTrackError = 0.0;
+    *status = 1U;
+  } else {
+    guard1 = false;
+    if (b_waypointsIn_size[0] == 1) {
+      if (obj->StartFlag) {
+        obj->InitialPose[0] = currentPose[0];
+        obj->InitialPose[1] = currentPose[1];
+        obj->InitialPose[2] = currentPose[2];
+        obj->InitialPose[3] = currentPose[3];
+      }
+
+      virtualWaypoint[0] = b_waypointsIn_data[0] - currentPose[0];
+      virtualWaypoint[1] = b_waypointsIn_data[1] - currentPose[1];
+      virtualWaypoint[2] = b_waypointsIn_data[2] - currentPose[2];
+      if (codegenReal2Mission_norm_b(virtualWaypoint) < 1.4901161193847656E-8) {
+        lookaheadPoint[0] = lookaheadDist * std::cos(currentPose[3]) +
+          currentPose[0];
+        lookaheadPoint[1] = lookaheadDist * std::sin(currentPose[3]) +
+          currentPose[1];
+        lookaheadPoint[2] = lookaheadDist * 0.0 + currentPose[2];
+        *desiredHeading = currentPose[3];
+        *desiredYaw = currentPose[3];
+        *crossTrackError = 0.0;
+        *status = 1U;
+        obj->StartFlag = false;
+      } else {
+        obj->StartFlag = false;
+        for (b_k = 0; b_k < 3; b_k++) {
+          appendedWaypoints_data[b_k << 1] = obj->InitialPose[b_k];
+          appendedWaypoints_data[1 + (b_k << 1)] =
+            b_waypointsIn_data[b_waypointsIn_size[0] * b_k];
+        }
+
+        obj->NumWaypoints = 2.0;
+        waypoints_size[0] = 2;
+        waypoints_size[1] = 3;
+        for (b_k = 0; b_k < 6; b_k++) {
+          waypoints_data[b_k] = appendedWaypoints_data[b_k];
+        }
+
+        guard1 = true;
+      }
+    } else {
+      waypoints_size[0] = b_waypointsIn_size[0];
+      waypoints_size[1] = 3;
+      b_k = b_waypointsIn_size[0] * 3;
+      if (0 <= b_k - 1) {
+        std::memcpy(&waypoints_data[0], &b_waypointsIn_data[0], b_k * sizeof
+                    (real_T));
+      }
+
+      guard1 = true;
+    }
+
+    if (guard1) {
+      if (obj->SearchFlag) {
+        WaypointFollowerBase_searchClos(obj, waypoints_data, waypoints_size,
+          currentPose);
+      }
+
+      p = false;
+      if (obj->WaypointIndex == obj->NumWaypoints) {
+        p = true;
+      }
+
+      if (p) {
+        obj->LastWaypointFlag = true;
+        obj->WaypointIndex--;
+      }
+
+      virtualWaypoint[0] = waypoints_data[static_cast<int32_T>
+        (obj->WaypointIndex) - 1];
+      lookaheadPoint[0] = waypoints_data[static_cast<int32_T>(obj->WaypointIndex
+        + 1.0) - 1];
+      virtualWaypoint[1] = waypoints_data[(static_cast<int32_T>
+        (obj->WaypointIndex) + waypoints_size[0]) - 1];
+      lookaheadPoint[1] = waypoints_data[(static_cast<int32_T>
+        (obj->WaypointIndex + 1.0) + waypoints_size[0]) - 1];
+      virtualWaypoint[2] = waypoints_data[(static_cast<int32_T>
+        (obj->WaypointIndex) + (waypoints_size[0] << 1)) - 1];
+      lookaheadPoint[2] = waypoints_data[(static_cast<int32_T>
+        (obj->WaypointIndex + 1.0) + (waypoints_size[0] << 1)) - 1];
+      WaypointFollowerBase_endWaypo_b(obj, waypoints_data, waypoints_size,
+        virtualWaypoint, lookaheadPoint, currentPose);
+      b = lookaheadPoint[0] - virtualWaypoint[0];
+      lambda = currentPose[0] - virtualWaypoint[0];
+      currentPose_0[0] = lambda;
+      currentPose_1[0] = currentPose[0] - lookaheadPoint[0];
+      lambda_tmp_tmp = lookaheadPoint[1] - virtualWaypoint[1];
+      currentPose_tmp = currentPose[1] - virtualWaypoint[1];
+      currentPose_0[1] = currentPose_tmp;
+      currentPose_1[1] = currentPose[1] - lookaheadPoint[1];
+      lambda_tmp_tmp_0 = lookaheadPoint[2] - virtualWaypoint[2];
+      currentPose_tmp_0 = currentPose[2] - virtualWaypoint[2];
+      currentPose_0[2] = currentPose_tmp_0;
+      currentPose_1[2] = currentPose[2] - lookaheadPoint[2];
+      lambda = (currentPose_tmp_0 * lambda_tmp_tmp_0 + (currentPose_tmp *
+                 lambda_tmp_tmp + lambda * b)) / (lambda_tmp_tmp_0 *
+        lambda_tmp_tmp_0 + (lambda_tmp_tmp * lambda_tmp_tmp + b * b));
+      currentPose_2[0] = currentPose[0] - (b * lambda + virtualWaypoint[0]);
+      currentPose_2[1] = currentPose[1] - (lambda_tmp_tmp * lambda +
+        virtualWaypoint[1]);
+      currentPose_2[2] = currentPose[2] - (lambda_tmp_tmp_0 * lambda +
+        virtualWaypoint[2]);
+      if (lambda < 0.0) {
+        *crossTrackError = codegenReal2Mission_norm_b(currentPose_0);
+      } else if (lambda > 1.0) {
+        *crossTrackError = codegenReal2Mission_norm_b(currentPose_1);
+      } else {
+        *crossTrackError = codegenReal2Mission_norm_b(currentPose_2);
+      }
+
+      if (obj->LastWaypointFlag) {
+        lambda = (((currentPose[0] - virtualWaypoint[0]) * (lookaheadPoint[0] -
+                    virtualWaypoint[0]) + (currentPose[1] - virtualWaypoint[1]) *
+                   (lookaheadPoint[1] - virtualWaypoint[1])) + (currentPose[2] -
+                   virtualWaypoint[2]) * (lookaheadPoint[2] - virtualWaypoint[2]))
+          / (((lookaheadPoint[0] - virtualWaypoint[0]) * (lookaheadPoint[0] -
+               virtualWaypoint[0]) + (lookaheadPoint[1] - virtualWaypoint[1]) *
+              (lookaheadPoint[1] - virtualWaypoint[1])) + (lookaheadPoint[2] -
+              virtualWaypoint[2]) * (lookaheadPoint[2] - virtualWaypoint[2]));
+        currentPose_0[0] = currentPose[0] - (lambda * b + virtualWaypoint[0]);
+        currentPose_0[1] = currentPose[1] - (lambda * lambda_tmp_tmp +
+          virtualWaypoint[1]);
+        currentPose_0[2] = currentPose[2] - (lambda * lambda_tmp_tmp_0 +
+          virtualWaypoint[2]);
+        *crossTrackError = codegenReal2Mission_norm_b(currentPose_0);
+      }
+
+      currentPose_tmp = std::abs(*crossTrackError);
+      if ((!rtIsInf(currentPose_tmp)) && (!rtIsNaN(currentPose_tmp))) {
+        if (currentPose_tmp <= 2.2250738585072014E-308) {
+          lambda = 4.94065645841247E-324;
+          currentPose_tmp = 4.94065645841247E-324;
+        } else {
+          frexp(currentPose_tmp, &b_exponent);
+          lambda = std::ldexp(1.0, b_exponent - 53);
+          frexp(currentPose_tmp, &b_exponent_0);
+          currentPose_tmp = std::ldexp(1.0, b_exponent_0 - 53);
+        }
+      } else {
+        lambda = (rtNaN);
+        currentPose_tmp = (rtNaN);
+      }
+
+      lambda = std::sqrt(lambda);
+      currentPose_tmp *= 5.0;
+      if ((lambda > currentPose_tmp) || rtIsNaN(currentPose_tmp)) {
+        currentPose_tmp = lambda;
+      }
+
+      if (obj->LookaheadDistance <= *crossTrackError + currentPose_tmp) {
+        obj->LookaheadDistance = obj->LookaheadFactor * *crossTrackError;
+      }
+
+      currentPose_tmp = ((lookaheadPoint[0] - virtualWaypoint[0]) *
+                         (lookaheadPoint[0] - virtualWaypoint[0]) +
+                         (lookaheadPoint[1] - virtualWaypoint[1]) *
+                         (lookaheadPoint[1] - virtualWaypoint[1])) +
+        (lookaheadPoint[2] - virtualWaypoint[2]) * (lookaheadPoint[2] -
+        virtualWaypoint[2]);
+      lambda = virtualWaypoint[0] - currentPose[0];
+      currentPose_tmp_0 = virtualWaypoint[1] - currentPose[1];
+      b_tmp_idx_2_tmp = virtualWaypoint[2] - currentPose[2];
+      b = ((b * lambda + lambda_tmp_tmp * currentPose_tmp_0) + lambda_tmp_tmp_0 *
+           b_tmp_idx_2_tmp) * 2.0;
+      lambda_tmp_tmp = std::sqrt(b * b - (((lambda * lambda + currentPose_tmp_0 *
+        currentPose_tmp_0) + b_tmp_idx_2_tmp * b_tmp_idx_2_tmp) -
+        obj->LookaheadDistance * obj->LookaheadDistance) * (4.0 *
+        currentPose_tmp));
+      lambda = (-b + lambda_tmp_tmp) / 2.0 / currentPose_tmp;
+      b = (-b - lambda_tmp_tmp) / 2.0 / currentPose_tmp;
+      if ((lambda > b) || rtIsNaN(b)) {
+        b = lambda;
+      }
+
+      lambda_tmp_tmp = (1.0 - b) * virtualWaypoint[0] + b * lookaheadPoint[0];
+      lookaheadPoint[0] = lambda_tmp_tmp;
+      lambda_tmp_tmp_0 = (1.0 - b) * virtualWaypoint[1] + b * lookaheadPoint[1];
+      lookaheadPoint[1] = lambda_tmp_tmp_0;
+      lookaheadPoint[2] = (1.0 - b) * virtualWaypoint[2] + b * lookaheadPoint[2];
+      *desiredHeading = rt_atan2d_snf(lambda_tmp_tmp_0 - currentPose[1],
+        lambda_tmp_tmp - currentPose[0]);
+      *desiredYaw = *desiredHeading;
+      *status = 0U;
+      p = false;
+      if (obj->LastWaypointFlag) {
+        p = true;
+      }
+
+      if (p) {
+        *status = 1U;
+      }
+
+      obj->LastWaypointFlag = false;
+    }
+  }
+}
+
 real_T codegenReal2MissionModelClass::codegenReal2Mission_norm(const real_T x[2])
 {
   real_T absxk;
@@ -368,56 +925,51 @@ void codegenReal2MissionModelClass::codegenReal2Mis_Model_resetImpl
 // Model step function
 void codegenReal2MissionModelClass::step()
 {
-  emxArray_real_T_codegenReal2M_T *d;
-  real_T b_waypointsIn_data[183];
-  real_T rtb_MatrixConcatenate[183];
-  real_T appendedWaypoints_data[6];
-  real_T b_waypointsIn[3];
-  real_T rtb_NorthEastHeight[3];
-  real_T rtb_Sum_nx[3];
-  real_T rtb_TmpSignalConversionAtSFun_1[3];
-  real_T rtb_TmpSignalConversionAtSFun_2[3];
+  // local block i/o variables
+  real_T rtb_Down;
+  real_T rtb_MatrixConcatenate[219];
+  real_T rtb_FixedWingGuidanceStateBus_N[4];
+  real_T rtb_Sum_dj[3];
+  real_T rtb_Sum_f[3];
   real_T distToCenter_tmp[2];
   real_T rtb_TmpSignalConversionAtSFun_0[2];
-  real_T a0;
+  real_T Gain;
+  real_T a2;
   real_T q;
-  real_T q_tmp;
   real_T rtb_Abs1_i;
   real_T rtb_Abs1_n;
+  real_T rtb_AirSpeed;
+  real_T rtb_East;
   real_T rtb_East_m;
   real_T rtb_HeadingAngle;
   real_T rtb_HeadingAngle_n;
   real_T rtb_Height;
   real_T rtb_Height_m;
+  real_T rtb_LowerBound;
+  real_T rtb_MemoryLookAheadP;
   real_T rtb_North_l;
-  real_T rtb_RealHdg_Log;
-  real_T rtb_RollAngleRate;
   real_T rtb_RollAngle_gh;
   real_T rtb_RollAngle_p;
-  real_T rtb_Step;
-  real_T rtb_Sum1_b_idx_0;
-  real_T rtb_Switch;
+  real_T rtb_SpeedProtection;
+  real_T rtb_Sum1_bf_idx_0;
+  real_T rtb_Sum_p;
   real_T rtb_Switch_c;
-  real_T rtb_Switch_k;
-  real_T rtb_TD_AirSpdADRC;
-  real_T rtb_TargetHdg_Log;
-  real_T turnVector_idx_0;
-  real_T u0;
-  int32_T b_waypointsIn_size[2];
+  real_T rtb_TargetHDG_Rad;
+  real_T rtb_TrackSimPath_o5;
+  real_T rtb_UpperBound;
+  real_T rtb_ZOH_ADRC_LagDis;
+  real_T rtb_ZOH_ADRC_U;
+  real_T y;
+  real_T y_0;
   int32_T b_exponent;
   int32_T b_exponent_0;
-  int32_T b_exponent_1;
-  int32_T b_exponent_2;
-  int32_T b_idx;
   int32_T i;
-  int32_T loop_ub;
-  int32_T waypoints;
-  int32_T waypoints_size_idx_0;
+  uint8_T lookaheadFlag;
+  uint8_T status;
   boolean_T exitg1;
   boolean_T guard1 = false;
-  boolean_T guard2 = false;
+  boolean_T p;
   boolean_T rEQ0;
-  boolean_T rtb_Compare_ly;
   if (rtmIsMajorTimeStep((&codegenReal2Mission_M))) {
     // set solver stop time
     rtsiSetSolverStopTime(&(&codegenReal2Mission_M)->solverInfo,
@@ -434,20 +986,20 @@ void codegenReal2MissionModelClass::step()
   if (rtmIsMajorTimeStep((&codegenReal2Mission_M))) {
     // Outputs for Atomic SubSystem: '<Root>/LatLon2NorthEast'
     // BusCreator: '<S5>/FixedWingGuidanceStateBus' incorporates:
-    //   Gain: '<S19>/Gain1'
+    //   Gain: '<S20>/Gain1'
     //   Inport: '<Root>/RealUAVLatLonState'
 
     rtb_HeadingAngle = 0.017453292519943295 *
       codegenReal2Mission_U.RealUAVLatLonState.HeadingAngle_deg;
 
-    // Gain: '<S20>/Gain1' incorporates:
+    // Gain: '<S21>/Gain1' incorporates:
     //   Inport: '<Root>/RealUAVLatLonState'
 
     rtb_RollAngle_p = 0.017453292519943295 *
       codegenReal2Mission_U.RealUAVLatLonState.FlightPathAngle_deg;
 
     // BusCreator: '<S5>/FixedWingGuidanceStateBus' incorporates:
-    //   Gain: '<S21>/Gain1'
+    //   Gain: '<S22>/Gain1'
     //   Inport: '<Root>/RealUAVLatLonState'
 
     rtb_RollAngle_gh = 0.017453292519943295 *
@@ -461,24 +1013,24 @@ void codegenReal2MissionModelClass::step()
     // BusCreator: '<S5>/FixedWingGuidanceStateBus' incorporates:
     //   Gain: '<S5>/Down2Up'
     //   Inport: '<Root>/RealUAVLatLonState'
-    //   Sum: '<S22>/Sum'
+    //   Sum: '<S23>/Sum'
 
     rtb_Height = codegenReal2Mission_U.RealUAVLatLonState.Height_meter +
       rtb_HeadingAngle_n;
 
-    // Abs: '<S36>/Abs' incorporates:
+    // Abs: '<S37>/Abs' incorporates:
     //   DataStoreRead: '<S5>/LatitudeGCS'
 
     rtb_Switch_c = std::abs(codegenReal2Mission_DW.LatitudeGCS);
 
-    // Switch: '<S36>/Switch' incorporates:
-    //   Bias: '<S36>/Bias'
-    //   Bias: '<S36>/Bias1'
-    //   Constant: '<S36>/Constant2'
-    //   Constant: '<S37>/Constant'
+    // Switch: '<S37>/Switch' incorporates:
+    //   Bias: '<S37>/Bias'
+    //   Bias: '<S37>/Bias1'
+    //   Constant: '<S37>/Constant2'
+    //   Constant: '<S38>/Constant'
     //   DataStoreRead: '<S5>/LatitudeGCS'
-    //   Math: '<S36>/Math Function1'
-    //   RelationalOperator: '<S37>/Compare'
+    //   Math: '<S37>/Math Function1'
+    //   RelationalOperator: '<S38>/Compare'
 
     if (rtb_Switch_c > 180.0) {
       rtb_Switch_c = rt_modd_snf(codegenReal2Mission_DW.LatitudeGCS + 180.0,
@@ -487,24 +1039,24 @@ void codegenReal2MissionModelClass::step()
       rtb_Switch_c = codegenReal2Mission_DW.LatitudeGCS;
     }
 
-    // End of Switch: '<S36>/Switch'
+    // End of Switch: '<S37>/Switch'
 
-    // Abs: '<S33>/Abs1'
+    // Abs: '<S34>/Abs1'
     rtb_Abs1_i = std::abs(rtb_Switch_c);
 
-    // Switch: '<S33>/Switch' incorporates:
-    //   Bias: '<S33>/Bias'
-    //   Bias: '<S33>/Bias1'
-    //   Constant: '<S24>/Constant'
-    //   Constant: '<S24>/Constant1'
-    //   Constant: '<S35>/Constant'
-    //   Gain: '<S33>/Gain'
-    //   Product: '<S33>/Divide1'
-    //   RelationalOperator: '<S35>/Compare'
-    //   Switch: '<S24>/Switch1'
+    // Switch: '<S34>/Switch' incorporates:
+    //   Bias: '<S34>/Bias'
+    //   Bias: '<S34>/Bias1'
+    //   Constant: '<S25>/Constant'
+    //   Constant: '<S25>/Constant1'
+    //   Constant: '<S36>/Constant'
+    //   Gain: '<S34>/Gain'
+    //   Product: '<S34>/Divide1'
+    //   RelationalOperator: '<S36>/Compare'
+    //   Switch: '<S25>/Switch1'
 
     if (rtb_Abs1_i > 90.0) {
-      // Signum: '<S33>/Sign1'
+      // Signum: '<S34>/Sign1'
       if (rtb_Switch_c < 0.0) {
         rtb_Switch_c = -1.0;
       } else if (rtb_Switch_c > 0.0) {
@@ -515,181 +1067,181 @@ void codegenReal2MissionModelClass::step()
         rtb_Switch_c = (rtNaN);
       }
 
-      // End of Signum: '<S33>/Sign1'
+      // End of Signum: '<S34>/Sign1'
       rtb_Switch_c *= -(rtb_Abs1_i + -90.0) + 90.0;
       rtb_Height_m = 180.0;
     } else {
       rtb_Height_m = 0.0;
     }
 
-    // End of Switch: '<S33>/Switch'
+    // End of Switch: '<S34>/Switch'
 
-    // Sum: '<S24>/Sum' incorporates:
+    // Sum: '<S25>/Sum' incorporates:
     //   DataStoreRead: '<S5>/LongitudeGCS'
 
     rtb_Abs1_i = rtb_Height_m + codegenReal2Mission_DW.LongitudeGCS;
 
-    // Abs: '<S34>/Abs'
+    // Abs: '<S35>/Abs'
     rtb_Height_m = std::abs(rtb_Abs1_i);
 
-    // Switch: '<S34>/Switch' incorporates:
-    //   Bias: '<S34>/Bias'
-    //   Bias: '<S34>/Bias1'
-    //   Constant: '<S34>/Constant2'
-    //   Constant: '<S38>/Constant'
-    //   Math: '<S34>/Math Function1'
-    //   RelationalOperator: '<S38>/Compare'
+    // Switch: '<S35>/Switch' incorporates:
+    //   Bias: '<S35>/Bias'
+    //   Bias: '<S35>/Bias1'
+    //   Constant: '<S35>/Constant2'
+    //   Constant: '<S39>/Constant'
+    //   Math: '<S35>/Math Function1'
+    //   RelationalOperator: '<S39>/Compare'
 
     if (rtb_Height_m > 180.0) {
       rtb_Abs1_i = rt_modd_snf(rtb_Abs1_i + 180.0, 360.0) + -180.0;
     }
 
-    // End of Switch: '<S34>/Switch'
+    // End of Switch: '<S35>/Switch'
 
-    // Sum: '<S22>/Sum1' incorporates:
+    // Sum: '<S23>/Sum1' incorporates:
     //   Inport: '<Root>/RealUAVLatLonState'
 
-    rtb_Sum1_b_idx_0 = codegenReal2Mission_U.RealUAVLatLonState.Latitude_deg -
+    rtb_Sum1_bf_idx_0 = codegenReal2Mission_U.RealUAVLatLonState.Latitude_deg -
       rtb_Switch_c;
 
-    // Abs: '<S30>/Abs'
-    rtb_Height_m = std::abs(rtb_Sum1_b_idx_0);
+    // Abs: '<S31>/Abs'
+    rtb_Height_m = std::abs(rtb_Sum1_bf_idx_0);
 
-    // Switch: '<S30>/Switch' incorporates:
-    //   Bias: '<S30>/Bias'
-    //   Bias: '<S30>/Bias1'
-    //   Constant: '<S30>/Constant2'
-    //   Constant: '<S31>/Constant'
-    //   Math: '<S30>/Math Function1'
-    //   RelationalOperator: '<S31>/Compare'
+    // Switch: '<S31>/Switch' incorporates:
+    //   Bias: '<S31>/Bias'
+    //   Bias: '<S31>/Bias1'
+    //   Constant: '<S31>/Constant2'
+    //   Constant: '<S32>/Constant'
+    //   Math: '<S31>/Math Function1'
+    //   RelationalOperator: '<S32>/Compare'
 
     if (rtb_Height_m > 180.0) {
-      rtb_Sum1_b_idx_0 = rt_modd_snf(rtb_Sum1_b_idx_0 + 180.0, 360.0) + -180.0;
+      rtb_Sum1_bf_idx_0 = rt_modd_snf(rtb_Sum1_bf_idx_0 + 180.0, 360.0) + -180.0;
     }
 
-    // End of Switch: '<S30>/Switch'
+    // End of Switch: '<S31>/Switch'
 
-    // Abs: '<S27>/Abs1'
-    rtb_Abs1_n = std::abs(rtb_Sum1_b_idx_0);
-
-    // Switch: '<S27>/Switch' incorporates:
-    //   Bias: '<S27>/Bias'
-    //   Bias: '<S27>/Bias1'
-    //   Constant: '<S23>/Constant'
-    //   Constant: '<S23>/Constant1'
-    //   Constant: '<S29>/Constant'
-    //   Gain: '<S27>/Gain'
-    //   Product: '<S27>/Divide1'
-    //   RelationalOperator: '<S29>/Compare'
-    //   Switch: '<S23>/Switch1'
-
-    if (rtb_Abs1_n > 90.0) {
-      // Signum: '<S27>/Sign1'
-      if (rtb_Sum1_b_idx_0 < 0.0) {
-        rtb_Sum1_b_idx_0 = -1.0;
-      } else if (rtb_Sum1_b_idx_0 > 0.0) {
-        rtb_Sum1_b_idx_0 = 1.0;
-      } else if (rtb_Sum1_b_idx_0 == 0.0) {
-        rtb_Sum1_b_idx_0 = 0.0;
-      } else {
-        rtb_Sum1_b_idx_0 = (rtNaN);
-      }
-
-      // End of Signum: '<S27>/Sign1'
-      rtb_Height_m = (-(rtb_Abs1_n + -90.0) + 90.0) * rtb_Sum1_b_idx_0;
-      rtb_East_m = 180.0;
-    } else {
-      rtb_Height_m = rtb_Sum1_b_idx_0;
-      rtb_East_m = 0.0;
-    }
-
-    // End of Switch: '<S27>/Switch'
-
-    // Sum: '<S23>/Sum' incorporates:
-    //   Inport: '<Root>/RealUAVLatLonState'
-    //   Sum: '<S22>/Sum1'
-
-    rtb_Abs1_i = (codegenReal2Mission_U.RealUAVLatLonState.Longitude_deg -
-                  rtb_Abs1_i) + rtb_East_m;
-
-    // Abs: '<S28>/Abs'
-    rtb_East_m = std::abs(rtb_Abs1_i);
+    // Abs: '<S28>/Abs1'
+    rtb_Abs1_n = std::abs(rtb_Sum1_bf_idx_0);
 
     // Switch: '<S28>/Switch' incorporates:
     //   Bias: '<S28>/Bias'
     //   Bias: '<S28>/Bias1'
-    //   Constant: '<S28>/Constant2'
-    //   Constant: '<S32>/Constant'
-    //   Math: '<S28>/Math Function1'
-    //   RelationalOperator: '<S32>/Compare'
+    //   Constant: '<S24>/Constant'
+    //   Constant: '<S24>/Constant1'
+    //   Constant: '<S30>/Constant'
+    //   Gain: '<S28>/Gain'
+    //   Product: '<S28>/Divide1'
+    //   RelationalOperator: '<S30>/Compare'
+    //   Switch: '<S24>/Switch1'
+
+    if (rtb_Abs1_n > 90.0) {
+      // Signum: '<S28>/Sign1'
+      if (rtb_Sum1_bf_idx_0 < 0.0) {
+        rtb_Sum1_bf_idx_0 = -1.0;
+      } else if (rtb_Sum1_bf_idx_0 > 0.0) {
+        rtb_Sum1_bf_idx_0 = 1.0;
+      } else if (rtb_Sum1_bf_idx_0 == 0.0) {
+        rtb_Sum1_bf_idx_0 = 0.0;
+      } else {
+        rtb_Sum1_bf_idx_0 = (rtNaN);
+      }
+
+      // End of Signum: '<S28>/Sign1'
+      rtb_Height_m = (-(rtb_Abs1_n + -90.0) + 90.0) * rtb_Sum1_bf_idx_0;
+      rtb_East_m = 180.0;
+    } else {
+      rtb_Height_m = rtb_Sum1_bf_idx_0;
+      rtb_East_m = 0.0;
+    }
+
+    // End of Switch: '<S28>/Switch'
+
+    // Sum: '<S24>/Sum' incorporates:
+    //   Inport: '<Root>/RealUAVLatLonState'
+    //   Sum: '<S23>/Sum1'
+
+    rtb_Abs1_i = (codegenReal2Mission_U.RealUAVLatLonState.Longitude_deg -
+                  rtb_Abs1_i) + rtb_East_m;
+
+    // Abs: '<S29>/Abs'
+    rtb_East_m = std::abs(rtb_Abs1_i);
+
+    // Switch: '<S29>/Switch' incorporates:
+    //   Bias: '<S29>/Bias'
+    //   Bias: '<S29>/Bias1'
+    //   Constant: '<S29>/Constant2'
+    //   Constant: '<S33>/Constant'
+    //   Math: '<S29>/Math Function1'
+    //   RelationalOperator: '<S33>/Compare'
 
     if (rtb_East_m > 180.0) {
       rtb_Abs1_i = rt_modd_snf(rtb_Abs1_i + 180.0, 360.0) + -180.0;
     }
 
-    // End of Switch: '<S28>/Switch'
+    // End of Switch: '<S29>/Switch'
 
-    // UnitConversion: '<S26>/Unit Conversion'
+    // UnitConversion: '<S27>/Unit Conversion'
     // Unit Conversion - from: deg to: rad
     // Expression: output = (0.0174533*input) + (0)
-    rtb_Sum1_b_idx_0 = 0.017453292519943295 * rtb_Height_m;
+    rtb_Sum1_bf_idx_0 = 0.017453292519943295 * rtb_Height_m;
 
-    // UnitConversion: '<S41>/Unit Conversion'
+    // UnitConversion: '<S42>/Unit Conversion'
     // Unit Conversion - from: deg to: rad
     // Expression: output = (0.0174533*input) + (0)
     rtb_Switch_c *= 0.017453292519943295;
 
-    // Trigonometry: '<S42>/Trigonometric Function1'
+    // Trigonometry: '<S43>/Trigonometric Function1'
     rtb_Height_m = std::sin(rtb_Switch_c);
 
-    // Sum: '<S42>/Sum1' incorporates:
-    //   Constant: '<S42>/Constant'
-    //   Product: '<S42>/Product1'
+    // Sum: '<S43>/Sum1' incorporates:
+    //   Constant: '<S43>/Constant'
+    //   Product: '<S43>/Product1'
 
     rtb_Height_m = 1.0 - codegenReal2Mission_ConstB.sqrt_c *
       codegenReal2Mission_ConstB.sqrt_c * rtb_Height_m * rtb_Height_m;
 
-    // Sqrt: '<S40>/sqrt'
+    // Sqrt: '<S41>/sqrt'
     rtb_East_m = std::sqrt(rtb_Height_m);
 
-    // Product: '<S40>/Product1' incorporates:
-    //   Constant: '<S40>/Constant1'
+    // Product: '<S41>/Product1' incorporates:
+    //   Constant: '<S41>/Constant1'
 
     rtb_East_m = 6.378137E+6 / rtb_East_m;
 
-    // Product: '<S25>/dNorth' incorporates:
-    //   Constant: '<S40>/Constant2'
-    //   Product: '<S40>/Product3'
-    //   Trigonometry: '<S40>/Trigonometric Function1'
+    // Product: '<S26>/dNorth' incorporates:
+    //   Constant: '<S41>/Constant2'
+    //   Product: '<S41>/Product3'
+    //   Trigonometry: '<S41>/Trigonometric Function1'
 
-    rtb_Height_m = rtb_Sum1_b_idx_0 / rt_atan2d_snf(1.0, rtb_East_m *
+    rtb_Height_m = rtb_Sum1_bf_idx_0 / rt_atan2d_snf(1.0, rtb_East_m *
       codegenReal2Mission_ConstB.Sum1_m / rtb_Height_m);
 
-    // Product: '<S25>/dEast' incorporates:
-    //   Constant: '<S40>/Constant3'
-    //   Product: '<S40>/Product4'
-    //   Trigonometry: '<S40>/Trigonometric Function'
-    //   Trigonometry: '<S40>/Trigonometric Function2'
-    //   UnitConversion: '<S26>/Unit Conversion'
+    // Product: '<S26>/dEast' incorporates:
+    //   Constant: '<S41>/Constant3'
+    //   Product: '<S41>/Product4'
+    //   Trigonometry: '<S41>/Trigonometric Function'
+    //   Trigonometry: '<S41>/Trigonometric Function2'
+    //   UnitConversion: '<S27>/Unit Conversion'
 
     rtb_Switch_c = 1.0 / rt_atan2d_snf(1.0, rtb_East_m * std::cos(rtb_Switch_c))
       * (0.017453292519943295 * rtb_Abs1_i);
 
     // BusCreator: '<S5>/FixedWingGuidanceStateBus' incorporates:
     //   Inport: '<Root>/RealUAVLatLonState'
-    //   Product: '<S25>/x*cos'
-    //   Product: '<S25>/x*sin'
-    //   Product: '<S25>/y*cos'
-    //   Product: '<S25>/y*sin'
-    //   Sum: '<S25>/Sum2'
-    //   Sum: '<S25>/Sum3'
+    //   Product: '<S26>/x*cos'
+    //   Product: '<S26>/x*sin'
+    //   Product: '<S26>/y*cos'
+    //   Product: '<S26>/y*sin'
+    //   Sum: '<S26>/Sum2'
+    //   Sum: '<S26>/Sum3'
 
     rtb_East_m = rtb_Height_m * codegenReal2Mission_ConstB.SinCos_o2_o +
       rtb_Switch_c * codegenReal2Mission_ConstB.SinCos_o1_l;
-    rtb_Abs1_i = rtb_Switch_c * codegenReal2Mission_ConstB.SinCos_o2_o -
+    rtb_Switch_c = rtb_Switch_c * codegenReal2Mission_ConstB.SinCos_o2_o -
       rtb_Height_m * codegenReal2Mission_ConstB.SinCos_o1_l;
-    rtb_Sum1_b_idx_0 = codegenReal2Mission_U.RealUAVLatLonState.AirSpeed_mps;
-    rtb_Abs1_n = rtb_RollAngle_p;
+    rtb_Abs1_i = codegenReal2Mission_U.RealUAVLatLonState.AirSpeed_mps;
+    rtb_Sum1_bf_idx_0 = rtb_RollAngle_p;
 
     // End of Outputs for SubSystem: '<Root>/LatLon2NorthEast'
 
@@ -729,12 +1281,12 @@ void codegenReal2MissionModelClass::step()
     // End of Chart: '<Root>/TASgreaterthan15for1Sec'
 
     // Memory: '<S3>/MemoryFlowerMode'
-    rtb_North_l = codegenReal2Mission_DW.MemoryFlowerMode_PreviousInput;
+    rtb_East = codegenReal2Mission_DW.MemoryFlowerMode_PreviousInput;
 
     // DataTypeConversion: '<S3>/Cast To Double' incorporates:
     //   DataStoreRead: '<S3>/UAVidx'
 
-    rtb_Switch_k = codegenReal2Mission_DW.UAVidx;
+    rtb_North_l = codegenReal2Mission_DW.UAVidx;
 
     // Delay: '<S3>/InitHdg'
     if (codegenReal2Mission_DW.icLoad) {
@@ -748,7 +1300,7 @@ void codegenReal2MissionModelClass::step()
       //   Product: '<S3>/Map2Radian'
       //   Sum: '<S3>/Minus'
 
-      codegenReal2Mission_DW.InitHdg_DSTATE = (rtb_Switch_k -
+      codegenReal2Mission_DW.InitHdg_DSTATE = (rtb_North_l -
         (codegenReal2Mission_DW.numMissionUAV + 1.0) * 0.5) *
         (6.2831853071795862 / codegenReal2Mission_DW.numMissionUAV) +
         1.5707963267948966;
@@ -757,47 +1309,47 @@ void codegenReal2MissionModelClass::step()
     // End of Delay: '<S3>/InitHdg'
 
     // Outputs for Atomic SubSystem: '<S3>/MissionSimUAV'
-    // Saturate: '<S12>/AirspeedSaturation' incorporates:
+    // Saturate: '<S13>/AirspeedSaturation' incorporates:
     //   BusCreator: '<S3>/Bus Creator'
     //   Constant: '<S3>/MissionAirspeed'
 
     codegenReal2Mission_B.Airspeed = 35.0;
 
-    // Saturate: '<S12>/AltitudeSaturation' incorporates:
+    // Saturate: '<S13>/AltitudeSaturation' incorporates:
     //   BusCreator: '<S3>/Bus Creator'
 
-    if (rtb_North_l > 500.0) {
-      rtb_Switch = 500.0;
-    } else if (rtb_North_l < 100.0) {
-      rtb_Switch = 100.0;
+    if (rtb_East > 500.0) {
+      rtb_Abs1_n = 500.0;
+    } else if (rtb_East < 100.0) {
+      rtb_Abs1_n = 100.0;
     } else {
-      rtb_Switch = rtb_North_l;
+      rtb_Abs1_n = rtb_East;
     }
 
-    // End of Saturate: '<S12>/AltitudeSaturation'
+    // End of Saturate: '<S13>/AltitudeSaturation'
 
-    // RateLimiter: '<S12>/ClimbRateLimiter'
-    rtb_HeadingAngle_n = rtb_Switch - codegenReal2Mission_DW.PrevY_f;
-    if (rtb_HeadingAngle_n > 0.5) {
-      // RateLimiter: '<S12>/ClimbRateLimiter'
-      codegenReal2Mission_B.ClimbRateLimiter = codegenReal2Mission_DW.PrevY_f +
+    // RateLimiter: '<S13>/ClimbRateLimiter'
+    rtb_Sum_p = rtb_Abs1_n - codegenReal2Mission_DW.PrevY;
+    if (rtb_Sum_p > 0.5) {
+      // RateLimiter: '<S13>/ClimbRateLimiter'
+      codegenReal2Mission_B.ClimbRateLimiter = codegenReal2Mission_DW.PrevY +
         0.5;
-    } else if (rtb_HeadingAngle_n < -0.5) {
-      // RateLimiter: '<S12>/ClimbRateLimiter'
-      codegenReal2Mission_B.ClimbRateLimiter = codegenReal2Mission_DW.PrevY_f +
+    } else if (rtb_Sum_p < -0.5) {
+      // RateLimiter: '<S13>/ClimbRateLimiter'
+      codegenReal2Mission_B.ClimbRateLimiter = codegenReal2Mission_DW.PrevY +
         -0.5;
     } else {
-      // RateLimiter: '<S12>/ClimbRateLimiter'
-      codegenReal2Mission_B.ClimbRateLimiter = rtb_Switch;
+      // RateLimiter: '<S13>/ClimbRateLimiter'
+      codegenReal2Mission_B.ClimbRateLimiter = rtb_Abs1_n;
     }
 
-    codegenReal2Mission_DW.PrevY_f = codegenReal2Mission_B.ClimbRateLimiter;
+    codegenReal2Mission_DW.PrevY = codegenReal2Mission_B.ClimbRateLimiter;
 
-    // End of RateLimiter: '<S12>/ClimbRateLimiter'
+    // End of RateLimiter: '<S13>/ClimbRateLimiter'
 
-    // BusCreator: '<S12>/FixedWingGuidanceEnvironmentBus' incorporates:
-    //   Constant: '<S12>/Gravity'
-    //   Constant: '<S12>/NoWind'
+    // BusCreator: '<S13>/FixedWingGuidanceEnvironmentBus' incorporates:
+    //   Constant: '<S13>/Gravity'
+    //   Constant: '<S13>/NoWind'
 
     codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindNorth = 0.0;
     codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindEast = 0.0;
@@ -809,167 +1361,168 @@ void codegenReal2MissionModelClass::step()
 
   // Outputs for Atomic SubSystem: '<S3>/MissionSimUAV'
   if (rtmIsMajorTimeStep((&codegenReal2Mission_M))) {
-    // MATLAB Function: '<S12>/SimHeadingControl' incorporates:
+    // MATLAB Function: '<S13>/SimHeadingControl' incorporates:
     //   BusCreator: '<S3>/Bus Creator'
-    //   Integrator: '<S16>/Integrator'
+    //   Integrator: '<S17>/Integrator'
 
-    a0 = 1.0 / codegenReal2Mission_X.Integrator_CSTATE[3];
-    rtb_RollAngleRate = std::cos(codegenReal2Mission_X.Integrator_CSTATE[5]);
-    rtb_RealHdg_Log = std::sin(codegenReal2Mission_X.Integrator_CSTATE[4]);
-    rtb_HeadingAngle_n = std::cos(codegenReal2Mission_X.Integrator_CSTATE[4]);
-    rtb_RollAngleRate = (rtb_HeadingAngle_n * rtb_RollAngleRate *
-                         codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindNorth
-                         + rtb_RealHdg_Log * rtb_RollAngleRate *
-                         codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindEast)
+    rtb_Sum_p = 1.0 / codegenReal2Mission_X.Integrator_CSTATE[3];
+    rtb_HeadingAngle_n = std::cos(codegenReal2Mission_X.Integrator_CSTATE[5]);
+    rtb_Height_m = std::sin(codegenReal2Mission_X.Integrator_CSTATE[4]);
+    rtb_North_l = std::cos(codegenReal2Mission_X.Integrator_CSTATE[4]);
+    rtb_HeadingAngle_n = (rtb_North_l * rtb_HeadingAngle_n *
+                          codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindNorth
+                          + rtb_Height_m * rtb_HeadingAngle_n *
+                          codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindEast)
       + -std::sin(codegenReal2Mission_X.Integrator_CSTATE[5]) *
       codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindDown;
-    rtb_Switch_k = codegenReal2Mission_DW.InitHdg_DSTATE -
+    rtb_East = codegenReal2Mission_DW.InitHdg_DSTATE -
       codegenReal2Mission_X.Integrator_CSTATE[4];
-    if (std::abs(rtb_Switch_k) > 3.1415926535897931) {
-      if (rtIsNaN(rtb_Switch_k + 3.1415926535897931)) {
-        rtb_Step = (rtNaN);
-      } else if (rtIsInf(rtb_Switch_k + 3.1415926535897931)) {
-        rtb_Step = (rtNaN);
-      } else if (rtb_Switch_k + 3.1415926535897931 == 0.0) {
-        rtb_Step = 0.0;
+    if (std::abs(rtb_East) > 3.1415926535897931) {
+      if (rtIsNaN(rtb_East + 3.1415926535897931)) {
+        Gain = (rtNaN);
+      } else if (rtIsInf(rtb_East + 3.1415926535897931)) {
+        Gain = (rtNaN);
+      } else if (rtb_East + 3.1415926535897931 == 0.0) {
+        Gain = 0.0;
       } else {
-        rtb_Step = std::fmod(rtb_Switch_k + 3.1415926535897931,
-                             6.2831853071795862);
-        rEQ0 = (rtb_Step == 0.0);
+        Gain = std::fmod(rtb_East + 3.1415926535897931, 6.2831853071795862);
+        rEQ0 = (Gain == 0.0);
         if (!rEQ0) {
-          q = std::abs((rtb_Switch_k + 3.1415926535897931) / 6.2831853071795862);
+          q = std::abs((rtb_East + 3.1415926535897931) / 6.2831853071795862);
           rEQ0 = !(std::abs(q - std::floor(q + 0.5)) > 2.2204460492503131E-16 *
                    q);
         }
 
         if (rEQ0) {
-          rtb_Step = 0.0;
-        } else if (rtb_Switch_k + 3.1415926535897931 < 0.0) {
-          rtb_Step += 6.2831853071795862;
+          Gain = 0.0;
+        } else if (rtb_East + 3.1415926535897931 < 0.0) {
+          Gain += 6.2831853071795862;
         }
       }
 
-      if ((rtb_Step == 0.0) && (rtb_Switch_k + 3.1415926535897931 > 0.0)) {
-        rtb_Step = 6.2831853071795862;
+      if ((Gain == 0.0) && (rtb_East + 3.1415926535897931 > 0.0)) {
+        Gain = 6.2831853071795862;
       }
 
-      rtb_Switch_k = rtb_Step - 3.1415926535897931;
+      rtb_East = Gain - 3.1415926535897931;
     }
 
-    codegenReal2Mission_B.RollAngle = rt_atan2d_snf((std::sqrt(rtb_RollAngleRate
-      * rtb_RollAngleRate -
-      (((codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindNorth *
-         codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindNorth +
-         codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindEast *
-         codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindEast) +
-        codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindDown *
-        codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindDown) -
-       codegenReal2Mission_X.Integrator_CSTATE[3] *
-       codegenReal2Mission_X.Integrator_CSTATE[3])) + -rtb_RollAngleRate) *
-      (0.39 * rtb_Switch_k), std::cos(codegenReal2Mission_X.Integrator_CSTATE[4]
-      - (codegenReal2Mission_X.Integrator_CSTATE[4] - std::asin(a0 *
+    codegenReal2Mission_B.RollAngle = rt_atan2d_snf((std::sqrt
+      (rtb_HeadingAngle_n * rtb_HeadingAngle_n -
+       (((codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindNorth *
+          codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindNorth +
+          codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindEast *
+          codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindEast) +
+         codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindDown *
+         codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindDown) -
+        codegenReal2Mission_X.Integrator_CSTATE[3] *
+        codegenReal2Mission_X.Integrator_CSTATE[3])) + -rtb_HeadingAngle_n) *
+      (0.39 * rtb_East), std::cos(codegenReal2Mission_X.Integrator_CSTATE[4] -
+      (codegenReal2Mission_X.Integrator_CSTATE[4] - std::asin(rtb_Sum_p *
       codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindNorth *
-      -rtb_RealHdg_Log + a0 *
+      -rtb_Height_m + rtb_Sum_p *
       codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindEast *
-      rtb_HeadingAngle_n))) *
+      rtb_North_l))) *
       codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.Gravity);
 
-    // End of MATLAB Function: '<S12>/SimHeadingControl'
+    // End of MATLAB Function: '<S13>/SimHeadingControl'
 
-    // Saturate: '<S12>/RollAngleSaturation'
+    // Saturate: '<S13>/RollAngleSaturation'
     if (codegenReal2Mission_B.RollAngle > 0.3490658503988659) {
-      // Saturate: '<S12>/RollAngleSaturation'
+      // Saturate: '<S13>/RollAngleSaturation'
       codegenReal2Mission_B.RollAngle = 0.3490658503988659;
     } else if (codegenReal2Mission_B.RollAngle < -0.3490658503988659) {
-      // Saturate: '<S12>/RollAngleSaturation'
+      // Saturate: '<S13>/RollAngleSaturation'
       codegenReal2Mission_B.RollAngle = -0.3490658503988659;
     }
 
-    // End of Saturate: '<S12>/RollAngleSaturation'
+    // End of Saturate: '<S13>/RollAngleSaturation'
   }
 
-  // MATLABSystem: '<S16>/ComputeDerivative' incorporates:
-  //   BusCreator: '<S12>/Slew Guidance Bus'
-  //   Integrator: '<S16>/Integrator'
-  //   Integrator: '<S17>/TD_Bank'
+  // MATLABSystem: '<S17>/ComputeDerivative' incorporates:
+  //   BusCreator: '<S13>/Slew Guidance Bus'
+  //   Integrator: '<S17>/Integrator'
+  //   Integrator: '<S18>/TD_Bank'
 
-  a0 = std::cos(codegenReal2Mission_X.Integrator_CSTATE[5]);
-  rtb_Switch_k = std::cos(codegenReal2Mission_X.Integrator_CSTATE[4]);
-  rtb_HeadingAngle_n = std::sin(codegenReal2Mission_X.Integrator_CSTATE[4]);
-  rtb_Step = std::sin(codegenReal2Mission_X.Integrator_CSTATE[5]);
-  q = (-(rtb_Switch_k * a0) *
+  rtb_Sum_p = std::cos(codegenReal2Mission_X.Integrator_CSTATE[5]);
+  rtb_HeadingAngle_n = std::cos(codegenReal2Mission_X.Integrator_CSTATE[4]);
+  rtb_Height_m = std::sin(codegenReal2Mission_X.Integrator_CSTATE[4]);
+  rtb_East = std::sin(codegenReal2Mission_X.Integrator_CSTATE[5]);
+  rtb_North_l = (-(rtb_HeadingAngle_n * rtb_Sum_p) *
+                 codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindNorth
+                 + -(rtb_Height_m * rtb_Sum_p) *
+                 codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindEast)
+    + rtb_East * codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindDown;
+  rtb_North_l = std::sqrt(rtb_North_l * rtb_North_l -
+    (((codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindNorth *
        codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindNorth +
-       -(rtb_HeadingAngle_n * a0) *
+       codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindEast *
        codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindEast) +
-    rtb_Step * codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindDown;
-  q = std::sqrt(q * q -
-                (((codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindNorth
-                   * codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindNorth
-                   + codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindEast
-                   * codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindEast)
-                  + codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindDown
-                  * codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindDown)
-                 - codegenReal2Mission_X.Integrator_CSTATE[3] *
-                 codegenReal2Mission_X.Integrator_CSTATE[3])) + -q;
-  codegenReal2Mission_B.ComputeDerivative[0] = q * rtb_Switch_k * a0;
-  codegenReal2Mission_B.ComputeDerivative[1] = q * rtb_HeadingAngle_n * a0;
-  codegenReal2Mission_B.ComputeDerivative[2] = q * rtb_Step;
+      codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindDown *
+      codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindDown) -
+     codegenReal2Mission_X.Integrator_CSTATE[3] *
+     codegenReal2Mission_X.Integrator_CSTATE[3])) + -rtb_North_l;
+  codegenReal2Mission_B.ComputeDerivative[0] = rtb_North_l * rtb_HeadingAngle_n *
+    rtb_Sum_p;
+  codegenReal2Mission_B.ComputeDerivative[1] = rtb_North_l * rtb_Height_m *
+    rtb_Sum_p;
+  codegenReal2Mission_B.ComputeDerivative[2] = rtb_North_l * rtb_East;
   codegenReal2Mission_B.ComputeDerivative[3] = (codegenReal2Mission_B.Airspeed -
     codegenReal2Mission_X.Integrator_CSTATE[3]) *
     codegenReal2Mission_DW.obj_a.ModelImpl.Configuration.PAirSpeed;
-  if (q == 0.0) {
+  if (rtb_North_l == 0.0) {
     codegenReal2Mission_B.ComputeDerivative[4] = 0.0;
     codegenReal2Mission_B.ComputeDerivative[5] = 0.0;
   } else {
     if (codegenReal2Mission_X.Integrator_CSTATE[3] == 0.0) {
       codegenReal2Mission_B.ComputeDerivative[4] = 0.0;
     } else {
-      a0 = 1.0 / (std::cos(std::asin((q * rtb_Step +
+      rtb_Sum_p = 1.0 / (std::cos(std::asin((rtb_North_l * rtb_East +
         codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindDown) /
         codegenReal2Mission_X.Integrator_CSTATE[3])) *
-                  codegenReal2Mission_X.Integrator_CSTATE[3]);
-      codegenReal2Mission_B.ComputeDerivative[4] = std::cos(std::asin(a0 *
-        codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindNorth * -std::
-        sin(codegenReal2Mission_X.Integrator_CSTATE[4]) + a0 *
+                         codegenReal2Mission_X.Integrator_CSTATE[3]);
+      codegenReal2Mission_B.ComputeDerivative[4] = std::cos(std::asin(rtb_Sum_p *
+        codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindNorth *
+        -rtb_Height_m + rtb_Sum_p *
         codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.WindEast *
-        rtb_Switch_k)) *
-        (codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.Gravity / q * std::
-         tan(codegenReal2Mission_X.Integrator_CSTATE[6]));
+        rtb_HeadingAngle_n)) *
+        (codegenReal2Mission_B.FixedWingGuidanceEnvironmentB_g.Gravity /
+         rtb_North_l * std::tan(codegenReal2Mission_X.Integrator_CSTATE[6]));
     }
 
-    u0 = (codegenReal2Mission_B.ClimbRateLimiter -
-          codegenReal2Mission_X.Integrator_CSTATE[2]) *
-      codegenReal2Mission_DW.obj_a.ModelImpl.Configuration.PHeight / q;
-    if (!(u0 < 1.0)) {
-      u0 = 1.0;
+    rtb_Sum_p = (codegenReal2Mission_B.ClimbRateLimiter -
+                 codegenReal2Mission_X.Integrator_CSTATE[2]) *
+      codegenReal2Mission_DW.obj_a.ModelImpl.Configuration.PHeight / rtb_North_l;
+    if (!(rtb_Sum_p < 1.0)) {
+      rtb_Sum_p = 1.0;
     }
 
-    if (!(u0 > -1.0)) {
-      u0 = -1.0;
+    if (!(rtb_Sum_p > -1.0)) {
+      rtb_Sum_p = -1.0;
     }
 
-    u0 = std::asin(u0);
-    if ((!(u0 <
+    rtb_Sum_p = std::asin(rtb_Sum_p);
+    if ((!(rtb_Sum_p <
            codegenReal2Mission_DW.obj_a.ModelImpl.Configuration.FlightPathAngleLimits
            [1])) && (!rtIsNaN
                      (codegenReal2Mission_DW.obj_a.ModelImpl.Configuration.FlightPathAngleLimits
                       [1]))) {
-      u0 =
+      rtb_Sum_p =
         codegenReal2Mission_DW.obj_a.ModelImpl.Configuration.FlightPathAngleLimits
         [1];
     }
 
-    if ((!(u0 >
+    if ((!(rtb_Sum_p >
            codegenReal2Mission_DW.obj_a.ModelImpl.Configuration.FlightPathAngleLimits
            [0])) && (!rtIsNaN
                      (codegenReal2Mission_DW.obj_a.ModelImpl.Configuration.FlightPathAngleLimits
                       [0]))) {
-      u0 =
+      rtb_Sum_p =
         codegenReal2Mission_DW.obj_a.ModelImpl.Configuration.FlightPathAngleLimits
         [0];
     }
 
-    codegenReal2Mission_B.ComputeDerivative[5] = (u0 -
+    codegenReal2Mission_B.ComputeDerivative[5] = (rtb_Sum_p -
       codegenReal2Mission_X.Integrator_CSTATE[5]) *
       codegenReal2Mission_DW.obj_a.ModelImpl.Configuration.PFlightPathAngle;
   }
@@ -977,25 +1530,25 @@ void codegenReal2MissionModelClass::step()
   codegenReal2Mission_B.ComputeDerivative[6] =
     codegenReal2Mission_X.Integrator_CSTATE[7];
   if (codegenReal2Mission_X.TD_Bank_CSTATE < 1.5707963267948966) {
-    rtb_Switch_k = codegenReal2Mission_X.TD_Bank_CSTATE;
+    rtb_Sum_p = codegenReal2Mission_X.TD_Bank_CSTATE;
   } else {
-    rtb_Switch_k = 1.5707963267948966;
+    rtb_Sum_p = 1.5707963267948966;
   }
 
-  if (!(rtb_Switch_k > -1.5707963267948966)) {
-    rtb_Switch_k = -1.5707963267948966;
+  if (!(rtb_Sum_p > -1.5707963267948966)) {
+    rtb_Sum_p = -1.5707963267948966;
   }
 
-  codegenReal2Mission_B.ComputeDerivative[7] = (rtb_Switch_k -
+  codegenReal2Mission_B.ComputeDerivative[7] = (rtb_Sum_p -
     codegenReal2Mission_X.Integrator_CSTATE[6]) *
     codegenReal2Mission_DW.obj_a.ModelImpl.Configuration.PDRoll[0] +
     codegenReal2Mission_DW.obj_a.ModelImpl.Configuration.PDRoll[1] *
     -codegenReal2Mission_X.Integrator_CSTATE[7];
 
-  // End of MATLABSystem: '<S16>/ComputeDerivative'
+  // End of MATLABSystem: '<S17>/ComputeDerivative'
   if (rtmIsMajorTimeStep((&codegenReal2Mission_M))) {
-    // ZeroOrderHold: '<S12>/SimUAVStateZOH' incorporates:
-    //   Integrator: '<S16>/Integrator'
+    // ZeroOrderHold: '<S13>/SimUAVStateZOH' incorporates:
+    //   Integrator: '<S17>/Integrator'
 
     codegenReal2Mission_B.SimUAVStateZOH.North =
       codegenReal2Mission_X.Integrator_CSTATE[0];
@@ -1015,113 +1568,45 @@ void codegenReal2MissionModelClass::step()
       codegenReal2Mission_X.Integrator_CSTATE[7];
   }
 
-  // Integrator: '<S17>/dotBankTD'
+  // Integrator: '<S18>/dotBankTD'
   codegenReal2Mission_B.dotBankTD = codegenReal2Mission_X.dotBankTD_CSTATE;
 
-  // MATLAB Function: '<S17>/fhan_Bank' incorporates:
-  //   Integrator: '<S17>/TD_Bank'
-  //   SignalConversion generated from: '<S18>/ SFunction '
-  //   Sum: '<S17>/Sum1'
+  // MATLAB Function: '<S18>/fhan_Bank' incorporates:
+  //   Constant: '<S18>/Constant2'
+  //   Constant: '<S18>/Constant3'
+  //   Integrator: '<S18>/TD_Bank'
+  //   Sum: '<S18>/Sum1'
 
-  a0 = codegenReal2Mission_B.dotBankTD * 0.1;
-  rtb_Switch_k = (codegenReal2Mission_X.TD_Bank_CSTATE -
-                  codegenReal2Mission_B.RollAngle) + a0;
-  if (rtb_Switch_k < 0.0) {
-    rtb_Switch_c = -1.0;
-  } else if (rtb_Switch_k > 0.0) {
-    rtb_Switch_c = 1.0;
-  } else if (rtb_Switch_k == 0.0) {
-    rtb_Switch_c = 0.0;
-  } else {
-    rtb_Switch_c = (rtNaN);
-  }
+  codegenReal2Mission_fhan_Bank(codegenReal2Mission_X.TD_Bank_CSTATE -
+    codegenReal2Mission_B.RollAngle, codegenReal2Mission_B.dotBankTD,
+    0.087266462599716474, 0.1, &codegenReal2Mission_B.fh_n);
 
-  rtb_Height_m = (std::sqrt((8.0 * std::abs(rtb_Switch_k) +
-    0.0008726646259971648) * 0.0008726646259971648) - 0.0008726646259971648) *
-    rtb_Switch_c / 2.0 + a0;
-  if (rtb_Switch_k + 0.0008726646259971648 < 0.0) {
-    rtb_Switch_c = -1.0;
-  } else if (rtb_Switch_k + 0.0008726646259971648 > 0.0) {
-    rtb_Switch_c = 1.0;
-  } else if (rtb_Switch_k + 0.0008726646259971648 == 0.0) {
-    rtb_Switch_c = 0.0;
-  } else {
-    rtb_Switch_c = (rtNaN);
-  }
-
-  if (rtb_Switch_k - 0.0008726646259971648 < 0.0) {
-    rtb_North_l = -1.0;
-  } else if (rtb_Switch_k - 0.0008726646259971648 > 0.0) {
-    rtb_North_l = 1.0;
-  } else if (rtb_Switch_k - 0.0008726646259971648 == 0.0) {
-    rtb_North_l = 0.0;
-  } else {
-    rtb_North_l = (rtNaN);
-  }
-
-  a0 = ((a0 + rtb_Switch_k) - rtb_Height_m) * ((rtb_Switch_c - rtb_North_l) /
-    2.0) + rtb_Height_m;
-  if (a0 < 0.0) {
-    rtb_HeadingAngle_n = -1.0;
-  } else if (a0 > 0.0) {
-    rtb_HeadingAngle_n = 1.0;
-  } else if (a0 == 0.0) {
-    rtb_HeadingAngle_n = 0.0;
-  } else {
-    rtb_HeadingAngle_n = (rtNaN);
-  }
-
-  if (a0 + 0.0008726646259971648 < 0.0) {
-    rtb_Switch_k = -1.0;
-  } else if (a0 + 0.0008726646259971648 > 0.0) {
-    rtb_Switch_k = 1.0;
-  } else if (a0 + 0.0008726646259971648 == 0.0) {
-    rtb_Switch_k = 0.0;
-  } else {
-    rtb_Switch_k = (rtNaN);
-  }
-
-  if (a0 - 0.0008726646259971648 < 0.0) {
-    rtb_Switch_c = -1.0;
-  } else if (a0 - 0.0008726646259971648 > 0.0) {
-    rtb_Switch_c = 1.0;
-  } else if (a0 - 0.0008726646259971648 == 0.0) {
-    rtb_Switch_c = 0.0;
-  } else {
-    rtb_Switch_c = (rtNaN);
-  }
-
-  codegenReal2Mission_B.fh_n = (a0 / 0.0008726646259971648 - rtb_HeadingAngle_n)
-    * -0.087266462599716474 * ((rtb_Switch_k - rtb_Switch_c) / 2.0) -
-    0.087266462599716474 * rtb_HeadingAngle_n;
-
-  // End of MATLAB Function: '<S17>/fhan_Bank'
   // End of Outputs for SubSystem: '<S3>/MissionSimUAV'
   if (rtmIsMajorTimeStep((&codegenReal2Mission_M))) {
     // Outputs for Atomic SubSystem: '<Root>/GenerateTrack'
     // S-Function (sfix_udelay): '<S4>/EastSequence'
-    rtb_MatrixConcatenate[121] = codegenReal2Mission_B.SimUAVStateZOH.East;
+    rtb_MatrixConcatenate[145] = codegenReal2Mission_B.SimUAVStateZOH.East;
 
     // Gain: '<S4>/TrackInvH'
     codegenReal2Mission_B.TrackInvH =
       -codegenReal2Mission_B.SimUAVStateZOH.Height;
 
     // S-Function (sfix_udelay): '<S4>/HeightSequence'
-    rtb_MatrixConcatenate[182] = codegenReal2Mission_B.TrackInvH;
-    for (i = 0; i < 60; i++) {
+    rtb_MatrixConcatenate[218] = codegenReal2Mission_B.TrackInvH;
+    for (i = 0; i < 72; i++) {
       // S-Function (sfix_udelay): '<S4>/EastSequence'
-      rtb_MatrixConcatenate[i + 61] = codegenReal2Mission_DW.EastSequence_X[i];
+      rtb_MatrixConcatenate[i + 73] = codegenReal2Mission_DW.EastSequence_X[i];
 
       // S-Function (sfix_udelay): '<S4>/HeightSequence'
-      rtb_MatrixConcatenate[i + 122] = codegenReal2Mission_DW.HeightSequence_X[i];
+      rtb_MatrixConcatenate[i + 146] = codegenReal2Mission_DW.HeightSequence_X[i];
 
       // S-Function (sfix_udelay): '<S4>/NorthSequence'
       rtb_MatrixConcatenate[i] = codegenReal2Mission_DW.NorthSequence_X[i];
     }
 
     // S-Function (sfix_udelay): '<S4>/NorthSequence'
-    rtb_MatrixConcatenate[60] = codegenReal2Mission_B.SimUAVStateZOH.North;
-    for (i = 0; i < 59; i++) {
+    rtb_MatrixConcatenate[72] = codegenReal2Mission_B.SimUAVStateZOH.North;
+    for (i = 0; i < 71; i++) {
       // Update for S-Function (sfix_udelay): '<S4>/EastSequence'
       codegenReal2Mission_DW.EastSequence_X[i] =
         codegenReal2Mission_DW.EastSequence_X[i + 1];
@@ -1136,102 +1621,99 @@ void codegenReal2MissionModelClass::step()
     }
 
     // Update for S-Function (sfix_udelay): '<S4>/EastSequence'
-    codegenReal2Mission_DW.EastSequence_X[59] =
+    codegenReal2Mission_DW.EastSequence_X[71] =
       codegenReal2Mission_B.SimUAVStateZOH.East;
 
     // Update for S-Function (sfix_udelay): '<S4>/HeightSequence'
-    codegenReal2Mission_DW.HeightSequence_X[59] =
+    codegenReal2Mission_DW.HeightSequence_X[71] =
       codegenReal2Mission_B.TrackInvH;
 
     // Update for S-Function (sfix_udelay): '<S4>/NorthSequence'
-    codegenReal2Mission_DW.NorthSequence_X[59] =
+    codegenReal2Mission_DW.NorthSequence_X[71] =
       codegenReal2Mission_B.SimUAVStateZOH.North;
 
     // End of Outputs for SubSystem: '<Root>/GenerateTrack'
 
     // Outputs for Atomic SubSystem: '<Root>/SpeedControl'
-    // Sum: '<S69>/Sum' incorporates:
+    // Sum: '<S70>/Sum' incorporates:
     //   BusCreator: '<S5>/FixedWingGuidanceStateBus'
 
-    rtb_NorthEastHeight[0] = codegenReal2Mission_B.SimUAVStateZOH.North -
-      rtb_East_m;
-    rtb_NorthEastHeight[1] = codegenReal2Mission_B.SimUAVStateZOH.East -
-      rtb_Abs1_i;
-    rtb_NorthEastHeight[2] = codegenReal2Mission_B.SimUAVStateZOH.Height -
-      rtb_Height;
+    rtb_Sum_dj[0] = codegenReal2Mission_B.SimUAVStateZOH.North - rtb_East_m;
+    rtb_Sum_dj[1] = codegenReal2Mission_B.SimUAVStateZOH.East - rtb_Switch_c;
+    rtb_Sum_dj[2] = codegenReal2Mission_B.SimUAVStateZOH.Height -
+      codegenReal2Mission_B.SimUAVStateZOH.Height;
 
-    // DotProduct: '<S69>/Dot Product'
-    rtb_TargetHdg_Log = rtb_NorthEastHeight[0] * rtb_NorthEastHeight[0];
+    // DotProduct: '<S70>/Dot Product'
+    rtb_HeadingAngle_n = rtb_Sum_dj[0] * rtb_Sum_dj[0];
 
     // Outputs for Atomic SubSystem: '<Root>/GenerateTrack'
     // Selector: '<S7>/WayPoint0d3' incorporates:
-    //   Gain: '<Root>/NED2NEU'
     //   S-Function (sfix_udelay): '<S4>/NorthSequence'
+    //   Sum: '<S73>/Sum'
 
-    rtb_NorthEastHeight[0] = codegenReal2Mission_B.SimUAVStateZOH.North;
+    rtb_Sum_dj[0] = codegenReal2Mission_B.SimUAVStateZOH.North;
 
     // End of Outputs for SubSystem: '<Root>/GenerateTrack'
 
-    // DotProduct: '<S69>/Dot Product'
-    rtb_TargetHdg_Log += rtb_NorthEastHeight[1] * rtb_NorthEastHeight[1];
+    // DotProduct: '<S70>/Dot Product'
+    rtb_HeadingAngle_n += rtb_Sum_dj[1] * rtb_Sum_dj[1];
 
     // Selector: '<S7>/WayPoint0d3' incorporates:
     //   Concatenate: '<S4>/Matrix Concatenate'
-    //   Gain: '<Root>/NED2NEU'
+    //   Sum: '<S73>/Sum'
 
-    rtb_NorthEastHeight[1] = rtb_MatrixConcatenate[121];
+    rtb_Sum_dj[1] = rtb_MatrixConcatenate[145];
 
-    // DotProduct: '<S69>/Dot Product'
-    rtb_Switch = rtb_NorthEastHeight[2] * rtb_NorthEastHeight[2] +
-      rtb_TargetHdg_Log;
+    // DotProduct: '<S70>/Dot Product'
+    rtb_Abs1_n = rtb_Sum_dj[2] * rtb_Sum_dj[2] + rtb_HeadingAngle_n;
 
     // Selector: '<S7>/WayPoint0d3' incorporates:
     //   Concatenate: '<S4>/Matrix Concatenate'
-    //   Gain: '<Root>/NED2NEU'
+    //   Sum: '<S73>/Sum'
 
-    rtb_NorthEastHeight[2] = rtb_MatrixConcatenate[182];
+    rtb_Sum_dj[2] = rtb_MatrixConcatenate[218];
 
-    // Sqrt: '<S69>/sqrt'
-    rtb_Switch = std::sqrt(rtb_Switch);
+    // Sqrt: '<S70>/sqrt'
+    rtb_Abs1_n = std::sqrt(rtb_Abs1_n);
 
     // Gain: '<S7>/InverseY'
-    codegenReal2Mission_B.InverseY = -rtb_Switch;
+    codegenReal2Mission_B.InverseY = -rtb_Abs1_n;
 
     // Outputs for Atomic SubSystem: '<Root>/GenerateTrack'
-    // Sum: '<S71>/Sum' incorporates:
+    // Sum: '<S72>/Sum' incorporates:
     //   Concatenate: '<S4>/Matrix Concatenate'
     //   S-Function (sfix_udelay): '<S4>/NorthSequence'
     //   Selector: '<S7>/WayPoint2d3'
 
-    rtb_Switch_k = rtb_MatrixConcatenate[20] -
+    rtb_Sum_p = rtb_MatrixConcatenate[24] -
       codegenReal2Mission_B.SimUAVStateZOH.North;
 
     // End of Outputs for SubSystem: '<Root>/GenerateTrack'
 
-    // DotProduct: '<S71>/Dot Product'
-    rtb_HeadingAngle_n = rtb_Switch_k * rtb_Switch_k;
+    // DotProduct: '<S72>/Dot Product'
+    rtb_Height_m = rtb_Sum_p * rtb_Sum_p;
 
-    // Sum: '<S71>/Sum' incorporates:
+    // Sum: '<S72>/Sum' incorporates:
     //   Concatenate: '<S4>/Matrix Concatenate'
     //   Selector: '<S7>/WayPoint0d3'
     //   Selector: '<S7>/WayPoint2d3'
 
-    rtb_Switch_k = rtb_MatrixConcatenate[81] - rtb_MatrixConcatenate[121];
+    rtb_Sum_p = rtb_MatrixConcatenate[97] - rtb_MatrixConcatenate[145];
 
-    // DotProduct: '<S71>/Dot Product'
-    rtb_HeadingAngle_n += rtb_Switch_k * rtb_Switch_k;
+    // DotProduct: '<S72>/Dot Product'
+    rtb_Height_m += rtb_Sum_p * rtb_Sum_p;
 
-    // Sum: '<S71>/Sum' incorporates:
+    // Sum: '<S72>/Sum' incorporates:
     //   Concatenate: '<S4>/Matrix Concatenate'
     //   Selector: '<S7>/WayPoint0d3'
     //   Selector: '<S7>/WayPoint2d3'
 
-    rtb_Switch_k = rtb_MatrixConcatenate[142] - rtb_MatrixConcatenate[182];
+    rtb_Sum_p = rtb_MatrixConcatenate[170] - rtb_MatrixConcatenate[218];
 
-    // DotProduct: '<S71>/Dot Product'
-    rtb_RollAngle_p = rtb_Switch_k * rtb_Switch_k + rtb_HeadingAngle_n;
+    // DotProduct: '<S72>/Dot Product'
+    rtb_RollAngle_p = rtb_Sum_p * rtb_Sum_p + rtb_Height_m;
 
-    // Sqrt: '<S71>/sqrt'
+    // Sqrt: '<S72>/sqrt'
     rtb_RollAngle_p = std::sqrt(rtb_RollAngle_p);
 
     // Gain: '<S7>/InverseR'
@@ -1242,7 +1724,7 @@ void codegenReal2MissionModelClass::step()
 
   // Outputs for Atomic SubSystem: '<Root>/SpeedControl'
   // Outputs for Atomic SubSystem: '<S7>/ADRC'
-  // Integrator: '<S73>/ESO'
+  // Integrator: '<S74>/ESO'
   rEQ0 = rtsiGetIsOkayToUpdateMode(&(&codegenReal2Mission_M)->solverInfo);
   if (rEQ0) {
     rEQ0 = (codegenReal2Mission_B.TakeOffTrigger &&
@@ -1256,12 +1738,12 @@ void codegenReal2MissionModelClass::step()
     }
   }
 
-  // Sum: '<S13>/Output' incorporates:
-  //   Integrator: '<S73>/ESO'
+  // Sum: '<S14>/Output' incorporates:
+  //   Integrator: '<S74>/ESO'
 
-  rtb_HeadingAngle_n = codegenReal2Mission_X.ESO_CSTATE;
+  rtb_Height_m = codegenReal2Mission_X.ESO_CSTATE;
 
-  // Integrator: '<S73>/ESO_dot'
+  // Integrator: '<S74>/ESO_dot'
   rEQ0 = rtsiGetIsOkayToUpdateMode(&(&codegenReal2Mission_M)->solverInfo);
   if (rEQ0) {
     rEQ0 = (codegenReal2Mission_B.TakeOffTrigger &&
@@ -1275,11 +1757,11 @@ void codegenReal2MissionModelClass::step()
     }
   }
 
-  rtb_Step = codegenReal2Mission_X.ESO_dot_CSTATE;
+  rtb_East = codegenReal2Mission_X.ESO_dot_CSTATE;
 
-  // End of Integrator: '<S73>/ESO_dot'
+  // End of Integrator: '<S74>/ESO_dot'
 
-  // Integrator: '<S73>/ESO_dotdot'
+  // Integrator: '<S74>/ESO_dotdot'
   rEQ0 = rtsiGetIsOkayToUpdateMode(&(&codegenReal2Mission_M)->solverInfo);
   if (rEQ0) {
     rEQ0 = (codegenReal2Mission_B.TakeOffTrigger &&
@@ -1293,11 +1775,11 @@ void codegenReal2MissionModelClass::step()
     }
   }
 
-  q = codegenReal2Mission_X.ESO_dotdot_CSTATE;
+  rtb_North_l = codegenReal2Mission_X.ESO_dotdot_CSTATE;
 
-  // End of Integrator: '<S73>/ESO_dotdot'
+  // End of Integrator: '<S74>/ESO_dotdot'
 
-  // Integrator: '<S75>/TD_AirSpdADRC'
+  // Integrator: '<S76>/TD_AirSpdADRC'
   rEQ0 = rtsiGetIsOkayToUpdateMode(&(&codegenReal2Mission_M)->solverInfo);
   if (rEQ0) {
     rEQ0 = (codegenReal2Mission_B.TakeOffTrigger &&
@@ -1311,14 +1793,14 @@ void codegenReal2MissionModelClass::step()
     }
   }
 
-  rtb_TD_AirSpdADRC = codegenReal2Mission_X.TD_AirSpdADRC_CSTATE;
+  rtb_HeadingAngle_n = codegenReal2Mission_X.TD_AirSpdADRC_CSTATE;
 
-  // Sum: '<S68>/Sum' incorporates:
-  //   Integrator: '<S75>/TD_AirSpdADRC'
+  // Sum: '<S69>/Sum' incorporates:
+  //   Integrator: '<S76>/TD_AirSpdADRC'
 
-  rtb_Switch_k = codegenReal2Mission_X.TD_AirSpdADRC_CSTATE - rtb_HeadingAngle_n;
+  rtb_Sum_p = codegenReal2Mission_X.TD_AirSpdADRC_CSTATE - rtb_Height_m;
 
-  // Integrator: '<S75>/dotTD'
+  // Integrator: '<S76>/dotTD'
   rEQ0 = rtsiGetIsOkayToUpdateMode(&(&codegenReal2Mission_M)->solverInfo);
   if (rEQ0) {
     rEQ0 = (codegenReal2Mission_B.TakeOffTrigger &&
@@ -1332,757 +1814,624 @@ void codegenReal2MissionModelClass::step()
     }
   }
 
-  // Integrator: '<S75>/dotTD'
+  // Integrator: '<S76>/dotTD'
   codegenReal2Mission_B.dotTD = codegenReal2Mission_X.dotTD_CSTATE;
 
-  // MATLAB Function: '<S74>/fhan(e1,ce2,r,h1)' incorporates:
+  // MATLAB Function: '<S75>/fhan(e1,ce2,r,h1)' incorporates:
+  //   Gain: '<S75>/Gain'
+  //   SignalConversion generated from: '<S79>/ SFunction '
+  //   Sum: '<S69>/Sum1'
+
+  q = (codegenReal2Mission_B.dotTD - rtb_East) * 3.2202531507756045 *
+    9.64653500837626;
+  rtb_Sum_p += q;
+  if (rtb_Sum_p < 0.0) {
+    y = -1.0;
+  } else if (rtb_Sum_p > 0.0) {
+    y = 1.0;
+  } else if (rtb_Sum_p == 0.0) {
+    y = 0.0;
+  } else {
+    y = (rtNaN);
+  }
+
+  a2 = (std::sqrt((8.0 * std::abs(rtb_Sum_p) + 465.27818833914387) *
+                  465.27818833914387) - 465.27818833914387) * y / 2.0 + q;
+  if (rtb_Sum_p + 465.27818833914387 < 0.0) {
+    y = -1.0;
+  } else if (rtb_Sum_p + 465.27818833914387 > 0.0) {
+    y = 1.0;
+  } else if (rtb_Sum_p + 465.27818833914387 == 0.0) {
+    y = 0.0;
+  } else {
+    y = (rtNaN);
+  }
+
+  if (rtb_Sum_p - 465.27818833914387 < 0.0) {
+    y_0 = -1.0;
+  } else if (rtb_Sum_p - 465.27818833914387 > 0.0) {
+    y_0 = 1.0;
+  } else if (rtb_Sum_p - 465.27818833914387 == 0.0) {
+    y_0 = 0.0;
+  } else {
+    y_0 = (rtNaN);
+  }
+
+  rtb_Sum_p = ((q + rtb_Sum_p) - a2) * ((y - y_0) / 2.0) + a2;
+  if (rtb_Sum_p < 0.0) {
+    Gain = -1.0;
+  } else if (rtb_Sum_p > 0.0) {
+    Gain = 1.0;
+  } else if (rtb_Sum_p == 0.0) {
+    Gain = 0.0;
+  } else {
+    Gain = (rtNaN);
+  }
+
+  if (rtb_Sum_p + 465.27818833914387 < 0.0) {
+    q = -1.0;
+  } else if (rtb_Sum_p + 465.27818833914387 > 0.0) {
+    q = 1.0;
+  } else if (rtb_Sum_p + 465.27818833914387 == 0.0) {
+    q = 0.0;
+  } else {
+    q = (rtNaN);
+  }
+
+  if (rtb_Sum_p - 465.27818833914387 < 0.0) {
+    y = -1.0;
+  } else if (rtb_Sum_p - 465.27818833914387 > 0.0) {
+    y = 1.0;
+  } else if (rtb_Sum_p - 465.27818833914387 == 0.0) {
+    y = 0.0;
+  } else {
+    y = (rtNaN);
+  }
+
+  // Gain: '<S69>/Gain' incorporates:
+  //   Gain: '<S75>/Gain1'
+  //   MATLAB Function: '<S75>/fhan(e1,ce2,r,h1)'
+  //   Sum: '<S69>/ESOpNLSEF'
+
+  Gain = (-((rtb_Sum_p / 465.27818833914387 - Gain) * -5.0 * ((q - y) / 2.0) -
+            5.0 * Gain) - rtb_North_l) * 0.4469922429475931;
+
+  // Sum: '<S69>/Sum3'
+  rtb_Sum_p = rtb_Height_m - codegenReal2Mission_B.InverseY;
+
+  // MATLAB Function: '<S74>/fal(e,0.5,h)' incorporates:
+  //   Constant: '<S74>/Constant2'
+  //   Constant: '<S74>/Constant3'
+
+  codegenReal2Mission_fale025h(rtb_Sum_p, 0.5, 0.1, &rtb_Height_m);
+
+  // Sum: '<S74>/ESOdotdotsum' incorporates:
+  //   Gain: '<S74>/Gain1'
+  //   Gain: '<S74>/Gain4'
+
+  codegenReal2Mission_B.ESOdotdotsum = (2.23717528833547 * Gain + rtb_North_l) -
+    1.5811388300841895 * rtb_Height_m;
+
+  // Sum: '<S74>/ESOdotsum'
+  codegenReal2Mission_B.ESOdotsum = rtb_East - rtb_Sum_p;
+
+  // MATLAB Function: '<S74>/fal(e,0.25,h)' incorporates:
+  //   Constant: '<S74>/Constant'
+  //   Constant: '<S74>/Constant1'
+
+  codegenReal2Mission_fale025h(rtb_Sum_p, 0.25, 0.1, &rtb_North_l);
+
+  // Gain: '<S74>/Inverse' incorporates:
   //   Gain: '<S74>/Gain'
-  //   SignalConversion generated from: '<S78>/ SFunction '
-  //   Sum: '<S68>/Sum1'
 
-  a0 = (codegenReal2Mission_B.dotTD - rtb_Step) * 5.0 * 6.0;
-  rtb_Switch_k += a0;
-  if (rtb_Switch_k < 0.0) {
-    rtb_Switch_c = -1.0;
-  } else if (rtb_Switch_k > 0.0) {
-    rtb_Switch_c = 1.0;
-  } else if (rtb_Switch_k == 0.0) {
-    rtb_Switch_c = 0.0;
+  codegenReal2Mission_B.Inverse = -(1.2679145539688905 * rtb_North_l);
+
+  // MATLAB Function: '<S76>/fhan_AirSpdADRC' incorporates:
+  //   SignalConversion generated from: '<S80>/ SFunction '
+  //   Sum: '<S76>/Sum1'
+
+  q = codegenReal2Mission_B.dotTD * 0.1;
+  rtb_Sum_p = (rtb_HeadingAngle_n - codegenReal2Mission_B.InverseR) + q;
+  if (rtb_Sum_p < 0.0) {
+    y = -1.0;
+  } else if (rtb_Sum_p > 0.0) {
+    y = 1.0;
+  } else if (rtb_Sum_p == 0.0) {
+    y = 0.0;
   } else {
-    rtb_Switch_c = (rtNaN);
+    y = (rtNaN);
   }
 
-  rtb_Height_m = (std::sqrt((8.0 * std::abs(rtb_Switch_k) + 180.0) * 180.0) -
-                  180.0) * rtb_Switch_c / 2.0 + a0;
-  if (rtb_Switch_k + 180.0 < 0.0) {
-    rtb_Switch_c = -1.0;
-  } else if (rtb_Switch_k + 180.0 > 0.0) {
-    rtb_Switch_c = 1.0;
-  } else if (rtb_Switch_k + 180.0 == 0.0) {
-    rtb_Switch_c = 0.0;
+  a2 = (std::sqrt((8.0 * std::abs(rtb_Sum_p) + 0.005000000000000001) *
+                  0.005000000000000001) - 0.005000000000000001) * y / 2.0 + q;
+  if (rtb_Sum_p + 0.005000000000000001 < 0.0) {
+    y = -1.0;
+  } else if (rtb_Sum_p + 0.005000000000000001 > 0.0) {
+    y = 1.0;
+  } else if (rtb_Sum_p + 0.005000000000000001 == 0.0) {
+    y = 0.0;
   } else {
-    rtb_Switch_c = (rtNaN);
+    y = (rtNaN);
   }
 
-  if (rtb_Switch_k - 180.0 < 0.0) {
-    rtb_North_l = -1.0;
-  } else if (rtb_Switch_k - 180.0 > 0.0) {
-    rtb_North_l = 1.0;
-  } else if (rtb_Switch_k - 180.0 == 0.0) {
-    rtb_North_l = 0.0;
+  if (rtb_Sum_p - 0.005000000000000001 < 0.0) {
+    y_0 = -1.0;
+  } else if (rtb_Sum_p - 0.005000000000000001 > 0.0) {
+    y_0 = 1.0;
+  } else if (rtb_Sum_p - 0.005000000000000001 == 0.0) {
+    y_0 = 0.0;
   } else {
-    rtb_North_l = (rtNaN);
+    y_0 = (rtNaN);
   }
 
-  a0 = ((a0 + rtb_Switch_k) - rtb_Height_m) * ((rtb_Switch_c - rtb_North_l) /
-    2.0) + rtb_Height_m;
-  if (a0 < 0.0) {
+  rtb_Sum_p = ((q + rtb_Sum_p) - a2) * ((y - y_0) / 2.0) + a2;
+  if (rtb_Sum_p < 0.0) {
     rtb_Height_m = -1.0;
-  } else if (a0 > 0.0) {
+  } else if (rtb_Sum_p > 0.0) {
     rtb_Height_m = 1.0;
-  } else if (a0 == 0.0) {
+  } else if (rtb_Sum_p == 0.0) {
     rtb_Height_m = 0.0;
   } else {
     rtb_Height_m = (rtNaN);
   }
 
-  if (a0 + 180.0 < 0.0) {
-    rtb_Switch_k = -1.0;
-  } else if (a0 + 180.0 > 0.0) {
-    rtb_Switch_k = 1.0;
-  } else if (a0 + 180.0 == 0.0) {
-    rtb_Switch_k = 0.0;
+  if (rtb_Sum_p + 0.005000000000000001 < 0.0) {
+    q = -1.0;
+  } else if (rtb_Sum_p + 0.005000000000000001 > 0.0) {
+    q = 1.0;
+  } else if (rtb_Sum_p + 0.005000000000000001 == 0.0) {
+    q = 0.0;
   } else {
-    rtb_Switch_k = (rtNaN);
+    q = (rtNaN);
   }
 
-  if (a0 - 180.0 < 0.0) {
-    rtb_Switch_c = -1.0;
-  } else if (a0 - 180.0 > 0.0) {
-    rtb_Switch_c = 1.0;
-  } else if (a0 - 180.0 == 0.0) {
-    rtb_Switch_c = 0.0;
+  if (rtb_Sum_p - 0.005000000000000001 < 0.0) {
+    y = -1.0;
+  } else if (rtb_Sum_p - 0.005000000000000001 > 0.0) {
+    y = 1.0;
+  } else if (rtb_Sum_p - 0.005000000000000001 == 0.0) {
+    y = 0.0;
   } else {
-    rtb_Switch_c = (rtNaN);
+    y = (rtNaN);
   }
 
-  // Sum: '<S68>/ESOpNLSEF' incorporates:
-  //   Gain: '<S74>/Gain1'
-  //   MATLAB Function: '<S74>/fhan(e1,ce2,r,h1)'
+  codegenReal2Mission_B.fh_f = (rtb_Sum_p / 0.005000000000000001 - rtb_Height_m)
+    * -0.5 * ((q - y) / 2.0) - 0.5 * rtb_Height_m;
 
-  codegenReal2Mission_B.ESOpNLSEF = -((a0 / 180.0 - rtb_Height_m) * -5.0 *
-    ((rtb_Switch_k - rtb_Switch_c) / 2.0) - 5.0 * rtb_Height_m) - q;
-
-  // Sum: '<S68>/Sum3'
-  a0 = rtb_HeadingAngle_n - codegenReal2Mission_B.InverseY;
-
-  // MATLAB Function: '<S73>/fal(e,0.5,h)' incorporates:
-  //   Constant: '<S73>/Constant2'
-  //   Constant: '<S73>/Constant3'
-
-  codegenReal2Mission_fale025h(a0, 0.5, 0.1, &rtb_HeadingAngle_n);
-
-  // Sum: '<S73>/ESOdotdotsum' incorporates:
-  //   Gain: '<S73>/Gain1'
-
-  codegenReal2Mission_B.ESOdotdotsum = (codegenReal2Mission_B.ESOpNLSEF + q) -
-    1.5811388300841895 * rtb_HeadingAngle_n;
-
-  // Sum: '<S73>/ESOdotsum'
-  codegenReal2Mission_B.ESOdotsum = rtb_Step - a0;
-
-  // MATLAB Function: '<S73>/fal(e,0.25,h)' incorporates:
-  //   Constant: '<S73>/Constant'
-  //   Constant: '<S73>/Constant1'
-
-  codegenReal2Mission_fale025h(a0, 0.25, 0.1, &q);
-
-  // Gain: '<S73>/Inverse' incorporates:
-  //   Gain: '<S73>/Gain'
-
-  codegenReal2Mission_B.Inverse = -(1.2679145539688905 * q);
-
-  // Sum: '<S68>/LagDistanceSum'
-  codegenReal2Mission_B.LagDistanceSum = rtb_TD_AirSpdADRC -
-    codegenReal2Mission_B.InverseY;
-
-  // MATLAB Function: '<S75>/fhan_AirSpdADRC' incorporates:
-  //   SignalConversion generated from: '<S79>/ SFunction '
-  //   Sum: '<S75>/Sum1'
-
-  a0 = codegenReal2Mission_B.dotTD * 0.1;
-  rtb_Switch_k = (rtb_TD_AirSpdADRC - codegenReal2Mission_B.InverseR) + a0;
-  if (rtb_Switch_k < 0.0) {
-    rtb_Switch_c = -1.0;
-  } else if (rtb_Switch_k > 0.0) {
-    rtb_Switch_c = 1.0;
-  } else if (rtb_Switch_k == 0.0) {
-    rtb_Switch_c = 0.0;
-  } else {
-    rtb_Switch_c = (rtNaN);
-  }
-
-  rtb_Height_m = (std::sqrt((8.0 * std::abs(rtb_Switch_k) + 0.005000000000000001)
-    * 0.005000000000000001) - 0.005000000000000001) * rtb_Switch_c / 2.0 + a0;
-  if (rtb_Switch_k + 0.005000000000000001 < 0.0) {
-    rtb_Switch_c = -1.0;
-  } else if (rtb_Switch_k + 0.005000000000000001 > 0.0) {
-    rtb_Switch_c = 1.0;
-  } else if (rtb_Switch_k + 0.005000000000000001 == 0.0) {
-    rtb_Switch_c = 0.0;
-  } else {
-    rtb_Switch_c = (rtNaN);
-  }
-
-  if (rtb_Switch_k - 0.005000000000000001 < 0.0) {
-    rtb_North_l = -1.0;
-  } else if (rtb_Switch_k - 0.005000000000000001 > 0.0) {
-    rtb_North_l = 1.0;
-  } else if (rtb_Switch_k - 0.005000000000000001 == 0.0) {
-    rtb_North_l = 0.0;
-  } else {
-    rtb_North_l = (rtNaN);
-  }
-
-  a0 = ((a0 + rtb_Switch_k) - rtb_Height_m) * ((rtb_Switch_c - rtb_North_l) /
-    2.0) + rtb_Height_m;
-  if (a0 < 0.0) {
-    rtb_HeadingAngle_n = -1.0;
-  } else if (a0 > 0.0) {
-    rtb_HeadingAngle_n = 1.0;
-  } else if (a0 == 0.0) {
-    rtb_HeadingAngle_n = 0.0;
-  } else {
-    rtb_HeadingAngle_n = (rtNaN);
-  }
-
-  if (a0 + 0.005000000000000001 < 0.0) {
-    rtb_Switch_k = -1.0;
-  } else if (a0 + 0.005000000000000001 > 0.0) {
-    rtb_Switch_k = 1.0;
-  } else if (a0 + 0.005000000000000001 == 0.0) {
-    rtb_Switch_k = 0.0;
-  } else {
-    rtb_Switch_k = (rtNaN);
-  }
-
-  if (a0 - 0.005000000000000001 < 0.0) {
-    rtb_Switch_c = -1.0;
-  } else if (a0 - 0.005000000000000001 > 0.0) {
-    rtb_Switch_c = 1.0;
-  } else if (a0 - 0.005000000000000001 == 0.0) {
-    rtb_Switch_c = 0.0;
-  } else {
-    rtb_Switch_c = (rtNaN);
-  }
-
-  codegenReal2Mission_B.fh = (a0 / 0.005000000000000001 - rtb_HeadingAngle_n) *
-    -0.5 * ((rtb_Switch_k - rtb_Switch_c) / 2.0) - 0.5 * rtb_HeadingAngle_n;
-
-  // End of MATLAB Function: '<S75>/fhan_AirSpdADRC'
-  // End of Outputs for SubSystem: '<S7>/ADRC'
+  // End of MATLAB Function: '<S76>/fhan_AirSpdADRC'
   if (rtmIsMajorTimeStep((&codegenReal2Mission_M))) {
+    // ZeroOrderHold: '<S69>/ZOH_ADRC_LagDis' incorporates:
+    //   Sum: '<S69>/LagDistanceSum'
+
+    rtb_ZOH_ADRC_LagDis = rtb_HeadingAngle_n - codegenReal2Mission_B.InverseY;
+
+    // ZeroOrderHold: '<S69>/ZOH_ADRC_U'
+    rtb_ZOH_ADRC_U = Gain;
+
+    // Sum: '<S71>/Sum' incorporates:
+    //   Concatenate: '<S4>/Matrix Concatenate'
+    //   Selector: '<S7>/WayPoint1d3'
+    //   Sum: '<S73>/Sum'
+
+    rtb_Sum_p = rtb_MatrixConcatenate[48] - rtb_Sum_dj[0];
+
+    // DotProduct: '<S71>/Dot Product'
+    rtb_Height_m = rtb_Sum_p * rtb_Sum_p;
+
+    // Sum: '<S73>/Sum' incorporates:
+    //   Concatenate: '<S4>/Matrix Concatenate'
+    //   Selector: '<S7>/WayPoint1d3'
+    //   Selector: '<S7>/WayPoint3d3'
+    //   Sum: '<S71>/Sum'
+
+    rtb_HeadingAngle_n = rtb_MatrixConcatenate[0] - rtb_Sum_dj[0];
+
+    // DotProduct: '<S73>/Dot Product'
+    rtb_SpeedProtection = rtb_HeadingAngle_n * rtb_HeadingAngle_n;
+
+    // Sum: '<S71>/Sum' incorporates:
+    //   Concatenate: '<S4>/Matrix Concatenate'
+    //   Selector: '<S7>/WayPoint1d3'
+    //   Sum: '<S73>/Sum'
+
+    rtb_Sum_p = rtb_MatrixConcatenate[121] - rtb_Sum_dj[1];
+
+    // DotProduct: '<S71>/Dot Product'
+    rtb_Height_m += rtb_Sum_p * rtb_Sum_p;
+
+    // Sum: '<S73>/Sum' incorporates:
+    //   Concatenate: '<S4>/Matrix Concatenate'
+    //   Selector: '<S7>/WayPoint1d3'
+    //   Selector: '<S7>/WayPoint3d3'
+    //   Sum: '<S71>/Sum'
+
+    rtb_HeadingAngle_n = rtb_MatrixConcatenate[73] - rtb_Sum_dj[1];
+
+    // DotProduct: '<S73>/Dot Product'
+    rtb_SpeedProtection += rtb_HeadingAngle_n * rtb_HeadingAngle_n;
+
+    // Sum: '<S71>/Sum' incorporates:
+    //   Concatenate: '<S4>/Matrix Concatenate'
+    //   Selector: '<S7>/WayPoint1d3'
+    //   Sum: '<S73>/Sum'
+
+    rtb_Sum_p = rtb_MatrixConcatenate[194] - rtb_Sum_dj[2];
+
+    // Sum: '<S73>/Sum' incorporates:
+    //   Concatenate: '<S4>/Matrix Concatenate'
+    //   Selector: '<S7>/WayPoint1d3'
+    //   Selector: '<S7>/WayPoint3d3'
+    //   Sum: '<S71>/Sum'
+
+    rtb_HeadingAngle_n = rtb_MatrixConcatenate[146] - rtb_Sum_dj[2];
+
+    // Sqrt: '<S71>/sqrt' incorporates:
+    //   DotProduct: '<S71>/Dot Product'
+
+    rtb_Sum_p = std::sqrt(rtb_Sum_p * rtb_Sum_p + rtb_Height_m);
+
+    // Sum: '<S7>/ActRngmMinRng'
+    rtb_Abs1_n -= rtb_Sum_p;
+
+    // Sum: '<S7>/ComputeLB'
+    rtb_LowerBound = rtb_Sum_p - rtb_RollAngle_p;
+
+    // Sum: '<S7>/ComputeUB' incorporates:
+    //   DotProduct: '<S73>/Dot Product'
+    //   Sqrt: '<S73>/sqrt'
+
+    rtb_UpperBound = std::sqrt(rtb_HeadingAngle_n * rtb_HeadingAngle_n +
+      rtb_SpeedProtection) - rtb_RollAngle_p;
+
+    // Sum: '<S7>/RefRngmMinRng'
+    rtb_Sum_p = rtb_RollAngle_p - rtb_Sum_p;
+
+    // Saturate: '<S7>/Saturation'
+    if (rtb_Abs1_n <= 46.666666666666664) {
+      rtb_MemoryLookAheadP = 46.666666666666664;
+    } else {
+      rtb_MemoryLookAheadP = rtb_Abs1_n;
+    }
+
+    // End of Saturate: '<S7>/Saturation'
+
+    // SignalConversion generated from: '<S7>/SimStateBus'
+    rtb_AirSpeed = codegenReal2Mission_B.SimUAVStateZOH.AirSpeed;
+
     // Sum: '<S7>/SumSpd' incorporates:
     //   SignalConversion generated from: '<S7>/SimStateBus'
 
-    a0 = codegenReal2Mission_B.ESOpNLSEF +
-      codegenReal2Mission_B.SimUAVStateZOH.AirSpeed;
+    rtb_Abs1_n = rtb_ZOH_ADRC_U + codegenReal2Mission_B.SimUAVStateZOH.AirSpeed;
 
     // Saturate: '<S7>/SpeedProtection'
-    if (a0 > 41.0) {
-      // ZeroOrderHold: '<S7>/AirspeedZOH'
-      a0 = 41.0;
-    } else if (a0 < 29.0) {
-      // ZeroOrderHold: '<S7>/AirspeedZOH'
-      a0 = 29.0;
+    if (rtb_Abs1_n > 41.0) {
+      rtb_SpeedProtection = 41.0;
+    } else if (rtb_Abs1_n < 29.0) {
+      rtb_SpeedProtection = 29.0;
+    } else {
+      rtb_SpeedProtection = rtb_Abs1_n;
     }
 
     // End of Saturate: '<S7>/SpeedProtection'
 
-    // Sum: '<S70>/Sum' incorporates:
-    //   Concatenate: '<S4>/Matrix Concatenate'
-    //   Gain: '<Root>/NED2NEU'
-    //   Selector: '<S7>/WayPoint1d3'
+    // Sum: '<S7>/biasHm70' incorporates:
+    //   Math: '<S7>/Square'
+    //   Product: '<S7>/Divide'
 
-    rtb_Switch_k = rtb_MatrixConcatenate[40] - rtb_NorthEastHeight[0];
-
-    // DotProduct: '<S70>/Dot Product'
-    rtb_HeadingAngle_n = rtb_Switch_k * rtb_Switch_k;
-
-    // Sum: '<S72>/Sum' incorporates:
-    //   Concatenate: '<S4>/Matrix Concatenate'
-    //   Gain: '<Root>/NED2NEU'
-    //   Selector: '<S7>/WayPoint1d3'
-    //   Selector: '<S7>/WayPoint3d3'
-    //   Sum: '<S70>/Sum'
-
-    rtb_TargetHdg_Log = rtb_MatrixConcatenate[0] - rtb_NorthEastHeight[0];
-
-    // DotProduct: '<S72>/Dot Product'
-    q = rtb_TargetHdg_Log * rtb_TargetHdg_Log;
-
-    // Sum: '<S70>/Sum' incorporates:
-    //   Concatenate: '<S4>/Matrix Concatenate'
-    //   Gain: '<Root>/NED2NEU'
-    //   Selector: '<S7>/WayPoint1d3'
-
-    rtb_Switch_k = rtb_MatrixConcatenate[101] - rtb_NorthEastHeight[1];
-
-    // DotProduct: '<S70>/Dot Product'
-    rtb_HeadingAngle_n += rtb_Switch_k * rtb_Switch_k;
-
-    // Sum: '<S72>/Sum' incorporates:
-    //   Concatenate: '<S4>/Matrix Concatenate'
-    //   Gain: '<Root>/NED2NEU'
-    //   Selector: '<S7>/WayPoint1d3'
-    //   Selector: '<S7>/WayPoint3d3'
-    //   Sum: '<S70>/Sum'
-
-    rtb_TargetHdg_Log = rtb_MatrixConcatenate[61] - rtb_NorthEastHeight[1];
-
-    // DotProduct: '<S72>/Dot Product'
-    q += rtb_TargetHdg_Log * rtb_TargetHdg_Log;
-
-    // Sum: '<S70>/Sum' incorporates:
-    //   Concatenate: '<S4>/Matrix Concatenate'
-    //   Gain: '<Root>/NED2NEU'
-    //   Selector: '<S7>/WayPoint1d3'
-
-    rtb_Switch_k = rtb_MatrixConcatenate[162] - rtb_NorthEastHeight[2];
-
-    // Sum: '<S72>/Sum' incorporates:
-    //   Concatenate: '<S4>/Matrix Concatenate'
-    //   Gain: '<Root>/NED2NEU'
-    //   Selector: '<S7>/WayPoint1d3'
-    //   Selector: '<S7>/WayPoint3d3'
-    //   Sum: '<S70>/Sum'
-
-    rtb_TargetHdg_Log = rtb_MatrixConcatenate[122] - rtb_NorthEastHeight[2];
-
-    // DotProduct: '<S70>/Dot Product'
-    rtb_Step = rtb_Switch_k * rtb_Switch_k + rtb_HeadingAngle_n;
-
-    // Sqrt: '<S70>/sqrt'
-    rtb_Step = std::sqrt(rtb_Step);
-
-    // Sum: '<S7>/ActRngmMinRng'
-    rtb_Switch -= rtb_Step;
-
-    // Sum: '<S7>/ComputeLB'
-    rtb_Switch_c = rtb_Step - rtb_RollAngle_p;
-
-    // DotProduct: '<S72>/Dot Product'
-    rtb_HeadingAngle_n = rtb_TargetHdg_Log * rtb_TargetHdg_Log + q;
-
-    // Sum: '<S7>/RefRngmMinRng'
-    rtb_Step = rtb_RollAngle_p - rtb_Step;
+    rtb_MemoryLookAheadP = rtb_Sum_p * rtb_Sum_p / rtb_MemoryLookAheadP -
+      rtb_Sum_p;
 
     // Outport: '<Root>/RefAirspeed'
-    codegenReal2Mission_Y.RefAirspeed = a0;
+    codegenReal2Mission_Y.RefAirspeed = rtb_SpeedProtection;
 
-    // Gain: '<Root>/Height2Down' incorporates:
+    // SignalConversion generated from: '<Root>/TrackSimPath' incorporates:
     //   BusCreator: '<S5>/FixedWingGuidanceStateBus'
+    //   Memory: '<Root>/MemoryRefHeight'
 
-    rtb_Switch_k = -rtb_Height;
-
-    // Gain: '<Root>/LookaheadT' incorporates:
-    //   SignalConversion generated from: '<S7>/SimStateBus'
-
-    q = 3.0 * codegenReal2Mission_B.SimUAVStateZOH.AirSpeed;
+    rtb_FixedWingGuidanceStateBus_N[2] =
+      codegenReal2Mission_DW.MemoryRefHeight_PreviousInput;
+    rtb_FixedWingGuidanceStateBus_N[0] = rtb_East_m;
+    rtb_FixedWingGuidanceStateBus_N[1] = rtb_Switch_c;
+    rtb_FixedWingGuidanceStateBus_N[3] = rtb_HeadingAngle;
 
     // MATLABSystem: '<Root>/TrackSimPath' incorporates:
     //   Concatenate: '<S4>/Matrix Concatenate'
-
-    codegenReal2Mission_DW.obj.LookaheadDistFlag = 0U;
-    if (q < 10.0) {
-      q = 10.0;
-      codegenReal2Mission_DW.obj.LookaheadDistFlag = 1U;
-    }
-
-    codegenReal2Mission_DW.obj.InitialPose[0] = 0.0;
-    codegenReal2Mission_DW.obj.InitialPose[1] = 0.0;
-    codegenReal2Mission_DW.obj.InitialPose[2] = 0.0;
-    codegenReal2Mission_DW.obj.InitialPose[3] = 0.0;
-    rEQ0 = false;
-    rtb_Compare_ly = true;
-    i = 0;
-    exitg1 = false;
-    while ((!exitg1) && (i < 183)) {
-      if ((codegenReal2Mission_DW.obj.WaypointsInternal[i] ==
-           rtb_MatrixConcatenate[i]) || (rtIsNaN
-           (codegenReal2Mission_DW.obj.WaypointsInternal[i]) && rtIsNaN
-           (rtb_MatrixConcatenate[i]))) {
-        i++;
-      } else {
-        rtb_Compare_ly = false;
-        exitg1 = true;
-      }
-    }
-
-    if (rtb_Compare_ly) {
-      rEQ0 = true;
-    }
-
-    if (!rEQ0) {
-      std::memcpy(&codegenReal2Mission_DW.obj.WaypointsInternal[0],
-                  &rtb_MatrixConcatenate[0], 183U * sizeof(real_T));
-      codegenReal2Mission_DW.obj.WaypointIndex = 1.0;
-      codegenReal2Mission_DW.obj.SearchFlag = true;
-    }
-
-    WaypointFollowerBase_getDistinc(rtb_MatrixConcatenate, b_waypointsIn_data,
-      b_waypointsIn_size);
-    codegenReal2Mission_DW.obj.NumWaypoints = b_waypointsIn_size[0];
-    codegenReal2Mission_DW.obj.LookaheadDistance = q;
-    codegenReal2Miss_emxInit_real_T(&d, 2);
-
-    // MATLABSystem: '<Root>/TrackSimPath' incorporates:
-    //   BusCreator: '<S5>/FixedWingGuidanceStateBus'
-    //   SignalConversion generated from: '<Root>/TrackSimPath'
-
-    if (b_waypointsIn_size[0] == 0) {
-      rtb_NorthEastHeight[0] = q * std::cos(rtb_HeadingAngle) + rtb_East_m;
-      rtb_NorthEastHeight[1] = q * std::sin(rtb_HeadingAngle) + rtb_Abs1_i;
-      rtb_NorthEastHeight[2] = q * 0.0 + rtb_Switch_k;
-      q = rtb_HeadingAngle;
-      rtb_TD_AirSpdADRC = 0.0;
-    } else {
-      guard1 = false;
-      if (b_waypointsIn_size[0] == 1) {
-        if (codegenReal2Mission_DW.obj.StartFlag) {
-          codegenReal2Mission_DW.obj.InitialPose[0] = rtb_East_m;
-          codegenReal2Mission_DW.obj.InitialPose[1] = rtb_Abs1_i;
-          codegenReal2Mission_DW.obj.InitialPose[2] = rtb_Switch_k;
-          codegenReal2Mission_DW.obj.InitialPose[3] = rtb_HeadingAngle;
-        }
-
-        b_waypointsIn[0] = b_waypointsIn_data[0] - rtb_East_m;
-        b_waypointsIn[1] = b_waypointsIn_data[1] - rtb_Abs1_i;
-        b_waypointsIn[2] = b_waypointsIn_data[2] - rtb_Switch_k;
-        if (codegenReal2Mission_norm_b(b_waypointsIn) < 1.4901161193847656E-8) {
-          rtb_NorthEastHeight[0] = q * std::cos(rtb_HeadingAngle) + rtb_East_m;
-          rtb_NorthEastHeight[1] = q * std::sin(rtb_HeadingAngle) + rtb_Abs1_i;
-          rtb_NorthEastHeight[2] = q * 0.0 + rtb_Switch_k;
-          q = rtb_HeadingAngle;
-          rtb_TD_AirSpdADRC = 0.0;
-          codegenReal2Mission_DW.obj.StartFlag = false;
-        } else {
-          codegenReal2Mission_DW.obj.StartFlag = false;
-          for (i = 0; i < 3; i++) {
-            appendedWaypoints_data[i << 1] =
-              codegenReal2Mission_DW.obj.InitialPose[i];
-            appendedWaypoints_data[1 + (i << 1)] =
-              b_waypointsIn_data[b_waypointsIn_size[0] * i];
-          }
-
-          codegenReal2Mission_DW.obj.NumWaypoints = 2.0;
-          waypoints_size_idx_0 = 2;
-          for (i = 0; i < 6; i++) {
-            rtb_MatrixConcatenate[i] = appendedWaypoints_data[i];
-          }
-
-          guard1 = true;
-        }
-      } else {
-        waypoints_size_idx_0 = b_waypointsIn_size[0];
-        loop_ub = b_waypointsIn_size[0] * 3;
-        if (0 <= loop_ub - 1) {
-          std::memcpy(&rtb_MatrixConcatenate[0], &b_waypointsIn_data[0], loop_ub
-                      * sizeof(real_T));
-        }
-
-        guard1 = true;
-      }
-
-      if (guard1) {
-        if (codegenReal2Mission_DW.obj.SearchFlag) {
-          i = d->size[0] * d->size[1];
-          d->size[0] = 1;
-          d->size[1] = static_cast<int32_T>
-            (codegenReal2Mission_DW.obj.NumWaypoints - 1.0);
-          codege_emxEnsureCapacity_real_T(d, i);
-          loop_ub = static_cast<int32_T>(codegenReal2Mission_DW.obj.NumWaypoints
-            - 1.0) - 1;
-          for (i = 0; i <= loop_ub; i++) {
-            d->data[i] = 0.0;
-          }
-
-          loop_ub = static_cast<int32_T>(codegenReal2Mission_DW.obj.NumWaypoints
-            - 1.0) - 1;
-          for (i = 0; i <= loop_ub; i++) {
-            q = rtb_MatrixConcatenate[static_cast<int32_T>((static_cast<real_T>
-              (i) + 1.0) + 1.0) - 1];
-            rtb_North_l = rtb_MatrixConcatenate[i];
-            rtb_Height_m = q - rtb_North_l;
-            rtb_TargetHdg_Log = rtb_East_m - rtb_North_l;
-            b_waypointsIn[0] = rtb_TargetHdg_Log;
-            rtb_TmpSignalConversionAtSFun_1[0] = rtb_East_m - q;
-            q = rtb_MatrixConcatenate[(static_cast<int32_T>((static_cast<real_T>
-              (i) + 1.0) + 1.0) + waypoints_size_idx_0) - 1];
-            turnVector_idx_0 = rtb_MatrixConcatenate[i + waypoints_size_idx_0];
-            rtb_RollAngleRate = q - turnVector_idx_0;
-            rtb_TD_AirSpdADRC = rtb_Abs1_i - turnVector_idx_0;
-            b_waypointsIn[1] = rtb_TD_AirSpdADRC;
-            rtb_TmpSignalConversionAtSFun_1[1] = rtb_Abs1_i - q;
-            rtb_RealHdg_Log = rtb_MatrixConcatenate[(static_cast<int32_T>((
-              static_cast<real_T>(i) + 1.0) + 1.0) + (waypoints_size_idx_0 << 1))
-              - 1];
-            q_tmp = rtb_MatrixConcatenate[i + (waypoints_size_idx_0 << 1)];
-            q = rtb_RealHdg_Log - q_tmp;
-            u0 = rtb_Switch_k - q_tmp;
-            b_waypointsIn[2] = u0;
-            rtb_TmpSignalConversionAtSFun_1[2] = rtb_Switch_k - rtb_RealHdg_Log;
-            rtb_TD_AirSpdADRC = (u0 * q + (rtb_TD_AirSpdADRC * rtb_RollAngleRate
-              + rtb_TargetHdg_Log * rtb_Height_m)) / (q * q + (rtb_RollAngleRate
-              * rtb_RollAngleRate + rtb_Height_m * rtb_Height_m));
-            rtb_TmpSignalConversionAtSFun_2[0] = rtb_East_m - (rtb_Height_m *
-              rtb_TD_AirSpdADRC + rtb_North_l);
-            rtb_TmpSignalConversionAtSFun_2[1] = rtb_Abs1_i - (rtb_RollAngleRate
-              * rtb_TD_AirSpdADRC + turnVector_idx_0);
-            rtb_TmpSignalConversionAtSFun_2[2] = rtb_Switch_k - (q *
-              rtb_TD_AirSpdADRC + q_tmp);
-            if (rtb_TD_AirSpdADRC < 0.0) {
-              d->data[i] = codegenReal2Mission_norm_b(b_waypointsIn);
-            } else if (rtb_TD_AirSpdADRC > 1.0) {
-              d->data[i] = codegenReal2Mission_norm_b
-                (rtb_TmpSignalConversionAtSFun_1);
-            } else {
-              d->data[i] = codegenReal2Mission_norm_b
-                (rtb_TmpSignalConversionAtSFun_2);
-            }
-          }
-
-          i = d->size[1];
-          if (d->size[1] <= 2) {
-            if (d->size[1] == 1) {
-              loop_ub = 1;
-            } else if ((d->data[0] > d->data[d->size[1] - 1]) || (rtIsNaN
-                        (d->data[0]) && (!rtIsNaN(d->data[d->size[1] - 1])))) {
-              loop_ub = d->size[1];
-            } else {
-              loop_ub = 1;
-            }
-          } else {
-            if (!rtIsNaN(d->data[0])) {
-              loop_ub = 1;
-            } else {
-              loop_ub = 0;
-              waypoints = 2;
-              exitg1 = false;
-              while ((!exitg1) && (waypoints <= i)) {
-                if (!rtIsNaN(d->data[waypoints - 1])) {
-                  loop_ub = waypoints;
-                  exitg1 = true;
-                } else {
-                  waypoints++;
-                }
-              }
-            }
-
-            if (loop_ub == 0) {
-              loop_ub = 1;
-            } else {
-              q = d->data[loop_ub - 1];
-              b_idx = loop_ub;
-              for (waypoints = loop_ub + 1; waypoints <= i; waypoints++) {
-                rtb_RollAngleRate = d->data[waypoints - 1];
-                if (q > rtb_RollAngleRate) {
-                  q = rtb_RollAngleRate;
-                  b_idx = waypoints;
-                }
-              }
-
-              loop_ub = b_idx;
-            }
-          }
-
-          codegenReal2Mission_DW.obj.WaypointIndex = loop_ub;
-          codegenReal2Mission_DW.obj.SearchFlag = false;
-        }
-
-        rEQ0 = false;
-        if (codegenReal2Mission_DW.obj.WaypointIndex ==
-            codegenReal2Mission_DW.obj.NumWaypoints) {
-          rEQ0 = true;
-        }
-
-        if (rEQ0) {
-          codegenReal2Mission_DW.obj.LastWaypointFlag = true;
-          codegenReal2Mission_DW.obj.WaypointIndex--;
-        }
-
-        b_waypointsIn[0] = rtb_East_m - rtb_MatrixConcatenate
-          [static_cast<int32_T>(codegenReal2Mission_DW.obj.WaypointIndex + 1.0)
-          - 1];
-        b_waypointsIn[1] = rtb_Abs1_i - rtb_MatrixConcatenate
-          [(static_cast<int32_T>(codegenReal2Mission_DW.obj.WaypointIndex + 1.0)
-            + waypoints_size_idx_0) - 1];
-        b_waypointsIn[2] = rtb_Switch_k - rtb_MatrixConcatenate
-          [(static_cast<int32_T>(codegenReal2Mission_DW.obj.WaypointIndex + 1.0)
-            + (waypoints_size_idx_0 << 1)) - 1];
-        guard2 = false;
-        if (codegenReal2Mission_norm_b(b_waypointsIn) <= 1.0) {
-          guard2 = true;
-        } else {
-          rtb_Height_m = rtb_MatrixConcatenate[static_cast<int32_T>
-            (codegenReal2Mission_DW.obj.WaypointIndex + 1.0) - 1];
-          rtb_NorthEastHeight[0] = rtb_East_m - rtb_Height_m;
-          b_waypointsIn[0] = rtb_Height_m - rtb_MatrixConcatenate
-            [static_cast<int32_T>(codegenReal2Mission_DW.obj.WaypointIndex) - 1];
-          rtb_Height_m = rtb_MatrixConcatenate[(static_cast<int32_T>
-            (codegenReal2Mission_DW.obj.WaypointIndex + 1.0) +
-            waypoints_size_idx_0) - 1];
-          rtb_NorthEastHeight[1] = rtb_Abs1_i - rtb_Height_m;
-          b_waypointsIn[1] = rtb_Height_m - rtb_MatrixConcatenate
-            [(static_cast<int32_T>(codegenReal2Mission_DW.obj.WaypointIndex) +
-              waypoints_size_idx_0) - 1];
-          rtb_TargetHdg_Log = rtb_MatrixConcatenate[(static_cast<int32_T>
-            (codegenReal2Mission_DW.obj.WaypointIndex + 1.0) +
-            (waypoints_size_idx_0 << 1)) - 1];
-          rtb_NorthEastHeight[2] = rtb_Switch_k - rtb_TargetHdg_Log;
-          q = rtb_MatrixConcatenate[(static_cast<int32_T>
-            (codegenReal2Mission_DW.obj.WaypointIndex) + (waypoints_size_idx_0 <<
-            1)) - 1];
-          b_waypointsIn[2] = rtb_TargetHdg_Log - q;
-          rtb_RollAngleRate = codegenReal2Mission_norm_b(b_waypointsIn);
-          rtb_RealHdg_Log = codegenReal2Mission_norm_b(rtb_NorthEastHeight);
-          turnVector_idx_0 = rtb_MatrixConcatenate[static_cast<int32_T>
-            (codegenReal2Mission_DW.obj.WaypointIndex) - 1];
-          rtb_TD_AirSpdADRC = rtb_MatrixConcatenate[static_cast<int32_T>
-            (codegenReal2Mission_DW.obj.WaypointIndex + 1.0) - 1];
-          rtb_North_l = rtb_MatrixConcatenate[(static_cast<int32_T>
-            (codegenReal2Mission_DW.obj.WaypointIndex) + waypoints_size_idx_0) -
-            1];
-          rtb_Height_m = rtb_MatrixConcatenate[(static_cast<int32_T>
-            (codegenReal2Mission_DW.obj.WaypointIndex + 1.0) +
-            waypoints_size_idx_0) - 1];
-          rtb_RollAngleRate = ((rtb_TD_AirSpdADRC - turnVector_idx_0) /
-                               rtb_RollAngleRate * (rtb_NorthEastHeight[0] /
-            rtb_RealHdg_Log) + (rtb_Height_m - rtb_North_l) / rtb_RollAngleRate *
-                               (rtb_NorthEastHeight[1] / rtb_RealHdg_Log)) +
-            (rtb_TargetHdg_Log - q) / rtb_RollAngleRate * (rtb_NorthEastHeight[2]
-            / rtb_RealHdg_Log);
-          if (rtb_RollAngleRate < 0.0) {
-            rtb_RollAngleRate = -1.0;
-          } else if (rtb_RollAngleRate > 0.0) {
-            rtb_RollAngleRate = 1.0;
-          } else if (rtb_RollAngleRate == 0.0) {
-            rtb_RollAngleRate = 0.0;
-          } else {
-            rtb_RollAngleRate = (rtNaN);
-          }
-
-          if (rtb_RollAngleRate >= 0.0) {
-            guard2 = true;
-          } else {
-            rtb_NorthEastHeight[0] = rtb_TD_AirSpdADRC;
-            rtb_NorthEastHeight[1] = rtb_Height_m;
-            rtb_NorthEastHeight[2] = rtb_TargetHdg_Log;
-          }
-        }
-
-        if (guard2) {
-          codegenReal2Mission_DW.obj.WaypointIndex++;
-          rEQ0 = false;
-          if (codegenReal2Mission_DW.obj.WaypointIndex ==
-              codegenReal2Mission_DW.obj.NumWaypoints) {
-            rEQ0 = true;
-          }
-
-          if (rEQ0) {
-            codegenReal2Mission_DW.obj.LastWaypointFlag = true;
-            codegenReal2Mission_DW.obj.WaypointIndex--;
-          }
-
-          turnVector_idx_0 = rtb_MatrixConcatenate[static_cast<int32_T>
-            (codegenReal2Mission_DW.obj.WaypointIndex) - 1];
-          rtb_NorthEastHeight[0] = rtb_MatrixConcatenate[static_cast<int32_T>
-            (codegenReal2Mission_DW.obj.WaypointIndex + 1.0) - 1];
-          rtb_North_l = rtb_MatrixConcatenate[(static_cast<int32_T>
-            (codegenReal2Mission_DW.obj.WaypointIndex) + waypoints_size_idx_0) -
-            1];
-          rtb_NorthEastHeight[1] = rtb_MatrixConcatenate[(static_cast<int32_T>
-            (codegenReal2Mission_DW.obj.WaypointIndex + 1.0) +
-            waypoints_size_idx_0) - 1];
-          q = rtb_MatrixConcatenate[(static_cast<int32_T>
-            (codegenReal2Mission_DW.obj.WaypointIndex) + (waypoints_size_idx_0 <<
-            1)) - 1];
-          rtb_NorthEastHeight[2] = rtb_MatrixConcatenate[(static_cast<int32_T>
-            (codegenReal2Mission_DW.obj.WaypointIndex + 1.0) +
-            (waypoints_size_idx_0 << 1)) - 1];
-        }
-
-        rtb_Height_m = rtb_NorthEastHeight[0] - turnVector_idx_0;
-        rtb_TargetHdg_Log = rtb_East_m - turnVector_idx_0;
-        b_waypointsIn[0] = rtb_TargetHdg_Log;
-        rtb_TmpSignalConversionAtSFun_1[0] = rtb_East_m - rtb_NorthEastHeight[0];
-        rtb_RollAngleRate = rtb_NorthEastHeight[1] - rtb_North_l;
-        q_tmp = rtb_Abs1_i - rtb_North_l;
-        rtb_TD_AirSpdADRC = q_tmp;
-        b_waypointsIn[1] = rtb_TD_AirSpdADRC;
-        rtb_TmpSignalConversionAtSFun_1[1] = rtb_Abs1_i - rtb_NorthEastHeight[1];
-        rtb_RealHdg_Log = rtb_NorthEastHeight[2] - q;
-        u0 = rtb_Switch_k - q;
-        b_waypointsIn[2] = u0;
-        rtb_TmpSignalConversionAtSFun_1[2] = rtb_Switch_k - rtb_NorthEastHeight
-          [2];
-        rtb_TD_AirSpdADRC = (u0 * rtb_RealHdg_Log + (rtb_TD_AirSpdADRC *
-          rtb_RollAngleRate + rtb_TargetHdg_Log * rtb_Height_m)) /
-          (rtb_RealHdg_Log * rtb_RealHdg_Log + (rtb_RollAngleRate *
-            rtb_RollAngleRate + rtb_Height_m * rtb_Height_m));
-        rtb_TmpSignalConversionAtSFun_2[0] = rtb_East_m - (rtb_Height_m *
-          rtb_TD_AirSpdADRC + turnVector_idx_0);
-        rtb_TmpSignalConversionAtSFun_2[1] = rtb_Abs1_i - (rtb_RollAngleRate *
-          rtb_TD_AirSpdADRC + rtb_North_l);
-        rtb_TmpSignalConversionAtSFun_2[2] = rtb_Switch_k - (rtb_RealHdg_Log *
-          rtb_TD_AirSpdADRC + q);
-        if (rtb_TD_AirSpdADRC < 0.0) {
-          rtb_TD_AirSpdADRC = codegenReal2Mission_norm_b(b_waypointsIn);
-        } else if (rtb_TD_AirSpdADRC > 1.0) {
-          rtb_TD_AirSpdADRC = codegenReal2Mission_norm_b
-            (rtb_TmpSignalConversionAtSFun_1);
-        } else {
-          rtb_TD_AirSpdADRC = codegenReal2Mission_norm_b
-            (rtb_TmpSignalConversionAtSFun_2);
-        }
-
-        if (codegenReal2Mission_DW.obj.LastWaypointFlag) {
-          rtb_TD_AirSpdADRC = (((rtb_East_m - turnVector_idx_0) *
-                                (rtb_NorthEastHeight[0] - turnVector_idx_0) +
-                                q_tmp * rtb_RollAngleRate) + (rtb_Switch_k - q) *
-                               (rtb_NorthEastHeight[2] - q)) /
-            (((rtb_NorthEastHeight[0] - turnVector_idx_0) *
-              (rtb_NorthEastHeight[0] - turnVector_idx_0) + rtb_RollAngleRate *
-              rtb_RollAngleRate) + (rtb_NorthEastHeight[2] - q) *
-             (rtb_NorthEastHeight[2] - q));
-          b_waypointsIn[0] = rtb_East_m - (rtb_TD_AirSpdADRC * rtb_Height_m +
-            turnVector_idx_0);
-          b_waypointsIn[1] = rtb_Abs1_i - (rtb_TD_AirSpdADRC * rtb_RollAngleRate
-            + rtb_North_l);
-          b_waypointsIn[2] = rtb_Switch_k - (rtb_TD_AirSpdADRC * rtb_RealHdg_Log
-            + q);
-          rtb_TD_AirSpdADRC = codegenReal2Mission_norm_b(b_waypointsIn);
-        }
-
-        q_tmp = std::abs(rtb_TD_AirSpdADRC);
-        if ((!rtIsInf(q_tmp)) && (!rtIsNaN(q_tmp))) {
-          if (q_tmp <= 2.2250738585072014E-308) {
-            u0 = 4.94065645841247E-324;
-            rtb_TargetHdg_Log = 4.94065645841247E-324;
-          } else {
-            frexp(q_tmp, &b_exponent);
-            u0 = std::ldexp(1.0, b_exponent - 53);
-            frexp(q_tmp, &b_exponent_0);
-            rtb_TargetHdg_Log = std::ldexp(1.0, b_exponent_0 - 53);
-          }
-        } else {
-          u0 = (rtNaN);
-          rtb_TargetHdg_Log = (rtNaN);
-        }
-
-        u0 = std::sqrt(u0);
-        rtb_TargetHdg_Log *= 5.0;
-        if ((u0 > rtb_TargetHdg_Log) || rtIsNaN(rtb_TargetHdg_Log)) {
-          rtb_TargetHdg_Log = u0;
-        }
-
-        if (codegenReal2Mission_DW.obj.LookaheadDistance <= rtb_TD_AirSpdADRC +
-            rtb_TargetHdg_Log) {
-          codegenReal2Mission_DW.obj.LookaheadDistance =
-            codegenReal2Mission_DW.obj.LookaheadFactor * rtb_TD_AirSpdADRC;
-        }
-
-        u0 = turnVector_idx_0 - rtb_East_m;
-        rtb_Sum_nx[0] = u0;
-        q_tmp = rtb_North_l - rtb_Abs1_i;
-        rtb_Sum_nx[1] = q_tmp;
-        rtb_TargetHdg_Log = ((rtb_NorthEastHeight[0] - turnVector_idx_0) *
-                             (rtb_NorthEastHeight[0] - turnVector_idx_0) +
-                             (rtb_NorthEastHeight[1] - rtb_North_l) *
-                             (rtb_NorthEastHeight[1] - rtb_North_l)) +
-          (rtb_NorthEastHeight[2] - q) * (rtb_NorthEastHeight[2] - q);
-        rtb_Switch_k = q - rtb_Switch_k;
-        rtb_Sum_nx[2] = rtb_Switch_k;
-        rtb_Height_m = ((rtb_Height_m * rtb_Sum_nx[0] + rtb_RollAngleRate *
-                         rtb_Sum_nx[1]) + rtb_RealHdg_Log * rtb_Sum_nx[2]) * 2.0;
-        rtb_Switch_k = std::sqrt(rtb_Height_m * rtb_Height_m - (((u0 *
-          rtb_Sum_nx[0] + q_tmp * rtb_Sum_nx[1]) + rtb_Switch_k * rtb_Sum_nx[2])
-          - codegenReal2Mission_DW.obj.LookaheadDistance *
-          codegenReal2Mission_DW.obj.LookaheadDistance) * (4.0 *
-          rtb_TargetHdg_Log));
-        u0 = (-rtb_Height_m + rtb_Switch_k) / 2.0 / rtb_TargetHdg_Log;
-        rtb_Switch_k = (-rtb_Height_m - rtb_Switch_k) / 2.0 / rtb_TargetHdg_Log;
-        if ((u0 > rtb_Switch_k) || rtIsNaN(rtb_Switch_k)) {
-          rtb_Switch_k = u0;
-        }
-
-        rtb_Height_m = (1.0 - rtb_Switch_k) * turnVector_idx_0 + rtb_Switch_k *
-          rtb_NorthEastHeight[0];
-        rtb_NorthEastHeight[0] = rtb_Height_m;
-        rtb_North_l = (1.0 - rtb_Switch_k) * rtb_North_l + rtb_Switch_k *
-          rtb_NorthEastHeight[1];
-        rtb_NorthEastHeight[1] = rtb_North_l;
-        rtb_NorthEastHeight[2] = (1.0 - rtb_Switch_k) * q + rtb_Switch_k *
-          rtb_NorthEastHeight[2];
-        q = rt_atan2d_snf(rtb_North_l - rtb_Abs1_i, rtb_Height_m - rtb_East_m);
-        codegenReal2Mission_DW.obj.LastWaypointFlag = false;
-      }
-    }
-
-    codegenReal2Miss_emxFree_real_T(&d);
-
-    // Truth Table: '<Root>/Engagement' incorporates:
+    //   Gain: '<Root>/LookaheadT'
     //   SignalConversion generated from: '<S7>/SimStateBus'
-    //   Sqrt: '<S72>/sqrt'
-    //   Sum: '<S7>/ComputeUB'
 
+    WaypointFollowerBase_stepIntern(&codegenReal2Mission_DW.obj,
+      rtb_FixedWingGuidanceStateBus_N, rtb_MatrixConcatenate, 3.6 *
+      codegenReal2Mission_B.SimUAVStateZOH.AirSpeed,
+      codegenReal2Mission_B.NorthEastHeight, &rtb_TargetHDG_Rad,
+      &rtb_RollAngle_p, &lookaheadFlag, &rtb_TrackSimPath_o5, &status);
+
+    // Gain: '<Root>/NED2NEU' incorporates:
+    //   MATLABSystem: '<Root>/TrackSimPath'
+
+    codegenReal2Mission_B.NorthEastHeight[2] =
+      -codegenReal2Mission_B.NorthEastHeight[2];
+  }
+
+  // End of Outputs for SubSystem: '<S7>/ADRC'
+  // End of Outputs for SubSystem: '<Root>/SpeedControl'
+
+  // Integrator: '<S9>/TD_Alt'
+  codegenReal2Mission_B.TD_Alt = codegenReal2Mission_X.TD_Alt_CSTATE;
+
+  // Sum: '<Root>/Sum' incorporates:
+  //   Gain: '<Root>/NED2NEU'
+
+  codegenReal2Mission_B.Sum[0] = codegenReal2Mission_B.NorthEastHeight[0];
+  codegenReal2Mission_B.Sum[1] = codegenReal2Mission_B.NorthEastHeight[1];
+  codegenReal2Mission_B.Sum[2] = codegenReal2Mission_B.NorthEastHeight[2] +
+    codegenReal2Mission_B.TD_Alt;
+  if (rtmIsMajorTimeStep((&codegenReal2Mission_M))) {
+    // Outputs for Atomic SubSystem: '<Root>/NorthEast2LatLon'
+    // Product: '<S49>/x*cos'
+    rtb_Abs1_n = codegenReal2Mission_B.Sum[0] *
+      codegenReal2Mission_ConstB.SinCos_o2;
+
+    // Product: '<S49>/y*sin'
+    rtb_RollAngle_p = codegenReal2Mission_B.Sum[1] *
+      codegenReal2Mission_ConstB.SinCos_o1;
+
+    // Sum: '<S49>/Sum'
+    rtb_Height_m = rtb_Abs1_n - rtb_RollAngle_p;
+
+    // Abs: '<S60>/Abs' incorporates:
+    //   DataStoreRead: '<S6>/LatitudeGCS'
+
+    rtb_Abs1_n = std::abs(codegenReal2Mission_DW.LatitudeGCS);
+
+    // Switch: '<S60>/Switch' incorporates:
+    //   Bias: '<S60>/Bias'
+    //   Bias: '<S60>/Bias1'
+    //   Constant: '<S60>/Constant2'
+    //   Constant: '<S61>/Constant'
+    //   DataStoreRead: '<S6>/LatitudeGCS'
+    //   Math: '<S60>/Math Function1'
+    //   RelationalOperator: '<S61>/Compare'
+
+    if (rtb_Abs1_n > 180.0) {
+      rtb_Abs1_n = rt_modd_snf(codegenReal2Mission_DW.LatitudeGCS + 180.0, 360.0)
+        + -180.0;
+    } else {
+      rtb_Abs1_n = codegenReal2Mission_DW.LatitudeGCS;
+    }
+
+    // End of Switch: '<S60>/Switch'
+
+    // Abs: '<S57>/Abs1'
+    rtb_RollAngle_p = std::abs(rtb_Abs1_n);
+
+    // RelationalOperator: '<S59>/Compare' incorporates:
+    //   Constant: '<S59>/Constant'
+
+    rEQ0 = (rtb_RollAngle_p > 90.0);
+
+    // Switch: '<S57>/Switch' incorporates:
+    //   Bias: '<S57>/Bias'
+    //   Bias: '<S57>/Bias1'
+    //   Gain: '<S57>/Gain'
+    //   Product: '<S57>/Divide1'
+
+    if (rEQ0) {
+      // Signum: '<S57>/Sign1'
+      if (rtb_Abs1_n < 0.0) {
+        rtb_Abs1_n = -1.0;
+      } else if (rtb_Abs1_n > 0.0) {
+        rtb_Abs1_n = 1.0;
+      } else if (rtb_Abs1_n == 0.0) {
+        rtb_Abs1_n = 0.0;
+      } else {
+        rtb_Abs1_n = (rtNaN);
+      }
+
+      // End of Signum: '<S57>/Sign1'
+      rtb_Abs1_n *= -(rtb_RollAngle_p + -90.0) + 90.0;
+    }
+
+    // End of Switch: '<S57>/Switch'
+
+    // UnitConversion: '<S65>/Unit Conversion'
+    // Unit Conversion - from: deg to: rad
+    // Expression: output = (0.0174533*input) + (0)
+    rtb_RollAngle_p = 0.017453292519943295 * rtb_Abs1_n;
+
+    // Trigonometry: '<S66>/Trigonometric Function1'
+    rtb_Sum_p = std::sin(rtb_RollAngle_p);
+
+    // Sum: '<S66>/Sum1' incorporates:
+    //   Constant: '<S66>/Constant'
+    //   Product: '<S66>/Product1'
+
+    rtb_Sum_p = 1.0 - codegenReal2Mission_ConstB.sqrt_l *
+      codegenReal2Mission_ConstB.sqrt_l * rtb_Sum_p * rtb_Sum_p;
+
+    // Sqrt: '<S63>/sqrt'
+    rtb_HeadingAngle_n = std::sqrt(rtb_Sum_p);
+
+    // Product: '<S63>/Product1' incorporates:
+    //   Constant: '<S63>/Constant1'
+
+    rtb_HeadingAngle_n = 6.378137E+6 / rtb_HeadingAngle_n;
+
+    // Product: '<S49>/rad lat' incorporates:
+    //   Constant: '<S63>/Constant2'
+    //   Product: '<S63>/Product3'
+    //   Trigonometry: '<S63>/Trigonometric Function1'
+
+    rtb_Sum_p = rt_atan2d_snf(1.0, rtb_HeadingAngle_n *
+      codegenReal2Mission_ConstB.Sum1_f / rtb_Sum_p) * rtb_Height_m;
+
+    // Product: '<S63>/Product4' incorporates:
+    //   Trigonometry: '<S63>/Trigonometric Function'
+
+    rtb_Height_m = rtb_HeadingAngle_n * std::cos(rtb_RollAngle_p);
+
+    // Product: '<S49>/x*sin'
+    rtb_RollAngle_p = codegenReal2Mission_B.Sum[0] *
+      codegenReal2Mission_ConstB.SinCos_o1;
+
+    // Product: '<S49>/y*cos'
+    rtb_HeadingAngle_n = codegenReal2Mission_B.Sum[1] *
+      codegenReal2Mission_ConstB.SinCos_o2;
+
+    // UnitConversion: '<S50>/Unit Conversion' incorporates:
+    //   Constant: '<S63>/Constant3'
+    //   Product: '<S49>/rad long '
+    //   Sum: '<S49>/Sum1'
+    //   Trigonometry: '<S63>/Trigonometric Function2'
+
+    // Unit Conversion - from: rad to: deg
+    // Expression: output = (57.2958*input) + (0)
+    rtb_HeadingAngle_n = (rtb_RollAngle_p + rtb_HeadingAngle_n) * rt_atan2d_snf
+      (1.0, rtb_Height_m) * 57.295779513082323;
+
+    // Switch: '<S48>/Switch1' incorporates:
+    //   Constant: '<S48>/Constant'
+    //   Constant: '<S48>/Constant1'
+
+    if (rEQ0) {
+      rtb_RollAngle_p = 180.0;
+    } else {
+      rtb_RollAngle_p = 0.0;
+    }
+
+    // End of Switch: '<S48>/Switch1'
+
+    // Sum: '<S48>/Sum' incorporates:
+    //   DataStoreRead: '<S6>/LongitudeGCS'
+
+    rtb_Height_m = rtb_RollAngle_p + codegenReal2Mission_DW.LongitudeGCS;
+
+    // Abs: '<S58>/Abs'
+    rtb_RollAngle_p = std::abs(rtb_Height_m);
+
+    // Switch: '<S58>/Switch' incorporates:
+    //   Bias: '<S58>/Bias'
+    //   Bias: '<S58>/Bias1'
+    //   Constant: '<S58>/Constant2'
+    //   Constant: '<S62>/Constant'
+    //   Math: '<S58>/Math Function1'
+    //   RelationalOperator: '<S62>/Compare'
+
+    if (rtb_RollAngle_p > 180.0) {
+      rtb_Height_m = rt_modd_snf(rtb_Height_m + 180.0, 360.0) + -180.0;
+    }
+
+    // End of Switch: '<S58>/Switch'
+
+    // Sum: '<S46>/Sum' incorporates:
+    //   UnitConversion: '<S50>/Unit Conversion'
+
+    rtb_RollAngle_p = 57.295779513082323 * rtb_Sum_p + rtb_Abs1_n;
+
+    // Abs: '<S54>/Abs'
+    rtb_Abs1_n = std::abs(rtb_RollAngle_p);
+
+    // Switch: '<S54>/Switch' incorporates:
+    //   Bias: '<S54>/Bias'
+    //   Bias: '<S54>/Bias1'
+    //   Constant: '<S54>/Constant2'
+    //   Constant: '<S55>/Constant'
+    //   Math: '<S54>/Math Function1'
+    //   RelationalOperator: '<S55>/Compare'
+
+    if (rtb_Abs1_n > 180.0) {
+      rtb_RollAngle_p = rt_modd_snf(rtb_RollAngle_p + 180.0, 360.0) + -180.0;
+    }
+
+    // End of Switch: '<S54>/Switch'
+
+    // Abs: '<S51>/Abs1'
+    rtb_Abs1_n = std::abs(rtb_RollAngle_p);
+
+    // Switch: '<S51>/Switch' incorporates:
+    //   Constant: '<S47>/Constant'
+    //   Constant: '<S47>/Constant1'
+    //   Constant: '<S53>/Constant'
+    //   RelationalOperator: '<S53>/Compare'
+    //   Switch: '<S47>/Switch1'
+
+    if (rtb_Abs1_n > 90.0) {
+      // Signum: '<S51>/Sign1'
+      if (rtb_RollAngle_p < 0.0) {
+        rtb_RollAngle_p = -1.0;
+      } else if (rtb_RollAngle_p > 0.0) {
+        rtb_RollAngle_p = 1.0;
+      } else if (rtb_RollAngle_p == 0.0) {
+        rtb_RollAngle_p = 0.0;
+      } else {
+        rtb_RollAngle_p = (rtNaN);
+      }
+
+      // End of Signum: '<S51>/Sign1'
+
+      // Outport: '<Root>/LookAheadPoint' incorporates:
+      //   Bias: '<S51>/Bias'
+      //   Bias: '<S51>/Bias1'
+      //   Gain: '<S51>/Gain'
+      //   Product: '<S51>/Divide1'
+
+      codegenReal2Mission_Y.LookAheadPoint_j.Latitude_deg = (-(rtb_Abs1_n +
+        -90.0) + 90.0) * rtb_RollAngle_p;
+      rtb_RollAngle_p = 180.0;
+    } else {
+      // Outport: '<Root>/LookAheadPoint'
+      codegenReal2Mission_Y.LookAheadPoint_j.Latitude_deg = rtb_RollAngle_p;
+      rtb_RollAngle_p = 0.0;
+    }
+
+    // End of Switch: '<S51>/Switch'
+
+    // Sum: '<S47>/Sum' incorporates:
+    //   Sum: '<S46>/Sum'
+
+    rtb_Abs1_n = (rtb_HeadingAngle_n + rtb_Height_m) + rtb_RollAngle_p;
+
+    // Abs: '<S52>/Abs'
+    rtb_RollAngle_p = std::abs(rtb_Abs1_n);
+
+    // Switch: '<S52>/Switch' incorporates:
+    //   Constant: '<S56>/Constant'
+    //   RelationalOperator: '<S56>/Compare'
+
+    if (rtb_RollAngle_p > 180.0) {
+      // Outport: '<Root>/LookAheadPoint' incorporates:
+      //   Bias: '<S52>/Bias'
+      //   Bias: '<S52>/Bias1'
+      //   Constant: '<S52>/Constant2'
+      //   Math: '<S52>/Math Function1'
+
+      codegenReal2Mission_Y.LookAheadPoint_j.Longitude_deg = rt_modd_snf
+        (rtb_Abs1_n + 180.0, 360.0) + -180.0;
+    } else {
+      // Outport: '<Root>/LookAheadPoint'
+      codegenReal2Mission_Y.LookAheadPoint_j.Longitude_deg = rtb_Abs1_n;
+    }
+
+    // End of Switch: '<S52>/Switch'
+
+    // Gain: '<S6>/Up2Down'
+    rtb_Sum_p = -codegenReal2Mission_B.Sum[2];
+
+    // Outport: '<Root>/LookAheadPoint' incorporates:
+    //   DataStoreRead: '<S6>/Data Store Read'
+    //   Gain: '<S6>/inverse'
+    //   Sum: '<S46>/Sum1'
+    //   UnaryMinus: '<S46>/Ze2height'
+
+    codegenReal2Mission_Y.LookAheadPoint_j.Height_meter = -rtb_Sum_p -
+      (-codegenReal2Mission_DW.AltitudeGCS);
+
+    // End of Outputs for SubSystem: '<Root>/NorthEast2LatLon'
+
+    // Truth Table: '<Root>/Engagement'
     //  Front Distance within Upper &  Lower Bound
     //  CrossTrack Error within 1.5 Second Bound
-    if ((codegenReal2Mission_B.LagDistanceSum < std::sqrt(rtb_HeadingAngle_n) -
-         rtb_RollAngle_p) && (codegenReal2Mission_B.LagDistanceSum >
-         rtb_Switch_c) && (rtb_TD_AirSpdADRC <
-                           codegenReal2Mission_B.SimUAVStateZOH.AirSpeed * 1.5))
-    {
+    if ((rtb_ZOH_ADRC_LagDis < rtb_UpperBound) && (rtb_ZOH_ADRC_LagDis >
+         rtb_LowerBound) && (rtb_TrackSimPath_o5 < rtb_AirSpeed * 1.5)) {
       //  Real UAV Engaged with Simulation UAV
       rEQ0 = true;
     } else {
@@ -2092,6 +2441,157 @@ void codegenReal2MissionModelClass::step()
     }
 
     // End of Truth Table: '<Root>/Engagement'
+
+    // Outport: '<Root>/EngagedFlag'
+    codegenReal2Mission_Y.EngagedFlag = rEQ0;
+
+    // SignalConversion generated from: '<Root>/RealUAVStateBus' incorporates:
+    //   BusCreator: '<S5>/FixedWingGuidanceStateBus'
+
+    rtb_North_l = rtb_East_m;
+
+    // SignalConversion generated from: '<Root>/RealUAVStateBus' incorporates:
+    //   BusCreator: '<S5>/FixedWingGuidanceStateBus'
+
+    rtb_East = rtb_Switch_c;
+
+    // SignalConversion generated from: '<Root>/RealUAVStateBus' incorporates:
+    //   BusCreator: '<S5>/FixedWingGuidanceStateBus'
+
+    rtb_LowerBound = 0.0;
+
+    // SignalConversion generated from: '<Root>/SimUAVStateBus'
+    rtb_UpperBound = codegenReal2Mission_B.SimUAVStateZOH.North;
+
+    // SignalConversion generated from: '<Root>/SimUAVStateBus'
+    rtb_East_m = codegenReal2Mission_B.SimUAVStateZOH.East;
+
+    // SignalConversion generated from: '<Root>/SimUAVStateBus'
+    rtb_Height_m = codegenReal2Mission_B.SimUAVStateZOH.Height;
+
+    // SignalConversion generated from: '<Root>/SimUAVStateBus'
+    rtb_Switch_c = codegenReal2Mission_B.SimUAVStateZOH.AirSpeed;
+
+    // SignalConversion generated from: '<Root>/SimUAVStateBus'
+    rtb_HeadingAngle_n = codegenReal2Mission_B.SimUAVStateZOH.HeadingAngle;
+
+    // SignalConversion generated from: '<Root>/SimUAVStateBus'
+    rtb_Sum_p = codegenReal2Mission_B.SimUAVStateZOH.FlightPathAngle;
+
+    // SignalConversion generated from: '<Root>/SimUAVStateBus'
+    rtb_RollAngle_p = codegenReal2Mission_B.SimUAVStateZOH.RollAngle;
+
+    // SignalConversion generated from: '<Root>/SimUAVStateBus'
+    rtb_Abs1_n = codegenReal2Mission_B.SimUAVStateZOH.RollAngleRate;
+
+    // MATLAB Function: '<Root>/AngLog' incorporates:
+    //   BusCreator: '<S5>/FixedWingGuidanceStateBus'
+
+    rtb_AirSpeed = angdiff_GFr2Xk58(0.0, rtb_TargetHDG_Rad);
+    Gain = angdiff_GFr2Xk58(0.0, rtb_HeadingAngle);
+    rtb_TargetHDG_Rad = angdiff_GFr2Xk58(rtb_HeadingAngle, rtb_TargetHDG_Rad);
+
+    // Scope: '<Root>/ModelLogging'
+    if (rtmIsMajorTimeStep((&codegenReal2Mission_M))) {
+      StructLogVar *svar = (StructLogVar *)
+        codegenReal2Mission_DW.ModelLogging_PWORK.LoggedData[0];
+      LogVar *var = svar->signals.values;
+
+      // time
+      {
+        double locTime = (((&codegenReal2Mission_M)->Timing.clockTick1) * 0.1);
+        ;
+        rt_UpdateLogVar((LogVar *)svar->time, &locTime, 0);
+      }
+
+      // signals
+      {
+        real_T up0[8];
+        up0[0] = rtb_North_l;
+        up0[1] = rtb_East;
+        up0[2] = rtb_Height;
+        up0[3] = rtb_Abs1_i;
+        up0[4] = rtb_HeadingAngle;
+        up0[5] = rtb_Sum1_bf_idx_0;
+        up0[6] = rtb_RollAngle_gh;
+        up0[7] = rtb_LowerBound;
+        rt_UpdateLogVar((LogVar *)var, up0, 0);
+        var = var->next;
+      }
+
+      {
+        real_T up1[8];
+        up1[0] = rtb_UpperBound;
+        up1[1] = rtb_East_m;
+        up1[2] = rtb_Height_m;
+        up1[3] = rtb_Switch_c;
+        up1[4] = rtb_HeadingAngle_n;
+        up1[5] = rtb_Sum_p;
+        up1[6] = rtb_RollAngle_p;
+        up1[7] = rtb_Abs1_n;
+        rt_UpdateLogVar((LogVar *)var, up1, 0);
+        var = var->next;
+      }
+
+      {
+        real_T up2[1];
+        up2[0] = rtb_SpeedProtection;
+        rt_UpdateLogVar((LogVar *)var, up2, 0);
+        var = var->next;
+      }
+
+      {
+        real_T up3[1];
+        up3[0] = rtb_ZOH_ADRC_LagDis;
+        rt_UpdateLogVar((LogVar *)var, up3, 0);
+        var = var->next;
+      }
+
+      {
+        real_T up4[3];
+        up4[0] = codegenReal2Mission_B.Sum[0];
+        up4[1] = codegenReal2Mission_B.Sum[1];
+        up4[2] = codegenReal2Mission_B.Sum[2];
+        rt_UpdateLogVar((LogVar *)var, up4, 0);
+        var = var->next;
+      }
+
+      {
+        real_T up5[1];
+        up5[0] = rtb_TrackSimPath_o5;
+        rt_UpdateLogVar((LogVar *)var, up5, 0);
+        var = var->next;
+      }
+
+      {
+        boolean_T up6[1];
+        up6[0] = rEQ0;
+        rt_UpdateLogVar((LogVar *)var, up6, 0);
+        var = var->next;
+      }
+
+      {
+        real_T up7[3];
+        up7[0] = rtb_TargetHDG_Rad;
+        up7[1] = Gain;
+        up7[2] = rtb_AirSpeed;
+        rt_UpdateLogVar((LogVar *)var, up7, 0);
+        var = var->next;
+      }
+
+      {
+        real_T up8[1];
+        up8[0] = rtb_ZOH_ADRC_U;
+        rt_UpdateLogVar((LogVar *)var, up8, 0);
+        var = var->next;
+      }
+
+      {
+        real_T up9[1];
+        up9[0] = codegenReal2Mission_B.TD_Alt;
+        rt_UpdateLogVar((LogVar *)var, up9, 0);
+      }
+    }
 
     // Chart: '<Root>/TriggerTermination'
     if (codegenReal2Mission_DW.is_active_c4_codegenReal2Missio == 0U) {
@@ -2145,452 +2645,6 @@ void codegenReal2MissionModelClass::step()
 
     // End of Chart: '<Root>/TriggerTermination'
 
-    // Switch: '<Root>/Switch' incorporates:
-    //   Constant: '<Root>/Constant'
-    //   Math: '<S7>/Square'
-    //   Product: '<S7>/Divide'
-    //   Saturate: '<S7>/Saturation'
-    //   Sum: '<S7>/biasHm70'
-
-    if (codegenReal2Mission_B.ExecutionTrigger > 0.0) {
-      rtb_Switch_k = 0.0;
-    } else {
-      if (rtb_Switch <= 10.0) {
-        // Saturate: '<S7>/Saturation'
-        rtb_Switch = 10.0;
-      }
-
-      rtb_Switch_k = rtb_Step * rtb_Step / rtb_Switch - rtb_Step;
-    }
-
-    // End of Switch: '<Root>/Switch'
-
-    // RateLimiter: '<Root>/Rate Limiter'
-    rtb_HeadingAngle_n = rtb_Switch_k - codegenReal2Mission_DW.PrevY;
-    if (rtb_HeadingAngle_n > codegenReal2Mission_period) {
-      rtb_North_l = codegenReal2Mission_DW.PrevY + codegenReal2Mission_period;
-    } else if (rtb_HeadingAngle_n < -0.1) {
-      rtb_North_l = codegenReal2Mission_DW.PrevY + -0.1;
-    } else {
-      rtb_North_l = rtb_Switch_k;
-    }
-
-    codegenReal2Mission_DW.PrevY = rtb_North_l;
-
-    // End of RateLimiter: '<Root>/Rate Limiter'
-
-    // Sum: '<Root>/Sum' incorporates:
-    //   Gain: '<Root>/NED2NEU'
-    //   MATLABSystem: '<Root>/TrackSimPath'
-
-    rtb_Sum_nx[0] = rtb_NorthEastHeight[0];
-    rtb_Sum_nx[1] = rtb_NorthEastHeight[1];
-    rtb_Sum_nx[2] = -rtb_NorthEastHeight[2] + rtb_North_l;
-
-    // Outputs for Atomic SubSystem: '<Root>/NorthEast2LatLon'
-    // Product: '<S48>/x*cos'
-    rtb_Switch = rtb_Sum_nx[0] * codegenReal2Mission_ConstB.SinCos_o2;
-
-    // Product: '<S48>/y*sin'
-    rtb_RollAngle_p = rtb_Sum_nx[1] * codegenReal2Mission_ConstB.SinCos_o1;
-
-    // Sum: '<S48>/Sum'
-    rtb_Switch_c = rtb_Switch - rtb_RollAngle_p;
-
-    // Abs: '<S59>/Abs' incorporates:
-    //   DataStoreRead: '<S6>/LatitudeGCS'
-
-    rtb_Switch = std::abs(codegenReal2Mission_DW.LatitudeGCS);
-
-    // Switch: '<S59>/Switch' incorporates:
-    //   Bias: '<S59>/Bias'
-    //   Bias: '<S59>/Bias1'
-    //   Constant: '<S59>/Constant2'
-    //   Constant: '<S60>/Constant'
-    //   DataStoreRead: '<S6>/LatitudeGCS'
-    //   Math: '<S59>/Math Function1'
-    //   RelationalOperator: '<S60>/Compare'
-
-    if (rtb_Switch > 180.0) {
-      rtb_Switch = rt_modd_snf(codegenReal2Mission_DW.LatitudeGCS + 180.0, 360.0)
-        + -180.0;
-    } else {
-      rtb_Switch = codegenReal2Mission_DW.LatitudeGCS;
-    }
-
-    // End of Switch: '<S59>/Switch'
-
-    // Abs: '<S56>/Abs1'
-    rtb_RollAngle_p = std::abs(rtb_Switch);
-
-    // RelationalOperator: '<S58>/Compare' incorporates:
-    //   Constant: '<S58>/Constant'
-
-    rtb_Compare_ly = (rtb_RollAngle_p > 90.0);
-
-    // Switch: '<S56>/Switch' incorporates:
-    //   Bias: '<S56>/Bias'
-    //   Bias: '<S56>/Bias1'
-    //   Gain: '<S56>/Gain'
-    //   Product: '<S56>/Divide1'
-
-    if (rtb_Compare_ly) {
-      // Signum: '<S56>/Sign1'
-      if (rtb_Switch < 0.0) {
-        rtb_Switch = -1.0;
-      } else if (rtb_Switch > 0.0) {
-        rtb_Switch = 1.0;
-      } else if (rtb_Switch == 0.0) {
-        rtb_Switch = 0.0;
-      } else {
-        rtb_Switch = (rtNaN);
-      }
-
-      // End of Signum: '<S56>/Sign1'
-      rtb_Switch *= -(rtb_RollAngle_p + -90.0) + 90.0;
-    }
-
-    // End of Switch: '<S56>/Switch'
-
-    // UnitConversion: '<S64>/Unit Conversion'
-    // Unit Conversion - from: deg to: rad
-    // Expression: output = (0.0174533*input) + (0)
-    rtb_RollAngle_p = 0.017453292519943295 * rtb_Switch;
-
-    // Trigonometry: '<S65>/Trigonometric Function1'
-    rtb_Step = std::sin(rtb_RollAngle_p);
-
-    // Sum: '<S65>/Sum1' incorporates:
-    //   Constant: '<S65>/Constant'
-    //   Product: '<S65>/Product1'
-
-    rtb_Step = 1.0 - codegenReal2Mission_ConstB.sqrt_l *
-      codegenReal2Mission_ConstB.sqrt_l * rtb_Step * rtb_Step;
-
-    // Sqrt: '<S62>/sqrt'
-    rtb_HeadingAngle_n = std::sqrt(rtb_Step);
-
-    // Product: '<S62>/Product1' incorporates:
-    //   Constant: '<S62>/Constant1'
-
-    rtb_HeadingAngle_n = 6.378137E+6 / rtb_HeadingAngle_n;
-
-    // Product: '<S48>/rad lat' incorporates:
-    //   Constant: '<S62>/Constant2'
-    //   Product: '<S62>/Product3'
-    //   Trigonometry: '<S62>/Trigonometric Function1'
-
-    rtb_Step = rt_atan2d_snf(1.0, rtb_HeadingAngle_n *
-      codegenReal2Mission_ConstB.Sum1_f / rtb_Step) * rtb_Switch_c;
-
-    // Product: '<S62>/Product4' incorporates:
-    //   Trigonometry: '<S62>/Trigonometric Function'
-
-    rtb_Switch_c = rtb_HeadingAngle_n * std::cos(rtb_RollAngle_p);
-
-    // Product: '<S48>/x*sin'
-    rtb_RollAngle_p = rtb_Sum_nx[0] * codegenReal2Mission_ConstB.SinCos_o1;
-
-    // Product: '<S48>/y*cos'
-    rtb_HeadingAngle_n = rtb_Sum_nx[1] * codegenReal2Mission_ConstB.SinCos_o2;
-
-    // UnitConversion: '<S49>/Unit Conversion' incorporates:
-    //   Constant: '<S62>/Constant3'
-    //   Product: '<S48>/rad long '
-    //   Sum: '<S48>/Sum1'
-    //   Trigonometry: '<S62>/Trigonometric Function2'
-
-    // Unit Conversion - from: rad to: deg
-    // Expression: output = (57.2958*input) + (0)
-    rtb_HeadingAngle_n = (rtb_RollAngle_p + rtb_HeadingAngle_n) * rt_atan2d_snf
-      (1.0, rtb_Switch_c) * 57.295779513082323;
-
-    // Switch: '<S47>/Switch1' incorporates:
-    //   Constant: '<S47>/Constant'
-    //   Constant: '<S47>/Constant1'
-
-    if (rtb_Compare_ly) {
-      rtb_RollAngle_p = 180.0;
-    } else {
-      rtb_RollAngle_p = 0.0;
-    }
-
-    // End of Switch: '<S47>/Switch1'
-
-    // Sum: '<S47>/Sum' incorporates:
-    //   DataStoreRead: '<S6>/LongitudeGCS'
-
-    rtb_Switch_c = rtb_RollAngle_p + codegenReal2Mission_DW.LongitudeGCS;
-
-    // Abs: '<S57>/Abs'
-    rtb_RollAngle_p = std::abs(rtb_Switch_c);
-
-    // Switch: '<S57>/Switch' incorporates:
-    //   Bias: '<S57>/Bias'
-    //   Bias: '<S57>/Bias1'
-    //   Constant: '<S57>/Constant2'
-    //   Constant: '<S61>/Constant'
-    //   Math: '<S57>/Math Function1'
-    //   RelationalOperator: '<S61>/Compare'
-
-    if (rtb_RollAngle_p > 180.0) {
-      rtb_Switch_c = rt_modd_snf(rtb_Switch_c + 180.0, 360.0) + -180.0;
-    }
-
-    // End of Switch: '<S57>/Switch'
-
-    // Sum: '<S45>/Sum' incorporates:
-    //   UnitConversion: '<S49>/Unit Conversion'
-
-    rtb_RollAngle_p = 57.295779513082323 * rtb_Step + rtb_Switch;
-
-    // Abs: '<S53>/Abs'
-    rtb_Switch = std::abs(rtb_RollAngle_p);
-
-    // Switch: '<S53>/Switch' incorporates:
-    //   Bias: '<S53>/Bias'
-    //   Bias: '<S53>/Bias1'
-    //   Constant: '<S53>/Constant2'
-    //   Constant: '<S54>/Constant'
-    //   Math: '<S53>/Math Function1'
-    //   RelationalOperator: '<S54>/Compare'
-
-    if (rtb_Switch > 180.0) {
-      rtb_RollAngle_p = rt_modd_snf(rtb_RollAngle_p + 180.0, 360.0) + -180.0;
-    }
-
-    // End of Switch: '<S53>/Switch'
-
-    // Abs: '<S50>/Abs1'
-    rtb_Switch = std::abs(rtb_RollAngle_p);
-
-    // Switch: '<S50>/Switch' incorporates:
-    //   Constant: '<S46>/Constant'
-    //   Constant: '<S46>/Constant1'
-    //   Constant: '<S52>/Constant'
-    //   RelationalOperator: '<S52>/Compare'
-    //   Switch: '<S46>/Switch1'
-
-    if (rtb_Switch > 90.0) {
-      // Signum: '<S50>/Sign1'
-      if (rtb_RollAngle_p < 0.0) {
-        rtb_RollAngle_p = -1.0;
-      } else if (rtb_RollAngle_p > 0.0) {
-        rtb_RollAngle_p = 1.0;
-      } else if (rtb_RollAngle_p == 0.0) {
-        rtb_RollAngle_p = 0.0;
-      } else {
-        rtb_RollAngle_p = (rtNaN);
-      }
-
-      // End of Signum: '<S50>/Sign1'
-
-      // Outport: '<Root>/LookAheadPoint' incorporates:
-      //   Bias: '<S50>/Bias'
-      //   Bias: '<S50>/Bias1'
-      //   Gain: '<S50>/Gain'
-      //   Product: '<S50>/Divide1'
-
-      codegenReal2Mission_Y.LookAheadPoint_j.Latitude_deg = (-(rtb_Switch +
-        -90.0) + 90.0) * rtb_RollAngle_p;
-      rtb_RollAngle_p = 180.0;
-    } else {
-      // Outport: '<Root>/LookAheadPoint'
-      codegenReal2Mission_Y.LookAheadPoint_j.Latitude_deg = rtb_RollAngle_p;
-      rtb_RollAngle_p = 0.0;
-    }
-
-    // End of Switch: '<S50>/Switch'
-
-    // Sum: '<S46>/Sum' incorporates:
-    //   Sum: '<S45>/Sum'
-
-    rtb_Switch = (rtb_HeadingAngle_n + rtb_Switch_c) + rtb_RollAngle_p;
-
-    // Abs: '<S51>/Abs'
-    rtb_RollAngle_p = std::abs(rtb_Switch);
-
-    // Switch: '<S51>/Switch' incorporates:
-    //   Constant: '<S55>/Constant'
-    //   RelationalOperator: '<S55>/Compare'
-
-    if (rtb_RollAngle_p > 180.0) {
-      // Outport: '<Root>/LookAheadPoint' incorporates:
-      //   Bias: '<S51>/Bias'
-      //   Bias: '<S51>/Bias1'
-      //   Constant: '<S51>/Constant2'
-      //   Math: '<S51>/Math Function1'
-
-      codegenReal2Mission_Y.LookAheadPoint_j.Longitude_deg = rt_modd_snf
-        (rtb_Switch + 180.0, 360.0) + -180.0;
-    } else {
-      // Outport: '<Root>/LookAheadPoint'
-      codegenReal2Mission_Y.LookAheadPoint_j.Longitude_deg = rtb_Switch;
-    }
-
-    // End of Switch: '<S51>/Switch'
-
-    // Gain: '<S6>/Up2Down'
-    rtb_Step = -rtb_Sum_nx[2];
-
-    // Outport: '<Root>/LookAheadPoint' incorporates:
-    //   DataStoreRead: '<S6>/Data Store Read'
-    //   Gain: '<S6>/inverse'
-    //   Sum: '<S45>/Sum1'
-    //   UnaryMinus: '<S45>/Ze2height'
-
-    codegenReal2Mission_Y.LookAheadPoint_j.Height_meter = -rtb_Step -
-      (-codegenReal2Mission_DW.AltitudeGCS);
-
-    // End of Outputs for SubSystem: '<Root>/NorthEast2LatLon'
-
-    // Outport: '<Root>/EngagedFlag'
-    codegenReal2Mission_Y.EngagedFlag = rEQ0;
-
-    // SignalConversion generated from: '<Root>/RealUAVStateBus' incorporates:
-    //   BusCreator: '<S5>/FixedWingGuidanceStateBus'
-
-    rtb_North_l = rtb_East_m;
-
-    // SignalConversion generated from: '<Root>/RealUAVStateBus' incorporates:
-    //   BusCreator: '<S5>/FixedWingGuidanceStateBus'
-
-    rtb_RollAngleRate = 0.0;
-
-    // SignalConversion generated from: '<Root>/SimUAVStateBus'
-    turnVector_idx_0 = codegenReal2Mission_B.SimUAVStateZOH.North;
-
-    // SignalConversion generated from: '<Root>/SimUAVStateBus'
-    rtb_East_m = codegenReal2Mission_B.SimUAVStateZOH.East;
-
-    // SignalConversion generated from: '<Root>/SimUAVStateBus'
-    rtb_Height_m = codegenReal2Mission_B.SimUAVStateZOH.Height;
-
-    // SignalConversion generated from: '<Root>/SimUAVStateBus'
-    rtb_Switch_c = codegenReal2Mission_B.SimUAVStateZOH.AirSpeed;
-
-    // SignalConversion generated from: '<Root>/SimUAVStateBus'
-    rtb_HeadingAngle_n = codegenReal2Mission_B.SimUAVStateZOH.HeadingAngle;
-
-    // SignalConversion generated from: '<Root>/SimUAVStateBus'
-    rtb_Step = codegenReal2Mission_B.SimUAVStateZOH.FlightPathAngle;
-
-    // SignalConversion generated from: '<Root>/SimUAVStateBus'
-    rtb_RollAngle_p = codegenReal2Mission_B.SimUAVStateZOH.RollAngle;
-
-    // SignalConversion generated from: '<Root>/SimUAVStateBus'
-    rtb_Switch = codegenReal2Mission_B.SimUAVStateZOH.RollAngleRate;
-
-    // MATLAB Function: '<Root>/AngLog' incorporates:
-    //   BusCreator: '<S5>/FixedWingGuidanceStateBus'
-    //   MATLABSystem: '<Root>/TrackSimPath'
-
-    rtb_TargetHdg_Log = angdiff_GFr2Xk58(0.0, q);
-    rtb_RealHdg_Log = angdiff_GFr2Xk58(0.0, rtb_HeadingAngle);
-    q = angdiff_GFr2Xk58(rtb_HeadingAngle, q);
-
-    // Scope: '<Root>/ModelLogging'
-    if (rtmIsMajorTimeStep((&codegenReal2Mission_M))) {
-      StructLogVar *svar = (StructLogVar *)
-        codegenReal2Mission_DW.ModelLogging_PWORK.LoggedData[0];
-      LogVar *var = svar->signals.values;
-
-      // time
-      {
-        double locTime = (((&codegenReal2Mission_M)->Timing.clockTick1) * 0.1);
-        ;
-        rt_UpdateLogVar((LogVar *)svar->time, &locTime, 0);
-      }
-
-      // signals
-      {
-        real_T up0[8];
-        up0[0] = rtb_North_l;
-        up0[1] = rtb_Abs1_i;
-        up0[2] = rtb_Height;
-        up0[3] = rtb_Sum1_b_idx_0;
-        up0[4] = rtb_HeadingAngle;
-        up0[5] = rtb_Abs1_n;
-        up0[6] = rtb_RollAngle_gh;
-        up0[7] = rtb_RollAngleRate;
-        rt_UpdateLogVar((LogVar *)var, up0, 0);
-        var = var->next;
-      }
-
-      {
-        real_T up1[8];
-        up1[0] = turnVector_idx_0;
-        up1[1] = rtb_East_m;
-        up1[2] = rtb_Height_m;
-        up1[3] = rtb_Switch_c;
-        up1[4] = rtb_HeadingAngle_n;
-        up1[5] = rtb_Step;
-        up1[6] = rtb_RollAngle_p;
-        up1[7] = rtb_Switch;
-        rt_UpdateLogVar((LogVar *)var, up1, 0);
-        var = var->next;
-      }
-
-      {
-        real_T up2[1];
-        up2[0] = a0;
-        rt_UpdateLogVar((LogVar *)var, up2, 0);
-        var = var->next;
-      }
-
-      {
-        real_T up3[1];
-        up3[0] = codegenReal2Mission_B.LagDistanceSum;
-        rt_UpdateLogVar((LogVar *)var, up3, 0);
-        var = var->next;
-      }
-
-      {
-        real_T up4[3];
-        up4[0] = rtb_Sum_nx[0];
-        up4[1] = rtb_Sum_nx[1];
-        up4[2] = rtb_Sum_nx[2];
-        rt_UpdateLogVar((LogVar *)var, up4, 0);
-        var = var->next;
-      }
-
-      {
-        real_T up5[1];
-        up5[0] = rtb_TD_AirSpdADRC;
-        rt_UpdateLogVar((LogVar *)var, up5, 0);
-        var = var->next;
-      }
-
-      {
-        boolean_T up6[1];
-        up6[0] = rEQ0;
-        rt_UpdateLogVar((LogVar *)var, up6, 0);
-        var = var->next;
-      }
-
-      {
-        real_T up7[3];
-        up7[0] = q;
-        up7[1] = rtb_RealHdg_Log;
-        up7[2] = rtb_TargetHdg_Log;
-        rt_UpdateLogVar((LogVar *)var, up7, 0);
-        var = var->next;
-      }
-
-      {
-        real_T up8[1];
-        up8[0] = codegenReal2Mission_B.ESOpNLSEF;
-        rt_UpdateLogVar((LogVar *)var, up8, 0);
-        var = var->next;
-      }
-
-      {
-        real_T up9[1];
-        up9[0] = rtb_Switch_k;
-        rt_UpdateLogVar((LogVar *)var, up9, 0);
-      }
-    }
-
     // Stop: '<Root>/Stop Simulation'
     if (codegenReal2Mission_B.Terminate) {
       rtmSetStopRequested((&codegenReal2Mission_M), 1);
@@ -2598,32 +2652,43 @@ void codegenReal2MissionModelClass::step()
 
     // End of Stop: '<Root>/Stop Simulation'
 
+    // Switch: '<Root>/DataSwitch'
+    if (codegenReal2Mission_B.ExecutionTrigger > 0.0) {
+      // Switch: '<Root>/DataSwitch' incorporates:
+      //   Constant: '<Root>/ZeroBias'
+
+      codegenReal2Mission_B.DataSwitch = 0.0;
+    } else {
+      // Switch: '<Root>/DataSwitch'
+      codegenReal2Mission_B.DataSwitch = rtb_MemoryLookAheadP;
+    }
+
+    // End of Switch: '<Root>/DataSwitch'
+
     // Gain: '<S3>/InvH2D'
     codegenReal2Mission_B.Down = -codegenReal2Mission_B.SimUAVStateZOH.Height;
   }
 
-  // End of Outputs for SubSystem: '<Root>/SpeedControl'
-
-  // Step: '<S13>/Step'
+  // Step: '<S14>/Step'
   if ((&codegenReal2Mission_M)->Timing.t[0] < 0.0) {
-    rtb_RollAngleRate = 0.0;
+    rtb_HeadingAngle_n = 0.0;
   } else {
-    rtb_RollAngleRate = 0.057119866428905326;
+    rtb_HeadingAngle_n = 0.057119866428905326;
   }
 
-  // End of Step: '<S13>/Step'
+  // End of Step: '<S14>/Step'
 
-  // Sum: '<S13>/Output' incorporates:
-  //   Clock: '<S13>/Clock'
-  //   Product: '<S13>/Product'
+  // Sum: '<S14>/Output' incorporates:
+  //   Clock: '<S14>/Clock'
+  //   Product: '<S14>/Product'
 
-  rtb_HeadingAngle_n = rtb_RollAngleRate * (&codegenReal2Mission_M)->Timing.t[0];
+  rtb_Height_m = rtb_HeadingAngle_n * (&codegenReal2Mission_M)->Timing.t[0];
   if (rtmIsMajorTimeStep((&codegenReal2Mission_M))) {
     // Memory: '<S3>/MemoryLookAheadP'
-    rtb_Switch = codegenReal2Mission_DW.MemoryLookAheadP_PreviousInput;
+    rtb_Abs1_n = codegenReal2Mission_DW.MemoryLookAheadP_PreviousInput;
 
     // Switch: '<S3>/CircleOscillation'
-    if (rtb_Switch > 0.0) {
+    if (rtb_Abs1_n > 0.0) {
       // Switch: '<S3>/CircleOscillation' incorporates:
       //   Constant: '<S3>/Constant'
 
@@ -2645,99 +2710,96 @@ void codegenReal2MissionModelClass::step()
   //   Trigonometry: '<S3>/Cos'
   //   Trigonometry: '<S3>/Sin'
 
-  rtb_NorthEastHeight[0] = std::sin(rtb_HeadingAngle_n) *
+  rtb_Sum_dj[0] = std::sin(rtb_Height_m) *
     codegenReal2Mission_B.CircleOscillation;
-  rtb_NorthEastHeight[1] = std::cos(rtb_HeadingAngle_n) *
+  rtb_Sum_dj[1] = std::cos(rtb_Height_m) *
     codegenReal2Mission_B.CircleOscillation;
-  rtb_NorthEastHeight[2] = -150.0;
+  rtb_Sum_dj[2] = -150.0;
 
   // MATLABSystem: '<S3>/TakeOffGathering' incorporates:
   //   SignalConversion generated from: '<S3>/TakeOffGathering'
 
   codegenReal2Mission_DW.obj_m.OrbitRadiusFlag = 0U;
   codegenReal2Mission_DW.obj_m.LookaheadDistFlag = 0U;
-  rtb_TargetHdg_Log = codegenReal2Mission_B.SimUAVStateZOH.North -
-    rtb_NorthEastHeight[0];
-  rtb_TmpSignalConversionAtSFun_0[0] = rtb_TargetHdg_Log;
-  rtb_TD_AirSpdADRC = codegenReal2Mission_B.SimUAVStateZOH.East -
-    rtb_NorthEastHeight[1];
-  rtb_TmpSignalConversionAtSFun_0[1] = rtb_TD_AirSpdADRC;
+  rtb_Height = codegenReal2Mission_B.SimUAVStateZOH.North - rtb_Sum_dj[0];
+  rtb_TmpSignalConversionAtSFun_0[0] = rtb_Height;
+  rtb_ZOH_ADRC_LagDis = codegenReal2Mission_B.SimUAVStateZOH.East - rtb_Sum_dj[1];
+  rtb_TmpSignalConversionAtSFun_0[1] = rtb_ZOH_ADRC_LagDis;
   if (codegenReal2Mission_norm(rtb_TmpSignalConversionAtSFun_0) <
       2.47032822920623E-323) {
     // MATLABSystem: '<S3>/TakeOffGathering'
     codegenReal2Mission_B.TakeOffGathering_o2 =
       codegenReal2Mission_B.SimUAVStateZOH.HeadingAngle;
-    rtb_Switch = codegenReal2Mission_DW.obj_m.NumCircles;
+    rtb_ZOH_ADRC_LagDis = codegenReal2Mission_DW.obj_m.NumCircles;
   } else {
     rEQ0 = false;
-    rtb_Compare_ly = true;
+    p = true;
     i = 0;
     exitg1 = false;
     while ((!exitg1) && (i < 3)) {
-      if ((codegenReal2Mission_DW.obj_m.OrbitCenterInternal[i] ==
-           rtb_NorthEastHeight[i]) || (rtIsNaN
-           (codegenReal2Mission_DW.obj_m.OrbitCenterInternal[i]) && rtIsNaN
-           (rtb_NorthEastHeight[i]))) {
+      if ((codegenReal2Mission_DW.obj_m.OrbitCenterInternal[i] == rtb_Sum_dj[i])
+          || (rtIsNaN(codegenReal2Mission_DW.obj_m.OrbitCenterInternal[i]) &&
+              rtIsNaN(rtb_Sum_dj[i]))) {
         i++;
       } else {
-        rtb_Compare_ly = false;
+        p = false;
         exitg1 = true;
       }
     }
 
-    if (rtb_Compare_ly) {
+    if (p) {
       rEQ0 = true;
     }
 
     if ((!rEQ0) || (!(codegenReal2Mission_DW.obj_m.OrbitRadiusInternal == 1000.0)))
     {
       codegenReal2Mission_DW.obj_m.NumCircles = 0.0;
-      codegenReal2Mission_DW.obj_m.OrbitCenterInternal[0] = rtb_NorthEastHeight
-        [0];
-      codegenReal2Mission_DW.obj_m.OrbitCenterInternal[1] = rtb_NorthEastHeight
-        [1];
+      codegenReal2Mission_DW.obj_m.OrbitCenterInternal[0] = rtb_Sum_dj[0];
+      codegenReal2Mission_DW.obj_m.OrbitCenterInternal[1] = rtb_Sum_dj[1];
       codegenReal2Mission_DW.obj_m.OrbitCenterInternal[2] = -150.0;
       codegenReal2Mission_DW.obj_m.OrbitRadiusInternal = 1000.0;
       codegenReal2Mission_DW.obj_m.SelectTurnDirectionFlag = true;
     }
 
     codegenReal2Mission_DW.obj_m.LookaheadDistance = 100.0;
-    distToCenter_tmp[0] = rtb_TargetHdg_Log;
-    distToCenter_tmp[1] = rtb_TD_AirSpdADRC;
-    rtb_Height = std::sqrt(rtb_TD_AirSpdADRC * rtb_TD_AirSpdADRC +
-      rtb_TargetHdg_Log * rtb_TargetHdg_Log);
-    q_tmp = std::abs(codegenReal2Mission_DW.obj_m.LookaheadDistance + 1000.0);
-    rEQ0 = !rtIsInf(q_tmp);
-    rtb_Compare_ly = !rtIsNaN(q_tmp);
-    if (rEQ0 && rtb_Compare_ly) {
-      if (q_tmp <= 2.2250738585072014E-308) {
-        u0 = 4.94065645841247E-324;
+    distToCenter_tmp[0] = rtb_Height;
+    distToCenter_tmp[1] = rtb_ZOH_ADRC_LagDis;
+    rtb_ZOH_ADRC_U = std::sqrt(rtb_ZOH_ADRC_LagDis * rtb_ZOH_ADRC_LagDis +
+      rtb_Height * rtb_Height);
+    rtb_RollAngle_gh = std::abs(codegenReal2Mission_DW.obj_m.LookaheadDistance +
+      1000.0);
+    rEQ0 = !rtIsInf(rtb_RollAngle_gh);
+    p = !rtIsNaN(rtb_RollAngle_gh);
+    if (rEQ0 && p) {
+      if (rtb_RollAngle_gh <= 2.2250738585072014E-308) {
+        rtb_HeadingAngle = 4.94065645841247E-324;
       } else {
-        frexp(q_tmp, &b_exponent_1);
-        u0 = std::ldexp(1.0, b_exponent_1 - 53);
+        frexp(rtb_RollAngle_gh, &b_exponent);
+        rtb_HeadingAngle = std::ldexp(1.0, b_exponent - 53);
       }
     } else {
-      u0 = (rtNaN);
+      rtb_HeadingAngle = (rtNaN);
     }
 
     guard1 = false;
-    if (rtb_Height >= (codegenReal2Mission_DW.obj_m.LookaheadDistance + 1000.0)
-        - 5.0 * u0) {
+    if (rtb_ZOH_ADRC_U >= (codegenReal2Mission_DW.obj_m.LookaheadDistance +
+                           1000.0) - 5.0 * rtb_HeadingAngle) {
       guard1 = true;
     } else {
-      if (rEQ0 && rtb_Compare_ly) {
-        if (q_tmp <= 2.2250738585072014E-308) {
-          u0 = 4.94065645841247E-324;
+      if (rEQ0 && p) {
+        if (rtb_RollAngle_gh <= 2.2250738585072014E-308) {
+          rtb_HeadingAngle = 4.94065645841247E-324;
         } else {
-          frexp(q_tmp, &b_exponent_2);
-          u0 = std::ldexp(1.0, b_exponent_2 - 53);
+          frexp(rtb_RollAngle_gh, &b_exponent_0);
+          rtb_HeadingAngle = std::ldexp(1.0, b_exponent_0 - 53);
         }
       } else {
-        u0 = (rtNaN);
+        rtb_HeadingAngle = (rtNaN);
       }
 
-      if (rtb_Height <= (1000.0 - codegenReal2Mission_DW.obj_m.LookaheadDistance)
-          + 5.0 * u0) {
+      if (rtb_ZOH_ADRC_U <= (1000.0 -
+                             codegenReal2Mission_DW.obj_m.LookaheadDistance) +
+          5.0 * rtb_HeadingAngle) {
         guard1 = true;
       } else {
         if (codegenReal2Mission_DW.obj_m.StartFlag) {
@@ -2750,80 +2812,76 @@ void codegenReal2MissionModelClass::step()
           codegenReal2Mission_DW.obj_m.StartFlag = false;
         }
 
-        rtb_TmpSignalConversionAtSFun_0[0] = rtb_TargetHdg_Log;
-        rtb_TmpSignalConversionAtSFun_0[1] = rtb_TD_AirSpdADRC;
-        rtb_Switch_k = codegenReal2Mission_norm(rtb_TmpSignalConversionAtSFun_0);
-        rtb_Abs1_i = codegenReal2Mission_DW.obj_m.LookaheadDistance *
+        rtb_TmpSignalConversionAtSFun_0[0] = rtb_Height;
+        rtb_TmpSignalConversionAtSFun_0[1] = rtb_ZOH_ADRC_LagDis;
+        rtb_East = codegenReal2Mission_norm(rtb_TmpSignalConversionAtSFun_0);
+        rtb_MemoryLookAheadP = codegenReal2Mission_DW.obj_m.LookaheadDistance *
           codegenReal2Mission_DW.obj_m.LookaheadDistance;
-        a0 = ((rtb_Abs1_i - 1.0E+6) + rtb_Switch_k * rtb_Switch_k) / (2.0 *
-          rtb_Switch_k);
-        rtb_HeadingAngle = rtb_NorthEastHeight[0] -
+        rtb_Sum_p = ((rtb_MemoryLookAheadP - 1.0E+6) + rtb_East * rtb_East) /
+          (2.0 * rtb_East);
+        rtb_HeadingAngle = rtb_Sum_dj[0] -
           codegenReal2Mission_B.SimUAVStateZOH.North;
-        rtb_RollAngle_gh = rtb_HeadingAngle * a0 / rtb_Switch_k +
+        rtb_RollAngle_gh = rtb_HeadingAngle * rtb_Sum_p / rtb_East +
           codegenReal2Mission_B.SimUAVStateZOH.North;
-        rtb_RollAngle_p = rtb_NorthEastHeight[1] -
+        rtb_SpeedProtection = rtb_Sum_dj[1] -
           codegenReal2Mission_B.SimUAVStateZOH.East;
-        rtb_Height = rtb_RollAngle_p * a0 / rtb_Switch_k +
+        rtb_ZOH_ADRC_U = rtb_SpeedProtection * rtb_Sum_p / rtb_East +
           codegenReal2Mission_B.SimUAVStateZOH.East;
-        rtb_Sum1_b_idx_0 = std::sqrt(rtb_Abs1_i - a0 * a0);
-        rtb_Abs1_i = rtb_RollAngle_p * rtb_Sum1_b_idx_0 / rtb_Switch_k;
-        distToCenter_tmp[0] = rtb_RollAngle_gh - rtb_Abs1_i;
-        rtb_Sum1_b_idx_0 = rtb_HeadingAngle * rtb_Sum1_b_idx_0 / rtb_Switch_k;
-        rtb_Abs1_n = rtb_Sum1_b_idx_0 + rtb_Height;
-        rtb_Sum_nx[0] = codegenReal2Mission_DW.obj_m.PrevPosition[0] -
-          rtb_NorthEastHeight[0];
-        rtb_Sum_nx[1] = codegenReal2Mission_DW.obj_m.PrevPosition[1] -
-          rtb_NorthEastHeight[1];
-        rtb_Sum_nx[2] = 0.0;
-        rtb_NorthEastHeight[0] = rtb_TargetHdg_Log;
-        rtb_NorthEastHeight[1] = rtb_TD_AirSpdADRC;
-        rtb_NorthEastHeight[2] = 0.0;
-        rtb_RollAngleRate = codegenReal2Mission_norm_b(rtb_Sum_nx);
-        rtb_RealHdg_Log = codegenReal2Mission_norm_b(rtb_NorthEastHeight);
-        rtb_Switch = rtb_TargetHdg_Log / rtb_RealHdg_Log;
-        rtb_Sum_nx[0] /= rtb_RollAngleRate;
-        rtb_Height_m = rtb_TD_AirSpdADRC / rtb_RealHdg_Log;
-        rtb_Sum_nx[1] /= rtb_RollAngleRate;
-        rtb_Sum_nx[2] = 0.0 / rtb_RollAngleRate;
-        q = rtb_Sum_nx[0] * rtb_Height_m - rtb_Switch * rtb_Sum_nx[1];
-        rtb_Switch = (rtb_Sum_nx[0] * rtb_Switch + rtb_Sum_nx[1] * rtb_Height_m)
-          + 0.0 / rtb_RealHdg_Log * rtb_Sum_nx[2];
+        rtb_TrackSimPath_o5 = std::sqrt(rtb_MemoryLookAheadP - rtb_Sum_p *
+          rtb_Sum_p);
+        rtb_MemoryLookAheadP = rtb_SpeedProtection * rtb_TrackSimPath_o5 /
+          rtb_East;
+        distToCenter_tmp[0] = rtb_RollAngle_gh - rtb_MemoryLookAheadP;
+        rtb_TrackSimPath_o5 = rtb_HeadingAngle * rtb_TrackSimPath_o5 / rtb_East;
+        rtb_TargetHDG_Rad = rtb_TrackSimPath_o5 + rtb_ZOH_ADRC_U;
+        rtb_LowerBound = codegenReal2Mission_DW.obj_m.PrevPosition[1] -
+          rtb_Sum_dj[1];
+        rtb_Sum_f[0] = codegenReal2Mission_DW.obj_m.PrevPosition[0] -
+          rtb_Sum_dj[0];
+        rtb_Sum_f[1] = rtb_LowerBound;
+        rtb_Sum_f[2] = 0.0;
+        rtb_Sum_dj[0] = rtb_Height;
+        rtb_Sum_dj[1] = rtb_ZOH_ADRC_LagDis;
+        rtb_Sum_dj[2] = 0.0;
+        rtb_HeadingAngle_n = codegenReal2Mission_norm_b(rtb_Sum_f);
+        rtb_Height_m = codegenReal2Mission_norm_b(rtb_Sum_dj);
+        rtb_Sum_p = rtb_Sum_f[0] / rtb_HeadingAngle_n;
+        rtb_Height /= rtb_Height_m;
+        rtb_ZOH_ADRC_LagDis /= rtb_Height_m;
         codegenReal2Mission_DW.obj_m.PrevPosition[0] =
           codegenReal2Mission_B.SimUAVStateZOH.North;
         codegenReal2Mission_DW.obj_m.PrevPosition[1] =
           codegenReal2Mission_B.SimUAVStateZOH.East;
-        rtb_Sum_nx[2] = rt_atan2d_snf(q, rtb_Switch);
         codegenReal2Mission_DW.obj_m.PrevPosition[2] =
           codegenReal2Mission_B.Down;
-        codegenReal2Mission_DW.obj_m.NumCircles += rtb_Sum_nx[2] / 2.0 /
-          3.1415926535897931;
-        rtb_Switch = codegenReal2Mission_DW.obj_m.NumCircles;
-        rtb_Sum_nx[0] = rtb_HeadingAngle;
-        rtb_Sum_nx[1] = rtb_RollAngle_p;
+        rtb_RollAngle_p = rtb_LowerBound / rtb_HeadingAngle_n;
+        codegenReal2Mission_DW.obj_m.NumCircles += rt_atan2d_snf(rtb_Sum_p *
+          rtb_ZOH_ADRC_LagDis - rtb_Height * rtb_RollAngle_p, (rtb_RollAngle_p *
+          rtb_ZOH_ADRC_LagDis + rtb_Sum_p * rtb_Height) + 0.0 /
+          rtb_HeadingAngle_n * (0.0 / rtb_Height_m)) / 2.0 / 3.1415926535897931;
+        rtb_ZOH_ADRC_LagDis = codegenReal2Mission_DW.obj_m.NumCircles;
         if ((distToCenter_tmp[0] - codegenReal2Mission_B.SimUAVStateZOH.North) *
-            rtb_Sum_nx[1] - (rtb_Abs1_n -
-                             codegenReal2Mission_B.SimUAVStateZOH.East) *
-            rtb_Sum_nx[0] > 0.0) {
+            rtb_SpeedProtection - rtb_HeadingAngle * (rtb_TargetHDG_Rad -
+             codegenReal2Mission_B.SimUAVStateZOH.East) > 0.0) {
           rtb_RollAngle_p = distToCenter_tmp[0];
         } else {
-          rtb_RollAngle_p = rtb_Abs1_i + rtb_RollAngle_gh;
-          rtb_Abs1_n = rtb_Height - rtb_Sum1_b_idx_0;
+          rtb_RollAngle_p = rtb_MemoryLookAheadP + rtb_RollAngle_gh;
+          rtb_TargetHDG_Rad = rtb_ZOH_ADRC_U - rtb_TrackSimPath_o5;
         }
       }
     }
 
     if (guard1) {
-      rtb_RollAngleRate = codegenReal2Mission_norm(distToCenter_tmp);
-      rtb_RollAngle_p = rtb_TargetHdg_Log / rtb_RollAngleRate * 1000.0 +
-        rtb_NorthEastHeight[0];
-      rtb_Abs1_n = rtb_TD_AirSpdADRC / rtb_RollAngleRate * 1000.0 +
-        rtb_NorthEastHeight[1];
-      rtb_Switch = codegenReal2Mission_DW.obj_m.NumCircles;
+      rtb_HeadingAngle_n = codegenReal2Mission_norm(distToCenter_tmp);
+      rtb_RollAngle_p = rtb_Height / rtb_HeadingAngle_n * 1000.0 + rtb_Sum_dj[0];
+      rtb_TargetHDG_Rad = rtb_ZOH_ADRC_LagDis / rtb_HeadingAngle_n * 1000.0 +
+        rtb_Sum_dj[1];
+      rtb_ZOH_ADRC_LagDis = codegenReal2Mission_DW.obj_m.NumCircles;
     }
 
     // MATLABSystem: '<S3>/TakeOffGathering'
-    codegenReal2Mission_B.TakeOffGathering_o2 = rt_atan2d_snf(rtb_Abs1_n -
-      codegenReal2Mission_B.SimUAVStateZOH.East, rtb_RollAngle_p -
+    codegenReal2Mission_B.TakeOffGathering_o2 = rt_atan2d_snf(rtb_TargetHDG_Rad
+      - codegenReal2Mission_B.SimUAVStateZOH.East, rtb_RollAngle_p -
       codegenReal2Mission_B.SimUAVStateZOH.North);
   }
 
@@ -2844,8 +2902,8 @@ void codegenReal2MissionModelClass::step()
         codegenReal2Mission_IN_Circle;
       codegenReal2Mission_B.Seletion = 0.0;
     } else if (codegenReal2Mission_DW.is_c10_codegenReal2Mission == 1) {
-      if ((rtb_Switch > 2.0) && (codegenReal2Mission_B.ExecutionTrigger != 0.0))
-      {
+      if ((rtb_ZOH_ADRC_LagDis > 3.0) && (codegenReal2Mission_B.ExecutionTrigger
+           != 0.0)) {
         codegenReal2Mission_DW.is_c10_codegenReal2Mission =
           codegenReal2Mission_IN_Flower;
         codegenReal2Mission_B.Seletion = 1.0;
@@ -2858,10 +2916,25 @@ void codegenReal2MissionModelClass::step()
     }
 
     // End of Chart: '<S3>/ChartExecutionMode'
+
+    // Gain: '<Root>/Height2Down'
+    rtb_Down = -codegenReal2Mission_B.NorthEastHeight[2];
   }
 
   // Gain: '<S3>/Down2Height'
   codegenReal2Mission_B.Down2Height = 150.0;
+
+  // Integrator: '<S9>/dotAltTD'
+  codegenReal2Mission_B.dotAltTD = codegenReal2Mission_X.dotAltTD_CSTATE;
+
+  // MATLAB Function: '<S9>/fhan_Alt' incorporates:
+  //   Constant: '<S9>/Constant2'
+  //   Constant: '<S9>/Constant3'
+  //   Sum: '<S9>/Sum1'
+
+  codegenReal2Mission_fhan_Bank(codegenReal2Mission_B.TD_Alt -
+    codegenReal2Mission_B.DataSwitch, codegenReal2Mission_B.dotAltTD, 1.0, 0.1,
+    &codegenReal2Mission_B.fh);
   if (rtmIsMajorTimeStep((&codegenReal2Mission_M))) {
     // Matfile logging
     rt_UpdateTXYLogVars((&codegenReal2Mission_M)->rtwLogInfo,
@@ -2882,6 +2955,9 @@ void codegenReal2MissionModelClass::step()
 
       codegenReal2Mission_DW.InitHdg_DSTATE =
         codegenReal2Mission_B.TakeOffGathering_o2;
+
+      // Update for Memory: '<Root>/MemoryRefHeight'
+      codegenReal2Mission_DW.MemoryRefHeight_PreviousInput = rtb_Down;
 
       // Update for Memory: '<S3>/MemoryLookAheadP'
       codegenReal2Mission_DW.MemoryLookAheadP_PreviousInput =
@@ -2944,39 +3020,45 @@ void codegenReal2MissionModelClass::codegenReal2Mission_derivatives()
   _rtXdot = ((XDot_codegenReal2Mission_T *) (&codegenReal2Mission_M)->derivs);
 
   // Derivatives for Atomic SubSystem: '<S3>/MissionSimUAV'
-  // Derivatives for Integrator: '<S16>/Integrator' incorporates:
-  //   MATLABSystem: '<S16>/ComputeDerivative'
+  // Derivatives for Integrator: '<S17>/Integrator' incorporates:
+  //   MATLABSystem: '<S17>/ComputeDerivative'
 
   std::memcpy(&_rtXdot->Integrator_CSTATE[0],
               &codegenReal2Mission_B.ComputeDerivative[0], sizeof(real_T) << 3U);
 
-  // Derivatives for Integrator: '<S17>/TD_Bank'
+  // Derivatives for Integrator: '<S18>/TD_Bank'
   _rtXdot->TD_Bank_CSTATE = codegenReal2Mission_B.dotBankTD;
 
-  // Derivatives for Integrator: '<S17>/dotBankTD'
+  // Derivatives for Integrator: '<S18>/dotBankTD'
   _rtXdot->dotBankTD_CSTATE = codegenReal2Mission_B.fh_n;
 
   // End of Derivatives for SubSystem: '<S3>/MissionSimUAV'
 
   // Derivatives for Atomic SubSystem: '<Root>/SpeedControl'
   // Derivatives for Atomic SubSystem: '<S7>/ADRC'
-  // Derivatives for Integrator: '<S73>/ESO'
+  // Derivatives for Integrator: '<S74>/ESO'
   _rtXdot->ESO_CSTATE = codegenReal2Mission_B.ESOdotsum;
 
-  // Derivatives for Integrator: '<S73>/ESO_dot'
+  // Derivatives for Integrator: '<S74>/ESO_dot'
   _rtXdot->ESO_dot_CSTATE = codegenReal2Mission_B.ESOdotdotsum;
 
-  // Derivatives for Integrator: '<S73>/ESO_dotdot'
+  // Derivatives for Integrator: '<S74>/ESO_dotdot'
   _rtXdot->ESO_dotdot_CSTATE = codegenReal2Mission_B.Inverse;
 
-  // Derivatives for Integrator: '<S75>/TD_AirSpdADRC'
+  // Derivatives for Integrator: '<S76>/TD_AirSpdADRC'
   _rtXdot->TD_AirSpdADRC_CSTATE = codegenReal2Mission_B.dotTD;
 
-  // Derivatives for Integrator: '<S75>/dotTD'
-  _rtXdot->dotTD_CSTATE = codegenReal2Mission_B.fh;
+  // Derivatives for Integrator: '<S76>/dotTD'
+  _rtXdot->dotTD_CSTATE = codegenReal2Mission_B.fh_f;
 
   // End of Derivatives for SubSystem: '<S7>/ADRC'
   // End of Derivatives for SubSystem: '<Root>/SpeedControl'
+
+  // Derivatives for Integrator: '<S9>/TD_Alt'
+  _rtXdot->TD_Alt_CSTATE = codegenReal2Mission_B.dotAltTD;
+
+  // Derivatives for Integrator: '<S9>/dotAltTD'
+  _rtXdot->dotAltTD_CSTATE = codegenReal2Mission_B.fh;
 }
 
 // Model initialize function
@@ -3087,18 +3169,18 @@ void codegenReal2MissionModelClass::initialize()
         "EngagedFlag_Log",
         "Heading_Log",
         "ADRC_U_Log",
-        "" };
+        "biasH_Log" };
 
       static char_T rt_ScopeSignalTitles[] =
-        "RealUAVState_LogSimUAVState_LogRefAirspeed_LogLagDistance_LogLookAheadNED_LogCrossTrackError_LogEngagedFlag_LogHeading_LogADRC_U_Log";
+        "RealUAVState_LogSimUAVState_LogRefAirspeed_LogLagDistance_LogLookAheadNED_LogCrossTrackError_LogEngagedFlag_LogHeading_LogADRC_U_LogbiasH_Log";
       static int_T rt_ScopeSignalTitleLengths[] = { 16, 15, 15, 15, 16, 19, 15,
-        11, 10, 0 };
+        11, 10, 9 };
 
       static boolean_T rt_ScopeSignalIsVarDims[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0 };
 
       static int_T rt_ScopeSignalPlotStyles[] = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-        1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1 };
+        1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0 };
 
       BuiltInDTypeId dTypes[10] = { SS_DOUBLE, SS_DOUBLE, SS_DOUBLE, SS_DOUBLE,
         SS_DOUBLE, SS_DOUBLE, SS_BOOLEAN, SS_DOUBLE, SS_DOUBLE, SS_DOUBLE };
@@ -3162,84 +3244,87 @@ void codegenReal2MissionModelClass::initialize()
     // InitializeConditions for Delay: '<S3>/InitHdg'
     codegenReal2Mission_DW.icLoad = true;
 
-    // InitializeConditions for RateLimiter: '<Root>/Rate Limiter'
-    codegenReal2Mission_DW.PrevY = -70.0;
+    // InitializeConditions for Integrator: '<S9>/TD_Alt'
+    codegenReal2Mission_X.TD_Alt_CSTATE = 0.0;
+
+    // InitializeConditions for Integrator: '<S9>/dotAltTD'
+    codegenReal2Mission_X.dotAltTD_CSTATE = 0.0;
 
     // SystemInitialize for Atomic SubSystem: '<S3>/MissionSimUAV'
-    // InitializeConditions for RateLimiter: '<S12>/ClimbRateLimiter'
-    codegenReal2Mission_DW.PrevY_f = 150.0;
+    // InitializeConditions for RateLimiter: '<S13>/ClimbRateLimiter'
+    codegenReal2Mission_DW.PrevY = 150.0;
 
-    // InitializeConditions for Integrator: '<S16>/Integrator'
+    // InitializeConditions for Integrator: '<S17>/Integrator'
     std::memset(&codegenReal2Mission_X.Integrator_CSTATE[0], 0, sizeof(real_T) <<
                 3U);
 
-    // InitializeConditions for Integrator: '<S17>/TD_Bank'
+    // InitializeConditions for Integrator: '<S18>/TD_Bank'
     codegenReal2Mission_X.TD_Bank_CSTATE = 0.0;
 
-    // InitializeConditions for Integrator: '<S17>/dotBankTD'
+    // InitializeConditions for Integrator: '<S18>/dotBankTD'
     codegenReal2Mission_X.dotBankTD_CSTATE = 0.0;
 
-    // Start for MATLABSystem: '<S16>/ComputeDerivative'
+    // Start for MATLABSystem: '<S17>/ComputeDerivative'
     codegenReal2Mission_DW.obj_a.isInitialized = 0;
     codegenReal2Mission_DW.obj_a.isInitialized = 1;
     codegenReal2Mis_Model_resetImpl(&codegenReal2Mission_DW.obj_a);
 
-    // InitializeConditions for MATLABSystem: '<S16>/ComputeDerivative'
+    // InitializeConditions for MATLABSystem: '<S17>/ComputeDerivative'
     codegenReal2Mis_Model_resetImpl(&codegenReal2Mission_DW.obj_a);
 
-    // Outputs for Atomic SubSystem: '<S12>/InitializeSimLocation'
-    // DataStoreWrite: '<S14>/DSnumMissionUAV' incorporates:
-    //   Constant: '<S14>/Number Of Mission UAV'
+    // Outputs for Atomic SubSystem: '<S13>/InitializeSimLocation'
+    // DataStoreWrite: '<S15>/DSnumMissionUAV' incorporates:
+    //   Constant: '<S15>/Number Of Mission UAV'
 
     codegenReal2Mission_DW.numMissionUAV = codegenReal2Mission_P.numMissionUAV;
 
-    // DataStoreWrite: '<S14>/DSuavIDX' incorporates:
-    //   Constant: '<S14>/UAVidx'
+    // DataStoreWrite: '<S15>/DSuavIDX' incorporates:
+    //   Constant: '<S15>/UAVidx'
 
     codegenReal2Mission_DW.UAVidx = codegenReal2Mission_P.UAVidx;
 
-    // DataStoreWrite: '<S14>/DSAltitudeGCS' incorporates:
-    //   Constant: '<S14>/AltitudeGCS'
+    // DataStoreWrite: '<S15>/DSAltitudeGCS' incorporates:
+    //   Constant: '<S15>/AltitudeGCS'
 
     codegenReal2Mission_DW.AltitudeGCS = codegenReal2Mission_P.GCS_Altitude;
 
-    // DataStoreWrite: '<S14>/DSLatitudeGCS' incorporates:
-    //   Constant: '<S14>/LatitudeGCS'
+    // DataStoreWrite: '<S15>/DSLatitudeGCS' incorporates:
+    //   Constant: '<S15>/LatitudeGCS'
 
     codegenReal2Mission_DW.LatitudeGCS = codegenReal2Mission_P.GCS_Latitude;
 
-    // DataStoreWrite: '<S14>/DSLongitudeGCS' incorporates:
-    //   Constant: '<S14>/LongitudeGCS'
+    // DataStoreWrite: '<S15>/DSLongitudeGCS' incorporates:
+    //   Constant: '<S15>/LongitudeGCS'
 
     codegenReal2Mission_DW.LongitudeGCS = codegenReal2Mission_P.GCS_Longitude;
 
-    // Product: '<S14>/Map2Radian' incorporates:
-    //   Bias: '<S14>/Bias'
-    //   Constant: '<S14>/2pi'
-    //   Constant: '<S14>/Number Of Mission UAV'
-    //   Constant: '<S14>/UAVidx'
-    //   DataTypeConversion: '<S14>/Cast To Double'
-    //   Gain: '<S14>/Gain'
-    //   Product: '<S14>/Divide'
-    //   Sum: '<S14>/Minus'
+    // Product: '<S15>/Map2Radian' incorporates:
+    //   Bias: '<S15>/Bias'
+    //   Constant: '<S15>/2pi'
+    //   Constant: '<S15>/Number Of Mission UAV'
+    //   Constant: '<S15>/UAVidx'
+    //   DataTypeConversion: '<S15>/Cast To Double'
+    //   Gain: '<S15>/Gain'
+    //   Product: '<S15>/Divide'
+    //   Sum: '<S15>/Minus'
 
     rtb_ClockwiseRotation = (static_cast<real_T>(codegenReal2Mission_P.UAVidx) -
       (codegenReal2Mission_P.numMissionUAV + 1.0) * 0.5) * (6.2831853071795862 /
       codegenReal2Mission_P.numMissionUAV);
 
-    // StateWriter: '<S14>/SimUAVState' incorporates:
-    //   Bias: '<S14>/ClockwiseRotation'
-    //   Constant: '<S14>/InitialFlightPathAngle'
-    //   Constant: '<S14>/InitialHeight'
-    //   Constant: '<S14>/InitialRollAngle'
-    //   Constant: '<S14>/InitialRollAngleRate'
-    //   Constant: '<S14>/InitialUAVAirspeed'
-    //   Constant: '<S14>/Radius'
-    //   Product: '<S14>/EastDis'
-    //   Product: '<S14>/NorthDis'
-    //   Reshape: '<S14>/Reshape'
-    //   Trigonometry: '<S14>/Cos'
-    //   Trigonometry: '<S14>/Sin'
+    // StateWriter: '<S15>/SimUAVState' incorporates:
+    //   Bias: '<S15>/ClockwiseRotation'
+    //   Constant: '<S15>/InitialFlightPathAngle'
+    //   Constant: '<S15>/InitialHeight'
+    //   Constant: '<S15>/InitialRollAngle'
+    //   Constant: '<S15>/InitialRollAngleRate'
+    //   Constant: '<S15>/InitialUAVAirspeed'
+    //   Constant: '<S15>/Radius'
+    //   Product: '<S15>/EastDis'
+    //   Product: '<S15>/NorthDis'
+    //   Reshape: '<S15>/Reshape'
+    //   Trigonometry: '<S15>/Cos'
+    //   Trigonometry: '<S15>/Sin'
 
     codegenReal2Mission_X.Integrator_CSTATE[0] = std::cos(rtb_ClockwiseRotation)
       * 1000.0;
@@ -3257,11 +3342,11 @@ void codegenReal2MissionModelClass::initialize()
     rtsiSetContTimeOutputInconsistentWithStateAtMajorStep
       (&(&codegenReal2Mission_M)->solverInfo, true);
 
-    // End of Outputs for SubSystem: '<S12>/InitializeSimLocation'
+    // End of Outputs for SubSystem: '<S13>/InitializeSimLocation'
     // End of SystemInitialize for SubSystem: '<S3>/MissionSimUAV'
 
     // SystemInitialize for Atomic SubSystem: '<Root>/GenerateTrack'
-    for (i = 0; i < 60; i++) {
+    for (i = 0; i < 72; i++) {
       // InitializeConditions for S-Function (sfix_udelay): '<S4>/HeightSequence' 
       codegenReal2Mission_DW.HeightSequence_X[i] = -150.0;
     }
@@ -3270,19 +3355,19 @@ void codegenReal2MissionModelClass::initialize()
 
     // SystemInitialize for Atomic SubSystem: '<Root>/SpeedControl'
     // SystemInitialize for Atomic SubSystem: '<S7>/ADRC'
-    // InitializeConditions for Integrator: '<S73>/ESO'
+    // InitializeConditions for Integrator: '<S74>/ESO'
     codegenReal2Mission_X.ESO_CSTATE = 0.0;
 
-    // InitializeConditions for Integrator: '<S73>/ESO_dot'
+    // InitializeConditions for Integrator: '<S74>/ESO_dot'
     codegenReal2Mission_X.ESO_dot_CSTATE = 0.0;
 
-    // InitializeConditions for Integrator: '<S73>/ESO_dotdot'
+    // InitializeConditions for Integrator: '<S74>/ESO_dotdot'
     codegenReal2Mission_X.ESO_dotdot_CSTATE = 0.0;
 
-    // InitializeConditions for Integrator: '<S75>/TD_AirSpdADRC'
+    // InitializeConditions for Integrator: '<S76>/TD_AirSpdADRC'
     codegenReal2Mission_X.TD_AirSpdADRC_CSTATE = 0.0;
 
-    // InitializeConditions for Integrator: '<S75>/dotTD'
+    // InitializeConditions for Integrator: '<S76>/dotTD'
     codegenReal2Mission_X.dotTD_CSTATE = 0.0;
 
     // End of SystemInitialize for SubSystem: '<S7>/ADRC'
@@ -3298,7 +3383,7 @@ void codegenReal2MissionModelClass::initialize()
 
     // InitializeConditions for MATLABSystem: '<Root>/TrackSimPath'
     codegenReal2Mission_DW.obj.WaypointIndex = 1.0;
-    for (i = 0; i < 183; i++) {
+    for (i = 0; i < 219; i++) {
       // Start for MATLABSystem: '<Root>/TrackSimPath'
       codegenReal2Mission_DW.obj.WaypointsInternal[i] = (rtNaN);
 
