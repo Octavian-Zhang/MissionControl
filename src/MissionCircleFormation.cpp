@@ -184,10 +184,7 @@ void MissionCircleFormation::startCircle()
     }
     delete circleFm;
 }
-//初始化航路-------------------------------------------------------------------//
-void MissionCircleFormation::initFlightPath(){}
-//保存航路---------------------------------------------------------------------//
-void MissionCircleFormation::saveFlightPath(AirRoutePoint *route, int len){}
+
 //----------------------------------------------------------------------------//
 void MissionCircleFormation::join(){}
 //----------------------------------------------------------------------------//

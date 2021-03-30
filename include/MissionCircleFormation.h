@@ -45,9 +45,6 @@ private:
     //For log
     std::ofstream logForCircleFm;
 
-    void initFlightPath();
-    void saveFlightPath(AirRoutePoint *route, int len);
-
     std::thread *ctrl_thread;
     std::thread *algorithm_thread;
 

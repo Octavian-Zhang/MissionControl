@@ -23,16 +23,6 @@ struct CircleCtrl
     int cmd;           //环形封锁控制消息，0开始任务，1结束任务
 };
 
-//航路中的航点
-struct AirRoutePoint
-{
-    long msgType;      // 消息类型，正常航路997，避障航路998
-    int waypointID;    // 航点ID，1、2、3，最后一个4096
-    double longtitude; // 经度
-    double latitude;   // 纬度
-    double altitude;   // 高度
-};
-
 //实时位姿
 struct FlightStatus
 {
