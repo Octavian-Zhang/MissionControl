@@ -1,5 +1,3 @@
 build/
-log/
-.vscode/
-
-*.so
+lib/
+app/
