@@ -55,8 +55,6 @@ private:
     struct FlightStatus fs;
     struct ExpectedPosSpd expPosSpd;
 
-    bool startMission = false;
-
     CircleFormation *circleFm;
     MissionData *missionData;
 };

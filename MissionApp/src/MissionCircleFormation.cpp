@@ -1,6 +1,5 @@
 #include <MissionCircleFormation.h>
 
-//----------------------------------------------------------------------------//
 MissionCircleFormation::MissionCircleFormation()
 {
     std::cout << "Initiating Circle Formation Mission thread..." << std::endl;
@@ -42,14 +41,14 @@ MissionCircleFormation::MissionCircleFormation()
     }
     fout3.close();
 
-    circleFm = new CircleFormation();
     missionData = new MissionData();
-    circleFm->setCommonDataField(missionData);
-    circleFm->init();
+    circleFm = new CircleFormation(missionData);
 }
-//----------------------------------------------------------------------------//
+
 MissionCircleFormation::~MissionCircleFormation()
 {
+    delete missionData;
+    delete circleFm;
     logForCircleFm.close();
 }
 //----------------------------------------------------------------------------//
@@ -104,18 +103,9 @@ void MissionCircleFormation::startCtrl()
         msgrcv(msgIDCtrl, &ctrlMsg, sizeof(struct CircleCtrl) - sizeof(long), 896, 0); // 返回类型为896的第一个消息
         printf("Receive circle control message: %d\n", ctrlMsg.cmd);
         missionData->setCtrlCmd(ctrlMsg.cmd);
-        if (ctrlMsg.cmd == 0) //开始任务
-        {
-            startMission = true;
-            std::cout << "开始环形封锁算法！" << std::endl;
-        }
-        else
-        {
-            startMission = false;
-            std::cout << "结束环形封锁算法！" << std::endl;
-        }
     }
 }
+
 //----------------------------------------------------------------------------//
 void MissionCircleFormation::startCircle()
 {
@@ -165,13 +155,9 @@ void MissionCircleFormation::startCircle()
     
         try
         {
-            missionData->updatePos(fs.lon, fs.lat, fs.height, fs.airspeed, fs.yaw, fs.pitch, fs.roll);
-            //circleFm->rt_OneStep();
+            missionData->updatePos(fs);
             std::vector<double> expPos;
-            while (missionData->calComplete() != true)
-            {
-                usleep(10000);
-            }
+
             missionData->getExpectedPos(expPos);
             expPosSpd = {897, expPos[1], expPos[2], expPos[3], expPos[3], expPos[0]};
         }
@@ -182,7 +168,6 @@ void MissionCircleFormation::startCircle()
         msgsnd(msgIDExpFS, &expPosSpd, sizeof(struct ExpectedPosSpd) - sizeof(long), 0);
         printf("Receive expected position and speed: %f, %f, %f. Speed:%f\n", expPosSpd.lon, expPosSpd.lat, expPosSpd.alt, expPosSpd.airspeed);
     }
-    delete circleFm;
 }
 
 //----------------------------------------------------------------------------//

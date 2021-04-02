@@ -26,17 +26,15 @@ class CircleFormation
 {
 private:
     codegenReal2MissionModelClass codegenReal2Mission_Obj; // Instance of model class
-    codegenReal2MissionModelClass::ExtY_codegenReal2Mission_T codegenReal2Mission_Y; //期望航点和速度
-    codegenReal2MissionModelClass::ExtU_codegenReal2Mission_T pExtU_codegenReal2Mission_T;
     std::thread *background_thread;//任务控制线程，绑定startMission函数
     MissionData *commonData;
 
 public:
-    void init(void);//初始化任务
+    CircleFormation(MissionData * const);
+
     void rt_OneStep(void);
     void ert_main(void);
     void MissionMonitor();//任务监控函数，监听公共数据域的任务指令
-    void setCommonDataField(MissionData *data);//设置公共数据域指针
     void renameMATfile(void);
 };
 

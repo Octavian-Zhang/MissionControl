@@ -22,17 +22,12 @@
 #include <string>
 #include <fstream>
 
-void CircleFormation::init(void)
-{
-  if (background_thread == NULL)
-  {
-    background_thread = new std::thread(&CircleFormation::MissionMonitor, this);
-  }
-}
-
-void CircleFormation::setCommonDataField(MissionData *data)
-{
-  this->commonData = data;
+CircleFormation::CircleFormation(MissionData * const pCommonData) {
+    this->commonData = pCommonData;
+    if (background_thread == NULL)
+    {
+        background_thread = new std::thread(&CircleFormation::MissionMonitor, this);
+    }
 }
 
 void CircleFormation::renameMATfile(void)
@@ -93,16 +88,13 @@ void CircleFormation::rt_OneStep(void)
   // Save FPU context here (if necessary)
   // Re-enable timer or interrupt here
   // Set model inputs here
-  pExtU_codegenReal2Mission_T.RealUAVLatLonState = commonData->getRealPos(); //从公共数据域获取实时位姿数据
-  codegenReal2Mission_Obj.setExternalInputs(&pExtU_codegenReal2Mission_T);
+  codegenReal2Mission_Obj.setExternalInputs(&commonData->getExtU());
 
   // Step the model for base rate
   codegenReal2Mission_Obj.step();
 
   // Get model outputs here
-  codegenReal2Mission_Y = codegenReal2Mission_Obj.getExternalOutputs();
-  this->commonData->setExpectedPos(codegenReal2Mission_Y); //向公共数据域更新期望航点和速度
-  this->commonData->setOneStepResult(true);                //更新公共数据域标志位，通知数据收发端获取新的期望航点和速度
+  commonData->setExtY(codegenReal2Mission_Obj.getExternalOutputs());
 
   // Indicate task complete
   OverrunFlag = false;
@@ -131,11 +123,6 @@ void CircleFormation::ert_main(void)
     // increment SimulationTime for 100ms
     const std::chrono::milliseconds tick{ 100 };
     SimulationTime += tick;
-
-    if (this->commonData != NULL && this->commonData->getCtrlCmd() == 0) //结束任务
-    {
-      rtmSetErrorStatus(codegenReal2Mission_Obj.getRTM(), "Terminate");
-    }  
 
     while (TimeElapsed < SimulationTime) // delay execution until next simulation tick
     {
