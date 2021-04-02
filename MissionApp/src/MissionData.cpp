@@ -42,9 +42,11 @@ void MissionData::updatePos(FlightStatus fs)
 //--------------供数据收发软件获取期望航点、速度---------//
 void MissionData::getExpectedPos(std::vector<double> &expPos)
 {
+  mutexExtY.lock();
   expPos.push_back(this->ExtY.RefAirspeed);
   expPos.push_back(this->ExtY.LookAheadPoint_j.Longitude_deg);
   expPos.push_back(this->ExtY.LookAheadPoint_j.Latitude_deg);
   expPos.push_back(this->ExtY.LookAheadPoint_j.Height_meter);
+  mutexExtY.unlock();
 }
 
