@@ -118,7 +118,7 @@ void CircleFormation::ert_main(void)
          !rtmGetStopRequested(codegenReal2Mission_Obj.getRTM()))
   {
     rt_OneStep();
-    std::cout << "Simulation Time: " << SimulationTime.count() << " milliseconds" << std::endl;
+    std::cout << "Running Time: " << SimulationTime.count() << " milliseconds" << std::endl;
 
     // increment SimulationTime for 100ms
     const std::chrono::milliseconds tick{ 100 };
