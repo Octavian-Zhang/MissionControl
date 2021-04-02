@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 2.241
+// Model version                  : 2.269
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Mar 29 11:29:58 2021
+// C/C++ source code generated on : Thu Apr  1 17:28:10 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -24,14 +24,42 @@
 #include "zero_crossing_types.h"
 
 // Model Code Variants
-#ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceControlBus_
-#define DEFINED_TYPEDEF_FOR_FixedWingGuidanceControlBus_
+#ifndef DEFINED_TYPEDEF_FOR_RealUAVStateBus_
+#define DEFINED_TYPEDEF_FOR_RealUAVStateBus_
 
-struct FixedWingGuidanceControlBus
+struct RealUAVStateBus
+{
+  real_T Latitude_deg;
+  real_T Longitude_deg;
+  real_T Height_meter;
+  real_T AirSpeed_mps;
+  real_T HeadingAngle_deg;
+  real_T FlightPathAngle_deg;
+  real_T RollAngle_deg;
+};
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_VectorSpeed_
+#define DEFINED_TYPEDEF_FOR_VectorSpeed_
+
+struct VectorSpeed
+{
+  real_T eastSpeed;
+  real_T northSpeed;
+  real_T skySpeed;
+};
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
+#define DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
+
+struct FixedWingGuidanceBus
 {
   real_T Height;
   real_T AirSpeed;
-  real_T RollAngle;
+  real_T HeadingAngle;
 };
 
 #endif
@@ -49,30 +77,14 @@ struct FixedWingGuidanceEnvironmentBus
 
 #endif
 
-#ifndef DEFINED_TYPEDEF_FOR_RealUAVStateBus_
-#define DEFINED_TYPEDEF_FOR_RealUAVStateBus_
+#ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceControlBus_
+#define DEFINED_TYPEDEF_FOR_FixedWingGuidanceControlBus_
 
-struct RealUAVStateBus
-{
-  real_T Latitude_deg;
-  real_T Longitude_deg;
-  real_T Height_meter;
-  real_T AirSpeed_mps;
-  real_T HeadingAngle_deg;
-  real_T FlightPathAngle_deg;
-  real_T RollAngle_deg;
-};
-
-#endif
-
-#ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
-#define DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
-
-struct FixedWingGuidanceBus
+struct FixedWingGuidanceControlBus
 {
   real_T Height;
   real_T AirSpeed;
-  real_T HeadingAngle;
+  real_T RollAngle;
 };
 
 #endif

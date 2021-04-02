@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 2.241
+// Model version                  : 2.269
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Mar 29 11:29:58 2021
+// C/C++ source code generated on : Thu Apr  1 17:28:10 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -24,6 +24,14 @@
 #include "zero_crossing_types.h"
 
 // Private macros used by the generated code to access rtModel
+#ifndef rtmSetFirstInitCond
+#define rtmSetFirstInitCond(rtm, val)  ((rtm)->Timing.firstInitCondFlag = (val))
+#endif
+
+#ifndef rtmIsFirstInitCond
+#define rtmIsFirstInitCond(rtm)        ((rtm)->Timing.firstInitCondFlag)
+#endif
+
 #ifndef rtmIsMajorTimeStep
 #define rtmIsMajorTimeStep(rtm)        (((rtm)->Timing.simTimeStep) == MAJOR_TIME_STEP)
 #endif
@@ -39,6 +47,12 @@
 #ifndef rtmSetTPtr
 #define rtmSetTPtr(rtm, val)           ((rtm)->Timing.t = (val))
 #endif
+
+extern const real_T rtCP_pooled_QRdWMO0ZppGF[8];
+
+#define rtCP_InitStateSimUAV_InitialVal rtCP_pooled_QRdWMO0ZppGF // Expression: [0 0 0 40 0 0 0 0]
+                                                                 //  Referenced by: '<S6>/InitStateSimUAV'
+
 
 // private model entry point functions
 extern void codegenReal2Mission_derivatives();
