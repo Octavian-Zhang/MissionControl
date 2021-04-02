@@ -5,18 +5,6 @@ MissionCircleFormation::MissionCircleFormation()
 {
     std::cout << "Initiating Circle Formation Mission thread..." << std::endl;
 
-    //记录日志
-    std::string logFile = "CircleFormation";
-    logFile.append(".log");
-    logForCircleFm.open(logFile, std::ios::app);
-    if (!logForCircleFm.is_open())
-    {
-        std::cout << "Error: Cannot open logForCircleFm" << std::endl;
-    }
-    else
-    {
-        logForCircleFm << "----------New Trial---------" << std::endl;
-    }
     //创建消息队列key所需的文件
     std::ofstream fout1("/etc/circleCtrl", std::fstream::out);
     if (!fout1.is_open())
@@ -50,7 +38,6 @@ MissionCircleFormation::~MissionCircleFormation()
 {
     delete missionData;
     delete circleFm;
-    logForCircleFm.close();
 }
 //----------------------------------------------------------------------------//
 void MissionCircleFormation::setSysID(uint8_t id)
