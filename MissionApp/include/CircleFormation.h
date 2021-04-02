@@ -26,11 +26,14 @@ class CircleFormation
 {
 private:
     codegenReal2MissionModelClass codegenReal2Mission_Obj; // Instance of model class
-    std::thread *background_thread;//任务控制线程，绑定startMission函数
+    std::thread *background_thread;                 //任务控制线程，绑定startMission函数
     MissionData *commonData;
 
 public:
-    CircleFormation(MissionData * const);
+    explicit CircleFormation(MissionData * const); // prevent implicit data type conversion
+    friend std::thread* ert_thread(CircleFormation AlgEnd) {
+        return AlgEnd.background_thread;
+    };
 
     void rt_OneStep(void);
     void ert_main(void);

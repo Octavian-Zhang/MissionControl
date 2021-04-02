@@ -1,4 +1,5 @@
 #include <MissionCircleFormation.h>
+#include <CircleFormation.h>
 
 MissionCircleFormation::MissionCircleFormation()
 {
@@ -147,29 +148,28 @@ void MissionCircleFormation::startCircle()
     //打印期望位置速度消息队列ID及进程ID
     //printf("Msgid for expected position and speed is: %d.\n", msgIDExpFS);
 
-    while (true)
+    while (true) // lock step execution with System V IPC
     {
         std::cout << "Waiting for real time flight status message..." << std::endl;
         msgrcv(msgIDFS, &fs, sizeof(struct FlightStatus) - sizeof(long), 1001, 0); // 返回类型为1001的第一个消息
         printf("Real time flight status message received: %f, %f, %f. Speed:%f\n", fs.lon, fs.lat, fs.alt, fs.airspeed);
-    
-        try
-        {
-            missionData->updatePos(fs);
-            std::vector<double> expPos;
 
-            missionData->getExpectedPos(expPos);
-            expPosSpd = {897, expPos[1], expPos[2], expPos[3], expPos[3], expPos[0]};
-        }
-        catch (const std::exception &e)
-        {
-            std::cout << "ERROR:环形封锁算法发生内部错误！" << std::endl;
-        }
+        // set algorithm input
+        missionData->updatePos(fs);
+        std::vector<double> expPos;
+
+        // get algorithm output
+        missionData->getExpectedPos(expPos);
+        expPosSpd = {897, expPos[1], expPos[2], expPos[3], expPos[3], expPos[0]};
+
         msgsnd(msgIDExpFS, &expPosSpd, sizeof(struct ExpectedPosSpd) - sizeof(long), 0);
         printf("Receive expected position and speed: %f, %f, %f. Speed:%f\n", expPosSpd.lon, expPosSpd.lat, expPosSpd.alt, expPosSpd.airspeed);
     }
 }
 
 //----------------------------------------------------------------------------//
-void MissionCircleFormation::join(){}
+void MissionCircleFormation::join(){
+    std::thread* ert_main_thread = ert_thread(*circleFm);
+    ert_main_thread->join();
+}
 //----------------------------------------------------------------------------//

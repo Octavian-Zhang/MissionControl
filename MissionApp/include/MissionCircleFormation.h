@@ -57,6 +57,10 @@ private:
 
     CircleFormation *circleFm;
     MissionData *missionData;
+
+    // prevent shallow copy & assignment
+    MissionCircleFormation(const MissionCircleFormation &);
+    MissionCircleFormation & operator=(const MissionCircleFormation &);
 };
 
 #endif
