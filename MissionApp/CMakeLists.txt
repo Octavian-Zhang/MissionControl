@@ -1,3 +1,6 @@
+# CMakeList.txt : CMake project for mission application, include source and define
+# project specific logic here.
+#
 cmake_minimum_required(VERSION 3.5.0)
 
 # add compiler option to use C++11 features
@@ -5,6 +8,9 @@ add_compile_options(-std=c++11)
 
 # set preprocessor flag to include pthread
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -pthread")
+
+# define runtime output path
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/app)
 
 # include the mission application include directory
 include_directories (${CMAKE_CURRENT_SOURCE_DIR}/include)

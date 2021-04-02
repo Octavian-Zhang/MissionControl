@@ -1,9 +1,17 @@
+# Top-level CMake project file, do global configuration
+# and include sub-projects here.
+
 cmake_minimum_required(VERSION 3.5.0)
+
+# declare project name and version number
 project(MissionControl VERSION 0.1.0)
 
-SET(CMAKE_BUILD_TYPE "Debug")
-SET(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -Wall -ggdb")
+# set optimization and warning options
+SET(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -Wall -ggdb")
 SET(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wall")
+
+# set build type
+SET(CMAKE_BUILD_TYPE "Debug")
 
 # Include sub-projects.
 add_subdirectory (MissionAlg)

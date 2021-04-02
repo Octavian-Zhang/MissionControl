@@ -6,12 +6,17 @@ cmake_minimum_required(VERSION 3.5.0)
 # add compiler option to change default MAT logging buffer size
 add_compile_options(-DDEFAULT_BUFFER_SIZE=65536)
 
+# define library output path
+set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
+
 # include the mission algorithm include directory
 include_directories (${CMAKE_CURRENT_SOURCE_DIR}/include)
 
+# glob source code files
 file(GLOB_RECURSE MISSIONALG_SRC_CPP "src/*.cpp")
 file(GLOB_RECURSE MISSIONALG_SRC_C "src/*.c")
 
+# add source to this project's shared library.
 add_library (MissionAlg SHARED 
                 ${MISSIONALG_SRC_C}
                 ${MISSIONALG_SRC_CPP}
