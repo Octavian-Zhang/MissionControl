@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 2.279
+// Model version                  : 2.283
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Sat Apr  3 11:58:09 2021
+// C/C++ source code generated on : Sat Apr  3 21:13:42 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -1941,8 +1941,8 @@ void codegenReal2MissionModelClass::step()
     //   Sum: '<S79>/SumTD'
     //   Sum: '<S79>/SumTDdot'
 
-    a0 = (codegenReal2Mission_B.dotTD - codegenReal2Mission_B.ESO_dot) *
-      3.2202531507756045 * 9.64653500837626;
+    a0 = (codegenReal2Mission_B.dotTD - codegenReal2Mission_B.ESO_dot) * 3.2203 *
+      9.6465;
     eastSpeed = (codegenReal2Mission_X.TD_AirSpdADRC_CSTATE -
                  codegenReal2Mission_B.ESO) + a0;
     if (eastSpeed < 0.0) {
@@ -1955,24 +1955,24 @@ void codegenReal2MissionModelClass::step()
       d = (rtNaN);
     }
 
-    skySpeed = (std::sqrt((8.0 * std::abs(eastSpeed) + 465.27818833914387) *
-                          465.27818833914387) - 465.27818833914387) * d / 2.0 +
+    skySpeed = (std::sqrt((8.0 * std::abs(eastSpeed) + 465.27481124999997) *
+                          465.27481124999997) - 465.27481124999997) * d / 2.0 +
       a0;
-    if (eastSpeed + 465.27818833914387 < 0.0) {
+    if (eastSpeed + 465.27481124999997 < 0.0) {
       d = -1.0;
-    } else if (eastSpeed + 465.27818833914387 > 0.0) {
+    } else if (eastSpeed + 465.27481124999997 > 0.0) {
       d = 1.0;
-    } else if (eastSpeed + 465.27818833914387 == 0.0) {
+    } else if (eastSpeed + 465.27481124999997 == 0.0) {
       d = 0.0;
     } else {
       d = (rtNaN);
     }
 
-    if (eastSpeed - 465.27818833914387 < 0.0) {
+    if (eastSpeed - 465.27481124999997 < 0.0) {
       q = -1.0;
-    } else if (eastSpeed - 465.27818833914387 > 0.0) {
+    } else if (eastSpeed - 465.27481124999997 > 0.0) {
       q = 1.0;
-    } else if (eastSpeed - 465.27818833914387 == 0.0) {
+    } else if (eastSpeed - 465.27481124999997 == 0.0) {
       q = 0.0;
     } else {
       q = (rtNaN);
@@ -1989,21 +1989,21 @@ void codegenReal2MissionModelClass::step()
       skySpeed = (rtNaN);
     }
 
-    if (eastSpeed + 465.27818833914387 < 0.0) {
+    if (eastSpeed + 465.27481124999997 < 0.0) {
       a0 = -1.0;
-    } else if (eastSpeed + 465.27818833914387 > 0.0) {
+    } else if (eastSpeed + 465.27481124999997 > 0.0) {
       a0 = 1.0;
-    } else if (eastSpeed + 465.27818833914387 == 0.0) {
+    } else if (eastSpeed + 465.27481124999997 == 0.0) {
       a0 = 0.0;
     } else {
       a0 = (rtNaN);
     }
 
-    if (eastSpeed - 465.27818833914387 < 0.0) {
+    if (eastSpeed - 465.27481124999997 < 0.0) {
       d = -1.0;
-    } else if (eastSpeed - 465.27818833914387 > 0.0) {
+    } else if (eastSpeed - 465.27481124999997 > 0.0) {
       d = 1.0;
-    } else if (eastSpeed - 465.27818833914387 == 0.0) {
+    } else if (eastSpeed - 465.27481124999997 == 0.0) {
       d = 0.0;
     } else {
       d = (rtNaN);
@@ -2014,9 +2014,9 @@ void codegenReal2MissionModelClass::step()
     //   MATLAB Function: '<S85>/fhan(e1,ce2,r,h1)'
     //   Sum: '<S79>/ESOpNLSEF'
 
-    codegenReal2Mission_B.GainADRCinvb0 = (-((eastSpeed / 465.27818833914387 -
+    codegenReal2Mission_B.GainADRCinvb0 = (-((eastSpeed / 465.27481124999997 -
       skySpeed) * -5.0 * ((a0 - d) / 2.0) - 5.0 * skySpeed) -
-      codegenReal2Mission_B.ESO_dotdot) * 0.4469922429475931;
+      codegenReal2Mission_B.ESO_dotdot) * 0.44698730556052207;
     if (rtmIsMajorTimeStep((&codegenReal2Mission_M))) {
       // ZeroOrderHold: '<S79>/ZOH_ADRC_U' incorporates:
       //   DataStoreWrite: '<S79>/WriteADRC_U_Log'
@@ -2209,8 +2209,8 @@ void codegenReal2MissionModelClass::step()
         codegenReal2Mission_B.SimUAVStateZOH.AirSpeed;
 
       // Saturate: '<S75>/Saturation'
-      if (rtb_Abs1 <= 59.294117647058826) {
-        rtb_Abs1 = 59.294117647058826;
+      if (rtb_Abs1 <= 54.697674418604649) {
+        rtb_Abs1 = 54.697674418604649;
       }
 
       // End of Saturate: '<S75>/Saturation'
@@ -3437,9 +3437,8 @@ void codegenReal2MissionModelClass::codegenReal2Mission_derivatives()
     //   Gain: '<S84>/Gain4'
     //   Sum: '<S84>/ESOdotdotsum'
 
-    _rtXdot->ESO_dot_CSTATE = (2.23717528833547 *
-      codegenReal2Mission_B.GainADRCinvb0 + codegenReal2Mission_B.ESO_dotdot) -
-      1.5811388300841895 * y;
+    _rtXdot->ESO_dot_CSTATE = (2.2372 * codegenReal2Mission_B.GainADRCinvb0 +
+      codegenReal2Mission_B.ESO_dotdot) - 1.5811388300841895 * y;
 
     // Derivatives for Integrator: '<S84>/ESO_dotdot' incorporates:
     //   Gain: '<S84>/Gain'
