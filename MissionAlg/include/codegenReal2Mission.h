@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 2.270
+// Model version                  : 2.279
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Sat Apr  3 09:13:47 2021
+// C/C++ source code generated on : Sat Apr  3 11:58:09 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -99,17 +99,17 @@ class codegenReal2MissionModelClass {
     real_T ExecutionTrigger;           // '<S2>/TriggerTermination'
     real_T BiasHSwitch;                // '<S16>/BiasHSwitch'
     real_T NorthEastHeight[3];         // '<S16>/NED2NEU'
-    real_T dotAltTD;                   // '<S75>/dotAltTD'
-    real_T fh;                         // '<S75>/fhan_Alt'
-    real_T InverseY;                   // '<S74>/InverseY'
-    real_T InverseR;                   // '<S74>/InverseR'
-    real_T dotTD;                      // '<S85>/dotTD'
-    real_T Gain;                       // '<S78>/Gain'
-    real_T Sum3;                       // '<S78>/Sum3'
-    real_T fh_g;                       // '<S85>/fhan_AirSpdADRC'
-    real_T ESO;                        // '<S83>/ESO'
-    real_T ESO_dot;                    // '<S83>/ESO_dot'
-    real_T ESO_dotdot;                 // '<S83>/ESO_dotdot'
+    real_T dotAltTD;                   // '<S76>/dotAltTD'
+    real_T fh;                         // '<S76>/fhan_Alt'
+    real_T InverseY;                   // '<S75>/InverseY'
+    real_T InverseR;                   // '<S75>/InverseR'
+    real_T dotTD;                      // '<S86>/dotTD'
+    real_T GainADRCinvb0;              // '<S79>/GainADRCinvb0'
+    real_T SumY;                       // '<S79>/SumY'
+    real_T fh_g;                       // '<S86>/fhan_AirSpdADRC'
+    real_T ESO;                        // '<S84>/ESO'
+    real_T ESO_dot;                    // '<S84>/ESO_dot'
+    real_T ESO_dotdot;                 // '<S84>/ESO_dotdot'
     real_T TrackInvH;                  // '<S70>/TrackInvH'
     real_T BiasHTrigger;               // '<S2>/Only1stTimeBiasH'
     real_T TakeOffGathering_o2;        // '<S1>/TakeOffGathering'
@@ -122,6 +122,7 @@ class codegenReal2MissionModelClass {
     real_T ComputeDerivative[8];       // '<S9>/ComputeDerivative'
     real_T Seletion;                   // '<S1>/ChartExecutionMode'
     boolean_T Terminate;               // '<S2>/TriggerTermination'
+    boolean_T Compare;                 // '<S74>/Compare'
   };
 
   // Block states (default storage) for system '<Root>'
@@ -151,10 +152,11 @@ class codegenReal2MissionModelClass {
     real_T InitStateSimUAV[8];         // '<S6>/InitStateSimUAV'
     real_T ResetSimUAV;                // '<S6>/StartSimUAV'
     struct {
-      void *LoggedData[17];
+      void *LoggedData[16];
     } ModelLogging_PWORK;              // '<S2>/ModelLogging'
 
     int_T Integrator_IWORK;            // '<S9>/Integrator'
+    uint8_T FlightMode_Log;            // '<S2>/FlightMode_Log'
     uint8_T Status_Log;                // '<S2>/Status_Log'
     uint8_T is_active_c34_codegenReal2Missi;// '<S2>/TriggerTermination'
     uint8_T is_c34_codegenReal2Mission;// '<S2>/TriggerTermination'
@@ -165,18 +167,18 @@ class codegenReal2MissionModelClass {
     uint8_T is_active_c10_codegenReal2Missi;// '<S1>/ChartExecutionMode'
     uint8_T is_c10_codegenReal2Mission;// '<S1>/ChartExecutionMode'
     boolean_T icLoad;                  // '<S1>/InitHdg'
-    boolean_T ESO_MODE;                // '<S78>/ESO'
+    boolean_T ESO_MODE;                // '<S79>/ESO'
   };
 
   // Continuous states (default storage)
   struct X_codegenReal2Mission_T {
-    real_T TD_Alt_CSTATE;              // '<S75>/TD_Alt'
-    real_T dotAltTD_CSTATE;            // '<S75>/dotAltTD'
-    real_T TD_AirSpdADRC_CSTATE;       // '<S85>/TD_AirSpdADRC'
-    real_T dotTD_CSTATE;               // '<S85>/dotTD'
-    real_T ESO_CSTATE;                 // '<S83>/ESO'
-    real_T ESO_dot_CSTATE;             // '<S83>/ESO_dot'
-    real_T ESO_dotdot_CSTATE;          // '<S83>/ESO_dotdot'
+    real_T TD_Alt_CSTATE;              // '<S76>/TD_Alt'
+    real_T dotAltTD_CSTATE;            // '<S76>/dotAltTD'
+    real_T TD_AirSpdADRC_CSTATE;       // '<S86>/TD_AirSpdADRC'
+    real_T dotTD_CSTATE;               // '<S86>/dotTD'
+    real_T ESO_CSTATE;                 // '<S84>/ESO'
+    real_T ESO_dot_CSTATE;             // '<S84>/ESO_dot'
+    real_T ESO_dotdot_CSTATE;          // '<S84>/ESO_dotdot'
     real_T Integrator_CSTATE[8];       // '<S9>/Integrator'
     real_T TD_Bank_CSTATE;             // '<S10>/TD_Bank'
     real_T dotBankTD_CSTATE;           // '<S10>/dotBankTD'
@@ -184,13 +186,13 @@ class codegenReal2MissionModelClass {
 
   // State derivatives (default storage)
   struct XDot_codegenReal2Mission_T {
-    real_T TD_Alt_CSTATE;              // '<S75>/TD_Alt'
-    real_T dotAltTD_CSTATE;            // '<S75>/dotAltTD'
-    real_T TD_AirSpdADRC_CSTATE;       // '<S85>/TD_AirSpdADRC'
-    real_T dotTD_CSTATE;               // '<S85>/dotTD'
-    real_T ESO_CSTATE;                 // '<S83>/ESO'
-    real_T ESO_dot_CSTATE;             // '<S83>/ESO_dot'
-    real_T ESO_dotdot_CSTATE;          // '<S83>/ESO_dotdot'
+    real_T TD_Alt_CSTATE;              // '<S76>/TD_Alt'
+    real_T dotAltTD_CSTATE;            // '<S76>/dotAltTD'
+    real_T TD_AirSpdADRC_CSTATE;       // '<S86>/TD_AirSpdADRC'
+    real_T dotTD_CSTATE;               // '<S86>/dotTD'
+    real_T ESO_CSTATE;                 // '<S84>/ESO'
+    real_T ESO_dot_CSTATE;             // '<S84>/ESO_dot'
+    real_T ESO_dotdot_CSTATE;          // '<S84>/ESO_dotdot'
     real_T Integrator_CSTATE[8];       // '<S9>/Integrator'
     real_T TD_Bank_CSTATE;             // '<S10>/TD_Bank'
     real_T dotBankTD_CSTATE;           // '<S10>/dotBankTD'
@@ -198,13 +200,13 @@ class codegenReal2MissionModelClass {
 
   // State disabled
   struct XDis_codegenReal2Mission_T {
-    boolean_T TD_Alt_CSTATE;           // '<S75>/TD_Alt'
-    boolean_T dotAltTD_CSTATE;         // '<S75>/dotAltTD'
-    boolean_T TD_AirSpdADRC_CSTATE;    // '<S85>/TD_AirSpdADRC'
-    boolean_T dotTD_CSTATE;            // '<S85>/dotTD'
-    boolean_T ESO_CSTATE;              // '<S83>/ESO'
-    boolean_T ESO_dot_CSTATE;          // '<S83>/ESO_dot'
-    boolean_T ESO_dotdot_CSTATE;       // '<S83>/ESO_dotdot'
+    boolean_T TD_Alt_CSTATE;           // '<S76>/TD_Alt'
+    boolean_T dotAltTD_CSTATE;         // '<S76>/dotAltTD'
+    boolean_T TD_AirSpdADRC_CSTATE;    // '<S86>/TD_AirSpdADRC'
+    boolean_T dotTD_CSTATE;            // '<S86>/dotTD'
+    boolean_T ESO_CSTATE;              // '<S84>/ESO'
+    boolean_T ESO_dot_CSTATE;          // '<S84>/ESO_dot'
+    boolean_T ESO_dotdot_CSTATE;       // '<S84>/ESO_dotdot'
     boolean_T Integrator_CSTATE[8];    // '<S9>/Integrator'
     boolean_T TD_Bank_CSTATE;          // '<S10>/TD_Bank'
     boolean_T dotBankTD_CSTATE;        // '<S10>/dotBankTD'
@@ -385,7 +387,7 @@ class codegenReal2MissionModelClass {
   static void codegenReal2Mission_fhan_Bank(real_T rtu_u, real_T rtu_u_p, real_T
     rtu_u_e, real_T rtu_u_i, real_T *rty_fh);
 
-  // private member function(s) for subsystem '<S83>/fal(e,0.25,h)'
+  // private member function(s) for subsystem '<S84>/fal(e,0.25,h)'
   static void codegenReal2Mission_fale025h(real_T rtu_u, real_T rtu_u_b, real_T
     rtu_u_c, real_T *rty_y);
 
@@ -430,7 +432,7 @@ extern const codegenReal2MissionModelClass::ConstB_codegenReal2Mission_T
 //  Block '<S9>/Data Type Conversion' : Eliminate redundant data type conversion
 //  Block '<S9>/Data Type Conversion1' : Eliminate redundant data type conversion
 //  Block '<S2>/LookaheadPoint_ZOH' : Eliminated since input and output rates are identical
-//  Block '<S74>/AirspeedZOH' : Eliminated since input and output rates are identical
+//  Block '<S75>/AirspeedZOH' : Eliminated since input and output rates are identical
 
 
 //-
@@ -521,23 +523,24 @@ extern const codegenReal2MissionModelClass::ConstB_codegenReal2Mission_T
 //  '<S71>'  : 'codegenReal2Mission/Real2SimGuidance/Real2SimNav/HeadingLogic'
 //  '<S72>'  : 'codegenReal2Mission/Real2SimGuidance/Real2SimNav/HeadingNaNProtection'
 //  '<S73>'  : 'codegenReal2Mission/Real2SimGuidance/Real2SimNav/MaxBrake'
-//  '<S74>'  : 'codegenReal2Mission/Real2SimGuidance/Real2SimNav/SpeedControl'
-//  '<S75>'  : 'codegenReal2Mission/Real2SimGuidance/Real2SimNav/TD'
-//  '<S76>'  : 'codegenReal2Mission/Real2SimGuidance/Real2SimNav/HeadingLogic/RefHdg'
-//  '<S77>'  : 'codegenReal2Mission/Real2SimGuidance/Real2SimNav/MaxBrake/Calculate Brake Range'
-//  '<S78>'  : 'codegenReal2Mission/Real2SimGuidance/Real2SimNav/SpeedControl/ADRC'
-//  '<S79>'  : 'codegenReal2Mission/Real2SimGuidance/Real2SimNav/SpeedControl/Range2CurrentSim'
-//  '<S80>'  : 'codegenReal2Mission/Real2SimGuidance/Real2SimNav/SpeedControl/RangeSim2Track1d3'
-//  '<S81>'  : 'codegenReal2Mission/Real2SimGuidance/Real2SimNav/SpeedControl/RangeSim2Track2d3'
-//  '<S82>'  : 'codegenReal2Mission/Real2SimGuidance/Real2SimNav/SpeedControl/RangeSim2Track3d3'
-//  '<S83>'  : 'codegenReal2Mission/Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/ESO'
-//  '<S84>'  : 'codegenReal2Mission/Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/NLSEF'
-//  '<S85>'  : 'codegenReal2Mission/Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/TD'
-//  '<S86>'  : 'codegenReal2Mission/Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/ESO/fal(e,0.25,h)'
-//  '<S87>'  : 'codegenReal2Mission/Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/ESO/fal(e,0.5,h)'
-//  '<S88>'  : 'codegenReal2Mission/Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/NLSEF/fhan(e1,ce2,r,h1)'
-//  '<S89>'  : 'codegenReal2Mission/Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/TD/fhan_AirSpdADRC'
-//  '<S90>'  : 'codegenReal2Mission/Real2SimGuidance/Real2SimNav/TD/fhan_Alt'
+//  '<S74>'  : 'codegenReal2Mission/Real2SimGuidance/Real2SimNav/PointingMode'
+//  '<S75>'  : 'codegenReal2Mission/Real2SimGuidance/Real2SimNav/SpeedControl'
+//  '<S76>'  : 'codegenReal2Mission/Real2SimGuidance/Real2SimNav/TD'
+//  '<S77>'  : 'codegenReal2Mission/Real2SimGuidance/Real2SimNav/HeadingLogic/RefHdg'
+//  '<S78>'  : 'codegenReal2Mission/Real2SimGuidance/Real2SimNav/MaxBrake/Calculate Brake Range'
+//  '<S79>'  : 'codegenReal2Mission/Real2SimGuidance/Real2SimNav/SpeedControl/ADRC'
+//  '<S80>'  : 'codegenReal2Mission/Real2SimGuidance/Real2SimNav/SpeedControl/Range2CurrentSim'
+//  '<S81>'  : 'codegenReal2Mission/Real2SimGuidance/Real2SimNav/SpeedControl/RangeSim2Track1d3'
+//  '<S82>'  : 'codegenReal2Mission/Real2SimGuidance/Real2SimNav/SpeedControl/RangeSim2Track2d3'
+//  '<S83>'  : 'codegenReal2Mission/Real2SimGuidance/Real2SimNav/SpeedControl/RangeSim2Track3d3'
+//  '<S84>'  : 'codegenReal2Mission/Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/ESO'
+//  '<S85>'  : 'codegenReal2Mission/Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/NLSEF'
+//  '<S86>'  : 'codegenReal2Mission/Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/TD'
+//  '<S87>'  : 'codegenReal2Mission/Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/ESO/fal(e,0.25,h)'
+//  '<S88>'  : 'codegenReal2Mission/Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/ESO/fal(e,0.5,h)'
+//  '<S89>'  : 'codegenReal2Mission/Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/NLSEF/fhan(e1,ce2,r,h1)'
+//  '<S90>'  : 'codegenReal2Mission/Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/TD/fhan_AirSpdADRC'
+//  '<S91>'  : 'codegenReal2Mission/Real2SimGuidance/Real2SimNav/TD/fhan_Alt'
 
 #endif                                 // RTW_HEADER_codegenReal2Mission_h_
 
