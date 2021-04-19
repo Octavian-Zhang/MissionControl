@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 2.283
+// Model version                  : 2.298
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Sat Apr  3 21:13:42 2021
+// C/C++ source code generated on : Mon Apr 19 15:17:51 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -16,10 +16,10 @@
 //    4. ROM efficiency
 // Validation result: Not run
 //
-#include <stddef.h>
 #include <stdio.h>                // This ert_main.c example uses printf/fflush
 #include "codegenReal2Mission.h"       // Model's header file
 #include "rtwtypes.h"
+#include "model_reference_types.h"
 #include "builtin_typeid_types.h"
 #include "multiword_types.h"
 #include "zero_crossing_types.h"
@@ -34,7 +34,40 @@
 #define MATFILE                        QUOTE(SAVEFILE)
 #endif
 
-static codegenReal2MissionModelClass codegenReal2Mission_Obj;// Instance of model class 
+class codegenReal2MissionModelClassSendData_missionCmdT : public
+  SendData_missionCmdT{
+ public:
+  void SendData(const missionCmd* data, int32_T length, int32_T* status)
+  {
+    // Add send data logic here
+  }
+};
+
+static codegenReal2MissionModelClassSendData_missionCmdT
+  CurrentMissionSendData_arg;
+class codegenReal2MissionModelClassRecvData_IndividualUAVCmdT : public
+  RecvData_IndividualUAVCmdT{
+ public:
+  void RecvData(IndividualUAVCmd* data, int32_T length, int32_T* status)
+  {
+    // Add receive data logic here
+  }
+};
+
+static codegenReal2MissionModelClassRecvData_IndividualUAVCmdT
+  MissionCMDRecvData_arg;
+class codegenReal2MissionModelClassSendData_real_T : public SendData_real_T{
+ public:
+  void SendData(const real_T* data, int32_T length, int32_T* status)
+  {
+    // Add send data logic here
+  }
+};
+
+static codegenReal2MissionModelClassSendData_real_T thisTaskStatusSendData_arg;
+static codegenReal2MissionModelClass codegenReal2Mission_Obj{
+  CurrentMissionSendData_arg, MissionCMDRecvData_arg, thisTaskStatusSendData_arg
+};                                     // Instance of model class
 
 //
 // Associating rt_OneStep with a real-time clock or interrupt service routine
@@ -98,7 +131,7 @@ int_T main(int_T argc, const char *argv[])
   //  the model step behavior (in non real-time).  Running this
   //  code produces results that can be loaded into MATLAB.
 
-  while ((rtmGetErrorStatus(codegenReal2Mission_Obj.getRTM()) == (NULL)) &&
+  while ((rtmGetErrorStatus(codegenReal2Mission_Obj.getRTM()) == (nullptr)) &&
          !rtmGetStopRequested(codegenReal2Mission_Obj.getRTM())) {
     rt_OneStep();
   }

@@ -1,11 +1,11 @@
 //
 // File: rtGetInf.cpp
 //
-// Code generated for Simulink model 'codegenReal2Mission'.
+// Code generated for Simulink model 'MissionUAV'.
 //
-// Model version                  : 2.167
+// Model version                  : 1.17
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Tue Mar 23 16:05:29 2021
+// C/C++ source code generated on : Mon Apr 19 15:14:42 2021
 //
 
 //
@@ -22,8 +22,10 @@ extern "C" {
   //
   real_T rtGetInf(void)
   {
-    size_t bitsPerReal = sizeof(real_T) * (NumBitsPerChar);
-    real_T inf = 0.0;
+    size_t bitsPerReal{ sizeof(real_T) * (NumBitsPerChar) };
+
+    real_T inf{ 0.0 };
+
     if (bitsPerReal == 32U) {
       inf = rtGetInfF();
     } else {
@@ -57,8 +59,10 @@ extern "C" {
   //
   real_T rtGetMinusInf(void)
   {
-    size_t bitsPerReal = sizeof(real_T) * (NumBitsPerChar);
-    real_T minf = 0.0;
+    size_t bitsPerReal{ sizeof(real_T) * (NumBitsPerChar) };
+
+    real_T minf{ 0.0 };
+
     if (bitsPerReal == 32U) {
       minf = rtGetMinusInfF();
     } else {

@@ -1,11 +1,11 @@
 //
 // File: rt_modd_snf.cpp
 //
-// Code generated for Simulink model 'codegenReal2Mission'.
+// Code generated for Simulink model 'Real2SimGuidance'.
 //
-// Model version                  : 2.167
+// Model version                  : 2.298
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Tue Mar 23 16:05:29 2021
+// C/C++ source code generated on : Mon Apr 19 15:14:45 2021
 //
 #include "rtwtypes.h"
 #include "rt_nonfinite.h"
@@ -23,11 +23,11 @@ real_T rt_modd_snf(real_T u0, real_T u1)
     if (u0 == 0.0) {
       y = u1;
     }
-  } else if (rtIsNaN(u0) || rtIsNaN(u1) || rtIsInf(u0)) {
+  } else if (std::isnan(u0) || std::isnan(u1) || std::isinf(u0)) {
     y = (rtNaN);
   } else if (u0 == 0.0) {
     y = 0.0 / u1;
-  } else if (rtIsInf(u1)) {
+  } else if (std::isinf(u1)) {
     if ((u1 < 0.0) != (u0 < 0.0)) {
       y = u1;
     }

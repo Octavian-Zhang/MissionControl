@@ -1,11 +1,11 @@
 //
 // File: rt_atan2d_snf.h
 //
-// Code generated for Simulink model 'codegenReal2Mission'.
+// Code generated for Simulink model 'MissionUAV'.
 //
-// Model version                  : 2.167
+// Model version                  : 1.17
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Tue Mar 23 16:05:29 2021
+// C/C++ source code generated on : Mon Apr 19 15:14:42 2021
 //
 #ifndef RTW_HEADER_rt_atan2d_snf_h_
 #define RTW_HEADER_rt_atan2d_snf_h_

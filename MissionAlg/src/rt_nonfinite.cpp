@@ -1,11 +1,11 @@
 //
 // File: rt_nonfinite.cpp
 //
-// Code generated for Simulink model 'codegenReal2Mission'.
+// Code generated for Simulink model 'MissionUAV'.
 //
-// Model version                  : 2.167
+// Model version                  : 1.17
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Tue Mar 23 16:05:29 2021
+// C/C++ source code generated on : Mon Apr 19 15:14:42 2021
 //
 
 //
@@ -58,8 +58,10 @@ extern "C" {
   // Test if value is not a number
   boolean_T rtIsNaN(real_T value)
   {
-    boolean_T result = (boolean_T) 0;
-    size_t bitsPerReal = sizeof(real_T) * (NumBitsPerChar);
+    boolean_T result{ (boolean_T) 0 };
+
+    size_t bitsPerReal{ sizeof(real_T) * (NumBitsPerChar) };
+
     if (bitsPerReal == 32U) {
       result = rtIsNaNF((real32_T)value);
     } else {

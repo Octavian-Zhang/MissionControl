@@ -1,11 +1,11 @@
 //
 // File: rtGetNaN.cpp
 //
-// Code generated for Simulink model 'codegenReal2Mission'.
+// Code generated for Simulink model 'MissionUAV'.
 //
-// Model version                  : 2.167
+// Model version                  : 1.17
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Tue Mar 23 16:05:29 2021
+// C/C++ source code generated on : Mon Apr 19 15:14:42 2021
 //
 
 //
@@ -22,8 +22,10 @@ extern "C" {
   //
   real_T rtGetNaN(void)
   {
-    size_t bitsPerReal = sizeof(real_T) * (NumBitsPerChar);
-    real_T nan = 0.0;
+    size_t bitsPerReal{ sizeof(real_T) * (NumBitsPerChar) };
+
+    real_T nan{ 0.0 };
+
     if (bitsPerReal == 32U) {
       nan = rtGetNaNF();
     } else {
@@ -46,7 +48,7 @@ extern "C" {
   //
   real32_T rtGetNaNF(void)
   {
-    IEEESingle nanF = { { 0.0F } };
+    IEEESingle nanF{ { 0.0F } };
 
     nanF.wordL.wordLuint = 0xFFC00000U;
     return nanF.wordL.wordLreal;

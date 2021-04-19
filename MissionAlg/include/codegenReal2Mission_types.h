@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 2.283
+// Model version                  : 2.298
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Sat Apr  3 21:13:42 2021
+// C/C++ source code generated on : Mon Apr 19 15:17:51 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -19,9 +19,11 @@
 #ifndef RTW_HEADER_codegenReal2Mission_types_h_
 #define RTW_HEADER_codegenReal2Mission_types_h_
 #include "rtwtypes.h"
+#include "model_reference_types.h"
 #include "builtin_typeid_types.h"
 #include "multiword_types.h"
 #include "zero_crossing_types.h"
+#include "DatalinkInterface.h"
 
 // Model Code Variants
 #ifndef DEFINED_TYPEDEF_FOR_RealUAVStateBus_
@@ -52,6 +54,23 @@ struct VectorSpeed
 
 #endif
 
+#ifndef DEFINED_TYPEDEF_FOR_missionCmd_
+#define DEFINED_TYPEDEF_FOR_missionCmd_
+
+struct missionCmd
+{
+  int32_T SequenceId;
+  int32_T MissionMode;
+  Location MissionLocation;
+  Parameters params;
+  Location StartPosition;
+  int32_T numUAV;
+  int32_T FormationPos;
+  real_T StartTime;
+};
+
+#endif
+
 #ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
 #define DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
 
@@ -60,31 +79,6 @@ struct FixedWingGuidanceBus
   real_T Height;
   real_T AirSpeed;
   real_T HeadingAngle;
-};
-
-#endif
-
-#ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceEnvironmentBus_
-#define DEFINED_TYPEDEF_FOR_FixedWingGuidanceEnvironmentBus_
-
-struct FixedWingGuidanceEnvironmentBus
-{
-  real_T WindNorth;
-  real_T WindEast;
-  real_T WindDown;
-  real_T Gravity;
-};
-
-#endif
-
-#ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceControlBus_
-#define DEFINED_TYPEDEF_FOR_FixedWingGuidanceControlBus_
-
-struct FixedWingGuidanceControlBus
-{
-  real_T Height;
-  real_T AirSpeed;
-  real_T RollAngle;
 };
 
 #endif
@@ -118,114 +112,105 @@ struct LookAheadPoint
 
 #endif
 
-#ifndef DEFINED_TYPEDEF_FOR_struct_pAzQu3LPpISTV2tr3rS1KE_
-#define DEFINED_TYPEDEF_FOR_struct_pAzQu3LPpISTV2tr3rS1KE_
+#ifndef DEFINED_TYPEDEF_FOR_QueuePolicy_T_
+#define DEFINED_TYPEDEF_FOR_QueuePolicy_T_
 
-struct struct_pAzQu3LPpISTV2tr3rS1KE
+typedef enum {
+  MSG_QUEUE_UNUSED = -1,               // Default value
+  MSG_FIFO_QUEUE,
+  MSG_LIFO_QUEUE,
+  MSG_PRIORITY_QUEUE
+} QueuePolicy_T;
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_Msg_missionCmd_
+#define DEFINED_TYPEDEF_FOR_Msg_missionCmd_
+
+struct Msg_missionCmd
 {
-  real_T PDRoll[2];
-  real_T PHeight;
-  real_T PFlightPathAngle;
-  real_T PAirSpeed;
-  real_T FlightPathAngleLimits[2];
+  missionCmd *fData;
 };
 
 #endif
 
-#ifndef struct_d_uav_internal_impl_fixedwing_T
-#define struct_d_uav_internal_impl_fixedwing_T
+#ifndef DEFINED_TYPEDEF_FOR_Buffer_missionCmd_
+#define DEFINED_TYPEDEF_FOR_Buffer_missionCmd_
 
-struct d_uav_internal_impl_fixedwing_T
+struct Buffer_missionCmd
 {
-  real_T North;
-  real_T East;
-  real_T Height;
-  real_T AirSpeed;
-  real_T HeadingAngle;
-  real_T FlightPathAngle;
-  real_T RollAngle;
-  real_T RollAngleRate;
+  boolean_T fOccupied;
+  Msg_missionCmd fMsg;
 };
 
-#endif                                // struct_d_uav_internal_impl_fixedwing_T
+#endif
 
-#ifndef struct_robotics_core_internal_system_T
-#define struct_robotics_core_internal_system_T
+#ifndef DEFINED_TYPEDEF_FOR_MemPool_missionCmd_
+#define DEFINED_TYPEDEF_FOR_MemPool_missionCmd_
 
-struct robotics_core_internal_system_T
+struct MemPool_missionCmd
+{
+  missionCmd *fMemArray;
+  int32_T fNumUsed;
+  missionCmd **fFreeList;
+  int32_T fNumFree;
+  int32_T fSize;
+};
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_SendData_missionCmdT_
+#define DEFINED_TYPEDEF_FOR_SendData_missionCmdT_
+
+class SendData_missionCmdT
+{
+ public:
+  virtual void SendData(const missionCmd *data, int32_T length, int32_T *status)
+    = 0;
+  virtual ~SendData_missionCmdT()
+  {
+  }
+};
+
+#endif
+
+#ifndef struct_robotics_slcore_internal_block_CoordinateTransformationConversion_codegenReal2Mission_T
+#define struct_robotics_slcore_internal_block_CoordinateTransformationConversion_codegenReal2Mission_T
+
+struct
+  robotics_slcore_internal_block_CoordinateTransformationConversion_codegenReal2Mission_T
 {
   int32_T isInitialized;
-  d_uav_internal_impl_fixedwing_T OutputTemplate;
 };
 
-#endif                                // struct_robotics_core_internal_system_T
+#endif
+// struct_robotics_slcore_internal_block_CoordinateTransformationConversion_codegenReal2Mission_T 
 
-#ifndef struct_robotics_slcore_internal_bloc_T
-#define struct_robotics_slcore_internal_bloc_T
+#ifndef struct_b_robotics_slcore_internal_block_SampleTimeImpl_codegenReal2Mission_T
+#define struct_b_robotics_slcore_internal_block_SampleTimeImpl_codegenReal2Mission_T
 
-struct robotics_slcore_internal_bloc_T
-{
-  int32_T isInitialized;
-};
-
-#endif                                // struct_robotics_slcore_internal_bloc_T
-
-#ifndef struct_e_robotics_slcore_internal_bl_T
-#define struct_e_robotics_slcore_internal_bl_T
-
-struct e_robotics_slcore_internal_bl_T
+struct b_robotics_slcore_internal_block_SampleTimeImpl_codegenReal2Mission_T
 {
   int32_T __dummy;
 };
 
-#endif                                // struct_e_robotics_slcore_internal_bl_T
+#endif
+// struct_b_robotics_slcore_internal_block_SampleTimeImpl_codegenReal2Mission_T
 
-#ifndef struct_uav_sluav_internal_system_UAV_T
-#define struct_uav_sluav_internal_system_UAV_T
+#ifndef struct_uav_sluav_internal_system_UAVAnimation_codegenReal2Mission_T
+#define struct_uav_sluav_internal_system_UAVAnimation_codegenReal2Mission_T
 
-struct uav_sluav_internal_system_UAV_T
+struct uav_sluav_internal_system_UAVAnimation_codegenReal2Mission_T
 {
   int32_T isInitialized;
-  e_robotics_slcore_internal_bl_T SampleTimeHandler;
+  b_robotics_slcore_internal_block_SampleTimeImpl_codegenReal2Mission_T
+    SampleTimeHandler;
 };
 
-#endif                                // struct_uav_sluav_internal_system_UAV_T
+#endif   // struct_uav_sluav_internal_system_UAVAnimation_codegenReal2Mission_T
 
-#ifndef struct_h_uav_internal_impl_fixedwing_T
-#define struct_h_uav_internal_impl_fixedwing_T
-
-struct h_uav_internal_impl_fixedwing_T
-{
-  real_T PDRoll[2];
-  real_T PHeight;
-  real_T PFlightPathAngle;
-  real_T PAirSpeed;
-  real_T FlightPathAngleLimits[2];
-};
-
-#endif                                // struct_h_uav_internal_impl_fixedwing_T
-
-#ifndef struct_f_uav_internal_impl_fixedwing_T
-#define struct_f_uav_internal_impl_fixedwing_T
-
-struct f_uav_internal_impl_fixedwing_T
-{
-  h_uav_internal_impl_fixedwing_T Configuration;
-};
-
-#endif                                // struct_f_uav_internal_impl_fixedwing_T
-
-#ifndef struct_robotics_core_internal_syst_b_T
-#define struct_robotics_core_internal_syst_b_T
-
-struct robotics_core_internal_syst_b_T
-{
-  int32_T isInitialized;
-  f_uav_internal_impl_fixedwing_T ModelImpl;
-};
-
-#endif                                // struct_robotics_core_internal_syst_b_T
-
+// Custom Type definition for MATLAB Function: '<Root>/getCurrentTime'
+#include "coder_posix_time.h"
 #ifndef struct_cell_wrap_codegenReal2Mission_T
 #define struct_cell_wrap_codegenReal2Mission_T
 
@@ -236,13 +221,13 @@ struct cell_wrap_codegenReal2Mission_T
 
 #endif                                // struct_cell_wrap_codegenReal2Mission_T
 
-#ifndef struct_uav_sluav_internal_system_Orb_T
-#define struct_uav_sluav_internal_system_Orb_T
+#ifndef struct_uav_sluav_internal_system_OrbitFollower_codegenReal2Mission_T
+#define struct_uav_sluav_internal_system_OrbitFollower_codegenReal2Mission_T
 
-struct uav_sluav_internal_system_Orb_T
+struct uav_sluav_internal_system_OrbitFollower_codegenReal2Mission_T
 {
   int32_T isInitialized;
-  cell_wrap_codegenReal2Mission_T inputVarSize[6];
+  cell_wrap_codegenReal2Mission_T inputVarSize[5];
   real_T NumCircles;
   real_T PrevPosition[3];
   boolean_T StartFlag;
@@ -256,33 +241,44 @@ struct uav_sluav_internal_system_Orb_T
   real_T PrevResetSignal;
 };
 
-#endif                                // struct_uav_sluav_internal_system_Orb_T
+#endif  // struct_uav_sluav_internal_system_OrbitFollower_codegenReal2Mission_T
 
-#ifndef struct_uav_sluav_internal_system_Way_T
-#define struct_uav_sluav_internal_system_Way_T
+// Custom Type definition for MATLAB Function: '<S119>/WayPointGenerator'
+#ifndef struct_cell_wrap_12_codegenReal2Mission_T
+#define struct_cell_wrap_12_codegenReal2Mission_T
 
-struct uav_sluav_internal_system_Way_T
+struct cell_wrap_12_codegenReal2Mission_T
+{
+  char_T f1[7];
+};
+
+#endif                             // struct_cell_wrap_12_codegenReal2Mission_T
+
+#ifndef struct_uav_sluav_internal_system_WaypointFollower_codegenReal2Mission_T
+#define struct_uav_sluav_internal_system_WaypointFollower_codegenReal2Mission_T
+
+struct uav_sluav_internal_system_WaypointFollower_codegenReal2Mission_T
 {
   int32_T isInitialized;
   cell_wrap_codegenReal2Mission_T inputVarSize[3];
   real_T LookaheadDistance;
   real_T WaypointIndex;
   real_T NumWaypoints;
-  real_T WaypointsInternal[219];
+  real_T WaypointsInternal[30720];
   boolean_T LastWaypointFlag;
   boolean_T StartFlag;
   real_T InitialPose[4];
   real_T LookaheadFactor;
-  boolean_T SearchFlag;
   uint8_T LookaheadDistFlag;
 };
 
-#endif                                // struct_uav_sluav_internal_system_Way_T
+#endif
+     // struct_uav_sluav_internal_system_WaypointFollower_codegenReal2Mission_T
 
-#ifndef struct_emxArray_real_T_codegenReal2M_T
-#define struct_emxArray_real_T_codegenReal2M_T
+#ifndef struct_emxArray_real_T_codegenReal2Mission_T
+#define struct_emxArray_real_T_codegenReal2Mission_T
 
-struct emxArray_real_T_codegenReal2M_T
+struct emxArray_real_T_codegenReal2Mission_T
 {
   real_T *data;
   int32_T *size;
@@ -291,7 +287,124 @@ struct emxArray_real_T_codegenReal2M_T
   boolean_T canFreeData;
 };
 
-#endif                                // struct_emxArray_real_T_codegenReal2M_T
+#endif                          // struct_emxArray_real_T_codegenReal2Mission_T
+
+#ifndef struct_emxArray_char_T_1x2_codegenReal2Mission_T
+#define struct_emxArray_char_T_1x2_codegenReal2Mission_T
+
+struct emxArray_char_T_1x2_codegenReal2Mission_T
+{
+  char_T data[2];
+  int32_T size[2];
+};
+
+#endif                      // struct_emxArray_char_T_1x2_codegenReal2Mission_T
+
+// Custom Type definition for MATLAB Function: '<S119>/WayPointGenerator'
+#ifndef struct_cell_wrap_10_codegenReal2Mission_T
+#define struct_cell_wrap_10_codegenReal2Mission_T
+
+struct cell_wrap_10_codegenReal2Mission_T
+{
+  emxArray_char_T_1x2_codegenReal2Mission_T f1;
+};
+
+#endif                             // struct_cell_wrap_10_codegenReal2Mission_T
+
+#ifndef struct_uavDubinsPathSegment_codegenReal2Mission_T
+#define struct_uavDubinsPathSegment_codegenReal2Mission_T
+
+struct uavDubinsPathSegment_codegenReal2Mission_T
+{
+  real_T StartPose[4];
+  real_T GoalPose[4];
+  real_T FlightPathAngle;
+  real_T AirSpeed;
+  real_T MinTurningRadius;
+  real_T HelixRadius;
+  cell_wrap_10_codegenReal2Mission_T MotionTypes[4];
+  real_T MotionLengths[4];
+  real_T Length;
+};
+
+#endif                     // struct_uavDubinsPathSegment_codegenReal2Mission_T
+
+#ifndef struct_emxArray_boolean_T_codegenReal2Mission_T
+#define struct_emxArray_boolean_T_codegenReal2Mission_T
+
+struct emxArray_boolean_T_codegenReal2Mission_T
+{
+  boolean_T *data;
+  int32_T *size;
+  int32_T allocatedSize;
+  int32_T numDimensions;
+  boolean_T canFreeData;
+};
+
+#endif                       // struct_emxArray_boolean_T_codegenReal2Mission_T
+
+#ifndef struct_emxArray_int32_T_codegenReal2Mission_T
+#define struct_emxArray_int32_T_codegenReal2Mission_T
+
+struct emxArray_int32_T_codegenReal2Mission_T
+{
+  int32_T *data;
+  int32_T *size;
+  int32_T allocatedSize;
+  int32_T numDimensions;
+  boolean_T canFreeData;
+};
+
+#endif                         // struct_emxArray_int32_T_codegenReal2Mission_T
+
+// Custom Type definition for MATLAB Function: '<S119>/WayPointGenerator'
+#ifndef struct_uavDubinsConnection_codegenReal2Mission_T
+#define struct_uavDubinsConnection_codegenReal2Mission_T
+
+struct uavDubinsConnection_codegenReal2Mission_T
+{
+  real_T MinTurningRadius;
+  real_T AirSpeed;
+  real_T MaxRollAngle;
+  real_T FlightPathAngleLimit[2];
+};
+
+#endif                      // struct_uavDubinsConnection_codegenReal2Mission_T
+
+#ifndef struct_matlabshared_autonomous_core_internal_NameValueParser_codegenReal2Mission_T
+#define struct_matlabshared_autonomous_core_internal_NameValueParser_codegenReal2Mission_T
+
+struct
+  matlabshared_autonomous_core_internal_NameValueParser_codegenReal2Mission_T
+{
+  cell_wrap_12_codegenReal2Mission_T Defaults;
+  cell_wrap_12_codegenReal2Mission_T ParsedResults;
+};
+
+#endif
+// struct_matlabshared_autonomous_core_internal_NameValueParser_codegenReal2Mission_T 
+
+#ifndef struct_emxArray_uavDubinsPathSegment_2_codegenReal2Mission_T
+#define struct_emxArray_uavDubinsPathSegment_2_codegenReal2Mission_T
+
+struct emxArray_uavDubinsPathSegment_2_codegenReal2Mission_T
+{
+  uavDubinsPathSegment_codegenReal2Mission_T data[28];
+  int32_T size;
+};
+
+#endif          // struct_emxArray_uavDubinsPathSegment_2_codegenReal2Mission_T
+
+#ifndef struct_emxArray_int32_T_28_codegenReal2Mission_T
+#define struct_emxArray_int32_T_28_codegenReal2Mission_T
+
+struct emxArray_int32_T_28_codegenReal2Mission_T
+{
+  int32_T data[28];
+  int32_T size;
+};
+
+#endif                      // struct_emxArray_int32_T_28_codegenReal2Mission_T
 #endif                               // RTW_HEADER_codegenReal2Mission_types_h_
 
 //

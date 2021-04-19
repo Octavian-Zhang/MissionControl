@@ -1,11 +1,11 @@
 //
 // File: rt_powd_snf.cpp
 //
-// Code generated for Simulink model 'codegenReal2Mission'.
+// Code generated for Simulink model 'Real2SimGuidance'.
 //
-// Model version                  : 2.167
+// Model version                  : 2.298
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Tue Mar 23 16:05:29 2021
+// C/C++ source code generated on : Mon Apr 19 15:14:45 2021
 //
 #include "rtwtypes.h"
 #include "rtGetNaN.h"
@@ -19,12 +19,12 @@ real_T rt_powd_snf(real_T u0, real_T u1)
   real_T tmp;
   real_T tmp_0;
   real_T y;
-  if (rtIsNaN(u0) || rtIsNaN(u1)) {
+  if (std::isnan(u0) || std::isnan(u1)) {
     y = (rtNaN);
   } else {
     tmp = std::abs(u0);
     tmp_0 = std::abs(u1);
-    if (rtIsInf(u1)) {
+    if (std::isinf(u1)) {
       if (tmp == 1.0) {
         y = 1.0;
       } else if (tmp > 1.0) {

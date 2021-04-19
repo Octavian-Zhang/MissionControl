@@ -1,13 +1,14 @@
 //
 // File: rt_atan2d_snf.cpp
 //
-// Code generated for Simulink model 'codegenReal2Mission'.
+// Code generated for Simulink model 'MissionUAV'.
 //
-// Model version                  : 2.167
+// Model version                  : 1.17
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Tue Mar 23 16:05:29 2021
+// C/C++ source code generated on : Mon Apr 19 15:14:42 2021
 //
 #include "rtwtypes.h"
+#include "rtGetNaN.h"
 #include "rt_nonfinite.h"
 #include <cmath>
 #include "rt_defines.h"
@@ -18,9 +19,9 @@ real_T rt_atan2d_snf(real_T u0, real_T u1)
   real_T y;
   int32_T u0_0;
   int32_T u1_0;
-  if (rtIsNaN(u0) || rtIsNaN(u1)) {
+  if (std::isnan(u0) || std::isnan(u1)) {
     y = (rtNaN);
-  } else if (rtIsInf(u0) && rtIsInf(u1)) {
+  } else if (std::isinf(u0) && std::isinf(u1)) {
     if (u0 > 0.0) {
       u0_0 = 1;
     } else {
