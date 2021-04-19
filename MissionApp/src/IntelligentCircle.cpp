@@ -7,7 +7,7 @@
 #include <sys/ioctl.h>
 #include "MissionCircleFormation.h"
 
-//----------------------------------------------------------------------------//
+//程序入口---------------------------------------------------------------------//
 int main(int argc, char* argv[])
 {   
     std::cout << "Initiating Intelligent Circle Formation..." << std::endl;

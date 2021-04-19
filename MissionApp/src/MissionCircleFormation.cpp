@@ -1,6 +1,6 @@
 #include <MissionCircleFormation.h>
 #include <CircleFormation.h>
-
+//与数据收发软件通过OS消息队列通信------------------------------------------------//
 MissionCircleFormation::MissionCircleFormation()
 {
     std::cout << "Initiating Circle Formation Mission thread..." << std::endl;
@@ -30,30 +30,46 @@ MissionCircleFormation::MissionCircleFormation()
     }
     fout3.close();
 
+    std::ofstream fout4("/etc/circleMissionInfo", std::fstream::out);
+    if (!fout4.is_open())
+    {
+        std::cout << "Cannot write circleMissionInfo." << std::endl;
+        return;
+    }
+    fout4.close();
+
+    std::ofstream fout5("/etc/circleMissionInfoFB", std::fstream::out);
+    if (!fout5.is_open())
+    {
+        std::cout << "Cannot write circleMissionInfoFeedback." << std::endl;
+        return;
+    }
+    fout5.close();
+
     missionData = new MissionData();
     circleFm = new CircleFormation(missionData);
 }
-
+//析构函数--------------------------------------------------------------------//
 MissionCircleFormation::~MissionCircleFormation()
 {
     delete missionData;
     delete circleFm;
 }
-//----------------------------------------------------------------------------//
+//设置系统ID------------------------------------------------------------------//
 void MissionCircleFormation::setSysID(uint8_t id)
 {
     selfid = id;
 }
-//----------------------------------------------------------------------------//
+//设置簇ID--------------------------------------------------------------------//
 void MissionCircleFormation::setGroupID(uint8_t id)
 {
     groupid = id;
 }
-//----------------------------------------------------------------------------//
+//设置算法参数，未启用---------------------------------------------------------//
 void MissionCircleFormation::setAlgParam(double offset, double minDistance)
 {
 }
-//----------------------------------------------------------------------------//
+//启动各个线程----------------------------------------------------------------//
 void MissionCircleFormation::start()
 {
     if (ctrl_thread == NULL)
@@ -64,7 +80,16 @@ void MissionCircleFormation::start()
     {
         algorithm_thread = new std::thread(&MissionCircleFormation::startCircle, this);
     }
+    if (mission_thread == NULL)
+    {
+        mission_thread = new std::thread(&MissionCircleFormation::startMission, this);
+    }
+    if (mission_fb_thread == NULL)
+    {
+        mission_fb_thread = new std::thread(&MissionCircleFormation::startMissionFeedback, this);
+    }
 }
+//控制线程，预留，暂未用--------------------------------------------------------//
 void MissionCircleFormation::startCtrl()
 {
     //--------开始任务消息队列初始化---------/
@@ -94,7 +119,7 @@ void MissionCircleFormation::startCtrl()
     }
 }
 
-//----------------------------------------------------------------------------//
+//接收实时位姿信息线程--------------------------------------------------------//
 void MissionCircleFormation::startCircle()
 {
     //---------实时飞行状态消息队列初始化-------/
@@ -153,10 +178,66 @@ void MissionCircleFormation::startCircle()
         printf("Receive expected position and speed: %f, %f, %f. Speed:%f\n", expPosSpd.lon, expPosSpd.lat, expPosSpd.alt, expPosSpd.airspeed);
     }
 }
+//接收任务指令线程--------------------------------------------------------------//
+void MissionCircleFormation::startMission()
+{
+    //--------开始任务消息队列初始化---------/
+    //获取任务控制消息队列key值
+    if ((keyMission = ftok(MSG_CIRCLE_MISSION, 'z')) < 0)
+    {
+        perror("ftok for circle mission error");
+        exit(1);
+    }
+    // 创建消息队列
+    if ((msgIDMission = msgget(keyMission, IPC_CREAT | 0777)) == -1)
+    {
+        perror("msgget for circle mission error");
+        exit(1);
+    }
+
+    while (true)
+    {
+        std::cout << "Waiting for circle mission message..." << std::endl;
+        msgrcv(msgIDMission, &msCmd, sizeof(struct MissionCmd) - sizeof(long), 898, 0); // 返回类型为898的第一个消息
+        printf("Receive circle mission message\n");
+        missionData->setMissionCmd(msCmd);
+    }
+}
+//任务指令反馈线程------------------------------------------------------------------//
+void MissionCircleFormation::startMissionFeedback() 
+{
+    //--------开始任务消息反馈队列初始化---------/
+    //获取任务控制反馈消息队列key值
+    if ((keyMissionFB = ftok(MSG_CIRCLE_MISSION_FB, 'z')) < 0)
+    {
+        perror("ftok for circle mission feedback error");
+        exit(1);
+    }
+    // 创建消息队列
+    if ((msgIDMissionFB = msgget(keyMissionFB, IPC_CREAT | 0777)) == -1)
+    {
+        perror("msgget for circle mission feedback error");
+        exit(1);
+    }
+
+    while (true)
+    {
+        //获取任务反馈
+        if (missionData->feedbackFlag)
+        {
+            msCmdFb = missionData->getMissionCmdFeedback();
+            msgsnd(msgIDMissionFB, &msCmdFb, sizeof(struct MissionCmd) - sizeof(long), 0);
+            printf("Sent mission command feedback\n");
+            missionData->feedbackFlag = false;
+        }
+        sleep(0.5);
+    }
+}
 
 //----------------------------------------------------------------------------//
-void MissionCircleFormation::join(){
-    std::thread* ert_main_thread = ert_thread(*circleFm);
+void MissionCircleFormation::join()
+{
+    std::thread *ert_main_thread = ert_thread(*circleFm);
     ert_main_thread->join();
 }
 //----------------------------------------------------------------------------//

@@ -79,6 +79,10 @@ void CircleFormation::rt_OneStep(void)
 
   OverrunFlag = true;
 
+  //下一行代码获取数据收发软件发送过来的任务指令
+  //若missionCmd为nullptr，说明消息队列中没有任务指令；若不为空，则missionCmd指向最旧一条任务指令
+  missionCmd = commonData->getMissionCmd();
+  
   // Save FPU context here (if necessary)
   // Re-enable timer or interrupt here
   // Set model inputs here
@@ -92,6 +96,10 @@ void CircleFormation::rt_OneStep(void)
 
   // Indicate task complete
   OverrunFlag = false;
+
+  // 存在任务反馈信息时，通过下述代码设置标识、更新数据
+  commonData->feedbackFlag = true;
+  commonData->setMissionCmdFB(cmdFeedBack);
 
   // Disable interrupts here
   // Restore FPU context here (if necessary)
