@@ -5,7 +5,7 @@
 //
 // Model version                  : 1.17
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Apr 19 15:14:42 2021
+// C/C++ source code generated on : Mon Apr 19 16:20:29 2021
 //
 
 //
@@ -29,14 +29,41 @@ extern "C" {
     if (bitsPerReal == 32U) {
       nan = rtGetNaNF();
     } else {
-      union {
-        LittleEndianIEEEDouble bitVal;
-        real_T fltVal;
-      } tmpVal;
+      uint16_T one = 1U;
+      enum {
+        LittleEndian,
+        BigEndian
+      } machByteOrder
+      {
+        (*((uint8_T *) &one) == 1U) ? LittleEndian : BigEndian
+      };
+      switch (machByteOrder) {
+       case LittleEndian:
+        {
+          union {
+            LittleEndianIEEEDouble bitVal;
+            real_T fltVal;
+          } tmpVal;
 
-      tmpVal.bitVal.words.wordH = 0xFFF80000U;
-      tmpVal.bitVal.words.wordL = 0x00000000U;
-      nan = tmpVal.fltVal;
+          tmpVal.bitVal.words.wordH = 0xFFF80000U;
+          tmpVal.bitVal.words.wordL = 0x00000000U;
+          nan = tmpVal.fltVal;
+          break;
+        }
+
+       case BigEndian:
+        {
+          union {
+            BigEndianIEEEDouble bitVal;
+            real_T fltVal;
+          } tmpVal;
+
+          tmpVal.bitVal.words.wordH = 0x7FFFFFFFU;
+          tmpVal.bitVal.words.wordL = 0xFFFFFFFFU;
+          nan = tmpVal.fltVal;
+          break;
+        }
+      }
     }
 
     return nan;
@@ -50,7 +77,29 @@ extern "C" {
   {
     IEEESingle nanF{ { 0.0F } };
 
-    nanF.wordL.wordLuint = 0xFFC00000U;
+    uint16_T one{ 1U };
+
+    enum {
+      LittleEndian,
+      BigEndian
+    } machByteOrder
+    {
+      (*((uint8_T *) &one) == 1U) ? LittleEndian : BigEndian
+    };
+    switch (machByteOrder) {
+     case LittleEndian:
+      {
+        nanF.wordL.wordLuint = 0xFFC00000U;
+        break;
+      }
+
+     case BigEndian:
+      {
+        nanF.wordL.wordLuint = 0x7FFFFFFFU;
+        break;
+      }
+    }
+
     return nanF.wordL.wordLreal;
   }
 }
