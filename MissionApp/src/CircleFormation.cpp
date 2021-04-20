@@ -16,12 +16,29 @@
 #include <string>
 #include <fstream>
 
-CircleFormation::CircleFormation(MissionData * const pCommonData) {
-    this->commonData = pCommonData;
-    if (background_thread == NULL)
-    {
-        background_thread = new std::thread(&CircleFormation::MissionMonitor, this);
-    }
+CircleFormation::CircleFormation(MissionData *const pCommonData) : commonData{pCommonData}
+{
+  if (background_thread == NULL)
+  {
+    background_thread = new std::thread(&CircleFormation::MissionMonitor, this);
+  }
+}
+
+void CircleFormation::codegenReal2MissionModelClassSendData_IndividualUAVCmdT::
+    SendData(const IndividualUAVCmd *data, int32_T length, int32_T *status)
+{
+  // Add send data logic here
+  // 存在任务反馈信息时，通过下述代码设置标识、更新数据
+  pCommonData->feedbackFlag = true;
+  pCommonData->setMissionCmdFB(*data);
+}
+
+void CircleFormation::codegenReal2MissionModelClassRecvData_IndividualUAVCmdT::
+    RecvData(IndividualUAVCmd *data, int32_T length, int32_T *status)
+{
+  // Add receive data logic here
+  //下一行代码获取数据收发软件发送过来的任务指令
+  data = missionCmd;
 }
 
 void CircleFormation::renameMATfile(void)
@@ -46,7 +63,7 @@ void CircleFormation::renameMATfile(void)
   dst << src.rdbuf();
 }
 
-// temporal logic of mission algorithm 
+// temporal logic of mission algorithm
 void CircleFormation::MissionMonitor()
 {
   ert_main();
@@ -79,10 +96,13 @@ void CircleFormation::rt_OneStep(void)
 
   OverrunFlag = true;
 
-  //下一行代码获取数据收发软件发送过来的任务指令
-  //若missionCmd为nullptr，说明消息队列中没有任务指令；若不为空，则missionCmd指向最旧一条任务指令
-  missionCmd = commonData->getMissionCmd();
-  
+  // Store received MissionCmd from IPC into missionCmd data member
+  MissionCMDRecvData_arg.missionCmd = commonData->getMissionCmd();
+  if (nullptr != MissionCMDRecvData_arg.missionCmd)
+  { // Push New Mission if new command available
+    codegenReal2Mission_Obj.codegenReal2Mission_PushNewMission();
+  } //若missionCmd为nullptr，说明消息队列中没有任务指令；若不为空，则missionCmd指向最旧一条任务指令
+
   // Save FPU context here (if necessary)
   // Re-enable timer or interrupt here
   // Set model inputs here
@@ -96,10 +116,6 @@ void CircleFormation::rt_OneStep(void)
 
   // Indicate task complete
   OverrunFlag = false;
-
-  // 存在任务反馈信息时，通过下述代码设置标识、更新数据
-  commonData->feedbackFlag = true;
-  commonData->setMissionCmdFB(cmdFeedBack);
 
   // Disable interrupts here
   // Restore FPU context here (if necessary)
@@ -123,7 +139,7 @@ void CircleFormation::ert_main(void)
     std::cout << "Running Time: " << SimulationTime.count() << " milliseconds" << std::endl;
 
     // increment SimulationTime for 100ms
-    const std::chrono::milliseconds tick{ 100 };
+    const std::chrono::milliseconds tick{100};
     SimulationTime += tick;
 
     while (TimeElapsed < SimulationTime) // delay execution until next simulation tick
@@ -131,7 +147,6 @@ void CircleFormation::ert_main(void)
       std::this_thread::sleep_for(std::chrono::milliseconds(1));
       TimeElapsed = std::chrono::high_resolution_clock::now() - SimulationStart;
     }
-    
   }
 
   // Matfile logging

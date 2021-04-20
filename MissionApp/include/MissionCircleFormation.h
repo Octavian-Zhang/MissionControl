@@ -22,10 +22,10 @@ public:
     MissionCircleFormation();
     ~MissionCircleFormation();
 
-    void start();        //启动后台运算线程
-    void startCircle();  //环形编队算法
-    void startCtrl();    //控制指令接收线程
-    void startMission(); //任务指令接收线程
+    void start();                //启动后台运算线程
+    void startCircle();          //环形编队算法
+    void startCtrl();            //控制指令接收线程
+    void startMission();         //任务指令接收线程
     void startMissionFeedback(); //任务指令反馈线程
     void join();
 

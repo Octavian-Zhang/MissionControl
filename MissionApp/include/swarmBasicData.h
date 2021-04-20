@@ -152,7 +152,7 @@ struct StartTime
 //真·任务指令
 struct MissionCmd
 {
-    long msgType;//898
+    long msgType; //898
     int32_t SequenceId;
     int32_t MissionMode;
     LocationParam MissionLocation;

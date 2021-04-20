@@ -20,7 +20,7 @@ const codegenReal2MissionModelClass::ExtU_codegenReal2Mission_T &MissionData::ge
   return this->ExtU;
 }
 
-IndividualUAVCmd* MissionData::getMissionCmd()
+IndividualUAVCmd *MissionData::getMissionCmd()
 {
   if (this->cmdQueue.empty())
     return nullptr;

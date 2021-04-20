@@ -204,7 +204,7 @@ void MissionCircleFormation::startMission()
     }
 }
 //任务指令反馈线程------------------------------------------------------------------//
-void MissionCircleFormation::startMissionFeedback() 
+void MissionCircleFormation::startMissionFeedback()
 {
     //--------开始任务消息反馈队列初始化---------/
     //获取任务控制反馈消息队列key值
