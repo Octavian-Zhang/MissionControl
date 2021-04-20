@@ -1,5 +1,5 @@
 //
-// File: GCS_Location.cpp
+// File: SendData_IndividualUAVCmdT.h
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
@@ -16,21 +16,23 @@
 //    4. ROM efficiency
 // Validation result: Not run
 //
+
+#ifndef RTW_HEADER_SendData_IndividualUAVCmdT_h_
+#define RTW_HEADER_SendData_IndividualUAVCmdT_h_
 #include "rtwtypes.h"
-#include "model_reference_types.h"
-#include "builtin_typeid_types.h"
-#include "multiword_types.h"
-#include "zero_crossing_types.h"
-#include "codegenReal2Mission_types.h"
+#include "DatalinkInterface.h"
 
-// Exported data definition
+class SendData_IndividualUAVCmdT
+{
+ public:
+  virtual void SendData(const IndividualUAVCmd *data, int32_T length, int32_T
+                        *status) = 0;
+  virtual ~SendData_IndividualUAVCmdT()
+  {
+  }
+};
 
-// Definition for custom storage class: ExportToFile
-real_T GCS_Altitude{ 30.0 };
-
-real_T GCS_Latitude{ 34.93914083 };
-
-real_T GCS_Longitude{ 113.2316744 };
+#endif                               // RTW_HEADER_SendData_IndividualUAVCmdT_h_
 
 //
 // File trailer for generated code.

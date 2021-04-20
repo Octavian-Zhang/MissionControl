@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 2.298
+// Model version                  : 2.310
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Apr 19 16:23:29 2021
+// C/C++ source code generated on : Tue Apr 20 11:34:51 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -159,21 +159,8 @@ struct MemPool_missionCmd
 
 #endif
 
-#ifndef DEFINED_TYPEDEF_FOR_SendData_missionCmdT_
-#define DEFINED_TYPEDEF_FOR_SendData_missionCmdT_
-
-class SendData_missionCmdT
-{
- public:
-  virtual void SendData(const missionCmd *data, int32_T length, int32_T *status)
-    = 0;
-  virtual ~SendData_missionCmdT()
-  {
-  }
-};
-
-#endif
-
+// Custom Type definition for MATLAB Function: '<Root>/getCurrentTime'
+#include "coder_posix_time.h"
 #ifndef struct_robotics_slcore_internal_block_CoordinateTransformationConversion_codegenReal2Mission_T
 #define struct_robotics_slcore_internal_block_CoordinateTransformationConversion_codegenReal2Mission_T
 
@@ -209,8 +196,6 @@ struct uav_sluav_internal_system_UAVAnimation_codegenReal2Mission_T
 
 #endif   // struct_uav_sluav_internal_system_UAVAnimation_codegenReal2Mission_T
 
-// Custom Type definition for MATLAB Function: '<Root>/getCurrentTime'
-#include "coder_posix_time.h"
 #ifndef struct_cell_wrap_codegenReal2Mission_T
 #define struct_cell_wrap_codegenReal2Mission_T
 
@@ -243,7 +228,7 @@ struct uav_sluav_internal_system_OrbitFollower_codegenReal2Mission_T
 
 #endif  // struct_uav_sluav_internal_system_OrbitFollower_codegenReal2Mission_T
 
-// Custom Type definition for MATLAB Function: '<S119>/WayPointGenerator'
+// Custom Type definition for MATLAB Function: '<S122>/WayPointGenerator'
 #ifndef struct_cell_wrap_12_codegenReal2Mission_T
 #define struct_cell_wrap_12_codegenReal2Mission_T
 
@@ -300,7 +285,7 @@ struct emxArray_char_T_1x2_codegenReal2Mission_T
 
 #endif                      // struct_emxArray_char_T_1x2_codegenReal2Mission_T
 
-// Custom Type definition for MATLAB Function: '<S119>/WayPointGenerator'
+// Custom Type definition for MATLAB Function: '<S122>/WayPointGenerator'
 #ifndef struct_cell_wrap_10_codegenReal2Mission_T
 #define struct_cell_wrap_10_codegenReal2Mission_T
 
@@ -357,7 +342,7 @@ struct emxArray_int32_T_codegenReal2Mission_T
 
 #endif                         // struct_emxArray_int32_T_codegenReal2Mission_T
 
-// Custom Type definition for MATLAB Function: '<S119>/WayPointGenerator'
+// Custom Type definition for MATLAB Function: '<S122>/WayPointGenerator'
 #ifndef struct_uavDubinsConnection_codegenReal2Mission_T
 #define struct_uavDubinsConnection_codegenReal2Mission_T
 
