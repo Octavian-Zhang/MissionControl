@@ -19,11 +19,10 @@ include_directories (${CMAKE_CURRENT_SOURCE_DIR}/include)
 list (APPEND EXTRA_LIBS MissionAlg)
 
 # glob source code files
-file(GLOB_RECURSE MISSIONAPP_SRC_CPP "src/*.cpp")
-file(GLOB_RECURSE MISSIONAPP_SRC_C "src/*.c")
+file(GLOB_RECURSE MISSIONALG_SRC ${CMAKE_CURRENT_SOURCE_DIR}/src/*)
 
 # add source to this project's executable.
-add_executable(${PROJECT_NAME} ${MISSIONAPP_SRC_CPP} ${MISSIONAPP_SRC_C})
+add_executable(${PROJECT_NAME} ${MISSIONALG_SRC})
 
 # Define target link libraries
 target_link_libraries (${PROJECT_NAME} ${EXTRA_LIBS})

@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include "codegenReal2Mission.h" // Model's header file
 #include "rtwtypes.h"
+#include "model_reference_types.h"
 #include "zero_crossing_types.h"
 #include <vector>
 #include "builtin_typeid_types.h"

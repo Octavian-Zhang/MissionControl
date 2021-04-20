@@ -13,14 +13,14 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 include_directories (${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 # glob source code files
-file(GLOB_RECURSE MISSIONALG_SRC_CPP "src/*.cpp")
-file(GLOB_RECURSE MISSIONALG_SRC_C "src/*.c")
+file(GLOB_RECURSE MISSIONALG_SRC ${CMAKE_CURRENT_SOURCE_DIR}/src/*)
 
 # add source to this project's shared library.
-add_library (MissionAlg SHARED 
-                ${MISSIONALG_SRC_C}
-                ${MISSIONALG_SRC_CPP}
-			)
+add_library (MissionAlg SHARED ${MISSIONALG_SRC})
+
+# link external shared libraries
+file(GLOB_RECURSE MISSIONALG_LIB ${CMAKE_CURRENT_SOURCE_DIR}/bin/*)
+TARGET_LINK_LIBRARIES(MissionAlg ${MISSIONALG_LIB})
 
 # state that anybody linking to us needs to include the current source dir
 # to find necessary headers, while we don't.

@@ -7,25 +7,51 @@
 #include "codegenReal2Mission.h" // Model's header file
 #include "rtwtypes.h"
 #include <vector>
+#include "model_reference_types.h"
 #include "builtin_typeid_types.h"
 #include "multiword_types.h"
 #include "zero_crossing_types.h"
 #include "rt_logging.h"
 #include "MissionData.h"
 #ifndef SAVEFILE
-#define MATFILE2(file) #file ".mat"
-#define MATFILE1(file) MATFILE2(file)
-#define MATFILE MATFILE1(MODEL)
+#define MATFILE2(file)                 #file ".mat"
+#define MATFILE1(file)                 MATFILE2(file)
+#define MATFILE                        MATFILE1(MODEL)
 #else
-#define QUOTE1(name) #name
-#define QUOTE(name) QUOTE1(name) // need to expand name
-#define MATFILE QUOTE(SAVEFILE)
+#define QUOTE1(name)                   #name
+#define QUOTE(name)                    QUOTE1(name)              // need to expand name 
+#define MATFILE                        QUOTE(SAVEFILE)
 #endif
 
+class codegenReal2MissionModelClassSendData_IndividualUAVCmdT : public
+  SendData_IndividualUAVCmdT{
+ public:
+  void SendData(const IndividualUAVCmd* data, int32_T length, int32_T* status)
+  {
+    // Add send data logic here
+  }
+};
+
+static codegenReal2MissionModelClassSendData_IndividualUAVCmdT
+  CurrentMissionSendData_arg;
+
+class codegenReal2MissionModelClassRecvData_IndividualUAVCmdT : public
+  RecvData_IndividualUAVCmdT{
+ public:
+  void RecvData(IndividualUAVCmd* data, int32_T length, int32_T* status)
+  {
+    // Add receive data logic here
+  }
+};
+
+static codegenReal2MissionModelClassRecvData_IndividualUAVCmdT
+  MissionCMDRecvData_arg;
+  
 class CircleFormation
 {
 private:
-    codegenReal2MissionModelClass codegenReal2Mission_Obj; // Instance of model class
+    codegenReal2MissionModelClass codegenReal2Mission_Obj{ 
+      CurrentMissionSendData_arg, MissionCMDRecvData_arg };// Instance of model class 
     std::thread *background_thread;                        //任务控制线程，绑定startMission函数
     MissionData *commonData;
     IndividualUAVCmd *missionCmd; //任务指令指针
