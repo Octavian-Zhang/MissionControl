@@ -4,7 +4,7 @@
 cmake_minimum_required(VERSION 3.5.0)
 
 # add compiler option to change default MAT logging buffer size
-add_compile_options(-DDEFAULT_BUFFER_SIZE=65536)
+add_compile_options(-DDEFAULT_BUFFER_SIZE=65536 -DPORTABLE_WORDSIZES)
 
 # define library output path
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
