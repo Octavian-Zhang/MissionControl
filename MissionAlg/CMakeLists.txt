@@ -7,7 +7,7 @@ cmake_minimum_required(VERSION 3.5.0)
 add_compile_options(-DDEFAULT_BUFFER_SIZE=65536 -DPORTABLE_WORDSIZES)
 
 # define library output path
-set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
 
 # include the mission algorithm include directory
 include_directories (${CMAKE_CURRENT_SOURCE_DIR}/include)
