@@ -8,13 +8,13 @@
 #include "MissionCircleFormation.h"
 
 //程序入口---------------------------------------------------------------------//
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
-    std::cout << "Initiating Intelligent Circle Formation..." << std::endl;
-    MissionCircleFormation *circleMission = new MissionCircleFormation();
-    //启动环形封锁任务
-    circleMission->start();
-    circleMission->join();
+	std::cout << "Initiating Intelligent Circle Formation..." << std::endl;
+	MissionCircleFormation* circleMission = new MissionCircleFormation();
+	//启动环形封锁任务
+	circleMission->start();
+	circleMission->join();
 }
 
 //----------------------------------------------------------------------------//
