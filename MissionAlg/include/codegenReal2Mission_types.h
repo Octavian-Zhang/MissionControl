@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 2.310
+// Model version                  : 2.374
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Tue Apr 20 11:34:51 2021
+// C/C++ source code generated on : Mon Apr 26 14:14:32 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -228,7 +228,7 @@ struct uav_sluav_internal_system_OrbitFollower_codegenReal2Mission_T
 
 #endif  // struct_uav_sluav_internal_system_OrbitFollower_codegenReal2Mission_T
 
-// Custom Type definition for MATLAB Function: '<S122>/WayPointGenerator'
+// Custom Type definition for MATLAB Function: '<S153>/WayPointGenerator'
 #ifndef struct_cell_wrap_12_codegenReal2Mission_T
 #define struct_cell_wrap_12_codegenReal2Mission_T
 
@@ -285,16 +285,16 @@ struct emxArray_char_T_1x2_codegenReal2Mission_T
 
 #endif                      // struct_emxArray_char_T_1x2_codegenReal2Mission_T
 
-// Custom Type definition for MATLAB Function: '<S122>/WayPointGenerator'
-#ifndef struct_cell_wrap_10_codegenReal2Mission_T
-#define struct_cell_wrap_10_codegenReal2Mission_T
+// Custom Type definition for MATLAB Function: '<S71>/WayPointGenerator'
+#ifndef struct_cell_wrap_1_codegenReal2Mission_T
+#define struct_cell_wrap_1_codegenReal2Mission_T
 
-struct cell_wrap_10_codegenReal2Mission_T
+struct cell_wrap_1_codegenReal2Mission_T
 {
   emxArray_char_T_1x2_codegenReal2Mission_T f1;
 };
 
-#endif                             // struct_cell_wrap_10_codegenReal2Mission_T
+#endif                              // struct_cell_wrap_1_codegenReal2Mission_T
 
 #ifndef struct_uavDubinsPathSegment_codegenReal2Mission_T
 #define struct_uavDubinsPathSegment_codegenReal2Mission_T
@@ -307,7 +307,7 @@ struct uavDubinsPathSegment_codegenReal2Mission_T
   real_T AirSpeed;
   real_T MinTurningRadius;
   real_T HelixRadius;
-  cell_wrap_10_codegenReal2Mission_T MotionTypes[4];
+  cell_wrap_1_codegenReal2Mission_T MotionTypes[4];
   real_T MotionLengths[4];
   real_T Length;
 };
@@ -342,7 +342,35 @@ struct emxArray_int32_T_codegenReal2Mission_T
 
 #endif                         // struct_emxArray_int32_T_codegenReal2Mission_T
 
-// Custom Type definition for MATLAB Function: '<S122>/WayPointGenerator'
+// Custom Type definition for MATLAB Function: '<S153>/WayPointGenerator'
+#ifndef struct_cell_wrap_10_codegenReal2Mission_T
+#define struct_cell_wrap_10_codegenReal2Mission_T
+
+struct cell_wrap_10_codegenReal2Mission_T
+{
+  emxArray_char_T_1x2_codegenReal2Mission_T f1;
+};
+
+#endif                             // struct_cell_wrap_10_codegenReal2Mission_T
+
+#ifndef struct_uavDubinsPathSegment_codegenReal2Mission_j_T
+#define struct_uavDubinsPathSegment_codegenReal2Mission_j_T
+
+struct uavDubinsPathSegment_codegenReal2Mission_j_T
+{
+  real_T StartPose[4];
+  real_T GoalPose[4];
+  real_T FlightPathAngle;
+  real_T AirSpeed;
+  real_T MinTurningRadius;
+  real_T HelixRadius;
+  cell_wrap_10_codegenReal2Mission_T MotionTypes[4];
+  real_T MotionLengths[4];
+  real_T Length;
+};
+
+#endif                   // struct_uavDubinsPathSegment_codegenReal2Mission_j_T
+
 #ifndef struct_uavDubinsConnection_codegenReal2Mission_T
 #define struct_uavDubinsConnection_codegenReal2Mission_T
 
@@ -369,6 +397,7 @@ struct
 #endif
 // struct_matlabshared_autonomous_core_internal_NameValueParser_codegenReal2Mission_T 
 
+// Custom Type definition for MATLAB Function: '<S71>/WayPointGenerator'
 #ifndef struct_emxArray_uavDubinsPathSegment_2_codegenReal2Mission_T
 #define struct_emxArray_uavDubinsPathSegment_2_codegenReal2Mission_T
 
@@ -390,6 +419,18 @@ struct emxArray_int32_T_28_codegenReal2Mission_T
 };
 
 #endif                      // struct_emxArray_int32_T_28_codegenReal2Mission_T
+
+// Custom Type definition for MATLAB Function: '<S153>/WayPointGenerator'
+#ifndef struct_emxArray_uavDubinsPathSegment_2_codegenReal2Mission_b_T
+#define struct_emxArray_uavDubinsPathSegment_2_codegenReal2Mission_b_T
+
+struct emxArray_uavDubinsPathSegment_2_codegenReal2Mission_b_T
+{
+  uavDubinsPathSegment_codegenReal2Mission_j_T data[28];
+  int32_T size;
+};
+
+#endif        // struct_emxArray_uavDubinsPathSegment_2_codegenReal2Mission_b_T
 #endif                               // RTW_HEADER_codegenReal2Mission_types_h_
 
 //
