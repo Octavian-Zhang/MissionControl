@@ -3,6 +3,9 @@
 #
 cmake_minimum_required(VERSION 3.5.0)
 
+# add compiler option to use C++11 features
+set (CMAKE_CXX_STANDARD 11)
+
 # add compiler option to change default MAT logging buffer size
 add_compile_options(-DDEFAULT_BUFFER_SIZE=65536 -DPORTABLE_WORDSIZES)
 
