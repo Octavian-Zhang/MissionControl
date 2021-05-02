@@ -3,14 +3,14 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 2.298
+// Model version                  : 2.398
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Apr 19 16:23:29 2021
+// C/C++ source code generated on : Sun May  2 12:27:38 2021
 //
 #include "rtwtypes.h"
 #include "plus_aAYNoTqG.h"
 
-// Function for MATLAB Function: '<S2>/CommandCheck'
+// Function for MATLAB Function: '<S3>/CommandCheck'
 creal_T plus_aAYNoTqG(const creal_T a, real_T b)
 {
   creal_T c;

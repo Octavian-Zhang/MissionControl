@@ -1,11 +1,11 @@
 //
 // File: rt_mrdivide_U1d1x3_U2d3x3_Yd1x3_snf.cpp
 //
-// Code generated for Simulink model 'codegenReal2Mission'.
+// Code generated for Simulink model 'PreemptableMissionModeSelector'.
 //
-// Model version                  : 2.298
+// Model version                  : 2.427
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Apr 19 16:23:29 2021
+// C/C++ source code generated on : Sun May  2 12:25:38 2021
 //
 #include "rtwtypes.h"
 #include <cmath>
@@ -22,7 +22,7 @@ void rt_mrdivide_U1d1x3_U2d3x3_Yd1x3_snf(const real_T u0[3], const real_T u1[9],
   int32_T r2;
   int32_T r3;
   int32_T rtemp;
-  std::memcpy(&A[0], &u1[0], 9U * sizeof(real_T));
+  std::memcpy(&A[0], &u1[0], static_cast<uint32_T>(9U * sizeof(real_T)));
   r1 = 0;
   r2 = 1;
   r3 = 2;
@@ -42,25 +42,27 @@ void rt_mrdivide_U1d1x3_U2d3x3_Yd1x3_snf(const real_T u0[3], const real_T u1[9],
 
   A[r2] = u1[r2] / u1[r1];
   A[r3] /= A[r1];
-  A[r2 + 3] -= A[r1 + 3] * A[r2];
-  A[r3 + 3] -= A[r1 + 3] * A[r3];
-  A[r2 + 6] -= A[r1 + 6] * A[r2];
-  A[r3 + 6] -= A[r1 + 6] * A[r3];
-  if (std::abs(A[r3 + 3]) > std::abs(A[r2 + 3])) {
-    rtemp = r2 + 1;
+  A[static_cast<int32_T>(r2 + 3)] -= A[static_cast<int32_T>(r1 + 3)] * A[r2];
+  A[static_cast<int32_T>(r3 + 3)] -= A[static_cast<int32_T>(r1 + 3)] * A[r3];
+  A[static_cast<int32_T>(r2 + 6)] -= A[static_cast<int32_T>(r1 + 6)] * A[r2];
+  A[static_cast<int32_T>(r3 + 6)] -= A[static_cast<int32_T>(r1 + 6)] * A[r3];
+  if (std::abs(A[static_cast<int32_T>(r3 + 3)]) > std::abs(A[static_cast<int32_T>
+       (r2 + 3)])) {
+    rtemp = static_cast<int32_T>(r2 + 1);
     r2 = r3;
-    r3 = rtemp - 1;
+    r3 = static_cast<int32_T>(rtemp - 1);
   }
 
-  A[r3 + 3] /= A[r2 + 3];
-  A[r3 + 6] -= A[r3 + 3] * A[r2 + 6];
+  A[static_cast<int32_T>(r3 + 3)] /= A[static_cast<int32_T>(r2 + 3)];
+  A[static_cast<int32_T>(r3 + 6)] -= A[static_cast<int32_T>(r3 + 3)] * A[
+    static_cast<int32_T>(r2 + 6)];
   y[r1] = u0[0] / A[r1];
-  y[r2] = u0[1] - A[r1 + 3] * y[r1];
-  y[r3] = u0[2] - A[r1 + 6] * y[r1];
-  y[r2] /= A[r2 + 3];
-  y[r3] -= A[r2 + 6] * y[r2];
-  y[r3] /= A[r3 + 6];
-  y[r2] -= A[r3 + 3] * y[r3];
+  y[r2] = u0[1] - A[static_cast<int32_T>(r1 + 3)] * y[r1];
+  y[r3] = u0[2] - A[static_cast<int32_T>(r1 + 6)] * y[r1];
+  y[r2] /= A[static_cast<int32_T>(r2 + 3)];
+  y[r3] -= A[static_cast<int32_T>(r2 + 6)] * y[r2];
+  y[r3] /= A[static_cast<int32_T>(r3 + 6)];
+  y[r2] -= A[static_cast<int32_T>(r3 + 3)] * y[r3];
   y[r1] -= y[r3] * A[r3];
   y[r1] -= y[r2] * A[r2];
 }

@@ -5,10 +5,10 @@
 //
 // Model version                  : 1.17
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Apr 26 14:12:13 2021
+// C/C++ source code generated on : Sun May  2 12:20:47 2021
 //
 // Target selection: ert.tlc
-// Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
+// Embedded hardware selection: ARM Compatible->ARM Cortex-A
 // Code generation objectives:
 //    1. Safety precaution
 //    2. Execution efficiency

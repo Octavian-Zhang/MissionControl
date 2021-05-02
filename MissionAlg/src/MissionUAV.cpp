@@ -5,10 +5,10 @@
 //
 // Model version                  : 1.17
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Apr 26 14:12:13 2021
+// C/C++ source code generated on : Sun May  2 12:20:47 2021
 //
 // Target selection: ert.tlc
-// Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
+// Embedded hardware selection: ARM Compatible->ARM Cortex-A
 // Code generation objectives:
 //    1. Safety precaution
 //    2. Execution efficiency
@@ -48,7 +48,8 @@ void MissionUAV_Init(RT_MODEL_MissionUAV_T * const MissionUAV_M,
 {
   // InitializeConditions for Integrator: '<S2>/Integrator'
   if (rtmIsFirstInitCond(MissionUAV_M)) {
-    std::memset(&localX->Integrator_CSTATE[0], 0, sizeof(real_T) << 3U);
+    std::memset(&localX->Integrator_CSTATE[0], 0, static_cast<uint32_T>(sizeof
+      (real_T) << 3U));
   }
 
   localDW->Integrator_IWORK = 1;
@@ -119,8 +120,8 @@ void MissionUAV(RT_MODEL_MissionUAV_T * const MissionUAV_M, const real_T
   rEQ0 = rtsiGetIsOkayToUpdateMode(MissionUAV_M->solverInfo);
   if (rEQ0 && ((*rtu_ResetState != 0.0) || (localDW->Integrator_IWORK != 0))) {
     // evaluate the level of the reset signal
-    std::memcpy(&localX->Integrator_CSTATE[0], &rtu_StartPos[0], sizeof(real_T) <<
-                3U);
+    std::memcpy(&localX->Integrator_CSTATE[0], &rtu_StartPos[0],
+                static_cast<uint32_T>(sizeof(real_T) << 3U));
   }
 
   if (rtmIsMajorTimeStep(MissionUAV_M)) {
@@ -148,24 +149,10 @@ void MissionUAV(RT_MODEL_MissionUAV_T * const MissionUAV_M, const real_T
 
     // End of Saturate: '<S1>/AirspeedSaturation'
 
-    // Saturate: '<S1>/AltitudeSaturation'
-    a0 = *rtu_UAVGuidanceCmd_Height;
-    if (a0 > 500.0) {
-      // BusCreator: '<S1>/SlewGuidanceBus'
-      localB->SlewGuidanceBus.Height = 500.0;
-    } else if (a0 < 100.0) {
-      // BusCreator: '<S1>/SlewGuidanceBus'
-      localB->SlewGuidanceBus.Height = 100.0;
-    } else {
-      // BusCreator: '<S1>/SlewGuidanceBus'
-      localB->SlewGuidanceBus.Height = a0;
-    }
-
-    // End of Saturate: '<S1>/AltitudeSaturation'
-
     // BusCreator: '<S1>/SlewGuidanceBus' incorporates:
     //   Integrator: '<S4>/TD_Bank'
 
+    localB->SlewGuidanceBus.Height = *rtu_UAVGuidanceCmd_Height;
     localB->SlewGuidanceBus.RollAngle = localX->TD_Bank_CSTATE;
   }
 
@@ -443,10 +430,11 @@ void MissionUAV_Deriv(const real_T *rtu_ResetState, B_MissionUAV_c_T *localB,
 
   if (*rtu_ResetState == 0.0) {
     std::memcpy(&localXdot->Integrator_CSTATE[0], &localB->ComputeDerivative[0],
-                sizeof(real_T) << 3U);
+                static_cast<uint32_T>(sizeof(real_T) << 3U));
   } else {
     // level reset is active
-    std::memset(&localXdot->Integrator_CSTATE[0], 0, sizeof(real_T) << 3U);
+    std::memset(&localXdot->Integrator_CSTATE[0], 0, static_cast<uint32_T>
+                (sizeof(real_T) << 3U));
   }
 
   // End of Derivatives for Integrator: '<S2>/Integrator'

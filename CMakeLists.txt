@@ -4,7 +4,11 @@
 cmake_minimum_required(VERSION 3.5.0)
 
 # declare project name and version number
-project(MissionControl VERSION 2.374)
+project(MissionControl VERSION 2.398)
+
+# set project name and version number flag
+set(CPACK_PROJECT_NAME ${PROJECT_NAME})
+set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 
 # set optimization and warning options
 SET(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -Wall -ggdb")

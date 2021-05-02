@@ -5,10 +5,10 @@
 //
 // Model version                  : 2.298
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Apr 26 14:12:16 2021
+// C/C++ source code generated on : Sun May  2 12:20:54 2021
 //
 // Target selection: ert.tlc
-// Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
+// Embedded hardware selection: ARM Compatible->ARM Cortex-A
 // Code generation objectives:
 //    1. Safety precaution
 //    2. Execution efficiency
@@ -107,11 +107,13 @@ static void Real2SimGuidance_WaypointFollowerBase_getDistinctWpts(const real_T
   boolean_T exitg1;
   for (i1 = 0; i1 < 3; i1++) {
     for (i2 = 0; i2 < 72; i2++) {
-      x_tmp = 73 * i1 + i2;
-      x[x_tmp] = (waypoints[((i2 + 2) + 73 * i1) - 1] != waypoints[x_tmp]);
+      x_tmp = static_cast<int32_T>(static_cast<int32_T>(73 * i1) + i2);
+      x[x_tmp] = (waypoints[static_cast<int32_T>(static_cast<int32_T>(
+        static_cast<int32_T>(i2 + 2) + static_cast<int32_T>(73 * i1)) - 1)] !=
+                  waypoints[x_tmp]);
     }
 
-    x[73 * i1 + 72] = true;
+    x[static_cast<int32_T>(static_cast<int32_T>(73 * i1) + 72)] = true;
   }
 
   i1 = 0;
@@ -119,13 +121,13 @@ static void Real2SimGuidance_WaypointFollowerBase_getDistinctWpts(const real_T
   x_tmp = 0;
   for (j = 0; j < 73; j++) {
     b[j] = false;
-    i1++;
-    i2++;
+    i1 = static_cast<int32_T>(i1 + 1);
+    i2 = static_cast<int32_T>(i2 + 1);
     ix = i1;
     exitg1 = false;
     while ((!exitg1) && (ix <= i2)) {
-      if (!x[ix - 1]) {
-        ix += 73;
+      if (!x[static_cast<int32_T>(ix - 1)]) {
+        ix = static_cast<int32_T>(ix + 73);
       } else {
         b[j] = true;
         exitg1 = true;
@@ -133,24 +135,26 @@ static void Real2SimGuidance_WaypointFollowerBase_getDistinctWpts(const real_T
     }
 
     if (b[j]) {
-      x_tmp++;
+      x_tmp = static_cast<int32_T>(x_tmp + 1);
     }
   }
 
   i1 = 0;
   for (i2 = 0; i2 < 73; i2++) {
     if (b[i2]) {
-      c_data[i1] = static_cast<int8_T>(i2 + 1);
-      i1++;
+      c_data[i1] = static_cast<int8_T>(static_cast<int32_T>(i2 + 1));
+      i1 = static_cast<int32_T>(i1 + 1);
     }
   }
 
   distinctWpts_size[0] = x_tmp;
   distinctWpts_size[1] = 3;
   for (i1 = 0; i1 < 3; i1++) {
-    for (i2 = 0; i2 < x_tmp; i2++) {
-      distinctWpts_data[i2 + distinctWpts_size[0] * i1] = waypoints[(73 * i1 +
-        c_data[i2]) - 1];
+    for (i2 = 0; i2 <= static_cast<int32_T>(x_tmp - 1); i2++) {
+      distinctWpts_data[static_cast<int32_T>(i2 + static_cast<int32_T>
+        (distinctWpts_size[0] * i1))] = waypoints[static_cast<int32_T>(
+        static_cast<int32_T>(static_cast<int32_T>(73 * i1) + static_cast<int32_T>
+        (c_data[i2])) - 1)];
     }
   }
 }
@@ -204,10 +208,11 @@ static void Real2SimGuidance_emxInit_real_T(emxArray_real_T_Real2SimGuidance_T *
   emxArray = *pEmxArray;
   emxArray->data = (real_T *)nullptr;
   emxArray->numDimensions = numDimensions;
-  emxArray->size = (int32_T *)std::malloc(sizeof(int32_T) * numDimensions);
+  emxArray->size = (int32_T *)std::malloc(static_cast<uint32_T>(sizeof(int32_T) *
+    static_cast<uint32_T>(numDimensions)));
   emxArray->allocatedSize = 0;
   emxArray->canFreeData = true;
-  for (i = 0; i < numDimensions; i++) {
+  for (i = 0; i <= static_cast<int32_T>(numDimensions - 1); i++) {
     emxArray->size[i] = 0;
   }
 }
@@ -223,8 +228,8 @@ static void Real2SimGuidance_emxEnsureCapacity_real_T
   }
 
   newNumel = 1;
-  for (i = 0; i < emxArray->numDimensions; i++) {
-    newNumel *= emxArray->size[i];
+  for (i = 0; i <= static_cast<int32_T>(emxArray->numDimensions - 1); i++) {
+    newNumel = static_cast<int32_T>(newNumel * emxArray->size[i]);
   }
 
   if (newNumel > emxArray->allocatedSize) {
@@ -237,13 +242,14 @@ static void Real2SimGuidance_emxEnsureCapacity_real_T
       if (i > 1073741823) {
         i = MAX_int32_T;
       } else {
-        i <<= 1;
+        i = static_cast<int32_T>(i << 1);
       }
     }
 
     newData = std::calloc(static_cast<uint32_T>(i), sizeof(real_T));
     if (emxArray->data != nullptr) {
-      std::memcpy(newData, emxArray->data, sizeof(real_T) * oldNumel);
+      std::memcpy(newData, emxArray->data, static_cast<uint32_T>(sizeof(real_T) *
+        static_cast<uint32_T>(oldNumel)));
       if (emxArray->canFreeData) {
         std::free(emxArray->data);
       }
@@ -294,30 +300,34 @@ static void Real2SimGuidance_WaypointFollowerBase_searchClosestPath
   int32_T last;
   boolean_T exitg1;
   Real2SimGuidance_emxInit_real_T(&d, 2);
-  b_k = d->size[0] * d->size[1];
+  b_k = static_cast<int32_T>(d->size[0] * d->size[1]);
   d->size[0] = 1;
   d->size[1] = static_cast<int32_T>(obj->NumWaypoints - 1.0);
   Real2SimGuidance_emxEnsureCapacity_real_T(d, b_k);
-  last = static_cast<int32_T>(obj->NumWaypoints - 1.0) - 1;
+  last = static_cast<int32_T>(static_cast<int32_T>(obj->NumWaypoints - 1.0) - 1);
   for (b_k = 0; b_k <= last; b_k++) {
     d->data[b_k] = 0.0;
-    lambda_tmp_tmp_tmp = waypoints_data[static_cast<int32_T>((static_cast<real_T>
-      (b_k) + 1.0) + 1.0) - 1];
+    lambda_tmp_tmp_tmp = waypoints_data[static_cast<int32_T>(static_cast<int32_T>
+      ((static_cast<real_T>(b_k) + 1.0) + 1.0) - 1)];
     lambda_tmp_tmp_tmp_0 = waypoints_data[b_k];
     lambda_tmp_tmp = lambda_tmp_tmp_tmp - lambda_tmp_tmp_tmp_0;
     lambda = currentPose[0] - lambda_tmp_tmp_tmp_0;
     currentPose_0[0] = lambda;
     currentPose_1[0] = currentPose[0] - lambda_tmp_tmp_tmp;
-    lambda_tmp_tmp_tmp = waypoints_data[(static_cast<int32_T>
-      ((static_cast<real_T>(b_k) + 1.0) + 1.0) + waypoints_size[0]) - 1];
-    lambda_tmp_tmp_tmp_0 = waypoints_data[b_k + waypoints_size[0]];
+    lambda_tmp_tmp_tmp = waypoints_data[static_cast<int32_T>(static_cast<int32_T>
+      (static_cast<int32_T>((static_cast<real_T>(b_k) + 1.0) + 1.0) +
+       waypoints_size[0]) - 1)];
+    lambda_tmp_tmp_tmp_0 = waypoints_data[static_cast<int32_T>(b_k +
+      waypoints_size[0])];
     lambda_tmp_tmp_0 = lambda_tmp_tmp_tmp - lambda_tmp_tmp_tmp_0;
     currentPose_tmp = currentPose[1] - lambda_tmp_tmp_tmp_0;
     currentPose_0[1] = currentPose_tmp;
     currentPose_1[1] = currentPose[1] - lambda_tmp_tmp_tmp;
-    lambda_tmp_tmp_1 = waypoints_data[(static_cast<int32_T>((static_cast<real_T>
-      (b_k) + 1.0) + 1.0) + (waypoints_size[0] << 1)) - 1];
-    lambda_tmp_tmp_tmp_tmp = waypoints_data[b_k + (waypoints_size[0] << 1)];
+    lambda_tmp_tmp_1 = waypoints_data[static_cast<int32_T>(static_cast<int32_T>(
+      static_cast<int32_T>((static_cast<real_T>(b_k) + 1.0) + 1.0) +
+      static_cast<int32_T>(waypoints_size[0] << 1)) - 1)];
+    lambda_tmp_tmp_tmp_tmp = waypoints_data[static_cast<int32_T>(b_k +
+      static_cast<int32_T>(waypoints_size[0] << 1))];
     lambda_tmp_tmp_tmp = lambda_tmp_tmp_1 - lambda_tmp_tmp_tmp_tmp;
     currentPose_tmp_0 = currentPose[2] - lambda_tmp_tmp_tmp_tmp;
     currentPose_0[2] = currentPose_tmp_0;
@@ -345,8 +355,9 @@ static void Real2SimGuidance_WaypointFollowerBase_searchClosestPath
   if (d->size[1] <= 2) {
     if (d->size[1] == 1) {
       b_idx = 1;
-    } else if ((d->data[0] > d->data[d->size[1] - 1]) || (std::isnan(d->data[0])
-                && (!std::isnan(d->data[d->size[1] - 1])))) {
+    } else if ((d->data[0] > d->data[static_cast<int32_T>(d->size[1] - 1)]) ||
+               (std::isnan(d->data[0]) && (!std::isnan(d->data
+                  [static_cast<int32_T>(d->size[1] - 1)])))) {
       b_idx = d->size[1];
     } else {
       b_idx = 1;
@@ -359,11 +370,11 @@ static void Real2SimGuidance_WaypointFollowerBase_searchClosestPath
       b_k = 2;
       exitg1 = false;
       while ((!exitg1) && (b_k <= last)) {
-        if (!std::isnan(d->data[b_k - 1])) {
+        if (!std::isnan(d->data[static_cast<int32_T>(b_k - 1)])) {
           b_idx = b_k;
           exitg1 = true;
         } else {
-          b_k++;
+          b_k = static_cast<int32_T>(b_k + 1);
         }
       }
     }
@@ -371,10 +382,10 @@ static void Real2SimGuidance_WaypointFollowerBase_searchClosestPath
     if (b_idx == 0) {
       b_idx = 1;
     } else {
-      lambda_tmp_tmp = d->data[b_idx - 1];
+      lambda_tmp_tmp = d->data[static_cast<int32_T>(b_idx - 1)];
       b_idx_0 = b_idx;
-      for (b_k = b_idx + 1; b_k <= last; b_k++) {
-        lambda_tmp_tmp_0 = d->data[b_k - 1];
+      for (b_k = static_cast<int32_T>(b_idx + 1); b_k <= last; b_k++) {
+        lambda_tmp_tmp_0 = d->data[static_cast<int32_T>(b_k - 1)];
         if (lambda_tmp_tmp > lambda_tmp_tmp_0) {
           lambda_tmp_tmp = lambda_tmp_tmp_0;
           b_idx_0 = b_k;
@@ -386,7 +397,7 @@ static void Real2SimGuidance_WaypointFollowerBase_searchClosestPath
   }
 
   Real2SimGuidance_emxFree_real_T(&d);
-  obj->WaypointIndex = b_idx;
+  obj->WaypointIndex = static_cast<real_T>(b_idx);
   obj->SearchFlag = false;
 }
 
@@ -451,18 +462,21 @@ static void Real2SimGuidance_WaypointFollowerBase_endWaypointReached_b
       obj->WaypointIndex--;
     }
 
-    curStartWaypoint[0] = waypoints_data[static_cast<int32_T>(obj->WaypointIndex)
-      - 1];
-    curEndWaypoint[0] = waypoints_data[static_cast<int32_T>(obj->WaypointIndex +
-      1.0) - 1];
-    curStartWaypoint[1] = waypoints_data[(static_cast<int32_T>
-      (obj->WaypointIndex) + waypoints_size[0]) - 1];
-    curEndWaypoint[1] = waypoints_data[(static_cast<int32_T>(obj->WaypointIndex
-      + 1.0) + waypoints_size[0]) - 1];
-    curStartWaypoint[2] = waypoints_data[(static_cast<int32_T>
-      (obj->WaypointIndex) + (waypoints_size[0] << 1)) - 1];
-    curEndWaypoint[2] = waypoints_data[(static_cast<int32_T>(obj->WaypointIndex
-      + 1.0) + (waypoints_size[0] << 1)) - 1];
+    curStartWaypoint[0] = waypoints_data[static_cast<int32_T>
+      (static_cast<int32_T>(obj->WaypointIndex) - 1)];
+    curEndWaypoint[0] = waypoints_data[static_cast<int32_T>(static_cast<int32_T>
+      (obj->WaypointIndex + 1.0) - 1)];
+    curStartWaypoint[1] = waypoints_data[static_cast<int32_T>
+      (static_cast<int32_T>(static_cast<int32_T>(obj->WaypointIndex) +
+        waypoints_size[0]) - 1)];
+    curEndWaypoint[1] = waypoints_data[static_cast<int32_T>(static_cast<int32_T>
+      (static_cast<int32_T>(obj->WaypointIndex + 1.0) + waypoints_size[0]) - 1)];
+    curStartWaypoint[2] = waypoints_data[static_cast<int32_T>
+      (static_cast<int32_T>(static_cast<int32_T>(obj->WaypointIndex) +
+        static_cast<int32_T>(waypoints_size[0] << 1)) - 1)];
+    curEndWaypoint[2] = waypoints_data[static_cast<int32_T>(static_cast<int32_T>
+      (static_cast<int32_T>(obj->WaypointIndex + 1.0) + static_cast<int32_T>
+       (waypoints_size[0] << 1)) - 1)];
   }
 }
 
@@ -491,6 +505,7 @@ static void Real2SimGuidance_WaypointFollowerBase_stepInternal
   int32_T b_exponent;
   int32_T b_exponent_0;
   int32_T b_k;
+  int32_T loop_ub;
   boolean_T exitg1;
   boolean_T guard1{ false };
 
@@ -514,7 +529,7 @@ static void Real2SimGuidance_WaypointFollowerBase_stepInternal
   while ((!exitg1) && (b_k < 219)) {
     if ((obj->WaypointsInternal[b_k] == waypointsIn[b_k]) || (std::isnan
          (obj->WaypointsInternal[b_k]) && std::isnan(waypointsIn[b_k]))) {
-      b_k++;
+      b_k = static_cast<int32_T>(b_k + 1);
     } else {
       p_0 = false;
       exitg1 = true;
@@ -526,15 +541,15 @@ static void Real2SimGuidance_WaypointFollowerBase_stepInternal
   }
 
   if (!p) {
-    std::memcpy(&obj->WaypointsInternal[0], &waypointsIn[0], 219U * sizeof
-                (real_T));
+    std::memcpy(&obj->WaypointsInternal[0], &waypointsIn[0],
+                static_cast<uint32_T>(219U * sizeof(real_T)));
     obj->WaypointIndex = 1.0;
     obj->SearchFlag = true;
   }
 
   Real2SimGuidance_WaypointFollowerBase_getDistinctWpts(waypointsIn,
     b_waypointsIn_data, b_waypointsIn_size);
-  obj->NumWaypoints = b_waypointsIn_size[0];
+  obj->NumWaypoints = static_cast<real_T>(b_waypointsIn_size[0]);
   obj->LookaheadDistance = lookaheadDist;
   if (b_waypointsIn_size[0] == 0) {
     lookaheadPoint[0] = lookaheadDist * std::cos(currentPose[3]) + currentPose[0];
@@ -571,9 +586,11 @@ static void Real2SimGuidance_WaypointFollowerBase_stepInternal
       } else {
         obj->StartFlag = false;
         for (b_k = 0; b_k < 3; b_k++) {
-          appendedWaypoints_data[b_k << 1] = obj->InitialPose[b_k];
-          appendedWaypoints_data[1 + (b_k << 1)] =
-            b_waypointsIn_data[b_waypointsIn_size[0] * b_k];
+          appendedWaypoints_data[static_cast<int32_T>(b_k << 1)] =
+            obj->InitialPose[b_k];
+          appendedWaypoints_data[static_cast<int32_T>(1 + static_cast<int32_T>
+            (b_k << 1))] = b_waypointsIn_data[static_cast<int32_T>
+            (b_waypointsIn_size[0] * b_k)];
         }
 
         obj->NumWaypoints = 2.0;
@@ -588,10 +605,9 @@ static void Real2SimGuidance_WaypointFollowerBase_stepInternal
     } else {
       waypoints_size[0] = b_waypointsIn_size[0];
       waypoints_size[1] = 3;
-      b_k = b_waypointsIn_size[0] * 3;
-      if (0 <= b_k - 1) {
-        std::memcpy(&waypoints_data[0], &b_waypointsIn_data[0], b_k * sizeof
-                    (real_T));
+      loop_ub = static_cast<int32_T>(b_waypointsIn_size[0] * 3);
+      for (b_k = 0; b_k <= static_cast<int32_T>(loop_ub - 1); b_k++) {
+        waypoints_data[b_k] = b_waypointsIn_data[b_k];
       }
 
       guard1 = true;
@@ -614,17 +630,21 @@ static void Real2SimGuidance_WaypointFollowerBase_stepInternal
       }
 
       virtualWaypoint[0] = waypoints_data[static_cast<int32_T>
-        (obj->WaypointIndex) - 1];
-      lookaheadPoint[0] = waypoints_data[static_cast<int32_T>(obj->WaypointIndex
-        + 1.0) - 1];
-      virtualWaypoint[1] = waypoints_data[(static_cast<int32_T>
-        (obj->WaypointIndex) + waypoints_size[0]) - 1];
-      lookaheadPoint[1] = waypoints_data[(static_cast<int32_T>
-        (obj->WaypointIndex + 1.0) + waypoints_size[0]) - 1];
-      virtualWaypoint[2] = waypoints_data[(static_cast<int32_T>
-        (obj->WaypointIndex) + (waypoints_size[0] << 1)) - 1];
-      lookaheadPoint[2] = waypoints_data[(static_cast<int32_T>
-        (obj->WaypointIndex + 1.0) + (waypoints_size[0] << 1)) - 1];
+        (static_cast<int32_T>(obj->WaypointIndex) - 1)];
+      lookaheadPoint[0] = waypoints_data[static_cast<int32_T>
+        (static_cast<int32_T>(obj->WaypointIndex + 1.0) - 1)];
+      virtualWaypoint[1] = waypoints_data[static_cast<int32_T>
+        (static_cast<int32_T>(static_cast<int32_T>(obj->WaypointIndex) +
+          waypoints_size[0]) - 1)];
+      lookaheadPoint[1] = waypoints_data[static_cast<int32_T>
+        (static_cast<int32_T>(static_cast<int32_T>(obj->WaypointIndex + 1.0) +
+          waypoints_size[0]) - 1)];
+      virtualWaypoint[2] = waypoints_data[static_cast<int32_T>
+        (static_cast<int32_T>(static_cast<int32_T>(obj->WaypointIndex) +
+          static_cast<int32_T>(waypoints_size[0] << 1)) - 1)];
+      lookaheadPoint[2] = waypoints_data[static_cast<int32_T>
+        (static_cast<int32_T>(static_cast<int32_T>(obj->WaypointIndex + 1.0) +
+          static_cast<int32_T>(waypoints_size[0] << 1)) - 1)];
       Real2SimGuidance_WaypointFollowerBase_endWaypointReached_b(obj,
         waypoints_data, waypoints_size, virtualWaypoint, lookaheadPoint,
         currentPose);
@@ -680,9 +700,10 @@ static void Real2SimGuidance_WaypointFollowerBase_stepInternal
           currentPose_tmp = 4.94065645841247E-324;
         } else {
           frexp(currentPose_tmp, &b_exponent);
-          lambda = std::ldexp(1.0, b_exponent - 53);
+          lambda = std::ldexp(1.0, static_cast<int32_T>(b_exponent - 53));
           frexp(currentPose_tmp, &b_exponent_0);
-          currentPose_tmp = std::ldexp(1.0, b_exponent_0 - 53);
+          currentPose_tmp = std::ldexp(1.0, static_cast<int32_T>(b_exponent_0 -
+            53));
         }
       } else {
         lambda = (rtNaN);
@@ -1096,10 +1117,12 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
     rtb_MatrixConcatenate[218] = localB->TrackInvH;
     for (i = 0; i < 72; i++) {
       // S-Function (sfix_udelay): '<S58>/EastSequence'
-      rtb_MatrixConcatenate[i + 73] = localDW->EastSequence_X[i];
+      rtb_MatrixConcatenate[static_cast<int_T>(i + 73)] =
+        localDW->EastSequence_X[i];
 
       // S-Function (sfix_udelay): '<S58>/HeightSequence'
-      rtb_MatrixConcatenate[i + 146] = localDW->HeightSequence_X[i];
+      rtb_MatrixConcatenate[static_cast<int_T>(i + 146)] =
+        localDW->HeightSequence_X[i];
 
       // S-Function (sfix_udelay): '<S58>/NorthSequence'
       rtb_MatrixConcatenate[i] = localDW->NorthSequence_X[i];
@@ -1109,13 +1132,16 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
     rtb_MatrixConcatenate[72] = *rtu_SimUAVState_North;
     for (i = 0; i < 71; i++) {
       // Update for S-Function (sfix_udelay): '<S58>/EastSequence'
-      localDW->EastSequence_X[i] = localDW->EastSequence_X[i + 1];
+      localDW->EastSequence_X[i] = localDW->EastSequence_X[static_cast<int_T>(i
+        + 1)];
 
       // Update for S-Function (sfix_udelay): '<S58>/HeightSequence'
-      localDW->HeightSequence_X[i] = localDW->HeightSequence_X[i + 1];
+      localDW->HeightSequence_X[i] = localDW->HeightSequence_X[static_cast<int_T>
+        (i + 1)];
 
       // Update for S-Function (sfix_udelay): '<S58>/NorthSequence'
-      localDW->NorthSequence_X[i] = localDW->NorthSequence_X[i + 1];
+      localDW->NorthSequence_X[i] = localDW->NorthSequence_X[static_cast<int_T>
+        (i + 1)];
     }
 
     // Update for S-Function (sfix_udelay): '<S58>/EastSequence'
@@ -1136,7 +1162,7 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
     //   Constant: '<S62>/Constant'
     //   DataStoreRead: '<S4>/ReadFlightMode_Log'
 
-    localB->Compare = (localDW->FlightMode_Log == 3);
+    localB->Compare = (static_cast<int32_T>(localDW->FlightMode_Log) == 3);
 
     // Outputs for Atomic SubSystem: '<S4>/SpeedControl'
     // Sum: '<S68>/Sum'
@@ -1544,7 +1570,7 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
     //   Switch: '<S59>/SwitchTargetHDG'
     //   Trigonometry: '<S65>/HdgCmd'
 
-    if (localDW->Status_Log > 0) {
+    if (static_cast<int32_T>(localDW->Status_Log) > 0) {
       rtb_SwitchLookAheadNED[0] = rtb_MatrixConcatenate[0];
       rtb_SwitchLookAheadNED[1] = rtb_MatrixConcatenate[73];
       rtb_SwitchLookAheadNED[2] = rtb_MatrixConcatenate[146];
@@ -1762,12 +1788,12 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
   // End of Outputs for SubSystem: '<Root>/Real2SimNav'
   if (rtmIsMajorTimeStep(Real2SimGuidance_M)) {
     // Chart: '<Root>/TASgreaterthan15for1Sec'
-    if (localDW->is_active_c16_Real2SimGuidance == 0U) {
+    if (static_cast<uint32_T>(localDW->is_active_c16_Real2SimGuidance) == 0U) {
       localDW->is_active_c16_Real2SimGuidance = 1U;
       localDW->is_c16_Real2SimGuidance = Real2SimGuidance_IN_NotTakeOff;
       rtb_TakeOffTrigger = false;
       localDW->Count = 0.0;
-    } else if (localDW->is_c16_Real2SimGuidance == 1) {
+    } else if (static_cast<int32_T>(localDW->is_c16_Real2SimGuidance) == 1) {
       rtb_TakeOffTrigger = true;
 
       // case IN_NotTakeOff:
@@ -1787,7 +1813,7 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
     // End of Chart: '<Root>/TASgreaterthan15for1Sec'
 
     // Chart: '<Root>/TriggerTermination'
-    if (localDW->is_active_c34_Real2SimGuidance == 0U) {
+    if (static_cast<uint32_T>(localDW->is_active_c34_Real2SimGuidance) == 0U) {
       localDW->is_active_c34_Real2SimGuidance = 1U;
       localB->Terminate = false;
       localDW->is_c34_Real2SimGuidance = Real2SimGuidance_IN_InitialPersuit;
@@ -1803,7 +1829,7 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
           *rty_ExecutionTrigger = 1.0;
           localDW->DataCounter = 0.0;
           localDW->ReturnCounter = 0.0;
-        } else if (*rtu_FlightMode == 6) {
+        } else if (static_cast<int32_T>(*rtu_FlightMode) == 6) {
           localDW->is_c34_Real2SimGuidance = Real2SimGuidance_IN_Landing;
           *rty_ExecutionTrigger = 0.0;
         } else {
@@ -1832,7 +1858,7 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
 
        default:
         // case IN_MissionExecution:
-        if (*rtu_FlightMode == 6) {
+        if (static_cast<int32_T>(*rtu_FlightMode) == 6) {
           localDW->is_c34_Real2SimGuidance = Real2SimGuidance_IN_Landing;
           *rty_ExecutionTrigger = 0.0;
         } else if (localDW->ReturnCounter >= 149.0) {

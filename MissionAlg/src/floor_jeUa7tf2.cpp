@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 2.310
+// Model version                  : 2.398
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Tue Apr 20 11:34:51 2021
+// C/C++ source code generated on : Sun May  2 12:27:38 2021
 //
 #include "rtwtypes.h"
 #include <cmath>

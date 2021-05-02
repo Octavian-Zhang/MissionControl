@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 2.298
+// Model version                  : 2.398
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Apr 19 16:23:29 2021
+// C/C++ source code generated on : Sun May  2 12:27:38 2021
 //
 #ifndef MULTIWORD_TYPES_H
 #define MULTIWORD_TYPES_H
@@ -14,8 +14,8 @@
 //
 //  Definitions supporting external data access
 
-typedef int64_T chunk_T;
-typedef uint64_T uchunk_T;
+typedef int32_T chunk_T;
+typedef uint32_T uchunk_T;
 
 #endif                                 // MULTIWORD_TYPES_H
 
