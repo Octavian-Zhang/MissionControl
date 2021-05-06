@@ -114,7 +114,7 @@ void MissionCircleFormation::startCtrl()
 	{
 		std::cout << "Waiting for circle control message..." << std::endl;
 		msgrcv(msgIDCtrl, &ctrlMsg, sizeof(struct CircleCtrl) - sizeof(long), 896, 0); // 返回类型为896的第一个消息
-		printf("Receive circle control message: %d\n", ctrlMsg.cmd);
+		// printf("Receive circle control message: %d\n", ctrlMsg.cmd);
 		missionData->setCtrlCmd(ctrlMsg.cmd);
 	}
 }
