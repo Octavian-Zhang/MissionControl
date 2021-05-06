@@ -136,6 +136,7 @@ void CircleFormation::ert_main(void)
 	{
 		rt_OneStep();
 		// std::cout << "Running Time: " << SimulationTime.count() << " milliseconds" << std::endl;
+		std::cout << "." << std::flush;
 
 		// Store received MissionCmd from IPC into missionCmd data member
 		MissionCMDRecvData_arg.missionCmd = commonData->getMissionCmd();

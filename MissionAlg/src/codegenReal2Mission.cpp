@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 2.398
+// Model version                  : 2.399
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Sun May  2 12:27:38 2021
+// C/C++ source code generated on : Thu May  6 16:53:55 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM Cortex-A
@@ -1645,7 +1645,12 @@ void codegenReal2MissionModelClass::codegenReal2Mission_PushNewMission() // Expl
        NewCMD_numUAV, NewCMD_FormationPos, second)) {
     if (codegenReal2Mission_DW.missionCmd_k.SequenceId ==
         codegenReal2Mission_B.ReceivePushedMissionCMD.SequenceId) {
-      printf("Use a new Sequence ID for each new mission!");
+      printf("Use a new Sequence ID for each new mission!\n");
+      fflush(stdout);
+      printf("PrevCMD SequenceID: %d\n",
+             codegenReal2Mission_DW.missionCmd_k.SequenceId);
+      fflush(stdout);
+      printf("NewCMD SequenceID: %d\n", wholeSecsFromMillis);
       fflush(stdout);
     } else if (NonDeterministic > second) {
       printf("Mission Start Time has already passed!");
