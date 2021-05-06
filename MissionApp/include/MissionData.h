@@ -48,6 +48,7 @@ public:
 	MissionCmd getMissionCmdFeedback(); //获取任务信息反馈
 	void updatePos(FlightStatus fs);    //外部更新本类的state变量
 	void getExpectedPos(std::vector<double>& expPos);
+	int8_T showCmdID() {return commandID;};
 };
 
 #endif

@@ -66,6 +66,10 @@ void CircleFormation::renameMATfile(void)
 // temporal logic of mission algorithm
 void CircleFormation::MissionMonitor()
 {
+	while (1 != commonData->showCmdID()) // delay execution until simulation start
+	{
+		std::this_thread::sleep_for(std::chrono::milliseconds(1));
+	}
 	ert_main();
 	renameMATfile();
 }
