@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 2.399
+// Model version                  : 2.409
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Thu May  6 16:53:55 2021
+// C/C++ source code generated on : Thu May  6 18:31:00 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM Cortex-A
@@ -43,9 +43,9 @@
 
 // Includes for objects with custom storage classes.
 #include "GCS_Location.h"
-#include "rt_zcfcn.h"
 #include "rtGetInf.h"
 #include "rt_nonfinite.h"
+#include "rt_zcfcn.h"
 
 // Macros for accessing real-time model data structure
 #ifndef rtmGetFinalTime
@@ -350,6 +350,7 @@ class codegenReal2MissionModelClass {
   creal_T codegenReal2Mission_two_diff(real_T a, real_T b);
   creal_T codegenReal2Mission_minus(const creal_T a, const creal_T b);
   int32_T codegenReal2Mission_ReceiveThisMission_RecvData(missionCmd *data);
+  creal_T codegenReal2Mission_createFromDateVec(const real_T inData[7]);
   boolean_T codegenReal2Mission_isequaln(int32_T varargin_1_SequenceId, int32_T
     varargin_1_MissionMode, real_T varargin_1_MissionLocation_Lat, real_T
     varargin_1_MissionLocation_Lon, real_T varargin_1_MissionLocation_Alt,
@@ -363,6 +364,8 @@ class codegenReal2MissionModelClass {
     varargin_2_MissionLocation, const Parameters varargin_2_params, const
     Location varargin_2_StartPosition, int32_T varargin_2_numUAV, int32_T
     varargin_2_FormationPos, real_T varargin_2_StartTime);
+  void codegenReal2Mission_getDateVec(const creal_T dd, real_T *y, real_T *mo,
+    real_T *d, real_T *h, real_T *m, real_T *s);
   int32_T codegenReal2Mission_ReceiveNextMission_SendData(const missionCmd *data);
   void codegenReal2Mission_initMemPool(MemPool_missionCmd *memPool, missionCmd
     *memArray, missionCmd **freeList, int32_T size);

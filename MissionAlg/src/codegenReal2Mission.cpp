@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 2.399
+// Model version                  : 2.409
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Thu May  6 16:53:55 2021
+// C/C++ source code generated on : Thu May  6 18:31:00 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM Cortex-A
@@ -20,7 +20,6 @@
 #include "codegenReal2Mission_private.h"
 #include "div_s32.h"
 #include "floor_jeUa7tf2.h"
-#include "plus_aAYNoTqG.h"
 #include "split_MzIWb6Db.h"
 
 // Named constants for Chart: '<S2>/MisisonCMDTemporalLogic'
@@ -515,6 +514,57 @@ int32_T codegenReal2MissionModelClass::
 }
 
 // Function for MATLAB Function: '<S3>/CommandCheck'
+creal_T codegenReal2MissionModelClass::codegenReal2Mission_createFromDateVec(
+  const real_T inData[7])
+{
+  creal_T t;
+  creal_T tmp;
+  real_T check;
+  real_T fracSecs;
+  real_T mo;
+  real_T second;
+  second = inData[5];
+  fracSecs = inData[6];
+  check = (((((inData[0] + inData[1]) + inData[2]) + inData[3]) + inData[4]) +
+           inData[5]) + inData[6];
+  if ((!std::isinf(check)) && (!std::isnan(check))) {
+    check = inData[0];
+    mo = inData[1];
+    if ((inData[1] < 1.0) || (inData[1] > 12.0)) {
+      mo = std::floor((inData[1] - 1.0) / 12.0);
+      check = inData[0] + mo;
+      mo = ((inData[1] - 1.0) - mo * 12.0) + 1.0;
+    }
+
+    if (mo < 3.0) {
+      check--;
+      mo += 9.0;
+    } else {
+      mo -= 3.0;
+    }
+
+    if ((inData[6] < 0.0) || (1000.0 <= inData[6])) {
+      fracSecs = std::floor(inData[6] / 1000.0);
+      second = inData[5] + fracSecs;
+      fracSecs = inData[6] - fracSecs * 1000.0;
+    }
+
+    tmp.re = ((((((365.0 * check + std::floor(check / 4.0)) - std::floor(check /
+      100.0)) + std::floor(check / 400.0)) + std::floor((153.0 * mo + 2.0) / 5.0))
+               + inData[2]) + 60.0) - 719529.0;
+    tmp.im = 0.0;
+    t = codegenReal2Mission_plus(codegenReal2Mission_plus
+      (codegenReal2Mission_plus(codegenReal2Mission_times(tmp), (60.0 * inData[3]
+      + inData[4]) * 60000.0), second * 1000.0), fracSecs);
+  } else {
+    t.re = check;
+    t.im = 0.0;
+  }
+
+  return t;
+}
+
+// Function for MATLAB Function: '<S3>/CommandCheck'
 boolean_T codegenReal2MissionModelClass::codegenReal2Mission_isequaln(int32_T
   varargin_1_SequenceId, int32_T varargin_1_MissionMode, real_T
   varargin_1_MissionLocation_Lat, real_T varargin_1_MissionLocation_Lon, real_T
@@ -649,6 +699,191 @@ boolean_T codegenReal2MissionModelClass::codegenReal2Mission_isequaln(int32_T
   }
 
   return p;
+}
+
+// Function for MATLAB Function: '<S3>/CommandCheck'
+void codegenReal2MissionModelClass::codegenReal2Mission_getDateVec(const creal_T
+  dd, real_T *y, real_T *mo, real_T *d, real_T *h, real_T *m, real_T *s)
+{
+  creal_T b_c;
+  creal_T c_s;
+  creal_T msOfDay;
+  creal_T r;
+  creal_T t;
+  real_T a;
+  real_T b_alo;
+  real_T c_ahi;
+  real_T d_ahi;
+  real_T dc;
+  real_T shi;
+  int32_T b_r_tmp;
+  int32_T c_r_tmp;
+  int32_T ia_quot_tmp;
+  int32_T ic_quot_tmp;
+  int32_T ic_rem;
+  int32_T imo;
+  b_c.re = dd.re / 8.64E+7;
+  t = codegenReal2Mission_two_prod(b_c.re);
+  c_s.re = 0.0;
+  c_s.im = 0.0;
+  if (dd.re != t.re) {
+    c_s = codegenReal2Mission_two_diff(dd.re, t.re);
+  }
+
+  c_s.re = (0.0 * dd.im + c_s.re) - 0.0 * t.im;
+  c_s.im = (c_s.im + dd.im) - t.im;
+  shi = (c_s.re + c_s.im) / 8.64E+7;
+  b_alo = 0.0;
+  d_ahi = b_c.re;
+  if (shi != 0.0) {
+    d_ahi = b_c.re + shi;
+    b_alo = shi - (d_ahi - b_c.re);
+  }
+
+  if (std::isnan(b_alo)) {
+    b_alo = 0.0;
+  }
+
+  r.re = d_ahi;
+  r.im = b_alo;
+  r = floor_jeUa7tf2(r);
+  d_ahi = r.re + r.im;
+  msOfDay = codegenReal2Mission_minus(dd, codegenReal2Mission_times(r));
+  b_c.re = msOfDay.re / 1000.0;
+  t = split_MzIWb6Db(b_c.re);
+  shi = b_c.re * 1000.0;
+  b_alo = (t.re * 1000.0 - shi) + t.im * 1000.0;
+  imo = 0;
+  if (std::isnan(b_alo)) {
+    imo = 1;
+  }
+
+  if (0 <= static_cast<int32_T>(imo - 1)) {
+    b_alo = 0.0;
+  }
+
+  c_s.re = 0.0;
+  c_s.im = 0.0;
+  if (msOfDay.re != shi) {
+    c_s = codegenReal2Mission_two_diff(msOfDay.re, shi);
+  }
+
+  c_s.re = (0.0 * msOfDay.im + c_s.re) - 0.0 * b_alo;
+  c_s.im = (c_s.im + msOfDay.im) - b_alo;
+  shi = (c_s.re + c_s.im) / 1000.0;
+  b_alo = 0.0;
+  c_ahi = b_c.re;
+  if (shi != 0.0) {
+    c_ahi = b_c.re + shi;
+    b_alo = shi - (c_ahi - b_c.re);
+  }
+
+  if (std::isnan(b_alo)) {
+    b_alo = 0.0;
+  }
+
+  b_c.re = c_ahi;
+  b_c.im = b_alo;
+  t = floor_jeUa7tf2(b_c);
+  b_c = codegenReal2Mission_minus(b_c, t);
+  shi = t.re + t.im;
+  if (((d_ahi + 719529.0) - 61.0 >= 0.0) && ((d_ahi + 719529.0) - 61.0 <=
+       2.147483647E+9)) {
+    b_alo = std::round((d_ahi + 719529.0) - 61.0);
+    if (b_alo < 2.147483648E+9) {
+      if (b_alo >= -2.147483648E+9) {
+        imo = static_cast<int32_T>(b_alo);
+      } else {
+        imo = MIN_int32_T;
+      }
+    } else {
+      imo = MAX_int32_T;
+    }
+
+    b_r_tmp = static_cast<int32_T>(imo - static_cast<int32_T>(146097 * div_s32
+      (imo, 146097)));
+    ic_quot_tmp = static_cast<int32_T>(std::trunc(static_cast<real_T>(b_r_tmp) /
+      36524.0));
+    ic_rem = static_cast<int32_T>(b_r_tmp - static_cast<int32_T>(36524 * div_s32
+      (b_r_tmp, 36524)));
+    if (ic_quot_tmp > 3) {
+      ic_quot_tmp = 3;
+      ic_rem = static_cast<int32_T>(b_r_tmp - 109572);
+    }
+
+    c_r_tmp = static_cast<int32_T>(ic_rem - static_cast<int32_T>(1461 * div_s32
+      (ic_rem, 1461)));
+    ia_quot_tmp = static_cast<int32_T>(std::trunc(static_cast<real_T>(c_r_tmp) /
+      365.0));
+    b_r_tmp = static_cast<int32_T>(c_r_tmp - static_cast<int32_T>(365 * div_s32
+      (c_r_tmp, 365)));
+    if (ia_quot_tmp > 3) {
+      ia_quot_tmp = 3;
+      b_r_tmp = static_cast<int32_T>(c_r_tmp - 1095);
+    }
+
+    *y = ((std::trunc(static_cast<real_T>(imo) / 146097.0) * 400.0 +
+           static_cast<real_T>(ic_quot_tmp) * 100.0) + std::trunc
+          (static_cast<real_T>(ic_rem) / 1461.0) * 4.0) + static_cast<real_T>
+      (ia_quot_tmp);
+    imo = static_cast<int32_T>(static_cast<int32_T>(std::trunc
+      ((static_cast<real_T>(b_r_tmp) * 5.0 + 308.0) / 153.0)) - 2);
+    b_alo = static_cast<real_T>(imo);
+    *d = ((static_cast<real_T>(b_r_tmp) - std::trunc((static_cast<real_T>(imo) +
+             4.0) * 153.0 / 5.0)) + 122.0) + 1.0;
+  } else {
+    b_alo = std::floor((((r.re + r.im) + 719529.0) - 61.0) / 146097.0);
+    c_ahi = ((d_ahi + 719529.0) - 61.0) - b_alo * 146097.0;
+    d_ahi = std::floor(c_ahi / 36524.0);
+    if (d_ahi > 3.0) {
+      d_ahi = 3.0;
+    }
+
+    dc = c_ahi - d_ahi * 36524.0;
+    c_ahi = std::floor(dc / 1461.0);
+    dc -= c_ahi * 1461.0;
+    a = std::floor(dc / 365.0);
+    if (a > 3.0) {
+      a = 3.0;
+    }
+
+    dc -= a * 365.0;
+    *y = ((b_alo * 400.0 + d_ahi * 100.0) + c_ahi * 4.0) + a;
+    b_alo = std::floor((dc * 5.0 + 308.0) / 153.0) - 2.0;
+    *d = ((dc - std::floor((b_alo + 4.0) * 153.0 / 5.0)) + 122.0) + 1.0;
+  }
+
+  if (b_alo > 9.0) {
+    (*y)++;
+    *mo = (b_alo + 2.0) - 11.0;
+  } else {
+    *mo = (b_alo + 2.0) + 1.0;
+  }
+
+  if ((shi >= 0.0) && (shi <= 2.147483647E+9)) {
+    imo = static_cast<int32_T>(std::round(shi));
+    ic_quot_tmp = static_cast<int32_T>(imo - static_cast<int32_T>(3600 * div_s32
+      (imo, 3600)));
+    *h = std::trunc(static_cast<real_T>(imo) / 3600.0);
+    *m = std::trunc(static_cast<real_T>(ic_quot_tmp) / 60.0);
+    shi = static_cast<real_T>(static_cast<int32_T>(ic_quot_tmp -
+      static_cast<int32_T>(60 * div_s32(ic_quot_tmp, 60))));
+  } else {
+    *h = std::floor(shi / 3600.0);
+    *m = std::floor((shi - 3600.0 * *h) / 60.0);
+    shi -= 60.0 * *m;
+  }
+
+  *s = (b_c.re + b_c.im) + shi;
+  if (*s == 60.0) {
+    *s = 59.999999999999993;
+  }
+
+  if ((dd.re == (rtInf)) && (dd.im == 0.0)) {
+    *y = (rtInf);
+  } else if ((dd.re == (rtMinusInf)) && (dd.im == 0.0)) {
+    *y = (rtMinusInf);
+  }
 }
 
 int32_T codegenReal2MissionModelClass::
@@ -1530,17 +1765,28 @@ void codegenReal2MissionModelClass::codegenReal2Mission_derivatives()
 void codegenReal2MissionModelClass::codegenReal2Mission_PushNewMission() // Explicit Task: PushNewMission 
 {
   missionCmd rtb_SndCMD;
-  creal_T ahi;
   creal_T thisData;
+  real_T c_tm_year[7];
+  real_T processedInData[7];
+  real_T NewCMD_StartTime_tmp;
   real_T NonDeterministic;
-  real_T fracSecs;
-  real_T second;
-  real_T shi;
-  real_T temp;
+  real_T a__11;
+  real_T a__17;
+  real_T a__2;
+  real_T a__23;
+  real_T a__29;
+  real_T a__3;
+  real_T a__35;
+  real_T a__4;
+  real_T a__5;
+  real_T b_a__35;
+  real_T c_s;
   int32_T NewCMD_FormationPos;
   int32_T NewCMD_MissionMode;
   int32_T NewCMD_numUAV;
-  int32_T wholeSecsFromMillis{ 1 };
+  int32_T status{ 1 };
+
+  boolean_T expl_temp;
 
   // RateTransition: '<Root>/NonDeterministic'
   NonDeterministic = codegenReal2Mission_DW.NonDeterministic_Buffer0;
@@ -1549,77 +1795,35 @@ void codegenReal2MissionModelClass::codegenReal2Mission_PushNewMission() // Expl
   //   SubSystem: '<Root>/MissionValidation'
 
   // Receive: '<S3>/ReceivePushedMissionCMD'
-  wholeSecsFromMillis = 1;
+  status = 1;
   MissionCMDRecvData.RecvData(&codegenReal2Mission_B.ReceivePushedMissionCMD,
-    sizeof(IndividualUAVCmd), &wholeSecsFromMillis);
+    sizeof(IndividualUAVCmd), &status);
 
   // MATLAB Function: '<S3>/CommandCheck' incorporates:
   //   DataStoreRead: '<S3>/ReadPreviousCMD'
 
   rtb_SndCMD = codegenReal2Mission_DW.missionCmd_k;
-  second = static_cast<real_T>
-    (codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.second);
-  fracSecs = static_cast<real_T>
-    (codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.millisecond);
-  temp = static_cast<real_T>
+  processedInData[0] = static_cast<real_T>
     (codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.year);
-  shi = static_cast<real_T>
+  processedInData[1] = static_cast<real_T>
     (codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.month);
-  if ((codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.month < 1) ||
-      (codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.month > 12)) {
-    wholeSecsFromMillis = static_cast<int32_T>(std::floor((static_cast<real_T>
-      (codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.month) - 1.0) /
-      12.0));
-    temp = static_cast<real_T>
-      (codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.year) +
-      static_cast<real_T>(wholeSecsFromMillis);
-    shi = ((static_cast<real_T>
-            (codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.month) -
-            1.0) - static_cast<real_T>(wholeSecsFromMillis) * 12.0) + 1.0;
-  }
-
-  if (shi < 3.0) {
-    temp--;
-    shi += 9.0;
-  } else {
-    shi -= 3.0;
-  }
-
-  thisData.re = ((((((365.0 * temp + std::floor(temp / 4.0)) - std::floor(temp /
-    100.0)) + std::floor(temp / 400.0)) + std::floor((153.0 * shi + 2.0) / 5.0))
-                  + static_cast<real_T>
-                  (codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.day))
-                 + 60.0) - 719529.0;
-  temp = 1.34217729E+8 * thisData.re;
-  temp -= temp - thisData.re;
-  shi = thisData.re * 8.64E+7;
-  if ((codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.millisecond < 0) ||
-      (1000 <=
-       codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.millisecond)) {
-    wholeSecsFromMillis = static_cast<int32_T>(std::floor(static_cast<real_T>
-      (codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.millisecond) /
-      1000.0));
-    second = static_cast<real_T>
-      (codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.second) +
-      static_cast<real_T>(wholeSecsFromMillis);
-    fracSecs = static_cast<real_T>
-      (codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.millisecond) -
-      static_cast<real_T>(wholeSecsFromMillis) * 1000.0;
-  }
-
-  ahi.re = shi;
-  ahi.im = (thisData.re - temp) * 8.64E+7 + (temp * 8.64E+7 - shi);
-  thisData = plus_aAYNoTqG(ahi, (60.0 * static_cast<real_T>
-    (codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.hour) +
-    static_cast<real_T>
-    (codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.minute)) * 60000.0);
-  wholeSecsFromMillis = codegenReal2Mission_B.ReceivePushedMissionCMD.SequenceId;
+  processedInData[2] = static_cast<real_T>
+    (codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.day);
+  processedInData[3] = static_cast<real_T>
+    (codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.hour);
+  processedInData[4] = static_cast<real_T>
+    (codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.minute);
+  processedInData[5] = static_cast<real_T>
+    (codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.second);
+  processedInData[6] = static_cast<real_T>
+    (codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.millisecond);
+  status = codegenReal2Mission_B.ReceivePushedMissionCMD.SequenceId;
   NewCMD_MissionMode = codegenReal2Mission_B.ReceivePushedMissionCMD.MissionMode;
   NewCMD_numUAV = codegenReal2Mission_B.ReceivePushedMissionCMD.numUAV;
   NewCMD_FormationPos =
     codegenReal2Mission_B.ReceivePushedMissionCMD.FormationPos;
-  second = (plus_aAYNoTqG(plus_aAYNoTqG(thisData, second * 1000.0), fracSecs)).
-    re / 1000.0;
+  NewCMD_StartTime_tmp = (codegenReal2Mission_createFromDateVec(processedInData))
+    .re / 1000.0;
   if (!codegenReal2Mission_isequaln
       (codegenReal2Mission_DW.missionCmd_k.SequenceId,
        codegenReal2Mission_DW.missionCmd_k.MissionMode,
@@ -1637,12 +1841,11 @@ void codegenReal2MissionModelClass::codegenReal2Mission_PushNewMission() // Expl
        codegenReal2Mission_DW.missionCmd_k.StartPosition,
        codegenReal2Mission_DW.missionCmd_k.numUAV,
        codegenReal2Mission_DW.missionCmd_k.FormationPos,
-       codegenReal2Mission_DW.missionCmd_k.StartTime, wholeSecsFromMillis,
-       NewCMD_MissionMode,
+       codegenReal2Mission_DW.missionCmd_k.StartTime, status, NewCMD_MissionMode,
        codegenReal2Mission_B.ReceivePushedMissionCMD.MissionLocation,
        codegenReal2Mission_B.ReceivePushedMissionCMD.params,
        codegenReal2Mission_B.ReceivePushedMissionCMD.StartPosition,
-       NewCMD_numUAV, NewCMD_FormationPos, second)) {
+       NewCMD_numUAV, NewCMD_FormationPos, NewCMD_StartTime_tmp)) {
     if (codegenReal2Mission_DW.missionCmd_k.SequenceId ==
         codegenReal2Mission_B.ReceivePushedMissionCMD.SequenceId) {
       printf("Use a new Sequence ID for each new mission!\n");
@@ -1650,13 +1853,13 @@ void codegenReal2MissionModelClass::codegenReal2Mission_PushNewMission() // Expl
       printf("PrevCMD SequenceID: %d\n",
              codegenReal2Mission_DW.missionCmd_k.SequenceId);
       fflush(stdout);
-      printf("NewCMD SequenceID: %d\n", wholeSecsFromMillis);
+      printf("NewCMD SequenceID: %d\n", status);
       fflush(stdout);
-    } else if (NonDeterministic > second) {
+    } else if (NonDeterministic > NewCMD_StartTime_tmp) {
       printf("Mission Start Time has already passed!");
       fflush(stdout);
     } else {
-      codegenReal2Mission_DW.missionCmd_k.SequenceId = wholeSecsFromMillis;
+      codegenReal2Mission_DW.missionCmd_k.SequenceId = status;
       codegenReal2Mission_DW.missionCmd_k.MissionMode = NewCMD_MissionMode;
       codegenReal2Mission_DW.missionCmd_k.MissionLocation =
         codegenReal2Mission_B.ReceivePushedMissionCMD.MissionLocation;
@@ -1666,8 +1869,8 @@ void codegenReal2MissionModelClass::codegenReal2Mission_PushNewMission() // Expl
         codegenReal2Mission_B.ReceivePushedMissionCMD.StartPosition;
       codegenReal2Mission_DW.missionCmd_k.numUAV = NewCMD_numUAV;
       codegenReal2Mission_DW.missionCmd_k.FormationPos = NewCMD_FormationPos;
-      codegenReal2Mission_DW.missionCmd_k.StartTime = second;
-      rtb_SndCMD.SequenceId = wholeSecsFromMillis;
+      codegenReal2Mission_DW.missionCmd_k.StartTime = NewCMD_StartTime_tmp;
+      rtb_SndCMD.SequenceId = status;
       rtb_SndCMD.MissionMode = NewCMD_MissionMode;
       rtb_SndCMD.MissionLocation =
         codegenReal2Mission_B.ReceivePushedMissionCMD.MissionLocation;
@@ -1676,7 +1879,41 @@ void codegenReal2MissionModelClass::codegenReal2Mission_PushNewMission() // Expl
         codegenReal2Mission_B.ReceivePushedMissionCMD.StartPosition;
       rtb_SndCMD.numUAV = NewCMD_numUAV;
       rtb_SndCMD.FormationPos = NewCMD_FormationPos;
-      rtb_SndCMD.StartTime = second;
+      rtb_SndCMD.StartTime = NewCMD_StartTime_tmp;
+      printf("Start Time:   %04d-%02d-%02d %02d:%02d:%02d.%03d\n",
+             codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.year,
+             codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.month,
+             codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.day,
+             codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.hour,
+             codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.minute,
+             codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.second,
+             codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.millisecond);
+      fflush(stdout);
+      codegenReal2Mission_getLocalTime(&NonDeterministic, &c_tm_year[5],
+        &c_tm_year[4], &c_tm_year[3], &c_tm_year[2], &c_tm_year[1], &c_tm_year[0],
+        &expl_temp);
+      c_tm_year[6] = NonDeterministic / 1.0E+6;
+      thisData = codegenReal2Mission_createFromDateVec(c_tm_year);
+      codegenReal2Mission_getDateVec(thisData, &NonDeterministic,
+        &NewCMD_StartTime_tmp, &a__2, &a__3, &a__4, &a__5);
+      codegenReal2Mission_getDateVec(thisData, &a__2, &NewCMD_StartTime_tmp,
+        &a__3, &a__4, &a__5, &a__11);
+      codegenReal2Mission_getDateVec(thisData, &a__3, &a__4, &a__2, &a__5,
+        &a__11, &a__17);
+      codegenReal2Mission_getDateVec(thisData, &a__4, &a__5, &a__11, &a__3,
+        &a__17, &a__23);
+      codegenReal2Mission_getDateVec(thisData, &a__5, &a__11, &a__17, &a__23,
+        &a__4, &a__29);
+      codegenReal2Mission_getDateVec(thisData, &a__11, &a__17, &a__23, &a__29,
+        &a__35, &a__5);
+      codegenReal2Mission_getDateVec(thisData, &a__17, &a__23, &a__29, &a__35,
+        &b_a__35, &a__11);
+      codegenReal2Mission_getDateVec(thisData, &a__17, &a__23, &a__29, &a__35,
+        &b_a__35, &c_s);
+      printf("Current Time: %04.0f-%02.0f-%02.0f %02.0f:%02.0f:%02.0f.%03.0f\n",
+             NonDeterministic, NewCMD_StartTime_tmp, a__2, a__3, a__4, std::
+             floor(a__5), std::round(1000.0 * (a__11 - std::floor(c_s))));
+      fflush(stdout);
     }
   }
 
