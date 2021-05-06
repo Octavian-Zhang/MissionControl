@@ -38,7 +38,8 @@ void CircleFormation::codegenReal2MissionModelClassRecvData_IndividualUAVCmdT::
 {
 	// Add receive data logic here
 	//下一行代码获取数据收发软件发送过来的任务指令
-	data = missionCmd;
+	*data = *missionCmd;
+	std::cout << data->SequenceId << std::endl;
 }
 
 void CircleFormation::renameMATfile(void)
