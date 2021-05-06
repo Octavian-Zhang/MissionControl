@@ -23,7 +23,10 @@ const codegenReal2MissionModelClass::ExtU_codegenReal2Mission_T& MissionData::ge
 IndividualUAVCmd* MissionData::getMissionCmd()
 {
 	if (this->cmdQueue.empty())
+	{
+		std::cout << "Mission cmd queue is empty" << std::endl;
 		return nullptr;
+	}
 	{
 		const std::lock_guard<std::mutex> lock(mutexQ);
 		this->missionCmd = cmdQueue.front();
@@ -34,6 +37,7 @@ IndividualUAVCmd* MissionData::getMissionCmd()
 	uavStartPos = { missionCmd.StartPosition.Lat, missionCmd.StartPosition.Lon, missionCmd.StartPosition.Alt, missionCmd.StartPosition.degHDG };
 	uavcmdStartTime = { missionCmd.startTime.year, missionCmd.startTime.month, missionCmd.startTime.day, missionCmd.startTime.hour, missionCmd.startTime.minute, missionCmd.startTime.second, missionCmd.startTime.millisecond };
 	this->uavCmd = { missionCmd.SequenceId, missionCmd.MissionMode, uavcmdLoc, uavcmdPara, uavStartPos, missionCmd.numUAV, missionCmd.FormationPos, uavcmdStartTime };
+	std::cout << "Mission cmd queue is not empty" << std::endl;
 	return &this->uavCmd;
 }
 

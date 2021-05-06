@@ -16,7 +16,7 @@
 #include <string>
 #include <fstream>
 
-CircleFormation::CircleFormation(MissionData* const pCommonData) : commonData{ pCommonData }
+CircleFormation::CircleFormation(MissionData *const pCommonData) : commonData{pCommonData}
 {
 	if (background_thread == NULL)
 	{
@@ -25,7 +25,7 @@ CircleFormation::CircleFormation(MissionData* const pCommonData) : commonData{ p
 }
 
 void CircleFormation::codegenReal2MissionModelClassSendData_IndividualUAVCmdT::
-SendData(const IndividualUAVCmd* data, int32_T length, int32_T* status)
+	SendData(const IndividualUAVCmd *data, int32_T length, int32_T *status)
 {
 	// Add send data logic here
 	// 存在任务反馈信息时，通过下述代码设置标识、更新数据
@@ -34,7 +34,7 @@ SendData(const IndividualUAVCmd* data, int32_T length, int32_T* status)
 }
 
 void CircleFormation::codegenReal2MissionModelClassRecvData_IndividualUAVCmdT::
-RecvData(IndividualUAVCmd* data, int32_T length, int32_T* status)
+	RecvData(IndividualUAVCmd *data, int32_T length, int32_T *status)
 {
 	// Add receive data logic here
 	//下一行代码获取数据收发软件发送过来的任务指令
@@ -66,10 +66,12 @@ void CircleFormation::renameMATfile(void)
 // temporal logic of mission algorithm
 void CircleFormation::MissionMonitor()
 {
+	std::cout << "Waiting for time correction" << commonData->showCmdID() << std::endl;
 	while (1 != commonData->showCmdID()) // delay execution until simulation start
 	{
 		std::this_thread::sleep_for(std::chrono::milliseconds(1));
 	}
+	std::cout << "Time corrected" << std::endl;
 	ert_main();
 	renameMATfile();
 }
@@ -125,12 +127,12 @@ void CircleFormation::ert_main(void)
 	codegenReal2Mission_Obj.initialize();
 
 	// Initiate std::chrono based real-time interrupt
-	auto SimulationStart = std::chrono::high_resolution_clock::now();
+	auto SimulationStart = std::chrono::steady_clock::now();
 	std::chrono::duration<double> TimeElapsed{};
 	std::chrono::milliseconds SimulationTime{};
 
 	while ((rtmGetErrorStatus(codegenReal2Mission_Obj.getRTM()) == (NULL)) &&
-		!rtmGetStopRequested(codegenReal2Mission_Obj.getRTM()))
+		   !rtmGetStopRequested(codegenReal2Mission_Obj.getRTM()))
 	{
 		rt_OneStep();
 		std::cout << "Running Time: " << SimulationTime.count() << " milliseconds" << std::endl;
@@ -139,17 +141,18 @@ void CircleFormation::ert_main(void)
 		MissionCMDRecvData_arg.missionCmd = commonData->getMissionCmd();
 		if (nullptr != MissionCMDRecvData_arg.missionCmd)
 		{ // Push New Mission if new command available
+			std::cout << "Push New Mission!" << std::endl;
 			codegenReal2Mission_Obj.codegenReal2Mission_PushNewMission();
 		} //若missionCmd为nullptr，说明消息队列中没有任务指令；若不为空，则missionCmd指向最旧一条任务指令
 
 		// increment SimulationTime for 100ms
-		const std::chrono::milliseconds tick{ 100 };
+		const std::chrono::milliseconds tick{100};
 		SimulationTime += tick;
 
 		while (TimeElapsed < SimulationTime) // delay execution until next simulation tick
 		{
 			std::this_thread::sleep_for(std::chrono::milliseconds(1));
-			TimeElapsed = std::chrono::high_resolution_clock::now() - SimulationStart;
+			TimeElapsed = std::chrono::steady_clock::now() - SimulationStart;
 		}
 	}
 

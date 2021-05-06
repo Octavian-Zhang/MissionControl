@@ -162,9 +162,9 @@ void MissionCircleFormation::startCircle()
 
 	while (true) // lock step execution with System V IPC
 	{
-		std::cout << "Waiting for real time flight status message..." << std::endl;
+		// std::cout << "Waiting for real time flight status message..." << std::endl;
 		msgrcv(msgIDFS, &fs, sizeof(struct FlightStatus) - sizeof(long), 1001, 0); // 返回类型为1001的第一个消息
-		printf("Real time flight status message received: %f, %f, %f. Speed:%f\n", fs.lon, fs.lat, fs.alt, fs.airspeed);
+		// printf("Real time flight status message received: %f, %f, %f. Speed:%f\n", fs.lon, fs.lat, fs.alt, fs.airspeed);
 
 		// set algorithm input
 		missionData->updatePos(fs);
@@ -175,7 +175,7 @@ void MissionCircleFormation::startCircle()
 		expPosSpd = { 897, expPos[1], expPos[2], expPos[3], expPos[3], expPos[0] };
 
 		msgsnd(msgIDExpFS, &expPosSpd, sizeof(struct ExpectedPosSpd) - sizeof(long), 0);
-		printf("Receive expected position and speed: %f, %f, %f. Speed:%f\n", expPosSpd.lon, expPosSpd.lat, expPosSpd.alt, expPosSpd.airspeed);
+		// printf("Receive expected position and speed: %f, %f, %f. Speed:%f\n", expPosSpd.lon, expPosSpd.lat, expPosSpd.alt, expPosSpd.airspeed);
 	}
 }
 //接收任务指令线程--------------------------------------------------------------//

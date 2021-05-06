@@ -14,6 +14,7 @@
 #include <queue>
 #include "DatalinkInterface.h"
 #include "swarmBasicData.h"
+#include <iostream>
 
 class MissionData
 {
