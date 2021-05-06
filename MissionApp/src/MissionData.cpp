@@ -24,7 +24,7 @@ IndividualUAVCmd* MissionData::getMissionCmd()
 {
 	if (this->cmdQueue.empty())
 	{
-		std::cout << "Mission cmd queue is empty" << std::endl;
+		// std::cout << "Mission cmd queue is empty" << std::endl;
 		return nullptr;
 	}
 	{

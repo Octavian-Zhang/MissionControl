@@ -66,12 +66,12 @@ void CircleFormation::renameMATfile(void)
 // temporal logic of mission algorithm
 void CircleFormation::MissionMonitor()
 {
-	std::cout << "Waiting for time correction" << commonData->showCmdID() << std::endl;
+	std::cout << "Waiting OS clock calibration..." << std::endl;
 	while (1 != commonData->showCmdID()) // delay execution until simulation start
 	{
 		std::this_thread::sleep_for(std::chrono::milliseconds(1));
 	}
-	std::cout << "Time corrected" << std::endl;
+	std::cout << "OS clock calibrated" << std::endl;
 	ert_main();
 	renameMATfile();
 }
@@ -135,7 +135,7 @@ void CircleFormation::ert_main(void)
 		   !rtmGetStopRequested(codegenReal2Mission_Obj.getRTM()))
 	{
 		rt_OneStep();
-		std::cout << "Running Time: " << SimulationTime.count() << " milliseconds" << std::endl;
+		// std::cout << "Running Time: " << SimulationTime.count() << " milliseconds" << std::endl;
 
 		// Store received MissionCmd from IPC into missionCmd data member
 		MissionCMDRecvData_arg.missionCmd = commonData->getMissionCmd();
