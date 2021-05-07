@@ -116,6 +116,7 @@ void MissionCircleFormation::startCtrl()
 		msgrcv(msgIDCtrl, &ctrlMsg, sizeof(struct CircleCtrl) - sizeof(long), 896, 0); // 返回类型为896的第一个消息
 		// printf("Receive circle control message: %d\n", ctrlMsg.cmd);
 		missionData->setCtrlCmd(ctrlMsg.cmd);
+		usleep(1000);
 	}
 }
 
@@ -201,6 +202,7 @@ void MissionCircleFormation::startMission()
 		msgrcv(msgIDMission, &msCmd, sizeof(struct MissionCmd) - sizeof(long), 898, 0); // 返回类型为898的第一个消息
 		printf("Receive circle mission message\n");
 		missionData->setMissionCmd(msCmd);
+		usleep(1000);
 	}
 }
 //任务指令反馈线程------------------------------------------------------------------//
@@ -230,7 +232,7 @@ void MissionCircleFormation::startMissionFeedback()
 			printf("Sent mission command feedback\n");
 			missionData->feedbackFlag = false;
 		}
-		sleep(0.5);
+		sleep(1);
 	}
 }
 
