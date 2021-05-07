@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 2.409
+// Model version                  : 2.411
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Thu May  6 18:31:00 2021
+// C/C++ source code generated on : Fri May  7 10:23:40 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM Cortex-A
@@ -1781,10 +1781,17 @@ void codegenReal2MissionModelClass::codegenReal2Mission_PushNewMission() // Expl
   real_T a__5;
   real_T b_a__35;
   real_T c_s;
+  int32_T D;
+  int32_T H;
+  int32_T M;
+  int32_T MI;
+  int32_T MS;
   int32_T NewCMD_FormationPos;
   int32_T NewCMD_MissionMode;
+  int32_T NewCMD_SequenceId;
   int32_T NewCMD_numUAV;
-  int32_T status{ 1 };
+  int32_T S;
+  int32_T Y{ 1 };
 
   boolean_T expl_temp;
 
@@ -1795,14 +1802,21 @@ void codegenReal2MissionModelClass::codegenReal2Mission_PushNewMission() // Expl
   //   SubSystem: '<Root>/MissionValidation'
 
   // Receive: '<S3>/ReceivePushedMissionCMD'
-  status = 1;
+  Y = 1;
   MissionCMDRecvData.RecvData(&codegenReal2Mission_B.ReceivePushedMissionCMD,
-    sizeof(IndividualUAVCmd), &status);
+    sizeof(IndividualUAVCmd), &Y);
 
   // MATLAB Function: '<S3>/CommandCheck' incorporates:
   //   DataStoreRead: '<S3>/ReadPreviousCMD'
 
   rtb_SndCMD = codegenReal2Mission_DW.missionCmd_k;
+  Y = codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.year;
+  M = codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.month;
+  D = codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.day;
+  H = codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.hour;
+  MI = codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.minute;
+  S = codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.second;
+  MS = codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.millisecond;
   processedInData[0] = static_cast<real_T>
     (codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.year);
   processedInData[1] = static_cast<real_T>
@@ -1817,7 +1831,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_PushNewMission() // Expl
     (codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.second);
   processedInData[6] = static_cast<real_T>
     (codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.millisecond);
-  status = codegenReal2Mission_B.ReceivePushedMissionCMD.SequenceId;
+  NewCMD_SequenceId = codegenReal2Mission_B.ReceivePushedMissionCMD.SequenceId;
   NewCMD_MissionMode = codegenReal2Mission_B.ReceivePushedMissionCMD.MissionMode;
   NewCMD_numUAV = codegenReal2Mission_B.ReceivePushedMissionCMD.numUAV;
   NewCMD_FormationPos =
@@ -1841,7 +1855,8 @@ void codegenReal2MissionModelClass::codegenReal2Mission_PushNewMission() // Expl
        codegenReal2Mission_DW.missionCmd_k.StartPosition,
        codegenReal2Mission_DW.missionCmd_k.numUAV,
        codegenReal2Mission_DW.missionCmd_k.FormationPos,
-       codegenReal2Mission_DW.missionCmd_k.StartTime, status, NewCMD_MissionMode,
+       codegenReal2Mission_DW.missionCmd_k.StartTime, NewCMD_SequenceId,
+       NewCMD_MissionMode,
        codegenReal2Mission_B.ReceivePushedMissionCMD.MissionLocation,
        codegenReal2Mission_B.ReceivePushedMissionCMD.params,
        codegenReal2Mission_B.ReceivePushedMissionCMD.StartPosition,
@@ -1853,41 +1868,38 @@ void codegenReal2MissionModelClass::codegenReal2Mission_PushNewMission() // Expl
       printf("PrevCMD SequenceID: %d\n",
              codegenReal2Mission_DW.missionCmd_k.SequenceId);
       fflush(stdout);
-      printf("NewCMD SequenceID: %d\n", status);
-      fflush(stdout);
-    } else if (NonDeterministic > NewCMD_StartTime_tmp) {
-      printf("Mission Start Time has already passed!");
+      printf("NewCMD SequenceID: %d\n", NewCMD_SequenceId);
       fflush(stdout);
     } else {
-      codegenReal2Mission_DW.missionCmd_k.SequenceId = status;
-      codegenReal2Mission_DW.missionCmd_k.MissionMode = NewCMD_MissionMode;
-      codegenReal2Mission_DW.missionCmd_k.MissionLocation =
-        codegenReal2Mission_B.ReceivePushedMissionCMD.MissionLocation;
-      codegenReal2Mission_DW.missionCmd_k.params =
-        codegenReal2Mission_B.ReceivePushedMissionCMD.params;
-      codegenReal2Mission_DW.missionCmd_k.StartPosition =
-        codegenReal2Mission_B.ReceivePushedMissionCMD.StartPosition;
-      codegenReal2Mission_DW.missionCmd_k.numUAV = NewCMD_numUAV;
-      codegenReal2Mission_DW.missionCmd_k.FormationPos = NewCMD_FormationPos;
-      codegenReal2Mission_DW.missionCmd_k.StartTime = NewCMD_StartTime_tmp;
-      rtb_SndCMD.SequenceId = status;
-      rtb_SndCMD.MissionMode = NewCMD_MissionMode;
-      rtb_SndCMD.MissionLocation =
-        codegenReal2Mission_B.ReceivePushedMissionCMD.MissionLocation;
-      rtb_SndCMD.params = codegenReal2Mission_B.ReceivePushedMissionCMD.params;
-      rtb_SndCMD.StartPosition =
-        codegenReal2Mission_B.ReceivePushedMissionCMD.StartPosition;
-      rtb_SndCMD.numUAV = NewCMD_numUAV;
-      rtb_SndCMD.FormationPos = NewCMD_FormationPos;
-      rtb_SndCMD.StartTime = NewCMD_StartTime_tmp;
-      printf("Start Time:   %04d-%02d-%02d %02d:%02d:%02d.%03d\n",
-             codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.year,
-             codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.month,
-             codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.day,
-             codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.hour,
-             codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.minute,
-             codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.second,
-             codegenReal2Mission_B.ReceivePushedMissionCMD.StartTime.millisecond);
+      if (NonDeterministic > NewCMD_StartTime_tmp) {
+        printf("Mission Start Time has already passed!\n");
+        fflush(stdout);
+      } else {
+        codegenReal2Mission_DW.missionCmd_k.SequenceId = NewCMD_SequenceId;
+        codegenReal2Mission_DW.missionCmd_k.MissionMode = NewCMD_MissionMode;
+        codegenReal2Mission_DW.missionCmd_k.MissionLocation =
+          codegenReal2Mission_B.ReceivePushedMissionCMD.MissionLocation;
+        codegenReal2Mission_DW.missionCmd_k.params =
+          codegenReal2Mission_B.ReceivePushedMissionCMD.params;
+        codegenReal2Mission_DW.missionCmd_k.StartPosition =
+          codegenReal2Mission_B.ReceivePushedMissionCMD.StartPosition;
+        codegenReal2Mission_DW.missionCmd_k.numUAV = NewCMD_numUAV;
+        codegenReal2Mission_DW.missionCmd_k.FormationPos = NewCMD_FormationPos;
+        codegenReal2Mission_DW.missionCmd_k.StartTime = NewCMD_StartTime_tmp;
+        rtb_SndCMD.SequenceId = NewCMD_SequenceId;
+        rtb_SndCMD.MissionMode = NewCMD_MissionMode;
+        rtb_SndCMD.MissionLocation =
+          codegenReal2Mission_B.ReceivePushedMissionCMD.MissionLocation;
+        rtb_SndCMD.params = codegenReal2Mission_B.ReceivePushedMissionCMD.params;
+        rtb_SndCMD.StartPosition =
+          codegenReal2Mission_B.ReceivePushedMissionCMD.StartPosition;
+        rtb_SndCMD.numUAV = NewCMD_numUAV;
+        rtb_SndCMD.FormationPos = NewCMD_FormationPos;
+        rtb_SndCMD.StartTime = NewCMD_StartTime_tmp;
+      }
+
+      printf("Start Time:   %04d-%02d-%02d %02d:%02d:%02d.%03d\n", Y, M, D, H,
+             MI, S, MS);
       fflush(stdout);
       codegenReal2Mission_getLocalTime(&NonDeterministic, &c_tm_year[5],
         &c_tm_year[4], &c_tm_year[3], &c_tm_year[2], &c_tm_year[1], &c_tm_year[0],
