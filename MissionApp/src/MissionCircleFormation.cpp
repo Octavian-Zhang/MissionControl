@@ -1,7 +1,7 @@
 #include <MissionCircleFormation.h>
 #include <CircleFormation.h>
 //与数据收发软件通过OS消息队列通信------------------------------------------------//
-MissionCircleFormation::MissionCircleFormation()
+MissionCircleFormation::MissionCircleFormation(MissionData *const pCommonData) : missionData{pCommonData}
 {
 	std::cout << "Initiating Circle Formation Mission thread..." << std::endl;
 
@@ -46,7 +46,6 @@ MissionCircleFormation::MissionCircleFormation()
 	}
 	fout5.close();
 
-	missionData = new MissionData();
 	circleFm = new CircleFormation(missionData);
 }
 //析构函数--------------------------------------------------------------------//

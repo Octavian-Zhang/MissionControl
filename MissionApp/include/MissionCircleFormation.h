@@ -13,13 +13,13 @@
 #include <iostream>
 #include <iomanip>
 #include "CircleFormation.h"
-#include "swarmBasicData.h"
+#include "protocol.h"
 #include "unistd.h"
 
 class MissionCircleFormation
 {
 public:
-	MissionCircleFormation();
+	explicit MissionCircleFormation(MissionData* const); // constructor
 	~MissionCircleFormation();
 
 	void start();                //启动后台运算线程

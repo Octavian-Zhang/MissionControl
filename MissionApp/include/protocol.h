@@ -1,5 +1,5 @@
-#ifndef SWARM_BASIC_DATA_H
-#define SWARM_BASIC_DATA_H
+#ifndef PROTOCOL_BASIC_DATA_H
+#define PROTOCOL_BASIC_DATA_H
 
 #include <string>
 #include <sys/msg.h>

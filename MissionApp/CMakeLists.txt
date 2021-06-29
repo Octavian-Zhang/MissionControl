@@ -25,4 +25,4 @@ file(GLOB_RECURSE MISSIONALG_SRC ${CMAKE_CURRENT_SOURCE_DIR}/src/*)
 add_executable(${PROJECT_NAME} ${MISSIONALG_SRC})
 
 # Define target link libraries
-target_link_libraries (${PROJECT_NAME} ${EXTRA_LIBS})
+target_link_libraries (${PROJECT_NAME} ${EXTRA_LIBS} rt)

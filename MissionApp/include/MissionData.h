@@ -1,20 +1,13 @@
 #ifndef MISSION_DATA_H
 #define MISSION_DATA_H
 
-#include <stdio.h>
-#include "codegenReal2Mission.h" // Model's header file
-#include "rtwtypes.h"
-#include "model_reference_types.h"
-#include "zero_crossing_types.h"
 #include <vector>
-#include "builtin_typeid_types.h"
-#include "multiword_types.h"
-#include "zero_crossing_types.h"
 #include <mutex>
 #include <queue>
-#include "DatalinkInterface.h"
-#include "swarmBasicData.h"
 #include <iostream>
+#include "codegenReal2Mission.h"
+#include "DatalinkInterface.h"
+#include "protocol.h"
 
 class MissionData
 {
@@ -35,8 +28,8 @@ private:
 	std::mutex mutexExtY, mutexExtU, mutexQ;
 
 public:
-	MissionData();
-	~MissionData();
+	MissionData(){};
+	~MissionData(){};
 	// Call by Algorithm
 	void setExtY(const codegenReal2MissionModelClass::ExtY_codegenReal2Mission_T&);
 	const codegenReal2MissionModelClass::ExtU_codegenReal2Mission_T& getExtU();

@@ -1,12 +1,5 @@
 #include "MissionData.h"
 
-MissionData::MissionData()
-{
-}
-MissionData::~MissionData()
-{
-}
-
 // call by algorithm
 void MissionData::setExtY(const codegenReal2MissionModelClass::ExtY_codegenReal2Mission_T& algExtY)
 {
@@ -36,7 +29,7 @@ IndividualUAVCmd* MissionData::getMissionCmd()
 	uavcmdPara = { missionCmd.params.Param1, missionCmd.params.Param2, missionCmd.params.Param3, missionCmd.params.Param4, missionCmd.params.Param5, missionCmd.params.Param6, missionCmd.params.Param7 };
 	uavStartPos = { missionCmd.StartPosition.Lat, missionCmd.StartPosition.Lon, missionCmd.StartPosition.Alt, missionCmd.StartPosition.degHDG };
 	uavcmdStartTime = { missionCmd.startTime.year, missionCmd.startTime.month, missionCmd.startTime.day, missionCmd.startTime.hour, missionCmd.startTime.minute, missionCmd.startTime.second, missionCmd.startTime.millisecond };
-	this->uavCmd = { missionCmd.SequenceId, missionCmd.MissionMode, uavcmdLoc, uavcmdPara, uavStartPos, missionCmd.numUAV, missionCmd.FormationPos, uavcmdStartTime };
+	this->uavCmd = { missionCmd.SequenceId, MissionModes(missionCmd.MissionMode), uavcmdLoc, uavcmdPara, uavStartPos, missionCmd.numUAV, missionCmd.FormationPos, uavcmdStartTime };
 	std::cout << "Mission cmd queue is not empty" << std::endl;
 	return &this->uavCmd;
 }
@@ -98,7 +91,6 @@ void MissionData::setMissionCmd(MissionCmd cmd)
 	this->missionCmd = cmd;
 	const std::lock_guard<std::mutex> lock(mutexQ);
 	cmdQueue.push(cmd);
-	//this->uavCmd = {this->missionCmd.SequenceId, this->missionCmd.MissionMode, this->missionCmd.MissionLocation, this->missionCmd.params, this->missionCmd.StartPosition, this->missionCmd.numUAV, this->missionCmd.FormationPos, this->missionCmd.startTime};
 }
 
 //--------------供数据收发软件设置任务指令反馈-------------------//
