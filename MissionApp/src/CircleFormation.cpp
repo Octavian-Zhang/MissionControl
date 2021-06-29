@@ -55,11 +55,6 @@ void CircleFormation::MissionMonitor()
 		std::this_thread::sleep_for(std::chrono::milliseconds(1));
 	}
 	std::cout << "OS clock calibrated" << std::endl;
-	ert_main();
-	renameMATfile();
-}
-
-void CircleFormation::ert_main(void)
-{
 	MW_ert_main();
+	renameMATfile();
 }

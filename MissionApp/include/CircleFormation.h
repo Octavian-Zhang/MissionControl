@@ -21,7 +21,6 @@ public:
 	};
 
 	void rt_OneStep(void);
-	void ert_main(void);
 	void MissionMonitor(); //任务监控函数，监听公共数据域的任务指令
 	void renameMATfile(void);
 };
