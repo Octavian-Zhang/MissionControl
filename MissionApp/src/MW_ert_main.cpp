@@ -191,6 +191,7 @@ void* periodicTask(void *arg)
         codegenReal2Mission_Obj.setExternalInputs(&pCommonData->getExtU());
 
         codegenReal2Mission_Obj.step();
+        printf("."); fflush(stdout);
 
         // Get model outputs here
         pCommonData->setExtY(codegenReal2Mission_Obj.getExternalOutputs());
@@ -280,6 +281,8 @@ int MW_ert_main()
     CHECK_STATUS(ret, "pthread_attr_setinheritsched");
     ret = pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
     CHECK_STATUS(ret, "pthread_attr_setdetachstate");
+    ret = pthread_attr_setschedpolicy(&attr, policy);
+    CHECK_STATUS(ret, "pthread_attr_setschedpolicy");
     ret = pthread_attr_getschedpolicy(&attr, &policy);
     CHECK_STATUS(ret, "pthread_attr_getschedpolicy");
 

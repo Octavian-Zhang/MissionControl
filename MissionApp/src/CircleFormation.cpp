@@ -18,10 +18,14 @@
 
 CircleFormation::CircleFormation(MissionData *const pCommonData) : commonData{pCommonData}
 {
-	if (background_thread == NULL)
+	std::cout << "Waiting OS clock calibration..." << std::endl;
+	while (1 != commonData->showCmdID()) // delay execution until simulation start
 	{
-		background_thread = new std::thread(&CircleFormation::MissionMonitor, this);
+		std::this_thread::sleep_for(std::chrono::milliseconds(1));
 	}
+	std::cout << "OS clock calibrated" << std::endl;
+	MW_ert_main();
+	renameMATfile();
 }
 
 void CircleFormation::renameMATfile(void)
@@ -44,17 +48,4 @@ void CircleFormation::renameMATfile(void)
 
 	// write file to destination
 	dst << src.rdbuf();
-}
-
-// temporal logic of mission algorithm
-void CircleFormation::MissionMonitor()
-{
-	std::cout << "Waiting OS clock calibration..." << std::endl;
-	while (1 != commonData->showCmdID()) // delay execution until simulation start
-	{
-		std::this_thread::sleep_for(std::chrono::milliseconds(1));
-	}
-	std::cout << "OS clock calibrated" << std::endl;
-	MW_ert_main();
-	renameMATfile();
 }

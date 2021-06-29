@@ -27,7 +27,6 @@ public:
 	void startCtrl();            //控制指令接收线程
 	void startMission();         //任务指令接收线程
 	void startMissionFeedback(); //任务指令反馈线程
-	void join();
 
 	void setSysID(uint8_t id);
 	void setGroupID(uint8_t id);

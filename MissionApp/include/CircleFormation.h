@@ -11,18 +11,9 @@ class CircleFormation
 {
 private:
 	MissionData* commonData;
-	std::thread* background_thread{};                          //任务控制线程，绑定startMission函数
-
+	void renameMATfile(void);
 public:
 	explicit CircleFormation(MissionData* const); // prevent implicit data type conversion
-	friend std::thread* ert_thread(CircleFormation AlgEnd)
-	{
-		return AlgEnd.background_thread;
-	};
-
-	void rt_OneStep(void);
-	void MissionMonitor(); //任务监控函数，监听公共数据域的任务指令
-	void renameMATfile(void);
 };
 
 #endif

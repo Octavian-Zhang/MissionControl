@@ -234,11 +234,3 @@ void MissionCircleFormation::startMissionFeedback()
 		sleep(1);
 	}
 }
-
-//----------------------------------------------------------------------------//
-void MissionCircleFormation::join()
-{
-	std::thread* ert_main_thread = ert_thread(*circleFm);
-	ert_main_thread->join();
-}
-//----------------------------------------------------------------------------//
