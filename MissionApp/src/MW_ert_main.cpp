@@ -262,7 +262,6 @@ int MW_ert_main()
     double periodicTriggerRate[1];
     int priority[1];
 
-    // Unused arguments
     priority[0] = 38;
     periodicTriggerRate[0] = 0.1;
     printf("**starting the model**\n");

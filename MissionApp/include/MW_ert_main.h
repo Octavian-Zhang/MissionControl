@@ -3,7 +3,7 @@
 
 #include "MissionData.h"
 
-extern MissionData* pCommonData;
+extern MissionData *pCommonData;
 
 int MW_ert_main();
 

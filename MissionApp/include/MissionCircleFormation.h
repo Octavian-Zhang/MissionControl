@@ -19,13 +19,13 @@
 class MissionCircleFormation
 {
 public:
-	explicit MissionCircleFormation(MissionData* const); // constructor
+	explicit MissionCircleFormation(MissionData *const); // constructor
 	~MissionCircleFormation();
 
-	void start();                //启动后台运算线程
-	void startCircle();          //环形编队算法
-	void startCtrl();            //控制指令接收线程
-	void startMission();         //任务指令接收线程
+	void start();				 //启动后台运算线程
+	void startCircle();			 //环形编队算法
+	void startCtrl();			 //控制指令接收线程
+	void startMission();		 //任务指令接收线程
 	void startMissionFeedback(); //任务指令反馈线程
 
 	void setSysID(uint8_t id);
@@ -41,10 +41,10 @@ private:
 	//For log
 	std::ofstream logForCircleFm;
 
-	std::thread* ctrl_thread;
-	std::thread* algorithm_thread;
-	std::thread* mission_thread;
-	std::thread* mission_fb_thread;
+	std::thread *ctrl_thread;
+	std::thread *algorithm_thread;
+	std::thread *mission_thread;
+	std::thread *mission_fb_thread;
 
 	int msgIDCtrl, msgIDFS, msgIDExpFS, msgIDMission, msgIDMissionFB;
 	key_t keyCtrl, keyFS, keyExpFS, keyMission, keyMissionFB;
@@ -55,12 +55,12 @@ private:
 	struct MissionCmd msCmd;
 	struct MissionCmd msCmdFb;
 
-	CircleFormation* circleFm;
-	MissionData* missionData;
+	CircleFormation *circleFm;
+	MissionData *missionData;
 
 	// prevent shallow copy & assignment
-	MissionCircleFormation(const MissionCircleFormation&);
-	MissionCircleFormation& operator=(const MissionCircleFormation&);
+	MissionCircleFormation(const MissionCircleFormation &);
+	MissionCircleFormation &operator=(const MissionCircleFormation &);
 };
 
 #endif

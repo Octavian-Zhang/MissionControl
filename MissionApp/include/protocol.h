@@ -22,20 +22,20 @@
 struct AvoidCtrl
 {
 	long msgType; //消息类型996
-	int cmd;      //控制消息，0准备接收正常航路，1准备接受障碍物信息，2开始避障
+	int cmd;	  //控制消息，0准备接收正常航路，1准备接受障碍物信息，2开始避障
 };
 
 struct CircleCtrl
 {
 	long msgType; //消息类型896
-	int cmd;      //环形封锁控制消息，1开始任务，0结束任务
+	int cmd;	  //环形封锁控制消息，1开始任务，0结束任务
 };
 
 //航路中的航点
 struct AirRoutePoint
 {
-	long msgType;      // 消息类型，正常航路997，避障航路998
-	int waypointID;    // 航点ID，1、2、3，最后一个4096
+	long msgType;	   // 消息类型，正常航路997，避障航路998
+	int waypointID;	   // 航点ID，1、2、3，最后一个4096
 	double longtitude; // 经度
 	double latitude;   // 纬度
 	double altitude;   // 高度
@@ -43,39 +43,39 @@ struct AirRoutePoint
 //威胁信息
 struct AirObstacle
 {
-	long msgType;      // 消息类型999
+	long msgType;	   // 消息类型999
 	double longtitude; // 经度
 	double latitude;   // 纬度
 	double altitude;   // 高度
-	double radius;     // 半径
+	double radius;	   // 半径
 };
 //实时位姿
 struct FlightStatus
 {
-	long msgType;       // 消息类型1000，用于circle为1001
-	double lon;         //经度
-	double lat;         //纬度
-	double alt;         //海拔
-	double height;      //对地高度
-	double yaw;         //偏航
-	double pitch;       //俯仰
-	double roll;        //滚转
-	double airspeed;    //空速
+	long msgType;		// 消息类型1000，用于circle为1001
+	double lon;			//经度
+	double lat;			//纬度
+	double alt;			//海拔
+	double height;		//对地高度
+	double yaw;			//偏航
+	double pitch;		//俯仰
+	double roll;		//滚转
+	double airspeed;	//空速
 	double groundspeed; //地速
-	double northSpeed;  //北方向速度
-	double eastSpeed;   //东方向速度
-	double skySpeed;    //天方向速度
+	double northSpeed;	//北方向速度
+	double eastSpeed;	//东方向速度
+	double skySpeed;	//天方向速度
 	uint8_t flightMode; //飞行模式
 };
 
 //实时位姿
 struct ExpectedPosSpd
 {
-	long msgType;    // 消息类型897
-	double lon;      //经度
-	double lat;      //纬度
-	double alt;      //海拔
-	double height;   //对地高度
+	long msgType;	 // 消息类型897
+	double lon;		 //经度
+	double lat;		 //纬度
+	double alt;		 //海拔
+	double height;	 //对地高度
 	double airspeed; //空速
 };
 
@@ -83,12 +83,12 @@ struct ExpectedPosSpd
 struct DebugParam
 {
 	long msgType;
-	double kp;       /*<  unit:0.01, 0-10 */
-	double ki;       /*<  unit:0.01, 0-10 */
-	double kd;       /*<  unit:0.01, 0-10 */
+	double kp;		 /*<  unit:0.01, 0-10 */
+	double ki;		 /*<  unit:0.01, 0-10 */
+	double kd;		 /*<  unit:0.01, 0-10 */
 	double distance; /*<  feedforward distance, unit:1 0-500 */
-	double angle;    /*<  feedforward angle, unit:1, 0-90*/
-	double offset;   /*<  feedforward offset, unit:1, 0-50*/
+	double angle;	 /*<  feedforward angle, unit:1, 0-90*/
+	double offset;	 /*<  feedforward offset, unit:1, 0-50*/
 };
 //僚机偏移量
 struct FollowerOffset

@@ -10,10 +10,11 @@
 class CircleFormation
 {
 private:
-	MissionData* commonData;
+	MissionData *commonData;
 	void renameMATfile(void);
+
 public:
-	explicit CircleFormation(MissionData* const); // prevent implicit data type conversion
+	explicit CircleFormation(MissionData *const); // prevent implicit data type conversion
 };
 
 #endif

@@ -172,7 +172,7 @@ void MissionCircleFormation::startCircle()
 
 		// get algorithm output
 		missionData->getExpectedPos(expPos);
-		expPosSpd = { 897, expPos[1], expPos[2], expPos[3], expPos[3], expPos[0] };
+		expPosSpd = {897, expPos[1], expPos[2], expPos[3], expPos[3], expPos[0]};
 
 		msgsnd(msgIDExpFS, &expPosSpd, sizeof(struct ExpectedPosSpd) - sizeof(long), 0);
 		// printf("Receive expected position and speed: %f, %f, %f. Speed:%f\n", expPosSpd.lon, expPosSpd.lat, expPosSpd.alt, expPosSpd.airspeed);
