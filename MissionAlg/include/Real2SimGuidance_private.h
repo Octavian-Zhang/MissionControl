@@ -3,12 +3,12 @@
 //
 // Code generated for Simulink model 'Real2SimGuidance'.
 //
-// Model version                  : 2.298
+// Model version                  : 2.344
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Sun May  2 12:20:54 2021
+// C/C++ source code generated on : Mon Jun 28 22:38:59 2021
 //
 // Target selection: ert.tlc
-// Embedded hardware selection: ARM Compatible->ARM Cortex-A
+// Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
 // Code generation objectives:
 //    1. Safety precaution
 //    2. Execution efficiency
@@ -74,8 +74,10 @@
 #define rtmSetStopRequestedPtr(rtm, val) ((rtm)->Timing.stopRequestedFlag = (val))
 #endif
 
-// Invariant block signals (default storage)
-extern const ConstB_Real2SimGuidance_h_T Real2SimGuidance_ConstB;
+// Imported (extern) states
+extern void* AltitudeGCS_m0;           // synthesized block
+extern void* LatitudeGCS_m0;           // synthesized block
+extern void* LongitudeGCS_m0;          // synthesized block
 
 #endif                                // RTW_HEADER_Real2SimGuidance_private_h_
 

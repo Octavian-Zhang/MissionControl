@@ -3,12 +3,12 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 2.411
+// Model version                  : 2.654
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Fri May  7 10:23:40 2021
+// C/C++ source code generated on : Mon Jun 28 22:54:24 2021
 //
 // Target selection: ert.tlc
-// Embedded hardware selection: ARM Compatible->ARM Cortex-A
+// Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
 // Code generation objectives:
 //    1. Safety precaution
 //    2. Execution efficiency
@@ -24,12 +24,12 @@
 
 class RecvData_IndividualUAVCmdT
 {
- public:
-  virtual void RecvData(IndividualUAVCmd *data, int32_T length, int32_T *status)
-    = 0;
-  virtual ~RecvData_IndividualUAVCmdT()
-  {
-  }
+  public:
+    virtual void RecvData(IndividualUAVCmd *data, int32_T length, int32_T
+                          *status) = 0;
+    virtual ~RecvData_IndividualUAVCmdT()
+    {
+    }
 };
 
 #endif                               // RTW_HEADER_RecvData_IndividualUAVCmdT_h_

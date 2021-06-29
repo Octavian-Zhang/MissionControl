@@ -3,12 +3,12 @@
 //
 // Code generated for Simulink model 'MissionUAV'.
 //
-// Model version                  : 1.17
+// Model version                  : 1.18
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Sun May  2 12:20:47 2021
+// C/C++ source code generated on : Mon Jun 28 22:39:52 2021
 //
 // Target selection: ert.tlc
-// Embedded hardware selection: ARM Compatible->ARM Cortex-A
+// Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
 // Code generation objectives:
 //    1. Safety precaution
 //    2. Execution efficiency
@@ -28,9 +28,9 @@
 
 struct FixedWingGuidanceControlBus
 {
-  real_T Height;
-  real_T AirSpeed;
-  real_T RollAngle;
+    real_T Height;
+    real_T AirSpeed;
+    real_T RollAngle;
 };
 
 #endif
@@ -40,10 +40,10 @@ struct FixedWingGuidanceControlBus
 
 struct FixedWingGuidanceEnvironmentBus
 {
-  real_T WindNorth;
-  real_T WindEast;
-  real_T WindDown;
-  real_T Gravity;
+    real_T WindNorth;
+    real_T WindEast;
+    real_T WindDown;
+    real_T Gravity;
 };
 
 #endif
@@ -53,9 +53,9 @@ struct FixedWingGuidanceEnvironmentBus
 
 struct FixedWingGuidanceBus
 {
-  real_T Height;
-  real_T AirSpeed;
-  real_T HeadingAngle;
+    real_T Height;
+    real_T AirSpeed;
+    real_T HeadingAngle;
 };
 
 #endif
@@ -65,14 +65,14 @@ struct FixedWingGuidanceBus
 
 struct FixedWingGuidanceStateBus
 {
-  real_T North;
-  real_T East;
-  real_T Height;
-  real_T AirSpeed;
-  real_T HeadingAngle;
-  real_T FlightPathAngle;
-  real_T RollAngle;
-  real_T RollAngleRate;
+    real_T North;
+    real_T East;
+    real_T Height;
+    real_T AirSpeed;
+    real_T HeadingAngle;
+    real_T FlightPathAngle;
+    real_T RollAngle;
+    real_T RollAngleRate;
 };
 
 #endif
@@ -82,11 +82,11 @@ struct FixedWingGuidanceStateBus
 
 struct struct_pAzQu3LPpISTV2tr3rS1KE
 {
-  real_T PDRoll[2];
-  real_T PHeight;
-  real_T PFlightPathAngle;
-  real_T PAirSpeed;
-  real_T FlightPathAngleLimits[2];
+    real_T PDRoll[2];
+    real_T PHeight;
+    real_T PFlightPathAngle;
+    real_T PAirSpeed;
+    real_T FlightPathAngleLimits[2];
 };
 
 #endif
@@ -96,14 +96,14 @@ struct struct_pAzQu3LPpISTV2tr3rS1KE
 
 struct b_uav_internal_impl_fixedwing_State_MissionUAV_T
 {
-  real_T North;
-  real_T East;
-  real_T Height;
-  real_T AirSpeed;
-  real_T HeadingAngle;
-  real_T FlightPathAngle;
-  real_T RollAngle;
-  real_T RollAngleRate;
+    real_T North;
+    real_T East;
+    real_T Height;
+    real_T AirSpeed;
+    real_T HeadingAngle;
+    real_T FlightPathAngle;
+    real_T RollAngle;
+    real_T RollAngleRate;
 };
 
 #endif               // struct_b_uav_internal_impl_fixedwing_State_MissionUAV_T
@@ -113,8 +113,8 @@ struct b_uav_internal_impl_fixedwing_State_MissionUAV_T
 
 struct robotics_core_internal_system_navigation_StateVector2Struct_MissionUAV_T
 {
-  int32_T isInitialized;
-  b_uav_internal_impl_fixedwing_State_MissionUAV_T OutputTemplate;
+    int32_T isInitialized;
+    b_uav_internal_impl_fixedwing_State_MissionUAV_T OutputTemplate;
 };
 
 #endif
@@ -125,11 +125,11 @@ struct robotics_core_internal_system_navigation_StateVector2Struct_MissionUAV_T
 
 struct d_uav_internal_impl_fixedwing_Configuration_MissionUAV_T
 {
-  real_T PDRoll[2];
-  real_T PHeight;
-  real_T PFlightPathAngle;
-  real_T PAirSpeed;
-  real_T FlightPathAngleLimits[2];
+    real_T PDRoll[2];
+    real_T PHeight;
+    real_T PFlightPathAngle;
+    real_T PAirSpeed;
+    real_T FlightPathAngleLimits[2];
 };
 
 #endif       // struct_d_uav_internal_impl_fixedwing_Configuration_MissionUAV_T
@@ -139,7 +139,7 @@ struct d_uav_internal_impl_fixedwing_Configuration_MissionUAV_T
 
 struct c_uav_internal_impl_fixedwing_GuidanceModel_MissionUAV_T
 {
-  d_uav_internal_impl_fixedwing_Configuration_MissionUAV_T Configuration;
+    d_uav_internal_impl_fixedwing_Configuration_MissionUAV_T Configuration;
 };
 
 #endif       // struct_c_uav_internal_impl_fixedwing_GuidanceModel_MissionUAV_T
@@ -149,8 +149,8 @@ struct c_uav_internal_impl_fixedwing_GuidanceModel_MissionUAV_T
 
 struct robotics_core_internal_system_navigation_Model_MissionUAV_T
 {
-  int32_T isInitialized;
-  c_uav_internal_impl_fixedwing_GuidanceModel_MissionUAV_T ModelImpl;
+    int32_T isInitialized;
+    c_uav_internal_impl_fixedwing_GuidanceModel_MissionUAV_T ModelImpl;
 };
 
 #endif    // struct_robotics_core_internal_system_navigation_Model_MissionUAV_T

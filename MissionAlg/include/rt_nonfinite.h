@@ -1,11 +1,11 @@
 //
 // File: rt_nonfinite.h
 //
-// Code generated for Simulink model 'MissionUAV'.
+// Code generated for Simulink model 'Real2SimGuidance'.
 //
-// Model version                  : 1.17
+// Model version                  : 2.344
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Sun May  2 12:09:28 2021
+// C/C++ source code generated on : Mon Jun 28 22:38:59 2021
 //
 #ifndef RTW_HEADER_rt_nonfinite_h_
 #define RTW_HEADER_rt_nonfinite_h_
@@ -17,37 +17,37 @@ extern "C" {
 
 #endif
 
-  extern real_T rtInf;
-  extern real_T rtMinusInf;
-  extern real_T rtNaN;
-  extern real32_T rtInfF;
-  extern real32_T rtMinusInfF;
-  extern real32_T rtNaNF;
-  extern void rt_InitInfAndNaN(size_t realSize);
-  extern boolean_T rtIsInf(real_T value);
-  extern boolean_T rtIsInfF(real32_T value);
-  extern boolean_T rtIsNaN(real_T value);
-  extern boolean_T rtIsNaNF(real32_T value);
-  struct BigEndianIEEEDouble {
-    struct {
-      uint32_T wordH;
-      uint32_T wordL;
-    } words;
-  };
+    extern real_T rtInf;
+    extern real_T rtMinusInf;
+    extern real_T rtNaN;
+    extern real32_T rtInfF;
+    extern real32_T rtMinusInfF;
+    extern real32_T rtNaNF;
+    extern void rt_InitInfAndNaN(size_t realSize);
+    extern boolean_T rtIsInf(real_T value);
+    extern boolean_T rtIsInfF(real32_T value);
+    extern boolean_T rtIsNaN(real_T value);
+    extern boolean_T rtIsNaNF(real32_T value);
+    struct BigEndianIEEEDouble {
+        struct {
+            uint32_T wordH;
+            uint32_T wordL;
+        } words;
+    };
 
-  struct LittleEndianIEEEDouble {
-    struct {
-      uint32_T wordL;
-      uint32_T wordH;
-    } words;
-  };
+    struct LittleEndianIEEEDouble {
+        struct {
+            uint32_T wordL;
+            uint32_T wordH;
+        } words;
+    };
 
-  struct IEEESingle {
-    union {
-      real32_T wordLreal;
-      uint32_T wordLuint;
-    } wordL;
-  };
+    struct IEEESingle {
+        union {
+            real32_T wordLreal;
+            uint32_T wordLuint;
+        } wordL;
+    };
 
 #ifdef __cplusplus
 

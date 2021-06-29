@@ -3,41 +3,41 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 2.398
+// Model version                  : 2.654
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Sun May  2 12:27:38 2021
+// C/C++ source code generated on : Mon Jun 28 22:54:24 2021
 //
 #include "rtwtypes.h"
 #include <cmath>
 #include "floor_jeUa7tf2.h"
 
-// Function for MATLAB Function: '<S1>/getCurrentTime'
+// Function for MATLAB Function: '<S9>/MATLAB Function'
 creal_T floor_jeUa7tf2(const creal_T a)
 {
-  creal_T b;
-  real_T alo;
-  real_T b_ahi;
-  real_T x;
-  b.re = std::floor(a.re);
-  b.im = 0.0;
-  if (b.re == a.re) {
-    x = std::floor(a.im);
-    alo = 0.0;
-    b_ahi = b.re;
-    if (x != 0.0) {
-      b_ahi = b.re + x;
-      alo = x - (b_ahi - b.re);
+    creal_T b;
+    real_T ahi;
+    real_T b_ahi;
+    real_T tmp;
+    b.re = std::floor(a.re);
+    b.im = 0.0;
+    if (b.re == a.re) {
+        tmp = std::floor(a.im);
+        ahi = 0.0;
+        b_ahi = b.re;
+        if (tmp != 0.0) {
+            b_ahi = b.re + tmp;
+            ahi = tmp - (b_ahi - b.re);
+        }
+
+        if (std::isnan(ahi)) {
+            ahi = 0.0;
+        }
+
+        b.re = b_ahi;
+        b.im = ahi;
     }
 
-    if (std::isnan(alo)) {
-      alo = 0.0;
-    }
-
-    b.re = b_ahi;
-    b.im = alo;
-  }
-
-  return b;
+    return b;
 }
 
 //

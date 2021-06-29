@@ -1,11 +1,11 @@
 //
 // File: rtGetNaN.h
 //
-// Code generated for Simulink model 'MissionUAV'.
+// Code generated for Simulink model 'Real2SimGuidance'.
 //
-// Model version                  : 1.17
+// Model version                  : 2.344
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Sun May  2 12:09:28 2021
+// C/C++ source code generated on : Mon Jun 28 22:38:59 2021
 //
 #ifndef RTW_HEADER_rtGetNaN_h_
 #define RTW_HEADER_rtGetNaN_h_
@@ -18,8 +18,8 @@ extern "C" {
 
 #endif
 
-  extern real_T rtGetNaN(void);
-  extern real32_T rtGetNaNF(void);
+    extern real_T rtGetNaN(void);
+    extern real32_T rtGetNaNF(void);
 
 #ifdef __cplusplus
 

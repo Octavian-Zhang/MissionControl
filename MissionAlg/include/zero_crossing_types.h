@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'MissionUAV'.
 //
-// Model version                  : 1.17
+// Model version                  : 1.18
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Sun May  2 12:09:28 2021
+// C/C++ source code generated on : Mon Jun 28 22:39:52 2021
 //
 #ifndef ZERO_CROSSING_TYPES_H
 #define ZERO_CROSSING_TYPES_H
@@ -13,9 +13,9 @@
 
 // Trigger directions: falling, either, and rising
 typedef enum {
-  FALLING_ZERO_CROSSING = -1,
-  ANY_ZERO_CROSSING = 0,
-  RISING_ZERO_CROSSING = 1
+    FALLING_ZERO_CROSSING = -1,
+    ANY_ZERO_CROSSING = 0,
+    RISING_ZERO_CROSSING = 1
 } ZCDirection;
 
 // Previous state of a trigger signal
@@ -29,9 +29,9 @@ typedef uint8_T ZCSigState;
 
 // Current state of a trigger signal
 typedef enum {
-  FALLING_ZCEVENT = -1,
-  NO_ZCEVENT = 0,
-  RISING_ZCEVENT = 1
+    FALLING_ZCEVENT = -1,
+    NO_ZCEVENT = 0,
+    RISING_ZCEVENT = 1
 } ZCEventType;
 
 #endif                                 // ZERO_CROSSING_TYPES_H

@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'Real2SimGuidance'.
 //
-// Model version                  : 2.298
+// Model version                  : 2.344
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Sun May  2 12:09:34 2021
+// C/C++ source code generated on : Mon Jun 28 22:38:59 2021
 //
 #include "rtwtypes.h"
 #include "rtGetNaN.h"
@@ -16,48 +16,51 @@
 
 real_T rt_powd_snf(real_T u0, real_T u1)
 {
-  real_T tmp;
-  real_T tmp_0;
-  real_T y;
-  if (std::isnan(u0) || std::isnan(u1)) {
-    y = (rtNaN);
-  } else {
-    tmp = std::abs(u0);
-    tmp_0 = std::abs(u1);
-    if (std::isinf(u1)) {
-      if (tmp == 1.0) {
-        y = 1.0;
-      } else if (tmp > 1.0) {
-        if (u1 > 0.0) {
-          y = (rtInf);
-        } else {
-          y = 0.0;
-        }
-      } else if (u1 > 0.0) {
-        y = 0.0;
-      } else {
-        y = (rtInf);
-      }
-    } else if (tmp_0 == 0.0) {
-      y = 1.0;
-    } else if (tmp_0 == 1.0) {
-      if (u1 > 0.0) {
-        y = u0;
-      } else {
-        y = 1.0 / u0;
-      }
-    } else if (u1 == 2.0) {
-      y = u0 * u0;
-    } else if ((u1 == 0.5) && (u0 >= 0.0)) {
-      y = std::sqrt(u0);
-    } else if ((u0 < 0.0) && (u1 > std::floor(u1))) {
-      y = (rtNaN);
+    real_T tmp;
+    real_T tmp_0;
+    real_T y;
+    if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(std::
+            isnan(u0)) | static_cast<int32_T>(std::isnan(u1))))) {
+        y = (rtNaN);
     } else {
-      y = std::pow(u0, u1);
+        tmp = std::abs(u0);
+        tmp_0 = std::abs(u1);
+        if (std::isinf(u1)) {
+            if (tmp == 1.0) {
+                y = 1.0;
+            } else if (tmp > 1.0) {
+                if (u1 > 0.0) {
+                    y = (rtInf);
+                } else {
+                    y = 0.0;
+                }
+            } else if (u1 > 0.0) {
+                y = 0.0;
+            } else {
+                y = (rtInf);
+            }
+        } else if (tmp_0 == 0.0) {
+            y = 1.0;
+        } else if (tmp_0 == 1.0) {
+            if (u1 > 0.0) {
+                y = u0;
+            } else {
+                y = 1.0 / u0;
+            }
+        } else if (u1 == 2.0) {
+            y = u0 * u0;
+        } else if (static_cast<boolean_T>(static_cast<int32_T>((u1 == 0.5) & (u0
+                      >= 0.0)))) {
+            y = std::sqrt(u0);
+        } else if (static_cast<boolean_T>(static_cast<int32_T>((u0 < 0.0) & (u1 >
+                      std::floor(u1))))) {
+            y = (rtNaN);
+        } else {
+            y = std::pow(u0, u1);
+        }
     }
-  }
 
-  return y;
+    return y;
 }
 
 //

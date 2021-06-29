@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 2.398
+// Model version                  : 2.654
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Sun May  2 12:27:38 2021
+// C/C++ source code generated on : Mon Jun 28 22:54:24 2021
 //
 #ifndef BUILTIN_TYPEID_TYPES_H
 #define BUILTIN_TYPEID_TYPES_H
@@ -15,15 +15,15 @@
 
 // Enumeration of built-in data types
 typedef enum {
-  SS_DOUBLE = 0,                       // real_T
-  SS_SINGLE = 1,                       // real32_T
-  SS_INT8 = 2,                         // int8_T
-  SS_UINT8 = 3,                        // uint8_T
-  SS_INT16 = 4,                        // int16_T
-  SS_UINT16 = 5,                       // uint16_T
-  SS_INT32 = 6,                        // int32_T
-  SS_UINT32 = 7,                       // uint32_T
-  SS_BOOLEAN = 8                       // boolean_T
+    SS_DOUBLE = 0,                     // real_T
+    SS_SINGLE = 1,                     // real32_T
+    SS_INT8 = 2,                       // int8_T
+    SS_UINT8 = 3,                      // uint8_T
+    SS_INT16 = 4,                      // int16_T
+    SS_UINT16 = 5,                     // uint16_T
+    SS_INT32 = 6,                      // int32_T
+    SS_UINT32 = 7,                     // uint32_T
+    SS_BOOLEAN = 8                     // boolean_T
 } BuiltInDTypeId;
 
 #define SS_NUM_BUILT_IN_DTYPE          ((int_T)SS_BOOLEAN+1)
