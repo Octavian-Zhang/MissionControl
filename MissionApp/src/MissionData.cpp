@@ -15,21 +15,33 @@ const codegenReal2MissionModelClass::ExtU_codegenReal2Mission_T &MissionData::ge
 
 IndividualUAVCmd *MissionData::getMissionCmd()
 {
-	if (this->cmdQueue.empty())
-	{
-		// std::cout << "Mission cmd queue is empty" << std::endl;
-		return nullptr;
-	}
+	MissionCmd NewCMD{};
 	{
 		const std::lock_guard<std::mutex> lock(mutexQ);
-		this->missionCmd = cmdQueue.front();
+		NewCMD = std::move(cmdQueue.front());
 		cmdQueue.pop();
 	}
-	uavcmdLoc = {missionCmd.MissionLocation.Lat, missionCmd.MissionLocation.Lon, missionCmd.MissionLocation.Alt, missionCmd.MissionLocation.degHDG};
-	uavcmdPara = {missionCmd.params.Param1, missionCmd.params.Param2, missionCmd.params.Param3, missionCmd.params.Param4, missionCmd.params.Param5, missionCmd.params.Param6, missionCmd.params.Param7};
-	uavStartPos = {missionCmd.StartPosition.Lat, missionCmd.StartPosition.Lon, missionCmd.StartPosition.Alt, missionCmd.StartPosition.degHDG};
-	uavcmdStartTime = {missionCmd.startTime.year, missionCmd.startTime.month, missionCmd.startTime.day, missionCmd.startTime.hour, missionCmd.startTime.minute, missionCmd.startTime.second, missionCmd.startTime.millisecond};
-	this->uavCmd = {missionCmd.SequenceId, MissionModes(missionCmd.MissionMode), uavcmdLoc, uavcmdPara, uavStartPos, missionCmd.numUAV, missionCmd.FormationPos, uavcmdStartTime};
+	uavcmdLoc = {NewCMD.MissionLocation.Lat, NewCMD.MissionLocation.Lon, NewCMD.MissionLocation.Alt, NewCMD.MissionLocation.degHDG};
+	uavcmdPara = {	NewCMD.params.Param1, 
+					NewCMD.params.Param2, 
+					NewCMD.params.Param3, 
+					NewCMD.params.Param4, 
+					NewCMD.params.Param5, 
+					NewCMD.params.Param6, 
+					NewCMD.params.Param7};
+	uavStartPos = {	NewCMD.StartPosition.Lat, 
+					NewCMD.StartPosition.Lon, 
+					NewCMD.StartPosition.Alt, 
+					NewCMD.StartPosition.degHDG};
+	uavcmdStartTime = {	NewCMD.startTime.year, 
+						NewCMD.startTime.month, 
+						NewCMD.startTime.day, 
+						NewCMD.startTime.hour, 
+						NewCMD.startTime.minute, 
+						NewCMD.startTime.second, 
+						NewCMD.startTime.millisecond};
+	this->uavCmd = {NewCMD.SequenceId, MissionModes(NewCMD.MissionMode), 
+					uavcmdLoc, uavcmdPara, uavStartPos, NewCMD.numUAV, NewCMD.FormationPos, uavcmdStartTime};
 	std::cout << "Mission cmd queue is not empty" << std::endl;
 	return &this->uavCmd;
 }
@@ -81,11 +93,10 @@ void MissionData::updatePos(FlightStatus fs)
 }
 
 //--------------供数据收发软件设置任务指令-------------------//
-void MissionData::setMissionCmd(MissionCmd cmd)
+void MissionData::setMissionCmd(MissionCmd&& cmd)
 {
-	this->missionCmd = cmd;
 	const std::lock_guard<std::mutex> lock(mutexQ);
-	cmdQueue.push(cmd);
+	cmdQueue.push(std::move(cmd));
 }
 
 //--------------供数据收发软件设置任务指令反馈-------------------//
@@ -102,4 +113,10 @@ void MissionData::getExpectedPos(std::vector<double> &expPos)
 	expPos.push_back(this->ExtY.LookAheadPoint_i.Longitude_deg);
 	expPos.push_back(this->ExtY.LookAheadPoint_i.Latitude_deg);
 	expPos.push_back(this->ExtY.LookAheadPoint_i.Height_meter);
+}
+
+bool MissionData::NewMissionCMD()
+{
+	const std::lock_guard<std::mutex> lock(mutexQ); 
+	return !cmdQueue.empty();
 }

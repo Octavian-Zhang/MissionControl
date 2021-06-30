@@ -199,7 +199,7 @@ void MissionCircleFormation::startMission()
 		std::cout << "Waiting for circle mission message..." << std::endl;
 		msgrcv(msgIDMission, &msCmd, sizeof(struct MissionCmd) - sizeof(long), 898, MSG_NOERROR); // 返回类型为898的第一个消息
 		printf("Receive circle mission message\n");
-		missionData->setMissionCmd(msCmd);
+		missionData->setMissionCmd(std::move(msCmd));
 	}
 }
 //任务指令反馈线程------------------------------------------------------------------//

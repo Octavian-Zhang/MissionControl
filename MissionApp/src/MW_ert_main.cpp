@@ -190,6 +190,13 @@ void* periodicTask(void *arg)
         // Set model inputs here
         codegenReal2Mission_Obj.setExternalInputs(&pCommonData->getExtU());
 
+        // push new mission
+        if (pCommonData->NewMissionCMD())
+        {
+            printf("Push New Mission!"); fflush(stdout);
+            codegenReal2Mission_Obj.codegenReal2Mission_PushNewMission();
+        }
+
         codegenReal2Mission_Obj.step();
         printf("."); fflush(stdout);
 

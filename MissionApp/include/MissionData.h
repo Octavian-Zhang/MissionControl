@@ -19,7 +19,7 @@ private:
 
 	// IPC flags
 	std::queue<MissionCmd> cmdQueue;
-	MissionCmd missionCmd, missionCmdFB; //任务指令、任务指令反馈
+	MissionCmd missionCmdFB; //任务指令、任务指令反馈
 	IndividualUAVCmd uavCmd, uavCmdFB;	 //算法用任务指令、任务指令反馈
 	Location uavcmdLoc, uavStartPos;
 	Parameters uavcmdPara;
@@ -39,8 +39,10 @@ public:
 	IndividualUAVCmd *getMissionCmd();
 	void setMissionCmdFB(const IndividualUAVCmd &missionCmdFeedback);
 	bool feedbackFlag = false; //任务进度反馈标识，当存在任务进度反馈消息时，设为true
+	bool NewMissionCMD();
+
 	// Call by IPC
-	void setMissionCmd(MissionCmd cmd); //设置任务信息
+	void setMissionCmd(MissionCmd&& cmd); //设置任务信息
 	MissionCmd getMissionCmdFeedback(); //获取任务信息反馈
 	void updatePos(FlightStatus fs);	//外部更新本类的state变量
 	void getExpectedPos(std::vector<double> &expPos);

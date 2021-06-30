@@ -2,6 +2,7 @@
 #define MW_ERT_MAIN
 
 #include "MissionData.h"
+#include <mutex>
 
 extern MissionData *pCommonData;
 
