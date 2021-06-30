@@ -68,11 +68,6 @@ void MissionData::setMissionCmdFB(const IndividualUAVCmd &missionCmdFeedback)
 }
 
 // call by IPC
-//--------------供数据收发软件设置控制指令-------------------//
-void MissionData::setCtrlCmd(int8_t cmdId)
-{
-	this->commandID = cmdId;
-}
 
 //--------------供数据收发软件更新位置-------------------//
 void MissionData::updatePos(FlightStatus fs)

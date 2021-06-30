@@ -1,5 +1,5 @@
-#ifndef CIRCLE_FORMATION_H
-#define CIRCLE_FORMATION_H
+#ifndef ALGORITHM_WRAPPER_H
+#define ALGORITHM_WRAPPER_H
 
 #include <thread>
 #include <stddef.h>
@@ -7,14 +7,14 @@
 #include <vector>
 #include "MissionData.h"
 
-class CircleFormation
+class AlgoWrapper
 {
 private:
 	MissionData *commonData;
 	void renameMATfile(void);
 
 public:
-	explicit CircleFormation(MissionData *const); // prevent implicit data type conversion
+	explicit AlgoWrapper(MissionData *const); // prevent implicit data type conversion
 };
 
 #endif

@@ -1,5 +1,5 @@
 #include <MissionCircleFormation.h>
-#include <CircleFormation.h>
+#include <AlgoWrapper.h>
 //与数据收发软件通过OS消息队列通信------------------------------------------------//
 MissionCircleFormation::MissionCircleFormation(MissionData *const pCommonData) : missionData{pCommonData}
 {
@@ -46,12 +46,11 @@ MissionCircleFormation::MissionCircleFormation(MissionData *const pCommonData) :
 	}
 	fout5.close();
 
-	circleFm = new CircleFormation(missionData);
+	circleFm = new AlgoWrapper(missionData);
 }
 //析构函数--------------------------------------------------------------------//
 MissionCircleFormation::~MissionCircleFormation()
 {
-	delete missionData;
 	delete circleFm;
 }
 //设置系统ID------------------------------------------------------------------//
@@ -111,11 +110,11 @@ void MissionCircleFormation::startCtrl()
 
 	while (true)
 	{
+		std::unique_lock<std::mutex> lk(missionData->mutexSysTime);
 		std::cout << "Waiting for circle control message..." << std::endl;
-		msgrcv(msgIDCtrl, &ctrlMsg, sizeof(struct CircleCtrl) - sizeof(long), 896, 0); // 返回类型为896的第一个消息
-		// printf("Receive circle control message: %d\n", ctrlMsg.cmd);
-		missionData->setCtrlCmd(ctrlMsg.cmd);
-		usleep(1000);
+		msgrcv(msgIDCtrl, &ctrlMsg, sizeof(struct CircleCtrl) - sizeof(long), 896, MSG_NOERROR); // 返回类型为896的第一个消息
+		printf("Receive circle control message: %d\n", ctrlMsg.cmd); fflush(stdout);
+		missionData->TimeCalibrated = true; lk.unlock(); missionData->cvSysTime.notify_one();
 	}
 }
 
@@ -163,7 +162,7 @@ void MissionCircleFormation::startCircle()
 	while (true) // lock step execution with System V IPC
 	{
 		// std::cout << "Waiting for real time flight status message..." << std::endl;
-		msgrcv(msgIDFS, &fs, sizeof(struct FlightStatus) - sizeof(long), 1001, 0); // 返回类型为1001的第一个消息
+		msgrcv(msgIDFS, &fs, sizeof(struct FlightStatus) - sizeof(long), 1001, MSG_NOERROR); // 返回类型为1001的第一个消息
 		// printf("Real time flight status message received: %f, %f, %f. Speed:%f\n", fs.lon, fs.lat, fs.alt, fs.airspeed);
 
 		// set algorithm input
@@ -174,7 +173,7 @@ void MissionCircleFormation::startCircle()
 		missionData->getExpectedPos(expPos);
 		expPosSpd = {897, expPos[1], expPos[2], expPos[3], expPos[3], expPos[0]};
 
-		msgsnd(msgIDExpFS, &expPosSpd, sizeof(struct ExpectedPosSpd) - sizeof(long), 0);
+		msgsnd(msgIDExpFS, &expPosSpd, sizeof(struct ExpectedPosSpd) - sizeof(long), MSG_NOERROR);
 		// printf("Receive expected position and speed: %f, %f, %f. Speed:%f\n", expPosSpd.lon, expPosSpd.lat, expPosSpd.alt, expPosSpd.airspeed);
 	}
 }
@@ -198,10 +197,9 @@ void MissionCircleFormation::startMission()
 	while (true)
 	{
 		std::cout << "Waiting for circle mission message..." << std::endl;
-		msgrcv(msgIDMission, &msCmd, sizeof(struct MissionCmd) - sizeof(long), 898, 0); // 返回类型为898的第一个消息
+		msgrcv(msgIDMission, &msCmd, sizeof(struct MissionCmd) - sizeof(long), 898, MSG_NOERROR); // 返回类型为898的第一个消息
 		printf("Receive circle mission message\n");
 		missionData->setMissionCmd(msCmd);
-		usleep(1000);
 	}
 }
 //任务指令反馈线程------------------------------------------------------------------//
@@ -227,10 +225,9 @@ void MissionCircleFormation::startMissionFeedback()
 		if (missionData->feedbackFlag)
 		{
 			msCmdFb = missionData->getMissionCmdFeedback();
-			msgsnd(msgIDMissionFB, &msCmdFb, sizeof(struct MissionCmd) - sizeof(long), 0);
+			msgsnd(msgIDMissionFB, &msCmdFb, sizeof(struct MissionCmd) - sizeof(long), MSG_NOERROR);
 			printf("Sent mission command feedback\n");
 			missionData->feedbackFlag = false;
 		}
-		sleep(1);
 	}
 }

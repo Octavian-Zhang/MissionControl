@@ -10,25 +10,22 @@
 //    4. ROM efficiency
 // Validation result: Not run
 //
-#include "CircleFormation.h"
+#include "AlgoWrapper.h"
 #include <iostream>
 #include <string>
 #include <fstream>
 #include "MW_ert_main.h"
 
-CircleFormation::CircleFormation(MissionData *const pCommonData) : commonData{pCommonData}
+AlgoWrapper::AlgoWrapper(MissionData *const pCommonData) : commonData{pCommonData}
 {
 	std::cout << "Waiting OS clock calibration..." << std::endl;
-	while (1 != commonData->showCmdID()) // delay execution until simulation start
-	{
-		std::this_thread::sleep_for(std::chrono::milliseconds(1));
-	}
+	std::unique_lock<std::mutex> lk(commonData->mutexSysTime, std::defer_lock);
+	commonData->cvSysTime.wait(lk, [&](){return commonData->TimeCalibrated;});
 	std::cout << "OS clock calibrated" << std::endl;
-	MW_ert_main();
-	renameMATfile();
+	MW_ert_main(); renameMATfile();
 }
 
-void CircleFormation::renameMATfile(void)
+void AlgoWrapper::renameMATfile(void)
 {
 	// declare automatic model file name
 	const std::string src_name = "MODEL.mat";

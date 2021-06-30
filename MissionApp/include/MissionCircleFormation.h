@@ -12,7 +12,7 @@
 #include <fstream>
 #include <iostream>
 #include <iomanip>
-#include "CircleFormation.h"
+#include "AlgoWrapper.h"
 #include "protocol.h"
 #include "unistd.h"
 
@@ -55,7 +55,7 @@ private:
 	struct MissionCmd msCmd;
 	struct MissionCmd msCmdFb;
 
-	CircleFormation *circleFm;
+	AlgoWrapper *circleFm;
 	MissionData *missionData;
 
 	// prevent shallow copy & assignment
