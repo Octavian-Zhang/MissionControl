@@ -191,14 +191,12 @@ void* periodicTask(void *arg)
         codegenReal2Mission_Obj.setExternalInputs(&pCommonData->getExtU());
 
         // push new mission
-        if (pCommonData->NewMissionCMD())
-        {
-            printf("Push New Mission!"); fflush(stdout);
-            codegenReal2Mission_Obj.codegenReal2Mission_PushNewMission();
-        }
+        std::async(std::launch::async, [&]()
+           {if (pCommonData->NewMissionCMD()){ printf("Push New Mission!"); fflush(stdout);
+                codegenReal2Mission_Obj.codegenReal2Mission_PushNewMission(); }
+            else { printf("."); fflush(stdout); }; });
 
         codegenReal2Mission_Obj.step();
-        printf("."); fflush(stdout);
 
         // Get model outputs here
         pCommonData->setExtY(codegenReal2Mission_Obj.getExternalOutputs());
