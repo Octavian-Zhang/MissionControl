@@ -111,11 +111,10 @@ void MissionCircleFormation::startCtrl()
 
 	while (true)
 	{
-		std::cout << "Waiting for OS clock calibration message..." << std::endl << std::flush;
+		std::cout << "Waiting for clock calibration message..." << std::endl << std::flush;
 		std::unique_lock<std::mutex> lk(missionData->mutexSysTime);
-		std::cout << "Receiving OS clock calibration message..." << std::endl << std::flush;
 		msgrcv(msgIDCtrl, &ctrlMsg, sizeof(struct CircleCtrl) - sizeof(long), 896, MSG_NOERROR); // 返回类型为896的第一个消息
-		printf("Received OS clock calibration message: %d\n", ctrlMsg.cmd); fflush(stdout);
+		printf("Received clock calibration message: %d\n", ctrlMsg.cmd); fflush(stdout);
 		missionData->TimeCalibrated = true; lk.unlock(); missionData->cvSysTime.notify_one();
 	}
 }
@@ -163,9 +162,7 @@ void MissionCircleFormation::startCircle()
 
 	while (true) // lock step execution with System V IPC
 	{
-		// std::cout << "Waiting for real time flight status message..." << std::endl;
 		msgrcv(msgIDFS, &fs, sizeof(struct FlightStatus) - sizeof(long), 1001, MSG_NOERROR); // 返回类型为1001的第一个消息
-		// printf("Real time flight status message received: %f, %f, %f. Speed:%f\n", fs.lon, fs.lat, fs.alt, fs.airspeed);
 
 		// set algorithm input
 		missionData->updatePos(fs);
@@ -176,7 +173,6 @@ void MissionCircleFormation::startCircle()
 		expPosSpd = {897, expPos[1], expPos[2], expPos[3], expPos[3], expPos[0]};
 
 		msgsnd(msgIDExpFS, &expPosSpd, sizeof(struct ExpectedPosSpd) - sizeof(long), MSG_NOERROR);
-		// printf("Receive expected position and speed: %f, %f, %f. Speed:%f\n", expPosSpd.lon, expPosSpd.lat, expPosSpd.alt, expPosSpd.airspeed);
 	}
 }
 //接收任务指令线程--------------------------------------------------------------//
@@ -231,5 +227,11 @@ void MissionCircleFormation::startMissionFeedback()
 			printf("Sent mission command feedback\n");
 			missionData->feedbackFlag = false;
 		}
+		sleep(1);
 	}
+}
+
+void MissionCircleFormation::join()
+{
+	getAlgoThread(*circleFm)->join();
 }

@@ -9,6 +9,6 @@ int main(int argc, char *argv[])
 	MissionCircleFormation *circleMission = new MissionCircleFormation(pCommonData);
 	//启动环形封锁任务
 	circleMission->start();
-	circleMission->circleFm->AlgoThread->join();
+	circleMission->join();
 }
 //----------------------------------------------------------------------------//
