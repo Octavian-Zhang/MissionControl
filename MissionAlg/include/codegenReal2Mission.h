@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 2.679
+// Model version                  : 2.680
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Thu Jul  1 19:35:55 2021
+// C/C++ source code generated on : Fri Jul  2 04:32:41 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -39,8 +39,11 @@
 #include "model_reference_types.h"
 
 // Child system includes
+#define Real2SimGuidance_MDLREF_HIDE_CHILD_
 #include "Real2SimGuidance.h"
+#define FlightMissionMode_MDLREF_HIDE_CHILD_
 #include "FlightMissionMode.h"
+#define MissionUAV_MDLREF_HIDE_CHILD_
 #include "MissionUAV.h"
 
 // Includes for objects with custom storage classes.
@@ -126,9 +129,6 @@ class codegenReal2MissionModelClass {
   public:
     // Block signals and states (default storage) for system '<Root>'
     struct DW_codegenReal2Mission_T {
-        MdlrefDW_FlightMissionMode_T PreemptableMissionModeSelector_InstanceData;// '<S2>/PreemptableMissionModeSelector' 
-        MdlrefDW_MissionUAV_T MissionUavModel_InstanceData;// '<S16>/MissionUavModel' 
-        MdlrefDW_Real2SimGuidance_T Real2SimGuidance_InstanceData;// '<Root>/Real2SimGuidance' 
         FILE * eml_openfiles[20];      // '<S9>/PrintOnboardLog'
         uav_sluav_internal_system_WaypointFollower_codegenReal2Mission_T obj;// '<S38>/TrackSimPath' 
         missionCmd slMsgMgr_memArray_missionCmd[9];// synthesized block
@@ -236,20 +236,20 @@ class codegenReal2MissionModelClass {
 
     // Continuous states (default storage)
     struct X_codegenReal2Mission_T {
-        X_Real2SimGuidance_n_T Real2SimGuidance_CSTATE;// '<Root>/Real2SimGuidance' 
-        X_MissionUAV_n_T MissionUavModel_CSTATE;// '<S16>/MissionUavModel'
+        real_T Real2SimGuidance_CSTATE[7];// '<Root>/Real2SimGuidance'
+        real_T MissionUavModel_CSTATE[10];// '<S16>/MissionUavModel'
     };
 
     // State derivatives (default storage)
     struct XDot_codegenReal2Mission_T {
-        XDot_Real2SimGuidance_n_T Real2SimGuidance_CSTATE;// '<Root>/Real2SimGuidance' 
-        XDot_MissionUAV_n_T MissionUavModel_CSTATE;// '<S16>/MissionUavModel'
+        real_T Real2SimGuidance_CSTATE[7];// '<Root>/Real2SimGuidance'
+        real_T MissionUavModel_CSTATE[10];// '<S16>/MissionUavModel'
     };
 
     // State disabled
     struct XDis_codegenReal2Mission_T {
-        XDis_Real2SimGuidance_n_T Real2SimGuidance_CSTATE;// '<Root>/Real2SimGuidance' 
-        XDis_MissionUAV_n_T MissionUavModel_CSTATE;// '<S16>/MissionUavModel'
+        boolean_T Real2SimGuidance_CSTATE[7];// '<Root>/Real2SimGuidance'
+        boolean_T MissionUavModel_CSTATE[10];// '<S16>/MissionUavModel'
     };
 
     // Zero-crossing (trigger) state

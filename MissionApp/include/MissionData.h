@@ -29,16 +29,20 @@ private:
 
 public:
 	// system time calibration
-	bool TimeCalibrated = false; // determine the operating system has been calibrated
+	bool TimeCalibrated{}; // determine the operating system has been calibrated
 	std::condition_variable cvSysTime;
 	std::mutex mutexSysTime;
+
+	// Mission CMD Feedback
+	bool feedbackFlag{}; //任务进度反馈标识，当存在任务进度反馈消息时，设为true
+	std::condition_variable cvFeedbackCMD;
+	std::mutex mutexFeedbackCMD;
 
 	// Call by Algorithm
 	void setExtY(const codegenReal2MissionModelClass::ExtY_codegenReal2Mission_T &);
 	const codegenReal2MissionModelClass::ExtU_codegenReal2Mission_T &getExtU();
 	IndividualUAVCmd *getMissionCmd();
 	void setMissionCmdFB(const IndividualUAVCmd &missionCmdFeedback);
-	bool feedbackFlag = false; //任务进度反馈标识，当存在任务进度反馈消息时，设为true
 	bool NewMissionCMD();
 
 	// Call by IPC

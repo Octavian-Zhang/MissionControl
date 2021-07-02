@@ -42,12 +42,12 @@ IndividualUAVCmd *MissionData::getMissionCmd()
 						NewCMD.startTime.millisecond};
 	this->uavCmd = {NewCMD.SequenceId, MissionModes(NewCMD.MissionMode), 
 					uavcmdLoc, uavcmdPara, uavStartPos, NewCMD.numUAV, NewCMD.FormationPos, uavcmdStartTime};
-	std::cout << "Mission cmd queue is not empty" << std::endl;
 	return &this->uavCmd;
 }
 
 void MissionData::setMissionCmdFB(const IndividualUAVCmd &missionCmdFeedback)
 {
+	std::unique_lock<std::mutex> lk(this->mutexFeedbackCMD);
 	this->missionCmdFB =
 		{
 			899,
@@ -77,6 +77,9 @@ void MissionData::setMissionCmdFB(const IndividualUAVCmd &missionCmdFeedback)
 			 missionCmdFeedback.StartTime.minute,
 			 missionCmdFeedback.StartTime.second,
 			 missionCmdFeedback.StartTime.millisecond}};
+	this->feedbackFlag = true;
+	lk.unlock();
+	this->cvFeedbackCMD.notify_one();
 }
 
 // call by IPC

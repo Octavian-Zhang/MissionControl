@@ -54,7 +54,6 @@ class codegenReal2MissionModelClassSendData_IndividualUAVCmdT : public
     {
         // Add send data logic here
         // 存在任务反馈信息时，通过下述代码设置标识、更新数据
-        pCommonData->feedbackFlag = true;
         pCommonData->setMissionCmdFB(*data);
     }
 };
@@ -192,7 +191,7 @@ void* periodicTask(void *arg)
 
         // push new mission
         std::async(std::launch::async, [&]()
-           {if (pCommonData->NewMissionCMD()){ printf("Push New Mission!"); fflush(stdout);
+           {if (pCommonData->NewMissionCMD()){ printf("Push New Mission!\n"); fflush(stdout);
                 codegenReal2Mission_Obj.codegenReal2Mission_PushNewMission(); }
             else { printf("."); fflush(stdout); }; });
 

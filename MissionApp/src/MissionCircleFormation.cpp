@@ -219,15 +219,13 @@ void MissionCircleFormation::startMissionFeedback()
 
 	while (true)
 	{
+		std::unique_lock<std::mutex> lk(missionData->mutexFeedbackCMD);
+		missionData->cvFeedbackCMD.wait(lk, [&](){return missionData->feedbackFlag;});
 		//获取任务反馈
-		if (missionData->feedbackFlag)
-		{
-			msCmdFb = missionData->getMissionCmdFeedback();
-			msgsnd(msgIDMissionFB, &msCmdFb, sizeof(struct MissionCmd) - sizeof(long), MSG_NOERROR);
-			printf("Sent mission command feedback\n");
-			missionData->feedbackFlag = false;
-		}
-		sleep(1);
+		msCmdFb = missionData->getMissionCmdFeedback();
+		msgsnd(msgIDMissionFB, &msCmdFb, sizeof(struct MissionCmd) - sizeof(long), MSG_NOERROR);
+		printf("Sent mission command feedback\n");
+		missionData->feedbackFlag = false;
 	}
 }
 
