@@ -5,7 +5,7 @@
 //
 // Model version                  : 2.344
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Fri Jul  2 04:20:21 2021
+// C/C++ source code generated on : Fri Jul  2 07:51:01 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -50,11 +50,6 @@ const uint8_T Real2SimGuidance_IN_Off{ 1U };
 const uint8_T Real2SimGuidance_IN_On{ 2U };
 
 const uint8_T Real2SimGuidance_IN_Persuit{ 3U };
-
-MdlrefDW_Real2SimGuidance_T Real2SimGuidance_MdlrefDW;
-
-// Block states (default storage)
-DW_Real2SimGuidance_f_T Real2SimGuidance_DW;
 
 // Forward declaration for local functions
 static void Real2SimGuidance_WaypointFollowerBase_getDistinctWpts(const real_T
@@ -803,14 +798,14 @@ static void Real2SimGuidance_WaypointFollowerBase_stepInternal
 }
 
 // System initialize for referenced model: 'Real2SimGuidance'
-void Real2SimGuidance_Init(real_T *localX_)
+void Real2SimGuidance_Init(DW_Real2SimGuidance_f_T *localDW,
+    X_Real2SimGuidance_n_T *localX)
 {
-    X_Real2SimGuidance_n_T *localX = (X_Real2SimGuidance_n_T *) localX_;
     int32_T i;
     localX->TD_Alt_CSTATE = 0.0;
     localX->dotAltTD_CSTATE = 0.0;
     for (i = 0; i < 72; i++) {
-        Real2SimGuidance_DW.HeightSequence_X[i] = -150.0;
+        localDW->HeightSequence_X[i] = -150.0;
     }
 
     localX->TD_AirSpdADRC_CSTATE = 0.0;
@@ -818,27 +813,28 @@ void Real2SimGuidance_Init(real_T *localX_)
     localX->ESO_CSTATE = 0.0;
     localX->ESO_dot_CSTATE = 0.0;
     localX->ESO_dotdot_CSTATE = 0.0;
-    Real2SimGuidance_DW.obj.LastWaypointFlag = false;
-    Real2SimGuidance_DW.obj.StartFlag = true;
-    Real2SimGuidance_DW.obj.LookaheadFactor = 1.01;
-    Real2SimGuidance_DW.obj.SearchFlag = true;
-    Real2SimGuidance_DW.objisempty = true;
-    Real2SimGuidance_DW.obj.isInitialized = 1;
-    Real2SimGuidance_DW.obj.WaypointIndex = 1.0;
+    localDW->obj.LastWaypointFlag = false;
+    localDW->obj.StartFlag = true;
+    localDW->obj.LookaheadFactor = 1.01;
+    localDW->obj.SearchFlag = true;
+    localDW->objisempty = true;
+    localDW->obj.isInitialized = 1;
+    localDW->obj.WaypointIndex = 1.0;
     for (i = 0; i < 219; i++) {
-        Real2SimGuidance_DW.obj.WaypointsInternal[i] = (rtNaN);
-        Real2SimGuidance_DW.obj.WaypointsInternal[i] = (rtNaN);
+        localDW->obj.WaypointsInternal[i] = (rtNaN);
+        localDW->obj.WaypointsInternal[i] = (rtNaN);
     }
 }
 
 // Disable for referenced model: 'Real2SimGuidance'
-void Real2SimGuidance_Disable(void)
+void Real2SimGuidance_Disable(DW_Real2SimGuidance_f_T *localDW)
 {
-    Real2SimGuidance_DW.ESO_MODE = false;
+    localDW->ESO_MODE = false;
 }
 
 // Outputs for referenced model: 'Real2SimGuidance'
-void Real2SimGuidance(const FixedWingGuidanceStateBus *rtu_SimUAVState, const
+void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
+                      const FixedWingGuidanceStateBus *rtu_SimUAVState, const
                       boolean_T *rtu_ImmedModeSwitch, const RealUAVStateBus
                       *rtu_RealUAVLatLonState, const uint8_T *rtu_FlightMode,
                       const real_T *rtu_GroundSpd, const boolean_T
@@ -846,12 +842,9 @@ void Real2SimGuidance(const FixedWingGuidanceStateBus *rtu_SimUAVState, const
                       *rtu_ImmedGuidanceCMD, LookAheadPoint *rty_LookAheadPoint,
                       real_T *rty_RefAirspeed, real_T *rty_ExecutionTrigger,
                       boolean_T *rty_EngagedFlag, FixedWingGuidanceStateBus
-                      *rty_RealUAVState, real_T *localX_)
+                      *rty_RealUAVState, DW_Real2SimGuidance_f_T *localDW,
+                      X_Real2SimGuidance_n_T *localX)
 {
-    RT_MODEL_Real2SimGuidance_T *const Real2SimGuidance_M =
-        &(Real2SimGuidance_MdlrefDW.rtm);
-    X_Real2SimGuidance_n_T *localX = (X_Real2SimGuidance_n_T *) localX_;
-
     // local block i/o variables
     real_T rtb_SumNorth;
     real_T rtb_SumEast;
@@ -883,10 +876,9 @@ void Real2SimGuidance(const FixedWingGuidanceStateBus *rtu_SimUAVState, const
     uint8_T lookaheadFlag;
     boolean_T rtb_SpdAND;
     if (rtmIsMajorTimeStep(Real2SimGuidance_M)) {
-        Real2SimGuidance_DW.FlightMode_Log = static_cast<real_T>
-            (static_cast<int32_T>(static_cast<boolean_T>(static_cast<int32_T>(
-                static_cast<int32_T>(rtu_ControlSwitch[1]) ^ 1)))) *
-            static_cast<real_T>(*rtu_FlightMode);
+        localDW->FlightMode_Log = static_cast<real_T>(static_cast<int32_T>(
+            static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
+            (rtu_ControlSwitch[1]) ^ 1)))) * static_cast<real_T>(*rtu_FlightMode);
         rtw_pthread_mutex_lock(LatitudeGCS_m0);
         rtb_Sum_h_idx_0 = LatitudeGCS;
         rtw_pthread_mutex_unlock(LatitudeGCS_m0);
@@ -959,33 +951,33 @@ void Real2SimGuidance(const FixedWingGuidanceStateBus *rtu_SimUAVState, const
         rty_RealUAVState->RollAngle = 0.017453292519943295 *
             rtu_RealUAVLatLonState->RollAngle_deg;
         rty_RealUAVState->RollAngleRate = 0.0;
-        rtb_LongitudeGCS = Real2SimGuidance_DW.MemoryRefHeight_PreviousInput;
+        rtb_LongitudeGCS = localDW->MemoryRefHeight_PreviousInput;
         rtb_MatrixConcatenate[145] = rtu_SimUAVState->East;
-        Real2SimGuidance_DW.TrackInvH = -rtu_SimUAVState->Height;
-        rtb_MatrixConcatenate[218] = Real2SimGuidance_DW.TrackInvH;
+        localDW->TrackInvH = -rtu_SimUAVState->Height;
+        rtb_MatrixConcatenate[218] = localDW->TrackInvH;
         for (i = 0; i < 72; i++) {
             rtb_MatrixConcatenate[static_cast<int_T>(i + 73)] =
-                Real2SimGuidance_DW.EastSequence_X[i];
+                localDW->EastSequence_X[i];
             rtb_MatrixConcatenate[static_cast<int_T>(i + 146)] =
-                Real2SimGuidance_DW.HeightSequence_X[i];
-            rtb_MatrixConcatenate[i] = Real2SimGuidance_DW.NorthSequence_X[i];
+                localDW->HeightSequence_X[i];
+            rtb_MatrixConcatenate[i] = localDW->NorthSequence_X[i];
         }
 
         rtb_MatrixConcatenate[72] = rtu_SimUAVState->North;
         for (i = 0; i < 71; i++) {
-            Real2SimGuidance_DW.EastSequence_X[i] =
-                Real2SimGuidance_DW.EastSequence_X[static_cast<int_T>(i + 1)];
-            Real2SimGuidance_DW.HeightSequence_X[i] =
-                Real2SimGuidance_DW.HeightSequence_X[static_cast<int_T>(i + 1)];
-            Real2SimGuidance_DW.NorthSequence_X[i] =
-                Real2SimGuidance_DW.NorthSequence_X[static_cast<int_T>(i + 1)];
+            localDW->EastSequence_X[i] = localDW->EastSequence_X
+                [static_cast<int_T>(i + 1)];
+            localDW->HeightSequence_X[i] = localDW->HeightSequence_X[
+                static_cast<int_T>(i + 1)];
+            localDW->NorthSequence_X[i] = localDW->NorthSequence_X
+                [static_cast<int_T>(i + 1)];
         }
 
-        Real2SimGuidance_DW.EastSequence_X[71] = rtu_SimUAVState->East;
-        Real2SimGuidance_DW.HeightSequence_X[71] = Real2SimGuidance_DW.TrackInvH;
-        Real2SimGuidance_DW.NorthSequence_X[71] = rtu_SimUAVState->North;
+        localDW->EastSequence_X[71] = rtu_SimUAVState->East;
+        localDW->HeightSequence_X[71] = localDW->TrackInvH;
+        localDW->NorthSequence_X[71] = rtu_SimUAVState->North;
         rtb_Sum1_idx_0 = rty_RealUAVState->AirSpeed - *rtu_GroundSpd;
-        Real2SimGuidance_DW.Compare = (Real2SimGuidance_DW.FlightMode_Log == 3.0);
+        localDW->Compare = (localDW->FlightMode_Log == 3.0);
         rtb_SwitchLookAheadPoint_idx_0 = rtu_SimUAVState->North -
             rty_RealUAVState->North;
         rtb_Sum1_idx_1 = rtu_SimUAVState->East - rty_RealUAVState->East;
@@ -998,30 +990,30 @@ void Real2SimGuidance(const FixedWingGuidanceStateBus *rtu_SimUAVState, const
         a0 += rtb_SwitchLookAheadPoint_idx_2 * rtb_SwitchLookAheadPoint_idx_2;
         rtb_SwitchLookAheadPoint_idx_2 = rtb_MatrixConcatenate[218];
         rtb_Sum_h_idx_0 = std::sqrt(a0);
-        Real2SimGuidance_DW.InverseY = -rtb_Sum_h_idx_0;
+        localDW->InverseY = -rtb_Sum_h_idx_0;
         y = rtb_MatrixConcatenate[24] - rtb_MatrixConcatenate[72];
         rtb_Sum_g0_0 = y * y;
         y = rtb_MatrixConcatenate[97] - rtb_MatrixConcatenate[145];
         rtb_Sum_g0_0 += y * y;
         y = rtb_MatrixConcatenate[170] - rtb_MatrixConcatenate[218];
         rtb_Abs1 = std::sqrt(y * y + rtb_Sum_g0_0);
-        Real2SimGuidance_DW.InverseR = -rtb_Abs1;
+        localDW->InverseR = -rtb_Abs1;
     }
 
     if (rtmIsMajorTimeStep(Real2SimGuidance_M) && rtmIsMajorTimeStep
             (Real2SimGuidance_M)) {
-        Real2SimGuidance_DW.ESO_MODE = Real2SimGuidance_DW.Compare;
+        localDW->ESO_MODE = localDW->Compare;
     }
 
-    if (Real2SimGuidance_DW.ESO_MODE) {
-        Real2SimGuidance_DW.ESO = localX->ESO_CSTATE;
-        Real2SimGuidance_DW.ESO_dot = localX->ESO_dot_CSTATE;
-        Real2SimGuidance_DW.ESO_dotdot = localX->ESO_dotdot_CSTATE;
+    if (localDW->ESO_MODE) {
+        localDW->ESO = localX->ESO_CSTATE;
+        localDW->ESO_dot = localX->ESO_dot_CSTATE;
+        localDW->ESO_dotdot = localX->ESO_dotdot_CSTATE;
     }
 
-    Real2SimGuidance_DW.dotTD = localX->dotTD_CSTATE;
-    a0 = (Real2SimGuidance_DW.dotTD - Real2SimGuidance_DW.ESO_dot) * 3.5 * 7.0;
-    y = (localX->TD_AirSpdADRC_CSTATE - Real2SimGuidance_DW.ESO) + a0;
+    localDW->dotTD = localX->dotTD_CSTATE;
+    a0 = (localDW->dotTD - localDW->ESO_dot) * 3.5 * 7.0;
+    y = (localX->TD_AirSpdADRC_CSTATE - localDW->ESO) + a0;
     if (y < 0.0) {
         rtb_Sum_g0_0 = -1.0;
     } else if (y > 0.0) {
@@ -1085,19 +1077,16 @@ void Real2SimGuidance(const FixedWingGuidanceStateBus *rtu_SimUAVState, const
         a2 = (rtNaN);
     }
 
-    Real2SimGuidance_DW.GainADRCinvb0 = (-((a0 / 490.0 - y) * -10.0 *
-        ((rtb_Sum_g0_0 - a2) / 2.0) - 10.0 * y) - Real2SimGuidance_DW.ESO_dotdot)
-        * 10.0;
+    localDW->GainADRCinvb0 = (-((a0 / 490.0 - y) * -10.0 * ((rtb_Sum_g0_0 - a2) /
+        2.0) - 10.0 * y) - localDW->ESO_dotdot) * 10.0;
     if (rtmIsMajorTimeStep(Real2SimGuidance_M)) {
-        Real2SimGuidance_DW.ADRC_U_Log = Real2SimGuidance_DW.GainADRCinvb0;
-        Real2SimGuidance_DW.LagDistance = localX->TD_AirSpdADRC_CSTATE -
-            Real2SimGuidance_DW.InverseY;
+        localDW->ADRC_U_Log = localDW->GainADRCinvb0;
+        localDW->LagDistance = localX->TD_AirSpdADRC_CSTATE - localDW->InverseY;
     }
 
-    Real2SimGuidance_DW.SumY = Real2SimGuidance_DW.ESO -
-        Real2SimGuidance_DW.InverseY;
-    a0 = Real2SimGuidance_DW.dotTD * 0.1;
-    y = (localX->TD_AirSpdADRC_CSTATE - Real2SimGuidance_DW.InverseR) + a0;
+    localDW->SumY = localDW->ESO - localDW->InverseY;
+    a0 = localDW->dotTD * 0.1;
+    y = (localX->TD_AirSpdADRC_CSTATE - localDW->InverseR) + a0;
     if (y < 0.0) {
         rtb_Sum_g0_0 = -1.0;
     } else if (y > 0.0) {
@@ -1161,8 +1150,8 @@ void Real2SimGuidance(const FixedWingGuidanceStateBus *rtu_SimUAVState, const
         a2 = (rtNaN);
     }
 
-    Real2SimGuidance_DW.fh_p = (a0 / 0.05 - y) * -5.0 * ((rtb_Sum_g0_0 - a2) /
-        2.0) - 5.0 * y;
+    localDW->fh_p = (a0 / 0.05 - y) * -5.0 * ((rtb_Sum_g0_0 - a2) / 2.0) - 5.0 *
+        y;
     if (rtmIsMajorTimeStep(Real2SimGuidance_M)) {
         y = rtb_MatrixConcatenate[48] - rtb_SwitchLookAheadPoint_idx_0;
         rtb_Sum_g0_0 = y * y;
@@ -1180,8 +1169,7 @@ void Real2SimGuidance(const FixedWingGuidanceStateBus *rtu_SimUAVState, const
         rtb_UpperBound = std::sqrt(a0 * a0 + rtb_RefGndSpd) - rtb_Abs1;
         rtb_Down = rtb_Abs1 - rtb_Down;
         rtb_AirSpeed = rtu_SimUAVState->AirSpeed;
-        rtb_RefGndSpd = (rtb_Sum1_idx_0 + Real2SimGuidance_DW.ADRC_U_Log) +
-            rtb_AirSpeed;
+        rtb_RefGndSpd = (rtb_Sum1_idx_0 + localDW->ADRC_U_Log) + rtb_AirSpeed;
         if (rtb_Sum_h_idx_0 <= 75.063829787234042) {
             rtb_Sum_h_idx_0 = 75.063829787234042;
         }
@@ -1191,13 +1179,11 @@ void Real2SimGuidance(const FixedWingGuidanceStateBus *rtu_SimUAVState, const
         rty_RealUAVState_0[1] = rty_RealUAVState->East;
         rty_RealUAVState_0[2] = rtb_LongitudeGCS;
         rty_RealUAVState_0[3] = rty_RealUAVState->HeadingAngle;
-        Real2SimGuidance_WaypointFollowerBase_stepInternal
-            (&Real2SimGuidance_DW.obj, rty_RealUAVState_0, rtb_MatrixConcatenate,
-             3.6 * rtb_AirSpeed, rtb_SwitchLookAheadNED, &rtb_Abs1,
-             &rtb_Sum_h_idx_0, &lookaheadFlag,
-             &Real2SimGuidance_DW.CrossTrackError,
-             &Real2SimGuidance_DW.Status_Log);
-        if (static_cast<int32_T>(Real2SimGuidance_DW.Status_Log) != 0) {
+        Real2SimGuidance_WaypointFollowerBase_stepInternal(&localDW->obj,
+            rty_RealUAVState_0, rtb_MatrixConcatenate, 3.6 * rtb_AirSpeed,
+            rtb_SwitchLookAheadNED, &rtb_Abs1, &rtb_Sum_h_idx_0, &lookaheadFlag,
+            &localDW->CrossTrackError, &localDW->Status_Log);
+        if (static_cast<int32_T>(localDW->Status_Log) != 0) {
             rtb_SwitchLookAheadNED[0] = rtb_MatrixConcatenate[0];
             rtb_SwitchLookAheadNED[1] = rtb_MatrixConcatenate[73];
             rtb_SwitchLookAheadNED[2] = rtb_MatrixConcatenate[146];
@@ -1206,22 +1192,22 @@ void Real2SimGuidance(const FixedWingGuidanceStateBus *rtu_SimUAVState, const
                 rty_RealUAVState->North);
         }
 
-        Real2SimGuidance_DW.Heading_Log[0] = angdiff_e8uhYa4N
+        localDW->Heading_Log[0] = angdiff_e8uhYa4N
             (rty_RealUAVState->HeadingAngle, rtb_Abs1);
-        Real2SimGuidance_DW.Heading_Log[1] = angdiff_e8uhYa4N(0.0,
+        localDW->Heading_Log[1] = angdiff_e8uhYa4N(0.0,
             rty_RealUAVState->HeadingAngle);
-        Real2SimGuidance_DW.Heading_Log[2] = angdiff_e8uhYa4N(0.0, rtb_Abs1);
+        localDW->Heading_Log[2] = angdiff_e8uhYa4N(0.0, rtb_Abs1);
     }
 
-    Real2SimGuidance_DW.biasH_Log = localX->TD_Alt_CSTATE;
+    localDW->biasH_Log = localX->TD_Alt_CSTATE;
     if (rtmIsMajorTimeStep(Real2SimGuidance_M)) {
         //  Front Distance within Upper &  Lower Bound
         //  CrossTrack Error within 1.5 Second Bound
         if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(
                 static_cast<boolean_T>(static_cast<int32_T>
-                ((Real2SimGuidance_DW.LagDistance < rtb_UpperBound) &
-                 (Real2SimGuidance_DW.LagDistance > rtb_LowerBound)))) &
-                (Real2SimGuidance_DW.CrossTrackError < rtb_AirSpeed * 1.5)))) {
+                ((localDW->LagDistance < rtb_UpperBound) & (localDW->LagDistance
+                  > rtb_LowerBound)))) & (localDW->CrossTrackError <
+                rtb_AirSpeed * 1.5)))) {
             //  Real UAV Engaged with Simulation UAV
             *rty_EngagedFlag = true;
         } else {
@@ -1231,9 +1217,9 @@ void Real2SimGuidance(const FixedWingGuidanceStateBus *rtu_SimUAVState, const
         }
 
         if (*rty_EngagedFlag) {
-            Real2SimGuidance_DW.BiasHSwitch = 0.0;
+            localDW->BiasHSwitch = 0.0;
         } else {
-            Real2SimGuidance_DW.BiasHSwitch = rtb_Down;
+            localDW->BiasHSwitch = rtb_Down;
         }
 
         rtb_Sum_h_idx_0 = std::cos(rtu_SimUAVState->HeadingAngle);
@@ -1244,13 +1230,13 @@ void Real2SimGuidance(const FixedWingGuidanceStateBus *rtu_SimUAVState, const
         rtb_SwitchLookAheadPoint_idx_2 = rtb_Switch_f - rty_RealUAVState->North;
         rtb_Switch_f = rtb_LowerBound - rty_RealUAVState->East;
         rtb_LongitudeGCS = rtb_Down - rtb_LongitudeGCS;
-        Real2SimGuidance_DW.NorthEastHeight[0] = rtb_SwitchLookAheadNED[0];
-        Real2SimGuidance_DW.NorthEastHeight[1] = rtb_SwitchLookAheadNED[1];
-        Real2SimGuidance_DW.NorthEastHeight[2] = -rtb_SwitchLookAheadNED[2];
-        rtb_RealUAVNEUState_idx_0 = Real2SimGuidance_DW.NorthEastHeight[0];
-        rtb_RealUAVNEUState_idx_1 = Real2SimGuidance_DW.NorthEastHeight[1];
-        rtb_RealUAVNEUState_idx_2 = Real2SimGuidance_DW.NorthEastHeight[2] +
-            Real2SimGuidance_DW.biasH_Log;
+        localDW->NorthEastHeight[0] = rtb_SwitchLookAheadNED[0];
+        localDW->NorthEastHeight[1] = rtb_SwitchLookAheadNED[1];
+        localDW->NorthEastHeight[2] = -rtb_SwitchLookAheadNED[2];
+        rtb_RealUAVNEUState_idx_0 = localDW->NorthEastHeight[0];
+        rtb_RealUAVNEUState_idx_1 = localDW->NorthEastHeight[1];
+        rtb_RealUAVNEUState_idx_2 = localDW->NorthEastHeight[2] +
+            localDW->biasH_Log;
         if (static_cast<boolean_T>(static_cast<int32_T>((std::sqrt
                 ((rtb_SwitchLookAheadPoint_idx_2 *
                   rtb_SwitchLookAheadPoint_idx_2 + rtb_Switch_f * rtb_Switch_f)
@@ -1267,9 +1253,9 @@ void Real2SimGuidance(const FixedWingGuidanceStateBus *rtu_SimUAVState, const
         }
     }
 
-    Real2SimGuidance_DW.dotAltTD = localX->dotAltTD_CSTATE;
-    a0 = Real2SimGuidance_DW.dotAltTD * 0.1;
-    y = (Real2SimGuidance_DW.biasH_Log - Real2SimGuidance_DW.BiasHSwitch) + a0;
+    localDW->dotAltTD = localX->dotAltTD_CSTATE;
+    a0 = localDW->dotAltTD * 0.1;
+    y = (localDW->biasH_Log - localDW->BiasHSwitch) + a0;
     if (y < 0.0) {
         rtb_Sum_g0_0 = -1.0;
     } else if (y > 0.0) {
@@ -1334,11 +1320,11 @@ void Real2SimGuidance(const FixedWingGuidanceStateBus *rtu_SimUAVState, const
         a2 = (rtNaN);
     }
 
-    Real2SimGuidance_DW.fh = (a0 / 0.004000000000000001 - rtb_RefGndSpd) * -0.4 *
+    localDW->fh = (a0 / 0.004000000000000001 - rtb_RefGndSpd) * -0.4 *
         ((rtb_Sum_g0_0 - a2) / 2.0) - 0.4 * rtb_RefGndSpd;
     if (rtmIsMajorTimeStep(Real2SimGuidance_M)) {
-        Real2SimGuidance_DW.chartAbsoluteTimeCounter = static_cast<int32_T>
-            (Real2SimGuidance_DW.chartAbsoluteTimeCounter + 1);
+        localDW->chartAbsoluteTimeCounter = static_cast<int32_T>
+            (localDW->chartAbsoluteTimeCounter + 1);
         rtb_SpdAND = static_cast<boolean_T>(static_cast<int32_T>
             ((rty_RealUAVState->AirSpeed > 15.0) &
              (rtu_RealUAVLatLonState->Height_meter > 30.0)));
@@ -1346,27 +1332,25 @@ void Real2SimGuidance(const FixedWingGuidanceStateBus *rtu_SimUAVState, const
                 static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
                  (rtb_SpdAND) ^ 1))) | static_cast<int32_T>
                 (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
-                 (Real2SimGuidance_DW.condWasTrueAtLastTimeStep_1) ^ 1)))))) {
-            Real2SimGuidance_DW.durationLastReferenceTick_1 =
-                Real2SimGuidance_DW.chartAbsoluteTimeCounter;
+                 (localDW->condWasTrueAtLastTimeStep_1) ^ 1)))))) {
+            localDW->durationLastReferenceTick_1 =
+                localDW->chartAbsoluteTimeCounter;
         }
 
-        Real2SimGuidance_DW.condWasTrueAtLastTimeStep_1 = rtb_SpdAND;
-        if (static_cast<uint32_T>
-                (Real2SimGuidance_DW.is_active_c16_Real2SimGuidance) == 0U) {
-            Real2SimGuidance_DW.chartAbsoluteTimeCounter = 0;
-            Real2SimGuidance_DW.is_active_c16_Real2SimGuidance = 1U;
-            Real2SimGuidance_DW.durationLastReferenceTick_1 =
-                Real2SimGuidance_DW.chartAbsoluteTimeCounter;
-            Real2SimGuidance_DW.is_c16_Real2SimGuidance =
-                Real2SimGuidance_IN_NotTakeOff;
+        localDW->condWasTrueAtLastTimeStep_1 = rtb_SpdAND;
+        if (static_cast<uint32_T>(localDW->is_active_c16_Real2SimGuidance) == 0U)
+        {
+            localDW->chartAbsoluteTimeCounter = 0;
+            localDW->is_active_c16_Real2SimGuidance = 1U;
+            localDW->durationLastReferenceTick_1 =
+                localDW->chartAbsoluteTimeCounter;
+            localDW->is_c16_Real2SimGuidance = Real2SimGuidance_IN_NotTakeOff;
             rtb_SpdAND = false;
-            Real2SimGuidance_DW.condWasTrueAtLastTimeStep_1 =
-                static_cast<boolean_T>(static_cast<int32_T>
-                ((rty_RealUAVState->AirSpeed > 15.0) &
-                 (rtu_RealUAVLatLonState->Height_meter > 30.0)));
-        } else if (static_cast<int32_T>
-                   (Real2SimGuidance_DW.is_c16_Real2SimGuidance) == 1) {
+            localDW->condWasTrueAtLastTimeStep_1 = static_cast<boolean_T>(
+                static_cast<int32_T>((rty_RealUAVState->AirSpeed > 15.0) &
+                (rtu_RealUAVLatLonState->Height_meter > 30.0)));
+        } else if (static_cast<int32_T>(localDW->is_c16_Real2SimGuidance) == 1)
+        {
             rtb_SpdAND = true;
         } else {
             // case IN_NotTakeOff:
@@ -1375,150 +1359,131 @@ void Real2SimGuidance(const FixedWingGuidanceStateBus *rtu_SimUAVState, const
                     (static_cast<int32_T>(rtb_SpdAND) ^ 1))) |
                     static_cast<int32_T>(static_cast<boolean_T>
                     (static_cast<int32_T>(static_cast<int32_T>
-                     (Real2SimGuidance_DW.condWasTrueAtLastTimeStep_1) ^ 1))))))
-            {
-                Real2SimGuidance_DW.durationLastReferenceTick_1 =
-                    Real2SimGuidance_DW.chartAbsoluteTimeCounter;
+                     (localDW->condWasTrueAtLastTimeStep_1) ^ 1)))))) {
+                localDW->durationLastReferenceTick_1 =
+                    localDW->chartAbsoluteTimeCounter;
             }
 
-            Real2SimGuidance_DW.condWasTrueAtLastTimeStep_1 = rtb_SpdAND;
-            if (static_cast<int32_T>
-                    (Real2SimGuidance_DW.chartAbsoluteTimeCounter -
-                     Real2SimGuidance_DW.durationLastReferenceTick_1) > 10) {
-                Real2SimGuidance_DW.is_c16_Real2SimGuidance =
-                    Real2SimGuidance_IN_InAir;
+            localDW->condWasTrueAtLastTimeStep_1 = rtb_SpdAND;
+            if (static_cast<int32_T>(localDW->chartAbsoluteTimeCounter -
+                                     localDW->durationLastReferenceTick_1) > 10)
+            {
+                localDW->is_c16_Real2SimGuidance = Real2SimGuidance_IN_InAir;
                 rtb_SpdAND = true;
             } else {
                 rtb_SpdAND = false;
             }
         }
 
-        if (static_cast<uint32_T>(Real2SimGuidance_DW.temporalCounter_i1) <
-                1023U) {
-            Real2SimGuidance_DW.temporalCounter_i1 = static_cast<uint16_T>(
-                static_cast<uint32_T>(static_cast<uint32_T>
-                (Real2SimGuidance_DW.temporalCounter_i1) + 1U));
+        if (static_cast<uint32_T>(localDW->temporalCounter_i1) < 1023U) {
+            localDW->temporalCounter_i1 = static_cast<uint16_T>
+                (static_cast<uint32_T>(static_cast<uint32_T>
+                  (localDW->temporalCounter_i1) + 1U));
         }
 
-        if (static_cast<uint32_T>(Real2SimGuidance_DW.temporalCounter_i2) < 63U)
+        if (static_cast<uint32_T>(localDW->temporalCounter_i2) < 63U) {
+            localDW->temporalCounter_i2 = static_cast<uint8_T>
+                (static_cast<uint32_T>(static_cast<uint32_T>
+                  (localDW->temporalCounter_i2) + 1U));
+        }
+
+        if (static_cast<uint32_T>(localDW->is_active_c34_Real2SimGuidance) == 0U)
         {
-            Real2SimGuidance_DW.temporalCounter_i2 = static_cast<uint8_T>(
-                static_cast<uint32_T>(static_cast<uint32_T>
-                (Real2SimGuidance_DW.temporalCounter_i2) + 1U));
-        }
-
-        if (static_cast<uint32_T>
-                (Real2SimGuidance_DW.is_active_c34_Real2SimGuidance) == 0U) {
-            Real2SimGuidance_DW.is_active_c34_Real2SimGuidance = 1U;
-            Real2SimGuidance_DW.is_c34_Real2SimGuidance =
+            localDW->is_active_c34_Real2SimGuidance = 1U;
+            localDW->is_c34_Real2SimGuidance =
                 Real2SimGuidance_IN_DebounceExecution;
-            Real2SimGuidance_DW.Terminate = false;
-            Real2SimGuidance_DW.is_DebounceExecution =
-                Real2SimGuidance_IN_Persuit;
+            localDW->Terminate = false;
+            localDW->is_DebounceExecution = Real2SimGuidance_IN_Persuit;
             *rty_ExecutionTrigger = 0.0;
-            Real2SimGuidance_DW.is_Persuit = Real2SimGuidance_IN_Normal;
+            localDW->is_Persuit = Real2SimGuidance_IN_Normal;
         } else {
-            switch (Real2SimGuidance_DW.is_c34_Real2SimGuidance) {
+            switch (localDW->is_c34_Real2SimGuidance) {
               case Real2SimGuidance_IN_DebounceExecution:
-                if (Real2SimGuidance_DW.FlightMode_Log == 6.0) {
-                    Real2SimGuidance_DW.is_Debounce =
+                if (localDW->FlightMode_Log == 6.0) {
+                    localDW->is_Debounce = Real2SimGuidance_IN_NO_ACTIVE_CHILD;
+                    localDW->is_Persuit = Real2SimGuidance_IN_NO_ACTIVE_CHILD;
+                    localDW->is_DebounceExecution =
                         Real2SimGuidance_IN_NO_ACTIVE_CHILD;
-                    Real2SimGuidance_DW.is_Persuit =
-                        Real2SimGuidance_IN_NO_ACTIVE_CHILD;
-                    Real2SimGuidance_DW.is_DebounceExecution =
-                        Real2SimGuidance_IN_NO_ACTIVE_CHILD;
-                    Real2SimGuidance_DW.is_c34_Real2SimGuidance =
+                    localDW->is_c34_Real2SimGuidance =
                         Real2SimGuidance_IN_Landing;
                     *rty_ExecutionTrigger = 0.0;
                 } else {
-                    Real2SimGuidance_DW.Terminate = false;
-                    switch (Real2SimGuidance_DW.is_DebounceExecution) {
+                    localDW->Terminate = false;
+                    switch (localDW->is_DebounceExecution) {
                       case Real2SimGuidance_IN_Debounce:
-                        if (static_cast<uint32_T>
-                                (Real2SimGuidance_DW.temporalCounter_i1) >= 180U)
-                        {
-                            Real2SimGuidance_DW.is_Debounce =
+                        if (static_cast<uint32_T>(localDW->temporalCounter_i1) >=
+                            180U) {
+                            localDW->is_Debounce =
                                 Real2SimGuidance_IN_NO_ACTIVE_CHILD;
-                            Real2SimGuidance_DW.is_DebounceExecution =
+                            localDW->is_DebounceExecution =
                                 Real2SimGuidance_IN_Persuit;
                             *rty_ExecutionTrigger = 0.0;
-                            Real2SimGuidance_DW.is_Persuit =
-                                Real2SimGuidance_IN_Fault;
-                            Real2SimGuidance_DW.temporalCounter_i1 = 0U;
-                        } else if (static_cast<int32_T>
-                                   (Real2SimGuidance_DW.is_Debounce) == 1) {
+                            localDW->is_Persuit = Real2SimGuidance_IN_Fault;
+                            localDW->temporalCounter_i1 = 0U;
+                        } else if (static_cast<int32_T>(localDW->is_Debounce) ==
+                                   1) {
                             if (static_cast<uint32_T>
-                                    (Real2SimGuidance_DW.temporalCounter_i2) >=
-                                    60U) {
-                                Real2SimGuidance_DW.is_Debounce =
+                                    (localDW->temporalCounter_i2) >= 60U) {
+                                localDW->is_Debounce =
                                     Real2SimGuidance_IN_NO_ACTIVE_CHILD;
-                                Real2SimGuidance_DW.is_DebounceExecution =
+                                localDW->is_DebounceExecution =
                                     Real2SimGuidance_IN_Persuit;
                                 *rty_ExecutionTrigger = 0.0;
-                                Real2SimGuidance_DW.is_Persuit =
-                                    Real2SimGuidance_IN_Normal;
+                                localDW->is_Persuit = Real2SimGuidance_IN_Normal;
                             } else if (static_cast<boolean_T>
                                        (static_cast<int32_T>(static_cast<int32_T>
                                     (rtb_SpdAND) | static_cast<int32_T>
                                          (*rty_EngagedFlag)))) {
-                                Real2SimGuidance_DW.is_Debounce =
-                                    Real2SimGuidance_IN_On;
-                                Real2SimGuidance_DW.temporalCounter_i2 = 0U;
+                                localDW->is_Debounce = Real2SimGuidance_IN_On;
+                                localDW->temporalCounter_i2 = 0U;
                             }
 
                             // case IN_On:
                         } else if (static_cast<uint32_T>
-                                   (Real2SimGuidance_DW.temporalCounter_i2) >=
-                                   60U) {
-                            Real2SimGuidance_DW.is_Debounce =
+                                   (localDW->temporalCounter_i2) >= 60U) {
+                            localDW->is_Debounce =
                                 Real2SimGuidance_IN_NO_ACTIVE_CHILD;
-                            Real2SimGuidance_DW.is_DebounceExecution =
+                            localDW->is_DebounceExecution =
                                 Real2SimGuidance_IN_Engaged;
                             *rty_ExecutionTrigger = 1.0;
                         } else if (static_cast<boolean_T>(static_cast<int32_T>(
                                      static_cast<int32_T>(*rty_EngagedFlag) ^ 1)))
                         {
-                            Real2SimGuidance_DW.is_Debounce =
-                                Real2SimGuidance_IN_Off;
-                            Real2SimGuidance_DW.temporalCounter_i2 = 0U;
+                            localDW->is_Debounce = Real2SimGuidance_IN_Off;
+                            localDW->temporalCounter_i2 = 0U;
                         }
                         break;
 
                       case Real2SimGuidance_IN_Engaged:
                         if (static_cast<boolean_T>(static_cast<int32_T>(
                                 static_cast<int32_T>(*rty_EngagedFlag) ^ 1))) {
-                            Real2SimGuidance_DW.is_DebounceExecution =
+                            localDW->is_DebounceExecution =
                                 Real2SimGuidance_IN_Debounce;
-                            Real2SimGuidance_DW.temporalCounter_i1 = 0U;
-                            Real2SimGuidance_DW.is_Debounce =
-                                Real2SimGuidance_IN_Off;
-                            Real2SimGuidance_DW.temporalCounter_i2 = 0U;
+                            localDW->temporalCounter_i1 = 0U;
+                            localDW->is_Debounce = Real2SimGuidance_IN_Off;
+                            localDW->temporalCounter_i2 = 0U;
                         }
                         break;
 
                       default:
                         // case IN_Persuit:
-                        if (static_cast<int32_T>(Real2SimGuidance_DW.is_Persuit)
-                            == 1) {
+                        if (static_cast<int32_T>(localDW->is_Persuit) == 1) {
                             if (static_cast<uint32_T>
-                                    (Real2SimGuidance_DW.temporalCounter_i1) >=
-                                    600U) {
-                                Real2SimGuidance_DW.is_Persuit =
-                                    Real2SimGuidance_IN_Normal;
+                                    (localDW->temporalCounter_i1) >= 600U) {
+                                localDW->is_Persuit = Real2SimGuidance_IN_Normal;
                             }
 
                             // case IN_Normal:
                         } else if (static_cast<boolean_T>(static_cast<int32_T>(
                                      static_cast<int32_T>(rtb_SpdAND) |
                                      static_cast<int32_T>(*rty_EngagedFlag)))) {
-                            Real2SimGuidance_DW.is_Persuit =
+                            localDW->is_Persuit =
                                 Real2SimGuidance_IN_NO_ACTIVE_CHILD;
-                            Real2SimGuidance_DW.is_DebounceExecution =
+                            localDW->is_DebounceExecution =
                                 Real2SimGuidance_IN_Debounce;
-                            Real2SimGuidance_DW.temporalCounter_i1 = 0U;
-                            Real2SimGuidance_DW.is_Debounce =
-                                Real2SimGuidance_IN_On;
-                            Real2SimGuidance_DW.temporalCounter_i2 = 0U;
+                            localDW->temporalCounter_i1 = 0U;
+                            localDW->is_Debounce = Real2SimGuidance_IN_On;
+                            localDW->temporalCounter_i2 = 0U;
                         }
                         break;
                     }
@@ -1527,9 +1492,9 @@ void Real2SimGuidance(const FixedWingGuidanceStateBus *rtu_SimUAVState, const
 
               case Real2SimGuidance_IN_Landing:
                 if (rtu_RealUAVLatLonState->Height_meter < 30.0) {
-                    Real2SimGuidance_DW.is_c34_Real2SimGuidance =
+                    localDW->is_c34_Real2SimGuidance =
                         Real2SimGuidance_IN_MissionCompletion;
-                    Real2SimGuidance_DW.Terminate = true;
+                    localDW->Terminate = true;
                 } else {
                     *rty_ExecutionTrigger = 0.0;
                 }
@@ -1537,12 +1502,12 @@ void Real2SimGuidance(const FixedWingGuidanceStateBus *rtu_SimUAVState, const
 
               default:
                 // case IN_MissionCompletion:
-                Real2SimGuidance_DW.Terminate = true;
+                localDW->Terminate = true;
                 break;
             }
         }
 
-        if (Real2SimGuidance_DW.Terminate) {
+        if (localDW->Terminate) {
             rtmSetStopRequested(Real2SimGuidance_M, 1);
         }
 
@@ -1635,42 +1600,38 @@ void Real2SimGuidance(const FixedWingGuidanceStateBus *rtu_SimUAVState, const
 }
 
 // Update for referenced model: 'Real2SimGuidance'
-void Real2SimGuidance_Update(void)
+void Real2SimGuidance_Update(RT_MODEL_Real2SimGuidance_T * const
+    Real2SimGuidance_M, DW_Real2SimGuidance_f_T *localDW)
 {
-    RT_MODEL_Real2SimGuidance_T *const Real2SimGuidance_M =
-        &(Real2SimGuidance_MdlrefDW.rtm);
     real_T Down;
     if (rtmIsMajorTimeStep(Real2SimGuidance_M)) {
-        Down = -Real2SimGuidance_DW.NorthEastHeight[2];
-        if (std::isnan(-Real2SimGuidance_DW.NorthEastHeight[2])) {
-            Real2SimGuidance_DW.MemoryRefHeight_PreviousInput = -150.0;
+        Down = -localDW->NorthEastHeight[2];
+        if (std::isnan(-localDW->NorthEastHeight[2])) {
+            localDW->MemoryRefHeight_PreviousInput = -150.0;
         } else {
-            Real2SimGuidance_DW.MemoryRefHeight_PreviousInput =
-                -Real2SimGuidance_DW.NorthEastHeight[2];
+            localDW->MemoryRefHeight_PreviousInput = -localDW->NorthEastHeight[2];
         }
     }
 
-    if (Real2SimGuidance_DW.ESO_MODE) {
-        Real2SimGuidance_fale025h(Real2SimGuidance_DW.SumY, 0.5, 0.1, &Down);
-        Real2SimGuidance_fale025h(Real2SimGuidance_DW.SumY, 0.25, 0.1, &Down);
+    if (localDW->ESO_MODE) {
+        Real2SimGuidance_fale025h(localDW->SumY, 0.5, 0.1, &Down);
+        Real2SimGuidance_fale025h(localDW->SumY, 0.25, 0.1, &Down);
     }
 }
 
 // Derivatives for referenced model: 'Real2SimGuidance'
-void Real2SimGuidance_Deriv(real_T *localXdot_)
+void Real2SimGuidance_Deriv(DW_Real2SimGuidance_f_T *localDW,
+    XDot_Real2SimGuidance_n_T *localXdot)
 {
-    XDot_Real2SimGuidance_n_T *localXdot = (XDot_Real2SimGuidance_n_T *)
-        localXdot_;
     real_T y;
     real_T y_d;
-    localXdot->TD_AirSpdADRC_CSTATE = Real2SimGuidance_DW.dotTD;
-    if (Real2SimGuidance_DW.ESO_MODE) {
-        Real2SimGuidance_fale025h(Real2SimGuidance_DW.SumY, 0.5, 0.1, &y);
-        Real2SimGuidance_fale025h(Real2SimGuidance_DW.SumY, 0.25, 0.1, &y_d);
-        localXdot->ESO_CSTATE = Real2SimGuidance_DW.ESO_dot - 15.0 *
-            Real2SimGuidance_DW.SumY;
-        localXdot->ESO_dot_CSTATE = (0.1 * Real2SimGuidance_DW.GainADRCinvb0 +
-            Real2SimGuidance_DW.ESO_dotdot) - 75.0 * y;
+    localXdot->TD_AirSpdADRC_CSTATE = localDW->dotTD;
+    if (localDW->ESO_MODE) {
+        Real2SimGuidance_fale025h(localDW->SumY, 0.5, 0.1, &y);
+        Real2SimGuidance_fale025h(localDW->SumY, 0.25, 0.1, &y_d);
+        localXdot->ESO_CSTATE = localDW->ESO_dot - 15.0 * localDW->SumY;
+        localXdot->ESO_dot_CSTATE = (0.1 * localDW->GainADRCinvb0 +
+            localDW->ESO_dotdot) - 75.0 * y;
         localXdot->ESO_dotdot_CSTATE = -(125.0 * y_d);
     } else {
         {
@@ -1683,18 +1644,16 @@ void Real2SimGuidance_Deriv(real_T *localXdot_)
         }
     }
 
-    localXdot->dotTD_CSTATE = Real2SimGuidance_DW.fh_p;
-    localXdot->TD_Alt_CSTATE = Real2SimGuidance_DW.dotAltTD;
-    localXdot->dotAltTD_CSTATE = Real2SimGuidance_DW.fh;
+    localXdot->dotTD_CSTATE = localDW->fh_p;
+    localXdot->TD_Alt_CSTATE = localDW->dotAltTD;
+    localXdot->dotAltTD_CSTATE = localDW->fh;
 }
 
 // Model initialize function
 void Real2SimGuidance_initialize(const char_T **rt_errorStatus, boolean_T
-    *rt_stopRequested, RTWSolverInfo *rt_solverInfo)
+    *rt_stopRequested, RTWSolverInfo *rt_solverInfo, RT_MODEL_Real2SimGuidance_T
+    *const Real2SimGuidance_M)
 {
-    RT_MODEL_Real2SimGuidance_T *const Real2SimGuidance_M{ &
-        (Real2SimGuidance_MdlrefDW.rtm) };
-
     // Registration code
 
     // initialize non-finites

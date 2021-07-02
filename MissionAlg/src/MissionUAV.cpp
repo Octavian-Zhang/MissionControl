@@ -5,7 +5,7 @@
 //
 // Model version                  : 1.18
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Fri Jul  2 04:20:02 2021
+// C/C++ source code generated on : Fri Jul  2 07:51:54 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -19,15 +19,6 @@
 #include "MissionUAV.h"
 #include "MissionUAV_private.h"
 #include "rt_atan2d_snf.h"
-
-const rtTimingBridge *MissionUAV_TimingBrdg;
-MdlrefDW_MissionUAV_T MissionUAV_MdlrefDW;
-
-// Block states (default storage)
-DW_MissionUAV_f_T MissionUAV_DW;
-
-// Previous zero-crossings (trigger) states
-ZCE_MissionUAV_T MissionUAV_PrevZCX;
 
 // Forward declaration for local functions
 static void MissionUAV_Model_resetImpl
@@ -52,36 +43,37 @@ static void MissionUAV_Model_resetImpl
 }
 
 // System initialize for referenced model: 'MissionUAV'
-void MissionUAV_Init(real_T *localX_)
+void MissionUAV_Init(RT_MODEL_MissionUAV_T * const MissionUAV_M,
+                     DW_MissionUAV_f_T *localDW, X_MissionUAV_n_T *localX)
 {
-    X_MissionUAV_n_T *localX = (X_MissionUAV_n_T *) localX_;
-    if (rtmIsFirstInitCond()) {
+    if (rtmIsFirstInitCond(MissionUAV_M)) {
         std::memset(&localX->Integrator_CSTATE[0], 0, static_cast<uint32_T>
                     (sizeof(real_T) << 3U));
     }
 
-    MissionUAV_DW.Integrator_IWORK = 1;
+    localDW->Integrator_IWORK = 1;
     localX->TD_Bank_CSTATE = 0.0;
     localX->dotBankTD_CSTATE = 0.0;
-    MissionUAV_DW.objisempty_g = true;
-    MissionUAV_DW.obj_e.isInitialized = 1;
-    MissionUAV_Model_resetImpl(&MissionUAV_DW.obj_e);
-    MissionUAV_Model_resetImpl(&MissionUAV_DW.obj_e);
-    MissionUAV_DW.objisempty = true;
-    MissionUAV_DW.obj.isInitialized = 1;
-    MissionUAV_DW.obj.OutputTemplate.North = 0.0;
-    MissionUAV_DW.obj.OutputTemplate.East = 0.0;
-    MissionUAV_DW.obj.OutputTemplate.Height = 0.0;
-    MissionUAV_DW.obj.OutputTemplate.AirSpeed = 0.0;
-    MissionUAV_DW.obj.OutputTemplate.HeadingAngle = 0.0;
-    MissionUAV_DW.obj.OutputTemplate.FlightPathAngle = 0.0;
-    MissionUAV_DW.obj.OutputTemplate.RollAngle = 0.0;
-    MissionUAV_DW.obj.OutputTemplate.RollAngleRate = 0.0;
+    localDW->objisempty_g = true;
+    localDW->obj_e.isInitialized = 1;
+    MissionUAV_Model_resetImpl(&localDW->obj_e);
+    MissionUAV_Model_resetImpl(&localDW->obj_e);
+    localDW->objisempty = true;
+    localDW->obj.isInitialized = 1;
+    localDW->obj.OutputTemplate.North = 0.0;
+    localDW->obj.OutputTemplate.East = 0.0;
+    localDW->obj.OutputTemplate.Height = 0.0;
+    localDW->obj.OutputTemplate.AirSpeed = 0.0;
+    localDW->obj.OutputTemplate.HeadingAngle = 0.0;
+    localDW->obj.OutputTemplate.FlightPathAngle = 0.0;
+    localDW->obj.OutputTemplate.RollAngle = 0.0;
+    localDW->obj.OutputTemplate.RollAngleRate = 0.0;
 }
 
 // Outputs for referenced model: 'MissionUAV'
-void MissionUAV(const real_T *rtu_ResetState, const real_T rtu_StartPos[8],
-                const real_T *rtu_UAVGuidanceCmd_Height, const real_T
+void MissionUAV(RT_MODEL_MissionUAV_T * const MissionUAV_M, const real_T
+                *rtu_ResetState, const real_T rtu_StartPos[8], const real_T
+                *rtu_UAVGuidanceCmd_Height, const real_T
                 *rtu_UAVGuidanceCmd_AirSpeed, const real_T
                 *rtu_UAVGuidanceCmd_HeadingAngle, real_T *rty_SimUAVState_North,
                 real_T *rty_SimUAVState_East, real_T *rty_SimUAVState_Height,
@@ -89,10 +81,9 @@ void MissionUAV(const real_T *rtu_ResetState, const real_T rtu_StartPos[8],
                 *rty_SimUAVState_HeadingAngle, real_T
                 *rty_SimUAVState_FlightPathAngle, real_T
                 *rty_SimUAVState_RollAngle, real_T
-                *rty_SimUAVState_RollAngleRate, real_T *localX_)
+                *rty_SimUAVState_RollAngleRate, DW_MissionUAV_f_T *localDW,
+                X_MissionUAV_n_T *localX)
 {
-    RT_MODEL_MissionUAV_T *const MissionUAV_M = &(MissionUAV_MdlrefDW.rtm);
-    X_MissionUAV_n_T *localX = (X_MissionUAV_n_T *) localX_;
     real_T b;
     real_T b_tmp;
     real_T d;
@@ -111,89 +102,87 @@ void MissionUAV(const real_T *rtu_ResetState, const real_T rtu_StartPos[8],
     boolean_T rEQ0;
     rEQ0 = rtsiGetIsOkayToUpdateMode(MissionUAV_M->solverInfo);
     if (rEQ0 && (static_cast<boolean_T>(static_cast<int32_T>((*rtu_ResetState !=
-            0.0) | (MissionUAV_DW.Integrator_IWORK != 0))))) {
+            0.0) | (localDW->Integrator_IWORK != 0))))) {
         // evaluate the level of the reset signal
         std::memcpy(&localX->Integrator_CSTATE[0], &rtu_StartPos[0],
                     static_cast<uint32_T>(sizeof(real_T) << 3U));
     }
 
     if (rtmIsMajorTimeStep(MissionUAV_M)) {
-        MissionUAV_DW.FixedWingGuidanceEnvironmentBus_h.WindNorth = 0.0;
-        MissionUAV_DW.FixedWingGuidanceEnvironmentBus_h.WindEast = 0.0;
-        MissionUAV_DW.FixedWingGuidanceEnvironmentBus_h.WindDown = 0.0;
-        MissionUAV_DW.FixedWingGuidanceEnvironmentBus_h.Gravity = 9.807;
+        localDW->FixedWingGuidanceEnvironmentBus_h.WindNorth = 0.0;
+        localDW->FixedWingGuidanceEnvironmentBus_h.WindEast = 0.0;
+        localDW->FixedWingGuidanceEnvironmentBus_h.WindDown = 0.0;
+        localDW->FixedWingGuidanceEnvironmentBus_h.Gravity = 9.807;
         y = *rtu_UAVGuidanceCmd_AirSpeed;
         if (y > 40.0) {
-            MissionUAV_DW.SlewGuidanceBus.AirSpeed = 40.0;
+            localDW->SlewGuidanceBus.AirSpeed = 40.0;
         } else if (y < 30.0) {
-            MissionUAV_DW.SlewGuidanceBus.AirSpeed = 30.0;
+            localDW->SlewGuidanceBus.AirSpeed = 30.0;
         } else {
-            MissionUAV_DW.SlewGuidanceBus.AirSpeed = y;
+            localDW->SlewGuidanceBus.AirSpeed = y;
         }
 
-        MissionUAV_DW.SlewGuidanceBus.Height = *rtu_UAVGuidanceCmd_Height;
-        MissionUAV_DW.SlewGuidanceBus.RollAngle = localX->TD_Bank_CSTATE;
+        localDW->SlewGuidanceBus.Height = *rtu_UAVGuidanceCmd_Height;
+        localDW->SlewGuidanceBus.RollAngle = localX->TD_Bank_CSTATE;
     }
 
     y = std::cos(localX->Integrator_CSTATE[5]);
     d = std::cos(localX->Integrator_CSTATE[4]);
     skySpeed = std::sin(localX->Integrator_CSTATE[4]);
     q = std::sin(localX->Integrator_CSTATE[5]);
-    b = (-(d * y) * MissionUAV_DW.FixedWingGuidanceEnvironmentBus_h.WindNorth +
-         -(skySpeed * y) *
-         MissionUAV_DW.FixedWingGuidanceEnvironmentBus_h.WindEast) + q *
-        MissionUAV_DW.FixedWingGuidanceEnvironmentBus_h.WindDown;
-    b_tmp = ((MissionUAV_DW.FixedWingGuidanceEnvironmentBus_h.WindNorth *
-              MissionUAV_DW.FixedWingGuidanceEnvironmentBus_h.WindNorth +
-              MissionUAV_DW.FixedWingGuidanceEnvironmentBus_h.WindEast *
-              MissionUAV_DW.FixedWingGuidanceEnvironmentBus_h.WindEast) +
-             MissionUAV_DW.FixedWingGuidanceEnvironmentBus_h.WindDown *
-             MissionUAV_DW.FixedWingGuidanceEnvironmentBus_h.WindDown) -
+    b = (-(d * y) * localDW->FixedWingGuidanceEnvironmentBus_h.WindNorth +
+         -(skySpeed * y) * localDW->FixedWingGuidanceEnvironmentBus_h.WindEast)
+        + q * localDW->FixedWingGuidanceEnvironmentBus_h.WindDown;
+    b_tmp = ((localDW->FixedWingGuidanceEnvironmentBus_h.WindNorth *
+              localDW->FixedWingGuidanceEnvironmentBus_h.WindNorth +
+              localDW->FixedWingGuidanceEnvironmentBus_h.WindEast *
+              localDW->FixedWingGuidanceEnvironmentBus_h.WindEast) +
+             localDW->FixedWingGuidanceEnvironmentBus_h.WindDown *
+             localDW->FixedWingGuidanceEnvironmentBus_h.WindDown) -
         localX->Integrator_CSTATE[3] * localX->Integrator_CSTATE[3];
     b = std::sqrt(b * b - b_tmp) + -b;
-    MissionUAV_DW.ComputeDerivative[0] = b * d * y;
-    MissionUAV_DW.ComputeDerivative[1] = b * skySpeed * y;
-    MissionUAV_DW.ComputeDerivative[2] = b * q;
-    MissionUAV_DW.ComputeDerivative[3] = (MissionUAV_DW.SlewGuidanceBus.AirSpeed
-        - localX->Integrator_CSTATE[3]) *
-        MissionUAV_DW.obj_e.ModelImpl.Configuration.PAirSpeed;
+    localDW->ComputeDerivative[0] = b * d * y;
+    localDW->ComputeDerivative[1] = b * skySpeed * y;
+    localDW->ComputeDerivative[2] = b * q;
+    localDW->ComputeDerivative[3] = (localDW->SlewGuidanceBus.AirSpeed -
+        localX->Integrator_CSTATE[3]) *
+        localDW->obj_e.ModelImpl.Configuration.PAirSpeed;
     if (b == 0.0) {
-        MissionUAV_DW.ComputeDerivative[4] = 0.0;
-        MissionUAV_DW.ComputeDerivative[5] = 0.0;
+        localDW->ComputeDerivative[4] = 0.0;
+        localDW->ComputeDerivative[5] = 0.0;
     } else {
         if (localX->Integrator_CSTATE[3] == 0.0) {
-            MissionUAV_DW.ComputeDerivative[4] = 0.0;
+            localDW->ComputeDerivative[4] = 0.0;
         } else {
             y = 1.0 / (std::cos(std::asin((b * std::sin
                           (localX->Integrator_CSTATE[5]) +
-                          MissionUAV_DW.FixedWingGuidanceEnvironmentBus_h.WindDown)
-                         / localX->Integrator_CSTATE[3])) *
+                          localDW->FixedWingGuidanceEnvironmentBus_h.WindDown) /
+                         localX->Integrator_CSTATE[3])) *
                        localX->Integrator_CSTATE[3]);
-            MissionUAV_DW.ComputeDerivative[4] = std::cos(std::asin(y *
-                MissionUAV_DW.FixedWingGuidanceEnvironmentBus_h.WindNorth *
-                -skySpeed + y *
-                MissionUAV_DW.FixedWingGuidanceEnvironmentBus_h.WindEast * d)) *
-                (MissionUAV_DW.FixedWingGuidanceEnvironmentBus_h.Gravity / b *
-                 std::tan(localX->Integrator_CSTATE[6]));
+            localDW->ComputeDerivative[4] = std::cos(std::asin(y *
+                localDW->FixedWingGuidanceEnvironmentBus_h.WindNorth * -skySpeed
+                + y * localDW->FixedWingGuidanceEnvironmentBus_h.WindEast * d)) *
+                (localDW->FixedWingGuidanceEnvironmentBus_h.Gravity / b * std::
+                 tan(localX->Integrator_CSTATE[6]));
         }
 
-        MissionUAV_DW.ComputeDerivative[5] = (std::fmax(std::fmin(std::asin(std::
-            fmax(std::fmin((MissionUAV_DW.SlewGuidanceBus.Height -
-                            localX->Integrator_CSTATE[2]) *
-                           MissionUAV_DW.obj_e.ModelImpl.Configuration.PHeight /
-                           b, 1.0), -1.0)),
-            MissionUAV_DW.obj_e.ModelImpl.Configuration.FlightPathAngleLimits[1]),
-            MissionUAV_DW.obj_e.ModelImpl.Configuration.FlightPathAngleLimits[0])
-            - localX->Integrator_CSTATE[5]) *
-            MissionUAV_DW.obj_e.ModelImpl.Configuration.PFlightPathAngle;
+        localDW->ComputeDerivative[5] = (std::fmax(std::fmin(std::asin(std::fmax
+            (std::fmin((localDW->SlewGuidanceBus.Height -
+                        localX->Integrator_CSTATE[2]) *
+                       localDW->obj_e.ModelImpl.Configuration.PHeight / b, 1.0),
+             -1.0)),
+            localDW->obj_e.ModelImpl.Configuration.FlightPathAngleLimits[1]),
+            localDW->obj_e.ModelImpl.Configuration.FlightPathAngleLimits[0]) -
+            localX->Integrator_CSTATE[5]) *
+            localDW->obj_e.ModelImpl.Configuration.PFlightPathAngle;
     }
 
-    MissionUAV_DW.ComputeDerivative[6] = localX->Integrator_CSTATE[7];
-    MissionUAV_DW.ComputeDerivative[7] = (std::fmax(std::fmin
-        (MissionUAV_DW.SlewGuidanceBus.RollAngle, 1.5707963267948966),
+    localDW->ComputeDerivative[6] = localX->Integrator_CSTATE[7];
+    localDW->ComputeDerivative[7] = (std::fmax(std::fmin
+        (localDW->SlewGuidanceBus.RollAngle, 1.5707963267948966),
         -1.5707963267948966) - localX->Integrator_CSTATE[6]) *
-        MissionUAV_DW.obj_e.ModelImpl.Configuration.PDRoll[0] +
-        MissionUAV_DW.obj_e.ModelImpl.Configuration.PDRoll[1] *
+        localDW->obj_e.ModelImpl.Configuration.PDRoll[0] +
+        localDW->obj_e.ModelImpl.Configuration.PDRoll[1] *
         -localX->Integrator_CSTATE[7];
     if (rtmIsMajorTimeStep(MissionUAV_M)) {
         rtb_ZeroOrderHold_North = localX->Integrator_CSTATE[0];
@@ -207,10 +196,9 @@ void MissionUAV(const real_T *rtu_ResetState, const real_T rtu_StartPos[8],
         y = 1.0 / localX->Integrator_CSTATE[3];
         b = std::cos(localX->Integrator_CSTATE[5]);
         tmp = std::cos(localX->Integrator_CSTATE[4]);
-        b = (tmp * b * MissionUAV_DW.FixedWingGuidanceEnvironmentBus_h.WindNorth
-             + skySpeed * b *
-             MissionUAV_DW.FixedWingGuidanceEnvironmentBus_h.WindEast) + -q *
-            MissionUAV_DW.FixedWingGuidanceEnvironmentBus_h.WindDown;
+        b = (tmp * b * localDW->FixedWingGuidanceEnvironmentBus_h.WindNorth +
+             skySpeed * b * localDW->FixedWingGuidanceEnvironmentBus_h.WindEast)
+            + -q * localDW->FixedWingGuidanceEnvironmentBus_h.WindDown;
         d = *rtu_UAVGuidanceCmd_HeadingAngle - localX->Integrator_CSTATE[4];
         if (std::abs(d) > 3.1415926535897931) {
             if (std::isnan(d + 3.1415926535897931)) {
@@ -248,23 +236,23 @@ void MissionUAV(const real_T *rtu_ResetState, const real_T rtu_StartPos[8],
         y = rt_atan2d_snf((std::sqrt(b * b - b_tmp) + -b) * (0.39 * d), std::cos
                           (localX->Integrator_CSTATE[4] -
                            (localX->Integrator_CSTATE[4] - std::asin(y *
-                             MissionUAV_DW.FixedWingGuidanceEnvironmentBus_h.WindNorth
+                             localDW->FixedWingGuidanceEnvironmentBus_h.WindNorth
                              * -std::sin(localX->Integrator_CSTATE[4]) + y *
-                             MissionUAV_DW.FixedWingGuidanceEnvironmentBus_h.WindEast
+                             localDW->FixedWingGuidanceEnvironmentBus_h.WindEast
                              * tmp))) *
-                          MissionUAV_DW.FixedWingGuidanceEnvironmentBus_h.Gravity);
+                          localDW->FixedWingGuidanceEnvironmentBus_h.Gravity);
         if (y > 0.3490658503988659) {
-            MissionUAV_DW.RollAngle = 0.3490658503988659;
+            localDW->RollAngle = 0.3490658503988659;
         } else if (y < -0.3490658503988659) {
-            MissionUAV_DW.RollAngle = -0.3490658503988659;
+            localDW->RollAngle = -0.3490658503988659;
         } else {
-            MissionUAV_DW.RollAngle = y;
+            localDW->RollAngle = y;
         }
     }
 
-    MissionUAV_DW.dotBankTD = localX->dotBankTD_CSTATE;
-    b = MissionUAV_DW.dotBankTD * 0.1;
-    y = (localX->TD_Bank_CSTATE - MissionUAV_DW.RollAngle) + b;
+    localDW->dotBankTD = localX->dotBankTD_CSTATE;
+    b = localDW->dotBankTD * 0.1;
+    y = (localX->TD_Bank_CSTATE - localDW->RollAngle) + b;
     if (y < 0.0) {
         d = -1.0;
     } else if (y > 0.0) {
@@ -329,8 +317,8 @@ void MissionUAV(const real_T *rtu_ResetState, const real_T rtu_StartPos[8],
         q = (rtNaN);
     }
 
-    MissionUAV_DW.fh = (b / 0.0017453292519943296 - y) * -0.17453292519943295 *
-        ((d - q) / 2.0) - 0.17453292519943295 * y;
+    localDW->fh = (b / 0.0017453292519943296 - y) * -0.17453292519943295 * ((d -
+        q) / 2.0) - 0.17453292519943295 * y;
     if (rtmIsMajorTimeStep(MissionUAV_M)) {
         *rty_SimUAVState_North = rtb_ZeroOrderHold_North;
         *rty_SimUAVState_East = rtb_ZeroOrderHold_East;
@@ -344,41 +332,40 @@ void MissionUAV(const real_T *rtu_ResetState, const real_T rtu_StartPos[8],
 }
 
 // Update for referenced model: 'MissionUAV'
-void MissionUAV_Update(void)
+void MissionUAV_Update(DW_MissionUAV_f_T *localDW)
 {
-    MissionUAV_DW.Integrator_IWORK = 0;
+    localDW->Integrator_IWORK = 0;
 }
 
 // Derivatives for referenced model: 'MissionUAV'
-void MissionUAV_Deriv(const real_T *rtu_ResetState, real_T *localXdot_)
+void MissionUAV_Deriv(const real_T *rtu_ResetState, DW_MissionUAV_f_T *localDW,
+                      XDot_MissionUAV_n_T *localXdot)
 {
-    XDot_MissionUAV_n_T *localXdot = (XDot_MissionUAV_n_T *) localXdot_;
     if (*rtu_ResetState == 0.0) {
         std::memcpy(&localXdot->Integrator_CSTATE[0],
-                    &MissionUAV_DW.ComputeDerivative[0], static_cast<uint32_T>
-                    (sizeof(real_T) << 3U));
+                    &localDW->ComputeDerivative[0], static_cast<uint32_T>(sizeof
+                     (real_T) << 3U));
     } else {
         // level reset is active
         std::memset(&localXdot->Integrator_CSTATE[0], 0, static_cast<uint32_T>
                     (sizeof(real_T) << 3U));
     }
 
-    localXdot->TD_Bank_CSTATE = MissionUAV_DW.dotBankTD;
-    localXdot->dotBankTD_CSTATE = MissionUAV_DW.fh;
+    localXdot->TD_Bank_CSTATE = localDW->dotBankTD;
+    localXdot->dotBankTD_CSTATE = localDW->fh;
 }
 
 // Model initialize function
 void MissionUAV_initialize(const char_T **rt_errorStatus, boolean_T
     *rt_stopRequested, RTWSolverInfo *rt_solverInfo, const rtTimingBridge
-    *timingBridge)
+    *timingBridge, RT_MODEL_MissionUAV_T *const MissionUAV_M, ZCE_MissionUAV_T
+    *localZCE)
 {
-    RT_MODEL_MissionUAV_T *const MissionUAV_M{ &(MissionUAV_MdlrefDW.rtm) };
-
     // Registration code
 
     // initialize non-finites
     rt_InitInfAndNaN(sizeof(real_T));
-    MissionUAV_TimingBrdg = timingBridge;
+    MissionUAV_M->timingBridge = (timingBridge);
 
     // initialize error status
     rtmSetErrorStatusPointer(MissionUAV_M, rt_errorStatus);
@@ -393,7 +380,7 @@ void MissionUAV_initialize(const char_T **rt_errorStatus, boolean_T
     rtmSetSimTimeStepPointer(MissionUAV_M, rtsiGetSimTimeStepPtr
         (MissionUAV_M->solverInfo));
     MissionUAV_M->Timing.stepSize0 = (rtsiGetStepSize(MissionUAV_M->solverInfo));
-    MissionUAV_PrevZCX.Integrator_Reset_ZCE = UNINITIALIZED_ZCSIG;
+    localZCE->Integrator_Reset_ZCE = UNINITIALIZED_ZCSIG;
 }
 
 //

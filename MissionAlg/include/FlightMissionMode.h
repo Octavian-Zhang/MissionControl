@@ -5,7 +5,7 @@
 //
 // Model version                  : 2.689
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Fri Jul  2 04:30:41 2021
+// C/C++ source code generated on : Fri Jul  2 08:01:55 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -32,8 +32,6 @@
 #include "rtGetInf.h"
 
 // Block signals and states (default storage) for system '<S2>/Orbit Follower'
-#ifndef FlightMissionMode_MDLREF_HIDE_CHILD_
-
 struct DW_OrbitFollower_FlightMissionMode_T {
     uav_sluav_internal_system_OrbitFollower_FlightMissionMode_T obj;// '<S2>/Orbit Follower' 
     real_T OrbitFollower_o1[3];        // '<S2>/Orbit Follower'
@@ -42,11 +40,7 @@ struct DW_OrbitFollower_FlightMissionMode_T {
     boolean_T objisempty;              // '<S2>/Orbit Follower'
 };
 
-#endif                                 //FlightMissionMode_MDLREF_HIDE_CHILD_
-
 // Block signals and states (default storage) for system '<S109>/RotateATMissionHdg' 
-#ifndef FlightMissionMode_MDLREF_HIDE_CHILD_
-
 struct DW_RotateATMissionHdg_FlightMissionMode_T {
     robotics_slcore_internal_block_CoordinateTransformationConversion_FlightMissionMode_T
         obj;                           // '<S109>/RotateATMissionHdg'
@@ -54,20 +48,12 @@ struct DW_RotateATMissionHdg_FlightMissionMode_T {
     boolean_T objisempty;              // '<S109>/RotateATMissionHdg'
 };
 
-#endif                                 //FlightMissionMode_MDLREF_HIDE_CHILD_
-
 // Block signals and states (default storage) for system '<S109>/biasNED'
-#ifndef FlightMissionMode_MDLREF_HIDE_CHILD_
-
 struct DW_biasNED_FlightMissionMode_T {
     real_T b[30720];
 };
 
-#endif                                 //FlightMissionMode_MDLREF_HIDE_CHILD_
-
 // Block signals and states (default storage) for system '<S4>/Waypoint Follower' 
-#ifndef FlightMissionMode_MDLREF_HIDE_CHILD_
-
 struct DW_WaypointFollower_FlightMissionMode_T {
     uav_sluav_internal_system_WaypointFollower_FlightMissionMode_T obj;// '<S4>/Waypoint Follower' 
     real_T WaypointFollower_o1[3];     // '<S4>/Waypoint Follower'
@@ -80,11 +66,7 @@ struct DW_WaypointFollower_FlightMissionMode_T {
     boolean_T objisempty;              // '<S4>/Waypoint Follower'
 };
 
-#endif                                 //FlightMissionMode_MDLREF_HIDE_CHILD_
-
 // Block signals and states (default storage) for system '<S185>/Waypoint Follower' 
-#ifndef FlightMissionMode_MDLREF_HIDE_CHILD_
-
 struct DW_WaypointFollower_FlightMissionMode_f_T {
     uav_sluav_internal_system_WaypointFollower_FlightMissionMode_c_T obj;// '<S185>/Waypoint Follower' 
     real_T WaypointFollower_o1[3];     // '<S185>/Waypoint Follower'
@@ -95,11 +77,7 @@ struct DW_WaypointFollower_FlightMissionMode_f_T {
     boolean_T objisempty;              // '<S185>/Waypoint Follower'
 };
 
-#endif                                 //FlightMissionMode_MDLREF_HIDE_CHILD_
-
 // Block signals and states (default storage) for system '<S161>/WayPointGenerator' 
-#ifndef FlightMissionMode_MDLREF_HIDE_CHILD_
-
 struct DW_WayPointGenerator_FlightMissionMode_T {
     emxArray_uavDubinsPathSegment_2_FlightMissionMode_T pathSegObj;
     real_T mt_data[784];
@@ -109,11 +87,7 @@ struct DW_WayPointGenerator_FlightMissionMode_T {
     real_T h_data[784];
 };
 
-#endif                                 //FlightMissionMode_MDLREF_HIDE_CHILD_
-
 // Block signals and states (default storage) for model 'FlightMissionMode'
-#ifndef FlightMissionMode_MDLREF_HIDE_CHILD_
-
 struct DW_FlightMissionMode_f_T {
     DW_WayPointGenerator_FlightMissionMode_T sf_WayPointGenerator_f;// '<S199>/WayPointGenerator' 
     DW_RotateATMissionHdg_FlightMissionMode_T RotateATRunWayHdg_p;// '<S109>/RotateATMissionHdg' 
@@ -210,24 +184,15 @@ struct DW_FlightMissionMode_f_T {
     boolean_T WayPointGenerator_MODE_l;// '<S4>/WayPointGenerator'
 };
 
-#endif                                 //FlightMissionMode_MDLREF_HIDE_CHILD_
-
-#ifndef FlightMissionMode_MDLREF_HIDE_CHILD_
-
 // Real-time Model Data Structure
 struct tag_RTM_FlightMissionMode_T {
     const char_T **errorStatus;
 };
 
-#endif                                 //FlightMissionMode_MDLREF_HIDE_CHILD_
-
-#ifndef FlightMissionMode_MDLREF_HIDE_CHILD_
-
 struct MdlrefDW_FlightMissionMode_T {
+    DW_FlightMissionMode_f_T rtdw;
     RT_MODEL_FlightMissionMode_T rtm;
 };
-
-#endif                                 //FlightMissionMode_MDLREF_HIDE_CHILD_
 
 //
 //  Exported States
@@ -240,22 +205,10 @@ struct MdlrefDW_FlightMissionMode_T {
 extern real_T AltitudeGCS;             // Simulink.Signal object 'AltitudeGCS'
 extern real_T LatitudeGCS;             // Simulink.Signal object 'LatitudeGCS'
 extern real_T LongitudeGCS;            // Simulink.Signal object 'LongitudeGCS'
-extern void FlightMissionMode_Init(FixedWingGuidanceBus *rty_GuidanceCmds,
-    real_T rty_InitialState[8]);
-extern void FlightMissionMode_Disable(void);
-extern void FlightMissionMode(const boolean_T *rtu_startFlight, const
-    MissionModes *rtu_mode, const Location *rtu_PrevLocation, const Location
-    *rtu_Location, const Parameters *rtu_Parameters, const Location
-    *rtu_StartPosition, const int32_T *rtu_Reset, const int32_T
-    *rtu_FormationIDX, const int32_T *rtu_MissionUAV, const real_T rtu_Pose[4],
-    real_T *rty_thisTaskStatus, FixedWingGuidanceBus *rty_GuidanceCmds, real_T
-    rty_InitialState[8]);
 
 // Model reference registration function
-extern void FlightMissionMode_initialize(const char_T **rt_errorStatus);
-
-#ifndef FlightMissionMode_MDLREF_HIDE_CHILD_
-
+extern void FlightMissionMode_initialize(const char_T **rt_errorStatus,
+    RT_MODEL_FlightMissionMode_T *const FlightMissionMode_M);
 extern void FlightMissionMode_OrbitFollower_Init
     (DW_OrbitFollower_FlightMissionMode_T *localDW);
 extern void FlightMissionMode_OrbitFollower_Reset
@@ -294,23 +247,17 @@ extern void FlightMissionMode_WayPointGenerator(real_T rtu_Length, real_T
     DW_WayPointGenerator_FlightMissionMode_T *localDW);
 extern void FlightMissionMode_biasNEDstartpose(const real_T rtu_MissionNED[3],
     const real_T rtu_IndivRotWP[3], real_T rty_nedWayPoint[3]);
-
-#endif                                 //FlightMissionMode_MDLREF_HIDE_CHILD_
-
+extern void FlightMissionMode_Init(FixedWingGuidanceBus *rty_GuidanceCmds,
+    real_T rty_InitialState[8], DW_FlightMissionMode_f_T *localDW);
+extern void FlightMissionMode_Disable(DW_FlightMissionMode_f_T *localDW);
+extern void FlightMissionMode(const boolean_T *rtu_startFlight, const
+    MissionModes *rtu_mode, const Location *rtu_PrevLocation, const Location
+    *rtu_Location, const Parameters *rtu_Parameters, const Location
+    *rtu_StartPosition, const int32_T *rtu_Reset, const int32_T
+    *rtu_FormationIDX, const int32_T *rtu_MissionUAV, const real_T rtu_Pose[4],
+    real_T *rty_thisTaskStatus, FixedWingGuidanceBus *rty_GuidanceCmds, real_T
+    rty_InitialState[8], DW_FlightMissionMode_f_T *localDW);
 extern const FixedWingGuidanceBus FlightMissionMode_rtZFixedWingGuidanceBus;// FixedWingGuidanceBus ground 
-
-#ifndef FlightMissionMode_MDLREF_HIDE_CHILD_
-
-extern MdlrefDW_FlightMissionMode_T FlightMissionMode_MdlrefDW;
-
-#endif                                 //FlightMissionMode_MDLREF_HIDE_CHILD_
-
-#ifndef FlightMissionMode_MDLREF_HIDE_CHILD_
-
-// Block states (default storage)
-extern DW_FlightMissionMode_f_T FlightMissionMode_DW;
-
-#endif                                 //FlightMissionMode_MDLREF_HIDE_CHILD_
 
 //-
 //  The generated code includes comments that allow you to trace directly

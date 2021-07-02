@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 2.680
+// Model version                  : 2.679
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Fri Jul  2 04:32:41 2021
+// C/C++ source code generated on : Fri Jul  2 08:04:06 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -3211,7 +3211,8 @@ void codegenReal2MissionModelClass::step()
                           &codegenReal2Mission_DW.thisTaskStatus,
                           &codegenReal2Mission_DW.PreemptableMissionModeSelector_o2,
                           &codegenReal2Mission_DW.PreemptableMissionModeSelector_o3
-                          [0]);
+                          [0],
+                          &(codegenReal2Mission_DW.PreemptableMissionModeSelector_InstanceData.rtdw));
         if (rtmIsMajorTimeStep((&codegenReal2Mission_M))) {
             if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
                     (rtb_ReceiveCurrentMission_o1) & (static_cast<int32_T>
@@ -3235,7 +3236,8 @@ void codegenReal2MissionModelClass::step()
             codegenReal2Mission_DW.CastToDouble = static_cast<real_T>(rtb_Reset);
         }
 
-        MissionUAV(&codegenReal2Mission_DW.CastToDouble,
+        MissionUAV(&(codegenReal2Mission_DW.MissionUavModel_InstanceData.rtm),
+                   &codegenReal2Mission_DW.CastToDouble,
                    &codegenReal2Mission_DW.PreemptableMissionModeSelector_o3[0],
                    &codegenReal2Mission_DW.PreemptableMissionModeSelector_o2.Height,
                    &codegenReal2Mission_DW.PreemptableMissionModeSelector_o2.AirSpeed,
@@ -3248,7 +3250,8 @@ void codegenReal2MissionModelClass::step()
                    &codegenReal2Mission_DW.FlightPathAngle_h,
                    &codegenReal2Mission_DW.RollAngle_b,
                    &codegenReal2Mission_DW.RollAngleRate_a,
-                   &(codegenReal2Mission_X.MissionUavModel_CSTATE[0]));
+                   &(codegenReal2Mission_DW.MissionUavModel_InstanceData.rtdw),
+                   &(codegenReal2Mission_X.MissionUavModel_CSTATE));
     }
 
     if (rtmIsMajorTimeStep((&codegenReal2Mission_M))) {
@@ -5166,19 +5169,21 @@ void codegenReal2MissionModelClass::step()
         codegenReal2Mission_DW.BooleanImmedMode = (ahi != 0.0);
     }
 
-    Real2SimGuidance
-        (&codegenReal2Mission_DW.BusConversion_InsertedFor_Real2SimGuidance_at_inport_0_BusCreator1,
-         &codegenReal2Mission_DW.BooleanImmedMode,
-         &codegenReal2Mission_U.RealUAVLatLonState,
-         &codegenReal2Mission_U.FlightMode, &codegenReal2Mission_U.GroundSpeed,
-         &codegenReal2Mission_DW.MergeControlSwitch[0],
-         &codegenReal2Mission_DW.MergeGuidanceCMD,
-         &codegenReal2Mission_Y.LookAheadPoint_i,
-         &codegenReal2Mission_Y.RefAirspeed,
-         &codegenReal2Mission_DW.Real2SimGuidance_o3,
-         &codegenReal2Mission_Y.EngagedFlag,
-         &codegenReal2Mission_DW.RealUAVState,
-         &(codegenReal2Mission_X.Real2SimGuidance_CSTATE[0]));
+    Real2SimGuidance(&(codegenReal2Mission_DW.Real2SimGuidance_InstanceData.rtm),
+                     &codegenReal2Mission_DW.BusConversion_InsertedFor_Real2SimGuidance_at_inport_0_BusCreator1,
+                     &codegenReal2Mission_DW.BooleanImmedMode,
+                     &codegenReal2Mission_U.RealUAVLatLonState,
+                     &codegenReal2Mission_U.FlightMode,
+                     &codegenReal2Mission_U.GroundSpeed,
+                     &codegenReal2Mission_DW.MergeControlSwitch[0],
+                     &codegenReal2Mission_DW.MergeGuidanceCMD,
+                     &codegenReal2Mission_Y.LookAheadPoint_i,
+                     &codegenReal2Mission_Y.RefAirspeed,
+                     &codegenReal2Mission_DW.Real2SimGuidance_o3,
+                     &codegenReal2Mission_Y.EngagedFlag,
+                     &codegenReal2Mission_DW.RealUAVState,
+                     &(codegenReal2Mission_DW.Real2SimGuidance_InstanceData.rtdw),
+                     &(codegenReal2Mission_X.Real2SimGuidance_CSTATE));
     if (rtmIsMajorTimeStep((&codegenReal2Mission_M))) {
         rtb_Compare_kk_0 = codegenReal2Mission_ReceiveThisMission_RecvData
             (&codegenReal2Mission_DW.ReceiveThisMission_o2);
@@ -5466,7 +5471,8 @@ void codegenReal2MissionModelClass::step()
         }
 
         if (codegenReal2Mission_DW.MissionSimUAV_MODE) {
-            MissionUAV_Update();
+            MissionUAV_Update
+                (&(codegenReal2Mission_DW.MissionUavModel_InstanceData.rtdw));
         }
 
         if (rtmIsMajorTimeStep((&codegenReal2Mission_M))) {
@@ -5474,7 +5480,9 @@ void codegenReal2MissionModelClass::step()
                 codegenReal2Mission_DW.RealUAVState;
         }
 
-        Real2SimGuidance_Update();
+        Real2SimGuidance_Update
+            (&(codegenReal2Mission_DW.Real2SimGuidance_InstanceData.rtm),
+             &(codegenReal2Mission_DW.Real2SimGuidance_InstanceData.rtdw));
     }                                  // end MajorTimeStep
 
     if (rtmIsMajorTimeStep((&codegenReal2Mission_M))) {
@@ -5534,9 +5542,10 @@ void codegenReal2MissionModelClass::codegenReal2Mission_derivatives()
 {
     if (codegenReal2Mission_DW.MissionSimUAV_MODE) {
         MissionUAV_Deriv(&codegenReal2Mission_DW.CastToDouble,
+                         &(codegenReal2Mission_DW.MissionUavModel_InstanceData.rtdw),
                          &(((XDot_codegenReal2Mission_T *)
                             (&codegenReal2Mission_M)->derivs)
-                           ->MissionUavModel_CSTATE[0]));
+                           ->MissionUavModel_CSTATE));
     } else {
         {
             real_T *dx;
@@ -5550,8 +5559,10 @@ void codegenReal2MissionModelClass::codegenReal2Mission_derivatives()
         }
     }
 
-    Real2SimGuidance_Deriv(&(((XDot_codegenReal2Mission_T *)
-        (&codegenReal2Mission_M)->derivs)->Real2SimGuidance_CSTATE[0]));
+    Real2SimGuidance_Deriv
+        (&(codegenReal2Mission_DW.Real2SimGuidance_InstanceData.rtdw),
+         &(((XDot_codegenReal2Mission_T *) (&codegenReal2Mission_M)->derivs)
+           ->Real2SimGuidance_CSTATE));
 }
 
 // Model step function
@@ -5859,7 +5870,7 @@ void codegenReal2MissionModelClass::initialize()
         rtsiSetSolverName(&(&codegenReal2Mission_M)->solverInfo,"ode4");
         rtmSetTPtr((&codegenReal2Mission_M), &(&codegenReal2Mission_M)
                    ->Timing.tArray[0]);
-        rtmSetTFinal((&codegenReal2Mission_M), 1000.0);
+        rtmSetTFinal((&codegenReal2Mission_M), -1);
         (&codegenReal2Mission_M)->Timing.stepSize0 = 0.1;
         rtmSetFirstInitCond((&codegenReal2Mission_M), 1);
 
@@ -5914,18 +5925,22 @@ void codegenReal2MissionModelClass::initialize()
 
     // Model Initialize function for ModelReference Block: '<S2>/PreemptableMissionModeSelector' 
     FlightMissionMode_initialize(rtmGetErrorStatusPointer
-        ((&codegenReal2Mission_M)));
+        ((&codegenReal2Mission_M)),
+        &(codegenReal2Mission_DW.PreemptableMissionModeSelector_InstanceData.rtm));
 
     // Model Initialize function for ModelReference Block: '<Root>/Real2SimGuidance' 
     Real2SimGuidance_initialize(rtmGetErrorStatusPointer((&codegenReal2Mission_M)),
         rtmGetStopRequestedPtr((&codegenReal2Mission_M)),
-        &((&codegenReal2Mission_M)->solverInfo));
+        &((&codegenReal2Mission_M)->solverInfo),
+        &(codegenReal2Mission_DW.Real2SimGuidance_InstanceData.rtm));
 
     // Model Initialize function for ModelReference Block: '<S16>/MissionUavModel' 
     MissionUAV_initialize(rtmGetErrorStatusPointer((&codegenReal2Mission_M)),
                           rtmGetStopRequestedPtr((&codegenReal2Mission_M)),
                           &((&codegenReal2Mission_M)->solverInfo),
-                          &(&codegenReal2Mission_M)->timingBridge);
+                          &(&codegenReal2Mission_M)->timingBridge,
+                          &(codegenReal2Mission_DW.MissionUavModel_InstanceData.rtm),
+                          &(codegenReal2Mission_DW.MissionUavModel_InstanceData.rtzce));
 
     // Matfile logging
     rt_StartDataLoggingWithStartTime((&codegenReal2Mission_M)->rtwLogInfo, 0.0,
@@ -5951,8 +5966,12 @@ void codegenReal2MissionModelClass::initialize()
         rtw_pthread_mutex_init(&LongitudeGCS_m0);
         FlightMissionMode_Init
             (&codegenReal2Mission_DW.PreemptableMissionModeSelector_o2,
-             &codegenReal2Mission_DW.PreemptableMissionModeSelector_o3[0]);
-        MissionUAV_Init(&(codegenReal2Mission_X.MissionUavModel_CSTATE[0]));
+             &codegenReal2Mission_DW.PreemptableMissionModeSelector_o3[0],
+             &(codegenReal2Mission_DW.PreemptableMissionModeSelector_InstanceData.rtdw));
+        MissionUAV_Init
+            (&(codegenReal2Mission_DW.MissionUavModel_InstanceData.rtm),
+             &(codegenReal2Mission_DW.MissionUavModel_InstanceData.rtdw),
+             &(codegenReal2Mission_X.MissionUavModel_CSTATE));
         codegenReal2Mission_DW.SwitchCase_ActiveSubsystem = -1;
         codegenReal2Mission_DW.obj_j.isInitialized = 0;
         codegenReal2Mission_DW.obj_j.isInitialized = 1;
@@ -6025,7 +6044,9 @@ void codegenReal2MissionModelClass::initialize()
 
         codegenReal2Mission_DW.MergeGuidanceCMD =
             codegenReal2Mission_rtZFixedWingGuidanceBus;
-        Real2SimGuidance_Init(&(codegenReal2Mission_X.Real2SimGuidance_CSTATE[0]));
+        Real2SimGuidance_Init
+            (&(codegenReal2Mission_DW.Real2SimGuidance_InstanceData.rtdw),
+             &(codegenReal2Mission_X.Real2SimGuidance_CSTATE));
         a = NULL;
         for (i = 0; i < 20; i++) {
             codegenReal2Mission_DW.eml_openfiles[i] = a;

@@ -5,7 +5,7 @@
 //
 // Model version                  : 1.18
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Fri Jul  2 04:20:02 2021
+// C/C++ source code generated on : Fri Jul  2 07:51:54 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -24,7 +24,7 @@
 
 // Private macros used by the generated code to access rtModel
 #ifndef rtmIsFirstInitCond
-#define rtmIsFirstInitCond()           ( *(MissionUAV_TimingBrdg->firstInitCond) )
+#define rtmIsFirstInitCond(rtm)        ( *((rtm)->timingBridge->firstInitCond) )
 #endif
 
 #ifndef rtmIsMajorTimeStep
@@ -81,11 +81,8 @@
 #endif
 
 #ifndef rtmGetT
-#define rtmGetT()                      (*(MissionUAV_TimingBrdg->taskTime[0]))
+#define rtmGetT(rtm)                   (*((rtm)->timingBridge->taskTime[0]))
 #endif
-
-extern const rtTimingBridge *MissionUAV_TimingBrdg;
-
 #endif                                 // RTW_HEADER_MissionUAV_private_h_
 
 //

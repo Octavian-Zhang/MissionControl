@@ -5,7 +5,7 @@
 //
 // Model version                  : 2.344
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Fri Jul  2 04:20:21 2021
+// C/C++ source code generated on : Fri Jul  2 07:51:01 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -30,8 +30,6 @@
 #include "rtw_linux.h"
 
 // Block signals and states (default storage) for model 'Real2SimGuidance'
-#ifndef Real2SimGuidance_MDLREF_HIDE_CHILD_
-
 struct DW_Real2SimGuidance_f_T {
     uav_sluav_internal_system_WaypointFollower_Real2SimGuidance_T obj;// '<S59>/TrackSimPath' 
     real_T NorthEastHeight[3];         // '<S4>/NED2NEU'
@@ -77,11 +75,7 @@ struct DW_Real2SimGuidance_f_T {
     boolean_T ESO_MODE;                // '<S67>/ESO'
 };
 
-#endif                                 //Real2SimGuidance_MDLREF_HIDE_CHILD_
-
 // Continuous states for model 'Real2SimGuidance'
-#ifndef Real2SimGuidance_MDLREF_HIDE_CHILD_
-
 struct X_Real2SimGuidance_n_T {
     real_T TD_Alt_CSTATE;              // '<S64>/TD_Alt'
     real_T dotAltTD_CSTATE;            // '<S64>/dotAltTD'
@@ -92,11 +86,7 @@ struct X_Real2SimGuidance_n_T {
     real_T ESO_dotdot_CSTATE;          // '<S72>/ESO_dotdot'
 };
 
-#endif                                 //Real2SimGuidance_MDLREF_HIDE_CHILD_
-
 // State derivatives for model 'Real2SimGuidance'
-#ifndef Real2SimGuidance_MDLREF_HIDE_CHILD_
-
 struct XDot_Real2SimGuidance_n_T {
     real_T TD_Alt_CSTATE;              // '<S64>/TD_Alt'
     real_T dotAltTD_CSTATE;            // '<S64>/dotAltTD'
@@ -107,11 +97,7 @@ struct XDot_Real2SimGuidance_n_T {
     real_T ESO_dotdot_CSTATE;          // '<S72>/ESO_dotdot'
 };
 
-#endif                                 //Real2SimGuidance_MDLREF_HIDE_CHILD_
-
 // State Disabled for model 'Real2SimGuidance'
-#ifndef Real2SimGuidance_MDLREF_HIDE_CHILD_
-
 struct XDis_Real2SimGuidance_n_T {
     boolean_T TD_Alt_CSTATE;           // '<S64>/TD_Alt'
     boolean_T dotAltTD_CSTATE;         // '<S64>/dotAltTD'
@@ -121,10 +107,6 @@ struct XDis_Real2SimGuidance_n_T {
     boolean_T ESO_dot_CSTATE;          // '<S72>/ESO_dot'
     boolean_T ESO_dotdot_CSTATE;       // '<S72>/ESO_dotdot'
 };
-
-#endif                                 //Real2SimGuidance_MDLREF_HIDE_CHILD_
-
-#ifndef Real2SimGuidance_MDLREF_HIDE_CHILD_
 
 // Real-time Model Data Structure
 struct tag_RTM_Real2SimGuidance_T {
@@ -143,15 +125,10 @@ struct tag_RTM_Real2SimGuidance_T {
     } Timing;
 };
 
-#endif                                 //Real2SimGuidance_MDLREF_HIDE_CHILD_
-
-#ifndef Real2SimGuidance_MDLREF_HIDE_CHILD_
-
 struct MdlrefDW_Real2SimGuidance_T {
+    DW_Real2SimGuidance_f_T rtdw;
     RT_MODEL_Real2SimGuidance_T rtm;
 };
-
-#endif                                 //Real2SimGuidance_MDLREF_HIDE_CHILD_
 
 //
 //  Exported States
@@ -164,42 +141,29 @@ struct MdlrefDW_Real2SimGuidance_T {
 extern real_T AltitudeGCS;             // Simulink.Signal object 'AltitudeGCS'
 extern real_T LatitudeGCS;             // Simulink.Signal object 'LatitudeGCS'
 extern real_T LongitudeGCS;            // Simulink.Signal object 'LongitudeGCS'
-extern void Real2SimGuidance_Init(real_T *localX_);
-extern void Real2SimGuidance_Deriv(real_T *localXdot_);
-extern void Real2SimGuidance_Disable(void);
-extern void Real2SimGuidance_Update(void);
-extern void Real2SimGuidance(const FixedWingGuidanceStateBus *rtu_SimUAVState,
-    const boolean_T *rtu_ImmedModeSwitch, const RealUAVStateBus
+
+// Model reference registration function
+extern void Real2SimGuidance_initialize(const char_T **rt_errorStatus, boolean_T
+    *rt_stopRequested, RTWSolverInfo *rt_solverInfo, RT_MODEL_Real2SimGuidance_T
+    *const Real2SimGuidance_M);
+extern void Real2SimGuidance_fale025h(real_T rtu_u, real_T rtu_u_j, real_T
+    rtu_u_e, real_T *rty_y);
+extern void Real2SimGuidance_Init(DW_Real2SimGuidance_f_T *localDW,
+    X_Real2SimGuidance_n_T *localX);
+extern void Real2SimGuidance_Deriv(DW_Real2SimGuidance_f_T *localDW,
+    XDot_Real2SimGuidance_n_T *localXdot);
+extern void Real2SimGuidance_Disable(DW_Real2SimGuidance_f_T *localDW);
+extern void Real2SimGuidance_Update(RT_MODEL_Real2SimGuidance_T * const
+    Real2SimGuidance_M, DW_Real2SimGuidance_f_T *localDW);
+extern void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const
+    Real2SimGuidance_M, const FixedWingGuidanceStateBus *rtu_SimUAVState, const
+    boolean_T *rtu_ImmedModeSwitch, const RealUAVStateBus
     *rtu_RealUAVLatLonState, const uint8_T *rtu_FlightMode, const real_T
     *rtu_GroundSpd, const boolean_T rtu_ControlSwitch[2], const
     FixedWingGuidanceBus *rtu_ImmedGuidanceCMD, LookAheadPoint
     *rty_LookAheadPoint, real_T *rty_RefAirspeed, real_T *rty_ExecutionTrigger,
     boolean_T *rty_EngagedFlag, FixedWingGuidanceStateBus *rty_RealUAVState,
-    real_T *localX_);
-
-// Model reference registration function
-extern void Real2SimGuidance_initialize(const char_T **rt_errorStatus, boolean_T
-    *rt_stopRequested, RTWSolverInfo *rt_solverInfo);
-
-#ifndef Real2SimGuidance_MDLREF_HIDE_CHILD_
-
-extern void Real2SimGuidance_fale025h(real_T rtu_u, real_T rtu_u_j, real_T
-    rtu_u_e, real_T *rty_y);
-
-#endif                                 //Real2SimGuidance_MDLREF_HIDE_CHILD_
-
-#ifndef Real2SimGuidance_MDLREF_HIDE_CHILD_
-
-extern MdlrefDW_Real2SimGuidance_T Real2SimGuidance_MdlrefDW;
-
-#endif                                 //Real2SimGuidance_MDLREF_HIDE_CHILD_
-
-#ifndef Real2SimGuidance_MDLREF_HIDE_CHILD_
-
-// Block states (default storage)
-extern DW_Real2SimGuidance_f_T Real2SimGuidance_DW;
-
-#endif                                 //Real2SimGuidance_MDLREF_HIDE_CHILD_
+    DW_Real2SimGuidance_f_T *localDW, X_Real2SimGuidance_n_T *localX);
 
 //-
 //  The generated code includes comments that allow you to trace directly
