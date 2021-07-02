@@ -70,6 +70,7 @@ void MissionCircleFormation::setAlgParam(double offset, double minDistance)
 //启动各个线程----------------------------------------------------------------//
 void MissionCircleFormation::start()
 {
+	std::cout << "Start Mission ... " << std::endl << std::flush;
 	if (ctrl_thread == NULL)
 	{
 		ctrl_thread = new std::thread(&MissionCircleFormation::startCtrl, this);
@@ -106,14 +107,15 @@ void MissionCircleFormation::startCtrl()
 		exit(1);
 	}
 	//打印任务控制消息队列ID
-	//printf("Msgid for circle control is: %d.\n", msgIDCtrl);
+	printf("Msgid for circle control is: %d.\n", msgIDCtrl);
 
 	while (true)
 	{
+		std::cout << "Waiting for OS clock calibration message..." << std::endl << std::flush;
 		std::unique_lock<std::mutex> lk(missionData->mutexSysTime);
-		std::cout << "Waiting for circle control message..." << std::endl;
+		std::cout << "Receiving OS clock calibration message..." << std::endl << std::flush;
 		msgrcv(msgIDCtrl, &ctrlMsg, sizeof(struct CircleCtrl) - sizeof(long), 896, MSG_NOERROR); // 返回类型为896的第一个消息
-		printf("Receive circle control message: %d\n", ctrlMsg.cmd); fflush(stdout);
+		printf("Received OS clock calibration message: %d\n", ctrlMsg.cmd); fflush(stdout);
 		missionData->TimeCalibrated = true; lk.unlock(); missionData->cvSysTime.notify_one();
 	}
 }

@@ -22,6 +22,8 @@ public:
 	explicit MissionCircleFormation(MissionData *const); // constructor
 	~MissionCircleFormation();
 
+	AlgoWrapper *circleFm;
+
 	void start();				 //启动后台运算线程
 	void startCircle();			 //环形编队算法
 	void startCtrl();			 //控制指令接收线程
@@ -55,7 +57,6 @@ private:
 	struct MissionCmd msCmd;
 	struct MissionCmd msCmdFb;
 
-	AlgoWrapper *circleFm;
 	MissionData *missionData;
 
 	// prevent shallow copy & assignment

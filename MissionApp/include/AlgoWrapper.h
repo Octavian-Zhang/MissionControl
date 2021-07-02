@@ -14,7 +14,9 @@ private:
 	void renameMATfile(void);
 
 public:
+	std::thread* AlgoThread{};
 	explicit AlgoWrapper(MissionData *const); // prevent implicit data type conversion
+	void AlgoThreadFunc();
 };
 
 #endif
