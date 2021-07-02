@@ -34,9 +34,6 @@
 #include "multiword_types.h"
 #include "zero_crossing_types.h"
 #include "rt_logging.h"
-
-#include "MW_ert_main.h"
-
 #ifndef SAVEFILE
 #define MATFILE2(file)                 #file ".mat"
 #define MATFILE1(file)                 MATFILE2(file)
@@ -53,9 +50,6 @@ class codegenReal2MissionModelClassSendData_IndividualUAVCmdT : public
     void SendData(const IndividualUAVCmd* data, int32_T length, int32_T* status)
     {
         // Add send data logic here
-        // 存在任务反馈信息时，通过下述代码设置标识、更新数据
-        pCommonData->feedbackFlag = true;
-        pCommonData->setMissionCmdFB(*data);
     }
 };
 
@@ -67,8 +61,6 @@ class codegenReal2MissionModelClassRecvData_IndividualUAVCmdT : public
     void RecvData(IndividualUAVCmd* data, int32_T length, int32_T* status)
     {
         // Add receive data logic here
-        //下一行代码获取数据收发软件发送过来的任务指令
-        *data = *(pCommonData->getMissionCmd());
     }
 };
 
@@ -186,21 +178,9 @@ void* periodicTask(void *arg)
     MW_blockSignal(SIGRTMIN, &ss);
     while (1) {
         MW_sem_wait(&periodicTaskStartSem[taskId]);
-
-        // Set model inputs here
-        codegenReal2Mission_Obj.setExternalInputs(&pCommonData->getExtU());
-
-        // push new mission
-        std::async(std::launch::async, [&]()
-           {if (pCommonData->NewMissionCMD()){ printf("Push New Mission!"); fflush(stdout);
-                codegenReal2Mission_Obj.codegenReal2Mission_PushNewMission(); }
-            else { printf("."); fflush(stdout); }; });
-
         codegenReal2Mission_Obj.step();
 
         // Get model outputs here
-        pCommonData->setExtY(codegenReal2Mission_Obj.getExternalOutputs());
-
         ret = sem_post(&periodicTaskStopSem[taskId]);
         CHECK_STATUS(ret, "sem_post");
     }
@@ -256,17 +236,20 @@ void sigHandler_TimerSignal(int signo, siginfo_t *sigInfo, void *ctx)
     }
 }
 
-int MW_ert_main()
+int main(int argc, char *argv[])
 {
     int i;
     pthread_t periodicThread[1];
     pthread_t periodicTriggerThread[1];
     struct sched_param sp;
-    int ret, policy = SCHED_RR;
+    int ret, policy;
     pthread_attr_t attr;
     double periodicTriggerRate[1];
     int priority[1];
 
+    // Unused arguments
+    (void)(argc);
+    (void)(argv);
     priority[0] = 38;
     periodicTriggerRate[0] = 0.1;
     printf("**starting the model**\n");
@@ -281,12 +264,10 @@ int MW_ert_main()
 
     // Create threads executing the Simulink model
     pthread_attr_init(&attr);
-    ret = pthread_attr_setinheritsched(&attr, PTHREAD_EXPLICIT_SCHED);
+    ret = pthread_attr_setinheritsched(&attr, PTHREAD_INHERIT_SCHED);
     CHECK_STATUS(ret, "pthread_attr_setinheritsched");
     ret = pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
     CHECK_STATUS(ret, "pthread_attr_setdetachstate");
-    ret = pthread_attr_setschedpolicy(&attr, policy);
-    CHECK_STATUS(ret, "pthread_attr_setschedpolicy");
     ret = pthread_attr_getschedpolicy(&attr, &policy);
     CHECK_STATUS(ret, "pthread_attr_getschedpolicy");
 

@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'FlightMissionMode'.
 //
-// Model version                  : 2.687
+// Model version                  : 2.689
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Jun 28 22:52:13 2021
+// C/C++ source code generated on : Thu Jul  1 19:33:31 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -19,7 +19,6 @@
 #ifndef RTW_HEADER_FlightMissionMode_types_h_
 #define RTW_HEADER_FlightMissionMode_types_h_
 #include "rtwtypes.h"
-#include "MissionModes.h"
 #include "DatalinkInterface.h"
 
 // Model Code Variants

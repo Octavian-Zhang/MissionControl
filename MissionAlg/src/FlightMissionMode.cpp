@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'FlightMissionMode'.
 //
-// Model version                  : 2.687
+// Model version                  : 2.689
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Jun 28 22:52:13 2021
+// C/C++ source code generated on : Thu Jul  1 19:33:31 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -17354,7 +17354,8 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
         }
 
         localDW->Memory_PreviousInput_f = localDW->MergeStatus_e;
-        *rty_thisTaskStatus = localDW->MergeStatus_e;
+        *rty_thisTaskStatus = static_cast<real_T>(static_cast<int32_T>
+            (localDW->RunWayMode));
         rty_GuidanceCmds->Height = -localDW->MergeLookAheadP_k[2];
         rty_GuidanceCmds->AirSpeed = static_cast<real_T>(rtu_Parameters->Param4);
         rty_GuidanceCmds->HeadingAngle = localDW->MergeDesiredCourse_h;
@@ -17987,7 +17988,8 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
         }
 
         localDW->Memory_PreviousInput = localDW->MergeStatus;
-        *rty_thisTaskStatus = localDW->MergeStatus;
+        *rty_thisTaskStatus = static_cast<real_T>(static_cast<int32_T>
+            (localDW->ProtectionLineMode));
         rty_GuidanceCmds->Height = -localDW->MergeLookAheadP[2];
         rty_GuidanceCmds->AirSpeed = static_cast<real_T>(rtu_Parameters->Param5);
         rty_GuidanceCmds->HeadingAngle = localDW->MergeDesiredCourse;

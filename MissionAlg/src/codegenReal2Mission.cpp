@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 2.654
+// Model version                  : 2.679
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Jun 28 22:54:24 2021
+// C/C++ source code generated on : Thu Jul  1 19:35:55 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -164,7 +164,7 @@ void codegenReal2MissionModelClass::rt_ertODEUpdateContinuousStates
     rtsiSetSimTimeStep(si,MAJOR_TIME_STEP);
 }
 
-// Function for MATLAB Function: '<S9>/MATLAB Function'
+// Function for MATLAB Function: '<S9>/PrintOnboardLog'
 void codegenReal2MissionModelClass::codegenReal2Mission_getLocalTime(real_T
     *t_tm_nsec, real_T *t_tm_sec, real_T *t_tm_min, real_T *t_tm_hour, real_T
     *t_tm_mday, real_T *t_tm_mon, real_T *t_tm_year, boolean_T *t_tm_isdst)
@@ -181,7 +181,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_getLocalTime(real_T
     *t_tm_isdst = (structTm.tm_isdst != 0);
 }
 
-// Function for MATLAB Function: '<S9>/MATLAB Function'
+// Function for MATLAB Function: '<S9>/PrintOnboardLog'
 creal_T codegenReal2MissionModelClass::codegenReal2Mission_two_sum(real_T a,
     real_T b)
 {
@@ -206,7 +206,7 @@ creal_T codegenReal2MissionModelClass::codegenReal2Mission_two_sum(real_T a,
     return c;
 }
 
-// Function for MATLAB Function: '<S9>/MATLAB Function'
+// Function for MATLAB Function: '<S9>/PrintOnboardLog'
 creal_T codegenReal2MissionModelClass::codegenReal2Mission_plus(const creal_T a,
     real_T b)
 {
@@ -1320,7 +1320,24 @@ void codegenReal2MissionModelClass::
     }
 }
 
-// Function for MATLAB Function: '<S9>/MATLAB Function'
+int32_T codegenReal2MissionModelClass::
+    codegenReal2Mission_ReceiveThisMission_RecvData(missionCmd *data)
+{
+    Msg_missionCmd msg;
+    int32_T status{ 1 };
+
+    if (codegenReal2Mission_pop
+            (&codegenReal2Mission_DW.Queue_InsertedFor_FeedbackCurrentMission_at_inport_0_Queue,
+             &msg)) {
+        status = 0;
+        *data = *msg.fData;
+        codegenReal2Mission_destroyMsg(&msg);
+    }
+
+    return status;
+}
+
+// Function for MATLAB Function: '<S9>/PrintOnboardLog'
 creal_T codegenReal2MissionModelClass::codegenReal2Mission_two_prod(real_T a)
 {
     creal_T c;
@@ -1345,33 +1362,7 @@ creal_T codegenReal2MissionModelClass::codegenReal2Mission_two_prod(real_T a)
     return c;
 }
 
-// Function for MATLAB Function: '<S9>/MATLAB Function'
-creal_T codegenReal2MissionModelClass::codegenReal2Mission_times(const creal_T a)
-{
-    creal_T c;
-    real_T ahi;
-    real_T alo;
-    real_T tmp;
-    tmp = a.im * 8.64E+7;
-    c = codegenReal2Mission_two_prod(a.re);
-    alo = c.im;
-    ahi = c.re;
-    if (tmp != 0.0) {
-        alo = c.im + tmp;
-        ahi = c.re + alo;
-        alo -= ahi - c.re;
-    }
-
-    if (std::isnan(alo)) {
-        alo = 0.0;
-    }
-
-    c.re = ahi;
-    c.im = alo;
-    return c;
-}
-
-// Function for MATLAB Function: '<S9>/MATLAB Function'
+// Function for MATLAB Function: '<S9>/PrintOnboardLog'
 creal_T codegenReal2MissionModelClass::codegenReal2Mission_two_diff(real_T a,
     real_T b)
 {
@@ -1396,63 +1387,258 @@ creal_T codegenReal2MissionModelClass::codegenReal2Mission_two_diff(real_T a,
     return c;
 }
 
-// Function for MATLAB Function: '<S9>/MATLAB Function'
-creal_T codegenReal2MissionModelClass::codegenReal2Mission_minus(const creal_T a,
-    const creal_T b)
+// Function for MATLAB Function: '<S9>/TimeConverter'
+void codegenReal2MissionModelClass::codegenReal2Mission_getDateVec_i(real_T dd,
+    real_T *y, real_T *mo, real_T *d, real_T *h, real_T *m, real_T *s)
 {
     creal_T c;
-    creal_T cout;
+    creal_T c_c;
+    creal_T c_s;
+    creal_T r;
     creal_T t;
-    real_T ahi;
-    real_T alo;
-    t = codegenReal2Mission_two_diff(a.im, b.im);
-    c = codegenReal2Mission_two_diff(a.re, b.re);
-    alo = c.im;
-    ahi = c.re;
+    real_T a;
+    real_T b;
+    real_T b_thi;
+    real_T b_tmp;
+    real_T c_ahi;
+    real_T c_tmp;
+    int32_T b_r_tmp;
+    int32_T c_r_tmp;
+    int32_T ia_quot;
+    int32_T ic_quot;
+    int32_T ic_rem;
+    int32_T idn;
+    c_c.re = dd / 8.64E+7;
+    t = codegenReal2Mission_two_prod(c_c.re);
+    c_s.re = 0.0;
+    c_s.im = 0.0;
+    if (dd != t.re) {
+        c_s = codegenReal2Mission_two_diff(dd, t.re);
+    }
+
+    c_s.re -= 0.0 * t.im;
+    c_s.im -= t.im;
+    b_tmp = (c_s.re + c_s.im) / 8.64E+7;
+    b_thi = 0.0;
+    c_ahi = c_c.re;
+    if (b_tmp != 0.0) {
+        c_ahi = c_c.re + b_tmp;
+        b_thi = b_tmp - (c_ahi - c_c.re);
+    }
+
+    if (std::isnan(b_thi)) {
+        b_thi = 0.0;
+    }
+
+    r.re = c_ahi;
+    r.im = b_thi;
+    r = floor_jeUa7tf2(r);
+    b_thi = r.re + r.im;
+    c_tmp = r.im * 8.64E+7;
+    c_c = codegenReal2Mission_two_prod(r.re);
+    c_ahi = c_c.im;
+    b_tmp = c_c.re;
+    if (c_tmp != 0.0) {
+        c_ahi = c_c.im + c_tmp;
+        b_tmp = c_c.re + c_ahi;
+        c_ahi -= b_tmp - c_c.re;
+    }
+
+    if (std::isnan(c_ahi)) {
+        c_ahi = 0.0;
+    }
+
+    t = codegenReal2Mission_two_diff(0.0, c_ahi);
+    c_c = codegenReal2Mission_two_diff(dd, b_tmp);
+    c_ahi = c_c.im;
+    b_tmp = c_c.re;
     if (t.re != 0.0) {
-        alo = c.im + t.re;
-        ahi = c.re + alo;
-        alo -= ahi - c.re;
+        c_ahi = c_c.im + t.re;
+        b_tmp = c_c.re + c_ahi;
+        c_ahi -= b_tmp - c_c.re;
     }
 
-    if (std::isnan(alo)) {
-        alo = 0.0;
+    if (std::isnan(c_ahi)) {
+        c_ahi = 0.0;
     }
 
-    c.re = ahi;
+    c_c.re = b_tmp;
     if (t.im != 0.0) {
-        alo += t.im;
-        ahi += alo;
-        alo -= ahi - c.re;
+        c_ahi += t.im;
+        b_tmp += c_ahi;
+        c_ahi -= b_tmp - c_c.re;
     }
 
-    if (std::isnan(alo)) {
-        alo = 0.0;
+    if (std::isnan(c_ahi)) {
+        c_ahi = 0.0;
     }
 
-    cout.re = ahi;
-    cout.im = alo;
-    return cout;
+    c_c.re = b_tmp;
+    c.re = b_tmp / 1000.0;
+    c_s = split_MzIWb6Db(c.re);
+    b_tmp = c.re * 1000.0;
+    c_tmp = (c_s.re * 1000.0 - b_tmp) + c_s.im * 1000.0;
+    idn = 0;
+    if (std::isnan(c_tmp)) {
+        idn = 1;
+    }
+
+    if (0 <= static_cast<int32_T>(idn - 1)) {
+        c_tmp = 0.0;
+    }
+
+    c_s.re = 0.0;
+    c_s.im = 0.0;
+    if (c_c.re != b_tmp) {
+        c_s = codegenReal2Mission_two_diff(c_c.re, b_tmp);
+    }
+
+    c_s.re = (0.0 * c_ahi + c_s.re) - 0.0 * c_tmp;
+    c_s.im = (c_s.im + c_ahi) - c_tmp;
+    c_tmp = (c_s.re + c_s.im) / 1000.0;
+    c_ahi = 0.0;
+    b_tmp = c.re;
+    if (c_tmp != 0.0) {
+        b_tmp = c.re + c_tmp;
+        c_ahi = c_tmp - (b_tmp - c.re);
+    }
+
+    if (std::isnan(c_ahi)) {
+        c_ahi = 0.0;
+    }
+
+    c.re = b_tmp;
+    c.im = c_ahi;
+    c_s = floor_jeUa7tf2(c);
+    t = codegenReal2Mission_two_diff(c_ahi, c_s.im);
+    c_c = codegenReal2Mission_two_diff(b_tmp, c_s.re);
+    c_ahi = c_c.im;
+    b_tmp = c_c.re;
+    if (t.re != 0.0) {
+        c_ahi = c_c.im + t.re;
+        b_tmp = c_c.re + c_ahi;
+        c_ahi -= b_tmp - c_c.re;
+    }
+
+    if (std::isnan(c_ahi)) {
+        c_ahi = 0.0;
+    }
+
+    c_c.re = b_tmp;
+    if (t.im != 0.0) {
+        c_ahi += t.im;
+        b_tmp += c_ahi;
+        c_ahi -= b_tmp - c_c.re;
+    }
+
+    if (std::isnan(c_ahi)) {
+        c_ahi = 0.0;
+    }
+
+    c_c.re = b_tmp;
+    c_c.im = c_ahi;
+    c_ahi = c_s.re + c_s.im;
+    if (static_cast<boolean_T>(static_cast<int32_T>(((b_thi + 719529.0) - 61.0 >=
+           0.0) & ((b_thi + 719529.0) - 61.0 <= 2.147483647E+9)))) {
+        b_thi = std::round((b_thi + 719529.0) - 61.0);
+        if (b_thi < 2.147483648E+9) {
+            if (b_thi >= -2.147483648E+9) {
+                idn = static_cast<int32_T>(b_thi);
+            } else {
+                idn = MIN_int32_T;
+            }
+        } else {
+            idn = MAX_int32_T;
+        }
+
+        b_r_tmp = static_cast<int32_T>(idn - static_cast<int32_T>(146097 *
+            div_s32(idn, 146097)));
+        b_thi = std::trunc(static_cast<real_T>(b_r_tmp) / 36524.0);
+        ic_quot = static_cast<int32_T>(b_thi);
+        ic_rem = static_cast<int32_T>(b_r_tmp - static_cast<int32_T>(36524 *
+            div_s32(b_r_tmp, 36524)));
+        if (b_thi > 3.0) {
+            ic_quot = 3;
+            ic_rem = static_cast<int32_T>(b_r_tmp - 109572);
+        }
+
+        c_r_tmp = static_cast<int32_T>(ic_rem - static_cast<int32_T>(1461 *
+            div_s32(ic_rem, 1461)));
+        b_thi = std::trunc(static_cast<real_T>(c_r_tmp) / 365.0);
+        ia_quot = static_cast<int32_T>(b_thi);
+        b_r_tmp = static_cast<int32_T>(c_r_tmp - static_cast<int32_T>(365 *
+            div_s32(c_r_tmp, 365)));
+        if (b_thi > 3.0) {
+            ia_quot = 3;
+            b_r_tmp = static_cast<int32_T>(c_r_tmp - 1095);
+        }
+
+        *y = ((std::trunc(static_cast<real_T>(idn) / 146097.0) * 400.0 +
+               static_cast<real_T>(ic_quot) * 100.0) + std::trunc
+              (static_cast<real_T>(ic_rem) / 1461.0) * 4.0) + static_cast<real_T>
+            (ia_quot);
+        idn = static_cast<int32_T>(static_cast<int32_T>(std::trunc((static_cast<
+            real_T>(b_r_tmp) * 5.0 + 308.0) / 153.0)) - 2);
+        b_thi = static_cast<real_T>(idn);
+        *d = ((static_cast<real_T>(b_r_tmp) - std::trunc((static_cast<real_T>
+                 (idn) + 4.0) * 153.0 / 5.0)) + 122.0) + 1.0;
+    } else {
+        b_tmp = std::floor((((r.re + r.im) + 719529.0) - 61.0) / 146097.0);
+        c_tmp = ((b_thi + 719529.0) - 61.0) - b_tmp * 146097.0;
+        b_thi = std::floor(c_tmp / 36524.0);
+        if (b_thi > 3.0) {
+            b_thi = 3.0;
+        }
+
+        c_tmp -= b_thi * 36524.0;
+        b = std::floor(c_tmp / 1461.0);
+        c_tmp -= b * 1461.0;
+        a = std::floor(c_tmp / 365.0);
+        if (a > 3.0) {
+            a = 3.0;
+        }
+
+        c_tmp -= a * 365.0;
+        *y = ((b_tmp * 400.0 + b_thi * 100.0) + b * 4.0) + a;
+        b_thi = std::floor((c_tmp * 5.0 + 308.0) / 153.0) - 2.0;
+        *d = ((c_tmp - std::floor((b_thi + 4.0) * 153.0 / 5.0)) + 122.0) + 1.0;
+    }
+
+    if (b_thi > 9.0) {
+        (*y)++;
+        *mo = (b_thi + 2.0) - 11.0;
+    } else {
+        *mo = (b_thi + 2.0) + 1.0;
+    }
+
+    if (static_cast<boolean_T>(static_cast<int32_T>((c_ahi >= 0.0) & (c_ahi <=
+            2.147483647E+9)))) {
+        idn = static_cast<int32_T>(std::round(c_ahi));
+        ic_quot = static_cast<int32_T>(idn - static_cast<int32_T>(3600 * div_s32
+            (idn, 3600)));
+        *h = std::trunc(static_cast<real_T>(idn) / 3600.0);
+        *m = std::trunc(static_cast<real_T>(ic_quot) / 60.0);
+        b_thi = static_cast<real_T>(static_cast<int32_T>(ic_quot -
+            static_cast<int32_T>(60 * div_s32(ic_quot, 60))));
+    } else {
+        *h = std::floor(c_ahi / 3600.0);
+        *m = std::floor((c_ahi - 3600.0 * *h) / 60.0);
+        b_thi = c_ahi - 60.0 * *m;
+    }
+
+    *s = (c_c.re + c_c.im) + b_thi;
+    if (*s == 60.0) {
+        *s = 59.999999999999993;
+    }
+
+    if (dd == (rtInf)) {
+        *y = (rtInf);
+    } else if (dd == (rtMinusInf)) {
+        *y = (rtMinusInf);
+    }
 }
 
-int32_T codegenReal2MissionModelClass::
-    codegenReal2Mission_ReceiveThisMission_RecvData(missionCmd *data)
-{
-    Msg_missionCmd msg;
-    int32_T status{ 1 };
-
-    if (codegenReal2Mission_pop
-            (&codegenReal2Mission_DW.Queue_InsertedFor_FeedbackCurrentMission_at_inport_0_Queue,
-             &msg)) {
-        status = 0;
-        *data = *msg.fData;
-        codegenReal2Mission_destroyMsg(&msg);
-    }
-
-    return status;
-}
-
-// Function for MATLAB Function: '<S9>/MATLAB Function'
+// Function for MATLAB Function: '<S9>/PrintOnboardLog'
 int8_T codegenReal2MissionModelClass::codegenReal2Mission_filedata(void)
 {
     int32_T k;
@@ -1474,7 +1660,7 @@ int8_T codegenReal2MissionModelClass::codegenReal2Mission_filedata(void)
     return f;
 }
 
-// Function for MATLAB Function: '<S9>/MATLAB Function'
+// Function for MATLAB Function: '<S9>/PrintOnboardLog'
 int8_T codegenReal2MissionModelClass::codegenReal2Mission_cfopen(const char_T
     *cfilename, const char_T *cpermission)
 {
@@ -1503,7 +1689,7 @@ int8_T codegenReal2MissionModelClass::codegenReal2Mission_cfopen(const char_T
     return fileid;
 }
 
-// Function for MATLAB Function: '<S9>/MATLAB Function'
+// Function for MATLAB Function: '<S9>/PrintOnboardLog'
 void codegenReal2MissionModelClass::codegenReal2Mission_fileManager(real_T
     varargin_1, FILE * *f, boolean_T *a)
 {
@@ -1544,7 +1730,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_fileManager(real_T
     }
 }
 
-// Function for MATLAB Function: '<S9>/MATLAB Function'
+// Function for MATLAB Function: '<S9>/PrintOnboardLog'
 void codegenReal2MissionModelClass::codegenReal2Mission_string_string
     (MissionModes val, char_T obj_Value_data[], int32_T obj_Value_size[2])
 {
@@ -1711,7 +1897,33 @@ void codegenReal2MissionModelClass::codegenReal2Mission_string_string
     }
 }
 
-// Function for MATLAB Function: '<S9>/MATLAB Function'
+// Function for MATLAB Function: '<S9>/PrintOnboardLog'
+creal_T codegenReal2MissionModelClass::codegenReal2Mission_times(const creal_T a)
+{
+    creal_T c;
+    real_T ahi;
+    real_T alo;
+    real_T tmp;
+    tmp = a.im * 8.64E+7;
+    c = codegenReal2Mission_two_prod(a.re);
+    alo = c.im;
+    ahi = c.re;
+    if (tmp != 0.0) {
+        alo = c.im + tmp;
+        ahi = c.re + alo;
+        alo -= ahi - c.re;
+    }
+
+    if (std::isnan(alo)) {
+        alo = 0.0;
+    }
+
+    c.re = ahi;
+    c.im = alo;
+    return c;
+}
+
+// Function for MATLAB Function: '<S9>/PrintOnboardLog'
 creal_T codegenReal2MissionModelClass::codegenReal2Mission_datetime_datetime
     (void)
 {
@@ -1781,7 +1993,46 @@ creal_T codegenReal2MissionModelClass::codegenReal2Mission_datetime_datetime
     return b_this_data;
 }
 
-// Function for MATLAB Function: '<S9>/MATLAB Function'
+// Function for MATLAB Function: '<S9>/PrintOnboardLog'
+creal_T codegenReal2MissionModelClass::codegenReal2Mission_minus(const creal_T a,
+    const creal_T b)
+{
+    creal_T c;
+    creal_T cout;
+    creal_T t;
+    real_T ahi;
+    real_T alo;
+    t = codegenReal2Mission_two_diff(a.im, b.im);
+    c = codegenReal2Mission_two_diff(a.re, b.re);
+    alo = c.im;
+    ahi = c.re;
+    if (t.re != 0.0) {
+        alo = c.im + t.re;
+        ahi = c.re + alo;
+        alo -= ahi - c.re;
+    }
+
+    if (std::isnan(alo)) {
+        alo = 0.0;
+    }
+
+    c.re = ahi;
+    if (t.im != 0.0) {
+        alo += t.im;
+        ahi += alo;
+        alo -= ahi - c.re;
+    }
+
+    if (std::isnan(alo)) {
+        alo = 0.0;
+    }
+
+    cout.re = ahi;
+    cout.im = alo;
+    return cout;
+}
+
+// Function for MATLAB Function: '<S9>/PrintOnboardLog'
 void codegenReal2MissionModelClass::codegenReal2Mission_getDateVec(const creal_T
     dd, real_T *y, real_T *mo, real_T *d, real_T *h, real_T *m, real_T *s)
 {
@@ -1969,7 +2220,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_getDateVec(const creal_T
     }
 }
 
-// Function for MATLAB Function: '<S9>/MATLAB Function'
+// Function for MATLAB Function: '<S9>/PrintOnboardLog'
 void codegenReal2MissionModelClass::codegenReal2Mission_printIndivMissionCMD
     (int32_T IndivMissionCMD_SequenceId, MissionModes
      IndivMissionCMD_MissionMode, real_T IndivMissionCMD_MissionLocation_Lat,
@@ -2321,7 +2572,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_printIndivMissionCMD
     }
 }
 
-// Function for MATLAB Function: '<S9>/MATLAB Function'
+// Function for MATLAB Function: '<S9>/PrintOnboardLog'
 int32_T codegenReal2MissionModelClass::codegenReal2Mission_cfclose(real_T fid)
 {
     FILE * f;
@@ -2725,11 +2976,6 @@ void codegenReal2MissionModelClass::step()
     // local block i/o variables
     real_T rtb_Down_c;
     boolean_T rtb_Reset;
-    creal_T c_s;
-    creal_T da;
-    creal_T msOfDay;
-    creal_T r;
-    creal_T t;
     creal_T thisData;
     real_T out[9];
     real_T rtb_Asin[6];
@@ -2743,20 +2989,22 @@ void codegenReal2MissionModelClass::step()
     real_T rtb_MemoryPose_m_0[2];
     real_T rtb_Sum1_f[2];
     real_T xyCenter[2];
+    real_T absx;
+    real_T ahi;
     real_T check;
+    real_T distToCenter;
     real_T fracSecs;
-    real_T h;
     real_T normp;
     real_T normq;
-    real_T rtb_Abs1_h;
     real_T rtb_AltitudeGCS_d;
+    real_T rtb_CoordinateTransformationConversion_f_idx_0;
     real_T rtb_CoordinateTransformationConversion_f_idx_1;
     real_T rtb_CoordinateTransformationConversion_f_idx_2;
     real_T rtb_CoordinateTransformationConversion_f_idx_3;
     real_T rtb_Down;
     real_T rtb_LatitudeGCS_i;
-    real_T rtb_ProductE;
     real_T rtb_ProductN;
+    real_T rtb_Sign_c;
     real_T rtb_Sum_i;
     real_T rtb_Switch_b;
     real_T rtb_Switch_m;
@@ -2767,18 +3015,14 @@ void codegenReal2MissionModelClass::step()
     real_T rtb_U_tmp_2;
     real_T rtb_U_tmp_3;
     real_T second;
-    real_T shi;
-    real_T t_0;
-    real_T temp;
+    real_T t;
     real_T tmp;
     int32_T tmp_0[2];
-    int32_T b_exponent;
-    int32_T c_r_tmp;
+    int32_T b_size_idx_0;
+    int32_T fileID;
     int32_T i;
-    int32_T ia_quot;
-    int32_T idn;
+    int32_T rtb_Compare_kk_0;
     int32_T status;
-    int32_T status_0;
     uint32_T inSize[8];
     int16_T b_data[361];
     int8_T rtAction;
@@ -2817,68 +3061,68 @@ void codegenReal2MissionModelClass::step()
     }
 
     if (rtmIsMajorTimeStep((&codegenReal2Mission_M))) {
-        codegenReal2Mission_getLocalTime(&second, &fracSecs, &check, &shi, &tmp,
-            &h, &rtb_Down, &rtb_RcvNextMission_o1);
-        rtb_Switch_b = shi;
-        rtb_Abs1_h = check;
+        codegenReal2Mission_getLocalTime(&second, &fracSecs, &check, &ahi, &tmp,
+            &absx, &rtb_Sign_c, &rtb_RcvNextMission_o1);
+        rtb_Down = tmp;
+        rtb_Switch_b = check;
         rtb_LatitudeGCS_i = fracSecs;
-        rtb_Switch_m = second / 1.0E+6;
+        distToCenter = second / 1.0E+6;
         second = fracSecs;
-        fracSecs = rtb_Switch_m;
-        check = (((((rtb_Down + h) + tmp) + shi) + check) + rtb_LatitudeGCS_i) +
-            rtb_Switch_m;
+        fracSecs = distToCenter;
+        check = (((((rtb_Sign_c + absx) + tmp) + ahi) + check) +
+                 rtb_LatitudeGCS_i) + distToCenter;
         if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(
                 static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
                  (std::isinf(check)) ^ 1))) & static_cast<int32_T>
                 (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
                  (std::isnan(check)) ^ 1)))))) {
-            rtb_ProductE = rtb_Down;
-            check = h;
-            if ((h < 1.0) || (h > 12.0)) {
-                check = std::floor((h - 1.0) / 12.0);
-                rtb_ProductE = rtb_Down + check;
-                check = ((h - 1.0) - check * 12.0) + 1.0;
+            tmp = rtb_Sign_c;
+            check = absx;
+            if ((absx < 1.0) || (absx > 12.0)) {
+                check = std::floor((absx - 1.0) / 12.0);
+                tmp = rtb_Sign_c + check;
+                check = ((absx - 1.0) - check * 12.0) + 1.0;
             }
 
             if (check < 3.0) {
-                rtb_ProductE--;
+                tmp--;
                 check += 9.0;
             } else {
                 check -= 3.0;
             }
 
-            rtb_ProductE = ((((((365.0 * rtb_ProductE + std::floor(rtb_ProductE /
-                                  4.0)) - std::floor(rtb_ProductE / 100.0)) +
-                               std::floor(rtb_ProductE / 400.0)) + std::floor
-                              ((153.0 * check + 2.0) / 5.0)) + tmp) + 60.0) -
-                719529.0;
-            temp = 1.34217729E+8 * rtb_ProductE;
-            temp -= temp - rtb_ProductE;
-            shi = rtb_ProductE * 8.64E+7;
-            check = (rtb_ProductE - temp) * 8.64E+7;
-            thisData.im = check + (temp * 8.64E+7 - shi);
-            if (std::isnan(check + (temp * 8.64E+7 - shi))) {
+            tmp = ((((((365.0 * tmp + std::floor(tmp / 4.0)) - std::floor(tmp /
+                        100.0)) + std::floor(tmp / 400.0)) + std::floor((153.0 *
+                       check + 2.0) / 5.0)) + rtb_Down) + 60.0) - 719529.0;
+            check = 1.34217729E+8 * tmp;
+            check -= check - tmp;
+            rtb_Sign_c = check;
+            absx = tmp - check;
+            check = tmp * 8.64E+7;
+            rtb_Sign_c = (rtb_Sign_c * 8.64E+7 - check) + absx * 8.64E+7;
+            thisData.im = rtb_Sign_c;
+            if (std::isnan(rtb_Sign_c)) {
                 thisData.im = 0.0;
             }
 
-            if ((rtb_Switch_m < 0.0) || (1000.0 <= rtb_Switch_m)) {
-                fracSecs = std::floor(rtb_Switch_m / 1000.0);
+            if ((distToCenter < 0.0) || (1000.0 <= distToCenter)) {
+                fracSecs = std::floor(distToCenter / 1000.0);
                 second = rtb_LatitudeGCS_i + fracSecs;
-                fracSecs = rtb_Switch_m - fracSecs * 1000.0;
+                fracSecs = distToCenter - fracSecs * 1000.0;
             }
 
-            thisData.re = shi;
+            thisData.re = check;
             thisData = codegenReal2Mission_plus(codegenReal2Mission_plus
-                (codegenReal2Mission_plus(thisData, (60.0 * rtb_Switch_b +
-                rtb_Abs1_h) * 60000.0), second * 1000.0), fracSecs);
+                (codegenReal2Mission_plus(thisData, (60.0 * ahi + rtb_Switch_b) *
+                60000.0), second * 1000.0), fracSecs);
         } else {
             thisData.re = check;
         }
 
-        temp = thisData.re / 1000.0;
-        status = codegenReal2Mission_RcvNextMission_RecvData
+        second = thisData.re / 1000.0;
+        rtb_Compare_kk_0 = codegenReal2Mission_RcvNextMission_RecvData
             (&codegenReal2Mission_DW.RcvNextMission_o2);
-        rtb_RcvNextMission_o1 = (status != 1);
+        rtb_RcvNextMission_o1 = (rtb_Compare_kk_0 != 1);
         if (static_cast<uint32_T>
                 (codegenReal2Mission_DW.is_active_c20_codegenReal2Mission) == 0U)
         {
@@ -2888,7 +3132,7 @@ void codegenReal2MissionModelClass::step()
             codegenReal2Mission_DW.TriggerSend = 0.0;
         } else if (static_cast<int32_T>
                    (codegenReal2Mission_DW.is_c20_codegenReal2Mission) == 1) {
-            if (temp >= codegenReal2Mission_DW.RcvNextMission_o2.StartTime) {
+            if (second >= codegenReal2Mission_DW.RcvNextMission_o2.StartTime) {
                 codegenReal2Mission_DW.is_c20_codegenReal2Mission =
                     codegenReal2Mission_IN_Sending;
                 codegenReal2Mission_DW.TriggerSend = 1.0;
@@ -2897,7 +3141,8 @@ void codegenReal2MissionModelClass::step()
             }
 
             // case IN_Sending:
-        } else if (temp <= codegenReal2Mission_DW.RcvNextMission_o2.StartTime) {
+        } else if (second <= codegenReal2Mission_DW.RcvNextMission_o2.StartTime)
+        {
             codegenReal2Mission_DW.is_c20_codegenReal2Mission =
                 codegenReal2Mission_IN_Pending;
             codegenReal2Mission_DW.TriggerSend = 0.0;
@@ -2913,9 +3158,9 @@ void codegenReal2MissionModelClass::step()
             }
         }
 
-        status = codegenReal2Mission_ReceiveCurrentMission_RecvData
+        rtb_Compare_kk_0 = codegenReal2Mission_ReceiveCurrentMission_RecvData
             (&codegenReal2Mission_DW.ReceiveCurrentMission_o2);
-        rtb_ReceiveCurrentMission_o1 = (status != 1);
+        rtb_ReceiveCurrentMission_o1 = (rtb_Compare_kk_0 != 1);
         if (static_cast<uint32_T>
                 (codegenReal2Mission_DW.is_active_c24_codegenReal2Mission) == 0U)
         {
@@ -3052,7 +3297,7 @@ void codegenReal2MissionModelClass::step()
             }
 
             if (guard1) {
-                second = 0.017453292519943295 *
+                fracSecs = 0.017453292519943295 *
                     codegenReal2Mission_DW.ReceiveCurrentMission_o2.MissionLocation.degHDG;
                 if (static_cast<boolean_T>(static_cast<int32_T>
                                            (static_cast<int32_T>(rtb_Reset) | (
@@ -3067,10 +3312,10 @@ void codegenReal2MissionModelClass::step()
 
                 rtb_Sum1_f[0] = static_cast<real_T>
                     (codegenReal2Mission_DW.ReceiveCurrentMission_o2.params.Param4)
-                    * std::cos(second) * 0.05;
+                    * std::cos(fracSecs) * 0.05;
                 rtb_Sum1_f[1] = static_cast<real_T>
                     (codegenReal2Mission_DW.ReceiveCurrentMission_o2.params.Param4)
-                    * std::sin(second) * 0.05;
+                    * std::sin(fracSecs) * 0.05;
                 codegenReal2Mission_DW.DiscreteTimeIntegrator[0] =
                     codegenReal2Mission_DW.DiscreteTimeIntegrator_DSTATE[0] +
                     rtb_Sum1_f[0];
@@ -3089,13 +3334,13 @@ void codegenReal2MissionModelClass::step()
         }
 
         rtb_Down_c = -codegenReal2Mission_DW.Height_f;
-        second = codegenReal2Mission_DW.East_k +
+        fracSecs = codegenReal2Mission_DW.East_k +
             codegenReal2Mission_DW.DiscreteTimeIntegrator[1];
-        fracSecs = codegenReal2Mission_DW.North_o +
+        check = codegenReal2Mission_DW.North_o +
             codegenReal2Mission_DW.DiscreteTimeIntegrator[0];
-        status = codegenReal2Mission_RcvImmedCMD_RecvData
+        rtb_Compare_kk_0 = codegenReal2Mission_RcvImmedCMD_RecvData
             (&codegenReal2Mission_DW.RcvImmedCMD_o2);
-        rtb_RcvImmedCMD_o1 = (status != 1);
+        rtb_RcvImmedCMD_o1 = (rtb_Compare_kk_0 != 1);
         if (static_cast<uint32_T>
                 (codegenReal2Mission_DW.is_active_c26_codegenReal2Mission) == 0U)
         {
@@ -3104,7 +3349,7 @@ void codegenReal2MissionModelClass::step()
                 codegenReal2Mission_IN_FlightMission;
             codegenReal2Mission_DW.is_FlightMission =
                 codegenReal2Mission_IN_FlightWait;
-            check = 1.0;
+            ahi = 1.0;
         } else if (static_cast<int32_T>
                    (codegenReal2Mission_DW.is_c26_codegenReal2Mission) == 1) {
             if (rtb_RcvImmedCMD_o1) {
@@ -3112,20 +3357,20 @@ void codegenReal2MissionModelClass::step()
                     codegenReal2Mission_IN_NO_ACTIVE_CHILD;
                 codegenReal2Mission_DW.is_c26_codegenReal2Mission =
                     codegenReal2Mission_IN_ImmedMission_l;
-                check = 1.0;
+                ahi = 1.0;
             } else if (static_cast<int32_T>
                        (codegenReal2Mission_DW.is_FlightMission) == 1) {
-                check = 0.0;
+                ahi = 0.0;
                 codegenReal2Mission_DW.endImmed = false;
 
                 // case IN_FlightWait:
             } else if (rtb_ReceiveCurrentMission_o1) {
                 codegenReal2Mission_DW.is_FlightMission =
                     codegenReal2Mission_IN_FlightRun;
-                check = 0.0;
+                ahi = 0.0;
                 codegenReal2Mission_DW.endImmed = true;
             } else {
-                check = 1.0;
+                ahi = 1.0;
             }
 
             // case IN_ImmedMission:
@@ -3134,14 +3379,15 @@ void codegenReal2MissionModelClass::step()
                 codegenReal2Mission_IN_FlightMission;
             codegenReal2Mission_DW.is_FlightMission =
                 codegenReal2Mission_IN_FlightWait;
-            check = 1.0;
+            ahi = 1.0;
         } else {
-            check = 1.0;
+            ahi = 1.0;
         }
 
-        shi = codegenReal2Mission_DW.MemoryPose_PreviousInput.North;
-        tmp = codegenReal2Mission_DW.MemoryPose_PreviousInput.East;
-        h = codegenReal2Mission_DW.MemoryPose_PreviousInput.HeadingAngle;
+        absx = codegenReal2Mission_DW.MemoryPose_PreviousInput.North;
+        rtb_Sign_c = codegenReal2Mission_DW.MemoryPose_PreviousInput.East;
+        distToCenter =
+            codegenReal2Mission_DW.MemoryPose_PreviousInput.HeadingAngle;
         if (static_cast<uint32_T>
                 (codegenReal2Mission_DW.is_active_c25_codegenReal2Mission) == 0U)
         {
@@ -3275,14 +3521,13 @@ void codegenReal2MissionModelClass::step()
             rtb_LatitudeGCS_i = LatitudeGCS;
             rtw_pthread_mutex_unlock(LatitudeGCS_m0);
             rtw_pthread_mutex_lock(LongitudeGCS_m0);
-            rtb_Abs1_h = LongitudeGCS;
+            tmp = LongitudeGCS;
             rtw_pthread_mutex_unlock(LongitudeGCS_m0);
             rtb_Sum1_f[0] =
                 codegenReal2Mission_DW.RcvImmedCMD_o2.MissionLocation.Lat -
                 rtb_LatitudeGCS_i;
             rtb_Sum1_f[1] =
-                codegenReal2Mission_DW.RcvImmedCMD_o2.MissionLocation.Lon -
-                rtb_Abs1_h;
+                codegenReal2Mission_DW.RcvImmedCMD_o2.MissionLocation.Lon - tmp;
             if (std::abs(rtb_Sum1_f[0]) > 180.0) {
                 rtb_Switch_m = rt_modd_snf(rtb_Sum1_f[0] + 180.0, 360.0) +
                     -180.0;
@@ -3290,8 +3535,8 @@ void codegenReal2MissionModelClass::step()
                 rtb_Switch_m = rtb_Sum1_f[0];
             }
 
-            rtb_Abs1_h = std::abs(rtb_Switch_m);
-            if (rtb_Abs1_h > 90.0) {
+            tmp = std::abs(rtb_Switch_m);
+            if (tmp > 90.0) {
                 if (rtb_Switch_m < 0.0) {
                     rtb_Switch_m = -1.0;
                 } else if (rtb_Switch_m > 0.0) {
@@ -3302,13 +3547,13 @@ void codegenReal2MissionModelClass::step()
                     rtb_Switch_m = (rtNaN);
                 }
 
-                rtb_Switch_m *= -(rtb_Abs1_h + -90.0) + 90.0;
-                status = 180;
+                rtb_Switch_m *= -(tmp + -90.0) + 90.0;
+                rtb_Compare_kk_0 = 180;
             } else {
-                status = 0;
+                rtb_Compare_kk_0 = 0;
             }
 
-            rtb_Sum_i = static_cast<real_T>(status) + rtb_Sum1_f[1];
+            rtb_Sum_i = static_cast<real_T>(rtb_Compare_kk_0) + rtb_Sum1_f[1];
             if (std::abs(rtb_Sum_i) > 180.0) {
                 rtb_Sum_i = rt_modd_snf(rtb_Sum_i + 180.0, 360.0) + -180.0;
             }
@@ -3339,8 +3584,10 @@ void codegenReal2MissionModelClass::step()
             rtb_TmpSignalConversionAtOrbitFollowerInport2[2] =
                 -(codegenReal2Mission_DW.RcvImmedCMD_o2.MissionLocation.Alt +
                   -rtb_AltitudeGCS_d);
-            rtb_Sum_h[0] = shi - rtb_TmpSignalConversionAtOrbitFollowerInport2[0];
-            rtb_Sum_h[1] = tmp - rtb_TmpSignalConversionAtOrbitFollowerInport2[1];
+            rtb_Sum_h[0] = absx - rtb_TmpSignalConversionAtOrbitFollowerInport2
+                [0];
+            rtb_Sum_h[1] = rtb_Sign_c -
+                rtb_TmpSignalConversionAtOrbitFollowerInport2[1];
             rtb_Sum_h[2] = rtb_Down -
                 rtb_TmpSignalConversionAtOrbitFollowerInport2[2];
             rtb_AltitudeGCS_d = std::sqrt((rtb_Sum_h[0] * rtb_Sum_h[0] +
@@ -3401,58 +3648,59 @@ void codegenReal2MissionModelClass::step()
                 }
             }
 
-            rtb_MemoryPose_m[0] = shi;
-            rtb_MemoryPose_m[1] = tmp;
+            rtb_MemoryPose_m[0] = absx;
+            rtb_MemoryPose_m[1] = rtb_Sign_c;
             rtb_MemoryPose_m[2] = rtb_Down;
-            rtb_MemoryPose_m[3] = h;
+            rtb_MemoryPose_m[3] = distToCenter;
             if (static_cast<real_T>
                     (codegenReal2Mission_DW.RcvImmedCMD_o2.FormationPos) < 0.0)
             {
-                shi = -1.0;
+                rtb_Sign_c = -1.0;
             } else if (static_cast<real_T>
                        (codegenReal2Mission_DW.RcvImmedCMD_o2.FormationPos) >
                        0.0) {
-                shi = 1.0;
+                rtb_Sign_c = 1.0;
             } else {
-                shi = 0.0;
+                rtb_Sign_c = 0.0;
             }
 
             codegenReal2Mission_DW.obj_j.OrbitRadiusFlag = 0U;
             codegenReal2Mission_DW.obj_j.OrbitRadiusFlag = 1U;
-            rtb_Down = static_cast<real_T>
+            distToCenter = static_cast<real_T>
                 (codegenReal2Mission_DW.RcvImmedCMD_o2.params.Param4);
             codegenReal2Mission_DW.obj_j.LookaheadDistFlag = 0U;
             if (static_cast<real_T>
                     (codegenReal2Mission_DW.RcvImmedCMD_o2.params.Param4) < 0.1)
             {
-                rtb_Down = 0.1;
+                distToCenter = 0.1;
                 codegenReal2Mission_DW.obj_j.LookaheadDistFlag = 1U;
             }
 
             rtb_ProductN = rtb_MemoryPose_m[0] -
                 rtb_TmpSignalConversionAtOrbitFollowerInport2[0];
             rtb_MemoryPose_m_0[0] = rtb_ProductN;
-            t_0 = rtb_MemoryPose_m[1] -
+            t = rtb_MemoryPose_m[1] -
                 rtb_TmpSignalConversionAtOrbitFollowerInport2[1];
-            rtb_MemoryPose_m_0[1] = t_0;
+            rtb_MemoryPose_m_0[1] = t;
             if (codegenReal2Mission_norm(rtb_MemoryPose_m_0) <
                     2.47032822920623E-323) {
                 rtb_Sum_h[2] = rtb_TmpSignalConversionAtOrbitFollowerInport2[2];
-                tmp = h;
+                tmp = rtb_MemoryPose_m[3];
             } else {
                 rtb_ReceiveCurrentMission_o1 = false;
                 rtb_RcvNextMission_o1 = true;
-                status = 0;
+                rtb_Compare_kk_0 = 0;
                 exitg1 = false;
-                while ((!exitg1) && (status < 3)) {
-                    if ((codegenReal2Mission_DW.obj_j.OrbitCenterInternal[status]
-                         == rtb_TmpSignalConversionAtOrbitFollowerInport2[status])
+                while ((!exitg1) && (rtb_Compare_kk_0 < 3)) {
+                    if ((codegenReal2Mission_DW.obj_j.OrbitCenterInternal[rtb_Compare_kk_0]
+                         == rtb_TmpSignalConversionAtOrbitFollowerInport2[rtb_Compare_kk_0])
                         || (std::isnan
-                            (codegenReal2Mission_DW.obj_j.OrbitCenterInternal[status])
+                            (codegenReal2Mission_DW.obj_j.OrbitCenterInternal[rtb_Compare_kk_0])
                             && std::isnan
-                            (rtb_TmpSignalConversionAtOrbitFollowerInport2[status])))
+                            (rtb_TmpSignalConversionAtOrbitFollowerInport2[rtb_Compare_kk_0])))
                     {
-                        status = static_cast<int32_T>(status + 1);
+                        rtb_Compare_kk_0 = static_cast<int32_T>(rtb_Compare_kk_0
+                            + 1);
                     } else {
                         rtb_RcvNextMission_o1 = false;
                         exitg1 = true;
@@ -3465,10 +3713,10 @@ void codegenReal2MissionModelClass::step()
 
                 if ((static_cast<boolean_T>(static_cast<int32_T>
                                             (static_cast<int32_T>
-                        (rtb_ReceiveCurrentMission_o1) ^ 1))) || (static_cast<
-                        boolean_T>(static_cast<int32_T>
-                                   ((codegenReal2Mission_DW.obj_j.OrbitRadiusInternal
-                                     == 0.1) ^ 1)))) {
+                        (rtb_ReceiveCurrentMission_o1) ^ 1))) ||
+                        (static_cast<boolean_T>(static_cast<int32_T>
+                        ((codegenReal2Mission_DW.obj_j.OrbitRadiusInternal ==
+                          0.1) ^ 1)))) {
                     codegenReal2Mission_DW.obj_j.NumCircles = 0.0;
                     codegenReal2Mission_DW.obj_j.OrbitCenterInternal[0] =
                         rtb_TmpSignalConversionAtOrbitFollowerInport2[0];
@@ -3480,65 +3728,70 @@ void codegenReal2MissionModelClass::step()
                     codegenReal2Mission_DW.obj_j.SelectTurnDirectionFlag = true;
                 }
 
-                if (rtb_Down >= 0.1) {
+                if (distToCenter >= 0.1) {
                     codegenReal2Mission_DW.obj_j.LookaheadDistance =
                         0.090000000000000011;
                 } else {
-                    codegenReal2Mission_DW.obj_j.LookaheadDistance = rtb_Down;
+                    codegenReal2Mission_DW.obj_j.LookaheadDistance =
+                        distToCenter;
                 }
 
                 rtb_Sum1_f[0] = rtb_MemoryPose_m[0];
                 rtb_Sum1_f[1] = rtb_MemoryPose_m[1];
                 xyCenter[0] = rtb_TmpSignalConversionAtOrbitFollowerInport2[0];
                 xyCenter[1] = rtb_TmpSignalConversionAtOrbitFollowerInport2[1];
-                rtb_Switch_m = rtb_Sum1_f[0] - xyCenter[0];
-                distToCenter_tmp[0] = rtb_Switch_m;
-                h = rtb_Sum1_f[1] - xyCenter[1];
-                distToCenter_tmp[1] = h;
-                rtb_Down = std::sqrt(h * h + rtb_Switch_m * rtb_Switch_m);
-                rtb_Abs1_h = std::abs
+                tmp = rtb_Sum1_f[0] - xyCenter[0];
+                distToCenter_tmp[0] = tmp;
+                rtb_LatitudeGCS_i = rtb_Sum1_f[1] - xyCenter[1];
+                distToCenter_tmp[1] = rtb_LatitudeGCS_i;
+                distToCenter = std::sqrt(rtb_LatitudeGCS_i * rtb_LatitudeGCS_i +
+                    tmp * tmp);
+                rtb_Down = std::abs
                     (codegenReal2Mission_DW.obj_j.LookaheadDistance + 0.1);
                 rtb_RcvNextMission_o1 = static_cast<boolean_T>
                     (static_cast<int32_T>(static_cast<int32_T>(std::isinf
-                       (rtb_Abs1_h)) ^ 1));
+                       (rtb_Down)) ^ 1));
                 rtb_ReceiveCurrentMission_o1 = static_cast<boolean_T>(
                     static_cast<int32_T>(static_cast<int32_T>(std::isnan
-                    (rtb_Abs1_h)) ^ 1));
+                    (rtb_Down)) ^ 1));
                 if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<
                         int32_T>(rtb_RcvNextMission_o1) & static_cast<int32_T>
                         (rtb_ReceiveCurrentMission_o1)))) {
-                    if (rtb_Abs1_h <= 2.2250738585072014E-308) {
-                        tmp = 4.94065645841247E-324;
+                    if (rtb_Down <= 2.2250738585072014E-308) {
+                        absx = 4.94065645841247E-324;
                     } else {
-                        frexp(rtb_Abs1_h, &idn);
-                        tmp = std::ldexp(1.0, static_cast<int32_T>(idn - 53));
+                        frexp(rtb_Down, &fileID);
+                        absx = std::ldexp(1.0, static_cast<int32_T>(fileID - 53));
                     }
                 } else {
-                    tmp = (rtNaN);
+                    absx = (rtNaN);
                 }
 
                 guard1 = false;
-                if (rtb_Down >= (codegenReal2Mission_DW.obj_j.LookaheadDistance
-                                 + 0.1) - 5.0 * tmp) {
+                if (distToCenter >=
+                        (codegenReal2Mission_DW.obj_j.LookaheadDistance + 0.1) -
+                    5.0 * absx) {
                     guard1 = true;
                 } else {
-                    if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<
-                            int32_T>(rtb_RcvNextMission_o1) &
-                            static_cast<int32_T>(rtb_ReceiveCurrentMission_o1))))
+                    if (static_cast<boolean_T>(static_cast<int32_T>
+                                               (static_cast<int32_T>
+                                                (rtb_RcvNextMission_o1) &
+                                                static_cast<int32_T>
+                                                (rtb_ReceiveCurrentMission_o1))))
                     {
-                        if (rtb_Abs1_h <= 2.2250738585072014E-308) {
-                            tmp = 4.94065645841247E-324;
+                        if (rtb_Down <= 2.2250738585072014E-308) {
+                            absx = 4.94065645841247E-324;
                         } else {
-                            frexp(rtb_Abs1_h, &i);
-                            tmp = std::ldexp(1.0, static_cast<int32_T>(i - 53));
+                            frexp(rtb_Down, &i);
+                            absx = std::ldexp(1.0, static_cast<int32_T>(i - 53));
                         }
                     } else {
-                        tmp = (rtNaN);
+                        absx = (rtNaN);
                     }
 
-                    if (rtb_Down <= (0.1 -
-                                     codegenReal2Mission_DW.obj_j.LookaheadDistance)
-                        + 5.0 * tmp) {
+                    if (distToCenter <= (0.1 -
+                                         codegenReal2Mission_DW.obj_j.LookaheadDistance)
+                        + 5.0 * absx) {
                         guard1 = true;
                     } else {
                         if (codegenReal2Mission_DW.obj_j.StartFlag) {
@@ -3551,34 +3804,35 @@ void codegenReal2MissionModelClass::step()
                             codegenReal2Mission_DW.obj_j.StartFlag = false;
                         }
 
-                        rtb_MemoryPose_m_0[0] = rtb_Switch_m;
-                        rtb_MemoryPose_m_0[1] = h;
-                        tmp = codegenReal2Mission_norm(rtb_MemoryPose_m_0);
-                        h = codegenReal2Mission_DW.obj_j.LookaheadDistance *
+                        rtb_MemoryPose_m_0[0] = tmp;
+                        rtb_MemoryPose_m_0[1] = rtb_LatitudeGCS_i;
+                        distToCenter = codegenReal2Mission_norm
+                            (rtb_MemoryPose_m_0);
+                        absx = codegenReal2Mission_DW.obj_j.LookaheadDistance *
                             codegenReal2Mission_DW.obj_j.LookaheadDistance;
-                        rtb_ProductE = ((h - 0.010000000000000002) + tmp * tmp) /
-                            (2.0 * tmp);
-                        rtb_LatitudeGCS_i = xyCenter[0] - rtb_Sum1_f[0];
-                        rtb_Down = rtb_LatitudeGCS_i * rtb_ProductE / tmp +
+                        tmp = ((absx - 0.010000000000000002) + distToCenter *
+                               distToCenter) / (2.0 * distToCenter);
+                        rtb_Switch_m = xyCenter[0] - rtb_Sum1_f[0];
+                        rtb_Down = rtb_Switch_m * tmp / distToCenter +
                             rtb_Sum1_f[0];
-                        rtb_Switch_m = xyCenter[1] - rtb_Sum1_f[1];
-                        rtb_Abs1_h = rtb_Switch_m * rtb_ProductE / tmp +
+                        rtb_Sum_i = xyCenter[1] - rtb_Sum1_f[1];
+                        rtb_LatitudeGCS_i = rtb_Sum_i * tmp / distToCenter +
                             rtb_Sum1_f[1];
-                        h = std::sqrt(h - rtb_ProductE * rtb_ProductE);
-                        rtb_Switch_m = rtb_Switch_m * h / tmp;
-                        distToCenter_tmp[0] = rtb_Down - rtb_Switch_m;
-                        distToCenter_tmp[1] = rtb_Switch_m + rtb_Down;
-                        tmp = rtb_LatitudeGCS_i * h / tmp;
-                        h = tmp + rtb_Abs1_h;
-                        rtb_Down = rtb_Abs1_h - tmp;
-                        if ((shi == 0.0) && (static_cast<boolean_T>(static_cast<
-                                int32_T>(static_cast<int32_T>
-                                         (codegenReal2Mission_DW.obj_j.SelectTurnDirectionFlag)
-                                         ^ 1)))) {
+                        absx = std::sqrt(absx - tmp * tmp);
+                        tmp = rtb_Sum_i * absx / distToCenter;
+                        distToCenter_tmp[0] = rtb_Down - tmp;
+                        distToCenter_tmp[1] = tmp + rtb_Down;
+                        distToCenter = rtb_Switch_m * absx / distToCenter;
+                        absx = distToCenter + rtb_LatitudeGCS_i;
+                        rtb_LatitudeGCS_i -= distToCenter;
+                        if ((rtb_Sign_c == 0.0) && (static_cast<boolean_T>(
+                                static_cast<int32_T>(static_cast<int32_T>
+                                (codegenReal2Mission_DW.obj_j.SelectTurnDirectionFlag)
+                               ^ 1)))) {
                             tmp =
                                 codegenReal2Mission_DW.obj_j.TurnDirectionInternal;
                         } else {
-                            tmp = shi;
+                            tmp = rtb_Sign_c;
                         }
 
                         rtb_Sum_h[0] =
@@ -3591,12 +3845,12 @@ void codegenReal2MissionModelClass::step()
                         u[1] = rtb_Sum_h[1];
                         u[2] = 0.0;
                         v[0] = rtb_ProductN;
-                        v[1] = t_0;
+                        v[1] = t;
                         v[2] = 0.0;
                         if (tmp < 0.0) {
                             u[0] = rtb_ProductN;
                             v[0] = rtb_Sum_h[0];
-                            u[1] = t_0;
+                            u[1] = t;
                             v[1] = rtb_Sum_h[1];
                             u[2] = 0.0;
                             v[2] = 0.0;
@@ -3609,14 +3863,17 @@ void codegenReal2MissionModelClass::step()
                             tmp = (rtNaN);
                         }
 
-                        rtb_Sum_i = codegenReal2Mission_norm_b(u);
+                        rtb_CoordinateTransformationConversion_f_idx_0 =
+                            codegenReal2Mission_norm_b(u);
                         rtb_CoordinateTransformationConversion_f_idx_1 =
                             codegenReal2Mission_norm_b(v);
-                        rtb_ProductE = u[0] / rtb_Sum_i;
-                        rtb_U = v[0] /
+                        rtb_U = u[0] /
+                            rtb_CoordinateTransformationConversion_f_idx_0;
+                        rtb_CoordinateTransformationConversion_f_idx_2 = v[0] /
                             rtb_CoordinateTransformationConversion_f_idx_1;
-                        rtb_Abs1_h = u[1] / rtb_Sum_i;
-                        rtb_LatitudeGCS_i = v[1] /
+                        distToCenter = u[1] /
+                            rtb_CoordinateTransformationConversion_f_idx_0;
+                        rtb_Down = v[1] /
                             rtb_CoordinateTransformationConversion_f_idx_1;
                         codegenReal2Mission_DW.obj_j.PrevPosition[0] =
                             rtb_MemoryPose_m[0];
@@ -3625,9 +3882,12 @@ void codegenReal2MissionModelClass::step()
                         codegenReal2Mission_DW.obj_j.PrevPosition[2] =
                             rtb_MemoryPose_m[2];
                         codegenReal2Mission_DW.obj_j.NumCircles += rt_atan2d_snf
-                            (rtb_ProductE * rtb_LatitudeGCS_i - rtb_U *
-                             rtb_Abs1_h, (rtb_ProductE * rtb_U + rtb_Abs1_h *
-                                          rtb_LatitudeGCS_i) + 0.0 / rtb_Sum_i *
+                            (rtb_U * rtb_Down -
+                             rtb_CoordinateTransformationConversion_f_idx_2 *
+                             distToCenter, (rtb_U *
+                                            rtb_CoordinateTransformationConversion_f_idx_2
+                                            + distToCenter * rtb_Down) + 0.0 /
+                             rtb_CoordinateTransformationConversion_f_idx_0 *
                              (0.0 /
                               rtb_CoordinateTransformationConversion_f_idx_1)) /
                             2.0 / 3.1415926535897931;
@@ -3636,43 +3896,45 @@ void codegenReal2MissionModelClass::step()
                         switch (static_cast<int32_T>(tmp)) {
                           case 1:
                             if ((distToCenter_tmp[0] - rtb_MemoryPose_m[0]) * v
-                                    [1] - (h - rtb_MemoryPose_m[1]) * v[0] > 0.0)
-                            {
+                                    [1] - (absx - rtb_MemoryPose_m[1]) * v[0] >
+                                    0.0) {
                                 xyCenter[0] = distToCenter_tmp[0];
-                                xyCenter[1] = h;
+                                xyCenter[1] = absx;
                             } else {
                                 xyCenter[0] = distToCenter_tmp[1];
-                                xyCenter[1] = rtb_Down;
+                                xyCenter[1] = rtb_LatitudeGCS_i;
                             }
                             break;
 
                           case -1:
                             if ((distToCenter_tmp[0] - rtb_MemoryPose_m[0]) * v
-                                    [1] - (h - rtb_MemoryPose_m[1]) * v[0] < 0.0)
-                            {
+                                    [1] - (absx - rtb_MemoryPose_m[1]) * v[0] <
+                                    0.0) {
                                 xyCenter[0] = distToCenter_tmp[0];
-                                xyCenter[1] = h;
+                                xyCenter[1] = absx;
                             } else {
                                 xyCenter[0] = distToCenter_tmp[1];
-                                xyCenter[1] = rtb_Down;
+                                xyCenter[1] = rtb_LatitudeGCS_i;
                             }
                             break;
 
                           default:
-                            rtb_ProductE = std::abs(codegenReal2Mission_angdiff
-                                                    (rt_atan2d_snf(h -
-                                rtb_MemoryPose_m[1], distToCenter_tmp[0] -
-                                rtb_MemoryPose_m[0]), rtb_MemoryPose_m[3]));
-                            if (rtb_ProductE < std::abs
-                                    (codegenReal2Mission_angdiff(rt_atan2d_snf
-                                    (rtb_Down - rtb_MemoryPose_m[1],
-                                     distToCenter_tmp[1] - rtb_MemoryPose_m[0]),
-                                  rtb_MemoryPose_m[3]))) {
+                            tmp = std::abs(codegenReal2Mission_angdiff
+                                           (rt_atan2d_snf(absx -
+                                             rtb_MemoryPose_m[1],
+                                             distToCenter_tmp[0] -
+                                             rtb_MemoryPose_m[0]),
+                                            rtb_MemoryPose_m[3]));
+                            if (tmp < std::abs(codegenReal2Mission_angdiff
+                                               (rt_atan2d_snf(rtb_LatitudeGCS_i
+                                    - rtb_MemoryPose_m[1], distToCenter_tmp[1] -
+                                   rtb_MemoryPose_m[0]), rtb_MemoryPose_m[3])))
+                            {
                                 xyCenter[0] = distToCenter_tmp[0];
-                                xyCenter[1] = h;
+                                xyCenter[1] = absx;
                             } else {
                                 xyCenter[0] = distToCenter_tmp[1];
-                                xyCenter[1] = rtb_Down;
+                                xyCenter[1] = rtb_LatitudeGCS_i;
                             }
 
                             if ((xyCenter[0] - rtb_MemoryPose_m[0]) * v[1] -
@@ -3693,9 +3955,12 @@ void codegenReal2MissionModelClass::step()
                 }
 
                 if (guard1) {
-                    rtb_Sum_i = codegenReal2Mission_norm(distToCenter_tmp);
-                    xyCenter[0] += rtb_Switch_m / rtb_Sum_i * 0.1;
-                    xyCenter[1] += h / rtb_Sum_i * 0.1;
+                    rtb_CoordinateTransformationConversion_f_idx_0 =
+                        codegenReal2Mission_norm(distToCenter_tmp);
+                    xyCenter[0] += tmp /
+                        rtb_CoordinateTransformationConversion_f_idx_0 * 0.1;
+                    xyCenter[1] += rtb_LatitudeGCS_i /
+                        rtb_CoordinateTransformationConversion_f_idx_0 * 0.1;
                 }
 
                 rtb_Sum_h[2] = rtb_TmpSignalConversionAtOrbitFollowerInport2[2];
@@ -3708,13 +3973,13 @@ void codegenReal2MissionModelClass::step()
             }
 
             if (rtb_AltitudeGCS_d == 2.0) {
-                rtb_Switch_b = 2.3561944901923448 * shi;
+                rtb_Switch_b = 2.3561944901923448 * rtb_Sign_c;
             }
 
             codegenReal2Mission_DW.MergeGuidanceCMD.Height =
                 -((static_cast<real_T>
                    (codegenReal2Mission_DW.RcvImmedCMD_o2.FormationPos) - 0.5 *
-                   shi) * 10.0 + rtb_Sum_h[2]);
+                   rtb_Sign_c) * 10.0 + rtb_Sum_h[2]);
             codegenReal2Mission_DW.MergeGuidanceCMD.AirSpeed =
                 static_cast<real_T>
                 (codegenReal2Mission_DW.RcvImmedCMD_o2.params.Param1);
@@ -3742,8 +4007,10 @@ void codegenReal2MissionModelClass::step()
                 codegenReal2Mission_DW.is_c10_codegenReal2Mission =
                     codegenReal2Mission_IN_NO_ACTIVE_CHILD;
                 codegenReal2Mission_DW.obj.WaypointIndex = 1.0;
-                for (i = 0; i < 2700; i++) {
-                    codegenReal2Mission_DW.obj.WaypointsInternal[i] = (rtNaN);
+                for (rtb_Compare_kk_0 = 0; rtb_Compare_kk_0 < 2700;
+                        rtb_Compare_kk_0++) {
+                    codegenReal2Mission_DW.obj.WaypointsInternal[rtb_Compare_kk_0]
+                        = (rtNaN);
                 }
             }
 
@@ -3752,14 +4019,13 @@ void codegenReal2MissionModelClass::step()
             rtb_AltitudeGCS_d = LatitudeGCS;
             rtw_pthread_mutex_unlock(LatitudeGCS_m0);
             rtw_pthread_mutex_lock(LongitudeGCS_m0);
-            rtb_Abs1_h = LongitudeGCS;
+            tmp = LongitudeGCS;
             rtw_pthread_mutex_unlock(LongitudeGCS_m0);
             rtb_Sum1_f[0] =
                 codegenReal2Mission_DW.RcvImmedCMD_o2.MissionLocation.Lat -
                 rtb_AltitudeGCS_d;
             rtb_Sum1_f[1] =
-                codegenReal2Mission_DW.RcvImmedCMD_o2.MissionLocation.Lon -
-                rtb_Abs1_h;
+                codegenReal2Mission_DW.RcvImmedCMD_o2.MissionLocation.Lon - tmp;
             if (std::abs(rtb_Sum1_f[0]) > 180.0) {
                 rtb_LatitudeGCS_i = rt_modd_snf(rtb_Sum1_f[0] + 180.0, 360.0) +
                     -180.0;
@@ -3767,8 +4033,8 @@ void codegenReal2MissionModelClass::step()
                 rtb_LatitudeGCS_i = rtb_Sum1_f[0];
             }
 
-            rtb_Abs1_h = std::abs(rtb_LatitudeGCS_i);
-            if (rtb_Abs1_h > 90.0) {
+            tmp = std::abs(rtb_LatitudeGCS_i);
+            if (tmp > 90.0) {
                 if (rtb_LatitudeGCS_i < 0.0) {
                     rtb_LatitudeGCS_i = -1.0;
                 } else if (rtb_LatitudeGCS_i > 0.0) {
@@ -3779,13 +4045,13 @@ void codegenReal2MissionModelClass::step()
                     rtb_LatitudeGCS_i = (rtNaN);
                 }
 
-                rtb_LatitudeGCS_i *= -(rtb_Abs1_h + -90.0) + 90.0;
-                status = 180;
+                rtb_LatitudeGCS_i *= -(tmp + -90.0) + 90.0;
+                rtb_Compare_kk_0 = 180;
             } else {
-                status = 0;
+                rtb_Compare_kk_0 = 0;
             }
 
-            rtb_Switch_m = static_cast<real_T>(status) + rtb_Sum1_f[1];
+            rtb_Switch_m = static_cast<real_T>(rtb_Compare_kk_0) + rtb_Sum1_f[1];
             if (std::abs(rtb_Switch_m) > 180.0) {
                 rtb_Switch_m = rt_modd_snf(rtb_Switch_m + 180.0, 360.0) + -180.0;
             }
@@ -3810,38 +4076,37 @@ void codegenReal2MissionModelClass::step()
             rtb_LatitudeGCS_i = 1.0 / rt_atan2d_snf(1.0, rtb_LatitudeGCS_i * std::
                 cos(rtb_AltitudeGCS_d)) * rtb_Sum1_f[1];
             rtb_AltitudeGCS_d = rtb_LatitudeGCS_i * 0.0 + rtb_Switch_m;
-            rtb_LatitudeGCS_i -= rtb_Switch_m * 0.0;
+            rtb_Switch_m = rtb_LatitudeGCS_i - rtb_Switch_m * 0.0;
             rtw_pthread_mutex_lock(AltitudeGCS_m0);
-            rtb_Abs1_h = AltitudeGCS;
+            tmp = AltitudeGCS;
             rtw_pthread_mutex_unlock(AltitudeGCS_m0);
-            rtb_Switch_m =
-                codegenReal2Mission_DW.RcvImmedCMD_o2.MissionLocation.Alt +
-                -rtb_Abs1_h;
+            rtb_Switch_b =
+                codegenReal2Mission_DW.RcvImmedCMD_o2.MissionLocation.Alt + -tmp;
             rtb_TmpSignalConversionAtOrbitFollowerInport2[0] = rtb_AltitudeGCS_d
-                - fracSecs;
-            rtb_TmpSignalConversionAtOrbitFollowerInport2[1] = rtb_LatitudeGCS_i
-                - second;
-            rtb_TmpSignalConversionAtOrbitFollowerInport2[2] = rtb_Switch_m -
+                - check;
+            rtb_TmpSignalConversionAtOrbitFollowerInport2[1] = rtb_Switch_m -
+                fracSecs;
+            rtb_TmpSignalConversionAtOrbitFollowerInport2[2] = rtb_Switch_b -
                 codegenReal2Mission_DW.Height_f;
-            rtb_Abs1_h = std::sqrt
+            rtb_LatitudeGCS_i = std::sqrt
                 ((rtb_TmpSignalConversionAtOrbitFollowerInport2[0] *
                   rtb_TmpSignalConversionAtOrbitFollowerInport2[0] +
                   rtb_TmpSignalConversionAtOrbitFollowerInport2[1] *
                   rtb_TmpSignalConversionAtOrbitFollowerInport2[1]) +
                  rtb_TmpSignalConversionAtOrbitFollowerInport2[2] *
                  rtb_TmpSignalConversionAtOrbitFollowerInport2[2]);
-            rtb_Switch_b = static_cast<real_T>
+            rtb_Sum_i = static_cast<real_T>
                 (codegenReal2Mission_DW.RcvImmedCMD_o2.params.Param1) +
                 static_cast<real_T>
                 (codegenReal2Mission_DW.RcvImmedCMD_o2.params.Param2);
-            rtb_TmpSignalConversionAtOrbitFollowerInport2[0] = fracSecs -
+            rtb_TmpSignalConversionAtOrbitFollowerInport2[0] = check -
                 rtb_AltitudeGCS_d;
-            rtb_TmpSignalConversionAtOrbitFollowerInport2[1] = second -
-                rtb_LatitudeGCS_i;
+            rtb_TmpSignalConversionAtOrbitFollowerInport2[1] = fracSecs -
+                rtb_Switch_m;
             rtb_TmpSignalConversionAtOrbitFollowerInport2[2] =
-                codegenReal2Mission_DW.Height_f - rtb_Switch_m;
-            codegenReal2Mission_DW.RelationalOperator = (rtb_Abs1_h <=
-                rtb_Switch_b);
+                codegenReal2Mission_DW.Height_f - rtb_Switch_b;
+            codegenReal2Mission_DW.RelationalOperator = (rtb_LatitudeGCS_i <=
+                rtb_Sum_i);
             if (codegenReal2Mission_DW.RelationalOperator) {
                 v[0] = std::cos(codegenReal2Mission_DW.HeadingAngle_g);
                 v[1] = std::cos(codegenReal2Mission_DW.FlightPathAngle_h);
@@ -3850,69 +4115,72 @@ void codegenReal2MissionModelClass::step()
                 rtb_Sum_h[1] = std::sin(codegenReal2Mission_DW.FlightPathAngle_h);
                 rtb_Sum_h[2] = std::sin(codegenReal2Mission_DW.RollAngle_b);
                 out[0] = v[0] * v[1];
-                rtb_ProductE = rtb_Sum_h[1] * rtb_Sum_h[2];
-                out[3] = rtb_ProductE * v[0] - rtb_Sum_h[0] * v[2];
+                tmp = rtb_Sum_h[1] * rtb_Sum_h[2];
+                out[3] = tmp * v[0] - rtb_Sum_h[0] * v[2];
                 rtb_U = rtb_Sum_h[1] * v[2];
                 out[6] = rtb_U * v[0] + rtb_Sum_h[0] * rtb_Sum_h[2];
                 out[1] = rtb_Sum_h[0] * v[1];
-                out[4] = rtb_ProductE * rtb_Sum_h[0] + v[0] * v[2];
+                out[4] = tmp * rtb_Sum_h[0] + v[0] * v[2];
                 out[7] = rtb_U * rtb_Sum_h[0] - v[0] * rtb_Sum_h[2];
                 out[2] = -rtb_Sum_h[1];
                 out[5] = v[1] * rtb_Sum_h[2];
                 out[8] = v[1] * v[2];
-                rtb_U = 0.0;
-                for (i = 0; i < 3; i++) {
-                    rtb_ProductE = out[static_cast<int32_T>(i + 6)] * 0.0 +
-                        (out[static_cast<int32_T>(i + 3)] * 0.0 + out[i]);
-                    rtb_U += rtb_ProductE * rtb_ProductE;
-                    v[i] = rtb_ProductE;
+                rtb_CoordinateTransformationConversion_f_idx_2 = 0.0;
+                for (rtb_Compare_kk_0 = 0; rtb_Compare_kk_0 < 3;
+                        rtb_Compare_kk_0++) {
+                    tmp = out[static_cast<int32_T>(rtb_Compare_kk_0 + 6)] * 0.0
+                        + (out[static_cast<int32_T>(rtb_Compare_kk_0 + 3)] * 0.0
+                           + out[rtb_Compare_kk_0]);
+                    rtb_CoordinateTransformationConversion_f_idx_2 += tmp * tmp;
+                    v[rtb_Compare_kk_0] = tmp;
+                }
+
+                for (rtb_Compare_kk_0 = 0; rtb_Compare_kk_0 < 3;
+                        rtb_Compare_kk_0++) {
+                    tmp = v[rtb_Compare_kk_0] /
+                        rtb_CoordinateTransformationConversion_f_idx_2;
+                    out[static_cast<int32_T>(3 * rtb_Compare_kk_0)] = v[0] * tmp;
+                    out[static_cast<int32_T>(static_cast<int32_T>(3 *
+                        rtb_Compare_kk_0) + 1)] = v[1] * tmp;
+                    out[static_cast<int32_T>(static_cast<int32_T>(3 *
+                        rtb_Compare_kk_0) + 2)] = v[2] * tmp;
                 }
 
                 for (i = 0; i < 3; i++) {
-                    rtb_ProductE = v[i] / rtb_U;
-                    out[static_cast<int32_T>(3 * i)] = v[0] * rtb_ProductE;
-                    out[static_cast<int32_T>(static_cast<int32_T>(3 * i) + 1)] =
-                        v[1] * rtb_ProductE;
-                    out[static_cast<int32_T>(static_cast<int32_T>(3 * i) + 2)] =
-                        v[2] * rtb_ProductE;
-                }
-
-                for (i = 0; i < 3; i++) {
-                    rtb_ProductE = out[static_cast<int32_T>(i + 6)] *
+                    rtb_U = out[static_cast<int32_T>(i + 6)] *
                         rtb_TmpSignalConversionAtOrbitFollowerInport2[2] + (out[
                         static_cast<int32_T>(i + 3)] *
                         rtb_TmpSignalConversionAtOrbitFollowerInport2[1] + out[i]
                         * rtb_TmpSignalConversionAtOrbitFollowerInport2[0]);
-                    rtb_U = rtb_TmpSignalConversionAtOrbitFollowerInport2[i] -
-                        rtb_ProductE;
-                    rtb_MathFunction_jp[i] = rtb_U * rtb_U;
-                    rtb_Sum_h[i] = rtb_U;
-                    u[i] = rtb_ProductE;
+                    tmp = rtb_TmpSignalConversionAtOrbitFollowerInport2[i] -
+                        rtb_U;
+                    rtb_MathFunction_jp[i] = tmp * tmp;
+                    rtb_Sum_h[i] = tmp;
+                    u[i] = rtb_U;
                 }
 
-                rtb_Sum_i = std::sqrt((rtb_MathFunction_jp[0] +
-                                       rtb_MathFunction_jp[1]) +
-                                      rtb_MathFunction_jp[2]);
-                rtb_U = rtb_Switch_b * rtb_Switch_b - rtb_Sum_i * rtb_Sum_i;
+                tmp = std::sqrt((rtb_MathFunction_jp[0] + rtb_MathFunction_jp[1])
+                                + rtb_MathFunction_jp[2]);
+                rtb_U = rtb_Sum_i * rtb_Sum_i - tmp * tmp;
                 rtb_U = std::sqrt(rtb_U);
-                rtb_ProductE = rtb_U * v[0];
-                rtb_Asin[0] = rtb_ProductE + rtb_Sum_h[0];
-                rtb_Asin[3] = rtb_Sum_h[0] - rtb_ProductE;
-                rtb_ProductE = rtb_U * v[1];
-                rtb_Asin[1] = rtb_ProductE + rtb_Sum_h[1];
-                rtb_Asin[4] = rtb_Sum_h[1] - rtb_ProductE;
-                rtb_ProductE = rtb_U * v[2];
-                rtb_Asin[2] = rtb_ProductE + rtb_Sum_h[2];
-                rtb_Asin[5] = rtb_Sum_h[2] - rtb_ProductE;
+                tmp = rtb_U * v[0];
+                rtb_Asin[0] = tmp + rtb_Sum_h[0];
+                rtb_Asin[3] = rtb_Sum_h[0] - tmp;
+                tmp = rtb_U * v[1];
+                rtb_Asin[1] = tmp + rtb_Sum_h[1];
+                rtb_Asin[4] = rtb_Sum_h[1] - tmp;
+                tmp = rtb_U * v[2];
+                rtb_Asin[2] = tmp + rtb_Sum_h[2];
+                rtb_Asin[5] = rtb_Sum_h[2] - tmp;
                 for (i = 0; i < 6; i++) {
-                    rtb_ProductE = rtb_Asin[i] / rtb_Switch_b;
-                    if (rtb_ProductE > 1.0) {
-                        rtb_ProductE = 1.0;
-                    } else if (rtb_ProductE < -1.0) {
-                        rtb_ProductE = -1.0;
+                    tmp = rtb_Asin[i] / rtb_Sum_i;
+                    if (tmp > 1.0) {
+                        tmp = 1.0;
+                    } else if (tmp < -1.0) {
+                        tmp = -1.0;
                     }
 
-                    rtb_Asin[i] = std::asin(rtb_ProductE);
+                    rtb_Asin[i] = std::asin(tmp);
                 }
 
                 rtb_Sum1_f[0] = rtb_Asin[3] * rtb_Asin[3];
@@ -3925,19 +4193,19 @@ void codegenReal2MissionModelClass::step()
                 rtb_Sum_h[1] = std::cos(rtb_MathFunction_jp[1]);
                 rtb_MathFunction_jp[0] = std::sin(rtb_MathFunction_jp[0]);
                 rtb_MathFunction_jp[1] = std::sin(rtb_MathFunction_jp[1]);
-                rtb_ProductE = rtb_Sum_h[0] * rtb_Sum_h[1];
+                tmp = rtb_Sum_h[0] * rtb_Sum_h[1];
                 rtb_CoordinateTransformationConversion_f_idx_1 =
                     rtb_MathFunction_jp[0] * rtb_MathFunction_jp[1];
-                rtb_Sum_i = rtb_CoordinateTransformationConversion_f_idx_1 * 0.0
-                    + rtb_ProductE;
-                rtb_CoordinateTransformationConversion_f_idx_1 = rtb_ProductE *
-                    0.0 - rtb_CoordinateTransformationConversion_f_idx_1;
-                rtb_ProductE = rtb_Sum_h[0] * rtb_MathFunction_jp[1];
+                rtb_CoordinateTransformationConversion_f_idx_0 =
+                    rtb_CoordinateTransformationConversion_f_idx_1 * 0.0 + tmp;
+                rtb_CoordinateTransformationConversion_f_idx_1 = tmp * 0.0 -
+                    rtb_CoordinateTransformationConversion_f_idx_1;
+                tmp = rtb_Sum_h[0] * rtb_MathFunction_jp[1];
                 rtb_ProductN = rtb_MathFunction_jp[0] * rtb_Sum_h[1];
                 rtb_CoordinateTransformationConversion_f_idx_2 = rtb_ProductN *
-                    0.0 + rtb_ProductE;
+                    0.0 + tmp;
                 rtb_CoordinateTransformationConversion_f_idx_3 = rtb_ProductN -
-                    rtb_ProductE * 0.0;
+                    tmp * 0.0;
                 rtb_Sum1_f[0] = rtb_Asin[0] * rtb_Asin[0];
                 rtb_Sum1_f[1] = rtb_Asin[1] * rtb_Asin[1];
                 rtb_MathFunction_jp[0] = rt_atan2d_snf(rtb_Asin[1], rtb_Asin[0])
@@ -3949,71 +4217,72 @@ void codegenReal2MissionModelClass::step()
                 rtb_MathFunction_jp[0] = std::sin(rtb_MathFunction_jp[0]);
                 rtb_MathFunction_jp[1] = std::sin(rtb_MathFunction_jp[1]);
                 rtb_ProductN = rtb_Sum_h[0] * rtb_Sum_h[1];
-                t_0 = rtb_MathFunction_jp[0] * rtb_MathFunction_jp[1];
-                rtb_MemoryPose_m[0] = t_0 * 0.0 + rtb_ProductN;
-                rtb_MemoryPose_m[1] = rtb_ProductN * 0.0 - t_0;
+                t = rtb_MathFunction_jp[0] * rtb_MathFunction_jp[1];
+                rtb_MemoryPose_m[0] = t * 0.0 + rtb_ProductN;
+                rtb_MemoryPose_m[1] = rtb_ProductN * 0.0 - t;
                 rtb_ProductN = rtb_Sum_h[0] * rtb_MathFunction_jp[1];
-                t_0 = rtb_MathFunction_jp[0] * rtb_Sum_h[1];
-                rtb_MemoryPose_m[2] = t_0 * 0.0 + rtb_ProductN;
-                rtb_MemoryPose_m[3] = t_0 - rtb_ProductN * 0.0;
-                rtb_ProductE = (u[0] * v[0] + u[1] * v[1]) + u[2] * v[2];
-                if (rtb_ProductE < 0.0) {
-                    rtb_ProductE = -1.0;
-                } else if (rtb_ProductE > 0.0) {
-                    rtb_ProductE = 1.0;
-                } else if (rtb_ProductE == 0.0) {
-                    rtb_ProductE = 0.0;
+                t = rtb_MathFunction_jp[0] * rtb_Sum_h[1];
+                rtb_MemoryPose_m[2] = t * 0.0 + rtb_ProductN;
+                rtb_MemoryPose_m[3] = t - rtb_ProductN * 0.0;
+                tmp = (u[0] * v[0] + u[1] * v[1]) + u[2] * v[2];
+                if (tmp < 0.0) {
+                    tmp = -1.0;
+                } else if (tmp > 0.0) {
+                    tmp = 1.0;
+                } else if (tmp == 0.0) {
+                    tmp = 0.0;
                 } else {
-                    rtb_ProductE = (rtNaN);
+                    tmp = (rtNaN);
                 }
 
-                rtb_ProductE = (std::sqrt((u[0] * u[0] + u[1] * u[1]) + u[2] *
-                                 u[2]) * rtb_ProductE + rtb_U) / (2.0 * rtb_U);
-                if (rtb_ProductE > 1.0) {
-                    rtb_ProductE = 1.0;
-                } else if (rtb_ProductE < 0.0) {
-                    rtb_ProductE = 0.0;
+                tmp = (std::sqrt((u[0] * u[0] + u[1] * u[1]) + u[2] * u[2]) *
+                       tmp + rtb_U) / (2.0 * rtb_U);
+                if (tmp > 1.0) {
+                    tmp = 1.0;
+                } else if (tmp < 0.0) {
+                    tmp = 0.0;
                 }
 
                 rtb_ProductN = 3.3121686421112381E-170;
-                rtb_U_tmp = std::abs(rtb_Sum_i);
+                rtb_U_tmp = std::abs
+                    (rtb_CoordinateTransformationConversion_f_idx_0);
                 rtb_U = rtb_U_tmp;
                 if (rtb_U > 3.3121686421112381E-170) {
                     normp = 1.0;
                     rtb_ProductN = rtb_U;
                 } else {
-                    t_0 = rtb_U / 3.3121686421112381E-170;
-                    normp = t_0 * t_0;
+                    t = rtb_U / 3.3121686421112381E-170;
+                    normp = t * t;
                 }
 
                 rtb_U = std::abs(rtb_CoordinateTransformationConversion_f_idx_1);
                 if (rtb_U > rtb_ProductN) {
-                    t_0 = rtb_ProductN / rtb_U;
-                    normp = normp * t_0 * t_0 + 1.0;
+                    t = rtb_ProductN / rtb_U;
+                    normp = normp * t * t + 1.0;
                     rtb_ProductN = rtb_U;
                 } else {
-                    t_0 = rtb_U / rtb_ProductN;
-                    normp += t_0 * t_0;
+                    t = rtb_U / rtb_ProductN;
+                    normp += t * t;
                 }
 
                 rtb_U = std::abs(rtb_CoordinateTransformationConversion_f_idx_2);
                 if (rtb_U > rtb_ProductN) {
-                    t_0 = rtb_ProductN / rtb_U;
-                    normp = normp * t_0 * t_0 + 1.0;
+                    t = rtb_ProductN / rtb_U;
+                    normp = normp * t * t + 1.0;
                     rtb_ProductN = rtb_U;
                 } else {
-                    t_0 = rtb_U / rtb_ProductN;
-                    normp += t_0 * t_0;
+                    t = rtb_U / rtb_ProductN;
+                    normp += t * t;
                 }
 
                 rtb_U = std::abs(rtb_CoordinateTransformationConversion_f_idx_3);
                 if (rtb_U > rtb_ProductN) {
-                    t_0 = rtb_ProductN / rtb_U;
-                    normp = normp * t_0 * t_0 + 1.0;
+                    t = rtb_ProductN / rtb_U;
+                    normp = normp * t * t + 1.0;
                     rtb_ProductN = rtb_U;
                 } else {
-                    t_0 = rtb_U / rtb_ProductN;
-                    normp += t_0 * t_0;
+                    t = rtb_U / rtb_ProductN;
+                    normp += t * t;
                 }
 
                 normp = rtb_ProductN * std::sqrt(normp);
@@ -4024,41 +4293,41 @@ void codegenReal2MissionModelClass::step()
                     normq = 1.0;
                     rtb_ProductN = rtb_U;
                 } else {
-                    t_0 = rtb_U / 3.3121686421112381E-170;
-                    normq = t_0 * t_0;
+                    t = rtb_U / 3.3121686421112381E-170;
+                    normq = t * t;
                 }
 
                 rtb_U_tmp_1 = std::abs(rtb_MemoryPose_m[1]);
                 rtb_U = rtb_U_tmp_1;
                 if (rtb_U > rtb_ProductN) {
-                    t_0 = rtb_ProductN / rtb_U;
-                    normq = normq * t_0 * t_0 + 1.0;
+                    t = rtb_ProductN / rtb_U;
+                    normq = normq * t * t + 1.0;
                     rtb_ProductN = rtb_U;
                 } else {
-                    t_0 = rtb_U / rtb_ProductN;
-                    normq += t_0 * t_0;
+                    t = rtb_U / rtb_ProductN;
+                    normq += t * t;
                 }
 
                 rtb_U_tmp_2 = std::abs(rtb_MemoryPose_m[2]);
                 rtb_U = rtb_U_tmp_2;
                 if (rtb_U > rtb_ProductN) {
-                    t_0 = rtb_ProductN / rtb_U;
-                    normq = normq * t_0 * t_0 + 1.0;
+                    t = rtb_ProductN / rtb_U;
+                    normq = normq * t * t + 1.0;
                     rtb_ProductN = rtb_U;
                 } else {
-                    t_0 = rtb_U / rtb_ProductN;
-                    normq += t_0 * t_0;
+                    t = rtb_U / rtb_ProductN;
+                    normq += t * t;
                 }
 
                 rtb_U_tmp_3 = std::abs(rtb_MemoryPose_m[3]);
                 rtb_U = rtb_U_tmp_3;
                 if (rtb_U > rtb_ProductN) {
-                    t_0 = rtb_ProductN / rtb_U;
-                    normq = normq * t_0 * t_0 + 1.0;
+                    t = rtb_ProductN / rtb_U;
+                    normq = normq * t * t + 1.0;
                     rtb_ProductN = rtb_U;
                 } else {
-                    t_0 = rtb_U / rtb_ProductN;
-                    normq += t_0 * t_0;
+                    t = rtb_U / rtb_ProductN;
+                    normq += t * t;
                 }
 
                 normq = rtb_ProductN * std::sqrt(normq);
@@ -4070,45 +4339,45 @@ void codegenReal2MissionModelClass::step()
                         normp = 1.0;
                         rtb_ProductN = rtb_U;
                     } else {
-                        t_0 = rtb_U / 3.3121686421112381E-170;
-                        normp = t_0 * t_0;
+                        t = rtb_U / 3.3121686421112381E-170;
+                        normp = t * t;
                     }
 
                     rtb_U = std::abs
                         (rtb_CoordinateTransformationConversion_f_idx_1);
                     if (rtb_U > rtb_ProductN) {
-                        t_0 = rtb_ProductN / rtb_U;
-                        normp = normp * t_0 * t_0 + 1.0;
+                        t = rtb_ProductN / rtb_U;
+                        normp = normp * t * t + 1.0;
                         rtb_ProductN = rtb_U;
                     } else {
-                        t_0 = rtb_U / rtb_ProductN;
-                        normp += t_0 * t_0;
+                        t = rtb_U / rtb_ProductN;
+                        normp += t * t;
                     }
 
                     rtb_U = std::abs
                         (rtb_CoordinateTransformationConversion_f_idx_2);
                     if (rtb_U > rtb_ProductN) {
-                        t_0 = rtb_ProductN / rtb_U;
-                        normp = normp * t_0 * t_0 + 1.0;
+                        t = rtb_ProductN / rtb_U;
+                        normp = normp * t * t + 1.0;
                         rtb_ProductN = rtb_U;
                     } else {
-                        t_0 = rtb_U / rtb_ProductN;
-                        normp += t_0 * t_0;
+                        t = rtb_U / rtb_ProductN;
+                        normp += t * t;
                     }
 
                     rtb_U = std::abs
                         (rtb_CoordinateTransformationConversion_f_idx_3);
                     if (rtb_U > rtb_ProductN) {
-                        t_0 = rtb_ProductN / rtb_U;
-                        normp = normp * t_0 * t_0 + 1.0;
+                        t = rtb_ProductN / rtb_U;
+                        normp = normp * t * t + 1.0;
                         rtb_ProductN = rtb_U;
                     } else {
-                        t_0 = rtb_U / rtb_ProductN;
-                        normp += t_0 * t_0;
+                        t = rtb_U / rtb_ProductN;
+                        normp += t * t;
                     }
 
                     normp = rtb_ProductN * std::sqrt(normp);
-                    rtb_Sum_i /= normp;
+                    rtb_CoordinateTransformationConversion_f_idx_0 /= normp;
                     rtb_CoordinateTransformationConversion_f_idx_1 /= normp;
                     rtb_CoordinateTransformationConversion_f_idx_2 /= normp;
                     rtb_CoordinateTransformationConversion_f_idx_3 /= normp;
@@ -4122,38 +4391,38 @@ void codegenReal2MissionModelClass::step()
                         normp = 1.0;
                         rtb_ProductN = rtb_U;
                     } else {
-                        t_0 = rtb_U / 3.3121686421112381E-170;
-                        normp = t_0 * t_0;
+                        t = rtb_U / 3.3121686421112381E-170;
+                        normp = t * t;
                     }
 
                     rtb_U = rtb_U_tmp_1;
                     if (rtb_U > rtb_ProductN) {
-                        t_0 = rtb_ProductN / rtb_U;
-                        normp = normp * t_0 * t_0 + 1.0;
+                        t = rtb_ProductN / rtb_U;
+                        normp = normp * t * t + 1.0;
                         rtb_ProductN = rtb_U;
                     } else {
-                        t_0 = rtb_U / rtb_ProductN;
-                        normp += t_0 * t_0;
+                        t = rtb_U / rtb_ProductN;
+                        normp += t * t;
                     }
 
                     rtb_U = rtb_U_tmp_2;
                     if (rtb_U > rtb_ProductN) {
-                        t_0 = rtb_ProductN / rtb_U;
-                        normp = normp * t_0 * t_0 + 1.0;
+                        t = rtb_ProductN / rtb_U;
+                        normp = normp * t * t + 1.0;
                         rtb_ProductN = rtb_U;
                     } else {
-                        t_0 = rtb_U / rtb_ProductN;
-                        normp += t_0 * t_0;
+                        t = rtb_U / rtb_ProductN;
+                        normp += t * t;
                     }
 
                     rtb_U = rtb_U_tmp_3;
                     if (rtb_U > rtb_ProductN) {
-                        t_0 = rtb_ProductN / rtb_U;
-                        normp = normp * t_0 * t_0 + 1.0;
+                        t = rtb_ProductN / rtb_U;
+                        normp = normp * t * t + 1.0;
                         rtb_ProductN = rtb_U;
                     } else {
-                        t_0 = rtb_U / rtb_ProductN;
-                        normp += t_0 * t_0;
+                        t = rtb_U / rtb_ProductN;
+                        normp += t * t;
                     }
 
                     normp = rtb_ProductN * std::sqrt(normp);
@@ -4163,7 +4432,8 @@ void codegenReal2MissionModelClass::step()
                     rtb_MemoryPose_m[3] /= normp;
                 }
 
-                if (((rtb_Sum_i * rtb_MemoryPose_m[0] +
+                if (((rtb_CoordinateTransformationConversion_f_idx_0 *
+                        rtb_MemoryPose_m[0] +
                         rtb_CoordinateTransformationConversion_f_idx_1 *
                         rtb_MemoryPose_m[1]) +
                         rtb_CoordinateTransformationConversion_f_idx_2 *
@@ -4176,27 +4446,29 @@ void codegenReal2MissionModelClass::step()
                     rtb_MemoryPose_m[3] = -rtb_MemoryPose_m[3];
                 }
 
-                rtb_U_tmp = ((rtb_Sum_i * rtb_MemoryPose_m[0] -
+                rtb_U_tmp = ((rtb_CoordinateTransformationConversion_f_idx_0 *
+                              rtb_MemoryPose_m[0] -
                               -rtb_CoordinateTransformationConversion_f_idx_1 *
                               rtb_MemoryPose_m[1]) -
                              -rtb_CoordinateTransformationConversion_f_idx_2 *
                              rtb_MemoryPose_m[2]) -
                     -rtb_CoordinateTransformationConversion_f_idx_3 *
                     rtb_MemoryPose_m[3];
-                rtb_U_tmp_0 = (rtb_Sum_i * rtb_MemoryPose_m[1] +
-                               rtb_MemoryPose_m[0] *
+                rtb_U_tmp_0 = (rtb_CoordinateTransformationConversion_f_idx_0 *
+                               rtb_MemoryPose_m[1] + rtb_MemoryPose_m[0] *
                                -rtb_CoordinateTransformationConversion_f_idx_1)
                     + (-rtb_CoordinateTransformationConversion_f_idx_2 *
                        rtb_MemoryPose_m[3] - rtb_MemoryPose_m[2] *
                        -rtb_CoordinateTransformationConversion_f_idx_3);
-                rtb_U_tmp_1 = (rtb_Sum_i * rtb_MemoryPose_m[2] +
-                               rtb_MemoryPose_m[0] *
+                rtb_U_tmp_1 = (rtb_CoordinateTransformationConversion_f_idx_0 *
+                               rtb_MemoryPose_m[2] + rtb_MemoryPose_m[0] *
                                -rtb_CoordinateTransformationConversion_f_idx_2)
                     + (rtb_MemoryPose_m[1] *
                        -rtb_CoordinateTransformationConversion_f_idx_3 -
                        -rtb_CoordinateTransformationConversion_f_idx_1 *
                        rtb_MemoryPose_m[3]);
-                normq = (rtb_Sum_i * rtb_MemoryPose_m[3] + rtb_MemoryPose_m[0] *
+                normq = (rtb_CoordinateTransformationConversion_f_idx_0 *
+                         rtb_MemoryPose_m[3] + rtb_MemoryPose_m[0] *
                          -rtb_CoordinateTransformationConversion_f_idx_3) +
                     (-rtb_CoordinateTransformationConversion_f_idx_1 *
                      rtb_MemoryPose_m[2] - rtb_MemoryPose_m[1] *
@@ -4207,38 +4479,38 @@ void codegenReal2MissionModelClass::step()
                     normp = 1.0;
                     rtb_ProductN = rtb_U;
                 } else {
-                    t_0 = rtb_U / 3.3121686421112381E-170;
-                    normp = t_0 * t_0;
+                    t = rtb_U / 3.3121686421112381E-170;
+                    normp = t * t;
                 }
 
                 rtb_U = std::abs(rtb_U_tmp_0);
                 if (rtb_U > rtb_ProductN) {
-                    t_0 = rtb_ProductN / rtb_U;
-                    normp = normp * t_0 * t_0 + 1.0;
+                    t = rtb_ProductN / rtb_U;
+                    normp = normp * t * t + 1.0;
                     rtb_ProductN = rtb_U;
                 } else {
-                    t_0 = rtb_U / rtb_ProductN;
-                    normp += t_0 * t_0;
+                    t = rtb_U / rtb_ProductN;
+                    normp += t * t;
                 }
 
                 rtb_U = std::abs(rtb_U_tmp_1);
                 if (rtb_U > rtb_ProductN) {
-                    t_0 = rtb_ProductN / rtb_U;
-                    normp = normp * t_0 * t_0 + 1.0;
+                    t = rtb_ProductN / rtb_U;
+                    normp = normp * t * t + 1.0;
                     rtb_ProductN = rtb_U;
                 } else {
-                    t_0 = rtb_U / rtb_ProductN;
-                    normp += t_0 * t_0;
+                    t = rtb_U / rtb_ProductN;
+                    normp += t * t;
                 }
 
                 rtb_U = std::abs(normq);
                 if (rtb_U > rtb_ProductN) {
-                    t_0 = rtb_ProductN / rtb_U;
-                    normp = normp * t_0 * t_0 + 1.0;
+                    t = rtb_ProductN / rtb_U;
+                    normp = normp * t * t + 1.0;
                     rtb_ProductN = rtb_U;
                 } else {
-                    t_0 = rtb_U / rtb_ProductN;
-                    normp += t_0 * t_0;
+                    t = rtb_U / rtb_ProductN;
+                    normp += t * t;
                 }
 
                 normp = rtb_ProductN * std::sqrt(normp);
@@ -4255,28 +4527,28 @@ void codegenReal2MissionModelClass::step()
                     normp = 1.0;
                     rtb_ProductN = rtb_U;
                 } else {
-                    t_0 = rtb_U / 3.3121686421112381E-170;
-                    normp = t_0 * t_0;
+                    t = rtb_U / 3.3121686421112381E-170;
+                    normp = t * t;
                 }
 
                 rtb_U = std::abs(rtb_U_tmp_1);
                 if (rtb_U > rtb_ProductN) {
-                    t_0 = rtb_ProductN / rtb_U;
-                    normp = normp * t_0 * t_0 + 1.0;
+                    t = rtb_ProductN / rtb_U;
+                    normp = normp * t * t + 1.0;
                     rtb_ProductN = rtb_U;
                 } else {
-                    t_0 = rtb_U / rtb_ProductN;
-                    normp += t_0 * t_0;
+                    t = rtb_U / rtb_ProductN;
+                    normp += t * t;
                 }
 
                 rtb_U = std::abs(rtb_U_tmp_2);
                 if (rtb_U > rtb_ProductN) {
-                    t_0 = rtb_ProductN / rtb_U;
-                    normp = normp * t_0 * t_0 + 1.0;
+                    t = rtb_ProductN / rtb_U;
+                    normp = normp * t * t + 1.0;
                     rtb_ProductN = rtb_U;
                 } else {
-                    t_0 = rtb_U / rtb_ProductN;
-                    normp += t_0 * t_0;
+                    t = rtb_U / rtb_ProductN;
+                    normp += t * t;
                 }
 
                 normp = rtb_ProductN * std::sqrt(normp);
@@ -4287,38 +4559,38 @@ void codegenReal2MissionModelClass::step()
                     rtb_MemoryPose_m[3] = rtb_U_tmp_2 / normp * normq;
                 }
 
-                rtb_MemoryPose_m[0] = rtb_ProductE * 0.0;
-                normp = rtb_ProductE * rtb_MemoryPose_m[1];
-                rtb_U_tmp = rtb_ProductE * rtb_MemoryPose_m[2];
-                rtb_U_tmp_0 = rtb_ProductE * rtb_MemoryPose_m[3];
+                rtb_MemoryPose_m[0] = tmp * 0.0;
+                normp = tmp * rtb_MemoryPose_m[1];
+                rtb_U_tmp = tmp * rtb_MemoryPose_m[2];
+                rtb_U_tmp_0 = tmp * rtb_MemoryPose_m[3];
                 rtb_ProductN = 3.3121686421112381E-170;
                 rtb_U = std::abs(normp);
                 if (rtb_U > 3.3121686421112381E-170) {
                     normq = 1.0;
                     rtb_ProductN = rtb_U;
                 } else {
-                    t_0 = rtb_U / 3.3121686421112381E-170;
-                    normq = t_0 * t_0;
+                    t = rtb_U / 3.3121686421112381E-170;
+                    normq = t * t;
                 }
 
                 rtb_U = std::abs(rtb_U_tmp);
                 if (rtb_U > rtb_ProductN) {
-                    t_0 = rtb_ProductN / rtb_U;
-                    normq = normq * t_0 * t_0 + 1.0;
+                    t = rtb_ProductN / rtb_U;
+                    normq = normq * t * t + 1.0;
                     rtb_ProductN = rtb_U;
                 } else {
-                    t_0 = rtb_U / rtb_ProductN;
-                    normq += t_0 * t_0;
+                    t = rtb_U / rtb_ProductN;
+                    normq += t * t;
                 }
 
                 rtb_U = std::abs(rtb_U_tmp_0);
                 if (rtb_U > rtb_ProductN) {
-                    t_0 = rtb_ProductN / rtb_U;
-                    normq = normq * t_0 * t_0 + 1.0;
+                    t = rtb_ProductN / rtb_U;
+                    normq = normq * t * t + 1.0;
                     rtb_ProductN = rtb_U;
                 } else {
-                    t_0 = rtb_U / rtb_ProductN;
-                    normq += t_0 * t_0;
+                    t = rtb_U / rtb_ProductN;
+                    normq += t * t;
                 }
 
                 normq = rtb_ProductN * std::sqrt(normq);
@@ -4327,70 +4599,72 @@ void codegenReal2MissionModelClass::step()
                     v[1] = 0.0;
                     v[2] = 0.0;
                 } else {
-                    rtb_ProductE = std::exp(rtb_MemoryPose_m[0]) * std::sin
-                        (normq);
-                    v[0] = rtb_ProductE * normp / normq;
-                    v[1] = rtb_ProductE * rtb_U_tmp / normq;
-                    v[2] = rtb_ProductE * rtb_U_tmp_0 / normq;
+                    tmp = std::exp(rtb_MemoryPose_m[0]) * std::sin(normq);
+                    v[0] = tmp * normp / normq;
+                    v[1] = tmp * rtb_U_tmp / normq;
+                    v[2] = tmp * rtb_U_tmp_0 / normq;
                 }
 
                 rtb_U_tmp = std::exp(rtb_MemoryPose_m[0]) * std::cos(normq);
-                rtb_MemoryPose_m[0] = ((rtb_Sum_i * rtb_U_tmp -
-                                        rtb_CoordinateTransformationConversion_f_idx_1
-                                        * v[0]) -
-                                       rtb_CoordinateTransformationConversion_f_idx_2
-                                       * v[1]) -
+                rtb_MemoryPose_m[0] =
+                    ((rtb_CoordinateTransformationConversion_f_idx_0 * rtb_U_tmp
+                      - rtb_CoordinateTransformationConversion_f_idx_1 * v[0]) -
+                     rtb_CoordinateTransformationConversion_f_idx_2 * v[1]) -
                     rtb_CoordinateTransformationConversion_f_idx_3 * v[2];
-                rtb_MemoryPose_m[1] = (rtb_Sum_i * v[0] + rtb_U_tmp *
-                                       rtb_CoordinateTransformationConversion_f_idx_1)
+                rtb_MemoryPose_m[1] =
+                    (rtb_CoordinateTransformationConversion_f_idx_0 * v[0] +
+                     rtb_U_tmp * rtb_CoordinateTransformationConversion_f_idx_1)
                     + (rtb_CoordinateTransformationConversion_f_idx_2 * v[2] -
                        v[1] * rtb_CoordinateTransformationConversion_f_idx_3);
-                rtb_MemoryPose_m[2] = (rtb_Sum_i * v[1] + rtb_U_tmp *
-                                       rtb_CoordinateTransformationConversion_f_idx_2)
+                rtb_MemoryPose_m[2] =
+                    (rtb_CoordinateTransformationConversion_f_idx_0 * v[1] +
+                     rtb_U_tmp * rtb_CoordinateTransformationConversion_f_idx_2)
                     + (v[0] * rtb_CoordinateTransformationConversion_f_idx_3 -
                        rtb_CoordinateTransformationConversion_f_idx_1 * v[2]);
-                rtb_MemoryPose_m[3] = (rtb_Sum_i * v[2] + rtb_U_tmp *
-                                       rtb_CoordinateTransformationConversion_f_idx_3)
+                rtb_MemoryPose_m[3] =
+                    (rtb_CoordinateTransformationConversion_f_idx_0 * v[2] +
+                     rtb_U_tmp * rtb_CoordinateTransformationConversion_f_idx_3)
                     + (rtb_CoordinateTransformationConversion_f_idx_1 * v[1] -
                        v[0] * rtb_CoordinateTransformationConversion_f_idx_2);
-                rtb_ProductE = rtb_MemoryPose_m[0] * rtb_MemoryPose_m[0];
-                rtb_ProductN = 1.0 / std::sqrt(((rtb_MemoryPose_m[1] *
-                    rtb_MemoryPose_m[1] + rtb_ProductE) + rtb_MemoryPose_m[2] *
-                    rtb_MemoryPose_m[2]) + rtb_MemoryPose_m[3] *
-                    rtb_MemoryPose_m[3]);
-                rtb_Sum_i = rtb_MemoryPose_m[0] * rtb_ProductN;
+                tmp = rtb_MemoryPose_m[0] * rtb_MemoryPose_m[0];
+                tmp = 1.0 / std::sqrt(((rtb_MemoryPose_m[1] * rtb_MemoryPose_m[1]
+                                        + tmp) + rtb_MemoryPose_m[2] *
+                                       rtb_MemoryPose_m[2]) + rtb_MemoryPose_m[3]
+                                      * rtb_MemoryPose_m[3]);
+                rtb_CoordinateTransformationConversion_f_idx_0 =
+                    rtb_MemoryPose_m[0] * tmp;
                 rtb_CoordinateTransformationConversion_f_idx_1 =
-                    rtb_MemoryPose_m[1] * rtb_ProductN;
+                    rtb_MemoryPose_m[1] * tmp;
                 rtb_CoordinateTransformationConversion_f_idx_2 =
-                    rtb_MemoryPose_m[2] * rtb_ProductN;
+                    rtb_MemoryPose_m[2] * tmp;
                 rtb_CoordinateTransformationConversion_f_idx_3 =
-                    rtb_MemoryPose_m[3] * rtb_ProductN;
-                rtb_ProductE = (rtb_CoordinateTransformationConversion_f_idx_1 *
-                                rtb_CoordinateTransformationConversion_f_idx_3 -
-                                rtb_Sum_i *
-                                rtb_CoordinateTransformationConversion_f_idx_2) *
-                    -2.0;
-                if (rtb_ProductE > 1.0) {
-                    rtb_ProductE = 1.0;
+                    rtb_MemoryPose_m[3] * tmp;
+                tmp = (rtb_CoordinateTransformationConversion_f_idx_1 *
+                       rtb_CoordinateTransformationConversion_f_idx_3 -
+                       rtb_CoordinateTransformationConversion_f_idx_0 *
+                       rtb_CoordinateTransformationConversion_f_idx_2) * -2.0;
+                if (tmp > 1.0) {
+                    tmp = 1.0;
                 }
 
-                if (rtb_ProductE < -1.0) {
-                    rtb_ProductE = -1.0;
+                if (tmp < -1.0) {
+                    tmp = -1.0;
                 }
 
-                rtb_Sum_i = rt_atan2d_snf
+                rtb_CoordinateTransformationConversion_f_idx_0 = rt_atan2d_snf
                     ((rtb_CoordinateTransformationConversion_f_idx_1 *
-                      rtb_CoordinateTransformationConversion_f_idx_2 + rtb_Sum_i
-                      * rtb_CoordinateTransformationConversion_f_idx_3) * 2.0,
-                     ((rtb_Sum_i * rtb_Sum_i +
+                      rtb_CoordinateTransformationConversion_f_idx_2 +
+                      rtb_CoordinateTransformationConversion_f_idx_0 *
+                      rtb_CoordinateTransformationConversion_f_idx_3) * 2.0,
+                     ((rtb_CoordinateTransformationConversion_f_idx_0 *
+                       rtb_CoordinateTransformationConversion_f_idx_0 +
                        rtb_CoordinateTransformationConversion_f_idx_1 *
                        rtb_CoordinateTransformationConversion_f_idx_1) -
                       rtb_CoordinateTransformationConversion_f_idx_2 *
                       rtb_CoordinateTransformationConversion_f_idx_2) -
                      rtb_CoordinateTransformationConversion_f_idx_3 *
                      rtb_CoordinateTransformationConversion_f_idx_3);
-                rtb_CoordinateTransformationConversion_f_idx_1 = std::asin
-                    (rtb_ProductE);
+                rtb_CoordinateTransformationConversion_f_idx_1 = std::asin(tmp);
                 rtb_CoordinateTransformationConversion_f_idx_2 =
                     rtb_TmpSignalConversionAtOrbitFollowerInport2[0] *
                     rtb_TmpSignalConversionAtOrbitFollowerInport2[0];
@@ -4399,46 +4673,44 @@ void codegenReal2MissionModelClass::step()
                     rtb_TmpSignalConversionAtOrbitFollowerInport2[1] *
                     rtb_TmpSignalConversionAtOrbitFollowerInport2[1];
                 rtb_Sum1_f[1] = rtb_CoordinateTransformationConversion_f_idx_3;
-                rtb_ProductE = rt_atan2d_snf
+                tmp = rt_atan2d_snf
                     (rtb_TmpSignalConversionAtOrbitFollowerInport2[1],
                      rtb_TmpSignalConversionAtOrbitFollowerInport2[0]) -
-                    rtb_Sum_i;
-                if (std::abs(rtb_ProductE) > 3.1415926535897931) {
-                    if (std::isnan(rtb_ProductE + 3.1415926535897931)) {
+                    rtb_CoordinateTransformationConversion_f_idx_0;
+                if (std::abs(tmp) > 3.1415926535897931) {
+                    if (std::isnan(tmp + 3.1415926535897931)) {
                         rtb_U = (rtNaN);
-                    } else if (std::isinf(rtb_ProductE + 3.1415926535897931)) {
+                    } else if (std::isinf(tmp + 3.1415926535897931)) {
                         rtb_U = (rtNaN);
-                    } else if (rtb_ProductE + 3.1415926535897931 == 0.0) {
+                    } else if (tmp + 3.1415926535897931 == 0.0) {
                         rtb_U = 0.0;
                     } else {
-                        rtb_U = std::fmod(rtb_ProductE + 3.1415926535897931,
+                        rtb_U = std::fmod(tmp + 3.1415926535897931,
                                           6.2831853071795862);
                         rtb_ReceiveCurrentMission_o1 = (rtb_U == 0.0);
                         if (static_cast<boolean_T>(static_cast<int32_T>(
                                 static_cast<int32_T>
                                 (rtb_ReceiveCurrentMission_o1) ^ 1))) {
-                            t_0 = std::abs((rtb_ProductE + 3.1415926535897931) /
-                                           6.2831853071795862);
+                            t = std::abs((tmp + 3.1415926535897931) /
+                                         6.2831853071795862);
                             rtb_ReceiveCurrentMission_o1 = static_cast<boolean_T>
-                                (static_cast<int32_T>((std::abs(t_0 - std::floor
-                                    (t_0 + 0.5)) > 2.2204460492503131E-16 * t_0)
-                                  ^ 1));
+                                (static_cast<int32_T>((std::abs(t - std::floor(t
+                                     + 0.5)) > 2.2204460492503131E-16 * t) ^ 1));
                         }
 
                         if (rtb_ReceiveCurrentMission_o1) {
                             rtb_U = 0.0;
-                        } else if (rtb_ProductE + 3.1415926535897931 < 0.0) {
+                        } else if (tmp + 3.1415926535897931 < 0.0) {
                             rtb_U += 6.2831853071795862;
                         }
                     }
 
                     if (static_cast<boolean_T>(static_cast<int32_T>((rtb_U ==
-                            0.0) & (rtb_ProductE + 3.1415926535897931 > 0.0))))
-                    {
+                            0.0) & (tmp + 3.1415926535897931 > 0.0)))) {
                         rtb_U = 6.2831853071795862;
                     }
 
-                    rtb_ProductE = rtb_U - 3.1415926535897931;
+                    tmp = rtb_U - 3.1415926535897931;
                 }
 
                 rtb_ProductN = rt_atan2d_snf
@@ -4459,12 +4731,11 @@ void codegenReal2MissionModelClass::step()
                         if (static_cast<boolean_T>(static_cast<int32_T>(
                                 static_cast<int32_T>
                                 (rtb_ReceiveCurrentMission_o1) ^ 1))) {
-                            t_0 = std::abs((rtb_ProductN + 3.1415926535897931) /
-                                           6.2831853071795862);
+                            t = std::abs((rtb_ProductN + 3.1415926535897931) /
+                                         6.2831853071795862);
                             rtb_ReceiveCurrentMission_o1 = static_cast<boolean_T>
-                                (static_cast<int32_T>((std::abs(t_0 - std::floor
-                                    (t_0 + 0.5)) > 2.2204460492503131E-16 * t_0)
-                                  ^ 1));
+                                (static_cast<int32_T>((std::abs(t - std::floor(t
+                                     + 0.5)) > 2.2204460492503131E-16 * t) ^ 1));
                         }
 
                         if (rtb_ReceiveCurrentMission_o1) {
@@ -4485,9 +4756,9 @@ void codegenReal2MissionModelClass::step()
 
                 rtb_Sum1_f[0] = 0.0;
                 rtb_Sum1_f[1] = 1.0;
-                rtb_ProductE += rtb_Sum_i;
-                xyCenter[0] = rtb_Sum_i;
-                xyCenter[1] = rtb_ProductE;
+                tmp += rtb_CoordinateTransformationConversion_f_idx_0;
+                xyCenter[0] = rtb_CoordinateTransformationConversion_f_idx_0;
+                xyCenter[1] = tmp;
 
                 // Dynamic Look-Up Table Block: '<S40>/Azimuth'
                 //  Input0  Data Type:  Floating Point real_T
@@ -4497,8 +4768,8 @@ void codegenReal2MissionModelClass::step()
                 //  Lookup Method: Linear_Endpoint
                 //
 
-                LookUp_real_T_real_T( &(rtb_ProductE), &xyCenter[0], 0.6,
-                                     &rtb_Sum1_f[0], 1U);
+                LookUp_real_T_real_T( &(tmp), &xyCenter[0], 0.6, &rtb_Sum1_f[0],
+                                     1U);
                 rtb_U = rtb_ProductN +
                     rtb_CoordinateTransformationConversion_f_idx_1;
                 xyCenter[0] = rtb_CoordinateTransformationConversion_f_idx_1;
@@ -4515,40 +4786,42 @@ void codegenReal2MissionModelClass::step()
                 LookUp_real_T_real_T( &(rtb_U), &xyCenter[0], 0.6, &rtb_Sum1_f[0],
                                      1U);
                 rtb_ProductN = std::cos(rtb_U);
-                rtb_Sum_i = std::sqrt
+                rtb_CoordinateTransformationConversion_f_idx_0 = std::sqrt
                     ((rtb_CoordinateTransformationConversion_f_idx_2 +
                       rtb_CoordinateTransformationConversion_f_idx_3) +
                      rtb_TmpSignalConversionAtOrbitFollowerInport2[2] *
                      rtb_TmpSignalConversionAtOrbitFollowerInport2[2]);
-                codegenReal2Mission_DW.ProductTargetVec[0] = std::cos
-                    (rtb_ProductE) * rtb_ProductN * rtb_Sum_i;
-                codegenReal2Mission_DW.ProductTargetVec[1] = std::sin
-                    (rtb_ProductE) * rtb_ProductN * rtb_Sum_i;
-                codegenReal2Mission_DW.ProductTargetVec[2] = rtb_Sum_i * std::
-                    sin(rtb_U);
+                codegenReal2Mission_DW.ProductTargetVec[0] = std::cos(tmp) *
+                    rtb_ProductN *
+                    rtb_CoordinateTransformationConversion_f_idx_0;
+                codegenReal2Mission_DW.ProductTargetVec[1] = std::sin(tmp) *
+                    rtb_ProductN *
+                    rtb_CoordinateTransformationConversion_f_idx_0;
+                codegenReal2Mission_DW.ProductTargetVec[2] =
+                    rtb_CoordinateTransformationConversion_f_idx_0 * std::sin
+                    (rtb_U);
             }
 
             if (codegenReal2Mission_DW.RelationalOperator) {
-                rtb_ProductE = static_cast<real_T>
+                tmp = static_cast<real_T>
                     (codegenReal2Mission_DW.RcvImmedCMD_o2.params.Param1) /
-                    rtb_Abs1_h;
-                rtb_Switch_b = static_cast<real_T>
+                    rtb_LatitudeGCS_i;
+                rtb_Sum_i = static_cast<real_T>
                     (codegenReal2Mission_DW.RcvImmedCMD_o2.params.Param2) /
-                    rtb_Switch_b;
-                codegenReal2Mission_DW.Switch[0] = (rtb_ProductE *
-                    codegenReal2Mission_DW.ProductTargetVec[0] + rtb_Switch_b *
+                    rtb_Sum_i;
+                codegenReal2Mission_DW.Switch[0] = (tmp *
+                    codegenReal2Mission_DW.ProductTargetVec[0] + rtb_Sum_i *
                     codegenReal2Mission_DW.ProductTargetVec[0]) +
                     rtb_AltitudeGCS_d;
-                codegenReal2Mission_DW.Switch[1] = (rtb_ProductE *
-                    codegenReal2Mission_DW.ProductTargetVec[1] + rtb_Switch_b *
-                    codegenReal2Mission_DW.ProductTargetVec[1]) +
-                    rtb_LatitudeGCS_i;
-                codegenReal2Mission_DW.Switch[2] = (rtb_ProductE *
-                    codegenReal2Mission_DW.ProductTargetVec[2] + rtb_Switch_b *
-                    codegenReal2Mission_DW.ProductTargetVec[2]) + rtb_Switch_m;
+                codegenReal2Mission_DW.Switch[1] = (tmp *
+                    codegenReal2Mission_DW.ProductTargetVec[1] + rtb_Sum_i *
+                    codegenReal2Mission_DW.ProductTargetVec[1]) + rtb_Switch_m;
+                codegenReal2Mission_DW.Switch[2] = (tmp *
+                    codegenReal2Mission_DW.ProductTargetVec[2] + rtb_Sum_i *
+                    codegenReal2Mission_DW.ProductTargetVec[2]) + rtb_Switch_b;
             } else {
-                codegenReal2Mission_DW.Switch[0] = fracSecs;
-                codegenReal2Mission_DW.Switch[1] = second;
+                codegenReal2Mission_DW.Switch[0] = check;
+                codegenReal2Mission_DW.Switch[1] = fracSecs;
                 codegenReal2Mission_DW.Switch[2] =
                     codegenReal2Mission_DW.Height_f;
             }
@@ -4588,8 +4861,8 @@ void codegenReal2MissionModelClass::step()
             rtb_InDangerSequence[360] =
                 codegenReal2Mission_DW.RelationalOperator;
             i = 0;
-            for (idn = 0; idn < 361; idn++) {
-                if (rtb_InDangerSequence[idn]) {
+            for (fileID = 0; fileID < 361; fileID++) {
+                if (rtb_InDangerSequence[fileID]) {
                     i = static_cast<int32_T>(i + 1);
                 }
             }
@@ -4597,46 +4870,51 @@ void codegenReal2MissionModelClass::step()
             if (i <= 73) {
                 codegenReal2Mission_DW.SFunction_DIMS2[0] = 73;
                 codegenReal2Mission_DW.SFunction_DIMS2[1] = 3;
-                for (i = 0; i < 3; i++) {
-                    for (b_exponent = 0; b_exponent < 73; b_exponent++) {
-                        codegenReal2Mission_DW.Track[static_cast<int32_T>
-                            (b_exponent + static_cast<int32_T>
-                             (codegenReal2Mission_DW.SFunction_DIMS2[0] * i))] =
+                for (rtb_Compare_kk_0 = 0; rtb_Compare_kk_0 < 3;
+                        rtb_Compare_kk_0++) {
+                    for (i = 0; i < 73; i++) {
+                        codegenReal2Mission_DW.Track[static_cast<int32_T>(i +
+                            static_cast<int32_T>
+                            (codegenReal2Mission_DW.SFunction_DIMS2[0] *
+                             rtb_Compare_kk_0))] =
                             codegenReal2Mission_DW.MatrixConcatenate[
                             static_cast<int32_T>(static_cast<int32_T>(
-                            static_cast<int32_T>(361 * i) + b_exponent) + 288)];
+                            static_cast<int32_T>(361 * rtb_Compare_kk_0) + i) +
+                            288)];
                     }
                 }
             } else {
                 i = 0;
-                for (idn = 0; idn < 361; idn++) {
-                    if (rtb_InDangerSequence[idn]) {
+                for (fileID = 0; fileID < 361; fileID++) {
+                    if (rtb_InDangerSequence[fileID]) {
                         i = static_cast<int32_T>(i + 1);
                     }
                 }
 
-                status = i;
+                b_size_idx_0 = i;
                 i = 0;
-                for (idn = 0; idn < 361; idn++) {
-                    if (rtb_InDangerSequence[idn]) {
+                for (fileID = 0; fileID < 361; fileID++) {
+                    if (rtb_InDangerSequence[fileID]) {
                         b_data[i] = static_cast<int16_T>(static_cast<int32_T>
-                            (idn + 1));
+                            (fileID + 1));
                         i = static_cast<int32_T>(i + 1);
                     }
                 }
 
-                codegenReal2Mission_DW.SFunction_DIMS2[0] = status;
+                codegenReal2Mission_DW.SFunction_DIMS2[0] = b_size_idx_0;
                 codegenReal2Mission_DW.SFunction_DIMS2[1] = 3;
-                for (i = 0; i < 3; i++) {
-                    for (b_exponent = 0; b_exponent <= static_cast<int32_T>
-                            (status - 1); b_exponent++) {
-                        codegenReal2Mission_DW.Track[static_cast<int32_T>
-                            (b_exponent + static_cast<int32_T>
-                             (codegenReal2Mission_DW.SFunction_DIMS2[0] * i))] =
+                for (rtb_Compare_kk_0 = 0; rtb_Compare_kk_0 < 3;
+                        rtb_Compare_kk_0++) {
+                    for (i = 0; i <= static_cast<int32_T>(b_size_idx_0 - 1); i++)
+                    {
+                        codegenReal2Mission_DW.Track[static_cast<int32_T>(i +
+                            static_cast<int32_T>
+                            (codegenReal2Mission_DW.SFunction_DIMS2[0] *
+                             rtb_Compare_kk_0))] =
                             codegenReal2Mission_DW.MatrixConcatenate[
                             static_cast<int32_T>(static_cast<int32_T>(
-                            static_cast<int32_T>(361 * i) + static_cast<int32_T>
-                            (b_data[b_exponent])) - 1)];
+                            static_cast<int32_T>(361 * rtb_Compare_kk_0) +
+                            static_cast<int32_T>(b_data[i])) - 1)];
                     }
                 }
             }
@@ -4664,7 +4942,7 @@ void codegenReal2MissionModelClass::step()
                                             static_cast<int32_T>
                                             (static_cast<boolean_T>
                         (static_cast<int32_T>((static_cast<int32_T>
-                          (rtb_MemoryStatus) != 0) & (rtb_Abs1_h -
+                          (rtb_MemoryStatus) != 0) & (rtb_LatitudeGCS_i -
                           codegenReal2Mission_DW.MemoryPrevRange_PreviousInput >=
                           0.0))))))) {
                     codegenReal2Mission_DW.is_c10_codegenReal2Mission =
@@ -4684,19 +4962,19 @@ void codegenReal2MissionModelClass::step()
                 codegenReal2Mission_DW.MergeControlSwitch[0] = false;
             }
 
-            for (idn = 0; idn < 359; idn++) {
-                codegenReal2Mission_DW.NorthSequence_X[idn] =
+            for (fileID = 0; fileID < 359; fileID++) {
+                codegenReal2Mission_DW.NorthSequence_X[fileID] =
                     codegenReal2Mission_DW.NorthSequence_X[static_cast<int_T>
-                    (idn + 1)];
-                codegenReal2Mission_DW.EastSequence_X[idn] =
-                    codegenReal2Mission_DW.EastSequence_X[static_cast<int_T>(idn
-                    + 1)];
-                codegenReal2Mission_DW.HeightSequence_X[idn] =
+                    (fileID + 1)];
+                codegenReal2Mission_DW.EastSequence_X[fileID] =
+                    codegenReal2Mission_DW.EastSequence_X[static_cast<int_T>
+                    (fileID + 1)];
+                codegenReal2Mission_DW.HeightSequence_X[fileID] =
                     codegenReal2Mission_DW.HeightSequence_X[static_cast<int_T>
-                    (idn + 1)];
-                codegenReal2Mission_DW.InDangerSequence_X[idn] =
+                    (fileID + 1)];
+                codegenReal2Mission_DW.InDangerSequence_X[fileID] =
                     codegenReal2Mission_DW.InDangerSequence_X[static_cast<int_T>
-                    (idn + 1)];
+                    (fileID + 1)];
             }
 
             codegenReal2Mission_DW.NorthSequence_X[359] =
@@ -4710,79 +4988,88 @@ void codegenReal2MissionModelClass::step()
             if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
                     (codegenReal2Mission_DW.obj.CacheInputSizes) ^ 1))) {
                 codegenReal2Mission_DW.obj.CacheInputSizes = true;
-                for (i = 0; i < 8; i++) {
-                    codegenReal2Mission_DW.obj.inputVarSize[0].f1[i] = 1U;
+                for (rtb_Compare_kk_0 = 0; rtb_Compare_kk_0 < 8;
+                        rtb_Compare_kk_0++) {
+                    codegenReal2Mission_DW.obj.inputVarSize[0]
+                        .f1[rtb_Compare_kk_0] = 1U;
                 }
 
-                i = codegenReal2Mission_DW.SFunction_DIMS2[0];
+                rtb_Compare_kk_0 = codegenReal2Mission_DW.SFunction_DIMS2[0];
                 if (codegenReal2Mission_DW.SFunction_DIMS2[0] < 0) {
-                    i = 0;
+                    rtb_Compare_kk_0 = 0;
                 }
 
                 codegenReal2Mission_DW.obj.inputVarSize[1].f1[0] =
-                    static_cast<uint32_T>(i);
-                i = codegenReal2Mission_DW.SFunction_DIMS2[1];
+                    static_cast<uint32_T>(rtb_Compare_kk_0);
+                rtb_Compare_kk_0 = codegenReal2Mission_DW.SFunction_DIMS2[1];
                 if (codegenReal2Mission_DW.SFunction_DIMS2[1] < 0) {
-                    i = 0;
+                    rtb_Compare_kk_0 = 0;
                 }
 
                 codegenReal2Mission_DW.obj.inputVarSize[1].f1[1] =
-                    static_cast<uint32_T>(i);
-                for (i = 0; i < 6; i++) {
+                    static_cast<uint32_T>(rtb_Compare_kk_0);
+                for (rtb_Compare_kk_0 = 0; rtb_Compare_kk_0 < 6;
+                        rtb_Compare_kk_0++) {
                     codegenReal2Mission_DW.obj.inputVarSize[1].f1
-                        [static_cast<int32_T>(i + 2)] = 1U;
+                        [static_cast<int32_T>(rtb_Compare_kk_0 + 2)] = 1U;
                 }
 
-                for (i = 0; i < 8; i++) {
-                    codegenReal2Mission_DW.obj.inputVarSize[2].f1[i] = 1U;
+                for (rtb_Compare_kk_0 = 0; rtb_Compare_kk_0 < 8;
+                        rtb_Compare_kk_0++) {
+                    codegenReal2Mission_DW.obj.inputVarSize[2]
+                        .f1[rtb_Compare_kk_0] = 1U;
                 }
             }
 
-            i = codegenReal2Mission_DW.SFunction_DIMS2[0];
+            rtb_Compare_kk_0 = codegenReal2Mission_DW.SFunction_DIMS2[0];
             if (codegenReal2Mission_DW.SFunction_DIMS2[0] < 0) {
-                i = 0;
+                rtb_Compare_kk_0 = 0;
             }
 
-            inSize[0] = static_cast<uint32_T>(i);
-            i = codegenReal2Mission_DW.SFunction_DIMS2[1];
+            inSize[0] = static_cast<uint32_T>(rtb_Compare_kk_0);
+            rtb_Compare_kk_0 = codegenReal2Mission_DW.SFunction_DIMS2[1];
             if (codegenReal2Mission_DW.SFunction_DIMS2[1] < 0) {
-                i = 0;
+                rtb_Compare_kk_0 = 0;
             }
 
-            inSize[1] = static_cast<uint32_T>(i);
-            for (i = 0; i < 6; i++) {
-                inSize[static_cast<int32_T>(i + 2)] = 1U;
+            inSize[1] = static_cast<uint32_T>(rtb_Compare_kk_0);
+            for (rtb_Compare_kk_0 = 0; rtb_Compare_kk_0 < 6; rtb_Compare_kk_0++)
+            {
+                inSize[static_cast<int32_T>(rtb_Compare_kk_0 + 2)] = 1U;
             }
 
-            status = 0;
+            rtb_Compare_kk_0 = 0;
             exitg1 = false;
-            while ((!exitg1) && (status < 8)) {
-                if (codegenReal2Mission_DW.obj.inputVarSize[1].f1[status] !=
-                        inSize[status]) {
-                    for (i = 0; i < 8; i++) {
-                        codegenReal2Mission_DW.obj.inputVarSize[1].f1[i] =
-                            inSize[i];
+            while ((!exitg1) && (rtb_Compare_kk_0 < 8)) {
+                if (codegenReal2Mission_DW.obj.inputVarSize[1]
+                        .f1[rtb_Compare_kk_0] != inSize[rtb_Compare_kk_0]) {
+                    for (rtb_Compare_kk_0 = 0; rtb_Compare_kk_0 < 8;
+                            rtb_Compare_kk_0++) {
+                        codegenReal2Mission_DW.obj.inputVarSize[1]
+                            .f1[rtb_Compare_kk_0] = inSize[rtb_Compare_kk_0];
                     }
 
                     exitg1 = true;
                 } else {
-                    status = static_cast<int32_T>(status + 1);
+                    rtb_Compare_kk_0 = static_cast<int32_T>(rtb_Compare_kk_0 + 1);
                 }
             }
 
-            rtb_MemoryPose_m[0] = shi;
-            rtb_MemoryPose_m[1] = tmp;
+            rtb_MemoryPose_m[0] = absx;
+            rtb_MemoryPose_m[1] = rtb_Sign_c;
             rtb_MemoryPose_m[2] = rtb_Down;
-            rtb_MemoryPose_m[3] = h;
-            for (status = 0; status < 2; status++) {
-                tmp_0[status] = codegenReal2Mission_DW.SFunction_DIMS2[status];
+            rtb_MemoryPose_m[3] = distToCenter;
+            for (rtb_Compare_kk_0 = 0; rtb_Compare_kk_0 < 2; rtb_Compare_kk_0++)
+            {
+                tmp_0[rtb_Compare_kk_0] =
+                    codegenReal2Mission_DW.SFunction_DIMS2[rtb_Compare_kk_0];
             }
 
             codegenReal2Mission_WaypointFollowerBase_stepInternal
                 (&codegenReal2Mission_DW.obj, rtb_MemoryPose_m,
                  codegenReal2Mission_DW.Track, tmp_0, 126.0, rtb_Sum_h,
-                 &codegenReal2Mission_DW.MergeGuidanceCMD.HeadingAngle,
-                 &rtb_LatitudeGCS_i, &rtb_MemoryStatus, &rtb_Switch_m,
+                 &codegenReal2Mission_DW.MergeGuidanceCMD.HeadingAngle, &tmp,
+                 &rtb_MemoryStatus, &rtb_Switch_m,
                  &codegenReal2Mission_DW.MemoryStatus_PreviousInput);
             codegenReal2Mission_DW.MergeGuidanceCMD.Height =
                 codegenReal2Mission_DW.Switch[2];
@@ -4790,7 +5077,8 @@ void codegenReal2MissionModelClass::step()
             codegenReal2Mission_DW.MergeControlSwitch[1] = false;
             rtb_ReceiveCurrentMission_o1 =
                 codegenReal2Mission_DW.RelationalOperator;
-            codegenReal2Mission_DW.MemoryPrevRange_PreviousInput = rtb_Abs1_h;
+            codegenReal2Mission_DW.MemoryPrevRange_PreviousInput =
+                rtb_LatitudeGCS_i;
             break;
 
           case 2:
@@ -4805,14 +5093,14 @@ void codegenReal2MissionModelClass::step()
                 codegenReal2Mission_DW.RollAngle_b;
             codegenReal2Mission_DW.RollAngleRate =
                 codegenReal2Mission_DW.RollAngleRate_a;
-            shi = 0.017453292519943295 *
+            tmp = 0.017453292519943295 *
                 codegenReal2Mission_DW.cmdFlightMission.MissionLocation.degHDG +
                 1.5707963267948966;
             rtb_ReceiveCurrentMission_o1 =
                 (codegenReal2Mission_DW.cmdFlightMission.MissionMode ==
                  HorzFrmnNav);
             rtb_AltitudeGCS_d = static_cast<real_T>(rtb_ReceiveCurrentMission_o1);
-            tmp = static_cast<real_T>(static_cast<int32_T>
+            absx = static_cast<real_T>(static_cast<int32_T>
                 (codegenReal2Mission_DW.cmdFlightMission.numUAV - 1)) *
                 static_cast<real_T>
                 (codegenReal2Mission_DW.cmdFlightMission.params.Param3) /
@@ -4824,14 +5112,14 @@ void codegenReal2MissionModelClass::step()
                 (codegenReal2Mission_DW.cmdFlightMission.FormationPos - 1)) *
                 static_cast<real_T>
                 (codegenReal2Mission_DW.cmdFlightMission.params.Param3);
-            codegenReal2Mission_DW.East = std::sin(shi) * tmp + second;
+            codegenReal2Mission_DW.East = std::sin(tmp) * absx + fracSecs;
             codegenReal2Mission_DW.Height = (codegenReal2Mission_DW.Height_f -
                 rt_modd_snf(static_cast<real_T>
                             (codegenReal2Mission_DW.cmdFlightMission.FormationPos)
                             - 1.0, 3.0) * 15.0) + rt_modd_snf(static_cast<real_T>
                 (codegenReal2Mission_DW.RcvImmedCMD_o2.FormationPos) - 1.0, 3.0)
                 * 15.0;
-            codegenReal2Mission_DW.North = std::cos(shi) * tmp + fracSecs;
+            codegenReal2Mission_DW.North = std::cos(tmp) * absx + check;
             break;
 
           default:
@@ -4861,9 +5149,9 @@ void codegenReal2MissionModelClass::step()
                 = codegenReal2Mission_DW.RollAngleRate;
         } else {
             codegenReal2Mission_DW.BusConversion_InsertedFor_Real2SimGuidance_at_inport_0_BusCreator1.North
-                = fracSecs;
+                = check;
             codegenReal2Mission_DW.BusConversion_InsertedFor_Real2SimGuidance_at_inport_0_BusCreator1.East
-                = second;
+                = fracSecs;
             codegenReal2Mission_DW.BusConversion_InsertedFor_Real2SimGuidance_at_inport_0_BusCreator1.Height
                 = codegenReal2Mission_DW.Height_f;
             codegenReal2Mission_DW.BusConversion_InsertedFor_Real2SimGuidance_at_inport_0_BusCreator1.AirSpeed
@@ -4878,7 +5166,7 @@ void codegenReal2MissionModelClass::step()
                 = codegenReal2Mission_DW.RollAngleRate_a;
         }
 
-        codegenReal2Mission_DW.BooleanImmedMode = (check != 0.0);
+        codegenReal2Mission_DW.BooleanImmedMode = (ahi != 0.0);
     }
 
     Real2SimGuidance(&(codegenReal2Mission_DW.Real2SimGuidance_InstanceData.rtm),
@@ -4897,362 +5185,249 @@ void codegenReal2MissionModelClass::step()
                      &(codegenReal2Mission_DW.Real2SimGuidance_InstanceData.rtdw),
                      &(codegenReal2Mission_X.Real2SimGuidance_CSTATE));
     if (rtmIsMajorTimeStep((&codegenReal2Mission_M))) {
-        codegenReal2Mission_getLocalTime(&second, &fracSecs, &check, &shi, &tmp,
-            &h, &rtb_Down, &rtb_RcvNextMission_o1);
-        rtb_Abs1_h = check;
-        rtb_LatitudeGCS_i = fracSecs;
-        rtb_Switch_m = second / 1.0E+6;
-        second = fracSecs;
-        fracSecs = rtb_Switch_m;
-        check = (((((rtb_Down + h) + tmp) + shi) + check) + rtb_LatitudeGCS_i) +
-            rtb_Switch_m;
-        if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(
-                static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
-                 (std::isinf(check)) ^ 1))) & static_cast<int32_T>
-                (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
-                 (std::isnan(check)) ^ 1)))))) {
-            rtb_ProductE = rtb_Down;
-            check = h;
-            if ((h < 1.0) || (h > 12.0)) {
-                check = std::floor((h - 1.0) / 12.0);
-                rtb_ProductE = rtb_Down + check;
-                check = ((h - 1.0) - check * 12.0) + 1.0;
-            }
-
-            if (check < 3.0) {
-                rtb_ProductE--;
-                check += 9.0;
-            } else {
-                check -= 3.0;
-            }
-
-            if ((rtb_Switch_m < 0.0) || (1000.0 <= rtb_Switch_m)) {
-                fracSecs = std::floor(rtb_Switch_m / 1000.0);
-                second = rtb_LatitudeGCS_i + fracSecs;
-                fracSecs = rtb_Switch_m - fracSecs * 1000.0;
-            }
-
-            t.re = ((((((365.0 * rtb_ProductE + std::floor(rtb_ProductE / 4.0))
-                        - std::floor(rtb_ProductE / 100.0)) + std::floor
-                       (rtb_ProductE / 400.0)) + std::floor((153.0 * check + 2.0)
-                       / 5.0)) + tmp) + 60.0) - 719529.0;
-            t.im = 0.0;
-            thisData = codegenReal2Mission_plus(codegenReal2Mission_plus
-                (codegenReal2Mission_plus(codegenReal2Mission_times(t), (60.0 *
-                shi + rtb_Abs1_h) * 60000.0), second * 1000.0), fracSecs);
-        } else {
-            thisData.re = check;
-            thisData.im = 0.0;
-        }
-
-        da.re = thisData.re / 8.64E+7;
-        t = codegenReal2Mission_two_prod(da.re);
-        c_s.re = 0.0;
-        c_s.im = 0.0;
-        if (thisData.re != t.re) {
-            c_s = codegenReal2Mission_two_diff(thisData.re, t.re);
-        }
-
-        c_s.re = (0.0 * thisData.im + c_s.re) - 0.0 * t.im;
-        c_s.im = (c_s.im + thisData.im) - t.im;
-        check = (c_s.re + c_s.im) / 8.64E+7;
-        second = 0.0;
-        fracSecs = da.re;
-        if (check != 0.0) {
-            fracSecs = da.re + check;
-            second = check - (fracSecs - da.re);
-        }
-
-        if (std::isnan(second)) {
-            second = 0.0;
-        }
-
-        r.re = fracSecs;
-        r.im = second;
-        r = floor_jeUa7tf2(r);
-        fracSecs = r.re + r.im;
-        msOfDay = codegenReal2Mission_minus(thisData, codegenReal2Mission_times
-            (r));
-        da.re = msOfDay.re / 1000.0;
-        t = split_MzIWb6Db(da.re);
-        shi = da.re * 1000.0;
-        second = (t.re * 1000.0 - shi) + t.im * 1000.0;
-        i = 0;
-        if (std::isnan(second)) {
-            i = 1;
-        }
-
-        if (0 <= static_cast<int32_T>(i - 1)) {
-            second = 0.0;
-        }
-
-        c_s.re = 0.0;
-        c_s.im = 0.0;
-        if (msOfDay.re != shi) {
-            c_s = codegenReal2Mission_two_diff(msOfDay.re, shi);
-        }
-
-        c_s.re = (0.0 * msOfDay.im + c_s.re) - 0.0 * second;
-        c_s.im = (c_s.im + msOfDay.im) - second;
-        check = (c_s.re + c_s.im) / 1000.0;
-        shi = 0.0;
-        second = da.re;
-        if (check != 0.0) {
-            second = da.re + check;
-            shi = check - (second - da.re);
-        }
-
-        if (std::isnan(shi)) {
-            shi = 0.0;
-        }
-
-        da.re = second;
-        da.im = shi;
-        t = floor_jeUa7tf2(da);
-        da = codegenReal2Mission_minus(da, t);
-        second = t.re + t.im;
-        if (static_cast<boolean_T>(static_cast<int32_T>(((fracSecs + 719529.0) -
-               61.0 >= 0.0) & ((fracSecs + 719529.0) - 61.0 <= 2.147483647E+9))))
-        {
-            rtb_Sum_i = std::round((fracSecs + 719529.0) - 61.0);
-            if (rtb_Sum_i < 2.147483648E+9) {
-                if (rtb_Sum_i >= -2.147483648E+9) {
-                    idn = static_cast<int32_T>(rtb_Sum_i);
-                } else {
-                    idn = MIN_int32_T;
-                }
-            } else {
-                idn = MAX_int32_T;
-            }
-
-            b_exponent = static_cast<int32_T>(idn - static_cast<int32_T>(146097 *
-                div_s32(idn, 146097)));
-            fracSecs = std::trunc(static_cast<real_T>(b_exponent) / 36524.0);
-            i = static_cast<int32_T>(fracSecs);
-            status = static_cast<int32_T>(b_exponent - static_cast<int32_T>
-                (36524 * div_s32(b_exponent, 36524)));
-            if (fracSecs > 3.0) {
-                i = 3;
-                status = static_cast<int32_T>(b_exponent - 109572);
-            }
-
-            c_r_tmp = static_cast<int32_T>(status - static_cast<int32_T>(1461 *
-                div_s32(status, 1461)));
-            fracSecs = std::trunc(static_cast<real_T>(c_r_tmp) / 365.0);
-            ia_quot = static_cast<int32_T>(fracSecs);
-            b_exponent = static_cast<int32_T>(c_r_tmp - static_cast<int32_T>(365
-                * div_s32(c_r_tmp, 365)));
-            if (fracSecs > 3.0) {
-                ia_quot = 3;
-                b_exponent = static_cast<int32_T>(c_r_tmp - 1095);
-            }
-
-            fracSecs = ((std::trunc(static_cast<real_T>(idn) / 146097.0) * 400.0
-                         + static_cast<real_T>(i) * 100.0) + std::trunc(
-                         static_cast<real_T>(status) / 1461.0) * 4.0) +
-                static_cast<real_T>(ia_quot);
-            idn = static_cast<int32_T>(static_cast<int32_T>(std::trunc((
-                static_cast<real_T>(b_exponent) * 5.0 + 308.0) / 153.0)) - 2);
-            check = static_cast<real_T>(idn);
-            tmp = ((static_cast<real_T>(b_exponent) - std::trunc
-                    ((static_cast<real_T>(idn) + 4.0) * 153.0 / 5.0)) + 122.0) +
-                1.0;
-        } else {
-            check = std::floor((((r.re + r.im) + 719529.0) - 61.0) / 146097.0);
-            shi = ((fracSecs + 719529.0) - 61.0) - check * 146097.0;
-            fracSecs = std::floor(shi / 36524.0);
-            if (fracSecs > 3.0) {
-                fracSecs = 3.0;
-            }
-
-            shi -= fracSecs * 36524.0;
-            rtb_ProductN = std::floor(shi / 1461.0);
-            shi -= rtb_ProductN * 1461.0;
-            rtb_ProductE = std::floor(shi / 365.0);
-            if (rtb_ProductE > 3.0) {
-                rtb_ProductE = 3.0;
-            }
-
-            shi -= rtb_ProductE * 365.0;
-            fracSecs = ((check * 400.0 + fracSecs * 100.0) + rtb_ProductN * 4.0)
-                + rtb_ProductE;
-            check = std::floor((shi * 5.0 + 308.0) / 153.0) - 2.0;
-            tmp = ((shi - std::floor((check + 4.0) * 153.0 / 5.0)) + 122.0) +
-                1.0;
-        }
-
-        if (check > 9.0) {
-            fracSecs++;
-            check = (check + 2.0) - 11.0;
-        } else {
-            check = (check + 2.0) + 1.0;
-        }
-
-        if (static_cast<boolean_T>(static_cast<int32_T>((second >= 0.0) &
-                (second <= 2.147483647E+9)))) {
-            idn = static_cast<int32_T>(std::round(second));
-            i = static_cast<int32_T>(idn - static_cast<int32_T>(3600 * div_s32
-                (idn, 3600)));
-            h = std::trunc(static_cast<real_T>(idn) / 3600.0);
-            shi = std::trunc(static_cast<real_T>(i) / 60.0);
-            second = static_cast<real_T>(static_cast<int32_T>(i -
-                static_cast<int32_T>(60 * div_s32(i, 60))));
-        } else {
-            h = std::floor(second / 3600.0);
-            shi = std::floor((second - 3600.0 * h) / 60.0);
-            second -= 60.0 * shi;
-        }
-
-        second += da.re + da.im;
-        if (second == 60.0) {
-            second = 59.999999999999993;
-        }
-
-        if (static_cast<boolean_T>(static_cast<int32_T>((thisData.re == (rtInf))
-              & (thisData.im == 0.0)))) {
-            fracSecs = (rtInf);
-        } else if (static_cast<boolean_T>(static_cast<int32_T>((thisData.re ==
-                      (rtMinusInf)) & (thisData.im == 0.0)))) {
-            fracSecs = (rtMinusInf);
-        }
-
-        rtb_Down = std::floor(second);
-        second = std::round((second - rtb_Down) * 1000.0);
-        status = codegenReal2Mission_ReceiveThisMission_RecvData
+        rtb_Compare_kk_0 = codegenReal2Mission_ReceiveThisMission_RecvData
             (&codegenReal2Mission_DW.ReceiveThisMission_o2);
-        rtb_ReceiveCurrentMission_o1 = (status != 1);
-        codegenReal2Mission_DW.IndividualUAVCmd_i.SequenceId =
-            codegenReal2Mission_DW.ReceiveThisMission_o2.SequenceId;
-        codegenReal2Mission_DW.IndividualUAVCmd_i.MissionMode =
-            codegenReal2Mission_DW.ReceiveThisMission_o2.MissionMode;
-        codegenReal2Mission_DW.IndividualUAVCmd_i.MissionLocation =
-            codegenReal2Mission_DW.ReceiveThisMission_o2.MissionLocation;
-        codegenReal2Mission_DW.IndividualUAVCmd_i.params =
-            codegenReal2Mission_DW.ReceiveThisMission_o2.params;
-        codegenReal2Mission_DW.IndividualUAVCmd_i.StartPosition =
-            codegenReal2Mission_DW.ReceiveThisMission_o2.StartPosition;
-        codegenReal2Mission_DW.IndividualUAVCmd_i.numUAV =
-            codegenReal2Mission_DW.ReceiveThisMission_o2.numUAV;
-        codegenReal2Mission_DW.IndividualUAVCmd_i.FormationPos =
-            codegenReal2Mission_DW.ReceiveThisMission_o2.FormationPos;
-        if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(std::
-                isnan(fracSecs)) | static_cast<int32_T>(std::isinf(fracSecs)))))
-        {
-            rtb_Sum_i = 0.0;
-        } else {
-            rtb_Sum_i = std::fmod(fracSecs, 4.294967296E+9);
-        }
-
-        codegenReal2Mission_DW.IndividualUAVCmd_i.StartTime.year = rtb_Sum_i <
-            0.0 ? static_cast<int32_T>(-static_cast<int32_T>
-            (static_cast<uint32_T>(-rtb_Sum_i))) : static_cast<int32_T>(
-            static_cast<uint32_T>(rtb_Sum_i));
-        if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(std::
-                isnan(check)) | static_cast<int32_T>(std::isinf(check))))) {
-            rtb_Sum_i = 0.0;
-        } else {
-            rtb_Sum_i = std::fmod(check, 4.294967296E+9);
-        }
-
-        codegenReal2Mission_DW.IndividualUAVCmd_i.StartTime.month = rtb_Sum_i <
-            0.0 ? static_cast<int32_T>(-static_cast<int32_T>
-            (static_cast<uint32_T>(-rtb_Sum_i))) : static_cast<int32_T>(
-            static_cast<uint32_T>(rtb_Sum_i));
-        rtb_Sum_i = std::floor(tmp);
-        if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(std::
-                isnan(rtb_Sum_i)) | static_cast<int32_T>(std::isinf(rtb_Sum_i)))))
-        {
-            rtb_Sum_i = 0.0;
-        } else {
-            rtb_Sum_i = std::fmod(rtb_Sum_i, 4.294967296E+9);
-        }
-
-        codegenReal2Mission_DW.IndividualUAVCmd_i.StartTime.day = rtb_Sum_i <
-            0.0 ? static_cast<int32_T>(-static_cast<int32_T>
-            (static_cast<uint32_T>(-rtb_Sum_i))) : static_cast<int32_T>(
-            static_cast<uint32_T>(rtb_Sum_i));
-        if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(std::
-                isnan(h)) | static_cast<int32_T>(std::isinf(h))))) {
-            rtb_Sum_i = 0.0;
-        } else {
-            rtb_Sum_i = std::fmod(h, 4.294967296E+9);
-        }
-
-        codegenReal2Mission_DW.IndividualUAVCmd_i.StartTime.hour = rtb_Sum_i <
-            0.0 ? static_cast<int32_T>(-static_cast<int32_T>
-            (static_cast<uint32_T>(-rtb_Sum_i))) : static_cast<int32_T>(
-            static_cast<uint32_T>(rtb_Sum_i));
-        if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(std::
-                isnan(shi)) | static_cast<int32_T>(std::isinf(shi))))) {
-            rtb_Sum_i = 0.0;
-        } else {
-            rtb_Sum_i = std::fmod(shi, 4.294967296E+9);
-        }
-
-        codegenReal2Mission_DW.IndividualUAVCmd_i.StartTime.minute = rtb_Sum_i <
-            0.0 ? static_cast<int32_T>(-static_cast<int32_T>
-            (static_cast<uint32_T>(-rtb_Sum_i))) : static_cast<int32_T>(
-            static_cast<uint32_T>(rtb_Sum_i));
-        if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(std::
-                isnan(rtb_Down)) | static_cast<int32_T>(std::isinf(rtb_Down)))))
-        {
-            rtb_Sum_i = 0.0;
-        } else {
-            rtb_Sum_i = std::fmod(rtb_Down, 4.294967296E+9);
-        }
-
-        codegenReal2Mission_DW.IndividualUAVCmd_i.StartTime.second = rtb_Sum_i <
-            0.0 ? static_cast<int32_T>(-static_cast<int32_T>
-            (static_cast<uint32_T>(-rtb_Sum_i))) : static_cast<int32_T>(
-            static_cast<uint32_T>(rtb_Sum_i));
-        if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(std::
-                isnan(second)) | static_cast<int32_T>(std::isinf(second))))) {
-            rtb_Sum_i = 0.0;
-        } else {
-            rtb_Sum_i = std::fmod(second, 4.294967296E+9);
-        }
-
-        codegenReal2Mission_DW.IndividualUAVCmd_i.StartTime.millisecond =
-            rtb_Sum_i < 0.0 ? static_cast<int32_T>(-static_cast<int32_T>(
-            static_cast<uint32_T>(-rtb_Sum_i))) : static_cast<int32_T>(
-            static_cast<uint32_T>(rtb_Sum_i));
+        rtb_ReceiveCurrentMission_o1 = (rtb_Compare_kk_0 != 1);
         if (rtmIsMajorTimeStep((&codegenReal2Mission_M))) {
             if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
                     (rtb_ReceiveCurrentMission_o1) & (static_cast<int32_T>
                     (codegenReal2Mission_PrevZCX.TriggerCurrentMisisonFeedback_Trig_ZCE)
                    != 1)))) {
-                rtPrevAction = codegenReal2Mission_cfopen(
-                    "OnboardMissionCMD.log", "wb");
+                fracSecs =
+                    codegenReal2Mission_DW.ReceiveThisMission_o2.StartTime *
+                    1000.0;
+                codegenReal2Mission_getDateVec_i(fracSecs, &tmp, &check, &ahi,
+                    &absx, &rtb_Sign_c, &distToCenter);
+                codegenReal2Mission_getDateVec_i(fracSecs, &ahi, &check, &absx,
+                    &rtb_Sign_c, &distToCenter, &rtb_Down);
+                codegenReal2Mission_getDateVec_i(fracSecs, &absx, &rtb_Sign_c,
+                    &ahi, &distToCenter, &rtb_Down, &rtb_LatitudeGCS_i);
+                codegenReal2Mission_getDateVec_i(fracSecs, &rtb_Sign_c,
+                    &distToCenter, &rtb_Down, &absx, &rtb_LatitudeGCS_i,
+                    &rtb_Switch_m);
+                codegenReal2Mission_getDateVec_i(fracSecs, &distToCenter,
+                    &rtb_Down, &rtb_LatitudeGCS_i, &rtb_Switch_m, &rtb_Sign_c,
+                    &rtb_Switch_b);
+                codegenReal2Mission_getDateVec_i(fracSecs, &rtb_Down,
+                    &rtb_LatitudeGCS_i, &rtb_Switch_m, &rtb_Switch_b, &rtb_Sum_i,
+                    &distToCenter);
+                codegenReal2Mission_getDateVec_i(fracSecs, &rtb_LatitudeGCS_i,
+                    &rtb_Switch_m, &rtb_Switch_b, &rtb_Sum_i,
+                    &rtb_CoordinateTransformationConversion_f_idx_0, &rtb_Down);
+                codegenReal2Mission_getDateVec_i(fracSecs, &rtb_LatitudeGCS_i,
+                    &rtb_Switch_m, &rtb_Switch_b, &rtb_Sum_i,
+                    &rtb_CoordinateTransformationConversion_f_idx_0,
+                    &rtb_ProductN);
+                codegenReal2Mission_DW.IndivCMD.SequenceId =
+                    codegenReal2Mission_DW.ReceiveThisMission_o2.SequenceId;
+                codegenReal2Mission_DW.IndivCMD.MissionMode =
+                    codegenReal2Mission_DW.ReceiveThisMission_o2.MissionMode;
+                codegenReal2Mission_DW.IndivCMD.MissionLocation =
+                    codegenReal2Mission_DW.ReceiveThisMission_o2.MissionLocation;
+                codegenReal2Mission_DW.IndivCMD.params =
+                    codegenReal2Mission_DW.ReceiveThisMission_o2.params;
+                codegenReal2Mission_DW.IndivCMD.StartPosition =
+                    codegenReal2Mission_DW.ReceiveThisMission_o2.StartPosition;
+                codegenReal2Mission_DW.IndivCMD.numUAV =
+                    codegenReal2Mission_DW.ReceiveThisMission_o2.numUAV;
+                codegenReal2Mission_DW.IndivCMD.FormationPos =
+                    codegenReal2Mission_DW.ReceiveThisMission_o2.FormationPos;
+                rtb_CoordinateTransformationConversion_f_idx_0 = std::round(tmp);
+                if (rtb_CoordinateTransformationConversion_f_idx_0 <
+                        2.147483648E+9) {
+                    if (rtb_CoordinateTransformationConversion_f_idx_0 >=
+                            -2.147483648E+9) {
+                        codegenReal2Mission_DW.IndivCMD.StartTime.year =
+                            static_cast<int32_T>
+                            (rtb_CoordinateTransformationConversion_f_idx_0);
+                    } else {
+                        codegenReal2Mission_DW.IndivCMD.StartTime.year =
+                            MIN_int32_T;
+                    }
+                } else {
+                    codegenReal2Mission_DW.IndivCMD.StartTime.year = MAX_int32_T;
+                }
+
+                rtb_CoordinateTransformationConversion_f_idx_0 = std::round
+                    (check);
+                if (rtb_CoordinateTransformationConversion_f_idx_0 <
+                        2.147483648E+9) {
+                    if (rtb_CoordinateTransformationConversion_f_idx_0 >=
+                            -2.147483648E+9) {
+                        codegenReal2Mission_DW.IndivCMD.StartTime.month =
+                            static_cast<int32_T>
+                            (rtb_CoordinateTransformationConversion_f_idx_0);
+                    } else {
+                        codegenReal2Mission_DW.IndivCMD.StartTime.month =
+                            MIN_int32_T;
+                    }
+                } else {
+                    codegenReal2Mission_DW.IndivCMD.StartTime.month =
+                        MAX_int32_T;
+                }
+
+                rtb_CoordinateTransformationConversion_f_idx_0 = std::round(ahi);
+                if (rtb_CoordinateTransformationConversion_f_idx_0 <
+                        2.147483648E+9) {
+                    if (rtb_CoordinateTransformationConversion_f_idx_0 >=
+                            -2.147483648E+9) {
+                        codegenReal2Mission_DW.IndivCMD.StartTime.day =
+                            static_cast<int32_T>
+                            (rtb_CoordinateTransformationConversion_f_idx_0);
+                    } else {
+                        codegenReal2Mission_DW.IndivCMD.StartTime.day =
+                            MIN_int32_T;
+                    }
+                } else {
+                    codegenReal2Mission_DW.IndivCMD.StartTime.day = MAX_int32_T;
+                }
+
+                rtb_CoordinateTransformationConversion_f_idx_0 = std::round(absx);
+                if (rtb_CoordinateTransformationConversion_f_idx_0 <
+                        2.147483648E+9) {
+                    if (rtb_CoordinateTransformationConversion_f_idx_0 >=
+                            -2.147483648E+9) {
+                        codegenReal2Mission_DW.IndivCMD.StartTime.hour =
+                            static_cast<int32_T>
+                            (rtb_CoordinateTransformationConversion_f_idx_0);
+                    } else {
+                        codegenReal2Mission_DW.IndivCMD.StartTime.hour =
+                            MIN_int32_T;
+                    }
+                } else {
+                    codegenReal2Mission_DW.IndivCMD.StartTime.hour = MAX_int32_T;
+                }
+
+                rtb_CoordinateTransformationConversion_f_idx_0 = std::round
+                    (rtb_Sign_c);
+                if (rtb_CoordinateTransformationConversion_f_idx_0 <
+                        2.147483648E+9) {
+                    if (rtb_CoordinateTransformationConversion_f_idx_0 >=
+                            -2.147483648E+9) {
+                        codegenReal2Mission_DW.IndivCMD.StartTime.minute =
+                            static_cast<int32_T>
+                            (rtb_CoordinateTransformationConversion_f_idx_0);
+                    } else {
+                        codegenReal2Mission_DW.IndivCMD.StartTime.minute =
+                            MIN_int32_T;
+                    }
+                } else {
+                    codegenReal2Mission_DW.IndivCMD.StartTime.minute =
+                        MAX_int32_T;
+                }
+
+                rtb_CoordinateTransformationConversion_f_idx_0 = std::floor
+                    (distToCenter);
+                if (rtb_CoordinateTransformationConversion_f_idx_0 <
+                        2.147483648E+9) {
+                    if (rtb_CoordinateTransformationConversion_f_idx_0 >=
+                            -2.147483648E+9) {
+                        codegenReal2Mission_DW.IndivCMD.StartTime.second =
+                            static_cast<int32_T>
+                            (rtb_CoordinateTransformationConversion_f_idx_0);
+                    } else {
+                        codegenReal2Mission_DW.IndivCMD.StartTime.second =
+                            MIN_int32_T;
+                    }
+                } else {
+                    codegenReal2Mission_DW.IndivCMD.StartTime.second =
+                        MAX_int32_T;
+                }
+
+                rtb_CoordinateTransformationConversion_f_idx_0 = std::round
+                    ((rtb_Down - std::floor(rtb_ProductN)) * 1000.0);
+                if (rtb_CoordinateTransformationConversion_f_idx_0 <
+                        2.147483648E+9) {
+                    if (rtb_CoordinateTransformationConversion_f_idx_0 >=
+                            -2.147483648E+9) {
+                        codegenReal2Mission_DW.IndivCMD.StartTime.millisecond =
+                            static_cast<int32_T>
+                            (rtb_CoordinateTransformationConversion_f_idx_0);
+                    } else {
+                        codegenReal2Mission_DW.IndivCMD.StartTime.millisecond =
+                            MIN_int32_T;
+                    }
+                } else {
+                    codegenReal2Mission_DW.IndivCMD.StartTime.millisecond =
+                        MAX_int32_T;
+                }
+
+                if (static_cast<boolean_T>(static_cast<int32_T>
+                                           (static_cast<int32_T>
+                                            (codegenReal2Mission_DW.NewRun_not_empty)
+                      ^ 1))) {
+                    rtPrevAction = codegenReal2Mission_cfopen(
+                        "OnboardMissionCMD.log", "wb");
+                    fileID = static_cast<int32_T>(rtPrevAction);
+                    codegenReal2Mission_DW.NewRun = 1.0;
+                    codegenReal2Mission_DW.NewRun_not_empty = true;
+                } else {
+                    rtPrevAction = codegenReal2Mission_cfopen(
+                        "OnboardMissionCMD.log", "ab");
+                    fileID = static_cast<int32_T>(rtPrevAction);
+                    codegenReal2Mission_DW.NewRun++;
+                }
+
                 codegenReal2Mission_printIndivMissionCMD
-                    (codegenReal2Mission_DW.IndividualUAVCmd_i.SequenceId,
-                     codegenReal2Mission_DW.IndividualUAVCmd_i.MissionMode,
-                     codegenReal2Mission_DW.IndividualUAVCmd_i.MissionLocation.Lat,
-                     codegenReal2Mission_DW.IndividualUAVCmd_i.MissionLocation.Lon,
-                     codegenReal2Mission_DW.IndividualUAVCmd_i.MissionLocation.Alt,
-                     codegenReal2Mission_DW.IndividualUAVCmd_i.MissionLocation.degHDG,
-                     codegenReal2Mission_DW.IndividualUAVCmd_i.params.Param1,
-                     codegenReal2Mission_DW.IndividualUAVCmd_i.params.Param2,
-                     codegenReal2Mission_DW.IndividualUAVCmd_i.params.Param3,
-                     codegenReal2Mission_DW.IndividualUAVCmd_i.params.Param4,
-                     codegenReal2Mission_DW.IndividualUAVCmd_i.params.Param5,
-                     codegenReal2Mission_DW.IndividualUAVCmd_i.params.Param6,
-                     codegenReal2Mission_DW.IndividualUAVCmd_i.params.Param7,
-                     codegenReal2Mission_DW.IndividualUAVCmd_i.StartPosition,
-                     codegenReal2Mission_DW.IndividualUAVCmd_i.numUAV,
-                     codegenReal2Mission_DW.IndividualUAVCmd_i.FormationPos,
-                     codegenReal2Mission_DW.IndividualUAVCmd_i.StartTime,
-                     static_cast<real_T>(rtPrevAction));
-                codegenReal2Mission_cfclose(static_cast<real_T>(rtPrevAction));
-                CurrentMissionSendData.SendData
-                    (&codegenReal2Mission_DW.IndividualUAVCmd_i, sizeof
-                     (IndividualUAVCmd), &status_0);
+                    (codegenReal2Mission_DW.IndivCMD.SequenceId,
+                     codegenReal2Mission_DW.IndivCMD.MissionMode,
+                     codegenReal2Mission_DW.IndivCMD.MissionLocation.Lat,
+                     codegenReal2Mission_DW.IndivCMD.MissionLocation.Lon,
+                     codegenReal2Mission_DW.IndivCMD.MissionLocation.Alt,
+                     codegenReal2Mission_DW.IndivCMD.MissionLocation.degHDG,
+                     codegenReal2Mission_DW.IndivCMD.params.Param1,
+                     codegenReal2Mission_DW.IndivCMD.params.Param2,
+                     codegenReal2Mission_DW.IndivCMD.params.Param3,
+                     codegenReal2Mission_DW.IndivCMD.params.Param4,
+                     codegenReal2Mission_DW.IndivCMD.params.Param5,
+                     codegenReal2Mission_DW.IndivCMD.params.Param6,
+                     codegenReal2Mission_DW.IndivCMD.params.Param7,
+                     codegenReal2Mission_DW.IndivCMD.StartPosition,
+                     codegenReal2Mission_DW.IndivCMD.numUAV,
+                     codegenReal2Mission_DW.IndivCMD.FormationPos,
+                     codegenReal2Mission_DW.IndivCMD.StartTime,
+                     static_cast<real_T>(fileID));
+                codegenReal2Mission_cfclose(static_cast<real_T>(fileID));
+                CurrentMissionSendData.SendData(&codegenReal2Mission_DW.IndivCMD,
+                    sizeof(IndividualUAVCmd), &status);
             }
 
             codegenReal2Mission_PrevZCX.TriggerCurrentMisisonFeedback_Trig_ZCE =
                 static_cast<ZCSigState>(rtb_ReceiveCurrentMission_o1);
         }
 
-        codegenReal2Mission_DW.NonDeterministic_Buffer0 = temp;
+        codegenReal2Mission_DW.NonDeterministic_Buffer0 = second;
+        rtb_CoordinateTransformationConversion_f_idx_0 = std::floor
+            (codegenReal2Mission_DW.thisTaskStatus);
+        if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(std::
+                isnan(rtb_CoordinateTransformationConversion_f_idx_0)) |
+                static_cast<int32_T>(std::isinf
+                (rtb_CoordinateTransformationConversion_f_idx_0))))) {
+            rtb_CoordinateTransformationConversion_f_idx_0 = 0.0;
+        } else {
+            rtb_CoordinateTransformationConversion_f_idx_0 = std::fmod
+                (rtb_CoordinateTransformationConversion_f_idx_0, 4.294967296E+9);
+        }
+
+        codegenReal2Mission_Y.thisTaskStatus.FlightStatus =
+            rtb_CoordinateTransformationConversion_f_idx_0 < 0.0 ?
+            static_cast<int32_T>(-static_cast<int32_T>(static_cast<uint32_T>
+            (-rtb_CoordinateTransformationConversion_f_idx_0))) :
+            static_cast<int32_T>(static_cast<uint32_T>
+            (rtb_CoordinateTransformationConversion_f_idx_0));
+        rtb_Compare_kk_0 = static_cast<int32_T>(std::fmod(static_cast<real_T>(
+            static_cast<int32_T>(rtb_AltitudeGCS_d)), 4.294967296E+9));
+        codegenReal2Mission_Y.thisTaskStatus.ImmedStatus = rtb_Compare_kk_0 < 0 ?
+            static_cast<int32_T>(-static_cast<int32_T>(static_cast<uint32_T>(-
+            static_cast<real_T>(rtb_Compare_kk_0)))) : rtb_Compare_kk_0;
+        codegenReal2Mission_Y.thisTaskStatus.SequenceId =
+            codegenReal2Mission_DW.ReceiveThisMission_o2.SequenceId;
+        codegenReal2Mission_Y.thisTaskStatus.MissionMode =
+            codegenReal2Mission_DW.cmdFlightMission.MissionMode;
+        codegenReal2Mission_Y.thisTaskStatus.NumUAV =
+            codegenReal2Mission_DW.cmdFlightMission.numUAV;
+        codegenReal2Mission_Y.thisTaskStatus.FormationPos =
+            codegenReal2Mission_DW.cmdFlightMission.FormationPos;
         rtw_pthread_mutex_lock
             (codegenReal2Mission_DW.RateTransition_d0_SEMAPHORE);
         rtPrevAction = static_cast<int8_T>(static_cast<int32_T>
@@ -5276,8 +5451,6 @@ void codegenReal2MissionModelClass::step()
         codegenReal2Mission_DW.RateTransition_Buf[static_cast<int32_T>
             (rtPrevAction)] = codegenReal2Mission_DW.cmdFlightMission;
         codegenReal2Mission_DW.RateTransition_LstBufWR = rtPrevAction;
-        codegenReal2Mission_Y.thisTaskStatus = 1.0E+9 * rtb_AltitudeGCS_d +
-            codegenReal2Mission_DW.thisTaskStatus;
     }
 
     if (rtmIsMajorTimeStep((&codegenReal2Mission_M))) {

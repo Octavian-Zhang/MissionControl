@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 2.654
+// Model version                  : 2.679
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Jun 28 22:54:24 2021
+// C/C++ source code generated on : Thu Jul  1 19:35:55 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -129,13 +129,13 @@ class codegenReal2MissionModelClass {
         MdlrefDW_FlightMissionMode_T PreemptableMissionModeSelector_InstanceData;// '<S2>/PreemptableMissionModeSelector' 
         MdlrefDW_MissionUAV_T MissionUavModel_InstanceData;// '<S16>/MissionUavModel' 
         MdlrefDW_Real2SimGuidance_T Real2SimGuidance_InstanceData;// '<Root>/Real2SimGuidance' 
-        FILE * eml_openfiles[20];      // '<S9>/MATLAB Function'
+        FILE * eml_openfiles[20];      // '<S9>/PrintOnboardLog'
         uav_sluav_internal_system_WaypointFollower_codegenReal2Mission_T obj;// '<S38>/TrackSimPath' 
         missionCmd slMsgMgr_memArray_missionCmd[9];// synthesized block
         missionCmd RateTransition_Buf[3];// '<Root>/Rate Transition'
         uav_sluav_internal_system_OrbitFollower_codegenReal2Mission_T obj_j;// '<S28>/Orbit Follower' 
-        IndividualUAVCmd IndividualUAVCmd_i;// '<S1>/IndividualUAVCmd'
         IndividualUAVCmd ReceivePushedMissionCMD;// '<S6>/ReceivePushedMissionCMD' 
+        IndividualUAVCmd IndivCMD;     // '<S9>/IndivCMD'
         missionCmd RcvNextMission_o2;  // '<Root>/RcvNextMission'
         missionCmd RcvImmedCMD_o2;     // '<Root>/RcvImmedCMD'
         missionCmd ReceiveThisMission_o2;// '<S1>/ReceiveThisMission'
@@ -192,6 +192,7 @@ class codegenReal2MissionModelClass {
         real_T TriggerSend;            // '<S2>/MisisonCMDTemporalLogic'
         volatile real_T NonDeterministic_Buffer0;// '<Root>/NonDeterministic'
         real_T MemoryPrevRange_PreviousInput;// '<S27>/MemoryPrevRange'
+        real_T NewRun;                 // '<S9>/PrintOnboardLog'
         void* RateTransition_d0_SEMAPHORE;// '<Root>/Rate Transition'
         missionCmd* slMsgMgr_freeList_missionCmd[9];// synthesized block
         int32_T SFunction_DIMS2[2];    // '<S37>/Long Track'
@@ -224,11 +225,12 @@ class codegenReal2MissionModelClass {
         uint8_T is_c20_codegenReal2Mission;// '<S2>/MisisonCMDTemporalLogic'
         boolean_T MergeControlSwitch[2];// '<S24>/MergeControlSwitch'
         boolean_T InDangerSequence_X[360];// '<S42>/InDangerSequence'
-        boolean_T eml_autoflush[20];   // '<S9>/MATLAB Function'
+        boolean_T eml_autoflush[20];   // '<S9>/PrintOnboardLog'
         boolean_T BooleanImmedMode;    // '<Root>/BooleanImmedMode'
         boolean_T endImmed;            // '<Root>/MissionSwitch'
         boolean_T RelationalOperator;  // '<S27>/Relational Operator'
         boolean_T StartSim;            // '<S2>/TriggerStartSim'
+        boolean_T NewRun_not_empty;    // '<S9>/PrintOnboardLog'
         boolean_T MissionSimUAV_MODE;  // '<S2>/MissionSimUAV'
     };
 
@@ -271,7 +273,7 @@ class codegenReal2MissionModelClass {
         real_T RefAirspeed;            // '<Root>/RefAirspeed'
         LookAheadPoint LookAheadPoint_i;// '<Root>/LookAheadPoint'
         boolean_T EngagedFlag;         // '<Root>/EngagedFlag'
-        real_T thisTaskStatus;         // '<Root>/thisTaskStatus'
+        TaskStatus thisTaskStatus;     // '<Root>/thisTaskStatus'
     };
 
     // Real-time Model Data Structure
@@ -452,11 +454,11 @@ class codegenReal2MissionModelClass {
          waypointsIn_size[2], real_T lookaheadDist, real_T lookaheadPoint[3],
          real_T *desiredHeading, real_T *desiredYaw, uint8_T *lookaheadDistFlag,
          real_T *crossTrackError, uint8_T *status);
-    creal_T codegenReal2Mission_two_prod(real_T a);
-    creal_T codegenReal2Mission_times(const creal_T a);
-    creal_T codegenReal2Mission_two_diff(real_T a, real_T b);
-    creal_T codegenReal2Mission_minus(const creal_T a, const creal_T b);
     int32_T codegenReal2Mission_ReceiveThisMission_RecvData(missionCmd *data);
+    creal_T codegenReal2Mission_two_prod(real_T a);
+    creal_T codegenReal2Mission_two_diff(real_T a, real_T b);
+    void codegenReal2Mission_getDateVec_i(real_T dd, real_T *y, real_T *mo,
+        real_T *d, real_T *h, real_T *m, real_T *s);
     int8_T codegenReal2Mission_filedata(void);
     int8_T codegenReal2Mission_cfopen(const char_T *cfilename, const char_T
         *cpermission);
@@ -464,7 +466,9 @@ class codegenReal2MissionModelClass {
         *a);
     void codegenReal2Mission_string_string(MissionModes val, char_T
         obj_Value_data[], int32_T obj_Value_size[2]);
+    creal_T codegenReal2Mission_times(const creal_T a);
     creal_T codegenReal2Mission_datetime_datetime(void);
+    creal_T codegenReal2Mission_minus(const creal_T a, const creal_T b);
     void codegenReal2Mission_getDateVec(const creal_T dd, real_T *y, real_T *mo,
         real_T *d, real_T *h, real_T *m, real_T *s);
     void codegenReal2Mission_printIndivMissionCMD(int32_T
@@ -535,8 +539,8 @@ class codegenReal2MissionModelClass {
 //  '<S7>'   : 'codegenReal2Mission/OnboardTaskStatusEncoder'
 //  '<S8>'   : 'codegenReal2Mission/getCurrentTime'
 //  '<S9>'   : 'codegenReal2Mission/FeedbackCurrentMission/TriggerCurrentMisisonFeedback'
-//  '<S10>'  : 'codegenReal2Mission/FeedbackCurrentMission/getCurrentTime'
-//  '<S11>'  : 'codegenReal2Mission/FeedbackCurrentMission/TriggerCurrentMisisonFeedback/MATLAB Function'
+//  '<S10>'  : 'codegenReal2Mission/FeedbackCurrentMission/TriggerCurrentMisisonFeedback/PrintOnboardLog'
+//  '<S11>'  : 'codegenReal2Mission/FeedbackCurrentMission/TriggerCurrentMisisonFeedback/TimeConverter'
 //  '<S12>'  : 'codegenReal2Mission/FlightMission/Compare To Constant'
 //  '<S13>'  : 'codegenReal2Mission/FlightMission/Compare To Zero (ID)'
 //  '<S14>'  : 'codegenReal2Mission/FlightMission/FeedbackMissionCMD'

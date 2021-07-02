@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 2.654
+// Model version                  : 2.679
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Jun 28 22:54:24 2021
+// C/C++ source code generated on : Thu Jul  1 19:35:55 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -97,6 +97,21 @@ struct FixedWingGuidanceStateBus
     real_T FlightPathAngle;
     real_T RollAngle;
     real_T RollAngleRate;
+};
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_TaskStatus_
+#define DEFINED_TYPEDEF_FOR_TaskStatus_
+
+struct TaskStatus
+{
+    int32_T FlightStatus;
+    int32_T ImmedStatus;
+    int32_T SequenceId;
+    MissionModes MissionMode;
+    int32_T NumUAV;
+    int32_T FormationPos;
 };
 
 #endif
@@ -243,7 +258,7 @@ struct emxArray_char_T_1x16_codegenReal2Mission_T
 
 #endif                     // struct_emxArray_char_T_1x16_codegenReal2Mission_T
 
-// Custom Type definition for MATLAB Function: '<S9>/MATLAB Function'
+// Custom Type definition for MATLAB Function: '<S9>/PrintOnboardLog'
 #ifndef struct_cell_wrap_1_codegenReal2Mission_T
 #define struct_cell_wrap_1_codegenReal2Mission_T
 
