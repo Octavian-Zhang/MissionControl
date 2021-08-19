@@ -1,18 +1,3 @@
-//
-// File: rt_nonfinite.cpp
-//
-// Code generated for Simulink model 'Real2SimGuidance'.
-//
-// Model version                  : 2.344
-// Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Jun 28 22:38:59 2021
-//
-
-//
-//  Abstract:
-//       Function to initialize non-finites,
-//       (Inf, NaN and -Inf).
-
 #include "rt_nonfinite.h"
 #include "rtGetNaN.h"
 #include "rtGetInf.h"
@@ -28,10 +13,6 @@ extern "C" {
 }
     extern "C"
 {
-    //
-    // Initialize the rtInf, rtMinusInf, and rtNaN needed by the
-    // generated code. NaN is initialized as non-signaling. Assumes IEEE.
-    //
     void rt_InitInfAndNaN(size_t realSize)
     {
         (void) (realSize);
@@ -43,19 +24,16 @@ extern "C" {
         rtMinusInfF = rtGetMinusInfF();
     }
 
-    // Test if value is infinite
     boolean_T rtIsInf(real_T value)
     {
         return (boolean_T)((value==rtInf || value==rtMinusInf) ? 1U : 0U);
     }
 
-    // Test if single-precision value is infinite
     boolean_T rtIsInfF(real32_T value)
     {
         return (boolean_T)(((value)==rtInfF || (value)==rtMinusInfF) ? 1U : 0U);
     }
 
-    // Test if value is not a number
     boolean_T rtIsNaN(real_T value)
     {
         boolean_T result{ (boolean_T) 0 };
@@ -112,7 +90,6 @@ extern "C" {
         return result;
     }
 
-    // Test if single-precision value is not a number
     boolean_T rtIsNaNF(real32_T value)
     {
         IEEESingle tmp;
@@ -121,9 +98,3 @@ extern "C" {
                            (tmp.wordL.wordLuint & 0x007FFFFF) != 0 );
     }
 }
-
-//
-// File trailer for generated code.
-//
-// [EOF]
-//

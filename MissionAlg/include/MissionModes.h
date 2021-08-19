@@ -1,13 +1,3 @@
-//
-// File: MissionModes.h
-//
-// Code generated for Simulink model 'codegenReal2Mission'.
-//
-// Model version                  : 2.679
-// Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Fri Jul  2 08:04:06 2021
-//
-
 #ifndef RTW_HEADER_MissionModes_h_
 #define RTW_HEADER_MissionModes_h_
 #include "rtwtypes.h"
@@ -19,17 +9,11 @@ typedef enum {
     CustomFrmnNav = 22,
     RunWayNav = 3,
     ProtLine = 4,
-    DetailedInsp = 999,
-    CollAvoidance = 998,
-    FlightMissionRH = 997,
-    WaitToStart = 67698467,
-    None = 0                           // Default value
+    DetailedInsp = 128,
+    CollAvoidance = 129,
+    FlightMissionRH = 130,
+    WaitToStart = 255,
+    None = 0
 } MissionModes;
 
-#endif                                 // RTW_HEADER_MissionModes_h_
-
-//
-// File trailer for generated code.
-//
-// [EOF]
-//
+#endif

@@ -1,28 +1,9 @@
-//
-// File: MissionUAV_types.h
-//
-// Code generated for Simulink model 'MissionUAV'.
-//
-// Model version                  : 1.18
-// Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Fri Jul  2 07:51:54 2021
-//
-// Target selection: ert.tlc
-// Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
-// Code generation objectives:
-//    1. Safety precaution
-//    2. Execution efficiency
-//    3. RAM efficiency
-//    4. ROM efficiency
-// Validation result: Not run
-//
 #ifndef RTW_HEADER_MissionUAV_types_h_
 #define RTW_HEADER_MissionUAV_types_h_
 #include "rtwtypes.h"
 #include "model_reference_types.h"
 #include "zero_crossing_types.h"
 
-// Model Code Variants
 #ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceControlBus_
 #define DEFINED_TYPEDEF_FOR_FixedWingGuidanceControlBus_
 
@@ -106,7 +87,7 @@ struct b_uav_internal_impl_fixedwing_State_MissionUAV_T
     real_T RollAngleRate;
 };
 
-#endif               // struct_b_uav_internal_impl_fixedwing_State_MissionUAV_T
+#endif
 
 #ifndef struct_robotics_core_internal_system_navigation_StateVector2Struct_MissionUAV_T
 #define struct_robotics_core_internal_system_navigation_StateVector2Struct_MissionUAV_T
@@ -118,7 +99,6 @@ struct robotics_core_internal_system_navigation_StateVector2Struct_MissionUAV_T
 };
 
 #endif
-// struct_robotics_core_internal_system_navigation_StateVector2Struct_MissionUAV_T 
 
 #ifndef struct_d_uav_internal_impl_fixedwing_Configuration_MissionUAV_T
 #define struct_d_uav_internal_impl_fixedwing_Configuration_MissionUAV_T
@@ -132,7 +112,7 @@ struct d_uav_internal_impl_fixedwing_Configuration_MissionUAV_T
     real_T FlightPathAngleLimits[2];
 };
 
-#endif       // struct_d_uav_internal_impl_fixedwing_Configuration_MissionUAV_T
+#endif
 
 #ifndef struct_c_uav_internal_impl_fixedwing_GuidanceModel_MissionUAV_T
 #define struct_c_uav_internal_impl_fixedwing_GuidanceModel_MissionUAV_T
@@ -142,7 +122,7 @@ struct c_uav_internal_impl_fixedwing_GuidanceModel_MissionUAV_T
     d_uav_internal_impl_fixedwing_Configuration_MissionUAV_T Configuration;
 };
 
-#endif       // struct_c_uav_internal_impl_fixedwing_GuidanceModel_MissionUAV_T
+#endif
 
 #ifndef struct_robotics_core_internal_system_navigation_Model_MissionUAV_T
 #define struct_robotics_core_internal_system_navigation_Model_MissionUAV_T
@@ -153,15 +133,9 @@ struct robotics_core_internal_system_navigation_Model_MissionUAV_T
     c_uav_internal_impl_fixedwing_GuidanceModel_MissionUAV_T ModelImpl;
 };
 
-#endif    // struct_robotics_core_internal_system_navigation_Model_MissionUAV_T
+#endif
 
-// Forward declaration for rtModel
 typedef struct tag_RTM_MissionUAV_T RT_MODEL_MissionUAV_T;
 
-#endif                                 // RTW_HEADER_MissionUAV_types_h_
+#endif
 
-//
-// File trailer for generated code.
-//
-// [EOF]
-//

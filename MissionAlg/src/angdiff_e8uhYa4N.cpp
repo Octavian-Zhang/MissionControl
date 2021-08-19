@@ -1,18 +1,8 @@
-//
-// File: angdiff_e8uhYa4N.cpp
-//
-// Code generated for Simulink model 'Real2SimGuidance'.
-//
-// Model version                  : 2.344
-// Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Jun 28 22:38:59 2021
-//
 #include "rtwtypes.h"
 #include "rt_nonfinite.h"
 #include <cmath>
 #include "angdiff_e8uhYa4N.h"
 
-// Function for MATLAB Function: '<S4>/AngLog'
 real_T angdiff_e8uhYa4N(real_T x, real_T y)
 {
     real_T delta;
@@ -54,9 +44,3 @@ real_T angdiff_e8uhYa4N(real_T x, real_T y)
 
     return delta;
 }
-
-//
-// File trailer for generated code.
-//
-// [EOF]
-//

@@ -1,21 +1,3 @@
-//
-// File: codegenReal2Mission.cpp
-//
-// Code generated for Simulink model 'codegenReal2Mission'.
-//
-// Model version                  : 2.679
-// Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Fri Jul  2 08:04:06 2021
-//
-// Target selection: ert.tlc
-// Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
-// Code generation objectives:
-//    1. Safety precaution
-//    2. Execution efficiency
-//    3. RAM efficiency
-//    4. ROM efficiency
-// Validation result: Not run
-//
 #include "codegenReal2Mission.h"
 #include "codegenReal2Mission_private.h"
 #include "LookUp_real_T_real_T.h"
@@ -27,65 +9,48 @@
 #include "rt_modd_snf.h"
 #include "split_MzIWb6Db.h"
 
-// Named constants for Chart: '<S2>/MisisonCMDTemporalLogic'
 const uint8_T codegenReal2Mission_IN_NO_ACTIVE_CHILD{ 0U };
 
 const uint8_T codegenReal2Mission_IN_Pending{ 1U };
 
 const uint8_T codegenReal2Mission_IN_Sending{ 2U };
 
-// Named constants for Chart: '<S17>/EnableSailShift'
 const uint8_T codegenReal2Mission_IN_NotShift{ 1U };
 
 const uint8_T codegenReal2Mission_IN_Shift{ 2U };
 
-// Named constants for Chart: '<S2>/TriggerStartSim'
 const uint8_T codegenReal2Mission_IN_Running{ 2U };
 
-// Named constants for Chart: '<S24>/PreemptableMissionModeSelector'
 const uint8_T codegenReal2Mission_IN_ImmedMission{ 1U };
 
 const uint8_T codegenReal2Mission_IN_WaitToStart{ 2U };
 
-// Named constants for Chart: '<S28>/HdgHoldLogic'
 const uint8_T codegenReal2Mission_IN_OutOfRange{ 1U };
 
 const uint8_T codegenReal2Mission_IN_Turning{ 2U };
 
 const uint8_T codegenReal2Mission_IN_WithInRange{ 3U };
 
-// Named constants for Chart: '<S37>/TrackSwitch'
 const uint8_T codegenReal2Mission_IN_Long{ 1U };
 
 const uint8_T codegenReal2Mission_IN_Short{ 2U };
 
-// Named constants for Chart: '<Root>/MissionSwitch'
 const uint8_T codegenReal2Mission_IN_FlightMission{ 1U };
-
-const uint8_T codegenReal2Mission_IN_FlightRun{ 1U };
-
-const uint8_T codegenReal2Mission_IN_FlightWait{ 2U };
 
 const uint8_T codegenReal2Mission_IN_ImmedMission_l{ 2U };
 
 const FixedWingGuidanceBus codegenReal2Mission_rtZFixedWingGuidanceBus{
-    0.0,                               // Height
-    0.0,                               // AirSpeed
-    0.0                                // HeadingAngle
-} ;                                    // FixedWingGuidanceBus ground
+    0.0,
+    0.0,
+    0.0
+} ;
 
-// Exported block states
-real_T AltitudeGCS;                    // Simulink.Signal object 'AltitudeGCS'
-real_T LatitudeGCS;                    // Simulink.Signal object 'LatitudeGCS'
-real_T LongitudeGCS;                   // Simulink.Signal object 'LongitudeGCS'
-void* AltitudeGCS_m0;                  // synthesized block
-void* LatitudeGCS_m0;                  // synthesized block
-void* LongitudeGCS_m0;                 // synthesized block
-
-//
-// This function updates continuous states using the ODE4 fixed-step
-// solver algorithm
-//
+real_T AltitudeGCS;
+real_T LatitudeGCS;
+real_T LongitudeGCS;
+void* AltitudeGCS_m0;
+void* LatitudeGCS_m0;
+void* LongitudeGCS_m0;
 void codegenReal2MissionModelClass::rt_ertODEUpdateContinuousStates
     (RTWSolverInfo *si )
 {
@@ -114,17 +79,10 @@ void codegenReal2MissionModelClass::rt_ertODEUpdateContinuousStates
     int_T nXc { 17 };
 
     rtsiSetSimTimeStep(si,MINOR_TIME_STEP);
-
-    // Save the state values at time t in y, we'll use x as ynew.
     (void) std::memcpy(y, x,
                        static_cast<uint_T>(nXc)*sizeof(real_T));
-
-    // Assumes that rtsiSetT and ModelOutputs are up-to-date
-    // f0 = f(t,y)
     rtsiSetdX(si, f0);
     codegenReal2Mission_derivatives();
-
-    // f1 = f(t + (h/2), y + (h/2)*f0)
     temp = 0.5 * h;
     for (i = 0; i < nXc; i++) {
         x[i] = y[i] + (temp*f0[i]);
@@ -134,8 +92,6 @@ void codegenReal2MissionModelClass::rt_ertODEUpdateContinuousStates
     rtsiSetdX(si, f1);
     this->step();
     codegenReal2Mission_derivatives();
-
-    // f2 = f(t + (h/2), y + (h/2)*f1)
     for (i = 0; i < nXc; i++) {
         x[i] = y[i] + (temp*f1[i]);
     }
@@ -143,8 +99,6 @@ void codegenReal2MissionModelClass::rt_ertODEUpdateContinuousStates
     rtsiSetdX(si, f2);
     this->step();
     codegenReal2Mission_derivatives();
-
-    // f3 = f(t + h, y + h*f2)
     for (i = 0; i < nXc; i++) {
         x[i] = y[i] + (h*f2[i]);
     }
@@ -153,9 +107,6 @@ void codegenReal2MissionModelClass::rt_ertODEUpdateContinuousStates
     rtsiSetdX(si, f3);
     this->step();
     codegenReal2Mission_derivatives();
-
-    // tnew = t + h
-    // ynew = y + (h/6)*(f0 + 2*f1 + 2*f2 + 2*f3)
     temp = h / 6.0;
     for (i = 0; i < nXc; i++) {
         x[i] = y[i] + temp*(f0[i] + 2.0*f1[i] + 2.0*f2[i] + f3[i]);
@@ -164,7 +115,6 @@ void codegenReal2MissionModelClass::rt_ertODEUpdateContinuousStates
     rtsiSetSimTimeStep(si,MAJOR_TIME_STEP);
 }
 
-// Function for MATLAB Function: '<S9>/PrintOnboardLog'
 void codegenReal2MissionModelClass::codegenReal2Mission_getLocalTime(real_T
     *t_tm_nsec, real_T *t_tm_sec, real_T *t_tm_min, real_T *t_tm_hour, real_T
     *t_tm_mday, real_T *t_tm_mon, real_T *t_tm_year, boolean_T *t_tm_isdst)
@@ -181,7 +131,6 @@ void codegenReal2MissionModelClass::codegenReal2Mission_getLocalTime(real_T
     *t_tm_isdst = (structTm.tm_isdst != 0);
 }
 
-// Function for MATLAB Function: '<S9>/PrintOnboardLog'
 creal_T codegenReal2MissionModelClass::codegenReal2Mission_two_sum(real_T a,
     real_T b)
 {
@@ -206,7 +155,6 @@ creal_T codegenReal2MissionModelClass::codegenReal2Mission_two_sum(real_T a,
     return c;
 }
 
-// Function for MATLAB Function: '<S9>/PrintOnboardLog'
 creal_T codegenReal2MissionModelClass::codegenReal2Mission_plus(const creal_T a,
     real_T b)
 {
@@ -1337,7 +1285,6 @@ int32_T codegenReal2MissionModelClass::
     return status;
 }
 
-// Function for MATLAB Function: '<S9>/PrintOnboardLog'
 creal_T codegenReal2MissionModelClass::codegenReal2Mission_two_prod(real_T a)
 {
     creal_T c;
@@ -1362,7 +1309,6 @@ creal_T codegenReal2MissionModelClass::codegenReal2Mission_two_prod(real_T a)
     return c;
 }
 
-// Function for MATLAB Function: '<S9>/PrintOnboardLog'
 creal_T codegenReal2MissionModelClass::codegenReal2Mission_two_diff(real_T a,
     real_T b)
 {
@@ -1387,7 +1333,6 @@ creal_T codegenReal2MissionModelClass::codegenReal2Mission_two_diff(real_T a,
     return c;
 }
 
-// Function for MATLAB Function: '<S9>/TimeConverter'
 void codegenReal2MissionModelClass::codegenReal2Mission_getDateVec_i(real_T dd,
     real_T *y, real_T *mo, real_T *d, real_T *h, real_T *m, real_T *s)
 {
@@ -1638,7 +1583,6 @@ void codegenReal2MissionModelClass::codegenReal2Mission_getDateVec_i(real_T dd,
     }
 }
 
-// Function for MATLAB Function: '<S9>/PrintOnboardLog'
 int8_T codegenReal2MissionModelClass::codegenReal2Mission_filedata(void)
 {
     int32_T k;
@@ -1660,7 +1604,6 @@ int8_T codegenReal2MissionModelClass::codegenReal2Mission_filedata(void)
     return f;
 }
 
-// Function for MATLAB Function: '<S9>/PrintOnboardLog'
 int8_T codegenReal2MissionModelClass::codegenReal2Mission_cfopen(const char_T
     *cfilename, const char_T *cpermission)
 {
@@ -1689,7 +1632,6 @@ int8_T codegenReal2MissionModelClass::codegenReal2Mission_cfopen(const char_T
     return fileid;
 }
 
-// Function for MATLAB Function: '<S9>/PrintOnboardLog'
 void codegenReal2MissionModelClass::codegenReal2Mission_fileManager(real_T
     varargin_1, FILE * *f, boolean_T *a)
 {
@@ -1730,7 +1672,6 @@ void codegenReal2MissionModelClass::codegenReal2Mission_fileManager(real_T
     }
 }
 
-// Function for MATLAB Function: '<S9>/PrintOnboardLog'
 void codegenReal2MissionModelClass::codegenReal2Mission_string_string
     (MissionModes val, char_T obj_Value_data[], int32_T obj_Value_size[2])
 {
@@ -1897,7 +1838,6 @@ void codegenReal2MissionModelClass::codegenReal2Mission_string_string
     }
 }
 
-// Function for MATLAB Function: '<S9>/PrintOnboardLog'
 creal_T codegenReal2MissionModelClass::codegenReal2Mission_times(const creal_T a)
 {
     creal_T c;
@@ -1923,7 +1863,6 @@ creal_T codegenReal2MissionModelClass::codegenReal2Mission_times(const creal_T a
     return c;
 }
 
-// Function for MATLAB Function: '<S9>/PrintOnboardLog'
 creal_T codegenReal2MissionModelClass::codegenReal2Mission_datetime_datetime
     (void)
 {
@@ -1993,7 +1932,6 @@ creal_T codegenReal2MissionModelClass::codegenReal2Mission_datetime_datetime
     return b_this_data;
 }
 
-// Function for MATLAB Function: '<S9>/PrintOnboardLog'
 creal_T codegenReal2MissionModelClass::codegenReal2Mission_minus(const creal_T a,
     const creal_T b)
 {
@@ -2032,7 +1970,6 @@ creal_T codegenReal2MissionModelClass::codegenReal2Mission_minus(const creal_T a
     return cout;
 }
 
-// Function for MATLAB Function: '<S9>/PrintOnboardLog'
 void codegenReal2MissionModelClass::codegenReal2Mission_getDateVec(const creal_T
     dd, real_T *y, real_T *mo, real_T *d, real_T *h, real_T *m, real_T *s)
 {
@@ -2220,9 +2157,8 @@ void codegenReal2MissionModelClass::codegenReal2Mission_getDateVec(const creal_T
     }
 }
 
-// Function for MATLAB Function: '<S9>/PrintOnboardLog'
 void codegenReal2MissionModelClass::codegenReal2Mission_printIndivMissionCMD
-    (int32_T IndivMissionCMD_SequenceId, MissionModes
+    (int32_T IndivMissionCMD_SequenceID, MissionModes
      IndivMissionCMD_MissionMode, real_T IndivMissionCMD_MissionLocation_Lat,
      real_T IndivMissionCMD_MissionLocation_Lon, real_T
      IndivMissionCMD_MissionLocation_Alt, real_T
@@ -2273,7 +2209,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_printIndivMissionCMD
     codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
     if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
     {
-        fprintf(filestar, "Sequence ID:\t\t%d\n", IndivMissionCMD_SequenceId);
+        fprintf(filestar, "Sequence ID:\t\t%d\n", IndivMissionCMD_SequenceID);
         if (autoflush) {
             fflush(filestar);
         }
@@ -2572,7 +2508,6 @@ void codegenReal2MissionModelClass::codegenReal2Mission_printIndivMissionCMD
     }
 }
 
-// Function for MATLAB Function: '<S9>/PrintOnboardLog'
 int32_T codegenReal2MissionModelClass::codegenReal2Mission_cfclose(real_T fid)
 {
     FILE * f;
@@ -2630,7 +2565,6 @@ int32_T codegenReal2MissionModelClass::codegenReal2Mission_cfclose(real_T fid)
     return st;
 }
 
-// Function for MATLAB Function: '<S6>/CommandCheck'
 creal_T codegenReal2MissionModelClass::codegenReal2Mission_createFromDateVec(
     const real_T inData[7])
 {
@@ -2685,7 +2619,6 @@ creal_T codegenReal2MissionModelClass::codegenReal2Mission_createFromDateVec(
     return t;
 }
 
-// Function for MATLAB Function: '<S6>/CommandCheck'
 boolean_T codegenReal2MissionModelClass::codegenReal2Mission_isequaln_f
     (MissionModes varargin_1, MissionModes varargin_2)
 {
@@ -2698,9 +2631,8 @@ boolean_T codegenReal2MissionModelClass::codegenReal2Mission_isequaln_f
     return p;
 }
 
-// Function for MATLAB Function: '<S6>/CommandCheck'
 boolean_T codegenReal2MissionModelClass::codegenReal2Mission_isequaln(int32_T
-    varargin_1_SequenceId, MissionModes varargin_1_MissionMode, real_T
+    varargin_1_SequenceID, MissionModes varargin_1_MissionMode, real_T
     varargin_1_MissionLocation_Lat, real_T varargin_1_MissionLocation_Lon,
     real_T varargin_1_MissionLocation_Alt, real_T
     varargin_1_MissionLocation_degHDG, real32_T varargin_1_params_Param1,
@@ -2709,7 +2641,7 @@ boolean_T codegenReal2MissionModelClass::codegenReal2Mission_isequaln(int32_T
     real32_T varargin_1_params_Param6, real32_T varargin_1_params_Param7, const
     Location varargin_1_StartPosition, int32_T varargin_1_numUAV, int32_T
     varargin_1_FormationPos, real_T varargin_1_StartTime, int32_T
-    varargin_2_SequenceId, MissionModes varargin_2_MissionMode, const Location
+    varargin_2_SequenceID, MissionModes varargin_2_MissionMode, const Location
     varargin_2_MissionLocation, const Parameters varargin_2_params, const
     Location varargin_2_StartPosition, int32_T varargin_2_numUAV, int32_T
     varargin_2_FormationPos, real_T varargin_2_StartTime)
@@ -2901,8 +2833,8 @@ boolean_T codegenReal2MissionModelClass::codegenReal2Mission_isequaln(int32_T
                                 static_cast<int32_T>
                                 (codegenReal2Mission_isequaln_f
                                  (varargin_1_MissionMode, varargin_2_MissionMode))
-                                & (varargin_1_SequenceId ==
-                                   varargin_2_SequenceId)));
+                                & (varargin_1_SequenceID ==
+                                   varargin_2_SequenceID)));
                         }
                     }
                 }
@@ -2970,24 +2902,24 @@ void codegenReal2MissionModelClass::codegenReal2Mission_initMemPool
     memPool->fSize = size;
 }
 
-// Model step function
 void codegenReal2MissionModelClass::step()
 {
-    // local block i/o variables
+    missionCmd rtb_DataStoreRead_pq;
+    real_T rtb_MemoryPose_m[4];
     real_T rtb_Down_c;
     boolean_T rtb_Reset;
     creal_T thisData;
     real_T out[9];
     real_T rtb_Asin[6];
-    real_T rtb_MemoryPose_m[4];
+    real_T absx_0[4];
     real_T rtb_MathFunction_jp[3];
     real_T rtb_Sum_h[3];
     real_T rtb_TmpSignalConversionAtOrbitFollowerInport2[3];
     real_T u[3];
     real_T v[3];
     real_T distToCenter_tmp[2];
-    real_T rtb_MemoryPose_m_0[2];
-    real_T rtb_Sum1_f[2];
+    real_T rtb_Switch_a[2];
+    real_T rtb_TmpSignalConversionAtOrbitF[2];
     real_T xyCenter[2];
     real_T absx;
     real_T ahi;
@@ -2996,6 +2928,8 @@ void codegenReal2MissionModelClass::step()
     real_T fracSecs;
     real_T normp;
     real_T normq;
+    real_T qmult;
+    real_T qmult_idx_0;
     real_T rtb_AltitudeGCS_d;
     real_T rtb_CoordinateTransformationConversion_f_idx_0;
     real_T rtb_CoordinateTransformationConversion_f_idx_1;
@@ -3007,13 +2941,13 @@ void codegenReal2MissionModelClass::step()
     real_T rtb_Sign_c;
     real_T rtb_Sum_i;
     real_T rtb_Switch_b;
-    real_T rtb_Switch_m;
+    real_T rtb_Switch_hk;
+    real_T rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_0;
+    real_T rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_1;
+    real_T rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_2;
+    real_T rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_3;
     real_T rtb_U;
     real_T rtb_U_tmp;
-    real_T rtb_U_tmp_0;
-    real_T rtb_U_tmp_1;
-    real_T rtb_U_tmp_2;
-    real_T rtb_U_tmp_3;
     real_T second;
     real_T t;
     real_T tmp;
@@ -3021,7 +2955,7 @@ void codegenReal2MissionModelClass::step()
     int32_T b_size_idx_0;
     int32_T fileID;
     int32_T i;
-    int32_T rtb_Compare_kk_0;
+    int32_T rtb_RcvNextMission_o1_0;
     int32_T status;
     uint32_T inSize[8];
     int16_T b_data[361];
@@ -3032,12 +2966,13 @@ void codegenReal2MissionModelClass::step()
     boolean_T exitg1;
     boolean_T guard1{ false };
 
-    boolean_T rtb_RcvImmedCMD_o1;
+    boolean_T guard2{ false };
+
+    boolean_T rtb_Compare_gf;
     boolean_T rtb_RcvNextMission_o1;
     boolean_T rtb_ReceiveCurrentMission_o1;
     ZCEventType zcEvent;
     if (rtmIsMajorTimeStep((&codegenReal2Mission_M))) {
-        // set solver stop time
         if (!((&codegenReal2Mission_M)->Timing.clockTick0+1)) {
             rtsiSetSolverStopTime(&(&codegenReal2Mission_M)->solverInfo,
                                   (((&codegenReal2Mission_M)->Timing.clockTickH0
@@ -3052,9 +2987,8 @@ void codegenReal2MissionModelClass::step()
                                    (&codegenReal2Mission_M)->Timing.stepSize0 *
                                    4294967296.0));
         }
-    }                                  // end MajorTimeStep
+    }
 
-    // Update absolute time of base rate at minor time step
     if (rtmIsMinorTimeStep((&codegenReal2Mission_M))) {
         (&codegenReal2Mission_M)->Timing.t[0] = rtsiGetT
             (&(&codegenReal2Mission_M)->solverInfo);
@@ -3063,14 +2997,14 @@ void codegenReal2MissionModelClass::step()
     if (rtmIsMajorTimeStep((&codegenReal2Mission_M))) {
         codegenReal2Mission_getLocalTime(&second, &fracSecs, &check, &ahi, &tmp,
             &absx, &rtb_Sign_c, &rtb_RcvNextMission_o1);
-        rtb_Down = tmp;
-        rtb_Switch_b = check;
-        rtb_LatitudeGCS_i = fracSecs;
-        distToCenter = second / 1.0E+6;
+        distToCenter = tmp;
+        rtb_AltitudeGCS_d = check;
+        rtb_Switch_b = fracSecs;
+        rtb_LatitudeGCS_i = second / 1.0E+6;
         second = fracSecs;
-        fracSecs = distToCenter;
-        check = (((((rtb_Sign_c + absx) + tmp) + ahi) + check) +
-                 rtb_LatitudeGCS_i) + distToCenter;
+        fracSecs = rtb_LatitudeGCS_i;
+        check = (((((rtb_Sign_c + absx) + tmp) + ahi) + check) + rtb_Switch_b) +
+            rtb_LatitudeGCS_i;
         if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(
                 static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
                  (std::isinf(check)) ^ 1))) & static_cast<int32_T>
@@ -3093,7 +3027,7 @@ void codegenReal2MissionModelClass::step()
 
             tmp = ((((((365.0 * tmp + std::floor(tmp / 4.0)) - std::floor(tmp /
                         100.0)) + std::floor(tmp / 400.0)) + std::floor((153.0 *
-                       check + 2.0) / 5.0)) + rtb_Down) + 60.0) - 719529.0;
+                       check + 2.0) / 5.0)) + distToCenter) + 60.0) - 719529.0;
             check = 1.34217729E+8 * tmp;
             check -= check - tmp;
             rtb_Sign_c = check;
@@ -3105,24 +3039,24 @@ void codegenReal2MissionModelClass::step()
                 thisData.im = 0.0;
             }
 
-            if ((distToCenter < 0.0) || (1000.0 <= distToCenter)) {
-                fracSecs = std::floor(distToCenter / 1000.0);
-                second = rtb_LatitudeGCS_i + fracSecs;
-                fracSecs = distToCenter - fracSecs * 1000.0;
+            if ((rtb_LatitudeGCS_i < 0.0) || (1000.0 <= rtb_LatitudeGCS_i)) {
+                fracSecs = std::floor(rtb_LatitudeGCS_i / 1000.0);
+                second = rtb_Switch_b + fracSecs;
+                fracSecs = rtb_LatitudeGCS_i - fracSecs * 1000.0;
             }
 
             thisData.re = check;
             thisData = codegenReal2Mission_plus(codegenReal2Mission_plus
-                (codegenReal2Mission_plus(thisData, (60.0 * ahi + rtb_Switch_b) *
-                60000.0), second * 1000.0), fracSecs);
+                (codegenReal2Mission_plus(thisData, (60.0 * ahi +
+                rtb_AltitudeGCS_d) * 60000.0), second * 1000.0), fracSecs);
         } else {
             thisData.re = check;
         }
 
         second = thisData.re / 1000.0;
-        rtb_Compare_kk_0 = codegenReal2Mission_RcvNextMission_RecvData
+        rtb_RcvNextMission_o1_0 = codegenReal2Mission_RcvNextMission_RecvData
             (&codegenReal2Mission_DW.RcvNextMission_o2);
-        rtb_RcvNextMission_o1 = (rtb_Compare_kk_0 != 1);
+        rtb_RcvNextMission_o1 = (rtb_RcvNextMission_o1_0 != 1);
         if (static_cast<uint32_T>
                 (codegenReal2Mission_DW.is_active_c20_codegenReal2Mission) == 0U)
         {
@@ -3139,8 +3073,6 @@ void codegenReal2MissionModelClass::step()
             } else {
                 codegenReal2Mission_DW.TriggerSend = 0.0;
             }
-
-            // case IN_Sending:
         } else if (second <= codegenReal2Mission_DW.RcvNextMission_o2.StartTime)
         {
             codegenReal2Mission_DW.is_c20_codegenReal2Mission =
@@ -3158,9 +3090,10 @@ void codegenReal2MissionModelClass::step()
             }
         }
 
-        rtb_Compare_kk_0 = codegenReal2Mission_ReceiveCurrentMission_RecvData
+        rtb_RcvNextMission_o1_0 =
+            codegenReal2Mission_ReceiveCurrentMission_RecvData
             (&codegenReal2Mission_DW.ReceiveCurrentMission_o2);
-        rtb_ReceiveCurrentMission_o1 = (rtb_Compare_kk_0 != 1);
+        rtb_ReceiveCurrentMission_o1 = (rtb_RcvNextMission_o1_0 != 1);
         if (static_cast<uint32_T>
                 (codegenReal2Mission_DW.is_active_c24_codegenReal2Mission) == 0U)
         {
@@ -3172,7 +3105,7 @@ void codegenReal2MissionModelClass::step()
                    (codegenReal2Mission_DW.is_c24_codegenReal2Mission) == 1) {
             if (static_cast<boolean_T>(static_cast<int32_T>
                                        ((codegenReal2Mission_DW.ReceiveCurrentMission_o2.MissionMode
-                   != None) & (codegenReal2Mission_DW.ReceiveCurrentMission_o2.SequenceId
+                   != None) & (codegenReal2Mission_DW.ReceiveCurrentMission_o2.SequenceID
                                > 0)))) {
                 codegenReal2Mission_DW.is_c24_codegenReal2Mission =
                     codegenReal2Mission_IN_Running;
@@ -3181,10 +3114,10 @@ void codegenReal2MissionModelClass::step()
                 codegenReal2Mission_DW.StartSim = false;
             }
         } else {
-            // case IN_Running:
             codegenReal2Mission_DW.StartSim = true;
         }
 
+        rtb_DataStoreRead_pq = codegenReal2Mission_DW.cmdFlightMission;
         rtb_Reset = static_cast<boolean_T>(static_cast<int32_T>
             (static_cast<int32_T>(static_cast<boolean_T>(static_cast<int32_T>
             ((codegenReal2Mission_DW.ReceiveCurrentMission_o2.params.Param7 !=
@@ -3200,7 +3133,7 @@ void codegenReal2MissionModelClass::step()
             [3];
         FlightMissionMode(&codegenReal2Mission_DW.StartSim,
                           &codegenReal2Mission_DW.ReceiveCurrentMission_o2.MissionMode,
-                          &codegenReal2Mission_DW.cmdFlightMission.MissionLocation,
+                          &rtb_DataStoreRead_pq.MissionLocation,
                           &codegenReal2Mission_DW.ReceiveCurrentMission_o2.MissionLocation,
                           &codegenReal2Mission_DW.ReceiveCurrentMission_o2.params,
                           &codegenReal2Mission_DW.ReceiveCurrentMission_o2.StartPosition,
@@ -3262,6 +3195,8 @@ void codegenReal2MissionModelClass::step()
                 (codegenReal2Mission_DW.temporalCounter_i1_n) + 1U));
         }
 
+        guard1 = false;
+        guard2 = false;
         if (static_cast<uint32_T>
                 (codegenReal2Mission_DW.is_active_c4_codegenReal2Mission) == 0U)
         {
@@ -3269,117 +3204,110 @@ void codegenReal2MissionModelClass::step()
             codegenReal2Mission_DW.is_c4_codegenReal2Mission =
                 codegenReal2Mission_IN_NotShift;
             codegenReal2Mission_DW.temporalCounter_i1_n = 0U;
-        } else {
-            guard1 = false;
-            if (static_cast<int32_T>
-                    (codegenReal2Mission_DW.is_c4_codegenReal2Mission) == 1) {
-                if (static_cast<boolean_T>(static_cast<int32_T>
-                                           ((static_cast<uint32_T>
-                        (codegenReal2Mission_DW.temporalCounter_i1_n) >= 100U) &
-                      (static_cast<int32_T>
-                        (codegenReal2Mission_DW.ReceiveCurrentMission_o2.MissionMode)
-                       == 4)))) {
-                    codegenReal2Mission_DW.is_c4_codegenReal2Mission =
-                        codegenReal2Mission_IN_Shift;
-                    guard1 = true;
-                }
-
-                // case IN_Shift:
-            } else if (static_cast<boolean_T>(static_cast<int32_T>
-                        ((static_cast<int32_T>
-                          (codegenReal2Mission_DW.ReceiveCurrentMission_o2.MissionMode)
-                          != 4) | static_cast<int32_T>(rtb_Reset)))) {
+            guard1 = true;
+        } else if (static_cast<int32_T>
+                   (codegenReal2Mission_DW.is_c4_codegenReal2Mission) == 1) {
+            if (static_cast<boolean_T>(static_cast<int32_T>
+                                       ((static_cast<uint32_T>
+                    (codegenReal2Mission_DW.temporalCounter_i1_n) >= 100U) & (
+                    static_cast<int32_T>
+                    (codegenReal2Mission_DW.ReceiveCurrentMission_o2.MissionMode)
+                   == 4)))) {
                 codegenReal2Mission_DW.is_c4_codegenReal2Mission =
-                    codegenReal2Mission_IN_NotShift;
-                codegenReal2Mission_DW.temporalCounter_i1_n = 0U;
+                    codegenReal2Mission_IN_Shift;
+                guard2 = true;
             } else {
                 guard1 = true;
             }
+        } else if (static_cast<int32_T>
+                   (codegenReal2Mission_DW.ReceiveCurrentMission_o2.MissionMode)
+                   != 4) {
+            codegenReal2Mission_DW.is_c4_codegenReal2Mission =
+                codegenReal2Mission_IN_NotShift;
+            codegenReal2Mission_DW.temporalCounter_i1_n = 0U;
+            guard1 = true;
+        } else {
+            guard2 = true;
+        }
 
-            if (guard1) {
-                fracSecs = 0.017453292519943295 *
-                    codegenReal2Mission_DW.ReceiveCurrentMission_o2.MissionLocation.degHDG;
-                if (static_cast<boolean_T>(static_cast<int32_T>
-                                           (static_cast<int32_T>(rtb_Reset) | (
-                        static_cast<int32_T>
-                        (codegenReal2Mission_DW.DiscreteTimeIntegrator_PrevResetState)
-                       != 0)))) {
-                    codegenReal2Mission_DW.DiscreteTimeIntegrator_DSTATE[0] =
-                        0.0;
-                    codegenReal2Mission_DW.DiscreteTimeIntegrator_DSTATE[1] =
-                        0.0;
-                }
-
-                rtb_Sum1_f[0] = static_cast<real_T>
-                    (codegenReal2Mission_DW.ReceiveCurrentMission_o2.params.Param4)
-                    * std::cos(fracSecs) * 0.05;
-                rtb_Sum1_f[1] = static_cast<real_T>
-                    (codegenReal2Mission_DW.ReceiveCurrentMission_o2.params.Param4)
-                    * std::sin(fracSecs) * 0.05;
-                codegenReal2Mission_DW.DiscreteTimeIntegrator[0] =
-                    codegenReal2Mission_DW.DiscreteTimeIntegrator_DSTATE[0] +
-                    rtb_Sum1_f[0];
-                codegenReal2Mission_DW.DiscreteTimeIntegrator_DSTATE[0] =
-                    codegenReal2Mission_DW.DiscreteTimeIntegrator[0] +
-                    rtb_Sum1_f[0];
-                codegenReal2Mission_DW.DiscreteTimeIntegrator[1] =
-                    codegenReal2Mission_DW.DiscreteTimeIntegrator_DSTATE[1] +
-                    rtb_Sum1_f[1];
-                codegenReal2Mission_DW.DiscreteTimeIntegrator_DSTATE[1] =
-                    codegenReal2Mission_DW.DiscreteTimeIntegrator[1] +
-                    rtb_Sum1_f[1];
-                codegenReal2Mission_DW.DiscreteTimeIntegrator_PrevResetState =
-                    static_cast<int8_T>(rtb_Reset);
+        if (guard2) {
+            if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
+                    (codegenReal2Mission_DW.SailShift_MODE) ^ 1))) {
+                codegenReal2Mission_DW.DiscreteTimeIntegrator_DSTATE[0] = 0.0;
+                codegenReal2Mission_DW.DiscreteTimeIntegrator_DSTATE[1] = 0.0;
+                codegenReal2Mission_DW.DiscreteTimeIntegrator_PrevResetState = 0;
+                codegenReal2Mission_DW.SailShift_MODE = true;
             }
+
+            check = 0.017453292519943295 *
+                codegenReal2Mission_DW.ReceiveCurrentMission_o2.MissionLocation.degHDG;
+            if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
+                    (rtb_Reset) | (static_cast<int32_T>
+                                   (codegenReal2Mission_DW.DiscreteTimeIntegrator_PrevResetState)
+                                   != 0)))) {
+                codegenReal2Mission_DW.DiscreteTimeIntegrator_DSTATE[0] = 0.0;
+                codegenReal2Mission_DW.DiscreteTimeIntegrator_DSTATE[1] = 0.0;
+            }
+
+            rtb_Switch_a[0] = static_cast<real_T>
+                (codegenReal2Mission_DW.ReceiveCurrentMission_o2.params.Param4) *
+                std::cos(check) * 0.05;
+            rtb_Switch_a[1] = static_cast<real_T>
+                (codegenReal2Mission_DW.ReceiveCurrentMission_o2.params.Param4) *
+                std::sin(check) * 0.05;
+            codegenReal2Mission_DW.DiscreteTimeIntegrator[0] =
+                codegenReal2Mission_DW.DiscreteTimeIntegrator_DSTATE[0] +
+                rtb_Switch_a[0];
+            codegenReal2Mission_DW.DiscreteTimeIntegrator_DSTATE[0] =
+                codegenReal2Mission_DW.DiscreteTimeIntegrator[0] + rtb_Switch_a
+                [0];
+            codegenReal2Mission_DW.DiscreteTimeIntegrator[1] =
+                codegenReal2Mission_DW.DiscreteTimeIntegrator_DSTATE[1] +
+                rtb_Switch_a[1];
+            codegenReal2Mission_DW.DiscreteTimeIntegrator_DSTATE[1] =
+                codegenReal2Mission_DW.DiscreteTimeIntegrator[1] + rtb_Switch_a
+                [1];
+            codegenReal2Mission_DW.DiscreteTimeIntegrator_PrevResetState =
+                static_cast<int8_T>(rtb_Reset);
+            rtb_Switch_a[0] = codegenReal2Mission_DW.DiscreteTimeIntegrator[0];
+            rtb_Switch_a[1] = codegenReal2Mission_DW.DiscreteTimeIntegrator[1];
+        }
+
+        if (guard1) {
+            codegenReal2Mission_DW.SailShift_MODE = false;
+            rtb_Switch_a[0] = 0.0;
+            rtb_Switch_a[1] = 0.0;
         }
 
         rtb_Down_c = -codegenReal2Mission_DW.Height_f;
-        fracSecs = codegenReal2Mission_DW.East_k +
-            codegenReal2Mission_DW.DiscreteTimeIntegrator[1];
-        check = codegenReal2Mission_DW.North_o +
-            codegenReal2Mission_DW.DiscreteTimeIntegrator[0];
-        rtb_Compare_kk_0 = codegenReal2Mission_RcvImmedCMD_RecvData
+        fracSecs = codegenReal2Mission_DW.East_k + rtb_Switch_a[1];
+        check = codegenReal2Mission_DW.North_o + rtb_Switch_a[0];
+        rtb_RcvNextMission_o1_0 = codegenReal2Mission_RcvImmedCMD_RecvData
             (&codegenReal2Mission_DW.RcvImmedCMD_o2);
-        rtb_RcvImmedCMD_o1 = (rtb_Compare_kk_0 != 1);
+        rtb_ReceiveCurrentMission_o1 = (rtb_RcvNextMission_o1_0 != 1);
         if (static_cast<uint32_T>
                 (codegenReal2Mission_DW.is_active_c26_codegenReal2Mission) == 0U)
         {
             codegenReal2Mission_DW.is_active_c26_codegenReal2Mission = 1U;
             codegenReal2Mission_DW.is_c26_codegenReal2Mission =
                 codegenReal2Mission_IN_FlightMission;
-            codegenReal2Mission_DW.is_FlightMission =
-                codegenReal2Mission_IN_FlightWait;
-            ahi = 1.0;
+            ahi = 0.0;
+            codegenReal2Mission_DW.endImmed = true;
         } else if (static_cast<int32_T>
                    (codegenReal2Mission_DW.is_c26_codegenReal2Mission) == 1) {
-            if (rtb_RcvImmedCMD_o1) {
-                codegenReal2Mission_DW.is_FlightMission =
-                    codegenReal2Mission_IN_NO_ACTIVE_CHILD;
+            if (rtb_ReceiveCurrentMission_o1) {
                 codegenReal2Mission_DW.is_c26_codegenReal2Mission =
                     codegenReal2Mission_IN_ImmedMission_l;
                 ahi = 1.0;
-            } else if (static_cast<int32_T>
-                       (codegenReal2Mission_DW.is_FlightMission) == 1) {
+            } else {
                 ahi = 0.0;
                 codegenReal2Mission_DW.endImmed = false;
-
-                // case IN_FlightWait:
-            } else if (rtb_ReceiveCurrentMission_o1) {
-                codegenReal2Mission_DW.is_FlightMission =
-                    codegenReal2Mission_IN_FlightRun;
-                ahi = 0.0;
-                codegenReal2Mission_DW.endImmed = true;
-            } else {
-                ahi = 1.0;
             }
-
-            // case IN_ImmedMission:
         } else if (rtb_RcvNextMission_o1) {
             codegenReal2Mission_DW.is_c26_codegenReal2Mission =
                 codegenReal2Mission_IN_FlightMission;
-            codegenReal2Mission_DW.is_FlightMission =
-                codegenReal2Mission_IN_FlightWait;
-            ahi = 1.0;
+            ahi = 0.0;
+            codegenReal2Mission_DW.endImmed = true;
         } else {
             ahi = 1.0;
         }
@@ -3397,7 +3325,7 @@ void codegenReal2MissionModelClass::step()
             codegenReal2Mission_DW.ImmedMissionModeSelectorMode = WaitToStart;
         } else {
             guard1 = false;
-            if (rtb_RcvImmedCMD_o1) {
+            if (rtb_ReceiveCurrentMission_o1) {
                 if (static_cast<boolean_T>(static_cast<int32_T>
                                            ((codegenReal2Mission_DW.RcvImmedCMD_o2.MissionMode
                        == DetailedInsp) | (codegenReal2Mission_DW.RcvImmedCMD_o2.MissionMode
@@ -3435,13 +3363,7 @@ void codegenReal2MissionModelClass::step()
                         codegenReal2Mission_DW.ImmedMissionModeSelectorMode =
                             WaitToStart;
                     }
-
-                    // case IN_WaitToStart:
-                } else if (static_cast<boolean_T>(static_cast<int32_T>((
-                              static_cast<int32_T>
-                              (codegenReal2Mission_DW.RcvImmedCMD_o2.MissionMode)
-                              > 500) & static_cast<int32_T>(rtb_RcvImmedCMD_o1))))
-                {
+                } else if (rtb_ReceiveCurrentMission_o1) {
                     if (static_cast<boolean_T>(static_cast<int32_T>
                                                ((codegenReal2Mission_DW.RcvImmedCMD_o2.MissionMode
                            == DetailedInsp) | (codegenReal2Mission_DW.RcvImmedCMD_o2.MissionMode
@@ -3523,63 +3445,56 @@ void codegenReal2MissionModelClass::step()
             rtw_pthread_mutex_lock(LongitudeGCS_m0);
             tmp = LongitudeGCS;
             rtw_pthread_mutex_unlock(LongitudeGCS_m0);
-            rtb_Sum1_f[0] =
+            rtb_Switch_a[0] =
                 codegenReal2Mission_DW.RcvImmedCMD_o2.MissionLocation.Lat -
                 rtb_LatitudeGCS_i;
-            rtb_Sum1_f[1] =
+            rtb_Switch_a[1] =
                 codegenReal2Mission_DW.RcvImmedCMD_o2.MissionLocation.Lon - tmp;
-            if (std::abs(rtb_Sum1_f[0]) > 180.0) {
-                rtb_Switch_m = rt_modd_snf(rtb_Sum1_f[0] + 180.0, 360.0) +
+            if (std::abs(rtb_Switch_a[0]) > 180.0) {
+                rtb_Switch_hk = rt_modd_snf(rtb_Switch_a[0] + 180.0, 360.0) +
                     -180.0;
             } else {
-                rtb_Switch_m = rtb_Sum1_f[0];
+                rtb_Switch_hk = rtb_Switch_a[0];
             }
 
-            tmp = std::abs(rtb_Switch_m);
+            tmp = std::abs(rtb_Switch_hk);
             if (tmp > 90.0) {
-                if (rtb_Switch_m < 0.0) {
-                    rtb_Switch_m = -1.0;
-                } else if (rtb_Switch_m > 0.0) {
-                    rtb_Switch_m = 1.0;
-                } else if (rtb_Switch_m == 0.0) {
-                    rtb_Switch_m = 0.0;
+                if (rtb_Switch_hk < 0.0) {
+                    rtb_Switch_hk = -1.0;
+                } else if (rtb_Switch_hk > 0.0) {
+                    rtb_Switch_hk = 1.0;
+                } else if (rtb_Switch_hk == 0.0) {
+                    rtb_Switch_hk = 0.0;
                 } else {
-                    rtb_Switch_m = (rtNaN);
+                    rtb_Switch_hk = (rtNaN);
                 }
 
-                rtb_Switch_m *= -(tmp + -90.0) + 90.0;
-                rtb_Compare_kk_0 = 180;
+                rtb_Switch_hk *= -(tmp + -90.0) + 90.0;
+                rtb_RcvNextMission_o1_0 = 180;
             } else {
-                rtb_Compare_kk_0 = 0;
+                rtb_RcvNextMission_o1_0 = 0;
             }
 
-            rtb_Sum_i = static_cast<real_T>(rtb_Compare_kk_0) + rtb_Sum1_f[1];
+            rtb_Sum_i = static_cast<real_T>(rtb_RcvNextMission_o1_0) +
+                rtb_Switch_a[1];
             if (std::abs(rtb_Sum_i) > 180.0) {
                 rtb_Sum_i = rt_modd_snf(rtb_Sum_i + 180.0, 360.0) + -180.0;
             }
 
-            // Unit Conversion - from: deg to: rad
-            // Expression: output = (0.0174533*input) + (0)
-            rtb_Sum1_f[0] = 0.017453292519943295 * rtb_Switch_m;
-            rtb_Sum1_f[1] = 0.017453292519943295 * rtb_Sum_i;
-
-            // Unit Conversion - from: deg to: rad
-            // Expression: output = (0.0174533*input) + (0)
+            rtb_Switch_a[0] = 0.017453292519943295 * rtb_Switch_hk;
+            rtb_Switch_a[1] = 0.017453292519943295 * rtb_Sum_i;
             rtb_LatitudeGCS_i *= 0.017453292519943295;
             rtb_Sum_i = std::sin(rtb_LatitudeGCS_i);
             rtb_Sum_i = 1.0 - 0.0066943799901413295 * rtb_Sum_i * rtb_Sum_i;
-            rtb_Switch_m = 6.378137E+6 / std::sqrt(rtb_Sum_i);
-            rtb_Sum_i = rtb_Sum1_f[0] / rt_atan2d_snf(1.0, rtb_Switch_m *
+            rtb_Switch_hk = 6.378137E+6 / std::sqrt(rtb_Sum_i);
+            rtb_Sum_i = rtb_Switch_a[0] / rt_atan2d_snf(1.0, rtb_Switch_hk *
                 0.99330562000985867 / rtb_Sum_i);
-
-            // Unit Conversion - from: deg to: rad
-            // Expression: output = (0.0174533*input) + (0)
             rtb_Switch_b = 0.0;
-            rtb_Switch_m = 1.0 / rt_atan2d_snf(1.0, rtb_Switch_m * std::cos
-                (rtb_LatitudeGCS_i)) * rtb_Sum1_f[1];
-            rtb_TmpSignalConversionAtOrbitFollowerInport2[0] = rtb_Switch_m *
+            rtb_Switch_hk = 1.0 / rt_atan2d_snf(1.0, rtb_Switch_hk * std::cos
+                (rtb_LatitudeGCS_i)) * rtb_Switch_a[1];
+            rtb_TmpSignalConversionAtOrbitFollowerInport2[0] = rtb_Switch_hk *
                 0.0 + rtb_Sum_i;
-            rtb_TmpSignalConversionAtOrbitFollowerInport2[1] = rtb_Switch_m -
+            rtb_TmpSignalConversionAtOrbitFollowerInport2[1] = rtb_Switch_hk -
                 rtb_Sum_i * 0.0;
             rtb_TmpSignalConversionAtOrbitFollowerInport2[2] =
                 -(codegenReal2Mission_DW.RcvImmedCMD_o2.MissionLocation.Alt +
@@ -3590,8 +3505,8 @@ void codegenReal2MissionModelClass::step()
                 rtb_TmpSignalConversionAtOrbitFollowerInport2[1];
             rtb_Sum_h[2] = rtb_Down -
                 rtb_TmpSignalConversionAtOrbitFollowerInport2[2];
-            rtb_AltitudeGCS_d = std::sqrt((rtb_Sum_h[0] * rtb_Sum_h[0] +
-                rtb_Sum_h[1] * rtb_Sum_h[1]) + rtb_Sum_h[2] * rtb_Sum_h[2]);
+            tmp = std::sqrt((rtb_Sum_h[0] * rtb_Sum_h[0] + rtb_Sum_h[1] *
+                             rtb_Sum_h[1]) + rtb_Sum_h[2] * rtb_Sum_h[2]);
             if (static_cast<uint32_T>
                     (codegenReal2Mission_DW.temporalCounter_i1_i) < 31U) {
                 codegenReal2Mission_DW.temporalCounter_i1_i =
@@ -3603,13 +3518,20 @@ void codegenReal2MissionModelClass::step()
                     (codegenReal2Mission_DW.is_active_c5_codegenReal2Mission) ==
                 0U) {
                 codegenReal2Mission_DW.is_active_c5_codegenReal2Mission = 1U;
-                codegenReal2Mission_DW.is_c5_codegenReal2Mission =
-                    codegenReal2Mission_IN_OutOfRange;
-                rtb_AltitudeGCS_d = 1.0;
+                if (tmp >= static_cast<real_T>
+                        (codegenReal2Mission_DW.RcvImmedCMD_o2.params.Param3)) {
+                    codegenReal2Mission_DW.is_c5_codegenReal2Mission =
+                        codegenReal2Mission_IN_OutOfRange;
+                    rtb_AltitudeGCS_d = 1.0;
+                } else {
+                    codegenReal2Mission_DW.is_c5_codegenReal2Mission =
+                        codegenReal2Mission_IN_WithInRange;
+                    rtb_AltitudeGCS_d = 0.0;
+                }
             } else {
                 switch (codegenReal2Mission_DW.is_c5_codegenReal2Mission) {
                   case codegenReal2Mission_IN_OutOfRange:
-                    if (rtb_AltitudeGCS_d < static_cast<real_T>
+                    if (tmp < static_cast<real_T>
                             (codegenReal2Mission_DW.RcvImmedCMD_o2.params.Param2))
                     {
                         codegenReal2Mission_DW.is_c5_codegenReal2Mission =
@@ -3633,8 +3555,7 @@ void codegenReal2MissionModelClass::step()
                     break;
 
                   default:
-                    // case IN_WithInRange:
-                    if (rtb_AltitudeGCS_d >= static_cast<real_T>
+                    if (tmp >= static_cast<real_T>
                             (codegenReal2Mission_DW.RcvImmedCMD_o2.params.Param3))
                     {
                         codegenReal2Mission_DW.is_c5_codegenReal2Mission =
@@ -3648,10 +3569,10 @@ void codegenReal2MissionModelClass::step()
                 }
             }
 
-            rtb_MemoryPose_m[0] = absx;
-            rtb_MemoryPose_m[1] = rtb_Sign_c;
-            rtb_MemoryPose_m[2] = rtb_Down;
-            rtb_MemoryPose_m[3] = distToCenter;
+            rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_0 = absx;
+            rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_1 = rtb_Sign_c;
+            rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_2 = rtb_Down;
+            rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_3 = distToCenter;
             if (static_cast<real_T>
                     (codegenReal2Mission_DW.RcvImmedCMD_o2.FormationPos) < 0.0)
             {
@@ -3676,47 +3597,46 @@ void codegenReal2MissionModelClass::step()
                 codegenReal2Mission_DW.obj_j.LookaheadDistFlag = 1U;
             }
 
-            rtb_ProductN = rtb_MemoryPose_m[0] -
+            rtb_TmpSignalConversionAtOrbitF[0] = absx -
                 rtb_TmpSignalConversionAtOrbitFollowerInport2[0];
-            rtb_MemoryPose_m_0[0] = rtb_ProductN;
-            t = rtb_MemoryPose_m[1] -
+            rtb_TmpSignalConversionAtOrbitF[1] =
+                rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_1 -
                 rtb_TmpSignalConversionAtOrbitFollowerInport2[1];
-            rtb_MemoryPose_m_0[1] = t;
-            if (codegenReal2Mission_norm(rtb_MemoryPose_m_0) <
+            if (codegenReal2Mission_norm(rtb_TmpSignalConversionAtOrbitF) <
                     2.47032822920623E-323) {
                 rtb_Sum_h[2] = rtb_TmpSignalConversionAtOrbitFollowerInport2[2];
-                tmp = rtb_MemoryPose_m[3];
+                tmp = rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_3;
             } else {
-                rtb_ReceiveCurrentMission_o1 = false;
-                rtb_RcvNextMission_o1 = true;
-                rtb_Compare_kk_0 = 0;
+                rtb_RcvNextMission_o1 = false;
+                rtb_Compare_gf = true;
+                rtb_RcvNextMission_o1_0 = 0;
                 exitg1 = false;
-                while ((!exitg1) && (rtb_Compare_kk_0 < 3)) {
-                    if ((codegenReal2Mission_DW.obj_j.OrbitCenterInternal[rtb_Compare_kk_0]
-                         == rtb_TmpSignalConversionAtOrbitFollowerInport2[rtb_Compare_kk_0])
+                while ((!exitg1) && (rtb_RcvNextMission_o1_0 < 3)) {
+                    if ((codegenReal2Mission_DW.obj_j.OrbitCenterInternal[rtb_RcvNextMission_o1_0]
+                         == rtb_TmpSignalConversionAtOrbitFollowerInport2[rtb_RcvNextMission_o1_0])
                         || (std::isnan
-                            (codegenReal2Mission_DW.obj_j.OrbitCenterInternal[rtb_Compare_kk_0])
+                            (codegenReal2Mission_DW.obj_j.OrbitCenterInternal[rtb_RcvNextMission_o1_0])
                             && std::isnan
-                            (rtb_TmpSignalConversionAtOrbitFollowerInport2[rtb_Compare_kk_0])))
+                            (rtb_TmpSignalConversionAtOrbitFollowerInport2[rtb_RcvNextMission_o1_0])))
                     {
-                        rtb_Compare_kk_0 = static_cast<int32_T>(rtb_Compare_kk_0
-                            + 1);
+                        rtb_RcvNextMission_o1_0 = static_cast<int32_T>
+                            (rtb_RcvNextMission_o1_0 + 1);
                     } else {
-                        rtb_RcvNextMission_o1 = false;
+                        rtb_Compare_gf = false;
                         exitg1 = true;
                     }
                 }
 
-                if (rtb_RcvNextMission_o1) {
-                    rtb_ReceiveCurrentMission_o1 = true;
+                if (rtb_Compare_gf) {
+                    rtb_RcvNextMission_o1 = true;
                 }
 
                 if ((static_cast<boolean_T>(static_cast<int32_T>
                                             (static_cast<int32_T>
-                        (rtb_ReceiveCurrentMission_o1) ^ 1))) ||
-                        (static_cast<boolean_T>(static_cast<int32_T>
-                        ((codegenReal2Mission_DW.obj_j.OrbitRadiusInternal ==
-                          0.1) ^ 1)))) {
+                        (rtb_RcvNextMission_o1) ^ 1))) || (static_cast<boolean_T>
+                        (static_cast<int32_T>
+                         ((codegenReal2Mission_DW.obj_j.OrbitRadiusInternal ==
+                           0.1) ^ 1)))) {
                     codegenReal2Mission_DW.obj_j.NumCircles = 0.0;
                     codegenReal2Mission_DW.obj_j.OrbitCenterInternal[0] =
                         rtb_TmpSignalConversionAtOrbitFollowerInport2[0];
@@ -3736,16 +3656,17 @@ void codegenReal2MissionModelClass::step()
                         distToCenter;
                 }
 
-                rtb_Sum1_f[0] = rtb_MemoryPose_m[0];
-                rtb_Sum1_f[1] = rtb_MemoryPose_m[1];
+                rtb_Switch_a[0] = absx;
+                rtb_Switch_a[1] =
+                    rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_1;
                 xyCenter[0] = rtb_TmpSignalConversionAtOrbitFollowerInport2[0];
                 xyCenter[1] = rtb_TmpSignalConversionAtOrbitFollowerInport2[1];
-                tmp = rtb_Sum1_f[0] - xyCenter[0];
-                distToCenter_tmp[0] = tmp;
-                rtb_LatitudeGCS_i = rtb_Sum1_f[1] - xyCenter[1];
+                rtb_Sum_i = rtb_Switch_a[0] - xyCenter[0];
+                distToCenter_tmp[0] = rtb_Sum_i;
+                rtb_LatitudeGCS_i = rtb_Switch_a[1] - xyCenter[1];
                 distToCenter_tmp[1] = rtb_LatitudeGCS_i;
                 distToCenter = std::sqrt(rtb_LatitudeGCS_i * rtb_LatitudeGCS_i +
-                    tmp * tmp);
+                    rtb_Sum_i * rtb_Sum_i);
                 rtb_Down = std::abs
                     (codegenReal2Mission_DW.obj_j.LookaheadDistance + 0.1);
                 rtb_RcvNextMission_o1 = static_cast<boolean_T>
@@ -3796,33 +3717,33 @@ void codegenReal2MissionModelClass::step()
                     } else {
                         if (codegenReal2Mission_DW.obj_j.StartFlag) {
                             codegenReal2Mission_DW.obj_j.PrevPosition[0] =
-                                rtb_MemoryPose_m[0];
+                                rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_0;
                             codegenReal2Mission_DW.obj_j.PrevPosition[1] =
-                                rtb_MemoryPose_m[1];
+                                rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_1;
                             codegenReal2Mission_DW.obj_j.PrevPosition[2] =
-                                rtb_MemoryPose_m[2];
+                                rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_2;
                             codegenReal2Mission_DW.obj_j.StartFlag = false;
                         }
 
-                        rtb_MemoryPose_m_0[0] = tmp;
-                        rtb_MemoryPose_m_0[1] = rtb_LatitudeGCS_i;
+                        rtb_TmpSignalConversionAtOrbitF[0] = rtb_Sum_i;
+                        rtb_TmpSignalConversionAtOrbitF[1] = rtb_LatitudeGCS_i;
                         distToCenter = codegenReal2Mission_norm
-                            (rtb_MemoryPose_m_0);
+                            (rtb_TmpSignalConversionAtOrbitF);
                         absx = codegenReal2Mission_DW.obj_j.LookaheadDistance *
                             codegenReal2Mission_DW.obj_j.LookaheadDistance;
                         tmp = ((absx - 0.010000000000000002) + distToCenter *
                                distToCenter) / (2.0 * distToCenter);
-                        rtb_Switch_m = xyCenter[0] - rtb_Sum1_f[0];
-                        rtb_Down = rtb_Switch_m * tmp / distToCenter +
-                            rtb_Sum1_f[0];
-                        rtb_Sum_i = xyCenter[1] - rtb_Sum1_f[1];
+                        rtb_Switch_hk = xyCenter[0] - rtb_Switch_a[0];
+                        rtb_Down = rtb_Switch_hk * tmp / distToCenter +
+                            rtb_Switch_a[0];
+                        rtb_Sum_i = xyCenter[1] - rtb_Switch_a[1];
                         rtb_LatitudeGCS_i = rtb_Sum_i * tmp / distToCenter +
-                            rtb_Sum1_f[1];
+                            rtb_Switch_a[1];
                         absx = std::sqrt(absx - tmp * tmp);
-                        tmp = rtb_Sum_i * absx / distToCenter;
-                        distToCenter_tmp[0] = rtb_Down - tmp;
-                        distToCenter_tmp[1] = tmp + rtb_Down;
-                        distToCenter = rtb_Switch_m * absx / distToCenter;
+                        rtb_Sum_i = rtb_Sum_i * absx / distToCenter;
+                        distToCenter_tmp[0] = rtb_Down - rtb_Sum_i;
+                        distToCenter_tmp[1] = rtb_Sum_i + rtb_Down;
+                        distToCenter = rtb_Switch_hk * absx / distToCenter;
                         absx = distToCenter + rtb_LatitudeGCS_i;
                         rtb_LatitudeGCS_i -= distToCenter;
                         if ((rtb_Sign_c == 0.0) && (static_cast<boolean_T>(
@@ -3844,13 +3765,17 @@ void codegenReal2MissionModelClass::step()
                         u[0] = rtb_Sum_h[0];
                         u[1] = rtb_Sum_h[1];
                         u[2] = 0.0;
-                        v[0] = rtb_ProductN;
-                        v[1] = t;
+                        v[0] =
+                            rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_0
+                            - rtb_TmpSignalConversionAtOrbitFollowerInport2[0];
+                        v[1] =
+                            rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_1
+                            - rtb_TmpSignalConversionAtOrbitFollowerInport2[1];
                         v[2] = 0.0;
                         if (tmp < 0.0) {
-                            u[0] = rtb_ProductN;
+                            u[0] = v[0];
                             v[0] = rtb_Sum_h[0];
-                            u[1] = t;
+                            u[1] = v[1];
                             v[1] = rtb_Sum_h[1];
                             u[2] = 0.0;
                             v[2] = 0.0;
@@ -3876,11 +3801,11 @@ void codegenReal2MissionModelClass::step()
                         rtb_Down = v[1] /
                             rtb_CoordinateTransformationConversion_f_idx_1;
                         codegenReal2Mission_DW.obj_j.PrevPosition[0] =
-                            rtb_MemoryPose_m[0];
+                            rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_0;
                         codegenReal2Mission_DW.obj_j.PrevPosition[1] =
-                            rtb_MemoryPose_m[1];
+                            rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_1;
                         codegenReal2Mission_DW.obj_j.PrevPosition[2] =
-                            rtb_MemoryPose_m[2];
+                            rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_2;
                         codegenReal2Mission_DW.obj_j.NumCircles += rt_atan2d_snf
                             (rtb_U * rtb_Down -
                              rtb_CoordinateTransformationConversion_f_idx_2 *
@@ -3891,13 +3816,17 @@ void codegenReal2MissionModelClass::step()
                              (0.0 /
                               rtb_CoordinateTransformationConversion_f_idx_1)) /
                             2.0 / 3.1415926535897931;
-                        v[0] = xyCenter[0] - rtb_MemoryPose_m[0];
-                        v[1] = xyCenter[1] - rtb_MemoryPose_m[1];
+                        v[0] = xyCenter[0] -
+                            rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_0;
+                        v[1] = xyCenter[1] -
+                            rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_1;
                         switch (static_cast<int32_T>(tmp)) {
                           case 1:
-                            if ((distToCenter_tmp[0] - rtb_MemoryPose_m[0]) * v
-                                    [1] - (absx - rtb_MemoryPose_m[1]) * v[0] >
-                                    0.0) {
+                            if ((distToCenter_tmp[0] -
+                                    rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_0)
+                                * v[1] - (absx -
+                                          rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_1)
+                                * v[0] > 0.0) {
                                 xyCenter[0] = distToCenter_tmp[0];
                                 xyCenter[1] = absx;
                             } else {
@@ -3907,9 +3836,11 @@ void codegenReal2MissionModelClass::step()
                             break;
 
                           case -1:
-                            if ((distToCenter_tmp[0] - rtb_MemoryPose_m[0]) * v
-                                    [1] - (absx - rtb_MemoryPose_m[1]) * v[0] <
-                                    0.0) {
+                            if ((distToCenter_tmp[0] -
+                                    rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_0)
+                                * v[1] - (absx -
+                                          rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_1)
+                                * v[0] < 0.0) {
                                 xyCenter[0] = distToCenter_tmp[0];
                                 xyCenter[1] = absx;
                             } else {
@@ -3921,14 +3852,16 @@ void codegenReal2MissionModelClass::step()
                           default:
                             tmp = std::abs(codegenReal2Mission_angdiff
                                            (rt_atan2d_snf(absx -
-                                             rtb_MemoryPose_m[1],
+                                             rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_1,
                                              distToCenter_tmp[0] -
-                                             rtb_MemoryPose_m[0]),
-                                            rtb_MemoryPose_m[3]));
+                                             rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_0),
+                                            rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_3));
                             if (tmp < std::abs(codegenReal2Mission_angdiff
                                                (rt_atan2d_snf(rtb_LatitudeGCS_i
-                                    - rtb_MemoryPose_m[1], distToCenter_tmp[1] -
-                                   rtb_MemoryPose_m[0]), rtb_MemoryPose_m[3])))
+                                    - rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_1,
+                                   distToCenter_tmp[1] -
+                                    rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_0),
+                                                rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_3)))
                             {
                                 xyCenter[0] = distToCenter_tmp[0];
                                 xyCenter[1] = absx;
@@ -3937,9 +3870,11 @@ void codegenReal2MissionModelClass::step()
                                 xyCenter[1] = rtb_LatitudeGCS_i;
                             }
 
-                            if ((xyCenter[0] - rtb_MemoryPose_m[0]) * v[1] -
-                                    (xyCenter[1] - rtb_MemoryPose_m[1]) * v[0] >
-                                0.0) {
+                            if ((xyCenter[0] -
+                                    rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_0)
+                                * v[1] - (xyCenter[1] -
+                                          rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_1)
+                                * v[0] > 0.0) {
                                 codegenReal2Mission_DW.obj_j.TurnDirectionInternal
                                     = 1.0;
                             } else {
@@ -3957,15 +3892,15 @@ void codegenReal2MissionModelClass::step()
                 if (guard1) {
                     rtb_CoordinateTransformationConversion_f_idx_0 =
                         codegenReal2Mission_norm(distToCenter_tmp);
-                    xyCenter[0] += tmp /
+                    xyCenter[0] += rtb_Sum_i /
                         rtb_CoordinateTransformationConversion_f_idx_0 * 0.1;
                     xyCenter[1] += rtb_LatitudeGCS_i /
                         rtb_CoordinateTransformationConversion_f_idx_0 * 0.1;
                 }
 
                 rtb_Sum_h[2] = rtb_TmpSignalConversionAtOrbitFollowerInport2[2];
-                tmp = rt_atan2d_snf(xyCenter[1] - rtb_Sum1_f[1], xyCenter[0] -
-                                    rtb_Sum1_f[0]);
+                tmp = rt_atan2d_snf(xyCenter[1] - rtb_Switch_a[1], xyCenter[0] -
+                                    rtb_Switch_a[0]);
             }
 
             if (rtb_AltitudeGCS_d > 0.0) {
@@ -3985,7 +3920,7 @@ void codegenReal2MissionModelClass::step()
                 (codegenReal2Mission_DW.RcvImmedCMD_o2.params.Param1);
             codegenReal2Mission_DW.MergeGuidanceCMD.HeadingAngle = rtb_Switch_b
                 + codegenReal2Mission_DW.OrbitNavHdg;
-            rtb_ReceiveCurrentMission_o1 = false;
+            rtb_Compare_gf = false;
             codegenReal2Mission_DW.MergeControlSwitch[0] = true;
             codegenReal2Mission_DW.MergeControlSwitch[1] = true;
             break;
@@ -4007,9 +3942,9 @@ void codegenReal2MissionModelClass::step()
                 codegenReal2Mission_DW.is_c10_codegenReal2Mission =
                     codegenReal2Mission_IN_NO_ACTIVE_CHILD;
                 codegenReal2Mission_DW.obj.WaypointIndex = 1.0;
-                for (rtb_Compare_kk_0 = 0; rtb_Compare_kk_0 < 2700;
-                        rtb_Compare_kk_0++) {
-                    codegenReal2Mission_DW.obj.WaypointsInternal[rtb_Compare_kk_0]
+                for (rtb_RcvNextMission_o1_0 = 0; rtb_RcvNextMission_o1_0 < 2700;
+                     rtb_RcvNextMission_o1_0++) {
+                    codegenReal2Mission_DW.obj.WaypointsInternal[rtb_RcvNextMission_o1_0]
                         = (rtNaN);
                 }
             }
@@ -4021,16 +3956,16 @@ void codegenReal2MissionModelClass::step()
             rtw_pthread_mutex_lock(LongitudeGCS_m0);
             tmp = LongitudeGCS;
             rtw_pthread_mutex_unlock(LongitudeGCS_m0);
-            rtb_Sum1_f[0] =
+            rtb_Switch_a[0] =
                 codegenReal2Mission_DW.RcvImmedCMD_o2.MissionLocation.Lat -
                 rtb_AltitudeGCS_d;
-            rtb_Sum1_f[1] =
+            rtb_Switch_a[1] =
                 codegenReal2Mission_DW.RcvImmedCMD_o2.MissionLocation.Lon - tmp;
-            if (std::abs(rtb_Sum1_f[0]) > 180.0) {
-                rtb_LatitudeGCS_i = rt_modd_snf(rtb_Sum1_f[0] + 180.0, 360.0) +
-                    -180.0;
+            if (std::abs(rtb_Switch_a[0]) > 180.0) {
+                rtb_LatitudeGCS_i = rt_modd_snf(rtb_Switch_a[0] + 180.0, 360.0)
+                    + -180.0;
             } else {
-                rtb_LatitudeGCS_i = rtb_Sum1_f[0];
+                rtb_LatitudeGCS_i = rtb_Switch_a[0];
             }
 
             tmp = std::abs(rtb_LatitudeGCS_i);
@@ -4046,37 +3981,31 @@ void codegenReal2MissionModelClass::step()
                 }
 
                 rtb_LatitudeGCS_i *= -(tmp + -90.0) + 90.0;
-                rtb_Compare_kk_0 = 180;
+                rtb_RcvNextMission_o1_0 = 180;
             } else {
-                rtb_Compare_kk_0 = 0;
+                rtb_RcvNextMission_o1_0 = 0;
             }
 
-            rtb_Switch_m = static_cast<real_T>(rtb_Compare_kk_0) + rtb_Sum1_f[1];
-            if (std::abs(rtb_Switch_m) > 180.0) {
-                rtb_Switch_m = rt_modd_snf(rtb_Switch_m + 180.0, 360.0) + -180.0;
+            rtb_Switch_hk = static_cast<real_T>(rtb_RcvNextMission_o1_0) +
+                rtb_Switch_a[1];
+            if (std::abs(rtb_Switch_hk) > 180.0) {
+                rtb_Switch_hk = rt_modd_snf(rtb_Switch_hk + 180.0, 360.0) +
+                    -180.0;
             }
 
-            // Unit Conversion - from: deg to: rad
-            // Expression: output = (0.0174533*input) + (0)
-            rtb_Sum1_f[0] = 0.017453292519943295 * rtb_LatitudeGCS_i;
-            rtb_Sum1_f[1] = 0.017453292519943295 * rtb_Switch_m;
-
-            // Unit Conversion - from: deg to: rad
-            // Expression: output = (0.0174533*input) + (0)
+            rtb_Switch_a[0] = 0.017453292519943295 * rtb_LatitudeGCS_i;
+            rtb_Switch_a[1] = 0.017453292519943295 * rtb_Switch_hk;
             rtb_AltitudeGCS_d *= 0.017453292519943295;
-            rtb_Switch_m = std::sin(rtb_AltitudeGCS_d);
-            rtb_Switch_m = 1.0 - 0.0066943799901413295 * rtb_Switch_m *
-                rtb_Switch_m;
-            rtb_LatitudeGCS_i = 6.378137E+6 / std::sqrt(rtb_Switch_m);
-            rtb_Switch_m = rtb_Sum1_f[0] / rt_atan2d_snf(1.0, rtb_LatitudeGCS_i *
-                0.99330562000985867 / rtb_Switch_m);
-
-            // Unit Conversion - from: deg to: rad
-            // Expression: output = (0.0174533*input) + (0)
+            rtb_Switch_hk = std::sin(rtb_AltitudeGCS_d);
+            rtb_Switch_hk = 1.0 - 0.0066943799901413295 * rtb_Switch_hk *
+                rtb_Switch_hk;
+            rtb_LatitudeGCS_i = 6.378137E+6 / std::sqrt(rtb_Switch_hk);
+            rtb_Switch_hk = rtb_Switch_a[0] / rt_atan2d_snf(1.0,
+                rtb_LatitudeGCS_i * 0.99330562000985867 / rtb_Switch_hk);
             rtb_LatitudeGCS_i = 1.0 / rt_atan2d_snf(1.0, rtb_LatitudeGCS_i * std::
-                cos(rtb_AltitudeGCS_d)) * rtb_Sum1_f[1];
-            rtb_AltitudeGCS_d = rtb_LatitudeGCS_i * 0.0 + rtb_Switch_m;
-            rtb_Switch_m = rtb_LatitudeGCS_i - rtb_Switch_m * 0.0;
+                cos(rtb_AltitudeGCS_d)) * rtb_Switch_a[1];
+            rtb_AltitudeGCS_d = rtb_LatitudeGCS_i * 0.0 + rtb_Switch_hk;
+            rtb_Switch_hk = rtb_LatitudeGCS_i - rtb_Switch_hk * 0.0;
             rtw_pthread_mutex_lock(AltitudeGCS_m0);
             tmp = AltitudeGCS;
             rtw_pthread_mutex_unlock(AltitudeGCS_m0);
@@ -4084,7 +4013,7 @@ void codegenReal2MissionModelClass::step()
                 codegenReal2Mission_DW.RcvImmedCMD_o2.MissionLocation.Alt + -tmp;
             rtb_TmpSignalConversionAtOrbitFollowerInport2[0] = rtb_AltitudeGCS_d
                 - check;
-            rtb_TmpSignalConversionAtOrbitFollowerInport2[1] = rtb_Switch_m -
+            rtb_TmpSignalConversionAtOrbitFollowerInport2[1] = rtb_Switch_hk -
                 fracSecs;
             rtb_TmpSignalConversionAtOrbitFollowerInport2[2] = rtb_Switch_b -
                 codegenReal2Mission_DW.Height_f;
@@ -4102,7 +4031,7 @@ void codegenReal2MissionModelClass::step()
             rtb_TmpSignalConversionAtOrbitFollowerInport2[0] = check -
                 rtb_AltitudeGCS_d;
             rtb_TmpSignalConversionAtOrbitFollowerInport2[1] = fracSecs -
-                rtb_Switch_m;
+                rtb_Switch_hk;
             rtb_TmpSignalConversionAtOrbitFollowerInport2[2] =
                 codegenReal2Mission_DW.Height_f - rtb_Switch_b;
             codegenReal2Mission_DW.RelationalOperator = (rtb_LatitudeGCS_i <=
@@ -4117,33 +4046,38 @@ void codegenReal2MissionModelClass::step()
                 out[0] = v[0] * v[1];
                 tmp = rtb_Sum_h[1] * rtb_Sum_h[2];
                 out[3] = tmp * v[0] - rtb_Sum_h[0] * v[2];
-                rtb_U = rtb_Sum_h[1] * v[2];
-                out[6] = rtb_U * v[0] + rtb_Sum_h[0] * rtb_Sum_h[2];
+                rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_2 = rtb_Sum_h
+                    [1] * v[2];
+                out[6] = rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_2 *
+                    v[0] + rtb_Sum_h[0] * rtb_Sum_h[2];
                 out[1] = rtb_Sum_h[0] * v[1];
                 out[4] = tmp * rtb_Sum_h[0] + v[0] * v[2];
-                out[7] = rtb_U * rtb_Sum_h[0] - v[0] * rtb_Sum_h[2];
+                out[7] = rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_2 *
+                    rtb_Sum_h[0] - v[0] * rtb_Sum_h[2];
                 out[2] = -rtb_Sum_h[1];
                 out[5] = v[1] * rtb_Sum_h[2];
                 out[8] = v[1] * v[2];
                 rtb_CoordinateTransformationConversion_f_idx_2 = 0.0;
-                for (rtb_Compare_kk_0 = 0; rtb_Compare_kk_0 < 3;
-                        rtb_Compare_kk_0++) {
-                    tmp = out[static_cast<int32_T>(rtb_Compare_kk_0 + 6)] * 0.0
-                        + (out[static_cast<int32_T>(rtb_Compare_kk_0 + 3)] * 0.0
-                           + out[rtb_Compare_kk_0]);
+                for (rtb_RcvNextMission_o1_0 = 0; rtb_RcvNextMission_o1_0 < 3;
+                        rtb_RcvNextMission_o1_0++) {
+                    tmp = out[static_cast<int32_T>(rtb_RcvNextMission_o1_0 + 6)]
+                        * 0.0 + (out[static_cast<int32_T>
+                                 (rtb_RcvNextMission_o1_0 + 3)] * 0.0 +
+                                 out[rtb_RcvNextMission_o1_0]);
                     rtb_CoordinateTransformationConversion_f_idx_2 += tmp * tmp;
-                    v[rtb_Compare_kk_0] = tmp;
+                    v[rtb_RcvNextMission_o1_0] = tmp;
                 }
 
-                for (rtb_Compare_kk_0 = 0; rtb_Compare_kk_0 < 3;
-                        rtb_Compare_kk_0++) {
-                    tmp = v[rtb_Compare_kk_0] /
+                for (rtb_RcvNextMission_o1_0 = 0; rtb_RcvNextMission_o1_0 < 3;
+                        rtb_RcvNextMission_o1_0++) {
+                    tmp = v[rtb_RcvNextMission_o1_0] /
                         rtb_CoordinateTransformationConversion_f_idx_2;
-                    out[static_cast<int32_T>(3 * rtb_Compare_kk_0)] = v[0] * tmp;
+                    out[static_cast<int32_T>(3 * rtb_RcvNextMission_o1_0)] = v[0]
+                        * tmp;
                     out[static_cast<int32_T>(static_cast<int32_T>(3 *
-                        rtb_Compare_kk_0) + 1)] = v[1] * tmp;
+                        rtb_RcvNextMission_o1_0) + 1)] = v[1] * tmp;
                     out[static_cast<int32_T>(static_cast<int32_T>(3 *
-                        rtb_Compare_kk_0) + 2)] = v[2] * tmp;
+                        rtb_RcvNextMission_o1_0) + 2)] = v[2] * tmp;
                 }
 
                 for (i = 0; i < 3; i++) {
@@ -4183,47 +4117,58 @@ void codegenReal2MissionModelClass::step()
                     rtb_Asin[i] = std::asin(tmp);
                 }
 
-                rtb_Sum1_f[0] = rtb_Asin[3] * rtb_Asin[3];
-                rtb_Sum1_f[1] = rtb_Asin[4] * rtb_Asin[4];
+                rtb_Switch_a[0] = rtb_Asin[3] * rtb_Asin[3];
+                rtb_Switch_a[1] = rtb_Asin[4] * rtb_Asin[4];
                 rtb_MathFunction_jp[0] = rt_atan2d_snf(rtb_Asin[4], rtb_Asin[3])
                     / 2.0;
                 rtb_MathFunction_jp[1] = rt_atan2d_snf(rtb_Asin[5], std::sqrt
-                    (rtb_Sum1_f[0] + rtb_Sum1_f[1])) / 2.0;
+                    (rtb_Switch_a[0] + rtb_Switch_a[1])) / 2.0;
                 rtb_Sum_h[0] = std::cos(rtb_MathFunction_jp[0]);
                 rtb_Sum_h[1] = std::cos(rtb_MathFunction_jp[1]);
                 rtb_MathFunction_jp[0] = std::sin(rtb_MathFunction_jp[0]);
                 rtb_MathFunction_jp[1] = std::sin(rtb_MathFunction_jp[1]);
                 tmp = rtb_Sum_h[0] * rtb_Sum_h[1];
-                rtb_CoordinateTransformationConversion_f_idx_1 =
+                rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_2 =
                     rtb_MathFunction_jp[0] * rtb_MathFunction_jp[1];
                 rtb_CoordinateTransformationConversion_f_idx_0 =
-                    rtb_CoordinateTransformationConversion_f_idx_1 * 0.0 + tmp;
+                    rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_2 * 0.0 +
+                    tmp;
                 rtb_CoordinateTransformationConversion_f_idx_1 = tmp * 0.0 -
-                    rtb_CoordinateTransformationConversion_f_idx_1;
+                    rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_2;
                 tmp = rtb_Sum_h[0] * rtb_MathFunction_jp[1];
-                rtb_ProductN = rtb_MathFunction_jp[0] * rtb_Sum_h[1];
-                rtb_CoordinateTransformationConversion_f_idx_2 = rtb_ProductN *
-                    0.0 + tmp;
-                rtb_CoordinateTransformationConversion_f_idx_3 = rtb_ProductN -
-                    tmp * 0.0;
-                rtb_Sum1_f[0] = rtb_Asin[0] * rtb_Asin[0];
-                rtb_Sum1_f[1] = rtb_Asin[1] * rtb_Asin[1];
+                rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_2 =
+                    rtb_MathFunction_jp[0] * rtb_Sum_h[1];
+                rtb_CoordinateTransformationConversion_f_idx_2 =
+                    rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_2 * 0.0 +
+                    tmp;
+                rtb_CoordinateTransformationConversion_f_idx_3 =
+                    rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_2 - tmp *
+                    0.0;
+                rtb_Switch_a[0] = rtb_Asin[0] * rtb_Asin[0];
+                rtb_Switch_a[1] = rtb_Asin[1] * rtb_Asin[1];
                 rtb_MathFunction_jp[0] = rt_atan2d_snf(rtb_Asin[1], rtb_Asin[0])
                     / 2.0;
                 rtb_MathFunction_jp[1] = rt_atan2d_snf(rtb_Asin[2], std::sqrt
-                    (rtb_Sum1_f[0] + rtb_Sum1_f[1])) / 2.0;
+                    (rtb_Switch_a[0] + rtb_Switch_a[1])) / 2.0;
                 rtb_Sum_h[0] = std::cos(rtb_MathFunction_jp[0]);
                 rtb_Sum_h[1] = std::cos(rtb_MathFunction_jp[1]);
                 rtb_MathFunction_jp[0] = std::sin(rtb_MathFunction_jp[0]);
                 rtb_MathFunction_jp[1] = std::sin(rtb_MathFunction_jp[1]);
-                rtb_ProductN = rtb_Sum_h[0] * rtb_Sum_h[1];
-                t = rtb_MathFunction_jp[0] * rtb_MathFunction_jp[1];
-                rtb_MemoryPose_m[0] = t * 0.0 + rtb_ProductN;
-                rtb_MemoryPose_m[1] = rtb_ProductN * 0.0 - t;
-                rtb_ProductN = rtb_Sum_h[0] * rtb_MathFunction_jp[1];
-                t = rtb_MathFunction_jp[0] * rtb_Sum_h[1];
-                rtb_MemoryPose_m[2] = t * 0.0 + rtb_ProductN;
-                rtb_MemoryPose_m[3] = t - rtb_ProductN * 0.0;
+                tmp = rtb_Sum_h[0] * rtb_Sum_h[1];
+                rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_2 =
+                    rtb_MathFunction_jp[0] * rtb_MathFunction_jp[1];
+                rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_0 =
+                    rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_2 * 0.0 +
+                    tmp;
+                rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_1 = tmp * 0.0
+                    - rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_2;
+                tmp = rtb_Sum_h[0] * rtb_MathFunction_jp[1];
+                rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_3 =
+                    rtb_MathFunction_jp[0] * rtb_Sum_h[1];
+                rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_2 =
+                    rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_3 * 0.0 +
+                    tmp;
+                rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_3 -= tmp * 0.0;
                 tmp = (u[0] * v[0] + u[1] * v[1]) + u[2] * v[2];
                 if (tmp < 0.0) {
                     tmp = -1.0;
@@ -4287,8 +4232,8 @@ void codegenReal2MissionModelClass::step()
 
                 normp = rtb_ProductN * std::sqrt(normp);
                 rtb_ProductN = 3.3121686421112381E-170;
-                rtb_U_tmp_0 = std::abs(rtb_MemoryPose_m[0]);
-                rtb_U = rtb_U_tmp_0;
+                rtb_U = std::abs
+                    (rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_0);
                 if (rtb_U > 3.3121686421112381E-170) {
                     normq = 1.0;
                     rtb_ProductN = rtb_U;
@@ -4297,8 +4242,8 @@ void codegenReal2MissionModelClass::step()
                     normq = t * t;
                 }
 
-                rtb_U_tmp_1 = std::abs(rtb_MemoryPose_m[1]);
-                rtb_U = rtb_U_tmp_1;
+                rtb_U = std::abs
+                    (rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_1);
                 if (rtb_U > rtb_ProductN) {
                     t = rtb_ProductN / rtb_U;
                     normq = normq * t * t + 1.0;
@@ -4308,8 +4253,8 @@ void codegenReal2MissionModelClass::step()
                     normq += t * t;
                 }
 
-                rtb_U_tmp_2 = std::abs(rtb_MemoryPose_m[2]);
-                rtb_U = rtb_U_tmp_2;
+                rtb_U = std::abs
+                    (rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_2);
                 if (rtb_U > rtb_ProductN) {
                     t = rtb_ProductN / rtb_U;
                     normq = normq * t * t + 1.0;
@@ -4319,8 +4264,8 @@ void codegenReal2MissionModelClass::step()
                     normq += t * t;
                 }
 
-                rtb_U_tmp_3 = std::abs(rtb_MemoryPose_m[3]);
-                rtb_U = rtb_U_tmp_3;
+                rtb_U = std::abs
+                    (rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_3);
                 if (rtb_U > rtb_ProductN) {
                     t = rtb_ProductN / rtb_U;
                     normq = normq * t * t + 1.0;
@@ -4386,7 +4331,8 @@ void codegenReal2MissionModelClass::step()
                 if (static_cast<boolean_T>(static_cast<int32_T>((normq >
                         1.0000000149011612) | (normq < 0.99999998509883881)))) {
                     rtb_ProductN = 3.3121686421112381E-170;
-                    rtb_U = rtb_U_tmp_0;
+                    rtb_U = std::abs
+                        (rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_0);
                     if (rtb_U > 3.3121686421112381E-170) {
                         normp = 1.0;
                         rtb_ProductN = rtb_U;
@@ -4395,7 +4341,8 @@ void codegenReal2MissionModelClass::step()
                         normp = t * t;
                     }
 
-                    rtb_U = rtb_U_tmp_1;
+                    rtb_U = std::abs
+                        (rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_1);
                     if (rtb_U > rtb_ProductN) {
                         t = rtb_ProductN / rtb_U;
                         normp = normp * t * t + 1.0;
@@ -4405,7 +4352,8 @@ void codegenReal2MissionModelClass::step()
                         normp += t * t;
                     }
 
-                    rtb_U = rtb_U_tmp_2;
+                    rtb_U = std::abs
+                        (rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_2);
                     if (rtb_U > rtb_ProductN) {
                         t = rtb_ProductN / rtb_U;
                         normp = normp * t * t + 1.0;
@@ -4415,7 +4363,8 @@ void codegenReal2MissionModelClass::step()
                         normp += t * t;
                     }
 
-                    rtb_U = rtb_U_tmp_3;
+                    rtb_U = std::abs
+                        (rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_3);
                     if (rtb_U > rtb_ProductN) {
                         t = rtb_ProductN / rtb_U;
                         normp = normp * t * t + 1.0;
@@ -4426,55 +4375,66 @@ void codegenReal2MissionModelClass::step()
                     }
 
                     normp = rtb_ProductN * std::sqrt(normp);
-                    rtb_MemoryPose_m[0] /= normp;
-                    rtb_MemoryPose_m[1] /= normp;
-                    rtb_MemoryPose_m[2] /= normp;
-                    rtb_MemoryPose_m[3] /= normp;
+                    rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_0 /= normp;
+                    rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_1 /= normp;
+                    rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_2 /= normp;
+                    rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_3 /= normp;
                 }
 
                 if (((rtb_CoordinateTransformationConversion_f_idx_0 *
-                        rtb_MemoryPose_m[0] +
+                        rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_0 +
                         rtb_CoordinateTransformationConversion_f_idx_1 *
-                        rtb_MemoryPose_m[1]) +
+                        rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_1) +
                         rtb_CoordinateTransformationConversion_f_idx_2 *
-                        rtb_MemoryPose_m[2]) +
+                        rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_2) +
                         rtb_CoordinateTransformationConversion_f_idx_3 *
-                        rtb_MemoryPose_m[3] < 0.0) {
-                    rtb_MemoryPose_m[0] = -rtb_MemoryPose_m[0];
-                    rtb_MemoryPose_m[1] = -rtb_MemoryPose_m[1];
-                    rtb_MemoryPose_m[2] = -rtb_MemoryPose_m[2];
-                    rtb_MemoryPose_m[3] = -rtb_MemoryPose_m[3];
+                        rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_3 <
+                        0.0) {
+                    rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_0 =
+                        -rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_0;
+                    rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_1 =
+                        -rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_1;
+                    rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_2 =
+                        -rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_2;
+                    rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_3 =
+                        -rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_3;
                 }
 
-                rtb_U_tmp = ((rtb_CoordinateTransformationConversion_f_idx_0 *
-                              rtb_MemoryPose_m[0] -
-                              -rtb_CoordinateTransformationConversion_f_idx_1 *
-                              rtb_MemoryPose_m[1]) -
-                             -rtb_CoordinateTransformationConversion_f_idx_2 *
-                             rtb_MemoryPose_m[2]) -
-                    -rtb_CoordinateTransformationConversion_f_idx_3 *
-                    rtb_MemoryPose_m[3];
-                rtb_U_tmp_0 = (rtb_CoordinateTransformationConversion_f_idx_0 *
-                               rtb_MemoryPose_m[1] + rtb_MemoryPose_m[0] *
-                               -rtb_CoordinateTransformationConversion_f_idx_1)
+                qmult_idx_0 = ((rtb_CoordinateTransformationConversion_f_idx_0 *
+                                rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_0
+                                - -rtb_CoordinateTransformationConversion_f_idx_1
+                                * rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_1)
+                               - -rtb_CoordinateTransformationConversion_f_idx_2
+                               * rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_2)
+                    - -rtb_CoordinateTransformationConversion_f_idx_3 *
+                    rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_3;
+                rtb_U_tmp = (rtb_CoordinateTransformationConversion_f_idx_0 *
+                             rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_1
+                             + rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_0
+                             * -rtb_CoordinateTransformationConversion_f_idx_1)
                     + (-rtb_CoordinateTransformationConversion_f_idx_2 *
-                       rtb_MemoryPose_m[3] - rtb_MemoryPose_m[2] *
+                       rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_3 -
+                       rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_2 *
                        -rtb_CoordinateTransformationConversion_f_idx_3);
-                rtb_U_tmp_1 = (rtb_CoordinateTransformationConversion_f_idx_0 *
-                               rtb_MemoryPose_m[2] + rtb_MemoryPose_m[0] *
-                               -rtb_CoordinateTransformationConversion_f_idx_2)
-                    + (rtb_MemoryPose_m[1] *
-                       -rtb_CoordinateTransformationConversion_f_idx_3 -
-                       -rtb_CoordinateTransformationConversion_f_idx_1 *
-                       rtb_MemoryPose_m[3]);
                 normq = (rtb_CoordinateTransformationConversion_f_idx_0 *
-                         rtb_MemoryPose_m[3] + rtb_MemoryPose_m[0] *
-                         -rtb_CoordinateTransformationConversion_f_idx_3) +
+                         rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_2 +
+                         rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_0 *
+                         -rtb_CoordinateTransformationConversion_f_idx_2) +
+                    (rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_1 *
+                     -rtb_CoordinateTransformationConversion_f_idx_3 -
+                     -rtb_CoordinateTransformationConversion_f_idx_1 *
+                     rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_3);
+                rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_3 =
+                    (rtb_CoordinateTransformationConversion_f_idx_0 *
+                     rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_3 +
+                     rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_0 *
+                     -rtb_CoordinateTransformationConversion_f_idx_3) +
                     (-rtb_CoordinateTransformationConversion_f_idx_1 *
-                     rtb_MemoryPose_m[2] - rtb_MemoryPose_m[1] *
+                     rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_2 -
+                     rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_1 *
                      -rtb_CoordinateTransformationConversion_f_idx_2);
                 rtb_ProductN = 3.3121686421112381E-170;
-                rtb_U = std::abs(rtb_U_tmp);
+                rtb_U = std::abs(qmult_idx_0);
                 if (rtb_U > 3.3121686421112381E-170) {
                     normp = 1.0;
                     rtb_ProductN = rtb_U;
@@ -4483,17 +4443,7 @@ void codegenReal2MissionModelClass::step()
                     normp = t * t;
                 }
 
-                rtb_U = std::abs(rtb_U_tmp_0);
-                if (rtb_U > rtb_ProductN) {
-                    t = rtb_ProductN / rtb_U;
-                    normp = normp * t * t + 1.0;
-                    rtb_ProductN = rtb_U;
-                } else {
-                    t = rtb_U / rtb_ProductN;
-                    normp += t * t;
-                }
-
-                rtb_U = std::abs(rtb_U_tmp_1);
+                rtb_U = std::abs(rtb_U_tmp);
                 if (rtb_U > rtb_ProductN) {
                     t = rtb_ProductN / rtb_U;
                     normp = normp * t * t + 1.0;
@@ -4513,16 +4463,29 @@ void codegenReal2MissionModelClass::step()
                     normp += t * t;
                 }
 
+                rtb_U = std::abs
+                    (rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_3);
+                if (rtb_U > rtb_ProductN) {
+                    t = rtb_ProductN / rtb_U;
+                    normp = normp * t * t + 1.0;
+                    rtb_ProductN = rtb_U;
+                } else {
+                    t = rtb_U / rtb_ProductN;
+                    normp += t * t;
+                }
+
                 normp = rtb_ProductN * std::sqrt(normp);
+                rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_0 =
+                    qmult_idx_0 / normp;
                 rtb_U_tmp /= normp;
-                rtb_U_tmp_0 /= normp;
-                rtb_MemoryPose_m[1] = 0.0;
-                rtb_U_tmp_1 /= normp;
-                rtb_MemoryPose_m[2] = 0.0;
-                rtb_U_tmp_2 = normq / normp;
-                rtb_MemoryPose_m[3] = 0.0;
+                rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_1 = 0.0;
+                qmult_idx_0 = normq / normp;
+                rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_2 = 0.0;
+                qmult = rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_3 /
+                    normp;
+                rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_3 = 0.0;
                 rtb_ProductN = 3.3121686421112381E-170;
-                rtb_U = std::abs(rtb_U_tmp_0);
+                rtb_U = std::abs(rtb_U_tmp);
                 if (rtb_U > 3.3121686421112381E-170) {
                     normp = 1.0;
                     rtb_ProductN = rtb_U;
@@ -4531,7 +4494,7 @@ void codegenReal2MissionModelClass::step()
                     normp = t * t;
                 }
 
-                rtb_U = std::abs(rtb_U_tmp_1);
+                rtb_U = std::abs(qmult_idx_0);
                 if (rtb_U > rtb_ProductN) {
                     t = rtb_ProductN / rtb_U;
                     normp = normp * t * t + 1.0;
@@ -4541,7 +4504,7 @@ void codegenReal2MissionModelClass::step()
                     normp += t * t;
                 }
 
-                rtb_U = std::abs(rtb_U_tmp_2);
+                rtb_U = std::abs(qmult);
                 if (rtb_U > rtb_ProductN) {
                     t = rtb_ProductN / rtb_U;
                     normp = normp * t * t + 1.0;
@@ -4552,19 +4515,24 @@ void codegenReal2MissionModelClass::step()
                 }
 
                 normp = rtb_ProductN * std::sqrt(normp);
-                normq = rt_atan2d_snf(normp, rtb_U_tmp);
+                normq = rt_atan2d_snf(normp,
+                                      rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_0);
                 if (normp != 0.0) {
-                    rtb_MemoryPose_m[1] = rtb_U_tmp_0 / normp * normq;
-                    rtb_MemoryPose_m[2] = rtb_U_tmp_1 / normp * normq;
-                    rtb_MemoryPose_m[3] = rtb_U_tmp_2 / normp * normq;
+                    rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_1 =
+                        rtb_U_tmp / normp * normq;
+                    rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_2 =
+                        qmult_idx_0 / normp * normq;
+                    rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_3 = qmult /
+                        normp * normq;
                 }
 
-                rtb_MemoryPose_m[0] = tmp * 0.0;
-                normp = tmp * rtb_MemoryPose_m[1];
-                rtb_U_tmp = tmp * rtb_MemoryPose_m[2];
-                rtb_U_tmp_0 = tmp * rtb_MemoryPose_m[3];
+                rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_0 = tmp * 0.0;
+                rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_1 *= tmp;
+                rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_2 *= tmp;
+                rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_3 *= tmp;
                 rtb_ProductN = 3.3121686421112381E-170;
-                rtb_U = std::abs(normp);
+                rtb_U = std::abs
+                    (rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_1);
                 if (rtb_U > 3.3121686421112381E-170) {
                     normq = 1.0;
                     rtb_ProductN = rtb_U;
@@ -4573,7 +4541,8 @@ void codegenReal2MissionModelClass::step()
                     normq = t * t;
                 }
 
-                rtb_U = std::abs(rtb_U_tmp);
+                rtb_U = std::abs
+                    (rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_2);
                 if (rtb_U > rtb_ProductN) {
                     t = rtb_ProductN / rtb_U;
                     normq = normq * t * t + 1.0;
@@ -4583,7 +4552,8 @@ void codegenReal2MissionModelClass::step()
                     normq += t * t;
                 }
 
-                rtb_U = std::abs(rtb_U_tmp_0);
+                rtb_U = std::abs
+                    (rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_3);
                 if (rtb_U > rtb_ProductN) {
                     t = rtb_ProductN / rtb_U;
                     normq = normq * t * t + 1.0;
@@ -4599,46 +4569,64 @@ void codegenReal2MissionModelClass::step()
                     v[1] = 0.0;
                     v[2] = 0.0;
                 } else {
-                    tmp = std::exp(rtb_MemoryPose_m[0]) * std::sin(normq);
-                    v[0] = tmp * normp / normq;
-                    v[1] = tmp * rtb_U_tmp / normq;
-                    v[2] = tmp * rtb_U_tmp_0 / normq;
+                    tmp = std::exp
+                        (rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_0) *
+                        std::sin(normq);
+                    v[0] = tmp *
+                        rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_1 /
+                        normq;
+                    v[1] = tmp *
+                        rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_2 /
+                        normq;
+                    v[2] = tmp *
+                        rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_3 /
+                        normq;
                 }
 
-                rtb_U_tmp = std::exp(rtb_MemoryPose_m[0]) * std::cos(normq);
-                rtb_MemoryPose_m[0] =
-                    ((rtb_CoordinateTransformationConversion_f_idx_0 * rtb_U_tmp
-                      - rtb_CoordinateTransformationConversion_f_idx_1 * v[0]) -
+                qmult_idx_0 = std::exp
+                    (rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_0) * std::
+                    cos(normq);
+                rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_0 =
+                    ((rtb_CoordinateTransformationConversion_f_idx_0 *
+                      qmult_idx_0 -
+                      rtb_CoordinateTransformationConversion_f_idx_1 * v[0]) -
                      rtb_CoordinateTransformationConversion_f_idx_2 * v[1]) -
                     rtb_CoordinateTransformationConversion_f_idx_3 * v[2];
-                rtb_MemoryPose_m[1] =
+                rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_1 =
                     (rtb_CoordinateTransformationConversion_f_idx_0 * v[0] +
-                     rtb_U_tmp * rtb_CoordinateTransformationConversion_f_idx_1)
-                    + (rtb_CoordinateTransformationConversion_f_idx_2 * v[2] -
-                       v[1] * rtb_CoordinateTransformationConversion_f_idx_3);
-                rtb_MemoryPose_m[2] =
+                     qmult_idx_0 *
+                     rtb_CoordinateTransformationConversion_f_idx_1) +
+                    (rtb_CoordinateTransformationConversion_f_idx_2 * v[2] - v[1]
+                     * rtb_CoordinateTransformationConversion_f_idx_3);
+                rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_2 =
                     (rtb_CoordinateTransformationConversion_f_idx_0 * v[1] +
-                     rtb_U_tmp * rtb_CoordinateTransformationConversion_f_idx_2)
-                    + (v[0] * rtb_CoordinateTransformationConversion_f_idx_3 -
-                       rtb_CoordinateTransformationConversion_f_idx_1 * v[2]);
-                rtb_MemoryPose_m[3] =
+                     qmult_idx_0 *
+                     rtb_CoordinateTransformationConversion_f_idx_2) + (v[0] *
+                    rtb_CoordinateTransformationConversion_f_idx_3 -
+                    rtb_CoordinateTransformationConversion_f_idx_1 * v[2]);
+                rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_3 =
                     (rtb_CoordinateTransformationConversion_f_idx_0 * v[2] +
-                     rtb_U_tmp * rtb_CoordinateTransformationConversion_f_idx_3)
-                    + (rtb_CoordinateTransformationConversion_f_idx_1 * v[1] -
-                       v[0] * rtb_CoordinateTransformationConversion_f_idx_2);
-                tmp = rtb_MemoryPose_m[0] * rtb_MemoryPose_m[0];
-                tmp = 1.0 / std::sqrt(((rtb_MemoryPose_m[1] * rtb_MemoryPose_m[1]
-                                        + tmp) + rtb_MemoryPose_m[2] *
-                                       rtb_MemoryPose_m[2]) + rtb_MemoryPose_m[3]
-                                      * rtb_MemoryPose_m[3]);
+                     qmult_idx_0 *
+                     rtb_CoordinateTransformationConversion_f_idx_3) +
+                    (rtb_CoordinateTransformationConversion_f_idx_1 * v[1] - v[0]
+                     * rtb_CoordinateTransformationConversion_f_idx_2);
+                tmp = rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_0 *
+                    rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_0;
+                tmp = 1.0 / std::sqrt
+                    (((rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_1 *
+                       rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_1 + tmp)
+                      + rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_2 *
+                      rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_2) +
+                     rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_3 *
+                     rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_3);
                 rtb_CoordinateTransformationConversion_f_idx_0 =
-                    rtb_MemoryPose_m[0] * tmp;
+                    rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_0 * tmp;
                 rtb_CoordinateTransformationConversion_f_idx_1 =
-                    rtb_MemoryPose_m[1] * tmp;
+                    rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_1 * tmp;
                 rtb_CoordinateTransformationConversion_f_idx_2 =
-                    rtb_MemoryPose_m[2] * tmp;
+                    rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_2 * tmp;
                 rtb_CoordinateTransformationConversion_f_idx_3 =
-                    rtb_MemoryPose_m[3] * tmp;
+                    rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_3 * tmp;
                 tmp = (rtb_CoordinateTransformationConversion_f_idx_1 *
                        rtb_CoordinateTransformationConversion_f_idx_3 -
                        rtb_CoordinateTransformationConversion_f_idx_0 *
@@ -4665,14 +4653,16 @@ void codegenReal2MissionModelClass::step()
                      rtb_CoordinateTransformationConversion_f_idx_3 *
                      rtb_CoordinateTransformationConversion_f_idx_3);
                 rtb_CoordinateTransformationConversion_f_idx_1 = std::asin(tmp);
-                rtb_CoordinateTransformationConversion_f_idx_2 =
+                rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_2 =
                     rtb_TmpSignalConversionAtOrbitFollowerInport2[0] *
                     rtb_TmpSignalConversionAtOrbitFollowerInport2[0];
-                rtb_Sum1_f[0] = rtb_CoordinateTransformationConversion_f_idx_2;
-                rtb_CoordinateTransformationConversion_f_idx_3 =
+                rtb_Switch_a[0] =
+                    rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_2;
+                rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_0 =
                     rtb_TmpSignalConversionAtOrbitFollowerInport2[1] *
                     rtb_TmpSignalConversionAtOrbitFollowerInport2[1];
-                rtb_Sum1_f[1] = rtb_CoordinateTransformationConversion_f_idx_3;
+                rtb_Switch_a[1] =
+                    rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_0;
                 tmp = rt_atan2d_snf
                     (rtb_TmpSignalConversionAtOrbitFollowerInport2[1],
                      rtb_TmpSignalConversionAtOrbitFollowerInport2[0]) -
@@ -4687,18 +4677,18 @@ void codegenReal2MissionModelClass::step()
                     } else {
                         rtb_U = std::fmod(tmp + 3.1415926535897931,
                                           6.2831853071795862);
-                        rtb_ReceiveCurrentMission_o1 = (rtb_U == 0.0);
+                        rtb_RcvNextMission_o1 = (rtb_U == 0.0);
                         if (static_cast<boolean_T>(static_cast<int32_T>(
-                                static_cast<int32_T>
-                                (rtb_ReceiveCurrentMission_o1) ^ 1))) {
+                                static_cast<int32_T>(rtb_RcvNextMission_o1) ^ 1)))
+                        {
                             t = std::abs((tmp + 3.1415926535897931) /
                                          6.2831853071795862);
-                            rtb_ReceiveCurrentMission_o1 = static_cast<boolean_T>
-                                (static_cast<int32_T>((std::abs(t - std::floor(t
-                                     + 0.5)) > 2.2204460492503131E-16 * t) ^ 1));
+                            rtb_RcvNextMission_o1 = static_cast<boolean_T>(
+                                static_cast<int32_T>((std::abs(t - std::floor(t
+                                + 0.5)) > 2.2204460492503131E-16 * t) ^ 1));
                         }
 
-                        if (rtb_ReceiveCurrentMission_o1) {
+                        if (rtb_RcvNextMission_o1) {
                             rtb_U = 0.0;
                         } else if (tmp + 3.1415926535897931 < 0.0) {
                             rtb_U += 6.2831853071795862;
@@ -4715,7 +4705,7 @@ void codegenReal2MissionModelClass::step()
 
                 rtb_ProductN = rt_atan2d_snf
                     (rtb_TmpSignalConversionAtOrbitFollowerInport2[2], std::sqrt
-                     (rtb_Sum1_f[0] + rtb_Sum1_f[1])) -
+                     (rtb_Switch_a[0] + rtb_Switch_a[1])) -
                     rtb_CoordinateTransformationConversion_f_idx_1;
                 if (std::abs(rtb_ProductN) > 3.1415926535897931) {
                     if (std::isnan(rtb_ProductN + 3.1415926535897931)) {
@@ -4727,18 +4717,18 @@ void codegenReal2MissionModelClass::step()
                     } else {
                         rtb_U = std::fmod(rtb_ProductN + 3.1415926535897931,
                                           6.2831853071795862);
-                        rtb_ReceiveCurrentMission_o1 = (rtb_U == 0.0);
+                        rtb_RcvNextMission_o1 = (rtb_U == 0.0);
                         if (static_cast<boolean_T>(static_cast<int32_T>(
-                                static_cast<int32_T>
-                                (rtb_ReceiveCurrentMission_o1) ^ 1))) {
+                                static_cast<int32_T>(rtb_RcvNextMission_o1) ^ 1)))
+                        {
                             t = std::abs((rtb_ProductN + 3.1415926535897931) /
                                          6.2831853071795862);
-                            rtb_ReceiveCurrentMission_o1 = static_cast<boolean_T>
-                                (static_cast<int32_T>((std::abs(t - std::floor(t
-                                     + 0.5)) > 2.2204460492503131E-16 * t) ^ 1));
+                            rtb_RcvNextMission_o1 = static_cast<boolean_T>(
+                                static_cast<int32_T>((std::abs(t - std::floor(t
+                                + 0.5)) > 2.2204460492503131E-16 * t) ^ 1));
                         }
 
-                        if (rtb_ReceiveCurrentMission_o1) {
+                        if (rtb_RcvNextMission_o1) {
                             rtb_U = 0.0;
                         } else if (rtb_ProductN + 3.1415926535897931 < 0.0) {
                             rtb_U += 6.2831853071795862;
@@ -4754,52 +4744,34 @@ void codegenReal2MissionModelClass::step()
                     rtb_ProductN = rtb_U - 3.1415926535897931;
                 }
 
-                rtb_Sum1_f[0] = 0.0;
-                rtb_Sum1_f[1] = 1.0;
+                rtb_Switch_a[0] = 0.0;
+                rtb_Switch_a[1] = 1.0;
                 tmp += rtb_CoordinateTransformationConversion_f_idx_0;
                 xyCenter[0] = rtb_CoordinateTransformationConversion_f_idx_0;
                 xyCenter[1] = tmp;
-
-                // Dynamic Look-Up Table Block: '<S40>/Azimuth'
-                //  Input0  Data Type:  Floating Point real_T
-                //  Input1  Data Type:  Floating Point real_T
-                //  Input2  Data Type:  Floating Point real_T
-                //  Output0 Data Type:  Floating Point real_T
-                //  Lookup Method: Linear_Endpoint
-                //
-
-                LookUp_real_T_real_T( &(tmp), &xyCenter[0], 0.6, &rtb_Sum1_f[0],
+                LookUp_real_T_real_T( &(tmp), &xyCenter[0], 0.6, &rtb_Switch_a[0],
                                      1U);
                 rtb_U = rtb_ProductN +
                     rtb_CoordinateTransformationConversion_f_idx_1;
                 xyCenter[0] = rtb_CoordinateTransformationConversion_f_idx_1;
                 xyCenter[1] = rtb_U;
-
-                // Dynamic Look-Up Table Block: '<S40>/Elevation'
-                //  Input0  Data Type:  Floating Point real_T
-                //  Input1  Data Type:  Floating Point real_T
-                //  Input2  Data Type:  Floating Point real_T
-                //  Output0 Data Type:  Floating Point real_T
-                //  Lookup Method: Linear_Endpoint
-                //
-
-                LookUp_real_T_real_T( &(rtb_U), &xyCenter[0], 0.6, &rtb_Sum1_f[0],
-                                     1U);
+                LookUp_real_T_real_T( &(rtb_U), &xyCenter[0], 0.6,
+                                     &rtb_Switch_a[0], 1U);
                 rtb_ProductN = std::cos(rtb_U);
-                rtb_CoordinateTransformationConversion_f_idx_0 = std::sqrt
-                    ((rtb_CoordinateTransformationConversion_f_idx_2 +
-                      rtb_CoordinateTransformationConversion_f_idx_3) +
+                rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_2 = std::sqrt
+                    ((rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_2 +
+                      rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_0) +
                      rtb_TmpSignalConversionAtOrbitFollowerInport2[2] *
                      rtb_TmpSignalConversionAtOrbitFollowerInport2[2]);
                 codegenReal2Mission_DW.ProductTargetVec[0] = std::cos(tmp) *
                     rtb_ProductN *
-                    rtb_CoordinateTransformationConversion_f_idx_0;
+                    rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_2;
                 codegenReal2Mission_DW.ProductTargetVec[1] = std::sin(tmp) *
                     rtb_ProductN *
-                    rtb_CoordinateTransformationConversion_f_idx_0;
+                    rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_2;
                 codegenReal2Mission_DW.ProductTargetVec[2] =
-                    rtb_CoordinateTransformationConversion_f_idx_0 * std::sin
-                    (rtb_U);
+                    rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_2 * std::
+                    sin(rtb_U);
             }
 
             if (codegenReal2Mission_DW.RelationalOperator) {
@@ -4815,7 +4787,7 @@ void codegenReal2MissionModelClass::step()
                     rtb_AltitudeGCS_d;
                 codegenReal2Mission_DW.Switch[1] = (tmp *
                     codegenReal2Mission_DW.ProductTargetVec[1] + rtb_Sum_i *
-                    codegenReal2Mission_DW.ProductTargetVec[1]) + rtb_Switch_m;
+                    codegenReal2Mission_DW.ProductTargetVec[1]) + rtb_Switch_hk;
                 codegenReal2Mission_DW.Switch[2] = (tmp *
                     codegenReal2Mission_DW.ProductTargetVec[2] + rtb_Sum_i *
                     codegenReal2Mission_DW.ProductTargetVec[2]) + rtb_Switch_b;
@@ -4870,17 +4842,17 @@ void codegenReal2MissionModelClass::step()
             if (i <= 73) {
                 codegenReal2Mission_DW.SFunction_DIMS2[0] = 73;
                 codegenReal2Mission_DW.SFunction_DIMS2[1] = 3;
-                for (rtb_Compare_kk_0 = 0; rtb_Compare_kk_0 < 3;
-                        rtb_Compare_kk_0++) {
+                for (rtb_RcvNextMission_o1_0 = 0; rtb_RcvNextMission_o1_0 < 3;
+                        rtb_RcvNextMission_o1_0++) {
                     for (i = 0; i < 73; i++) {
                         codegenReal2Mission_DW.Track[static_cast<int32_T>(i +
                             static_cast<int32_T>
                             (codegenReal2Mission_DW.SFunction_DIMS2[0] *
-                             rtb_Compare_kk_0))] =
+                             rtb_RcvNextMission_o1_0))] =
                             codegenReal2Mission_DW.MatrixConcatenate[
                             static_cast<int32_T>(static_cast<int32_T>(
-                            static_cast<int32_T>(361 * rtb_Compare_kk_0) + i) +
-                            288)];
+                            static_cast<int32_T>(361 * rtb_RcvNextMission_o1_0)
+                            + i) + 288)];
                     }
                 }
             } else {
@@ -4903,18 +4875,18 @@ void codegenReal2MissionModelClass::step()
 
                 codegenReal2Mission_DW.SFunction_DIMS2[0] = b_size_idx_0;
                 codegenReal2Mission_DW.SFunction_DIMS2[1] = 3;
-                for (rtb_Compare_kk_0 = 0; rtb_Compare_kk_0 < 3;
-                        rtb_Compare_kk_0++) {
+                for (rtb_RcvNextMission_o1_0 = 0; rtb_RcvNextMission_o1_0 < 3;
+                        rtb_RcvNextMission_o1_0++) {
                     for (i = 0; i <= static_cast<int32_T>(b_size_idx_0 - 1); i++)
                     {
                         codegenReal2Mission_DW.Track[static_cast<int32_T>(i +
                             static_cast<int32_T>
                             (codegenReal2Mission_DW.SFunction_DIMS2[0] *
-                             rtb_Compare_kk_0))] =
+                             rtb_RcvNextMission_o1_0))] =
                             codegenReal2Mission_DW.MatrixConcatenate[
                             static_cast<int32_T>(static_cast<int32_T>(
-                            static_cast<int32_T>(361 * rtb_Compare_kk_0) +
-                            static_cast<int32_T>(b_data[i])) - 1)];
+                            static_cast<int32_T>(361 * rtb_RcvNextMission_o1_0)
+                            + static_cast<int32_T>(b_data[i])) - 1)];
                     }
                 }
             }
@@ -4951,8 +4923,6 @@ void codegenReal2MissionModelClass::step()
                 } else {
                     codegenReal2Mission_DW.MergeControlSwitch[0] = true;
                 }
-
-                // case IN_Short:
             } else if (codegenReal2Mission_DW.RelationalOperator) {
                 codegenReal2Mission_DW.is_c10_codegenReal2Mission =
                     codegenReal2Mission_IN_Long;
@@ -4988,95 +4958,99 @@ void codegenReal2MissionModelClass::step()
             if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
                     (codegenReal2Mission_DW.obj.CacheInputSizes) ^ 1))) {
                 codegenReal2Mission_DW.obj.CacheInputSizes = true;
-                for (rtb_Compare_kk_0 = 0; rtb_Compare_kk_0 < 8;
-                        rtb_Compare_kk_0++) {
+                for (rtb_RcvNextMission_o1_0 = 0; rtb_RcvNextMission_o1_0 < 8;
+                        rtb_RcvNextMission_o1_0++) {
                     codegenReal2Mission_DW.obj.inputVarSize[0]
-                        .f1[rtb_Compare_kk_0] = 1U;
+                        .f1[rtb_RcvNextMission_o1_0] = 1U;
                 }
 
-                rtb_Compare_kk_0 = codegenReal2Mission_DW.SFunction_DIMS2[0];
+                rtb_RcvNextMission_o1_0 =
+                    codegenReal2Mission_DW.SFunction_DIMS2[0];
                 if (codegenReal2Mission_DW.SFunction_DIMS2[0] < 0) {
-                    rtb_Compare_kk_0 = 0;
+                    rtb_RcvNextMission_o1_0 = 0;
                 }
 
                 codegenReal2Mission_DW.obj.inputVarSize[1].f1[0] =
-                    static_cast<uint32_T>(rtb_Compare_kk_0);
-                rtb_Compare_kk_0 = codegenReal2Mission_DW.SFunction_DIMS2[1];
+                    static_cast<uint32_T>(rtb_RcvNextMission_o1_0);
+                rtb_RcvNextMission_o1_0 =
+                    codegenReal2Mission_DW.SFunction_DIMS2[1];
                 if (codegenReal2Mission_DW.SFunction_DIMS2[1] < 0) {
-                    rtb_Compare_kk_0 = 0;
+                    rtb_RcvNextMission_o1_0 = 0;
                 }
 
                 codegenReal2Mission_DW.obj.inputVarSize[1].f1[1] =
-                    static_cast<uint32_T>(rtb_Compare_kk_0);
-                for (rtb_Compare_kk_0 = 0; rtb_Compare_kk_0 < 6;
-                        rtb_Compare_kk_0++) {
+                    static_cast<uint32_T>(rtb_RcvNextMission_o1_0);
+                for (rtb_RcvNextMission_o1_0 = 0; rtb_RcvNextMission_o1_0 < 6;
+                        rtb_RcvNextMission_o1_0++) {
                     codegenReal2Mission_DW.obj.inputVarSize[1].f1
-                        [static_cast<int32_T>(rtb_Compare_kk_0 + 2)] = 1U;
+                        [static_cast<int32_T>(rtb_RcvNextMission_o1_0 + 2)] = 1U;
                 }
 
-                for (rtb_Compare_kk_0 = 0; rtb_Compare_kk_0 < 8;
-                        rtb_Compare_kk_0++) {
+                for (rtb_RcvNextMission_o1_0 = 0; rtb_RcvNextMission_o1_0 < 8;
+                        rtb_RcvNextMission_o1_0++) {
                     codegenReal2Mission_DW.obj.inputVarSize[2]
-                        .f1[rtb_Compare_kk_0] = 1U;
+                        .f1[rtb_RcvNextMission_o1_0] = 1U;
                 }
             }
 
-            rtb_Compare_kk_0 = codegenReal2Mission_DW.SFunction_DIMS2[0];
+            rtb_RcvNextMission_o1_0 = codegenReal2Mission_DW.SFunction_DIMS2[0];
             if (codegenReal2Mission_DW.SFunction_DIMS2[0] < 0) {
-                rtb_Compare_kk_0 = 0;
+                rtb_RcvNextMission_o1_0 = 0;
             }
 
-            inSize[0] = static_cast<uint32_T>(rtb_Compare_kk_0);
-            rtb_Compare_kk_0 = codegenReal2Mission_DW.SFunction_DIMS2[1];
+            inSize[0] = static_cast<uint32_T>(rtb_RcvNextMission_o1_0);
+            rtb_RcvNextMission_o1_0 = codegenReal2Mission_DW.SFunction_DIMS2[1];
             if (codegenReal2Mission_DW.SFunction_DIMS2[1] < 0) {
-                rtb_Compare_kk_0 = 0;
+                rtb_RcvNextMission_o1_0 = 0;
             }
 
-            inSize[1] = static_cast<uint32_T>(rtb_Compare_kk_0);
-            for (rtb_Compare_kk_0 = 0; rtb_Compare_kk_0 < 6; rtb_Compare_kk_0++)
-            {
-                inSize[static_cast<int32_T>(rtb_Compare_kk_0 + 2)] = 1U;
+            inSize[1] = static_cast<uint32_T>(rtb_RcvNextMission_o1_0);
+            for (rtb_RcvNextMission_o1_0 = 0; rtb_RcvNextMission_o1_0 < 6;
+                    rtb_RcvNextMission_o1_0++) {
+                inSize[static_cast<int32_T>(rtb_RcvNextMission_o1_0 + 2)] = 1U;
             }
 
-            rtb_Compare_kk_0 = 0;
+            rtb_RcvNextMission_o1_0 = 0;
             exitg1 = false;
-            while ((!exitg1) && (rtb_Compare_kk_0 < 8)) {
+            while ((!exitg1) && (rtb_RcvNextMission_o1_0 < 8)) {
                 if (codegenReal2Mission_DW.obj.inputVarSize[1]
-                        .f1[rtb_Compare_kk_0] != inSize[rtb_Compare_kk_0]) {
-                    for (rtb_Compare_kk_0 = 0; rtb_Compare_kk_0 < 8;
-                            rtb_Compare_kk_0++) {
+                        .f1[rtb_RcvNextMission_o1_0] !=
+                        inSize[rtb_RcvNextMission_o1_0]) {
+                    for (rtb_RcvNextMission_o1_0 = 0; rtb_RcvNextMission_o1_0 <
+                            8; rtb_RcvNextMission_o1_0++) {
                         codegenReal2Mission_DW.obj.inputVarSize[1]
-                            .f1[rtb_Compare_kk_0] = inSize[rtb_Compare_kk_0];
+                            .f1[rtb_RcvNextMission_o1_0] =
+                            inSize[rtb_RcvNextMission_o1_0];
                     }
 
                     exitg1 = true;
                 } else {
-                    rtb_Compare_kk_0 = static_cast<int32_T>(rtb_Compare_kk_0 + 1);
+                    rtb_RcvNextMission_o1_0 = static_cast<int32_T>
+                        (rtb_RcvNextMission_o1_0 + 1);
                 }
             }
 
-            rtb_MemoryPose_m[0] = absx;
-            rtb_MemoryPose_m[1] = rtb_Sign_c;
-            rtb_MemoryPose_m[2] = rtb_Down;
-            rtb_MemoryPose_m[3] = distToCenter;
-            for (rtb_Compare_kk_0 = 0; rtb_Compare_kk_0 < 2; rtb_Compare_kk_0++)
-            {
-                tmp_0[rtb_Compare_kk_0] =
-                    codegenReal2Mission_DW.SFunction_DIMS2[rtb_Compare_kk_0];
+            absx_0[0] = absx;
+            absx_0[1] = rtb_Sign_c;
+            absx_0[2] = rtb_Down;
+            absx_0[3] = distToCenter;
+            for (rtb_RcvNextMission_o1_0 = 0; rtb_RcvNextMission_o1_0 < 2;
+                    rtb_RcvNextMission_o1_0++) {
+                tmp_0[rtb_RcvNextMission_o1_0] =
+                    codegenReal2Mission_DW.SFunction_DIMS2[rtb_RcvNextMission_o1_0];
             }
 
             codegenReal2Mission_WaypointFollowerBase_stepInternal
-                (&codegenReal2Mission_DW.obj, rtb_MemoryPose_m,
+                (&codegenReal2Mission_DW.obj, absx_0,
                  codegenReal2Mission_DW.Track, tmp_0, 126.0, rtb_Sum_h,
                  &codegenReal2Mission_DW.MergeGuidanceCMD.HeadingAngle, &tmp,
-                 &rtb_MemoryStatus, &rtb_Switch_m,
+                 &rtb_MemoryStatus, &rtb_Switch_hk,
                  &codegenReal2Mission_DW.MemoryStatus_PreviousInput);
             codegenReal2Mission_DW.MergeGuidanceCMD.Height =
                 codegenReal2Mission_DW.Switch[2];
             codegenReal2Mission_DW.MergeGuidanceCMD.AirSpeed = 0.0;
             codegenReal2Mission_DW.MergeControlSwitch[1] = false;
-            rtb_ReceiveCurrentMission_o1 =
-                codegenReal2Mission_DW.RelationalOperator;
+            rtb_Compare_gf = codegenReal2Mission_DW.RelationalOperator;
             codegenReal2Mission_DW.MemoryPrevRange_PreviousInput =
                 rtb_LatitudeGCS_i;
             break;
@@ -5096,10 +5070,10 @@ void codegenReal2MissionModelClass::step()
             tmp = 0.017453292519943295 *
                 codegenReal2Mission_DW.cmdFlightMission.MissionLocation.degHDG +
                 1.5707963267948966;
-            rtb_ReceiveCurrentMission_o1 =
+            rtb_Compare_gf =
                 (codegenReal2Mission_DW.cmdFlightMission.MissionMode ==
                  HorzFrmnNav);
-            rtb_AltitudeGCS_d = static_cast<real_T>(rtb_ReceiveCurrentMission_o1);
+            rtb_AltitudeGCS_d = static_cast<real_T>(rtb_Compare_gf);
             absx = static_cast<real_T>(static_cast<int32_T>
                 (codegenReal2Mission_DW.cmdFlightMission.numUAV - 1)) *
                 static_cast<real_T>
@@ -5125,12 +5099,12 @@ void codegenReal2MissionModelClass::step()
           default:
             codegenReal2Mission_DW.MergeControlSwitch[0] = false;
             codegenReal2Mission_DW.MergeControlSwitch[1] = false;
-            rtb_ReceiveCurrentMission_o1 = false;
+            rtb_Compare_gf = false;
             rtb_AltitudeGCS_d = -1.0;
             break;
         }
 
-        if (rtb_ReceiveCurrentMission_o1) {
+        if (rtb_Compare_gf) {
             codegenReal2Mission_DW.BusConversion_InsertedFor_Real2SimGuidance_at_inport_0_BusCreator1.North
                 = codegenReal2Mission_DW.North;
             codegenReal2Mission_DW.BusConversion_InsertedFor_Real2SimGuidance_at_inport_0_BusCreator1.East
@@ -5167,6 +5141,43 @@ void codegenReal2MissionModelClass::step()
         }
 
         codegenReal2Mission_DW.BooleanImmedMode = (ahi != 0.0);
+        rtb_RcvNextMission_o1_0 =
+            codegenReal2Mission_ReceiveThisMission_RecvData
+            (&codegenReal2Mission_DW.ReceiveThisMission_o2);
+        rtb_Compare_gf = (rtb_RcvNextMission_o1_0 != 1);
+        rtb_CoordinateTransformationConversion_f_idx_0 = std::floor
+            (codegenReal2Mission_DW.thisTaskStatus);
+        if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(std::
+                isnan(rtb_CoordinateTransformationConversion_f_idx_0)) |
+                static_cast<int32_T>(std::isinf
+                (rtb_CoordinateTransformationConversion_f_idx_0))))) {
+            rtb_CoordinateTransformationConversion_f_idx_0 = 0.0;
+        } else {
+            rtb_CoordinateTransformationConversion_f_idx_0 = std::fmod
+                (rtb_CoordinateTransformationConversion_f_idx_0, 4.294967296E+9);
+        }
+
+        codegenReal2Mission_Y.thisTaskStatus.FlightStatus =
+            rtb_CoordinateTransformationConversion_f_idx_0 < 0.0 ?
+            static_cast<int32_T>(-static_cast<int32_T>(static_cast<uint32_T>
+            (-rtb_CoordinateTransformationConversion_f_idx_0))) :
+            static_cast<int32_T>(static_cast<uint32_T>
+            (rtb_CoordinateTransformationConversion_f_idx_0));
+        rtb_RcvNextMission_o1_0 = static_cast<int32_T>(std::fmod
+            (static_cast<real_T>(static_cast<int32_T>(rtb_AltitudeGCS_d)),
+             4.294967296E+9));
+        codegenReal2Mission_Y.thisTaskStatus.ImmedStatus =
+            rtb_RcvNextMission_o1_0 < 0 ? static_cast<int32_T>
+            (-static_cast<int32_T>(static_cast<uint32_T>(-static_cast<real_T>
+               (rtb_RcvNextMission_o1_0)))) : rtb_RcvNextMission_o1_0;
+        codegenReal2Mission_Y.thisTaskStatus.SequenceID =
+            codegenReal2Mission_DW.ReceiveThisMission_o2.SequenceID;
+        codegenReal2Mission_Y.thisTaskStatus.MissionMode =
+            codegenReal2Mission_DW.cmdFlightMission.MissionMode;
+        codegenReal2Mission_Y.thisTaskStatus.numUAV =
+            codegenReal2Mission_DW.cmdFlightMission.numUAV;
+        codegenReal2Mission_Y.thisTaskStatus.FormationPos =
+            codegenReal2Mission_DW.cmdFlightMission.FormationPos;
     }
 
     Real2SimGuidance(&(codegenReal2Mission_DW.Real2SimGuidance_InstanceData.rtm),
@@ -5177,6 +5188,9 @@ void codegenReal2MissionModelClass::step()
                      &codegenReal2Mission_U.GroundSpeed,
                      &codegenReal2Mission_DW.MergeControlSwitch[0],
                      &codegenReal2Mission_DW.MergeGuidanceCMD,
+                     &codegenReal2Mission_Y.thisTaskStatus.MissionMode,
+                     &codegenReal2Mission_Y.thisTaskStatus.numUAV,
+                     &codegenReal2Mission_Y.thisTaskStatus.FormationPos,
                      &codegenReal2Mission_Y.LookAheadPoint_i,
                      &codegenReal2Mission_Y.RefAirspeed,
                      &codegenReal2Mission_DW.Real2SimGuidance_o3,
@@ -5185,13 +5199,10 @@ void codegenReal2MissionModelClass::step()
                      &(codegenReal2Mission_DW.Real2SimGuidance_InstanceData.rtdw),
                      &(codegenReal2Mission_X.Real2SimGuidance_CSTATE));
     if (rtmIsMajorTimeStep((&codegenReal2Mission_M))) {
-        rtb_Compare_kk_0 = codegenReal2Mission_ReceiveThisMission_RecvData
-            (&codegenReal2Mission_DW.ReceiveThisMission_o2);
-        rtb_ReceiveCurrentMission_o1 = (rtb_Compare_kk_0 != 1);
         if (rtmIsMajorTimeStep((&codegenReal2Mission_M))) {
             if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
-                    (rtb_ReceiveCurrentMission_o1) & (static_cast<int32_T>
-                    (codegenReal2Mission_PrevZCX.TriggerCurrentMisisonFeedback_Trig_ZCE)
+                    (rtb_Compare_gf) & (static_cast<int32_T>
+                                        (codegenReal2Mission_PrevZCX.TriggerCurrentMisisonFeedback_Trig_ZCE)
                    != 1)))) {
                 fracSecs =
                     codegenReal2Mission_DW.ReceiveThisMission_o2.StartTime *
@@ -5201,25 +5212,25 @@ void codegenReal2MissionModelClass::step()
                 codegenReal2Mission_getDateVec_i(fracSecs, &ahi, &check, &absx,
                     &rtb_Sign_c, &distToCenter, &rtb_Down);
                 codegenReal2Mission_getDateVec_i(fracSecs, &absx, &rtb_Sign_c,
-                    &ahi, &distToCenter, &rtb_Down, &rtb_LatitudeGCS_i);
+                    &ahi, &distToCenter, &rtb_Down, &rtb_AltitudeGCS_d);
                 codegenReal2Mission_getDateVec_i(fracSecs, &rtb_Sign_c,
-                    &distToCenter, &rtb_Down, &absx, &rtb_LatitudeGCS_i,
-                    &rtb_Switch_m);
+                    &distToCenter, &rtb_Down, &absx, &rtb_AltitudeGCS_d,
+                    &rtb_LatitudeGCS_i);
                 codegenReal2Mission_getDateVec_i(fracSecs, &distToCenter,
-                    &rtb_Down, &rtb_LatitudeGCS_i, &rtb_Switch_m, &rtb_Sign_c,
-                    &rtb_Switch_b);
+                    &rtb_Down, &rtb_AltitudeGCS_d, &rtb_LatitudeGCS_i,
+                    &rtb_Sign_c, &rtb_Switch_hk);
                 codegenReal2Mission_getDateVec_i(fracSecs, &rtb_Down,
-                    &rtb_LatitudeGCS_i, &rtb_Switch_m, &rtb_Switch_b, &rtb_Sum_i,
-                    &distToCenter);
-                codegenReal2Mission_getDateVec_i(fracSecs, &rtb_LatitudeGCS_i,
-                    &rtb_Switch_m, &rtb_Switch_b, &rtb_Sum_i,
-                    &rtb_CoordinateTransformationConversion_f_idx_0, &rtb_Down);
-                codegenReal2Mission_getDateVec_i(fracSecs, &rtb_LatitudeGCS_i,
-                    &rtb_Switch_m, &rtb_Switch_b, &rtb_Sum_i,
-                    &rtb_CoordinateTransformationConversion_f_idx_0,
-                    &rtb_ProductN);
-                codegenReal2Mission_DW.IndivCMD.SequenceId =
-                    codegenReal2Mission_DW.ReceiveThisMission_o2.SequenceId;
+                    &rtb_AltitudeGCS_d, &rtb_LatitudeGCS_i, &rtb_Switch_hk,
+                    &rtb_Switch_b, &distToCenter);
+                codegenReal2Mission_getDateVec_i(fracSecs, &rtb_AltitudeGCS_d,
+                    &rtb_LatitudeGCS_i, &rtb_Switch_hk, &rtb_Switch_b,
+                    &rtb_Sum_i, &rtb_Down);
+                codegenReal2Mission_getDateVec_i(fracSecs, &rtb_AltitudeGCS_d,
+                    &rtb_LatitudeGCS_i, &rtb_Switch_hk, &rtb_Switch_b,
+                    &rtb_Sum_i,
+                    &rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_2);
+                codegenReal2Mission_DW.IndivCMD.SequenceID =
+                    codegenReal2Mission_DW.ReceiveThisMission_o2.SequenceID;
                 codegenReal2Mission_DW.IndivCMD.MissionMode =
                     codegenReal2Mission_DW.ReceiveThisMission_o2.MissionMode;
                 codegenReal2Mission_DW.IndivCMD.MissionLocation =
@@ -5335,7 +5346,9 @@ void codegenReal2MissionModelClass::step()
                 }
 
                 rtb_CoordinateTransformationConversion_f_idx_0 = std::round
-                    ((rtb_Down - std::floor(rtb_ProductN)) * 1000.0);
+                    ((rtb_Down - std::floor
+                      (rtb_TmpSignalConversionAtOrbitFollowerInport1_idx_2)) *
+                     1000.0);
                 if (rtb_CoordinateTransformationConversion_f_idx_0 <
                         2.147483648E+9) {
                     if (rtb_CoordinateTransformationConversion_f_idx_0 >=
@@ -5369,7 +5382,7 @@ void codegenReal2MissionModelClass::step()
                 }
 
                 codegenReal2Mission_printIndivMissionCMD
-                    (codegenReal2Mission_DW.IndivCMD.SequenceId,
+                    (codegenReal2Mission_DW.IndivCMD.SequenceID,
                      codegenReal2Mission_DW.IndivCMD.MissionMode,
                      codegenReal2Mission_DW.IndivCMD.MissionLocation.Lat,
                      codegenReal2Mission_DW.IndivCMD.MissionLocation.Lon,
@@ -5393,41 +5406,10 @@ void codegenReal2MissionModelClass::step()
             }
 
             codegenReal2Mission_PrevZCX.TriggerCurrentMisisonFeedback_Trig_ZCE =
-                static_cast<ZCSigState>(rtb_ReceiveCurrentMission_o1);
+                static_cast<ZCSigState>(rtb_Compare_gf);
         }
 
         codegenReal2Mission_DW.NonDeterministic_Buffer0 = second;
-        rtb_CoordinateTransformationConversion_f_idx_0 = std::floor
-            (codegenReal2Mission_DW.thisTaskStatus);
-        if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(std::
-                isnan(rtb_CoordinateTransformationConversion_f_idx_0)) |
-                static_cast<int32_T>(std::isinf
-                (rtb_CoordinateTransformationConversion_f_idx_0))))) {
-            rtb_CoordinateTransformationConversion_f_idx_0 = 0.0;
-        } else {
-            rtb_CoordinateTransformationConversion_f_idx_0 = std::fmod
-                (rtb_CoordinateTransformationConversion_f_idx_0, 4.294967296E+9);
-        }
-
-        codegenReal2Mission_Y.thisTaskStatus.FlightStatus =
-            rtb_CoordinateTransformationConversion_f_idx_0 < 0.0 ?
-            static_cast<int32_T>(-static_cast<int32_T>(static_cast<uint32_T>
-            (-rtb_CoordinateTransformationConversion_f_idx_0))) :
-            static_cast<int32_T>(static_cast<uint32_T>
-            (rtb_CoordinateTransformationConversion_f_idx_0));
-        rtb_Compare_kk_0 = static_cast<int32_T>(std::fmod(static_cast<real_T>(
-            static_cast<int32_T>(rtb_AltitudeGCS_d)), 4.294967296E+9));
-        codegenReal2Mission_Y.thisTaskStatus.ImmedStatus = rtb_Compare_kk_0 < 0 ?
-            static_cast<int32_T>(-static_cast<int32_T>(static_cast<uint32_T>(-
-            static_cast<real_T>(rtb_Compare_kk_0)))) : rtb_Compare_kk_0;
-        codegenReal2Mission_Y.thisTaskStatus.SequenceId =
-            codegenReal2Mission_DW.ReceiveThisMission_o2.SequenceId;
-        codegenReal2Mission_Y.thisTaskStatus.MissionMode =
-            codegenReal2Mission_DW.cmdFlightMission.MissionMode;
-        codegenReal2Mission_Y.thisTaskStatus.NumUAV =
-            codegenReal2Mission_DW.cmdFlightMission.numUAV;
-        codegenReal2Mission_Y.thisTaskStatus.FormationPos =
-            codegenReal2Mission_DW.cmdFlightMission.FormationPos;
         rtw_pthread_mutex_lock
             (codegenReal2Mission_DW.RateTransition_d0_SEMAPHORE);
         rtPrevAction = static_cast<int8_T>(static_cast<int32_T>
@@ -5454,10 +5436,9 @@ void codegenReal2MissionModelClass::step()
     }
 
     if (rtmIsMajorTimeStep((&codegenReal2Mission_M))) {
-        // Matfile logging
         rt_UpdateTXYLogVars((&codegenReal2Mission_M)->rtwLogInfo,
                             ((&codegenReal2Mission_M)->Timing.t));
-    }                                  // end MajorTimeStep
+    }
 
     if (rtmIsMajorTimeStep((&codegenReal2Mission_M))) {
         if (rtmIsMajorTimeStep((&codegenReal2Mission_M))) {
@@ -5468,6 +5449,8 @@ void codegenReal2MissionModelClass::step()
             codegenReal2Mission_DW.MemoryPose_PreviousInput_h[2] = rtb_Down_c;
             codegenReal2Mission_DW.MemoryPose_PreviousInput_h[3] =
                 codegenReal2Mission_DW.HeadingAngle_g;
+            FlightMissionMode_Update
+                (&(codegenReal2Mission_DW.PreemptableMissionModeSelector_InstanceData.rtdw));
         }
 
         if (codegenReal2Mission_DW.MissionSimUAV_MODE) {
@@ -5482,12 +5465,12 @@ void codegenReal2MissionModelClass::step()
 
         Real2SimGuidance_Update
             (&(codegenReal2Mission_DW.Real2SimGuidance_InstanceData.rtm),
+             &codegenReal2Mission_DW.BusConversion_InsertedFor_Real2SimGuidance_at_inport_0_BusCreator1,
              &(codegenReal2Mission_DW.Real2SimGuidance_InstanceData.rtdw));
-    }                                  // end MajorTimeStep
+    }
 
     if (rtmIsMajorTimeStep((&codegenReal2Mission_M))) {
-        // signal main to stop simulation
-        {                              // Sample time: [0.0s, 0.0s]
+        {
             if ((rtmGetTFinal((&codegenReal2Mission_M))!=-1) &&
                 !((rtmGetTFinal((&codegenReal2Mission_M))-
                     ((((&codegenReal2Mission_M)->Timing.clockTick1+
@@ -5502,16 +5485,6 @@ void codegenReal2MissionModelClass::step()
         }
 
         rt_ertODEUpdateContinuousStates(&(&codegenReal2Mission_M)->solverInfo);
-
-        // Update absolute time for base rate
-        // The "clockTick0" counts the number of times the code of this task has
-        //  been executed. The absolute time is the multiplication of "clockTick0"
-        //  and "Timing.stepSize0". Size of "clockTick0" ensures timer will not
-        //  overflow during the application lifespan selected.
-        //  Timer of this task consists of two 32 bit unsigned integers.
-        //  The two integers represent the low bits Timing.clockTick0 and the high bits
-        //  Timing.clockTickH0. When the low bit overflows to 0, the high bits increment.
-
         if (!(++(&codegenReal2Mission_M)->Timing.clockTick0)) {
             ++(&codegenReal2Mission_M)->Timing.clockTickH0;
         }
@@ -5520,24 +5493,14 @@ void codegenReal2MissionModelClass::step()
             (&(&codegenReal2Mission_M)->solverInfo);
 
         {
-            // Update absolute timer for sample time: [0.1s, 0.0s]
-            // The "clockTick1" counts the number of times the code of this task has
-            //  been executed. The resolution of this integer timer is 0.1, which is the step size
-            //  of the task. Size of "clockTick1" ensures timer will not overflow during the
-            //  application lifespan selected.
-            //  Timer of this task consists of two 32 bit unsigned integers.
-            //  The two integers represent the low bits Timing.clockTick1 and the high bits
-            //  Timing.clockTickH1. When the low bit overflows to 0, the high bits increment.
-
             (&codegenReal2Mission_M)->Timing.clockTick1++;
             if (!(&codegenReal2Mission_M)->Timing.clockTick1) {
                 (&codegenReal2Mission_M)->Timing.clockTickH1++;
             }
         }
-    }                                  // end MajorTimeStep
+    }
 }
 
-// Derivatives for root system: '<Root>'
 void codegenReal2MissionModelClass::codegenReal2Mission_derivatives()
 {
     if (codegenReal2Mission_DW.MissionSimUAV_MODE) {
@@ -5565,8 +5528,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_derivatives()
            ->Real2SimGuidance_CSTATE));
 }
 
-// Model step function
-void codegenReal2MissionModelClass::codegenReal2Mission_PushNewMission() // Explicit Task: PushNewMission 
+void codegenReal2MissionModelClass::codegenReal2Mission_PushNewMission()
 {
     Location *NewCMD_MissionLocation;
     Location *NewCMD_StartPosition;
@@ -5596,7 +5558,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_PushNewMission() // Expl
     int32_T MI;
     int32_T MS;
     int32_T NewCMD_FormationPos;
-    int32_T NewCMD_SequenceId;
+    int32_T NewCMD_SequenceID;
     int32_T NewCMD_numUAV;
     int32_T S;
     int32_T Y;
@@ -5638,8 +5600,8 @@ void codegenReal2MissionModelClass::codegenReal2Mission_PushNewMission() // Expl
         (codegenReal2Mission_DW.ReceivePushedMissionCMD.StartTime.second);
     processedInData[6] = static_cast<real_T>
         (codegenReal2Mission_DW.ReceivePushedMissionCMD.StartTime.millisecond);
-    NewCMD_SequenceId =
-        codegenReal2Mission_DW.ReceivePushedMissionCMD.SequenceId;
+    NewCMD_SequenceID =
+        codegenReal2Mission_DW.ReceivePushedMissionCMD.SequenceID;
     NewCMD_MissionMode =
         codegenReal2Mission_DW.ReceivePushedMissionCMD.MissionMode;
     NewCMD_MissionLocation =
@@ -5654,7 +5616,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_PushNewMission() // Expl
                             (processedInData)).re / 1000.0;
     if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
             (codegenReal2Mission_isequaln
-             (codegenReal2Mission_DW.MissionCMD.SequenceId,
+             (codegenReal2Mission_DW.MissionCMD.SequenceID,
               codegenReal2Mission_DW.MissionCMD.MissionMode,
               codegenReal2Mission_DW.MissionCMD.MissionLocation.Lat,
               codegenReal2Mission_DW.MissionCMD.MissionLocation.Lon,
@@ -5670,7 +5632,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_PushNewMission() // Expl
               codegenReal2Mission_DW.MissionCMD.StartPosition,
               codegenReal2Mission_DW.MissionCMD.numUAV,
               codegenReal2Mission_DW.MissionCMD.FormationPos,
-              codegenReal2Mission_DW.MissionCMD.StartTime, NewCMD_SequenceId,
+              codegenReal2Mission_DW.MissionCMD.StartTime, NewCMD_SequenceID,
               NewCMD_MissionMode, *NewCMD_MissionLocation, *NewCMD_params,
               *NewCMD_StartPosition, NewCMD_numUAV, NewCMD_FormationPos,
               NewCMD_StartTime_tmp)) ^ 1))) {
@@ -5684,6 +5646,8 @@ void codegenReal2MissionModelClass::codegenReal2Mission_PushNewMission() // Expl
                    != 0.0F) ^ 1))) {
                 rtb_ThisCMD.params.Param1 =
                     codegenReal2Mission_DW.ReceivePushedMissionCMD.params.Param1;
+                rtb_ThisCMD.SequenceID =
+                    codegenReal2Mission_DW.ReceivePushedMissionCMD.SequenceID;
             }
 
             if (static_cast<boolean_T>(static_cast<int32_T>
@@ -5691,6 +5655,8 @@ void codegenReal2MissionModelClass::codegenReal2Mission_PushNewMission() // Expl
                    != 0.0F) ^ 1))) {
                 rtb_ThisCMD.params.Param2 =
                     codegenReal2Mission_DW.ReceivePushedMissionCMD.params.Param2;
+                rtb_ThisCMD.SequenceID =
+                    codegenReal2Mission_DW.ReceivePushedMissionCMD.SequenceID;
             }
 
             if (static_cast<boolean_T>(static_cast<int32_T>
@@ -5698,6 +5664,8 @@ void codegenReal2MissionModelClass::codegenReal2Mission_PushNewMission() // Expl
                    != 0.0F) ^ 1))) {
                 rtb_ThisCMD.params.Param3 =
                     codegenReal2Mission_DW.ReceivePushedMissionCMD.params.Param3;
+                rtb_ThisCMD.SequenceID =
+                    codegenReal2Mission_DW.ReceivePushedMissionCMD.SequenceID;
             }
 
             if (static_cast<boolean_T>(static_cast<int32_T>
@@ -5705,6 +5673,8 @@ void codegenReal2MissionModelClass::codegenReal2Mission_PushNewMission() // Expl
                    != 0.0F) ^ 1))) {
                 rtb_ThisCMD.params.Param4 =
                     codegenReal2Mission_DW.ReceivePushedMissionCMD.params.Param4;
+                rtb_ThisCMD.SequenceID =
+                    codegenReal2Mission_DW.ReceivePushedMissionCMD.SequenceID;
             }
 
             if (static_cast<boolean_T>(static_cast<int32_T>
@@ -5712,6 +5682,8 @@ void codegenReal2MissionModelClass::codegenReal2Mission_PushNewMission() // Expl
                    != 0.0F) ^ 1))) {
                 rtb_ThisCMD.params.Param5 =
                     codegenReal2Mission_DW.ReceivePushedMissionCMD.params.Param5;
+                rtb_ThisCMD.SequenceID =
+                    codegenReal2Mission_DW.ReceivePushedMissionCMD.SequenceID;
             }
 
             if (static_cast<boolean_T>(static_cast<int32_T>
@@ -5719,26 +5691,28 @@ void codegenReal2MissionModelClass::codegenReal2Mission_PushNewMission() // Expl
                    != 0.0F) ^ 1))) {
                 rtb_ThisCMD.params.Param6 =
                     codegenReal2Mission_DW.ReceivePushedMissionCMD.params.Param6;
+                rtb_ThisCMD.SequenceID =
+                    codegenReal2Mission_DW.ReceivePushedMissionCMD.SequenceID;
             }
 
             rtb_SndCMD = rtb_ThisCMD;
             printf("Reset flight mission, cancle immediate mission!\n");
             fflush(stdout);
-        } else if (codegenReal2Mission_DW.MissionCMD.SequenceId ==
-                   codegenReal2Mission_DW.ReceivePushedMissionCMD.SequenceId) {
+        } else if (codegenReal2Mission_DW.MissionCMD.SequenceID ==
+                   codegenReal2Mission_DW.ReceivePushedMissionCMD.SequenceID) {
             printf("Use a new Sequence ID for each new mission!\n");
             fflush(stdout);
             printf("PrevCMD SequenceID: %d\n",
-                   codegenReal2Mission_DW.MissionCMD.SequenceId);
+                   codegenReal2Mission_DW.MissionCMD.SequenceID);
             fflush(stdout);
-            printf("NewCMD SequenceID: %d\n", NewCMD_SequenceId);
+            printf("NewCMD SequenceID: %d\n", NewCMD_SequenceID);
             fflush(stdout);
         } else {
             if (static_cast<int32_T>
                     (codegenReal2Mission_DW.ReceivePushedMissionCMD.MissionMode)
-                > 500) {
+                > 127) {
                 status = 1;
-                rtb_SndCMD.SequenceId = NewCMD_SequenceId;
+                rtb_SndCMD.SequenceID = NewCMD_SequenceID;
                 rtb_SndCMD.MissionMode = NewCMD_MissionMode;
                 rtb_SndCMD.MissionLocation = *NewCMD_MissionLocation;
                 rtb_SndCMD.params = *NewCMD_params;
@@ -5747,7 +5721,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_PushNewMission() // Expl
                 rtb_SndCMD.FormationPos = NewCMD_FormationPos;
                 rtb_SndCMD.StartTime = NewCMD_StartTime_tmp;
             } else if (NonDeterministic <= NewCMD_StartTime_tmp) {
-                rtb_ThisCMD.SequenceId = NewCMD_SequenceId;
+                rtb_ThisCMD.SequenceID = NewCMD_SequenceID;
                 rtb_ThisCMD.MissionMode = NewCMD_MissionMode;
                 rtb_ThisCMD.MissionLocation = *NewCMD_MissionLocation;
                 rtb_ThisCMD.params = *NewCMD_params;
@@ -5755,7 +5729,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_PushNewMission() // Expl
                 rtb_ThisCMD.numUAV = NewCMD_numUAV;
                 rtb_ThisCMD.FormationPos = NewCMD_FormationPos;
                 rtb_ThisCMD.StartTime = NewCMD_StartTime_tmp;
-                rtb_SndCMD.SequenceId = NewCMD_SequenceId;
+                rtb_SndCMD.SequenceID = NewCMD_SequenceID;
                 rtb_SndCMD.MissionMode = NewCMD_MissionMode;
                 rtb_SndCMD.MissionLocation = *NewCMD_MissionLocation;
                 rtb_SndCMD.params = *NewCMD_params;
@@ -5814,17 +5788,12 @@ void codegenReal2MissionModelClass::codegenReal2Mission_PushNewMission() // Expl
     codegenReal2Mission_ReceiveThisMission_SendData(&rtb_SndCMD);
 }
 
-// Model initialize function
 void codegenReal2MissionModelClass::initialize()
 {
-    // Registration code
-
-    // initialize non-finites
     rt_InitInfAndNaN(sizeof(real_T));
 
     {
         {
-            // Setup solver object
             rtsiSetSimTimeStepPtr(&(&codegenReal2Mission_M)->solverInfo,
                                   &(&codegenReal2Mission_M)->Timing.simTimeStep);
             rtsiSetTPtr(&(&codegenReal2Mission_M)->solverInfo, &rtmGetTPtr
@@ -5874,14 +5843,12 @@ void codegenReal2MissionModelClass::initialize()
         (&codegenReal2Mission_M)->Timing.stepSize0 = 0.1;
         rtmSetFirstInitCond((&codegenReal2Mission_M), 1);
 
-        // Setup for data logging
         {
             static RTWLogInfo rt_DataLoggingInfo;
             rt_DataLoggingInfo.loggingInterval = (nullptr);
             (&codegenReal2Mission_M)->rtwLogInfo = &rt_DataLoggingInfo;
         }
 
-        // Setup for data logging
         {
             rtliSetLogXSignalInfo((&codegenReal2Mission_M)->rtwLogInfo, (nullptr));
             rtliSetLogXSignalPtrs((&codegenReal2Mission_M)->rtwLogInfo, (nullptr));
@@ -5923,26 +5890,19 @@ void codegenReal2MissionModelClass::initialize()
             &rtmIsFirstInitCond((&codegenReal2Mission_M));
     }
 
-    // Model Initialize function for ModelReference Block: '<S2>/PreemptableMissionModeSelector' 
     FlightMissionMode_initialize(rtmGetErrorStatusPointer
         ((&codegenReal2Mission_M)),
         &(codegenReal2Mission_DW.PreemptableMissionModeSelector_InstanceData.rtm));
-
-    // Model Initialize function for ModelReference Block: '<Root>/Real2SimGuidance' 
-    Real2SimGuidance_initialize(rtmGetErrorStatusPointer((&codegenReal2Mission_M)),
-        rtmGetStopRequestedPtr((&codegenReal2Mission_M)),
-        &((&codegenReal2Mission_M)->solverInfo),
-        &(codegenReal2Mission_DW.Real2SimGuidance_InstanceData.rtm));
-
-    // Model Initialize function for ModelReference Block: '<S16>/MissionUavModel' 
     MissionUAV_initialize(rtmGetErrorStatusPointer((&codegenReal2Mission_M)),
                           rtmGetStopRequestedPtr((&codegenReal2Mission_M)),
                           &((&codegenReal2Mission_M)->solverInfo),
                           &(&codegenReal2Mission_M)->timingBridge,
                           &(codegenReal2Mission_DW.MissionUavModel_InstanceData.rtm),
                           &(codegenReal2Mission_DW.MissionUavModel_InstanceData.rtzce));
-
-    // Matfile logging
+    Real2SimGuidance_initialize(rtmGetErrorStatusPointer((&codegenReal2Mission_M)),
+        rtmGetStopRequestedPtr((&codegenReal2Mission_M)),
+        &((&codegenReal2Mission_M)->solverInfo),
+        &(codegenReal2Mission_DW.Real2SimGuidance_InstanceData.rtm));
     rt_StartDataLoggingWithStartTime((&codegenReal2Mission_M)->rtwLogInfo, 0.0,
         rtmGetTFinal((&codegenReal2Mission_M)), (&codegenReal2Mission_M)
         ->Timing.stepSize0, (&rtmGetErrorStatus((&codegenReal2Mission_M))));
@@ -6063,13 +6023,11 @@ void codegenReal2MissionModelClass::initialize()
         rtw_pthread_mutex_unlock(LongitudeGCS_m0);
     }
 
-    // set "at time zero" to false
     if (rtmIsFirstInitCond((&codegenReal2Mission_M))) {
         rtmSetFirstInitCond((&codegenReal2Mission_M), 0);
     }
 }
 
-// Model terminate function
 void codegenReal2MissionModelClass::terminate()
 {
     rtw_pthread_mutex_destroy(codegenReal2Mission_DW.RateTransition_d0_SEMAPHORE);
@@ -6078,7 +6036,6 @@ void codegenReal2MissionModelClass::terminate()
     rtw_pthread_mutex_destroy(LongitudeGCS_m0);
 }
 
-// Constructor
 codegenReal2MissionModelClass::codegenReal2MissionModelClass
     (SendData_IndividualUAVCmdT& CurrentMissionSendData_arg,
      RecvData_IndividualUAVCmdT& MissionCMDRecvData_arg) :
@@ -6091,24 +6048,14 @@ codegenReal2MissionModelClass::codegenReal2MissionModelClass
     CurrentMissionSendData(CurrentMissionSendData_arg),
     MissionCMDRecvData(MissionCMDRecvData_arg)
 {
-    // Currently there is no constructor body generated.
 }
 
-// Destructor
 codegenReal2MissionModelClass::~codegenReal2MissionModelClass()
 {
-    // Currently there is no destructor body generated.
 }
 
-// Real-Time Model get method
 codegenReal2MissionModelClass::RT_MODEL_codegenReal2Mission_T
     * codegenReal2MissionModelClass::getRTM()
 {
     return (&codegenReal2Mission_M);
 }
-
-//
-// File trailer for generated code.
-//
-// [EOF]
-//

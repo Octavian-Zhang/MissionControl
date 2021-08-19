@@ -1,25 +1,7 @@
-//
-// File: rtGetNaN.cpp
-//
-// Code generated for Simulink model 'Real2SimGuidance'.
-//
-// Model version                  : 2.344
-// Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Jun 28 22:38:59 2021
-//
-
-//
-//  Abstract:
-//       Function to initialize non-finite, NaN
-
 #include "rtGetNaN.h"
 #define NumBitsPerChar                 8U
 
 extern "C" {
-    //
-    // Initialize rtNaN needed by the generated code.
-    // NaN is initialized as non-signaling. Assumes IEEE.
-    //
     real_T rtGetNaN(void)
     {
         size_t bitsPerReal{ sizeof(real_T) * (NumBitsPerChar) };
@@ -69,10 +51,6 @@ extern "C" {
         return nan;
     }
 
-    //
-    // Initialize rtNaNF needed by the generated code.
-    // NaN is initialized as non-signaling. Assumes IEEE.
-    //
     real32_T rtGetNaNF(void)
     {
         IEEESingle nanF{ { 0.0F } };
@@ -103,8 +81,8 @@ extern "C" {
         return nanF.wordL.wordLreal;
     }
 }
-//
-// File trailer for generated code.
-//
-// [EOF]
-//
+
+
+
+
+

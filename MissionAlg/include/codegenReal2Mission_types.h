@@ -1,21 +1,3 @@
-//
-// File: codegenReal2Mission_types.h
-//
-// Code generated for Simulink model 'codegenReal2Mission'.
-//
-// Model version                  : 2.679
-// Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Fri Jul  2 08:04:06 2021
-//
-// Target selection: ert.tlc
-// Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
-// Code generation objectives:
-//    1. Safety precaution
-//    2. Execution efficiency
-//    3. RAM efficiency
-//    4. ROM efficiency
-// Validation result: Not run
-//
 #ifndef RTW_HEADER_codegenReal2Mission_types_h_
 #define RTW_HEADER_codegenReal2Mission_types_h_
 #include "rtwtypes.h"
@@ -25,14 +7,13 @@
 #include "zero_crossing_types.h"
 #include "DatalinkInterface.h"
 
-// Model Code Variants
 #include "rtw_linux.h"
 #ifndef DEFINED_TYPEDEF_FOR_missionCmd_
 #define DEFINED_TYPEDEF_FOR_missionCmd_
 
 struct missionCmd
 {
-    int32_T SequenceId;
+    int32_T SequenceID;
     MissionModes MissionMode;
     Location MissionLocation;
     Parameters params;
@@ -108,9 +89,9 @@ struct TaskStatus
 {
     int32_T FlightStatus;
     int32_T ImmedStatus;
-    int32_T SequenceId;
+    int32_T SequenceID;
     MissionModes MissionMode;
-    int32_T NumUAV;
+    int32_T numUAV;
     int32_T FormationPos;
 };
 
@@ -132,7 +113,7 @@ struct LookAheadPoint
 #define DEFINED_TYPEDEF_FOR_QueuePolicy_T_
 
 typedef enum {
-    MSG_QUEUE_UNUSED = -1,             // Default value
+    MSG_QUEUE_UNUSED = -1,
     MSG_FIFO_QUEUE,
     MSG_LIFO_QUEUE,
     MSG_PRIORITY_QUEUE
@@ -175,10 +156,8 @@ struct MemPool_missionCmd
 
 #endif
 
-// Custom Type definition for MATLAB Function: '<S6>/CommandCheck'
 #include <stdio.h>
 
-// Custom Type definition for MATLAB Function: '<Root>/getCurrentTime'
 #include "coder_posix_time.h"
 #ifndef struct_robotics_slcore_internal_block_CoordinateTransformationConversion_codegenReal2Mission_T
 #define struct_robotics_slcore_internal_block_CoordinateTransformationConversion_codegenReal2Mission_T
@@ -190,7 +169,6 @@ struct
 };
 
 #endif
-// struct_robotics_slcore_internal_block_CoordinateTransformationConversion_codegenReal2Mission_T 
 
 #ifndef struct_cell_wrap_codegenReal2Mission_T
 #define struct_cell_wrap_codegenReal2Mission_T
@@ -200,7 +178,7 @@ struct cell_wrap_codegenReal2Mission_T
     uint32_T f1[8];
 };
 
-#endif                                // struct_cell_wrap_codegenReal2Mission_T
+#endif
 
 #ifndef struct_uav_sluav_internal_system_OrbitFollower_codegenReal2Mission_T
 #define struct_uav_sluav_internal_system_OrbitFollower_codegenReal2Mission_T
@@ -222,7 +200,7 @@ struct uav_sluav_internal_system_OrbitFollower_codegenReal2Mission_T
     real_T PrevResetSignal;
 };
 
-#endif  // struct_uav_sluav_internal_system_OrbitFollower_codegenReal2Mission_T
+#endif
 
 #ifndef struct_uav_sluav_internal_system_WaypointFollower_codegenReal2Mission_T
 #define struct_uav_sluav_internal_system_WaypointFollower_codegenReal2Mission_T
@@ -245,7 +223,6 @@ struct uav_sluav_internal_system_WaypointFollower_codegenReal2Mission_T
 };
 
 #endif
-     // struct_uav_sluav_internal_system_WaypointFollower_codegenReal2Mission_T
 
 #ifndef struct_emxArray_char_T_1x16_codegenReal2Mission_T
 #define struct_emxArray_char_T_1x16_codegenReal2Mission_T
@@ -256,9 +233,8 @@ struct emxArray_char_T_1x16_codegenReal2Mission_T
     int32_T size[2];
 };
 
-#endif                     // struct_emxArray_char_T_1x16_codegenReal2Mission_T
+#endif
 
-// Custom Type definition for MATLAB Function: '<S9>/PrintOnboardLog'
 #ifndef struct_cell_wrap_1_codegenReal2Mission_T
 #define struct_cell_wrap_1_codegenReal2Mission_T
 
@@ -267,7 +243,7 @@ struct cell_wrap_1_codegenReal2Mission_T
     emxArray_char_T_1x16_codegenReal2Mission_T f1;
 };
 
-#endif                              // struct_cell_wrap_1_codegenReal2Mission_T
+#endif
 
 #ifndef struct_emxArray_real_T_codegenReal2Mission_T
 #define struct_emxArray_real_T_codegenReal2Mission_T
@@ -281,11 +257,6 @@ struct emxArray_real_T_codegenReal2Mission_T
     boolean_T canFreeData;
 };
 
-#endif                          // struct_emxArray_real_T_codegenReal2Mission_T
-#endif                               // RTW_HEADER_codegenReal2Mission_types_h_
+#endif
+#endif
 
-//
-// File trailer for generated code.
-//
-// [EOF]
-//

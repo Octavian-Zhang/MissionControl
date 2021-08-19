@@ -1,17 +1,7 @@
-//
-// File: split_MzIWb6Db.cpp
-//
-// Code generated for Simulink model 'codegenReal2Mission'.
-//
-// Model version                  : 2.654
-// Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Jun 28 22:54:24 2021
-//
 #include "rtwtypes.h"
 #include <cmath>
 #include "split_MzIWb6Db.h"
 
-// Function for MATLAB Function: '<S9>/MATLAB Function'
 creal_T split_MzIWb6Db(real_T a)
 {
     creal_T aout;
@@ -38,9 +28,3 @@ creal_T split_MzIWb6Db(real_T a)
 
     return aout;
 }
-
-//
-// File trailer for generated code.
-//
-// [EOF]
-//

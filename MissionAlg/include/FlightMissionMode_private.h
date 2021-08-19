@@ -1,21 +1,3 @@
-//
-// File: FlightMissionMode_private.h
-//
-// Code generated for Simulink model 'FlightMissionMode'.
-//
-// Model version                  : 2.689
-// Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Fri Jul  2 08:01:55 2021
-//
-// Target selection: ert.tlc
-// Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
-// Code generation objectives:
-//    1. Safety precaution
-//    2. Execution efficiency
-//    3. RAM efficiency
-//    4. ROM efficiency
-// Validation result: Not run
-//
 #ifndef RTW_HEADER_FlightMissionMode_private_h_
 #define RTW_HEADER_FlightMissionMode_private_h_
 #include "rtwtypes.h"
@@ -68,10 +50,8 @@ Verification pane for ERT based targets, which will disable the \
 preprocessor word size checks.
 #endif
 
-// Skipping ulong_long/long_long check: insufficient preprocessor integer range. 
-#endif                                 // PORTABLE_WORDSIZES
+#endif
 
-// Macros for accessing real-time model data structure
 #ifndef rtmGetErrorStatus
 #define rtmGetErrorStatus(rtm)         (*((rtm)->errorStatus))
 #endif
@@ -88,15 +68,9 @@ preprocessor word size checks.
 #define rtmSetErrorStatusPointer(rtm, val) ((rtm)->errorStatus = (val))
 #endif
 
-// Imported (extern) states
-extern void* AltitudeGCS_m0;           // synthesized block
-extern void* LatitudeGCS_m0;           // synthesized block
-extern void* LongitudeGCS_m0;          // synthesized block
+extern void* AltitudeGCS_m0;
+extern void* LatitudeGCS_m0;
+extern void* LongitudeGCS_m0;
 
-#endif                               // RTW_HEADER_FlightMissionMode_private_h_
+#endif
 
-//
-// File trailer for generated code.
-//
-// [EOF]
-//

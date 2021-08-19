@@ -1,12 +1,3 @@
-//
-// File: rt_zcfcn.h
-//
-// Code generated for Simulink model 'codegenReal2Mission'.
-//
-// Model version                  : 2.654
-// Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Jun 28 22:54:24 2021
-//
 #ifndef RTW_HEADER_rt_zcfcn_h_
 #define RTW_HEADER_rt_zcfcn_h_
 #include "rtwtypes.h"
@@ -31,12 +22,7 @@ extern "C" {
 
 #ifdef __cplusplus
 
-}                                      // extern "C"
+}
 #endif
-#endif                                 // RTW_HEADER_rt_zcfcn_h_
+#endif
 
-//
-// File trailer for generated code.
-//
-// [EOF]
-//

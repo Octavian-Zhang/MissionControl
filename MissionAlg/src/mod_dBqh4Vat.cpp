@@ -1,18 +1,8 @@
-//
-// File: mod_dBqh4Vat.cpp
-//
-// Code generated for Simulink model 'FlightMissionMode'.
-//
-// Model version                  : 2.687
-// Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Jun 28 22:52:13 2021
-//
 #include "rtwtypes.h"
 #include "rt_nonfinite.h"
 #include <cmath>
 #include "mod_dBqh4Vat.h"
 
-// Function for MATLAB Function: '<S161>/WayPointGenerator'
 real_T mod_dBqh4Vat(real_T x)
 {
     real_T q;
@@ -43,9 +33,3 @@ real_T mod_dBqh4Vat(real_T x)
 
     return r;
 }
-
-//
-// File trailer for generated code.
-//
-// [EOF]
-//

@@ -1,12 +1,3 @@
-//
-// File: rt_mrdivide_U1d1x3_U2d3x3_Yd1x3_snf.cpp
-//
-// Code generated for Simulink model 'FlightMissionMode'.
-//
-// Model version                  : 2.687
-// Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Jun 28 22:52:13 2021
-//
 #include "rtwtypes.h"
 #include <cmath>
 #include <cstring>
@@ -66,9 +57,3 @@ void rt_mrdivide_U1d1x3_U2d3x3_Yd1x3_snf(const real_T u0[3], const real_T u1[9],
     y[r1] -= y[r3] * A[r3];
     y[r1] -= y[r2] * A[r2];
 }
-
-//
-// File trailer for generated code.
-//
-// [EOF]
-//

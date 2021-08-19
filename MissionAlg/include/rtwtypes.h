@@ -1,13 +1,3 @@
-//
-// File: rtwtypes.h
-//
-// Code generated for Simulink model 'Real2SimGuidance'.
-//
-// Model version                  : 2.344
-// Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Jun 28 22:38:59 2021
-//
-
 #ifndef RTWTYPES_H
 #define RTWTYPES_H
 
@@ -208,9 +198,3 @@ typedef struct {
 typedef void * pointer_T;
 
 #endif                                 /* RTWTYPES_H */
-
-//
-// File trailer for generated code.
-//
-// [EOF]
-//

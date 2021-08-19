@@ -1,13 +1,3 @@
-//
-// File: DatalinkInterface.h
-//
-// Code generated for Simulink model 'codegenReal2Mission'.
-//
-// Model version                  : 2.679
-// Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Fri Jul  2 08:04:06 2021
-//
-
 #ifndef RTW_HEADER_DatalinkInterface_h_
 #define RTW_HEADER_DatalinkInterface_h_
 #include "MissionModes.h"
@@ -45,7 +35,7 @@ struct Time
 
 struct IndividualUAVCmd
 {
-    int32_T SequenceId;
+    int32_T SequenceID;
     MissionModes MissionMode;
     Location MissionLocation;
     Parameters params;
@@ -55,10 +45,4 @@ struct IndividualUAVCmd
     Time StartTime;
 };
 
-#endif                                 // RTW_HEADER_DatalinkInterface_h_
-
-//
-// File trailer for generated code.
-//
-// [EOF]
-//
+#endif

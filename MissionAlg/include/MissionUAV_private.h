@@ -1,28 +1,9 @@
-//
-// File: MissionUAV_private.h
-//
-// Code generated for Simulink model 'MissionUAV'.
-//
-// Model version                  : 1.18
-// Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Fri Jul  2 07:51:54 2021
-//
-// Target selection: ert.tlc
-// Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
-// Code generation objectives:
-//    1. Safety precaution
-//    2. Execution efficiency
-//    3. RAM efficiency
-//    4. ROM efficiency
-// Validation result: Not run
-//
 #ifndef RTW_HEADER_MissionUAV_private_h_
 #define RTW_HEADER_MissionUAV_private_h_
 #include "rtwtypes.h"
 #include "model_reference_types.h"
 #include "zero_crossing_types.h"
 
-// Private macros used by the generated code to access rtModel
 #ifndef rtmIsFirstInitCond
 #define rtmIsFirstInitCond(rtm)        ( *((rtm)->timingBridge->firstInitCond) )
 #endif
@@ -35,7 +16,6 @@
 #define rtmIsMinorTimeStep(rtm)        ((rtmGetSimTimeStep((rtm))) == MINOR_TIME_STEP)
 #endif
 
-// Macros for accessing real-time model data structure
 #ifndef rtmGetErrorStatus
 #define rtmGetErrorStatus(rtm)         (*((rtm)->errorStatus))
 #endif
@@ -83,10 +63,5 @@
 #ifndef rtmGetT
 #define rtmGetT(rtm)                   (*((rtm)->timingBridge->taskTime[0]))
 #endif
-#endif                                 // RTW_HEADER_MissionUAV_private_h_
+#endif
 
-//
-// File trailer for generated code.
-//
-// [EOF]
-//

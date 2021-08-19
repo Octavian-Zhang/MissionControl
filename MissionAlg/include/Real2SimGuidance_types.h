@@ -1,26 +1,8 @@
-//
-// File: Real2SimGuidance_types.h
-//
-// Code generated for Simulink model 'Real2SimGuidance'.
-//
-// Model version                  : 2.344
-// Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Fri Jul  2 07:51:01 2021
-//
-// Target selection: ert.tlc
-// Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
-// Code generation objectives:
-//    1. Safety precaution
-//    2. Execution efficiency
-//    3. RAM efficiency
-//    4. ROM efficiency
-// Validation result: Not run
-//
 #ifndef RTW_HEADER_Real2SimGuidance_types_h_
 #define RTW_HEADER_Real2SimGuidance_types_h_
 #include "rtwtypes.h"
+#include "MissionModes.h"
 
-// Model Code Variants
 #ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceStateBus_
 #define DEFINED_TYPEDEF_FOR_FixedWingGuidanceStateBus_
 
@@ -78,6 +60,21 @@ struct VectorSpeed
 
 #endif
 
+#ifndef DEFINED_TYPEDEF_FOR_TaskStatus_
+#define DEFINED_TYPEDEF_FOR_TaskStatus_
+
+struct TaskStatus
+{
+    int32_T FlightStatus;
+    int32_T ImmedStatus;
+    int32_T SequenceID;
+    MissionModes MissionMode;
+    int32_T numUAV;
+    int32_T FormationPos;
+};
+
+#endif
+
 #ifndef DEFINED_TYPEDEF_FOR_LookAheadPoint_
 #define DEFINED_TYPEDEF_FOR_LookAheadPoint_
 
@@ -98,7 +95,7 @@ struct cell_wrap_Real2SimGuidance_T
     uint32_T f1[8];
 };
 
-#endif                                 // struct_cell_wrap_Real2SimGuidance_T
+#endif
 
 #ifndef struct_uav_sluav_internal_system_WaypointFollower_Real2SimGuidance_T
 #define struct_uav_sluav_internal_system_WaypointFollower_Real2SimGuidance_T
@@ -119,7 +116,7 @@ struct uav_sluav_internal_system_WaypointFollower_Real2SimGuidance_T
     uint8_T LookaheadDistFlag;
 };
 
-#endif  // struct_uav_sluav_internal_system_WaypointFollower_Real2SimGuidance_T
+#endif
 
 #ifndef struct_emxArray_real_T_Real2SimGuidance_T
 #define struct_emxArray_real_T_Real2SimGuidance_T
@@ -133,15 +130,9 @@ struct emxArray_real_T_Real2SimGuidance_T
     boolean_T canFreeData;
 };
 
-#endif                             // struct_emxArray_real_T_Real2SimGuidance_T
+#endif
 
-// Forward declaration for rtModel
 typedef struct tag_RTM_Real2SimGuidance_T RT_MODEL_Real2SimGuidance_T;
 
-#endif                                 // RTW_HEADER_Real2SimGuidance_types_h_
+#endif
 
-//
-// File trailer for generated code.
-//
-// [EOF]
-//

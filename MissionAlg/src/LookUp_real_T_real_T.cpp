@@ -1,17 +1,7 @@
-//
-// File: LookUp_real_T_real_T.cpp
-//
-// Code generated for Simulink model 'codegenReal2Mission'.
-//
-// Model version                  : 2.654
-// Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Jun 28 22:54:24 2021
-//
 #include "rtwtypes.h"
 #include "BINARYSEARCH_real_T.h"
 #include "LookUp_real_T_real_T.h"
 
-// Lookup Utility LookUp_real_T_real_T
 void LookUp_real_T_real_T(real_T *pY, const real_T *pYData, real_T u, const
     real_T *pUData, uint32_T iHi)
 {
@@ -43,9 +33,3 @@ void LookUp_real_T_real_T(real_T *pY, const real_T *pYData, real_T u, const
         }
     }
 }
-
-//
-// File trailer for generated code.
-//
-// [EOF]
-//

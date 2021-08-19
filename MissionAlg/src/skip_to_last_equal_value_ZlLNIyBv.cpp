@@ -1,18 +1,8 @@
-//
-// File: skip_to_last_equal_value_ZlLNIyBv.cpp
-//
-// Code generated for Simulink model 'FlightMissionMode'.
-//
-// Model version                  : 2.687
-// Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Jun 28 22:52:13 2021
-//
 #include "rtwtypes.h"
 #include <cmath>
 #include <math.h>
 #include "skip_to_last_equal_value_ZlLNIyBv.h"
 
-// Function for MATLAB Function: '<S161>/WayPointGenerator'
 real_T skip_to_last_equal_value_ZlLNIyBv(int32_T *k, const real_T x[28], const
     int32_T perm[28])
 {
@@ -40,9 +30,3 @@ real_T skip_to_last_equal_value_ZlLNIyBv(int32_T *k, const real_T x[28], const
 
     return xk;
 }
-
-//
-// File trailer for generated code.
-//
-// [EOF]
-//

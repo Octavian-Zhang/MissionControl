@@ -1,53 +1,38 @@
-//
-// File: rt_zcfcn.cpp
-//
-// Code generated for Simulink model 'codegenReal2Mission'.
-//
-// Model version                  : 2.654
-// Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Jun 28 22:54:24 2021
-//
 #include "rt_zcfcn.h"
 
 extern "C" {
-    // Detect zero crossings events.
     ZCEventType rt_ZCFcn(ZCDirection zcDir, ZCSigState* prevZc, real_T currValue)
     {
         slZcEventType zcsDir;
         slZcEventType tempEv;
-        ZCEventType zcEvent{ NO_ZCEVENT };// assume
+        ZCEventType zcEvent{ NO_ZCEVENT };
 
-        // zcEvent matrix
         static const slZcEventType eventMatrix[4][4]{
-            //          ZER              POS              NEG              UNK
+
             { SL_ZCS_EVENT_NUL, SL_ZCS_EVENT_Z2P, SL_ZCS_EVENT_Z2N,
-                SL_ZCS_EVENT_NUL },    // ZER
+                SL_ZCS_EVENT_NUL },
 
             { SL_ZCS_EVENT_P2Z, SL_ZCS_EVENT_NUL, SL_ZCS_EVENT_P2N,
-                SL_ZCS_EVENT_NUL },    // POS
+                SL_ZCS_EVENT_NUL },
 
             { SL_ZCS_EVENT_N2Z, SL_ZCS_EVENT_N2P, SL_ZCS_EVENT_NUL,
-                SL_ZCS_EVENT_NUL },    // NEG
+                SL_ZCS_EVENT_NUL },
 
             { SL_ZCS_EVENT_NUL, SL_ZCS_EVENT_NUL, SL_ZCS_EVENT_NUL,
-                SL_ZCS_EVENT_NUL }     // UNK
+                SL_ZCS_EVENT_NUL }
         };
 
-        // get prevZcEvent and prevZcSign from prevZc
         slZcEventType prevEv{ (slZcEventType)(((uint8_T)(*prevZc)) >> 2) };
 
         slZcSignalSignType prevSign{ (slZcSignalSignType)(((uint8_T)(*prevZc)) &
             (uint8_T)0x03) };
 
-        // get current zcSignal sign from current zcSignal value
         slZcSignalSignType currSign{ (slZcSignalSignType)((currValue) > 0.0 ?
             SL_ZCS_SIGN_POS :
             ((currValue) < 0.0 ? SL_ZCS_SIGN_NEG : SL_ZCS_SIGN_ZERO)) };
 
-        // get current zcEvent based on prev and current zcSignal value
         slZcEventType currEv { eventMatrix[prevSign][currSign] };
 
-        // get slZcEventType from ZCDirection
         switch (zcDir) {
           case ANY_ZERO_CROSSING:
             zcsDir = SL_ZCS_EVENT_ALL;
@@ -66,15 +51,13 @@ extern "C" {
             break;
         }
 
-        //had event, check if double zc happend remove double detection.
         if (slZcHadEvent(currEv, zcsDir)) {
             currEv = (slZcEventType)(slZcUnAliasEvents(prevEv, currEv));
         } else {
             currEv = SL_ZCS_EVENT_NUL;
         }
 
-        // Update prevZc
-        tempEv = (slZcEventType)(currEv << 2);// shift left by 2 bits
+        tempEv = (slZcEventType)(currEv << 2);
         *prevZc = (ZCSigState)((currSign) | (tempEv));
         if ((currEv & SL_ZCS_EVENT_ALL_DN) != 0) {
             zcEvent = FALLING_ZCEVENT;
@@ -85,10 +68,10 @@ extern "C" {
         }
 
         return zcEvent;
-    }                                  // rt_ZCFcn
+    }
 }
-//
-// File trailer for generated code.
-//
-// [EOF]
-//
+
+
+
+
+

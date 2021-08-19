@@ -1,26 +1,7 @@
-//
-// File: MissionUAV.cpp
-//
-// Code generated for Simulink model 'MissionUAV'.
-//
-// Model version                  : 1.18
-// Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Fri Jul  2 07:51:54 2021
-//
-// Target selection: ert.tlc
-// Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
-// Code generation objectives:
-//    1. Safety precaution
-//    2. Execution efficiency
-//    3. RAM efficiency
-//    4. ROM efficiency
-// Validation result: Not run
-//
 #include "MissionUAV.h"
 #include "MissionUAV_private.h"
 #include "rt_atan2d_snf.h"
 
-// Forward declaration for local functions
 static void MissionUAV_Model_resetImpl
     (robotics_core_internal_system_navigation_Model_MissionUAV_T *obj);
 static void MissionUAV_Model_resetImpl
@@ -42,7 +23,6 @@ static void MissionUAV_Model_resetImpl
     obj->ModelImpl.Configuration.FlightPathAngleLimits[1] = 0.21109333322274654;
 }
 
-// System initialize for referenced model: 'MissionUAV'
 void MissionUAV_Init(RT_MODEL_MissionUAV_T * const MissionUAV_M,
                      DW_MissionUAV_f_T *localDW, X_MissionUAV_n_T *localX)
 {
@@ -70,7 +50,6 @@ void MissionUAV_Init(RT_MODEL_MissionUAV_T * const MissionUAV_M,
     localDW->obj.OutputTemplate.RollAngleRate = 0.0;
 }
 
-// Outputs for referenced model: 'MissionUAV'
 void MissionUAV(RT_MODEL_MissionUAV_T * const MissionUAV_M, const real_T
                 *rtu_ResetState, const real_T rtu_StartPos[8], const real_T
                 *rtu_UAVGuidanceCmd_Height, const real_T
@@ -103,7 +82,6 @@ void MissionUAV(RT_MODEL_MissionUAV_T * const MissionUAV_M, const real_T
     rEQ0 = rtsiGetIsOkayToUpdateMode(MissionUAV_M->solverInfo);
     if (rEQ0 && (static_cast<boolean_T>(static_cast<int32_T>((*rtu_ResetState !=
             0.0) | (localDW->Integrator_IWORK != 0))))) {
-        // evaluate the level of the reset signal
         std::memcpy(&localX->Integrator_CSTATE[0], &rtu_StartPos[0],
                     static_cast<uint32_T>(sizeof(real_T) << 3U));
     }
@@ -331,13 +309,11 @@ void MissionUAV(RT_MODEL_MissionUAV_T * const MissionUAV_M, const real_T
     }
 }
 
-// Update for referenced model: 'MissionUAV'
 void MissionUAV_Update(DW_MissionUAV_f_T *localDW)
 {
     localDW->Integrator_IWORK = 0;
 }
 
-// Derivatives for referenced model: 'MissionUAV'
 void MissionUAV_Deriv(const real_T *rtu_ResetState, DW_MissionUAV_f_T *localDW,
                       XDot_MissionUAV_n_T *localXdot)
 {
@@ -346,7 +322,6 @@ void MissionUAV_Deriv(const real_T *rtu_ResetState, DW_MissionUAV_f_T *localDW,
                     &localDW->ComputeDerivative[0], static_cast<uint32_T>(sizeof
                      (real_T) << 3U));
     } else {
-        // level reset is active
         std::memset(&localXdot->Integrator_CSTATE[0], 0, static_cast<uint32_T>
                     (sizeof(real_T) << 3U));
     }
@@ -355,36 +330,18 @@ void MissionUAV_Deriv(const real_T *rtu_ResetState, DW_MissionUAV_f_T *localDW,
     localXdot->dotBankTD_CSTATE = localDW->fh;
 }
 
-// Model initialize function
 void MissionUAV_initialize(const char_T **rt_errorStatus, boolean_T
     *rt_stopRequested, RTWSolverInfo *rt_solverInfo, const rtTimingBridge
     *timingBridge, RT_MODEL_MissionUAV_T *const MissionUAV_M, ZCE_MissionUAV_T
     *localZCE)
 {
-    // Registration code
-
-    // initialize non-finites
     rt_InitInfAndNaN(sizeof(real_T));
     MissionUAV_M->timingBridge = (timingBridge);
-
-    // initialize error status
     rtmSetErrorStatusPointer(MissionUAV_M, rt_errorStatus);
-
-    // initialize stop requested flag
     rtmSetStopRequestedPtr(MissionUAV_M, rt_stopRequested);
-
-    // initialize RTWSolverInfo
     MissionUAV_M->solverInfo = (rt_solverInfo);
-
-    // Set the Timing fields to the appropriate data in the RTWSolverInfo
     rtmSetSimTimeStepPointer(MissionUAV_M, rtsiGetSimTimeStepPtr
         (MissionUAV_M->solverInfo));
     MissionUAV_M->Timing.stepSize0 = (rtsiGetStepSize(MissionUAV_M->solverInfo));
     localZCE->Integrator_Reset_ZCE = UNINITIALIZED_ZCSIG;
 }
-
-//
-// File trailer for generated code.
-//
-// [EOF]
-//

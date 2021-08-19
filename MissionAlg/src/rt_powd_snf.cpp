@@ -1,12 +1,3 @@
-//
-// File: rt_powd_snf.cpp
-//
-// Code generated for Simulink model 'Real2SimGuidance'.
-//
-// Model version                  : 2.344
-// Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Jun 28 22:38:59 2021
-//
 #include "rtwtypes.h"
 #include "rtGetNaN.h"
 #include "rt_nonfinite.h"
@@ -62,9 +53,3 @@ real_T rt_powd_snf(real_T u0, real_T u1)
 
     return y;
 }
-
-//
-// File trailer for generated code.
-//
-// [EOF]
-//
