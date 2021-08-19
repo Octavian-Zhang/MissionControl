@@ -1,21 +1,3 @@
-//
-// File: ert_main.cpp
-//
-// Code generated for Simulink model 'codegenReal2Mission'.
-//
-// Model version                  : 2.679
-// Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Thu Jul  1 19:35:55 2021
-//
-// Target selection: ert.tlc
-// Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
-// Code generation objectives:
-//    1. Safety precaution
-//    2. Execution efficiency
-//    3. RAM efficiency
-//    4. ROM efficiency
-// Validation result: Not run
-//
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
