@@ -1,3 +1,21 @@
+//
+// File: ert_main.cpp
+//
+// Code generated for Simulink model 'codegenReal2Mission'.
+//
+// Model version                  : 3.91
+// Simulink Coder version         : 9.6 (R2021b) 14-May-2021
+// C/C++ source code generated on : Wed Feb 23 00:38:39 2022
+//
+// Target selection: ert.tlc
+// Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
+// Code generation objectives:
+//    1. Safety precaution
+//    2. Execution efficiency
+//    3. RAM efficiency
+//    4. ROM efficiency
+// Validation result: Not run
+//
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
@@ -8,17 +26,9 @@
 #include <signal.h>
 #include <time.h>
 #include "rt_nonfinite.h"
-#include <stdio.h>                // This ert_main.c example uses printf/fflush
+#include <stdio.h>              // This example main program uses printf/fflush
 #include "codegenReal2Mission.h"       // Model's header file
-#include "rtwtypes.h"
-#include "model_reference_types.h"
-#include "builtin_typeid_types.h"
-#include "multiword_types.h"
-#include "zero_crossing_types.h"
 #include "rt_logging.h"
-
-#include "MW_ert_main.h"
-
 #ifndef SAVEFILE
 #define MATFILE2(file)                 #file ".mat"
 #define MATFILE1(file)                 MATFILE2(file)
@@ -35,8 +45,6 @@ class codegenReal2MissionModelClassSendData_IndividualUAVCmdT : public
     void SendData(const IndividualUAVCmd* data, int32_T length, int32_T* status)
     {
         // Add send data logic here
-        // 存在任务反馈信息时，通过下述代码设置标识、更新数据
-        pCommonData->setMissionCmdFB(*data);
     }
 };
 
@@ -48,8 +56,6 @@ class codegenReal2MissionModelClassRecvData_IndividualUAVCmdT : public
     void RecvData(IndividualUAVCmd* data, int32_T length, int32_T* status)
     {
         // Add receive data logic here
-        //下一行代码获取数据收发软件发送过来的任务指令
-        *data = *(pCommonData->getMissionCmd());
     }
 };
 
@@ -167,21 +173,9 @@ void* periodicTask(void *arg)
     MW_blockSignal(SIGRTMIN, &ss);
     while (1) {
         MW_sem_wait(&periodicTaskStartSem[taskId]);
-
-        // Set model inputs here
-        codegenReal2Mission_Obj.setExternalInputs(&pCommonData->getExtU());
-
-        // push new mission
-        std::async(std::launch::async, [&]()
-           {if (pCommonData->NewMissionCMD()){ printf("Push New Mission!\n"); fflush(stdout);
-                codegenReal2Mission_Obj.codegenReal2Mission_PushNewMission(); }
-            else { printf("."); fflush(stdout); }; });
-
         codegenReal2Mission_Obj.step();
 
         // Get model outputs here
-        pCommonData->setExtY(codegenReal2Mission_Obj.getExternalOutputs());
-
         ret = sem_post(&periodicTaskStopSem[taskId]);
         CHECK_STATUS(ret, "sem_post");
     }
@@ -237,17 +231,20 @@ void sigHandler_TimerSignal(int signo, siginfo_t *sigInfo, void *ctx)
     }
 }
 
-int MW_ert_main()
+int main(int argc, const char *argv[])
 {
     int i;
     pthread_t periodicThread[1];
     pthread_t periodicTriggerThread[1];
     struct sched_param sp;
-    int ret, policy = SCHED_RR;
+    int ret, policy;
     pthread_attr_t attr;
     double periodicTriggerRate[1];
     int priority[1];
 
+    // Unused arguments
+    (void)(argc);
+    (void)(argv);
     priority[0] = 38;
     periodicTriggerRate[0] = 0.1;
     printf("**starting the model**\n");
@@ -262,12 +259,10 @@ int MW_ert_main()
 
     // Create threads executing the Simulink model
     pthread_attr_init(&attr);
-    ret = pthread_attr_setinheritsched(&attr, PTHREAD_EXPLICIT_SCHED);
+    ret = pthread_attr_setinheritsched(&attr, PTHREAD_INHERIT_SCHED);
     CHECK_STATUS(ret, "pthread_attr_setinheritsched");
     ret = pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
     CHECK_STATUS(ret, "pthread_attr_setdetachstate");
-    ret = pthread_attr_setschedpolicy(&attr, policy);
-    CHECK_STATUS(ret, "pthread_attr_setschedpolicy");
     ret = pthread_attr_getschedpolicy(&attr, &policy);
     CHECK_STATUS(ret, "pthread_attr_getschedpolicy");
 
@@ -340,8 +335,6 @@ int MW_ert_main()
         fprintf(stderr, "\n**%s**\n", rtmGetErrorStatus
                 (codegenReal2Mission_Obj.getRTM()));
     }
-
-    // Disable rt_OneStep() here
 
     // Terminate model
     codegenReal2Mission_Obj.terminate();
