@@ -52,7 +52,8 @@ typedef enum
     SS_INTEGER = 10,
     SS_POINTER = 11,
     SS_INTERNAL_DTYPE2 = 12,
-    SS_TIMER_UINT32_PAIR = 13
+    SS_TIMER_UINT32_PAIR = 13,
+    SS_CONNECTION_TYPE = 14
 
     /* if last in list changes also update define below */
 
@@ -60,7 +61,7 @@ typedef enum
 
 #define SS_DOUBLE_UINT32  SS_TIMER_UINT32_PAIR
 
-#define SS_NUM_PREDEFINED_DTYPES  5
+#define SS_NUM_PREDEFINED_DTYPES  6
 
 #ifndef SYMBOLIC_DIMS_ID
 #define SYMBOLIC_DIMS_ID

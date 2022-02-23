@@ -1,7 +1,66 @@
+//
+// File: Real2SimGuidance_types.h
+//
+// Code generated for Simulink model 'Real2SimGuidance'.
+//
+// Model version                  : 3.11
+// Simulink Coder version         : 9.6 (R2021b) 14-May-2021
+// C/C++ source code generated on : Wed Feb 23 00:20:42 2022
+//
+// Target selection: ert.tlc
+// Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
+// Code generation objectives:
+//    1. Safety precaution
+//    2. Execution efficiency
+//    3. RAM efficiency
+//    4. ROM efficiency
+// Validation result: Not run
+//
 #ifndef RTW_HEADER_Real2SimGuidance_types_h_
 #define RTW_HEADER_Real2SimGuidance_types_h_
 #include "rtwtypes.h"
-#include "MissionModes.h"
+
+// Model Code Variants
+#ifndef DEFINED_TYPEDEF_FOR_RealUAVStateBus_
+#define DEFINED_TYPEDEF_FOR_RealUAVStateBus_
+
+struct RealUAVStateBus
+{
+    real_T Latitude_deg;
+    real_T Longitude_deg;
+    real_T Height_meter;
+    real_T AirSpeed_mps;
+    real_T HeadingAngle_deg;
+    real_T FlightPathAngle_deg;
+    real_T RollAngle_deg;
+};
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_VectorSpeed_
+#define DEFINED_TYPEDEF_FOR_VectorSpeed_
+
+struct VectorSpeed
+{
+    real_T eastSpeed;
+    real_T northSpeed;
+    real_T skySpeed;
+};
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_StateFCU_
+#define DEFINED_TYPEDEF_FOR_StateFCU_
+
+struct StateFCU
+{
+    RealUAVStateBus RealUAVState;
+    real_T GndSpd_mps;
+    real_T Altitude;
+    VectorSpeed VecSpd;
+};
+
+#endif
 
 #ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceStateBus_
 #define DEFINED_TYPEDEF_FOR_FixedWingGuidanceStateBus_
@@ -20,22 +79,6 @@ struct FixedWingGuidanceStateBus
 
 #endif
 
-#ifndef DEFINED_TYPEDEF_FOR_RealUAVStateBus_
-#define DEFINED_TYPEDEF_FOR_RealUAVStateBus_
-
-struct RealUAVStateBus
-{
-    real_T Latitude_deg;
-    real_T Longitude_deg;
-    real_T Height_meter;
-    real_T AirSpeed_mps;
-    real_T HeadingAngle_deg;
-    real_T FlightPathAngle_deg;
-    real_T RollAngle_deg;
-};
-
-#endif
-
 #ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
 #define DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
 
@@ -48,41 +91,15 @@ struct FixedWingGuidanceBus
 
 #endif
 
-#ifndef DEFINED_TYPEDEF_FOR_VectorSpeed_
-#define DEFINED_TYPEDEF_FOR_VectorSpeed_
+#ifndef DEFINED_TYPEDEF_FOR_FCUCMD_
+#define DEFINED_TYPEDEF_FOR_FCUCMD_
 
-struct VectorSpeed
-{
-    real_T eastSpeed;
-    real_T northSpeed;
-    real_T skySpeed;
-};
-
-#endif
-
-#ifndef DEFINED_TYPEDEF_FOR_TaskStatus_
-#define DEFINED_TYPEDEF_FOR_TaskStatus_
-
-struct TaskStatus
-{
-    int32_T FlightStatus;
-    int32_T ImmedStatus;
-    int32_T SequenceID;
-    MissionModes MissionMode;
-    int32_T numUAV;
-    int32_T FormationPos;
-};
-
-#endif
-
-#ifndef DEFINED_TYPEDEF_FOR_LookAheadPoint_
-#define DEFINED_TYPEDEF_FOR_LookAheadPoint_
-
-struct LookAheadPoint
+struct FCUCMD
 {
     real_T Latitude_deg;
     real_T Longitude_deg;
     real_T Height_meter;
+    real_T RefAirSpd_mps;
 };
 
 #endif
@@ -95,7 +112,7 @@ struct cell_wrap_Real2SimGuidance_T
     uint32_T f1[8];
 };
 
-#endif
+#endif                                 // struct_cell_wrap_Real2SimGuidance_T
 
 #ifndef struct_uav_sluav_internal_system_WaypointFollower_Real2SimGuidance_T
 #define struct_uav_sluav_internal_system_WaypointFollower_Real2SimGuidance_T
@@ -116,7 +133,7 @@ struct uav_sluav_internal_system_WaypointFollower_Real2SimGuidance_T
     uint8_T LookaheadDistFlag;
 };
 
-#endif
+#endif  // struct_uav_sluav_internal_system_WaypointFollower_Real2SimGuidance_T
 
 #ifndef struct_emxArray_real_T_Real2SimGuidance_T
 #define struct_emxArray_real_T_Real2SimGuidance_T
@@ -130,9 +147,15 @@ struct emxArray_real_T_Real2SimGuidance_T
     boolean_T canFreeData;
 };
 
-#endif
+#endif                             // struct_emxArray_real_T_Real2SimGuidance_T
 
+// Forward declaration for rtModel
 typedef struct tag_RTM_Real2SimGuidance_T RT_MODEL_Real2SimGuidance_T;
 
-#endif
+#endif                                 // RTW_HEADER_Real2SimGuidance_types_h_
 
+//
+// File trailer for generated code.
+//
+// [EOF]
+//

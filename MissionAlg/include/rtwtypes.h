@@ -1,3 +1,13 @@
+//
+// File: rtwtypes.h
+//
+// Code generated for Simulink model 'codegenLogging'.
+//
+// Model version                  : 3.62
+// Simulink Coder version         : 9.6 (R2021b) 14-May-2021
+// C/C++ source code generated on : Wed Feb 23 00:19:48 2022
+//
+
 #ifndef RTWTYPES_H
 #define RTWTYPES_H
 
@@ -198,3 +208,9 @@ typedef struct {
 typedef void * pointer_T;
 
 #endif                                 /* RTWTYPES_H */
+
+//
+// File trailer for generated code.
+//
+// [EOF]
+//

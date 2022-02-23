@@ -1,5 +1,13 @@
+//
+// File: rt_powd_snf.cpp
+//
+// Code generated for Simulink model 'Real2SimGuidance'.
+//
+// Model version                  : 3.11
+// Simulink Coder version         : 9.6 (R2021b) 14-May-2021
+// C/C++ source code generated on : Wed Feb 23 00:20:42 2022
+//
 #include "rtwtypes.h"
-#include "rtGetNaN.h"
 #include "rt_nonfinite.h"
 #include "rtGetInf.h"
 #include <cmath>
@@ -7,13 +15,13 @@
 
 real_T rt_powd_snf(real_T u0, real_T u1)
 {
-    real_T tmp;
-    real_T tmp_0;
     real_T y;
     if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(std::
             isnan(u0)) | static_cast<int32_T>(std::isnan(u1))))) {
         y = (rtNaN);
     } else {
+        real_T tmp;
+        real_T tmp_0;
         tmp = std::abs(u0);
         tmp_0 = std::abs(u1);
         if (std::isinf(u1)) {
@@ -53,3 +61,9 @@ real_T rt_powd_snf(real_T u0, real_T u1)
 
     return y;
 }
+
+//
+// File trailer for generated code.
+//
+// [EOF]
+//

@@ -1,7 +1,26 @@
+//
+// File: Real2SimGuidance_private.h
+//
+// Code generated for Simulink model 'Real2SimGuidance'.
+//
+// Model version                  : 3.11
+// Simulink Coder version         : 9.6 (R2021b) 14-May-2021
+// C/C++ source code generated on : Wed Feb 23 00:20:42 2022
+//
+// Target selection: ert.tlc
+// Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
+// Code generation objectives:
+//    1. Safety precaution
+//    2. Execution efficiency
+//    3. RAM efficiency
+//    4. ROM efficiency
+// Validation result: Not run
+//
 #ifndef RTW_HEADER_Real2SimGuidance_private_h_
 #define RTW_HEADER_Real2SimGuidance_private_h_
 #include "rtwtypes.h"
 
+// Private macros used by the generated code to access rtModel
 #ifndef rtmIsMajorTimeStep
 #define rtmIsMajorTimeStep(rtm)        ((rtmGetSimTimeStep((rtm))) == MAJOR_TIME_STEP)
 #endif
@@ -10,6 +29,7 @@
 #define rtmIsMinorTimeStep(rtm)        ((rtmGetSimTimeStep((rtm))) == MINOR_TIME_STEP)
 #endif
 
+// Macros for accessing real-time model data structure
 #ifndef rtmGetErrorStatus
 #define rtmGetErrorStatus(rtm)         (*((rtm)->errorStatus))
 #endif
@@ -53,10 +73,10 @@
 #ifndef rtmSetStopRequestedPtr
 #define rtmSetStopRequestedPtr(rtm, val) ((rtm)->Timing.stopRequestedFlag = (val))
 #endif
+#endif                                // RTW_HEADER_Real2SimGuidance_private_h_
 
-extern void* AltitudeGCS_m0;
-extern void* LatitudeGCS_m0;
-extern void* LongitudeGCS_m0;
-
-#endif
-
+//
+// File trailer for generated code.
+//
+// [EOF]
+//

@@ -1,3 +1,12 @@
+//
+// File: rt_nonfinite.h
+//
+// Code generated for Simulink model 'MissionUAV'.
+//
+// Model version                  : 2.2
+// Simulink Coder version         : 9.6 (R2021b) 14-May-2021
+// C/C++ source code generated on : Wed Feb 23 00:20:27 2022
+//
 #ifndef RTW_HEADER_rt_nonfinite_h_
 #define RTW_HEADER_rt_nonfinite_h_
 #include <stddef.h>
@@ -42,7 +51,12 @@ extern "C" {
 
 #ifdef __cplusplus
 
-}
+}                                      // extern "C"
 #endif
-#endif
+#endif                                 // RTW_HEADER_rt_nonfinite_h_
 
+//
+// File trailer for generated code.
+//
+// [EOF]
+//

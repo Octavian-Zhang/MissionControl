@@ -1,7 +1,17 @@
+//
+// File: LookUp_real_T_real_T.cpp
+//
+// Code generated for Simulink model 'ImmedMission'.
+//
+// Model version                  : 2.88
+// Simulink Coder version         : 9.6 (R2021b) 14-May-2021
+// C/C++ source code generated on : Wed Feb 23 00:21:56 2022
+//
 #include "rtwtypes.h"
 #include "BINARYSEARCH_real_T.h"
 #include "LookUp_real_T_real_T.h"
 
+// Lookup Utility LookUp_real_T_real_T
 void LookUp_real_T_real_T(real_T *pY, const real_T *pYData, real_T u, const
     real_T *pUData, uint32_T iHi)
 {
@@ -33,3 +43,9 @@ void LookUp_real_T_real_T(real_T *pY, const real_T *pYData, real_T u, const
         }
     }
 }
+
+//
+// File trailer for generated code.
+//
+// [EOF]
+//

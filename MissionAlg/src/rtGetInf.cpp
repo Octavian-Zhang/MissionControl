@@ -1,7 +1,25 @@
+//
+// File: rtGetInf.cpp
+//
+// Code generated for Simulink model 'MissionUAV'.
+//
+// Model version                  : 2.2
+// Simulink Coder version         : 9.6 (R2021b) 14-May-2021
+// C/C++ source code generated on : Wed Feb 23 00:20:27 2022
+//
+
+//
+//  Abstract:
+//       Function to initialize non-finite, Inf
+
 #include "rtGetInf.h"
 #define NumBitsPerChar                 8U
 
 extern "C" {
+    //
+    // Initialize rtInf needed by the generated code.
+    // Inf is initialized as non-signaling. Assumes IEEE.
+    //
     real_T rtGetInf(void)
     {
         size_t bitsPerReal{ sizeof(real_T) * (NumBitsPerChar) };
@@ -52,6 +70,10 @@ extern "C" {
         return inf;
     }
 
+    //
+    // Initialize rtInfF needed by the generated code.
+    // Inf is initialized as non-signaling. Assumes IEEE.
+    //
     real32_T rtGetInfF(void)
     {
         IEEESingle infF;
@@ -59,6 +81,10 @@ extern "C" {
         return infF.wordL.wordLreal;
     }
 
+    //
+    // Initialize rtMinusInf needed by the generated code.
+    // Inf is initialized as non-signaling. Assumes IEEE.
+    //
     real_T rtGetMinusInf(void)
     {
         size_t bitsPerReal{ sizeof(real_T) * (NumBitsPerChar) };
@@ -109,6 +135,10 @@ extern "C" {
         return minf;
     }
 
+    //
+    // Initialize rtMinusInfF needed by the generated code.
+    // Inf is initialized as non-signaling. Assumes IEEE.
+    //
     real32_T rtGetMinusInfF(void)
     {
         IEEESingle minfF;
@@ -116,8 +146,8 @@ extern "C" {
         return minfF.wordL.wordLreal;
     }
 }
-
-
-
-
-
+//
+// File trailer for generated code.
+//
+// [EOF]
+//

@@ -1,3 +1,21 @@
+//
+// File: codegenReal2Mission_private.h
+//
+// Code generated for Simulink model 'codegenReal2Mission'.
+//
+// Model version                  : 3.91
+// Simulink Coder version         : 9.6 (R2021b) 14-May-2021
+// C/C++ source code generated on : Wed Feb 23 00:38:39 2022
+//
+// Target selection: ert.tlc
+// Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
+// Code generation objectives:
+//    1. Safety precaution
+//    2. Execution efficiency
+//    3. RAM efficiency
+//    4. ROM efficiency
+// Validation result: Not run
+//
 #ifndef RTW_HEADER_codegenReal2Mission_private_h_
 #define RTW_HEADER_codegenReal2Mission_private_h_
 #include "rtwtypes.h"
@@ -6,6 +24,7 @@
 #include "multiword_types.h"
 #include "zero_crossing_types.h"
 
+// Private macros used by the generated code to access rtModel
 #ifndef rtmSetFirstInitCond
 #define rtmSetFirstInitCond(rtm, val)  ((rtm)->Timing.firstInitCondFlag = (val))
 #endif
@@ -30,7 +49,13 @@
 #define rtmSetTPtr(rtm, val)           ((rtm)->Timing.t = (val))
 #endif
 
+// private model entry point functions
 extern void codegenReal2Mission_derivatives();
 
-#endif
+#endif                             // RTW_HEADER_codegenReal2Mission_private_h_
 
+//
+// File trailer for generated code.
+//
+// [EOF]
+//

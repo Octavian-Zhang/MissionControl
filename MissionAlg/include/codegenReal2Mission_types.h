@@ -1,3 +1,21 @@
+//
+// File: codegenReal2Mission_types.h
+//
+// Code generated for Simulink model 'codegenReal2Mission'.
+//
+// Model version                  : 3.91
+// Simulink Coder version         : 9.6 (R2021b) 14-May-2021
+// C/C++ source code generated on : Wed Feb 23 00:38:39 2022
+//
+// Target selection: ert.tlc
+// Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
+// Code generation objectives:
+//    1. Safety precaution
+//    2. Execution efficiency
+//    3. RAM efficiency
+//    4. ROM efficiency
+// Validation result: Not run
+//
 #ifndef RTW_HEADER_codegenReal2Mission_types_h_
 #define RTW_HEADER_codegenReal2Mission_types_h_
 #include "rtwtypes.h"
@@ -7,24 +25,8 @@
 #include "zero_crossing_types.h"
 #include "DatalinkInterface.h"
 
+// Model Code Variants
 #include "rtw_linux.h"
-#ifndef DEFINED_TYPEDEF_FOR_missionCmd_
-#define DEFINED_TYPEDEF_FOR_missionCmd_
-
-struct missionCmd
-{
-    int32_T SequenceID;
-    MissionModes MissionMode;
-    Location MissionLocation;
-    Parameters params;
-    Location StartPosition;
-    int32_T numUAV;
-    int32_T FormationPos;
-    real_T StartTime;
-};
-
-#endif
-
 #ifndef DEFINED_TYPEDEF_FOR_RealUAVStateBus_
 #define DEFINED_TYPEDEF_FOR_RealUAVStateBus_
 
@@ -53,14 +55,15 @@ struct VectorSpeed
 
 #endif
 
-#ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
-#define DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
+#ifndef DEFINED_TYPEDEF_FOR_StateFCU_
+#define DEFINED_TYPEDEF_FOR_StateFCU_
 
-struct FixedWingGuidanceBus
+struct StateFCU
 {
-    real_T Height;
-    real_T AirSpeed;
-    real_T HeadingAngle;
+    RealUAVStateBus RealUAVState;
+    real_T GndSpd_mps;
+    real_T Altitude;
+    VectorSpeed VecSpd;
 };
 
 #endif
@@ -82,11 +85,41 @@ struct FixedWingGuidanceStateBus
 
 #endif
 
+#ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
+#define DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
+
+struct FixedWingGuidanceBus
+{
+    real_T Height;
+    real_T AirSpeed;
+    real_T HeadingAngle;
+};
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_missionCmd_
+#define DEFINED_TYPEDEF_FOR_missionCmd_
+
+struct missionCmd
+{
+    int32_T SequenceID;
+    MissionModes MissionMode;
+    Location MissionLocation;
+    Parameters params;
+    Location StartPosition;
+    int32_T numUAV;
+    int32_T FormationPos;
+    real_T StartTime;
+};
+
+#endif
+
 #ifndef DEFINED_TYPEDEF_FOR_TaskStatus_
 #define DEFINED_TYPEDEF_FOR_TaskStatus_
 
 struct TaskStatus
 {
+    boolean_T EngagedFlag;
     int32_T FlightStatus;
     int32_T ImmedStatus;
     int32_T SequenceID;
@@ -97,14 +130,15 @@ struct TaskStatus
 
 #endif
 
-#ifndef DEFINED_TYPEDEF_FOR_LookAheadPoint_
-#define DEFINED_TYPEDEF_FOR_LookAheadPoint_
+#ifndef DEFINED_TYPEDEF_FOR_FCUCMD_
+#define DEFINED_TYPEDEF_FOR_FCUCMD_
 
-struct LookAheadPoint
+struct FCUCMD
 {
     real_T Latitude_deg;
     real_T Longitude_deg;
     real_T Height_meter;
+    real_T RefAirSpd_mps;
 };
 
 #endif
@@ -113,7 +147,7 @@ struct LookAheadPoint
 #define DEFINED_TYPEDEF_FOR_QueuePolicy_T_
 
 typedef enum {
-    MSG_QUEUE_UNUSED = -1,
+    MSG_QUEUE_UNUSED = -1,             // Default value
     MSG_FIFO_QUEUE,
     MSG_LIFO_QUEUE,
     MSG_PRIORITY_QUEUE
@@ -156,8 +190,10 @@ struct MemPool_missionCmd
 
 #endif
 
+// Custom Type definition for MATLAB Function: '<S6>/CommandCheck'
 #include <stdio.h>
 
+// Custom Type definition for MATLAB Function: '<S6>/getCurrentTime'
 #include "coder_posix_time.h"
 #ifndef struct_robotics_slcore_internal_block_CoordinateTransformationConversion_codegenReal2Mission_T
 #define struct_robotics_slcore_internal_block_CoordinateTransformationConversion_codegenReal2Mission_T
@@ -169,60 +205,30 @@ struct
 };
 
 #endif
+// struct_robotics_slcore_internal_block_CoordinateTransformationConversion_codegenReal2Mission_T 
 
-#ifndef struct_cell_wrap_codegenReal2Mission_T
-#define struct_cell_wrap_codegenReal2Mission_T
+#ifndef struct_b_robotics_slcore_internal_block_SampleTimeImpl_codegenReal2Mission_T
+#define struct_b_robotics_slcore_internal_block_SampleTimeImpl_codegenReal2Mission_T
 
-struct cell_wrap_codegenReal2Mission_T
+struct b_robotics_slcore_internal_block_SampleTimeImpl_codegenReal2Mission_T
 {
-    uint32_T f1[8];
+    int32_T __dummy;
 };
 
 #endif
+// struct_b_robotics_slcore_internal_block_SampleTimeImpl_codegenReal2Mission_T
 
-#ifndef struct_uav_sluav_internal_system_OrbitFollower_codegenReal2Mission_T
-#define struct_uav_sluav_internal_system_OrbitFollower_codegenReal2Mission_T
+#ifndef struct_uav_sluav_internal_system_UAVAnimation_codegenReal2Mission_T
+#define struct_uav_sluav_internal_system_UAVAnimation_codegenReal2Mission_T
 
-struct uav_sluav_internal_system_OrbitFollower_codegenReal2Mission_T
-{
-    int32_T isInitialized;
-    cell_wrap_codegenReal2Mission_T inputVarSize[5];
-    real_T NumCircles;
-    real_T PrevPosition[3];
-    boolean_T StartFlag;
-    real_T LookaheadDistance;
-    boolean_T SelectTurnDirectionFlag;
-    real_T TurnDirectionInternal;
-    real_T OrbitCenterInternal[3];
-    real_T OrbitRadiusInternal;
-    uint8_T OrbitRadiusFlag;
-    uint8_T LookaheadDistFlag;
-    real_T PrevResetSignal;
-};
-
-#endif
-
-#ifndef struct_uav_sluav_internal_system_WaypointFollower_codegenReal2Mission_T
-#define struct_uav_sluav_internal_system_WaypointFollower_codegenReal2Mission_T
-
-struct uav_sluav_internal_system_WaypointFollower_codegenReal2Mission_T
+struct uav_sluav_internal_system_UAVAnimation_codegenReal2Mission_T
 {
     int32_T isInitialized;
-    cell_wrap_codegenReal2Mission_T inputVarSize[3];
-    boolean_T CacheInputSizes;
-    real_T LookaheadDistance;
-    real_T WaypointIndex;
-    real_T NumWaypoints;
-    real_T WaypointsInternal[2700];
-    boolean_T LastWaypointFlag;
-    boolean_T StartFlag;
-    real_T InitialPose[4];
-    real_T LookaheadFactor;
-    boolean_T SearchFlag;
-    uint8_T LookaheadDistFlag;
+    b_robotics_slcore_internal_block_SampleTimeImpl_codegenReal2Mission_T
+        SampleTimeHandler;
 };
 
-#endif
+#endif   // struct_uav_sluav_internal_system_UAVAnimation_codegenReal2Mission_T
 
 #ifndef struct_emxArray_char_T_1x16_codegenReal2Mission_T
 #define struct_emxArray_char_T_1x16_codegenReal2Mission_T
@@ -233,8 +239,9 @@ struct emxArray_char_T_1x16_codegenReal2Mission_T
     int32_T size[2];
 };
 
-#endif
+#endif                     // struct_emxArray_char_T_1x16_codegenReal2Mission_T
 
+// Custom Type definition for MATLAB Function: '<S9>/PrintOnboardLog'
 #ifndef struct_cell_wrap_1_codegenReal2Mission_T
 #define struct_cell_wrap_1_codegenReal2Mission_T
 
@@ -243,20 +250,11 @@ struct cell_wrap_1_codegenReal2Mission_T
     emxArray_char_T_1x16_codegenReal2Mission_T f1;
 };
 
-#endif
+#endif                              // struct_cell_wrap_1_codegenReal2Mission_T
+#endif                               // RTW_HEADER_codegenReal2Mission_types_h_
 
-#ifndef struct_emxArray_real_T_codegenReal2Mission_T
-#define struct_emxArray_real_T_codegenReal2Mission_T
-
-struct emxArray_real_T_codegenReal2Mission_T
-{
-    real_T *data;
-    int32_T *size;
-    int32_T allocatedSize;
-    int32_T numDimensions;
-    boolean_T canFreeData;
-};
-
-#endif
-#endif
-
+//
+// File trailer for generated code.
+//
+// [EOF]
+//
