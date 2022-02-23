@@ -15,12 +15,13 @@ private:
 
 public:
     msgQueue(const char *, int, int, int);
-    const mqd_t getMQ() { return MQ_; }
+    const mqd_t &getMQ() { return MQ_; }
     int getAttr(struct mq_attr *attr) { return mq_getattr(MQ_, attr); }
     ~msgQueue();
 };
 
-msgQueue::msgQueue(const char *name, int flags, int maxmsg, int msgsize) : qName_{name}
+msgQueue::msgQueue(const char *name, int flags = O_CREAT | O_RDWR | O_NONBLOCK,
+                   int maxmsg = 1, int msgsize = 8192) : qName_{name}
 {
     struct mq_attr attr;
     attr.mq_flags = 0; /* Flags (ignored for mq_open()) */

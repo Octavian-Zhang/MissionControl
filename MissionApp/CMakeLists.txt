@@ -7,7 +7,8 @@ cmake_minimum_required(VERSION 3.5.0)
 set (CMAKE_CXX_STANDARD 11)
 
 # set preprocessor flag to include pthread
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -pthread")
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+find_package(Threads REQUIRED)
 
 # define runtime output path
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/runtime)
@@ -25,4 +26,4 @@ file(GLOB_RECURSE MISSIONALG_SRC ${CMAKE_CURRENT_SOURCE_DIR}/src/*)
 add_executable(${PROJECT_NAME} ${MISSIONALG_SRC})
 
 # Define target link libraries
-target_link_libraries (${PROJECT_NAME} ${EXTRA_LIBS} rt)
+target_link_libraries (${PROJECT_NAME} ${EXTRA_LIBS} rt Threads::Threads)

@@ -39,12 +39,22 @@
 #define MATFILE                        QUOTE(SAVEFILE)
 #endif
 
+#include "msgQueue.hpp"
+
 class codegenReal2MissionModelClassSendData_IndividualUAVCmdT : public
     SendData_IndividualUAVCmdT{
+    mqd_t msgQueue;
   public:
     void SendData(const IndividualUAVCmd* data, int32_T length, int32_T* status)
     {
         // Add send data logic here
+        printf("Sending Mission Feedback: %i\n", data->SequenceID);
+        unsigned int priority = 1; // Mission feedback -> Lowest priority
+        *status = -mq_send(msgQueue, (char*)data, length, priority);
+    }
+    void SetMQ(mqd_t mq)
+    {
+        msgQueue = mq;
     }
 };
 
@@ -52,10 +62,21 @@ static codegenReal2MissionModelClassSendData_IndividualUAVCmdT
     CurrentMissionSendData_arg;
 class codegenReal2MissionModelClassRecvData_IndividualUAVCmdT : public
     RecvData_IndividualUAVCmdT{
+    mqd_t msgQueue;
   public:
     void RecvData(IndividualUAVCmd* data, int32_T length, int32_T* status)
     {
         // Add receive data logic here
+        unsigned int priority = 16384; // Mission upload -> Highest priority
+        *status = -mq_receive(msgQueue, (char *)data, length, &priority);
+        if (!*status) // Not failed, successfully received
+        {
+            printf("Received Mission Command: %i\n", data->SequenceID);
+        }
+    }
+    void SetMQ(mqd_t mq)
+    {
+        msgQueue = mq;
     }
 };
 
@@ -237,7 +258,7 @@ int main(int argc, const char *argv[])
     pthread_t periodicThread[1];
     pthread_t periodicTriggerThread[1];
     struct sched_param sp;
-    int ret, policy;
+    int ret, policy = SCHED_RR;
     pthread_attr_t attr;
     double periodicTriggerRate[1];
     int priority[1];
@@ -259,15 +280,24 @@ int main(int argc, const char *argv[])
 
     // Create threads executing the Simulink model
     pthread_attr_init(&attr);
-    ret = pthread_attr_setinheritsched(&attr, PTHREAD_INHERIT_SCHED);
+    ret = pthread_attr_setinheritsched(&attr, PTHREAD_EXPLICIT_SCHED);
     CHECK_STATUS(ret, "pthread_attr_setinheritsched");
     ret = pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
     CHECK_STATUS(ret, "pthread_attr_setdetachstate");
+    ret = pthread_attr_setschedpolicy(&attr, policy);
+    CHECK_STATUS(ret, "pthread_attr_setschedpolicy");
     ret = pthread_attr_getschedpolicy(&attr, &policy);
     CHECK_STATUS(ret, "pthread_attr_getschedpolicy");
 
     // Initialize model
     codegenReal2Mission_Obj.initialize();
+
+    // Open POSIX message queue
+    msgQueue mqSndCMD("/PosixMQ_SndCMD", O_CREAT | O_WRONLY | O_NONBLOCK);
+    msgQueue mqRcvCMD("/PosixMQ_RcvCMD", O_CREAT | O_RDONLY | O_NONBLOCK);
+
+    CurrentMissionSendData_arg.SetMQ(mqSndCMD.getMQ());
+    MissionCMDRecvData_arg.SetMQ(mqRcvCMD.getMQ());
 
     {
         // Connect and enable the signal handler for timers notification
