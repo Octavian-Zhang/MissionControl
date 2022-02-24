@@ -41,6 +41,10 @@
 
 #include "msgQueue.hpp"
 
+/* Simulink Model IO */
+static msgQueue MQ_ExtU("/PosixMQ_ExtU", O_CREAT | O_RDONLY | O_NONBLOCK, 1, sizeof(codegenReal2MissionModelClass::ExtU_codegenReal2Mission_T));
+static msgQueue MQ_ExtY("/PosixMQ_ExtY", O_CREAT | O_WRONLY | O_NONBLOCK, 1, sizeof(codegenReal2MissionModelClass::ExtY_codegenReal2Mission_T));
+
 class codegenReal2MissionModelClassSendData_IndividualUAVCmdT : public
     SendData_IndividualUAVCmdT{
     mqd_t msgQueue;
@@ -48,9 +52,13 @@ class codegenReal2MissionModelClassSendData_IndividualUAVCmdT : public
     void SendData(const IndividualUAVCmd* data, int32_T length, int32_T* status)
     {
         // Add send data logic here
-        printf("Sending Mission Feedback: %i\n", data->SequenceID);
         unsigned int priority = 1; // Mission feedback -> Lowest priority
         *status = -mq_send(msgQueue, (char*)data, length, priority);
+        if (*status == 0) // Not failed, successfully received
+        {
+            printf("\nSent Mission Feedback: %i\n", data->SequenceID);
+            fflush(stdout);
+        }
     }
     void SetMQ(mqd_t mq)
     {
@@ -69,9 +77,10 @@ class codegenReal2MissionModelClassRecvData_IndividualUAVCmdT : public
         // Add receive data logic here
         unsigned int priority = 16384; // Mission upload -> Highest priority
         *status = -mq_receive(msgQueue, (char *)data, length, &priority);
-        if (!*status) // Not failed, successfully received
+        if (*status < 0) // Not failed, successfully received
         {
-            printf("Received Mission Command: %i\n", data->SequenceID);
+            printf("\nReceived Mission Command: %i\n", data->SequenceID);
+            fflush(stdout);
         }
     }
     void SetMQ(mqd_t mq)
@@ -194,9 +203,29 @@ void* periodicTask(void *arg)
     MW_blockSignal(SIGRTMIN, &ss);
     while (1) {
         MW_sem_wait(&periodicTaskStartSem[taskId]);
+
+        unsigned int priority = 8192;
+
+        // Set model inputs here
+        codegenReal2MissionModelClass::ExtU_codegenReal2Mission_T ExtU{};
+        if (mq_receive(MQ_ExtU.getMQ(), (char *)&ExtU, sizeof(ExtU), &priority) > 0)
+        {
+            printf(">"); // resemble istream operator >>
+            fflush(stdout);
+        }
+        codegenReal2Mission_Obj.setExternalInputs(&ExtU);
+
         codegenReal2Mission_Obj.step();
 
         // Get model outputs here
+        codegenReal2MissionModelClass::ExtY_codegenReal2Mission_T ExtY{};
+        ExtY = codegenReal2Mission_Obj.getExternalOutputs();
+        if (mq_send(MQ_ExtY.getMQ(), (char *)&ExtY, sizeof(ExtY), priority) == 0)
+        {
+            printf("<"); // resemble ostream operator <<
+            fflush(stdout);
+        }
+        
         ret = sem_post(&periodicTaskStopSem[taskId]);
         CHECK_STATUS(ret, "sem_post");
     }
@@ -258,7 +287,7 @@ int main(int argc, const char *argv[])
     pthread_t periodicThread[1];
     pthread_t periodicTriggerThread[1];
     struct sched_param sp;
-    int ret, policy = SCHED_RR;
+    int ret, policy = SCHED_OTHER;
     pthread_attr_t attr;
     double periodicTriggerRate[1];
     int priority[1];
@@ -293,8 +322,8 @@ int main(int argc, const char *argv[])
     codegenReal2Mission_Obj.initialize();
 
     // Open POSIX message queue
-    msgQueue mqSndCMD("/PosixMQ_SndCMD", O_CREAT | O_WRONLY | O_NONBLOCK);
-    msgQueue mqRcvCMD("/PosixMQ_RcvCMD", O_CREAT | O_RDONLY | O_NONBLOCK);
+    msgQueue mqSndCMD("/PosixMQ_SndCMD", O_CREAT | O_WRONLY | O_NONBLOCK, 1, sizeof(IndividualUAVCmd));
+    msgQueue mqRcvCMD("/PosixMQ_RcvCMD", O_CREAT | O_RDONLY | O_NONBLOCK, 1, sizeof(IndividualUAVCmd));
 
     CurrentMissionSendData_arg.SetMQ(mqSndCMD.getMQ());
     MissionCMDRecvData_arg.SetMQ(mqRcvCMD.getMQ());

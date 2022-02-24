@@ -20,35 +20,4 @@ public:
     ~msgQueue();
 };
 
-msgQueue::msgQueue(const char *name, int flags = O_CREAT | O_RDWR | O_NONBLOCK,
-                   int maxmsg = 1, int msgsize = 8192) : qName_{name}
-{
-    struct mq_attr attr;
-    attr.mq_flags = 0; /* Flags (ignored for mq_open()) */
-    attr.mq_maxmsg = maxmsg;
-    attr.mq_msgsize = msgsize;
-
-    MQ_ = mq_open(qName_, flags, 0664, &attr);
-
-    if (this->MQ_ < 0)
-    {
-        printf("mq_open failed\n");
-        exit(1);
-    }
-}
-
-msgQueue::~msgQueue()
-{
-    if (mq_close(MQ_) < 0)
-    {
-        printf("mq_close failed\n");
-        exit(1);
-    }
-    if (mq_unlink(qName_) < 0)
-    {
-        printf("mq_unlink failed\n");
-        exit(1);
-    }
-}
-
 #endif
