@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'FlightMissionMode'.
 //
-// Model version                  : 2.687
-// Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Jun 28 22:52:13 2021
+// Model version                  : 2.62
+// Simulink Coder version         : 9.6 (R2021b) 14-May-2021
+// C/C++ source code generated on : Wed Feb 23 00:35:41 2022
 //
 #include "rtwtypes.h"
 #include "rt_nonfinite.h"
@@ -15,7 +15,6 @@
 
 real_T rt_remd_snf(real_T u0, real_T u1)
 {
-    real_T q;
     real_T y;
     if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(
             static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(std::
@@ -26,6 +25,7 @@ real_T rt_remd_snf(real_T u0, real_T u1)
         y = u0;
     } else if (static_cast<boolean_T>(static_cast<int32_T>((u1 != 0.0) & (u1 !=
                   std::trunc(u1))))) {
+        real_T q;
         q = std::abs(u0 / u1);
         if (static_cast<boolean_T>(static_cast<int32_T>((std::abs(q - std::floor
                 (q + 0.5)) > DBL_EPSILON * q) ^ 1))) {

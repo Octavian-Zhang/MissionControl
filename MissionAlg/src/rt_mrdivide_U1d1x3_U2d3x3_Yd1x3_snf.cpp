@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'FlightMissionMode'.
 //
-// Model version                  : 2.687
-// Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Jun 28 22:52:13 2021
+// Model version                  : 2.62
+// Simulink Coder version         : 9.6 (R2021b) 14-May-2021
+// C/C++ source code generated on : Wed Feb 23 00:35:41 2022
 //
 #include "rtwtypes.h"
 #include <cmath>
@@ -21,7 +21,6 @@ void rt_mrdivide_U1d1x3_U2d3x3_Yd1x3_snf(const real_T u0[3], const real_T u1[9],
     int32_T r1;
     int32_T r2;
     int32_T r3;
-    int32_T rtemp;
     std::memcpy(&A[0], &u1[0], static_cast<uint32_T>(9U * sizeof(real_T)));
     r1 = 0;
     r2 = 1;
@@ -48,6 +47,7 @@ void rt_mrdivide_U1d1x3_U2d3x3_Yd1x3_snf(const real_T u0[3], const real_T u1[9],
     A[static_cast<int32_T>(r3 + 6)] -= A[static_cast<int32_T>(r1 + 6)] * A[r3];
     if (std::abs(A[static_cast<int32_T>(r3 + 3)]) > std::abs(A
             [static_cast<int32_T>(r2 + 3)])) {
+        int32_T rtemp;
         rtemp = static_cast<int32_T>(r2 + 1);
         r2 = r3;
         r3 = static_cast<int32_T>(rtemp - 1);

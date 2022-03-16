@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'MissionUAV'.
 //
-// Model version                  : 1.18
-// Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Fri Jul  2 07:51:54 2021
+// Model version                  : 2.2
+// Simulink Coder version         : 9.6 (R2021b) 14-May-2021
+// C/C++ source code generated on : Wed Feb 23 00:20:27 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -34,17 +34,18 @@
 // Block signals and states (default storage) for model 'MissionUAV'
 struct DW_MissionUAV_f_T {
     robotics_core_internal_system_navigation_StateVector2Struct_MissionUAV_T obj;// '<S2>/StateVector2Struct' 
-    robotics_core_internal_system_navigation_Model_MissionUAV_T obj_e;// '<S2>/ComputeDerivative' 
-    FixedWingGuidanceEnvironmentBus FixedWingGuidanceEnvironmentBus_h;
+    robotics_core_internal_system_navigation_Model_MissionUAV_T obj_j;// '<S2>/ComputeDerivative' 
+    FixedWingGuidanceEnvironmentBus FixedWingGuidanceEnvironmentBus_p;
                                       // '<S1>/FixedWingGuidanceEnvironmentBus'
     FixedWingGuidanceControlBus SlewGuidanceBus;// '<S1>/SlewGuidanceBus'
+    real_T RateTransition[8];          // '<S1>/Rate Transition'
     real_T ComputeDerivative[8];       // '<S2>/ComputeDerivative'
     real_T RollAngle;                  // '<S1>/RollAngleSaturation'
     real_T dotBankTD;                  // '<S4>/dotBankTD'
     real_T fh;                         // '<S4>/fhan_Bank'
     int_T Integrator_IWORK;            // '<S2>/Integrator'
     boolean_T objisempty;              // '<S2>/StateVector2Struct'
-    boolean_T objisempty_g;            // '<S2>/ComputeDerivative'
+    boolean_T objisempty_a;            // '<S2>/ComputeDerivative'
 };
 
 // Continuous states for model 'MissionUAV'
@@ -71,6 +72,8 @@ struct XDis_MissionUAV_n_T {
 // Zero-crossing (trigger) state for model 'MissionUAV'
 struct ZCE_MissionUAV_T {
     ZCSigState Integrator_Reset_ZCE;   // '<S2>/Integrator'
+    ZCSigState TD_Bank_Reset_ZCE;      // '<S4>/TD_Bank'
+    ZCSigState dotBankTD_Reset_ZCE;    // '<S4>/dotBankTD'
 };
 
 // Real-time Model Data Structure
@@ -104,6 +107,8 @@ extern void MissionUAV_initialize(const char_T **rt_errorStatus, boolean_T
     *localZCE);
 extern void MissionUAV_Init(RT_MODEL_MissionUAV_T * const MissionUAV_M,
     DW_MissionUAV_f_T *localDW, X_MissionUAV_n_T *localX);
+extern void MissionUAV_Reset(RT_MODEL_MissionUAV_T * const MissionUAV_M,
+    DW_MissionUAV_f_T *localDW, X_MissionUAV_n_T *localX);
 extern void MissionUAV_Deriv(const real_T *rtu_ResetState, DW_MissionUAV_f_T
     *localDW, XDot_MissionUAV_n_T *localXdot);
 extern void MissionUAV_Update(DW_MissionUAV_f_T *localDW);
@@ -120,6 +125,15 @@ extern void MissionUAV(RT_MODEL_MissionUAV_T * const MissionUAV_M, const real_T 
                        *rty_SimUAVState_RollAngle, real_T
                        *rty_SimUAVState_RollAngleRate, DW_MissionUAV_f_T
                        *localDW, X_MissionUAV_n_T *localX);
+
+//-
+//  These blocks were eliminated from the model due to optimizations:
+//
+//  Block '<S2>/Data Type Conversion' : Eliminate redundant data type conversion
+//  Block '<S2>/Data Type Conversion1' : Eliminate redundant data type conversion
+//  Block '<S1>/RateTransitionRollTD' : Eliminated since input and output rates are identical
+//  Block '<S1>/Reshape' : Reshape block reduction
+
 
 //-
 //  The generated code includes comments that allow you to trace directly

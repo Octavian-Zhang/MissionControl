@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'Real2SimGuidance'.
 //
-// Model version                  : 2.344
-// Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Fri Jul  2 07:51:01 2021
+// Model version                  : 3.11
+// Simulink Coder version         : 9.6 (R2021b) 14-May-2021
+// C/C++ source code generated on : Wed Feb 23 00:20:42 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -21,6 +21,47 @@
 #include "rtwtypes.h"
 
 // Model Code Variants
+#ifndef DEFINED_TYPEDEF_FOR_RealUAVStateBus_
+#define DEFINED_TYPEDEF_FOR_RealUAVStateBus_
+
+struct RealUAVStateBus
+{
+    real_T Latitude_deg;
+    real_T Longitude_deg;
+    real_T Height_meter;
+    real_T AirSpeed_mps;
+    real_T HeadingAngle_deg;
+    real_T FlightPathAngle_deg;
+    real_T RollAngle_deg;
+};
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_VectorSpeed_
+#define DEFINED_TYPEDEF_FOR_VectorSpeed_
+
+struct VectorSpeed
+{
+    real_T eastSpeed;
+    real_T northSpeed;
+    real_T skySpeed;
+};
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_StateFCU_
+#define DEFINED_TYPEDEF_FOR_StateFCU_
+
+struct StateFCU
+{
+    RealUAVStateBus RealUAVState;
+    real_T GndSpd_mps;
+    real_T Altitude;
+    VectorSpeed VecSpd;
+};
+
+#endif
+
 #ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceStateBus_
 #define DEFINED_TYPEDEF_FOR_FixedWingGuidanceStateBus_
 
@@ -38,22 +79,6 @@ struct FixedWingGuidanceStateBus
 
 #endif
 
-#ifndef DEFINED_TYPEDEF_FOR_RealUAVStateBus_
-#define DEFINED_TYPEDEF_FOR_RealUAVStateBus_
-
-struct RealUAVStateBus
-{
-    real_T Latitude_deg;
-    real_T Longitude_deg;
-    real_T Height_meter;
-    real_T AirSpeed_mps;
-    real_T HeadingAngle_deg;
-    real_T FlightPathAngle_deg;
-    real_T RollAngle_deg;
-};
-
-#endif
-
 #ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
 #define DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
 
@@ -66,26 +91,15 @@ struct FixedWingGuidanceBus
 
 #endif
 
-#ifndef DEFINED_TYPEDEF_FOR_VectorSpeed_
-#define DEFINED_TYPEDEF_FOR_VectorSpeed_
+#ifndef DEFINED_TYPEDEF_FOR_FCUCMD_
+#define DEFINED_TYPEDEF_FOR_FCUCMD_
 
-struct VectorSpeed
-{
-    real_T eastSpeed;
-    real_T northSpeed;
-    real_T skySpeed;
-};
-
-#endif
-
-#ifndef DEFINED_TYPEDEF_FOR_LookAheadPoint_
-#define DEFINED_TYPEDEF_FOR_LookAheadPoint_
-
-struct LookAheadPoint
+struct FCUCMD
 {
     real_T Latitude_deg;
     real_T Longitude_deg;
     real_T Height_meter;
+    real_T RefAirSpd_mps;
 };
 
 #endif

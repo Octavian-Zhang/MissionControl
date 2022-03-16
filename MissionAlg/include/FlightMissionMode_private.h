@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'FlightMissionMode'.
 //
-// Model version                  : 2.689
-// Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Fri Jul  2 08:01:55 2021
+// Model version                  : 2.62
+// Simulink Coder version         : 9.6 (R2021b) 14-May-2021
+// C/C++ source code generated on : Wed Feb 23 00:35:41 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -87,12 +87,6 @@ preprocessor word size checks.
 #ifndef rtmSetErrorStatusPointer
 #define rtmSetErrorStatusPointer(rtm, val) ((rtm)->errorStatus = (val))
 #endif
-
-// Imported (extern) states
-extern void* AltitudeGCS_m0;           // synthesized block
-extern void* LatitudeGCS_m0;           // synthesized block
-extern void* LongitudeGCS_m0;          // synthesized block
-
 #endif                               // RTW_HEADER_FlightMissionMode_private_h_
 
 //

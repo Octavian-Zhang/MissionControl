@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'MissionUAV'.
 //
-// Model version                  : 1.18
-// Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Jun 28 22:39:52 2021
+// Model version                  : 2.2
+// Simulink Coder version         : 9.6 (R2021b) 14-May-2021
+// C/C++ source code generated on : Wed Feb 23 00:20:27 2022
 //
 #ifndef ZERO_CROSSING_TYPES_H
 #define ZERO_CROSSING_TYPES_H

@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'Real2SimGuidance'.
 //
-// Model version                  : 2.344
-// Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Fri Jul  2 07:51:01 2021
+// Model version                  : 3.11
+// Simulink Coder version         : 9.6 (R2021b) 14-May-2021
+// C/C++ source code generated on : Wed Feb 23 00:20:42 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -73,12 +73,6 @@
 #ifndef rtmSetStopRequestedPtr
 #define rtmSetStopRequestedPtr(rtm, val) ((rtm)->Timing.stopRequestedFlag = (val))
 #endif
-
-// Imported (extern) states
-extern void* AltitudeGCS_m0;           // synthesized block
-extern void* LatitudeGCS_m0;           // synthesized block
-extern void* LongitudeGCS_m0;          // synthesized block
-
 #endif                                // RTW_HEADER_Real2SimGuidance_private_h_
 
 //

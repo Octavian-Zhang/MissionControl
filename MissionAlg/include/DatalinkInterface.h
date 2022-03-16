@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 2.679
-// Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Fri Jul  2 08:04:06 2021
+// Model version                  : 3.91
+// Simulink Coder version         : 9.6 (R2021b) 14-May-2021
+// C/C++ source code generated on : Wed Feb 23 00:38:39 2022
 //
 
 #ifndef RTW_HEADER_DatalinkInterface_h_
@@ -45,7 +45,7 @@ struct Time
 
 struct IndividualUAVCmd
 {
-    int32_T SequenceId;
+    int32_T SequenceID;
     MissionModes MissionMode;
     Location MissionLocation;
     Parameters params;

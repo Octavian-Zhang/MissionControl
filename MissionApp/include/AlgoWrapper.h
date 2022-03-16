@@ -11,7 +11,6 @@ class AlgoWrapper
 {
 private:
 	MissionData *commonData;
-	void renameMATfile(void);
 	std::thread* AlgoThread{};
 
 public:

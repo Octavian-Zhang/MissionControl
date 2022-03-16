@@ -67,7 +67,11 @@ class codegenReal2MissionModelClassRecvData_IndividualUAVCmdT : public
     {
         // Add receive data logic here
         //下一行代码获取数据收发软件发送过来的任务指令
-        *data = *(pCommonData->getMissionCmd());
+        if (pCommonData->NewMissionCMD()) {
+            *data = *(pCommonData->getMissionCmd());
+            printf("Push New Mission!\n"); fflush(stdout);
+            *status = 0;
+        }
     }
 };
 
@@ -190,10 +194,11 @@ void* periodicTask(void *arg)
         codegenReal2Mission_Obj.setExternalInputs(&pCommonData->getExtU());
 
         // push new mission
-        std::async(std::launch::async, [&]()
-           {if (pCommonData->NewMissionCMD()){ printf("Push New Mission!\n"); fflush(stdout);
-                codegenReal2Mission_Obj.codegenReal2Mission_PushNewMission(); }
-            else { printf("."); fflush(stdout); }; });
+        // std::async(std::launch::async, [&]()
+        //    {if (pCommonData->NewMissionCMD()){ printf("Push New Mission!\n"); fflush(stdout);
+        //         codegenReal2Mission_Obj.codegenReal2Mission_PushNewMission(); }
+        //     else { printf("."); fflush(stdout); }; });
+        printf("."); fflush(stdout);
 
         codegenReal2Mission_Obj.step();
 
