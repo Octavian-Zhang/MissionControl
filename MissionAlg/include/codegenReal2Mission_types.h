@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 3.91
+// Model version                  : 3.98
 // Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Wed Feb 23 00:38:39 2022
+// C/C++ source code generated on : Fri Mar 18 20:29:43 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -21,7 +21,6 @@
 #include "rtwtypes.h"
 #include "model_reference_types.h"
 #include "builtin_typeid_types.h"
-#include "multiword_types.h"
 #include "zero_crossing_types.h"
 #include "DatalinkInterface.h"
 
@@ -143,6 +142,31 @@ struct FCUCMD
 
 #endif
 
+#ifndef DEFINED_TYPEDEF_FOR_FlightLogging_
+#define DEFINED_TYPEDEF_FOR_FlightLogging_
+
+struct FlightLogging
+{
+    FixedWingGuidanceStateBus RealUAVState;
+    FixedWingGuidanceStateBus SimUAVState;
+    real_T RefAirspeed;
+    real_T LagDistance;
+    real_T LookAheadNED[3];
+    real_T CrossTrackError;
+    boolean_T EngagedFlag;
+    real_T Heading[3];
+    real_T ADRC_U;
+    real_T biasH;
+    real_T GroundSpeed;
+    real_T FlightMode;
+    uint8_T HdgStatus;
+    VectorSpeed VectorSpd;
+    real_T Altitude;
+    real_T FlightPath;
+};
+
+#endif
+
 #ifndef DEFINED_TYPEDEF_FOR_QueuePolicy_T_
 #define DEFINED_TYPEDEF_FOR_QueuePolicy_T_
 
@@ -190,10 +214,25 @@ struct MemPool_missionCmd
 
 #endif
 
-// Custom Type definition for MATLAB Function: '<S6>/CommandCheck'
+#ifndef DEFINED_TYPEDEF_FOR_SendData_FlightLoggingT_
+#define DEFINED_TYPEDEF_FOR_SendData_FlightLoggingT_
+
+class SendData_FlightLoggingT
+{
+  public:
+    virtual void SendData(const FlightLogging *data, int32_T length, int32_T
+                          *status) = 0;
+    virtual ~SendData_FlightLoggingT()
+    {
+    }
+};
+
+#endif
+
+// Custom Type definition for MATLAB Function: '<S5>/CommandCheck'
 #include <stdio.h>
 
-// Custom Type definition for MATLAB Function: '<S6>/getCurrentTime'
+// Custom Type definition for MATLAB Function: '<S5>/getCurrentTime'
 #include "coder_posix_time.h"
 #ifndef struct_robotics_slcore_internal_block_CoordinateTransformationConversion_codegenReal2Mission_T
 #define struct_robotics_slcore_internal_block_CoordinateTransformationConversion_codegenReal2Mission_T
@@ -241,7 +280,7 @@ struct emxArray_char_T_1x16_codegenReal2Mission_T
 
 #endif                     // struct_emxArray_char_T_1x16_codegenReal2Mission_T
 
-// Custom Type definition for MATLAB Function: '<S9>/PrintOnboardLog'
+// Custom Type definition for MATLAB Function: '<S8>/PrintOnboardLog'
 #ifndef struct_cell_wrap_1_codegenReal2Mission_T
 #define struct_cell_wrap_1_codegenReal2Mission_T
 

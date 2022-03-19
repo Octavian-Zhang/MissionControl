@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'Real2SimGuidance'.
 //
-// Model version                  : 3.11
+// Model version                  : 3.57
 // Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Wed Feb 23 00:20:42 2022
+// C/C++ source code generated on : Fri Mar 18 20:07:42 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -31,23 +31,27 @@
 // Block signals and states (default storage) for model 'Real2SimGuidance'
 struct DW_Real2SimGuidance_f_T {
     uav_sluav_internal_system_WaypointFollower_Real2SimGuidance_T obj;// '<S59>/TrackSimPath' 
+    FixedWingGuidanceStateBus Delay_DSTATE[72];// '<S63>/Delay'
     real_T NorthEastHeight[3];         // '<S4>/NED2NEU'
-    real_T EastSequence_X[72];         // '<S58>/EastSequence'
-    real_T HeightSequence_X[72];       // '<S58>/HeightSequence'
-    real_T NorthSequence_X[72];        // '<S58>/NorthSequence'
+    real_T EastSequence_X[216];        // '<S58>/EastSequence'
+    real_T HeightSequence_X[216];      // '<S58>/HeightSequence'
+    real_T NorthSequence_X[216];       // '<S58>/NorthSequence'
     real_T Heading_Log[3];             // '<Root>/Heading_Log'
+    real_T MatrixConcatenate[651];     // '<S58>/Matrix Concatenate'
+    real_T waypoints_data[651];
+    real_T b_waypointsIn_data[651];
     real_T dotAltTD;                   // '<S64>/dotAltTD'
     real_T fh;                         // '<S64>/fhan_Alt'
     real_T InverseY;                   // '<S63>/InverseY'
     real_T InverseR;                   // '<S63>/InverseR'
-    real_T biasHm70;                   // '<S68>/biasHm70'
-    real_T dotTD;                      // '<S75>/dotTD'
-    real_T GainADRCinvb0;              // '<S67>/GainADRCinvb0'
-    real_T SumY;                       // '<S67>/SumY'
-    real_T fh_b;                       // '<S75>/fhan_AirSpdADRC'
-    real_T ESO;                        // '<S73>/ESO'
-    real_T ESO_dot;                    // '<S73>/ESO_dot'
-    real_T ESO_dotdot;                 // '<S73>/ESO_dotdot'
+    real_T biasHm70;                   // '<S69>/biasHm70'
+    real_T dotTD;                      // '<S76>/dotTD'
+    real_T GainADRCinvb0;              // '<S68>/GainADRCinvb0'
+    real_T SumY;                       // '<S68>/SumY'
+    real_T fh_b;                       // '<S76>/fhan_AirSpdADRC'
+    real_T ESO;                        // '<S74>/ESO'
+    real_T ESO_dot;                    // '<S74>/ESO_dot'
+    real_T ESO_dotdot;                 // '<S74>/ESO_dotdot'
     real_T TrackInvH;                  // '<S58>/TrackInvH'
     real_T ADRC_U_Log;                 // '<Root>/ADRC_U_Log'
     real_T CrossTrackError;            // '<Root>/CrossTrackError'
@@ -59,51 +63,51 @@ struct DW_Real2SimGuidance_f_T {
     uint16_T temporalCounter_i1;       // '<Root>/TriggerTermination'
     uint8_T HdgStatus_Log;             // '<Root>/Status_Log'
     uint8_T is_active_c34_Real2SimGuidance;// '<Root>/TriggerTermination'
-    uint8_T is_c34_Real2SimGuidance;   // '<Root>/TriggerTermination'
     uint8_T is_DebounceExecution;      // '<Root>/TriggerTermination'
     uint8_T is_Persuit;                // '<Root>/TriggerTermination'
     uint8_T is_Debounce;               // '<Root>/TriggerTermination'
     uint8_T temporalCounter_i2;        // '<Root>/TriggerTermination'
     uint8_T is_active_c16_Real2SimGuidance;// '<Root>/TASgreaterthan15for1Sec'
     uint8_T is_c16_Real2SimGuidance;   // '<Root>/TASgreaterthan15for1Sec'
-    boolean_T Terminate;               // '<Root>/TriggerTermination'
-    boolean_T Compare;                 // '<S62>/Compare'
+    boolean_T AND;                     // '<S4>/AND'
+    boolean_T GreaterThanOrEqual;      // '<S61>/GreaterThanOrEqual'
     boolean_T Engaged;                 // '<S4>/Engagement'
+    boolean_T MemoryNotInBrake_PreviousInput;// '<S4>/MemoryNotInBrake'
     boolean_T objisempty;              // '<S59>/TrackSimPath'
-    boolean_T ESO_MODE;                // '<S67>/ESO'
+    boolean_T ESO_MODE;                // '<S68>/ESO'
 };
 
 // Continuous states for model 'Real2SimGuidance'
 struct X_Real2SimGuidance_n_T {
     real_T TD_Alt_CSTATE;              // '<S64>/TD_Alt'
     real_T dotAltTD_CSTATE;            // '<S64>/dotAltTD'
-    real_T TD_AirSpdADRC_CSTATE;       // '<S75>/TD_AirSpdADRC'
-    real_T dotTD_CSTATE;               // '<S75>/dotTD'
-    real_T ESO_CSTATE;                 // '<S73>/ESO'
-    real_T ESO_dot_CSTATE;             // '<S73>/ESO_dot'
-    real_T ESO_dotdot_CSTATE;          // '<S73>/ESO_dotdot'
+    real_T TD_AirSpdADRC_CSTATE;       // '<S76>/TD_AirSpdADRC'
+    real_T dotTD_CSTATE;               // '<S76>/dotTD'
+    real_T ESO_CSTATE;                 // '<S74>/ESO'
+    real_T ESO_dot_CSTATE;             // '<S74>/ESO_dot'
+    real_T ESO_dotdot_CSTATE;          // '<S74>/ESO_dotdot'
 };
 
 // State derivatives for model 'Real2SimGuidance'
 struct XDot_Real2SimGuidance_n_T {
     real_T TD_Alt_CSTATE;              // '<S64>/TD_Alt'
     real_T dotAltTD_CSTATE;            // '<S64>/dotAltTD'
-    real_T TD_AirSpdADRC_CSTATE;       // '<S75>/TD_AirSpdADRC'
-    real_T dotTD_CSTATE;               // '<S75>/dotTD'
-    real_T ESO_CSTATE;                 // '<S73>/ESO'
-    real_T ESO_dot_CSTATE;             // '<S73>/ESO_dot'
-    real_T ESO_dotdot_CSTATE;          // '<S73>/ESO_dotdot'
+    real_T TD_AirSpdADRC_CSTATE;       // '<S76>/TD_AirSpdADRC'
+    real_T dotTD_CSTATE;               // '<S76>/dotTD'
+    real_T ESO_CSTATE;                 // '<S74>/ESO'
+    real_T ESO_dot_CSTATE;             // '<S74>/ESO_dot'
+    real_T ESO_dotdot_CSTATE;          // '<S74>/ESO_dotdot'
 };
 
 // State Disabled for model 'Real2SimGuidance'
 struct XDis_Real2SimGuidance_n_T {
     boolean_T TD_Alt_CSTATE;           // '<S64>/TD_Alt'
     boolean_T dotAltTD_CSTATE;         // '<S64>/dotAltTD'
-    boolean_T TD_AirSpdADRC_CSTATE;    // '<S75>/TD_AirSpdADRC'
-    boolean_T dotTD_CSTATE;            // '<S75>/dotTD'
-    boolean_T ESO_CSTATE;              // '<S73>/ESO'
-    boolean_T ESO_dot_CSTATE;          // '<S73>/ESO_dot'
-    boolean_T ESO_dotdot_CSTATE;       // '<S73>/ESO_dotdot'
+    boolean_T TD_AirSpdADRC_CSTATE;    // '<S76>/TD_AirSpdADRC'
+    boolean_T dotTD_CSTATE;            // '<S76>/dotTD'
+    boolean_T ESO_CSTATE;              // '<S74>/ESO'
+    boolean_T ESO_dot_CSTATE;          // '<S74>/ESO_dot'
+    boolean_T ESO_dotdot_CSTATE;       // '<S74>/ESO_dotdot'
 };
 
 // Real-time Model Data Structure
@@ -152,7 +156,7 @@ extern void Real2SimGuidance_Deriv(DW_Real2SimGuidance_f_T *localDW,
     XDot_Real2SimGuidance_n_T *localXdot);
 extern void Real2SimGuidance_Disable(DW_Real2SimGuidance_f_T *localDW);
 extern void Real2SimGuidance_Update(RT_MODEL_Real2SimGuidance_T * const
-    Real2SimGuidance_M, FixedWingGuidanceStateBus *rty_outputSimUAVState,
+    Real2SimGuidance_M, const FixedWingGuidanceStateBus *rtu_SimUAVState,
     DW_Real2SimGuidance_f_T *localDW);
 extern void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const
     Real2SimGuidance_M, const boolean_T *rtu_NewMission, const uint8_T
@@ -160,20 +164,17 @@ extern void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const
     rtu_ControlSwitch[2], const FixedWingGuidanceStateBus *rtu_SimUAVState,
     const FixedWingGuidanceBus *rtu_ImmedGuidanceCMD, const real_T
     *rtu_BiasRatio, FCUCMD *rty_FCUCMD, boolean_T *rty_EngagedFlag,
-    FixedWingGuidanceStateBus *rty_outputRealUAVState, FixedWingGuidanceStateBus
-    *rty_outputSimUAVState, real_T *rty_outputRefAirspeed, real_T
-    *rty_outputLagDistance, real_T rty_outputLookAheadNED[3], real_T
-    *rty_outputCrossTrackError, boolean_T *rty_outputEngagedFlag, real_T
-    rty_outputHeading[3], real_T *rty_outputADRC_U, real_T *rty_outputbiasH,
-    real_T *rty_outputGroundSpeed, real_T *rty_outputFlightMode, uint8_T
-    *rty_outputHdgStatus, VectorSpeed *rty_outputVectorSpd, real_T
-    *rty_outputAltitude, real_T *rty_outputFlightPath, DW_Real2SimGuidance_f_T
-    *localDW, X_Real2SimGuidance_n_T *localX);
+    FlightLogging *rty_FlightLogging, DW_Real2SimGuidance_f_T *localDW,
+    X_Real2SimGuidance_n_T *localX);
 
 //-
 //  These blocks were eliminated from the model due to optimizations:
 //
+//  Block '<S59>/Gain' : Unused code path elimination
+//  Block '<S59>/Relational Operator' : Unused code path elimination
 //  Block '<S59>/SwitchDesiredYaw' : Unused code path elimination
+//  Block '<S4>/Memory' : Unused code path elimination
+//  Block '<S4>/NOT' : Unused code path elimination
 //  Block '<Root>/LookaheadPoint_ZOH' : Eliminated since input and output rates are identical
 //  Block '<S63>/AirspeedZOH' : Eliminated since input and output rates are identical
 
@@ -257,22 +258,23 @@ extern void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const
 //  '<S62>'  : 'Real2SimGuidance/Real2SimNav/PointingMode'
 //  '<S63>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl'
 //  '<S64>'  : 'Real2SimGuidance/Real2SimNav/TD'
-//  '<S65>'  : 'Real2SimGuidance/Real2SimNav/HeadingLogic/RefHdg'
-//  '<S66>'  : 'Real2SimGuidance/Real2SimNav/MaxBrake/Calculate Brake Range'
-//  '<S67>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC'
-//  '<S68>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/EnableBias'
-//  '<S69>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/Range2CurrentSim'
-//  '<S70>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/RangeSim2Track1d3'
-//  '<S71>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/RangeSim2Track2d3'
-//  '<S72>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/RangeSim2Track3d3'
-//  '<S73>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/ESO'
-//  '<S74>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/NLSEF'
-//  '<S75>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/TD'
-//  '<S76>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/ESO/fal(e,0.25,h)'
-//  '<S77>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/ESO/fal(e,0.5,h)'
-//  '<S78>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/NLSEF/fhan(e1,ce2,r,h1)'
-//  '<S79>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/TD/fhan_AirSpdADRC'
-//  '<S80>'  : 'Real2SimGuidance/Real2SimNav/TD/fhan_Alt'
+//  '<S65>'  : 'Real2SimGuidance/Real2SimNav/HeadingLogic/NewMissionHdg'
+//  '<S66>'  : 'Real2SimGuidance/Real2SimNav/HeadingLogic/RefHdg'
+//  '<S67>'  : 'Real2SimGuidance/Real2SimNav/MaxBrake/Calculate Brake Range'
+//  '<S68>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC'
+//  '<S69>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/EnableBias'
+//  '<S70>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/Range2CurrentSim'
+//  '<S71>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/RangeSim2Track1d3'
+//  '<S72>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/RangeSim2Track2d3'
+//  '<S73>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/RangeSim2Track3d3'
+//  '<S74>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/ESO'
+//  '<S75>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/NLSEF'
+//  '<S76>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/TD'
+//  '<S77>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/ESO/fal(e,0.25,h)'
+//  '<S78>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/ESO/fal(e,0.5,h)'
+//  '<S79>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/NLSEF/fhan(e1,ce2,r,h1)'
+//  '<S80>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/TD/fhan_AirSpdADRC'
+//  '<S81>'  : 'Real2SimGuidance/Real2SimNav/TD/fhan_Alt'
 
 #endif                                 // RTW_HEADER_Real2SimGuidance_h_
 

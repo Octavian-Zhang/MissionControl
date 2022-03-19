@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 2.679
-// Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Thu Jul  1 19:35:55 2021
+// Model version                  : 3.98
+// Simulink Coder version         : 9.6 (R2021b) 14-May-2021
+// C/C++ source code generated on : Fri Mar 18 20:29:43 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -26,26 +26,10 @@
 #include <signal.h>
 #include <time.h>
 #include "rt_nonfinite.h"
-#include <stdio.h>                // This ert_main.c example uses printf/fflush
+#include <stdio.h>              // This example main program uses printf/fflush
 #include "codegenReal2Mission.h"       // Model's header file
-#include "rtwtypes.h"
-#include "model_reference_types.h"
-#include "builtin_typeid_types.h"
-#include "multiword_types.h"
-#include "zero_crossing_types.h"
-#include "rt_logging.h"
 
 #include "MW_ert_main.h"
-
-#ifndef SAVEFILE
-#define MATFILE2(file)                 #file ".mat"
-#define MATFILE1(file)                 MATFILE2(file)
-#define MATFILE                        MATFILE1(MODEL)
-#else
-#define QUOTE1(name)                   #name
-#define QUOTE(name)                    QUOTE1(name)              // need to expand name 
-#define MATFILE                        QUOTE(SAVEFILE)
-#endif
 
 class codegenReal2MissionModelClassSendData_IndividualUAVCmdT : public
     SendData_IndividualUAVCmdT{
@@ -60,6 +44,17 @@ class codegenReal2MissionModelClassSendData_IndividualUAVCmdT : public
 
 static codegenReal2MissionModelClassSendData_IndividualUAVCmdT
     CurrentMissionSendData_arg;
+    class codegenReal2MissionModelClassSendData_FlightLoggingT : public
+    SendData_FlightLoggingT{
+  public:
+    void SendData(const FlightLogging* data, int32_T length, int32_T* status)
+    {
+        // Add send data logic here
+    }
+};
+
+static codegenReal2MissionModelClassSendData_FlightLoggingT
+    FlightLogSendData_arg;
 class codegenReal2MissionModelClassRecvData_IndividualUAVCmdT : public
     RecvData_IndividualUAVCmdT{
   public:
@@ -78,7 +73,7 @@ class codegenReal2MissionModelClassRecvData_IndividualUAVCmdT : public
 static codegenReal2MissionModelClassRecvData_IndividualUAVCmdT
     MissionCMDRecvData_arg;
 static codegenReal2MissionModelClass codegenReal2Mission_Obj{
-    CurrentMissionSendData_arg, MissionCMDRecvData_arg };// Instance of model class 
+    CurrentMissionSendData_arg, FlightLogSendData_arg, MissionCMDRecvData_arg };// Instance of model class 
 
 #define CHECK_STATUS(status, fcn)      if (status != 0) {fprintf(stderr, "Call to %s returned error status (%d).\n", fcn, status); perror(fcn); fflush(stderr); exit(EXIT_FAILURE);}
 
@@ -193,13 +188,7 @@ void* periodicTask(void *arg)
         // Set model inputs here
         codegenReal2Mission_Obj.setExternalInputs(&pCommonData->getExtU());
 
-        // push new mission
-        // std::async(std::launch::async, [&]()
-        //    {if (pCommonData->NewMissionCMD()){ printf("Push New Mission!\n"); fflush(stdout);
-        //         codegenReal2Mission_Obj.codegenReal2Mission_PushNewMission(); }
-        //     else { printf("."); fflush(stdout); }; });
         printf("."); fflush(stdout);
-
         codegenReal2Mission_Obj.step();
 
         // Get model outputs here
@@ -363,8 +352,6 @@ int MW_ert_main()
         fprintf(stderr, "\n**%s**\n", rtmGetErrorStatus
                 (codegenReal2Mission_Obj.getRTM()));
     }
-
-    // Disable rt_OneStep() here
 
     // Terminate model
     codegenReal2Mission_Obj.terminate();
