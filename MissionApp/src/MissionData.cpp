@@ -88,11 +88,11 @@ void MissionData::setMissionCmdFB(const IndividualUAVCmd &missionCmdFeedback)
 void MissionData::updatePos(FlightStatus fs)
 {
 	const std::lock_guard<std::mutex> lock(mutexExtU);
-	this->ExtU.StateFCU_b.RealUAVState = {fs.lat, fs.lon, fs.height, fs.airspeed, fs.yaw, fs.pitch, fs.roll};
+	this->ExtU.FlightState.RealUAVState = {fs.lat, fs.lon, fs.height, fs.airspeed, fs.yaw, fs.pitch, fs.roll};
 	this->ExtU.FlightMode = fs.flightMode;
-	this->ExtU.StateFCU_b.GndSpd_mps = fs.groundspeed;
-	this->ExtU.StateFCU_b.VecSpd = {fs.eastSpeed, fs.northSpeed, fs.skySpeed};
-	this->ExtU.StateFCU_b.Altitude = fs.alt;
+	this->ExtU.FlightState.GndSpd_mps = fs.groundspeed;
+	this->ExtU.FlightState.VecSpd = {fs.eastSpeed, fs.northSpeed, fs.skySpeed};
+	this->ExtU.FlightState.Altitude = fs.alt;
 }
 
 //--------------供数据收发软件设置任务指令-------------------//
@@ -112,10 +112,10 @@ MissionCmd MissionData::getMissionCmdFeedback()
 void MissionData::getExpectedPos(std::vector<double> &expPos)
 {
 	const std::lock_guard<std::mutex> lock(mutexExtY);
-	expPos.push_back(this->ExtY.FCUCMD_i.RefAirSpd_mps);
-	expPos.push_back(this->ExtY.FCUCMD_i.Longitude_deg);
-	expPos.push_back(this->ExtY.FCUCMD_i.Latitude_deg);
-	expPos.push_back(this->ExtY.FCUCMD_i.Height_meter);
+	expPos.push_back(this->ExtY.FlightCMD.RefAirSpd_mps);
+	expPos.push_back(this->ExtY.FlightCMD.Longitude_deg);
+	expPos.push_back(this->ExtY.FlightCMD.Latitude_deg);
+	expPos.push_back(this->ExtY.FlightCMD.Height_meter);
 }
 
 bool MissionData::NewMissionCMD()
