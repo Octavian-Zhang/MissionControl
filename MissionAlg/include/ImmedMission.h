@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'ImmedMission'.
 //
-// Model version                  : 2.88
+// Model version                  : 2.90
 // Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Fri Mar 18 20:08:53 2022
+// C/C++ source code generated on : Mon Mar 21 00:56:32 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -106,6 +106,7 @@ struct DW_ImmedMission_f_T {
     uint8_T WaypointFollower_o5;       // '<S127>/Waypoint Follower'
     uint8_T TrackSimPath_o5;           // '<S66>/TrackSimPath'
     uint8_T Memory_PreviousInput;      // '<S1>/Memory'
+    uint8_T Memory_PreviousInput_j;    // '<Root>/Memory'
     uint8_T is_active_c7_ImmedMission; // '<S127>/TriggerCalibrStart'
     uint8_T is_c7_ImmedMission;        // '<S127>/TriggerCalibrStart'
     uint8_T MemoryStatus_PreviousInput;// '<S63>/MemoryStatus'
@@ -122,7 +123,6 @@ struct DW_ImmedMission_f_T {
     boolean_T i_data[10241];
     boolean_T x_data[30723];
     boolean_T InDanger;                // '<S63>/Relational Operator'
-    boolean_T Memory_PreviousInput_j;  // '<Root>/Memory'
     boolean_T objisempty;              // '<S127>/Waypoint Follower'
     boolean_T objisempty_o;            // '<S132>/RotateATMissionHdg'
     boolean_T objisempty_k;            // '<S66>/TrackSimPath'
@@ -179,7 +179,7 @@ extern void ImmedMission_Init(boolean_T rty_ControlSwitch[2],
 extern void ImmedMission_Reset(DW_ImmedMission_f_T *localDW);
 extern void ImmedMission_Disable(DW_ImmedMission_f_T *localDW);
 extern void ImmedMission_Update(const FixedWingGuidanceStateBus *rtu_SimUAVstate,
-    const boolean_T *rtu_RealUAVEngaged, DW_ImmedMission_f_T *localDW);
+    const uint8_T *rtu_RealUAVEngaged, DW_ImmedMission_f_T *localDW);
 extern void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
     missionCmd *rtu_MissionInput, const boolean_T *rtu_EndImmed, const boolean_T
     *rtu_NewImmed, const RealUAVStateBus *rtu_RealUAVState, const MissionModes

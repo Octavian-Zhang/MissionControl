@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'ImmedMission'.
 //
-// Model version                  : 2.88
+// Model version                  : 2.90
 // Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Fri Mar 18 20:08:53 2022
+// C/C++ source code generated on : Mon Mar 21 00:56:32 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -2306,7 +2306,7 @@ void ImmedMission_Reset(DW_ImmedMission_f_T *localDW)
     localDW->Memory_PreviousInput = 0U;
 
     // InitializeConditions for Memory: '<Root>/Memory'
-    localDW->Memory_PreviousInput_j = false;
+    localDW->Memory_PreviousInput_j = 0U;
 
     // SystemReset for Chart: '<S1>/PreemptableMissionModeSelector'
     localDW->is_GuidanceLogic = ImmedMission_IN_NO_ACTIVE_CHILD;
@@ -8095,7 +8095,9 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             // Outputs for IfAction SubSystem: '<S1>/AvoidInterPlaneCollision' incorporates:
             //   ActionPort: '<S5>/Action Port'
 
-            // Logic: '<S12>/AND'
+            // Logic: '<S12>/AND' incorporates:
+            //   Constant: '<S12>/ControlSpd'
+
             rty_ControlSwitch[0] = false;
             rty_ControlSwitch[1] = false;
 
@@ -8462,7 +8464,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
 
 // Update for referenced model: 'ImmedMission'
 void ImmedMission_Update(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
-    boolean_T *rtu_RealUAVEngaged, DW_ImmedMission_f_T *localDW)
+    uint8_T *rtu_RealUAVEngaged, DW_ImmedMission_f_T *localDW)
 {
     // Update for Memory: '<S1>/Memory'
     localDW->Memory_PreviousInput = localDW->WaypointFollower_o5;

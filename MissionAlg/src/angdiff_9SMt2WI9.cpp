@@ -3,16 +3,16 @@
 //
 // Code generated for Simulink model 'Real2SimGuidance'.
 //
-// Model version                  : 3.57
+// Model version                  : 3.85
 // Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Fri Mar 18 20:07:42 2022
+// C/C++ source code generated on : Mon Mar 21 00:55:39 2022
 //
 #include "rtwtypes.h"
 #include "rt_nonfinite.h"
 #include <cmath>
 #include "angdiff_9SMt2WI9.h"
 
-// Function for MATLAB Function: '<S4>/AngLog'
+// Function for MATLAB Function: '<S6>/AngLog'
 real_T angdiff_9SMt2WI9(real_T x, real_T y)
 {
     real_T delta;

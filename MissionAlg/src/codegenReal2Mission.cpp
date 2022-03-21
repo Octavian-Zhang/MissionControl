@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 3.98
+// Model version                  : 3.104
 // Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Fri Mar 18 20:29:43 2022
+// C/C++ source code generated on : Mon Mar 21 01:11:20 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -3500,6 +3500,7 @@ void codegenReal2MissionModelClass::step()
         // Update for ModelReference: '<S6>/Real2SimGuidance'
         Real2SimGuidance_Update
             (&(codegenReal2Mission_DW.Real2SimGuidance_InstanceData.rtm),
+             &codegenReal2Mission_DW.NewMission,
              &codegenReal2Mission_DW.ImmedMission_o2,
              &(codegenReal2Mission_DW.Real2SimGuidance_InstanceData.rtdw));
         if (rtmIsMajorTimeStep((&codegenReal2Mission_M))) {

@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 3.98
+// Model version                  : 3.104
 // Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Fri Mar 18 20:29:43 2022
+// C/C++ source code generated on : Mon Mar 21 01:11:20 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -118,7 +118,7 @@ struct missionCmd
 
 struct TaskStatus
 {
-    boolean_T EngagedFlag;
+    uint8_T EngagedFlag;
     int32_T FlightStatus;
     int32_T ImmedStatus;
     int32_T SequenceID;
@@ -153,7 +153,7 @@ struct FlightLogging
     real_T LagDistance;
     real_T LookAheadNED[3];
     real_T CrossTrackError;
-    boolean_T EngagedFlag;
+    uint8_T EngagedFlag;
     real_T Heading[3];
     real_T ADRC_U;
     real_T biasH;

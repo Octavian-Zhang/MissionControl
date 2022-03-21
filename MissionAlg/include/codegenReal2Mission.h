@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 3.98
+// Model version                  : 3.104
 // Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Fri Mar 18 20:29:43 2022
+// C/C++ source code generated on : Mon Mar 21 01:11:20 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -167,6 +167,7 @@ class codegenReal2MissionModelClass
         int32_T MemoryImmedStatus_PreviousInput;// '<S1>/MemoryImmedStatus'
         int32_T followSwitch_start;    // '<S12>/NewMission'
         int8_T DiscreteTimeIntegrator_PrevResetState;// '<S27>/Discrete-Time Integrator' 
+        uint8_T EngagedFlag_Log;       // '<S6>/Real2SimGuidance'
         uint8_T is_active_c14_codegenReal2Mission;// '<S12>/NewMission'
         uint8_T is_c14_codegenReal2Mission;// '<S12>/NewMission'
         uint8_T is_active_c12_codegenReal2Mission;// '<S12>/MisisonCMDTemporalLogic' 
@@ -179,7 +180,6 @@ class codegenReal2MissionModelClass
         boolean_T ImmedMission_o3[2];  // '<S3>/ImmedMission'
         boolean_T eml_autoflush[20];   // '<S8>/PrintOnboardLog'
         boolean_T RcvImmedCMD_o1;      // '<Root>/RcvImmedCMD'
-        boolean_T EngagedFlag_Log;     // '<S6>/Real2SimGuidance'
         boolean_T endImmed;            // '<S5>/CommandCheck'
         boolean_T NewMission;          // '<S12>/NewMission'
         boolean_T StartSim;            // '<S13>/TriggerStartSim'
@@ -426,7 +426,7 @@ class codegenReal2MissionModelClass
 //  Block '<S29>/pMinus' : Unused code path elimination
 //  Block '<S29>/xCeil' : Unused code path elimination
 //  Block '<S29>/xGain' : Unused code path elimination
-//  Block '<S1>/Cast To Boolean' : Eliminate redundant data type conversion
+//  Block '<S1>/Cast To uint8' : Eliminate redundant data type conversion
 //  Block '<S1>/intFormationPos' : Eliminate redundant data type conversion
 //  Block '<S1>/intMissionMode' : Eliminate redundant data type conversion
 //  Block '<S1>/intNumUAV' : Eliminate redundant data type conversion

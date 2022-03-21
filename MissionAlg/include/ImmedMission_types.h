@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'ImmedMission'.
 //
-// Model version                  : 2.88
+// Model version                  : 2.90
 // Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Fri Mar 18 20:08:53 2022
+// C/C++ source code generated on : Mon Mar 21 00:56:32 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -24,18 +24,6 @@
 #include "DatalinkInterface.h"
 
 // Model Code Variants
-#ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
-#define DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
-
-struct FixedWingGuidanceBus
-{
-    real_T Height;
-    real_T AirSpeed;
-    real_T HeadingAngle;
-};
-
-#endif
-
 #ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceStateBus_
 #define DEFINED_TYPEDEF_FOR_FixedWingGuidanceStateBus_
 
@@ -49,6 +37,18 @@ struct FixedWingGuidanceStateBus
     real_T FlightPathAngle;
     real_T RollAngle;
     real_T RollAngleRate;
+};
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
+#define DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
+
+struct FixedWingGuidanceBus
+{
+    real_T Height;
+    real_T AirSpeed;
+    real_T HeadingAngle;
 };
 
 #endif
