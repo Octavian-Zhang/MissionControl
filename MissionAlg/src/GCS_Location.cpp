@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 3.104
+// Model version                  : 3.105
 // Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Mon Mar 21 01:11:20 2022
+// C/C++ source code generated on : Tue Mar 22 01:19:50 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -25,11 +25,11 @@
 // Exported data definition
 
 // Definition for custom storage class: ExportToFile
-real_T GCS_Altitude{ 30.0 };
+real_T GCS_Altitude{ 80.0 };
 
-real_T GCS_Latitude{ 34.93914083 };
+real_T GCS_Latitude{ 40.994 };
 
-real_T GCS_Longitude{ 113.2316744 };
+real_T GCS_Longitude{ 113.132 };
 
 //
 // File trailer for generated code.
