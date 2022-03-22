@@ -2,8 +2,9 @@ build/
 lib/
 app/
 out/
-CMakeSettings.json
+*.json
 .vs/
 .vscode/
 log/
 runtime/
+*.bak
