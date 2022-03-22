@@ -115,11 +115,11 @@ void MissionData::getExpectedPos(std::vector<double> &expPos)
 	expPos.push_back(this->ExtY.FlightCMD.RefAirSpd_mps);
 	expPos.push_back(this->ExtY.FlightCMD.Longitude_deg);
 	expPos.push_back(this->ExtY.FlightCMD.Latitude_deg);
-	expPos.push_back(this->ExtY.FlightCMD.Height_meter >= 80 ? this->ExtY.FlightCMD.Height_meter : 80);
+	expPos.push_back(this->ExtY.FlightCMD.Height_meter);
 }
 
 bool MissionData::NewMissionCMD()
-{	
+{
 	const std::lock_guard<std::mutex> lock(mutexQ); 
 	return !cmdQueue.empty();
 }
