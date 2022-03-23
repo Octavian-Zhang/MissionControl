@@ -6,6 +6,9 @@ cmake_minimum_required(VERSION 3.5.0)
 # declare project name and version number
 project(MissionControl VERSION 2.411)
 
+set(BUILD_SHARED_LIBS OFF)
+set(CMAKE_EXE_LINKER_FLAGS "-static")
+
 # set project name and version number flag
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})

@@ -2,6 +2,7 @@
 #define MW_ERT_MAIN
 
 #include "MissionData.h"
+#include "sqlite_orm.h"
 #include <future>
 
 extern MissionData *pCommonData;

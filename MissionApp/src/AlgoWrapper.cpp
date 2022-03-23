@@ -27,8 +27,8 @@ AlgoWrapper::AlgoWrapper(MissionData *const pCommonData) : commonData{pCommonDat
 void AlgoWrapper::AlgoThreadFunc()
 {
 	std::cout << "Waiting OS clock calibration..." << std::endl;
-	std::unique_lock<std::mutex> lk(commonData->mutexSysTime);
-	commonData->cvSysTime.wait(lk, [&](){return commonData->TimeCalibrated;});
+	// std::unique_lock<std::mutex> lk(commonData->mutexSysTime);
+	// commonData->cvSysTime.wait(lk, [&](){return commonData->TimeCalibrated;});
 	std::cout << "OS clock calibrated" << std::endl;
 	MW_ert_main();
 }

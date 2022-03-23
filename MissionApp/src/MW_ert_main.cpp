@@ -31,6 +31,22 @@
 
 #include "MW_ert_main.h"
 
+
+auto initStorage(const std::string& path) {
+    using namespace sqlite_orm;
+    return make_storage(path,
+                        make_table<FixedWingGuidanceStateBus>("RealUAVState",
+                                   make_column("North", &FixedWingGuidanceStateBus::North),
+                                   make_column("East", &FixedWingGuidanceStateBus::East),
+                                   make_column("Height", &FixedWingGuidanceStateBus::Height),
+                                   make_column("AirSpeed", &FixedWingGuidanceStateBus::AirSpeed),
+                                   make_column("HeadingAngle", &FixedWingGuidanceStateBus::HeadingAngle),
+                                   make_column("FlightPathAngle", &FixedWingGuidanceStateBus::FlightPathAngle),
+                                   make_column("RollAngle", &FixedWingGuidanceStateBus::RollAngle),
+                                   make_column("RollAngleRate", &FixedWingGuidanceStateBus::RollAngleRate)));
+}
+using Storage = decltype(initStorage(""));
+
 class codegenReal2MissionModelClassSendData_IndividualUAVCmdT : public
     SendData_IndividualUAVCmdT{
   public:
@@ -44,12 +60,18 @@ class codegenReal2MissionModelClassSendData_IndividualUAVCmdT : public
 
 static codegenReal2MissionModelClassSendData_IndividualUAVCmdT
     CurrentMissionSendData_arg;
-    class codegenReal2MissionModelClassSendData_FlightLoggingT : public
+class codegenReal2MissionModelClassSendData_FlightLoggingT : public
     SendData_FlightLoggingT{
+        Storage storage = initStorage("FlightLog.sqlite");
   public:
     void SendData(const FlightLogging* data, int32_T length, int32_T* status)
     {
+        storage.replace(data->RealUAVState);
         // Add send data logic here
+    }
+    codegenReal2MissionModelClassSendData_FlightLoggingT()
+    {
+        storage.sync_schema();
     }
 };
 
