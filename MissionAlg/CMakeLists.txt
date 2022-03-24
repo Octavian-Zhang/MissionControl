@@ -19,7 +19,7 @@ include_directories (${CMAKE_CURRENT_SOURCE_DIR}/include)
 file(GLOB_RECURSE MISSIONALG_SRC ${CMAKE_CURRENT_SOURCE_DIR}/src/*)
 
 # add source to this project's shared library.
-add_library (MissionAlg SHARED ${MISSIONALG_SRC})
+add_library (MissionAlg ${MISSIONALG_SRC})
 
 # state that anybody linking to us needs to include the current source dir
 # to find necessary headers, while we don't.
