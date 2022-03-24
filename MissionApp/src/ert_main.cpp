@@ -216,6 +216,7 @@ void* periodicTask(void *arg)
         codegenReal2Mission_Obj.setExternalInputs(&ExtU);
 
         codegenReal2Mission_Obj.step();
+        printf("."); fflush(stdout);
 
         // Get model outputs here
         codegenReal2MissionModelClass::ExtY_codegenReal2Mission_T ExtY{};
@@ -327,6 +328,12 @@ int main(int argc, const char *argv[])
 
     CurrentMissionSendData_arg.SetMQ(mqSndCMD.getMQ());
     MissionCMDRecvData_arg.SetMQ(mqRcvCMD.getMQ());
+
+    // Waiting for OS clock calibration
+    msgQueue mqStart("/ptrPosixMQ_Start", O_CREAT | O_RDONLY, 1, sizeof(bool));
+    bool startflag{}; printf("Waiting for OS Clock Calibration\n");
+    printf((mq_receive(mqStart.getMQ(), (char *)&startflag, sizeof(bool), nullptr) > 0) 
+        ? "OS Clock Calibrated: %c\n" : "MQ_Receive Error %c", startflag);
 
     {
         // Connect and enable the signal handler for timers notification
