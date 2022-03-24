@@ -1,6 +1,7 @@
 // Implementation of msgQueue class member functions
 
 #include "msgQueue.hpp"
+#include <errno.h>
 
 msgQueue::msgQueue(const char *name, int flags, int maxmsg, int msgsize) : qName_{name}
 {
@@ -13,8 +14,9 @@ msgQueue::msgQueue(const char *name, int flags, int maxmsg, int msgsize) : qName
 
     if (this->MQ_ < 0)
     {
-        printf("mq_open failed\n");
-        exit(1);
+        printf("%s mq_open failed\n", qName_);
+        int err = errno;
+        printf("%i", err); exit(1);
     }
 }
 
@@ -22,12 +24,14 @@ msgQueue::~msgQueue()
 {
     if (mq_close(MQ_) < 0)
     {
-        printf("mq_close failed\n");
-        exit(1);
+        printf("%s mq_close failed\n", qName_);
+        int err = errno;
+        printf("%i", err); exit(1);
     }
     if (mq_unlink(qName_) < 0)
     {
-        printf("mq_unlink failed\n");
-        exit(1);
+        printf("%s mq_unlink failed\n", qName_);
+        int err = errno;
+        printf("%i", err); exit(1);
     }
 }
