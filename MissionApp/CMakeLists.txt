@@ -3,8 +3,10 @@
 #
 cmake_minimum_required(VERSION 3.5.0)
 
-# add compiler option to use C++11 features
-set (CMAKE_CXX_STANDARD 11)
+# add compiler option to use C++ 17 features
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 # set preprocessor flag to include pthread
 set(THREADS_PREFER_PTHREAD_FLAG ON)
@@ -26,4 +28,4 @@ file(GLOB_RECURSE MISSIONALG_SRC ${CMAKE_CURRENT_SOURCE_DIR}/src/*)
 add_executable(${PROJECT_NAME} ${MISSIONALG_SRC})
 
 # Define target link libraries
-target_link_libraries (${PROJECT_NAME} ${EXTRA_LIBS} rt Threads::Threads -static)
+target_link_libraries (${PROJECT_NAME} ${EXTRA_LIBS} rt dl Threads::Threads -static)

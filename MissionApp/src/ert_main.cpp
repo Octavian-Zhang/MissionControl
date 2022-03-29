@@ -30,10 +30,58 @@
 #include "codegenReal2Mission.h"       // Model's header file
 
 #include "msgQueue.hpp"
+#include "sqlite_orm.h"
 
 /* Simulink Model IO */
 static msgQueue MQ_ExtU("/PosixMQ_ExtU", O_CREAT | O_RDONLY | O_NONBLOCK, 1, sizeof(codegenReal2MissionModelClass::ExtU_codegenReal2Mission_T));
 static msgQueue MQ_ExtY("/PosixMQ_ExtY", O_CREAT | O_WRONLY | O_NONBLOCK, 1, sizeof(codegenReal2MissionModelClass::ExtY_codegenReal2Mission_T));
+
+auto initStorage(const std::string& path) {
+    using namespace sqlite_orm;
+    return make_storage(path,
+                        make_table<RealUAVStateBus>("RealUAVState",
+                                make_column("Latitude_deg", &RealUAVStateBus::Latitude_deg),
+                                make_column("Longitude_deg", &RealUAVStateBus::Longitude_deg),
+                                make_column("Height_meter", &RealUAVStateBus::Height_meter),
+                                make_column("AirSpeed_mps", &RealUAVStateBus::AirSpeed_mps),
+                                make_column("HeadingAngle_deg", &RealUAVStateBus::HeadingAngle_deg),
+                                make_column("FlightPathAngle_deg", &RealUAVStateBus::FlightPathAngle_deg),
+                                make_column("RollAngle_deg", &RealUAVStateBus::RollAngle_deg)),
+                        make_table<FixedWingGuidanceStateBus>("SimUAVState",
+                                make_column("North", &FixedWingGuidanceStateBus::North),
+                                make_column("East", &FixedWingGuidanceStateBus::East),
+                                make_column("Height", &FixedWingGuidanceStateBus::Height),
+                                make_column("AirSpeed", &FixedWingGuidanceStateBus::AirSpeed),
+                                make_column("HeadingAngle", &FixedWingGuidanceStateBus::HeadingAngle),
+                                make_column("FlightPathAngle", &FixedWingGuidanceStateBus::FlightPathAngle),
+                                make_column("RollAngle", &FixedWingGuidanceStateBus::RollAngle),
+                                make_column("RollAngleRate", &FixedWingGuidanceStateBus::RollAngleRate)),
+                        make_table<FCUCMD>("FlightCMD",
+                                make_column("Latitude_deg", &FCUCMD::Latitude_deg),
+                                make_column("Longitude_deg", &FCUCMD::Longitude_deg),
+                                make_column("Height_meter", &FCUCMD::Height_meter),
+                                make_column("RefAirSpd_mps", &FCUCMD::RefAirSpd_mps)),
+                        make_table<InternalStatus>("InnerState",
+                                make_column("LagDistance", &InternalStatus::LagDistance),
+                                make_column("CrossTrackError", &InternalStatus::CrossTrackError),
+                                make_column("EngagedFlag", &InternalStatus::EngagedFlag),
+                                make_column("RealHeading", &InternalStatus::RealHeading),
+                                make_column("TargetHeading", &InternalStatus::TargetHeading),
+                                make_column("HeadingDiff", &InternalStatus::HeadingDiff),
+                                make_column("ADRC_U", &InternalStatus::ADRC_U),
+                                make_column("biasH", &InternalStatus::biasH),
+                                make_column("HdgStatus", &InternalStatus::HdgStatus)),
+                        make_table<MiscellaneousFlightStatus>("MiscStatus",
+                                make_column("GroundSpeed", &MiscellaneousFlightStatus::GroundSpeed),
+                                make_column("FlightMode", &MiscellaneousFlightStatus::FlightMode),
+                                make_column("Altitude", &MiscellaneousFlightStatus::Altitude),
+                                make_column("FlightPath", &MiscellaneousFlightStatus::FlightPath)),
+                        make_table<VectorSpeed>("VectorSpd",
+                                make_column("eastSpeed", &VectorSpeed::eastSpeed),
+                                make_column("northSpeed", &VectorSpeed::northSpeed),
+                                make_column("skySpeed", &VectorSpeed::skySpeed)));
+}
+using Storage = decltype(initStorage(""));
 
 class codegenReal2MissionModelClassSendData_IndividualUAVCmdT : public
     SendData_IndividualUAVCmdT{
@@ -60,10 +108,21 @@ static codegenReal2MissionModelClassSendData_IndividualUAVCmdT
     CurrentMissionSendData_arg;
 class codegenReal2MissionModelClassSendData_FlightLoggingT : public
     SendData_FlightLoggingT{
+    Storage storage;
   public:
+    codegenReal2MissionModelClassSendData_FlightLoggingT() : storage(initStorage("FlightLogging.sqlite"))
+    {
+        storage.sync_schema();
+    }
     void SendData(const FlightLogging* data, int32_T length, int32_T* status)
     {
         // Add send data logic here
+        storage.insert(data->FlightCMD);
+        storage.insert(data->InnerState);
+        storage.insert(data->MiscStatus);
+        storage.insert(data->RealUAVState);
+        storage.insert(data->SimUAVState);
+        storage.insert(data->VectorSpd);
     }
 };
 
@@ -289,7 +348,7 @@ int main(int argc, const char *argv[])
     pthread_t periodicThread[1];
     pthread_t periodicTriggerThread[1];
     struct sched_param sp;
-    int ret, policy = SCHED_OTHER;
+    int ret, policy = SCHED_RR;
     pthread_attr_t attr;
     double periodicTriggerRate[1];
     int priority[1];
@@ -332,9 +391,9 @@ int main(int argc, const char *argv[])
 
     // Waiting for OS clock calibration
     msgQueue mqStart("/ptrPosixMQ_Start", O_CREAT | O_RDONLY, 1, sizeof(bool));
-    bool startflag{}; printf("Waiting for OS Clock Calibration\n");
-    printf((mq_receive(mqStart.getMQ(), (char *)&startflag, sizeof(bool), nullptr) > 0) 
-        ? "OS Clock Calibrated: %c\n" : "MQ_Receive Error %c", startflag);
+    // bool startflag{}; printf("Waiting for OS Clock Calibration\n");
+    // printf((mq_receive(mqStart.getMQ(), (char *)&startflag, sizeof(bool), nullptr) > 0) 
+    //     ? "OS Clock Calibrated: %c\n" : "MQ_Receive Error %c", startflag);
 
     {
         // Connect and enable the signal handler for timers notification
