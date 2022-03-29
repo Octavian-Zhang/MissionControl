@@ -1,11 +1,11 @@
 //
 // File: rtwtypes.h
 //
-// Code generated for Simulink model 'codegenLogging'.
+// Code generated for Simulink model 'MissionUAV'.
 //
-// Model version                  : 3.62
+// Model version                  : 2.12
 // Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Wed Feb 23 00:19:48 2022
+// C/C++ source code generated on : Tue Mar 29 06:36:24 2022
 //
 
 #ifndef RTWTYPES_H

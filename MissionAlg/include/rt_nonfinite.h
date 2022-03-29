@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'MissionUAV'.
 //
-// Model version                  : 2.2
+// Model version                  : 2.12
 // Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Wed Feb 23 00:20:27 2022
+// C/C++ source code generated on : Tue Mar 29 06:36:24 2022
 //
 #ifndef RTW_HEADER_rt_nonfinite_h_
 #define RTW_HEADER_rt_nonfinite_h_

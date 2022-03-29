@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 3.91
+// Model version                  : 3.150
 // Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Wed Feb 23 00:38:39 2022
+// C/C++ source code generated on : Tue Mar 29 06:52:10 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -28,16 +28,6 @@
 #include "rt_nonfinite.h"
 #include <stdio.h>              // This example main program uses printf/fflush
 #include "codegenReal2Mission.h"       // Model's header file
-#include "rt_logging.h"
-#ifndef SAVEFILE
-#define MATFILE2(file)                 #file ".mat"
-#define MATFILE1(file)                 MATFILE2(file)
-#define MATFILE                        MATFILE1(MODEL)
-#else
-#define QUOTE1(name)                   #name
-#define QUOTE(name)                    QUOTE1(name)              // need to expand name 
-#define MATFILE                        QUOTE(SAVEFILE)
-#endif
 
 #include "msgQueue.hpp"
 
@@ -68,6 +58,17 @@ class codegenReal2MissionModelClassSendData_IndividualUAVCmdT : public
 
 static codegenReal2MissionModelClassSendData_IndividualUAVCmdT
     CurrentMissionSendData_arg;
+class codegenReal2MissionModelClassSendData_FlightLoggingT : public
+    SendData_FlightLoggingT{
+  public:
+    void SendData(const FlightLogging* data, int32_T length, int32_T* status)
+    {
+        // Add send data logic here
+    }
+};
+
+static codegenReal2MissionModelClassSendData_FlightLoggingT
+    FlightLogSendData_arg;
 class codegenReal2MissionModelClassRecvData_IndividualUAVCmdT : public
     RecvData_IndividualUAVCmdT{
     mqd_t msgQueue;
@@ -92,7 +93,7 @@ class codegenReal2MissionModelClassRecvData_IndividualUAVCmdT : public
 static codegenReal2MissionModelClassRecvData_IndividualUAVCmdT
     MissionCMDRecvData_arg;
 static codegenReal2MissionModelClass codegenReal2Mission_Obj{
-    CurrentMissionSendData_arg, MissionCMDRecvData_arg };// Instance of model class 
+    CurrentMissionSendData_arg, FlightLogSendData_arg, MissionCMDRecvData_arg };// Instance of model class 
 
 #define CHECK_STATUS(status, fcn)      if (status != 0) {fprintf(stderr, "Call to %s returned error status (%d).\n", fcn, status); perror(fcn); fflush(stderr); exit(EXIT_FAILURE);}
 

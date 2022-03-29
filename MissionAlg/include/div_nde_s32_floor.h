@@ -1,5 +1,5 @@
 //
-// File: split_lIfqwsQg.h
+// File: div_nde_s32_floor.h
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
@@ -7,13 +7,13 @@
 // Simulink Coder version         : 9.6 (R2021b) 14-May-2021
 // C/C++ source code generated on : Tue Mar 29 06:52:10 2022
 //
-#ifndef RTW_HEADER_split_lIfqwsQg_h_
-#define RTW_HEADER_split_lIfqwsQg_h_
+#ifndef RTW_HEADER_div_nde_s32_floor_h_
+#define RTW_HEADER_div_nde_s32_floor_h_
 #include "rtwtypes.h"
 
-extern creal_T split_lIfqwsQg(real_T a);
+extern int32_T div_nde_s32_floor(int32_T numerator, int32_T denominator);
 
-#endif                                 // RTW_HEADER_split_lIfqwsQg_h_
+#endif                                 // RTW_HEADER_div_nde_s32_floor_h_
 
 //
 // File trailer for generated code.

@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'MissionUAV'.
 //
-// Model version                  : 2.2
+// Model version                  : 2.12
 // Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Wed Feb 23 00:20:27 2022
+// C/C++ source code generated on : Tue Mar 29 06:36:24 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -29,17 +29,17 @@ static void MissionUAV_Model_resetImpl
     obj->ModelImpl.Configuration.PHeight = 3.9;
     obj->ModelImpl.Configuration.PFlightPathAngle = 39.0;
     obj->ModelImpl.Configuration.PAirSpeed = 0.39;
-    obj->ModelImpl.Configuration.PHeight = 2.73;
-    obj->ModelImpl.Configuration.PFlightPathAngle = 11.7;
-    obj->ModelImpl.Configuration.PAirSpeed = 0.3;
+    obj->ModelImpl.Configuration.PHeight = 4.0;
+    obj->ModelImpl.Configuration.PFlightPathAngle = 12.0;
+    obj->ModelImpl.Configuration.PAirSpeed = 1.0;
     obj->ModelImpl.Configuration.PDRoll[0] = 3402.9722249999991;
     obj->ModelImpl.Configuration.FlightPathAngleLimits[0] = -1.5707963267948966;
-    obj->ModelImpl.Configuration.PDRoll[0] = 100.0;
-    obj->ModelImpl.Configuration.FlightPathAngleLimits[0] = -0.21109333322274654;
+    obj->ModelImpl.Configuration.PDRoll[0] = 300.0;
+    obj->ModelImpl.Configuration.FlightPathAngleLimits[0] = -0.70862627212767026;
     obj->ModelImpl.Configuration.PDRoll[1] = 116.66999999999999;
     obj->ModelImpl.Configuration.FlightPathAngleLimits[1] = 1.5707963267948966;
-    obj->ModelImpl.Configuration.PDRoll[1] = 10.0;
-    obj->ModelImpl.Configuration.FlightPathAngleLimits[1] = 0.21109333322274654;
+    obj->ModelImpl.Configuration.PDRoll[1] = 30.0;
+    obj->ModelImpl.Configuration.FlightPathAngleLimits[1] = 0.70862627212767026;
 }
 
 // System initialize for referenced model: 'MissionUAV'
@@ -341,9 +341,9 @@ void MissionUAV(RT_MODEL_MissionUAV_T * const MissionUAV_M, const real_T
         }
 
         a0 = rt_atan2d_snf((std::sqrt(rtb_AirSpeed_n * rtb_AirSpeed_n -
-                             rtb_AirSpeed_p_tmp) + -rtb_AirSpeed_n) * (0.39 * y),
-                           std::cos(localX->Integrator_CSTATE[4] -
-                            (localX->Integrator_CSTATE[4] - std::asin(a0 *
+                             rtb_AirSpeed_p_tmp) + -rtb_AirSpeed_n) * y, std::
+                           cos(localX->Integrator_CSTATE[4] -
+                               (localX->Integrator_CSTATE[4] - std::asin(a0 *
                               localDW->FixedWingGuidanceEnvironmentBus_p.WindNorth
                               * -rtb_AirSpeed_p_tmp_0 + a0 *
                               localDW->FixedWingGuidanceEnvironmentBus_p.WindEast
@@ -351,12 +351,12 @@ void MissionUAV(RT_MODEL_MissionUAV_T * const MissionUAV_M, const real_T
                            localDW->FixedWingGuidanceEnvironmentBus_p.Gravity);
 
         // Saturate: '<S1>/RollAngleSaturation'
-        if (a0 > 0.3490658503988659) {
+        if (a0 > 0.78539816339744828) {
             // Saturate: '<S1>/RollAngleSaturation'
-            localDW->RollAngle = 0.3490658503988659;
-        } else if (a0 < -0.3490658503988659) {
+            localDW->RollAngle = 0.78539816339744828;
+        } else if (a0 < -0.78539816339744828) {
             // Saturate: '<S1>/RollAngleSaturation'
-            localDW->RollAngle = -0.3490658503988659;
+            localDW->RollAngle = -0.78539816339744828;
         } else {
             // Saturate: '<S1>/RollAngleSaturation'
             localDW->RollAngle = a0;
@@ -403,27 +403,27 @@ void MissionUAV(RT_MODEL_MissionUAV_T * const MissionUAV_M, const real_T
         rtb_AirSpeed_n = (rtNaN);
     }
 
-    skySpeed = (std::sqrt((8.0 * std::abs(y) + 0.0017453292519943296) *
-                          0.0017453292519943296) - 0.0017453292519943296) *
+    skySpeed = (std::sqrt((8.0 * std::abs(y) + 0.020943951023931956) *
+                          0.020943951023931956) - 0.020943951023931956) *
         rtb_AirSpeed_n / 2.0 + a0;
 
     // '<S5>:1:13'
     // '<S5>:1:14'
-    if (y + 0.0017453292519943296 < 0.0) {
+    if (y + 0.020943951023931956 < 0.0) {
         rtb_AirSpeed_n = -1.0;
-    } else if (y + 0.0017453292519943296 > 0.0) {
+    } else if (y + 0.020943951023931956 > 0.0) {
         rtb_AirSpeed_n = 1.0;
-    } else if (y + 0.0017453292519943296 == 0.0) {
+    } else if (y + 0.020943951023931956 == 0.0) {
         rtb_AirSpeed_n = 0.0;
     } else {
         rtb_AirSpeed_n = (rtNaN);
     }
 
-    if (y - 0.0017453292519943296 < 0.0) {
+    if (y - 0.020943951023931956 < 0.0) {
         y_tmp = -1.0;
-    } else if (y - 0.0017453292519943296 > 0.0) {
+    } else if (y - 0.020943951023931956 > 0.0) {
         y_tmp = 1.0;
-    } else if (y - 0.0017453292519943296 == 0.0) {
+    } else if (y - 0.020943951023931956 == 0.0) {
         y_tmp = 0.0;
     } else {
         y_tmp = (rtNaN);
@@ -443,28 +443,28 @@ void MissionUAV(RT_MODEL_MissionUAV_T * const MissionUAV_M, const real_T
         y = (rtNaN);
     }
 
-    if (a0 + 0.0017453292519943296 < 0.0) {
+    if (a0 + 0.020943951023931956 < 0.0) {
         skySpeed = -1.0;
-    } else if (a0 + 0.0017453292519943296 > 0.0) {
+    } else if (a0 + 0.020943951023931956 > 0.0) {
         skySpeed = 1.0;
-    } else if (a0 + 0.0017453292519943296 == 0.0) {
+    } else if (a0 + 0.020943951023931956 == 0.0) {
         skySpeed = 0.0;
     } else {
         skySpeed = (rtNaN);
     }
 
-    if (a0 - 0.0017453292519943296 < 0.0) {
+    if (a0 - 0.020943951023931956 < 0.0) {
         rtb_AirSpeed_n = -1.0;
-    } else if (a0 - 0.0017453292519943296 > 0.0) {
+    } else if (a0 - 0.020943951023931956 > 0.0) {
         rtb_AirSpeed_n = 1.0;
-    } else if (a0 - 0.0017453292519943296 == 0.0) {
+    } else if (a0 - 0.020943951023931956 == 0.0) {
         rtb_AirSpeed_n = 0.0;
     } else {
         rtb_AirSpeed_n = (rtNaN);
     }
 
-    localDW->fh = (a0 / 0.0017453292519943296 - y) * -0.17453292519943295 *
-        ((skySpeed - rtb_AirSpeed_n) / 2.0) - 0.17453292519943295 * y;
+    localDW->fh = (a0 / 0.020943951023931956 - y) * -2.0943951023931953 *
+        ((skySpeed - rtb_AirSpeed_n) / 2.0) - 2.0943951023931953 * y;
 
     // End of MATLAB Function: '<S4>/fhan_Bank'
     if (rtmIsMajorTimeStep(MissionUAV_M)) {

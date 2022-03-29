@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 3.91
+// Model version                  : 3.150
 // Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Wed Feb 23 00:38:39 2022
+// C/C++ source code generated on : Tue Mar 29 06:52:10 2022
 //
 
 #ifndef RTW_HEADER_MissionModes_h_
@@ -16,20 +16,40 @@
 typedef int32_T MissionModes;
 
 // enum MissionModes
-#define MissionModes_CircNav           (1)
-#define MissionModes_CircDispNav       (11)
-#define MissionModes_HorzFrmnNav       (2)
-#define MissionModes_CustomFrmnNav     (22)
-#define MissionModes_RunWayNav         (3)
-#define MissionModes_ProtLine          (4)
-#define MissionModes_NewRunWay         (5)
-#define MissionModes_DetailedInsp      (128)
-#define MissionModes_CollAvoidance     (129)
-#define MissionModes_FlightMissionRH   (130)
-#define MissionModes_SqCalibr          (131)
-#define MissionModes_pAttack           (132)
-#define MissionModes_WaitToStart       (255)
-#define MissionModes_None              (0)                       // Default value
+const MissionModes MissionModes_CircNav{ 1 };
+
+const MissionModes MissionModes_HorzFrmnNav{ 2 };
+
+const MissionModes MissionModes_RunWayNav{ 3 };
+
+const MissionModes MissionModes_NewRunWay{ 5 };
+
+const MissionModes MissionModes_DetailedInsp{ 128 };
+
+const MissionModes MissionModes_CollAvoidance{ 129 };
+
+const MissionModes MissionModes_FlightMissionRH{ 130 };
+
+const MissionModes MissionModes_SqCalibr{ 132 };
+
+const MissionModes MissionModes_pAttack{ 133 };
+
+const MissionModes MissionModes_CircDispNav{ 11 };
+
+const MissionModes MissionModes_CustomFrmnNav{ 22 };
+
+const MissionModes MissionModes_FrmnRunWay{ 33 };
+
+const MissionModes MissionModes_ProtLine{ 44 };
+
+const MissionModes MissionModes_WaitToStart{ 255 };
+
+const MissionModes MissionModes_None{ 0 };// Default value
+
+const MissionModes MissionModes_ShiftENU{ 254 };
+
+const MissionModes MissionModes_ShiftXYZ{ 253 };
+
 #endif                                 // RTW_HEADER_MissionModes_h_
 
 //

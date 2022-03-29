@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'Real2SimGuidance'.
 //
-// Model version                  : 3.11
+// Model version                  : 3.95
 // Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Wed Feb 23 00:20:42 2022
+// C/C++ source code generated on : Tue Mar 29 06:36:36 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -104,6 +104,52 @@ struct FCUCMD
 
 #endif
 
+#ifndef DEFINED_TYPEDEF_FOR_InternalStatus_
+#define DEFINED_TYPEDEF_FOR_InternalStatus_
+
+struct InternalStatus
+{
+    real_T LagDistance;
+    real_T CrossTrackError;
+    real_T EngagedFlag;
+    real_T RealHeading;
+    real_T TargetHeading;
+    real_T HeadingDiff;
+    real_T ADRC_U;
+    real_T biasH;
+    uint8_T HdgStatus;
+};
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_MiscellaneousFlightStatus_
+#define DEFINED_TYPEDEF_FOR_MiscellaneousFlightStatus_
+
+struct MiscellaneousFlightStatus
+{
+    real_T GroundSpeed;
+    real_T FlightMode;
+    real_T Altitude;
+    real_T FlightPath;
+};
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_FlightLogging_
+#define DEFINED_TYPEDEF_FOR_FlightLogging_
+
+struct FlightLogging
+{
+    RealUAVStateBus RealUAVState;
+    FixedWingGuidanceStateBus SimUAVState;
+    FCUCMD FlightCMD;
+    InternalStatus InnerState;
+    MiscellaneousFlightStatus MiscStatus;
+    VectorSpeed VectorSpd;
+};
+
+#endif
+
 #ifndef struct_cell_wrap_Real2SimGuidance_T
 #define struct_cell_wrap_Real2SimGuidance_T
 
@@ -124,7 +170,7 @@ struct uav_sluav_internal_system_WaypointFollower_Real2SimGuidance_T
     real_T LookaheadDistance;
     real_T WaypointIndex;
     real_T NumWaypoints;
-    real_T WaypointsInternal[219];
+    real_T WaypointsInternal[651];
     boolean_T LastWaypointFlag;
     boolean_T StartFlag;
     real_T InitialPose[4];
