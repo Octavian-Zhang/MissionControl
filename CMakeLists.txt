@@ -19,9 +19,6 @@ set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 SET(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -Wall -ggdb3")
 SET(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wall")
 
-# set build type
-SET(CMAKE_BUILD_TYPE "Debug")
-
 # Include sub-projects.
 add_subdirectory (MissionAlg)
 add_subdirectory(MissionApp)
