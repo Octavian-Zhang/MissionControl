@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 3.188
+// Model version                  : 3.190
 // Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Mon Apr 11 09:35:15 2022
+// C/C++ source code generated on : Mon Apr 11 10:06:00 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -126,19 +126,6 @@ struct FCUCMD
 
 #endif
 
-#ifndef DEFINED_TYPEDEF_FOR_ADRC_
-#define DEFINED_TYPEDEF_FOR_ADRC_
-
-struct ADRC
-{
-    real_T x1_ControlError;
-    real_T x2;
-    real_T x3_TotalDisturbance;
-    real_T u;
-};
-
-#endif
-
 #ifndef DEFINED_TYPEDEF_FOR_InternalStatus_
 #define DEFINED_TYPEDEF_FOR_InternalStatus_
 
@@ -150,7 +137,6 @@ struct InternalStatus
     real_T RealHeading;
     real_T TargetHeading;
     real_T HeadingDiff;
-    ADRC ADRC_Log;
     real_T biasH;
     uint8_T HdgStatus;
 };
@@ -170,6 +156,19 @@ struct MiscellaneousFlightStatus
 
 #endif
 
+#ifndef DEFINED_TYPEDEF_FOR_ADRC_
+#define DEFINED_TYPEDEF_FOR_ADRC_
+
+struct ADRC
+{
+    real_T x1_ControlError;
+    real_T x2;
+    real_T x3_TotalDisturbance;
+    real_T u;
+};
+
+#endif
+
 #ifndef DEFINED_TYPEDEF_FOR_FlightLogging_
 #define DEFINED_TYPEDEF_FOR_FlightLogging_
 
@@ -182,6 +181,7 @@ struct FlightLogging
     MiscellaneousFlightStatus MiscStatus;
     VectorSpeed VectorSpd;
     Time TimeNow;
+    ADRC ADRC_Log;
 };
 
 #endif

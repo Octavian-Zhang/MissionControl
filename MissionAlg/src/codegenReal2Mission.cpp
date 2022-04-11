@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 3.188
+// Model version                  : 3.190
 // Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Mon Apr 11 09:35:15 2022
+// C/C++ source code generated on : Mon Apr 11 10:06:00 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -3975,7 +3975,7 @@ void codegenReal2MissionModelClass::step()
 
     // End of Outputs for SubSystem: '<Root>/MissionLogic'
 
-    // ModelReference generated from: '<S2>/Real2SimGuidance' incorporates:
+    // ModelReference generated from: '<S32>/Real2SimGuidance' incorporates:
     //   Inport: '<Root>/FlightMode'
     //   Inport: '<Root>/FlightState'
     //   Outport: '<Root>/FlightCMD'
@@ -3997,7 +3997,7 @@ void codegenReal2MissionModelClass::step()
                      &(codegenReal2Mission_DW.Real2SimGuidance_InstanceData.rtdw),
                      &(codegenReal2Mission_X.Real2SimGuidance_CSTATE));
     if (rtmIsMajorTimeStep((&codegenReal2Mission_M))) {
-        // Send: '<Root>/SendLog'
+        // Send: '<S2>/SendLog'
         FlightLogSendData.SendData(&rtb_Real2SimGuidance_o3, sizeof
             (FlightLogging), &status);
     }
@@ -4058,7 +4058,7 @@ void codegenReal2MissionModelClass::step()
 
         // End of Update for SubSystem: '<Root>/MissionLogic'
 
-        // Update for ModelReference generated from: '<S2>/Real2SimGuidance'
+        // Update for ModelReference generated from: '<S32>/Real2SimGuidance'
         Real2SimGuidance_Update
             (&(codegenReal2Mission_DW.Real2SimGuidance_InstanceData.rtm),
              &codegenReal2Mission_DW.OR, &codegenReal2Mission_DW.ImmedMission_o2,
@@ -4132,7 +4132,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_derivatives()
     // End of Derivatives for SubSystem: '<S13>/FlightMission'
     // End of Derivatives for SubSystem: '<Root>/MissionLogic'
 
-    // Derivatives for ModelReference generated from: '<S2>/Real2SimGuidance'
+    // Derivatives for ModelReference generated from: '<S32>/Real2SimGuidance'
     Real2SimGuidance_Deriv
         (&(codegenReal2Mission_DW.Real2SimGuidance_InstanceData.rtdw),
          &(((XDot_codegenReal2Mission_T *) (&codegenReal2Mission_M)->derivs)
@@ -4237,7 +4237,7 @@ void codegenReal2MissionModelClass::initialize()
     ImmedMission_initialize(rtmGetErrorStatusPointer((&codegenReal2Mission_M)),
                             &(codegenReal2Mission_DW.ImmedMission_InstanceData.rtm));
 
-    // Model Initialize function for ModelReference Block: '<S2>/Real2SimGuidance' 
+    // Model Initialize function for ModelReference Block: '<S32>/Real2SimGuidance' 
     Real2SimGuidance_initialize(rtmGetErrorStatusPointer((&codegenReal2Mission_M)),
         rtmGetStopRequestedPtr((&codegenReal2Mission_M)),
         &((&codegenReal2Mission_M)->solverInfo), &(&codegenReal2Mission_M)
@@ -4330,7 +4330,7 @@ void codegenReal2MissionModelClass::initialize()
         // End of Outputs for SubSystem: '<S1>/InitializeSimLocation'
         // End of SystemInitialize for SubSystem: '<Root>/MissionLogic'
 
-        // SystemInitialize for ModelReference generated from: '<S2>/Real2SimGuidance' 
+        // SystemInitialize for ModelReference generated from: '<S32>/Real2SimGuidance' 
         Real2SimGuidance_Init
             (&(codegenReal2Mission_DW.Real2SimGuidance_InstanceData.rtdw),
              &(codegenReal2Mission_X.Real2SimGuidance_CSTATE));

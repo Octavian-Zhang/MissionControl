@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'Real2SimGuidance'.
 //
-// Model version                  : 3.120
+// Model version                  : 3.123
 // Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Mon Apr 11 09:34:24 2022
+// C/C++ source code generated on : Mon Apr 11 10:04:56 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -2956,12 +2956,10 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         // BusCreator: '<Root>/CreatADRC' incorporates:
         //   DataStoreRead: '<Root>/ReadADRC_Log'
 
-        rty_FlightLogging->InnerState.ADRC_Log.x1_ControlError =
-            localDW->ADRC_Log[0];
-        rty_FlightLogging->InnerState.ADRC_Log.x2 = localDW->ADRC_Log[1];
-        rty_FlightLogging->InnerState.ADRC_Log.x3_TotalDisturbance =
-            localDW->ADRC_Log[2];
-        rty_FlightLogging->InnerState.ADRC_Log.u = localDW->ADRC_Log[3];
+        rty_FlightLogging->ADRC_Log.x1_ControlError = localDW->ADRC_Log[0];
+        rty_FlightLogging->ADRC_Log.x2 = localDW->ADRC_Log[1];
+        rty_FlightLogging->ADRC_Log.x3_TotalDisturbance = localDW->ADRC_Log[2];
+        rty_FlightLogging->ADRC_Log.u = localDW->ADRC_Log[3];
 
         // Switch: '<Root>/SwitchLookAheadPoint' incorporates:
         //   ZeroOrderHold: '<S6>/LookaheadPoint_ZOH'

@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'Real2SimGuidance'.
 //
-// Model version                  : 3.120
+// Model version                  : 3.123
 // Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Mon Apr 11 09:34:24 2022
+// C/C++ source code generated on : Mon Apr 11 10:04:56 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -142,7 +142,6 @@ struct InternalStatus
     real_T RealHeading;
     real_T TargetHeading;
     real_T HeadingDiff;
-    ADRC ADRC_Log;
     real_T biasH;
     uint8_T HdgStatus;
 };
@@ -174,6 +173,7 @@ struct FlightLogging
     MiscellaneousFlightStatus MiscStatus;
     VectorSpeed VectorSpd;
     Time TimeNow;
+    ADRC ADRC_Log;
 };
 
 #endif
