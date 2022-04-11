@@ -19,5 +19,7 @@ void DataLogging::wrtieLog(const FlightLogging* data)
                 instance.storage_.insert(data->RealUAVState);
                 instance.storage_.insert(data->SimUAVState);
                 instance.storage_.insert(data->VectorSpd);
+                instance.storage_.insert(data->ADRC_Log);
+                instance.storage_.insert(data->TimeNow);
                 return true; }); });
 }

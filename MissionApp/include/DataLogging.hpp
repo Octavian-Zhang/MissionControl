@@ -34,7 +34,6 @@
                                 make_column("RealHeading", &InternalStatus::RealHeading),                       \
                                 make_column("TargetHeading", &InternalStatus::TargetHeading),                   \
                                 make_column("HeadingDiff", &InternalStatus::HeadingDiff),                       \
-                                make_column("ADRC_U", &InternalStatus::ADRC_U),                                 \
                                 make_column("biasH", &InternalStatus::biasH),                                   \
                                 make_column("HdgStatus", &InternalStatus::HdgStatus)),                          \
                         make_table<MiscellaneousFlightStatus>("MiscStatus",                                     \
@@ -45,7 +44,21 @@
                         make_table<VectorSpeed>("VectorSpd",                                                    \
                                 make_column("eastSpeed", &VectorSpeed::eastSpeed),                              \
                                 make_column("northSpeed", &VectorSpeed::northSpeed),                            \
-                                make_column("skySpeed", &VectorSpeed::skySpeed)))                               
+                                make_column("skySpeed", &VectorSpeed::skySpeed)),                               \
+                        make_table<ADRC>("ADRC_Log",                                                            \
+                                make_column("x1_ControlError", &ADRC::x1_ControlError),                         \
+                                make_column("x2", &ADRC::x2),                                                   \
+                                make_column("x3_TotalDisturbance", &ADRC::x3_TotalDisturbance),                 \
+                                make_column("u", &ADRC::u)),                                                    \
+                        make_table<Time>("TimeNow",                                                             \
+                                make_column("year", &Time::year),                                               \
+                                make_column("month", &Time::month),                                             \
+                                make_column("day", &Time::day),                                                 \
+                                make_column("hour", &Time::hour),                                               \
+                                make_column("minute", &Time::minute),                                           \
+                                make_column("second", &Time::second),                                           \
+                                make_column("millisecond", &Time::millisecond)))
+
 
 using namespace sqlite_orm;
 using Storage = decltype(initStorage(""));
