@@ -1,17 +1,17 @@
 //
 // File: floor_6aYiD2p8.cpp
 //
-// Code generated for Simulink model 'codegenReal2Mission'.
+// Code generated for Simulink model 'Real2SimGuidance'.
 //
-// Model version                  : 3.150
+// Model version                  : 3.119
 // Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Tue Mar 29 06:52:10 2022
+// C/C++ source code generated on : Mon Apr 11 09:17:33 2022
 //
 #include "rtwtypes.h"
 #include <cmath>
 #include "floor_6aYiD2p8.h"
 
-// Function for MATLAB Function: '<S8>/PrintOnboardLog'
+// Function for MATLAB Function: '<Root>/TimeNow'
 creal_T floor_6aYiD2p8(const creal_T a)
 {
     creal_T b;

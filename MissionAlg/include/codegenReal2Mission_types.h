@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 3.150
+// Model version                  : 3.188
 // Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Tue Mar 29 06:52:10 2022
+// C/C++ source code generated on : Mon Apr 11 09:35:15 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -26,6 +26,52 @@
 
 // Model Code Variants
 #include "rtw_linux.h"
+#ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
+#define DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
+
+struct FixedWingGuidanceBus
+{
+    real_T Height;
+    real_T AirSpeed;
+    real_T HeadingAngle;
+};
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceStateBus_
+#define DEFINED_TYPEDEF_FOR_FixedWingGuidanceStateBus_
+
+struct FixedWingGuidanceStateBus
+{
+    real_T North;
+    real_T East;
+    real_T Height;
+    real_T AirSpeed;
+    real_T HeadingAngle;
+    real_T FlightPathAngle;
+    real_T RollAngle;
+    real_T RollAngleRate;
+};
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_missionCmd_
+#define DEFINED_TYPEDEF_FOR_missionCmd_
+
+struct missionCmd
+{
+    int32_T SequenceID;
+    MissionModes MissionMode;
+    Location MissionLocation;
+    Parameters params;
+    Location StartPosition;
+    int32_T numUAV;
+    int32_T FormationPos;
+    real_T StartTime;
+};
+
+#endif
+
 #ifndef DEFINED_TYPEDEF_FOR_RealUAVStateBus_
 #define DEFINED_TYPEDEF_FOR_RealUAVStateBus_
 
@@ -67,68 +113,6 @@ struct StateFCU
 
 #endif
 
-#ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceStateBus_
-#define DEFINED_TYPEDEF_FOR_FixedWingGuidanceStateBus_
-
-struct FixedWingGuidanceStateBus
-{
-    real_T North;
-    real_T East;
-    real_T Height;
-    real_T AirSpeed;
-    real_T HeadingAngle;
-    real_T FlightPathAngle;
-    real_T RollAngle;
-    real_T RollAngleRate;
-};
-
-#endif
-
-#ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
-#define DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
-
-struct FixedWingGuidanceBus
-{
-    real_T Height;
-    real_T AirSpeed;
-    real_T HeadingAngle;
-};
-
-#endif
-
-#ifndef DEFINED_TYPEDEF_FOR_missionCmd_
-#define DEFINED_TYPEDEF_FOR_missionCmd_
-
-struct missionCmd
-{
-    int32_T SequenceID;
-    MissionModes MissionMode;
-    Location MissionLocation;
-    Parameters params;
-    Location StartPosition;
-    int32_T numUAV;
-    int32_T FormationPos;
-    real_T StartTime;
-};
-
-#endif
-
-#ifndef DEFINED_TYPEDEF_FOR_TaskStatus_
-#define DEFINED_TYPEDEF_FOR_TaskStatus_
-
-struct TaskStatus
-{
-    uint8_T EngagedFlag;
-    int32_T FlightStatus;
-    int32_T ImmedStatus;
-    int32_T SequenceID;
-    MissionModes MissionMode;
-    int32_T numUAV;
-    int32_T FormationPos;
-};
-
-#endif
-
 #ifndef DEFINED_TYPEDEF_FOR_FCUCMD_
 #define DEFINED_TYPEDEF_FOR_FCUCMD_
 
@@ -138,6 +122,19 @@ struct FCUCMD
     real_T Longitude_deg;
     real_T Height_meter;
     real_T RefAirSpd_mps;
+};
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_ADRC_
+#define DEFINED_TYPEDEF_FOR_ADRC_
+
+struct ADRC
+{
+    real_T x1_ControlError;
+    real_T x2;
+    real_T x3_TotalDisturbance;
+    real_T u;
 };
 
 #endif
@@ -153,7 +150,7 @@ struct InternalStatus
     real_T RealHeading;
     real_T TargetHeading;
     real_T HeadingDiff;
-    real_T ADRC_U;
+    ADRC ADRC_Log;
     real_T biasH;
     uint8_T HdgStatus;
 };
@@ -184,6 +181,35 @@ struct FlightLogging
     InternalStatus InnerState;
     MiscellaneousFlightStatus MiscStatus;
     VectorSpeed VectorSpd;
+    Time TimeNow;
+};
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_ParamADRC_
+#define DEFINED_TYPEDEF_FOR_ParamADRC_
+
+struct ParamADRC
+{
+    real_T hat_b;
+    real_T omega_o;
+    real_T omega_b;
+};
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_TaskStatus_
+#define DEFINED_TYPEDEF_FOR_TaskStatus_
+
+struct TaskStatus
+{
+    uint8_T EngagedFlag;
+    int32_T FlightStatus;
+    int32_T ImmedStatus;
+    int32_T SequenceID;
+    MissionModes MissionMode;
+    int32_T numUAV;
+    int32_T FormationPos;
 };
 
 #endif
@@ -250,10 +276,10 @@ class SendData_FlightLoggingT
 
 #endif
 
-// Custom Type definition for MATLAB Function: '<S27>/CommandCheck'
+// Custom Type definition for MATLAB Function: '<S28>/CommandCheck'
 #include <stdio.h>
 
-// Custom Type definition for MATLAB Function: '<S5>/getCurrentTime'
+// Custom Type definition for MATLAB Function: '<S7>/getCurrentTime'
 #include "coder_posix_time.h"
 #ifndef struct_robotics_slcore_internal_block_CoordinateTransformationConversion_codegenReal2Mission_T
 #define struct_robotics_slcore_internal_block_CoordinateTransformationConversion_codegenReal2Mission_T
@@ -301,7 +327,7 @@ struct emxArray_char_T_1x16_codegenReal2Mission_T
 
 #endif                     // struct_emxArray_char_T_1x16_codegenReal2Mission_T
 
-// Custom Type definition for MATLAB Function: '<S8>/PrintOnboardLog'
+// Custom Type definition for MATLAB Function: '<S9>/PrintOnboardLog'
 #ifndef struct_cell_wrap_1_codegenReal2Mission_T
 #define struct_cell_wrap_1_codegenReal2Mission_T
 

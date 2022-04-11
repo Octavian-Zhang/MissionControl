@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 3.150
+// Model version                  : 3.188
 // Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Tue Mar 29 06:52:10 2022
+// C/C++ source code generated on : Mon Apr 11 09:35:15 2022
 //
 
 #ifndef RTW_HEADER_MissionModes_h_
@@ -45,6 +45,8 @@ const MissionModes MissionModes_ProtLine{ 44 };
 const MissionModes MissionModes_WaitToStart{ 255 };
 
 const MissionModes MissionModes_None{ 0 };// Default value
+
+const MissionModes MissionModes_TuneADRC{ 252 };
 
 const MissionModes MissionModes_ShiftENU{ 254 };
 

@@ -1,5 +1,5 @@
 //
-// File: RecvData_IndividualUAVCmdT.h
+// File: codegenReal2Mission_data.cpp
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
@@ -16,23 +16,21 @@
 //    4. ROM efficiency
 // Validation result: Not run
 //
+#include "codegenReal2Mission.h"
+#include "codegenReal2Mission_private.h"
 
-#ifndef RTW_HEADER_RecvData_IndividualUAVCmdT_h_
-#define RTW_HEADER_RecvData_IndividualUAVCmdT_h_
-#include "rtwtypes.h"
-#include "DatalinkInterface.h"
+// Constant parameters (default storage)
+const codegenReal2MissionModelClass::ConstP_codegenReal2Mission_T
+    codegenReal2Mission_ConstP{
+    // Expression: struct('hat_b', 0.25, 'omega_o', 15, 'omega_b', 1.5)
+    //  Referenced by: '<S1>/Data Store Memory'
 
-class RecvData_IndividualUAVCmdT
-{
-  public:
-    virtual void RecvData(IndividualUAVCmd *data, int32_T length, int32_T
-                          *status) = 0;
-    virtual ~RecvData_IndividualUAVCmdT()
     {
+        0.25,
+        15.0,
+        1.5
     }
 };
-
-#endif                               // RTW_HEADER_RecvData_IndividualUAVCmdT_h_
 
 //
 // File trailer for generated code.
