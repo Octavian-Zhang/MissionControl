@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'Real2SimGuidance'.
 //
-// Model version                  : 3.123
+// Model version                  : 3.128
 // Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Mon Apr 11 10:04:56 2022
+// C/C++ source code generated on : Tue Apr 12 04:37:41 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -61,6 +61,17 @@ const uint8_T Real2SimGuidance_IN_L1Hdg_b{ 1U };
 const uint8_T Real2SimGuidance_IN_SimPnt{ 3U };
 
 const uint8_T Real2SimGuidance_IN_SimPnt_g{ 2U };
+
+// Named constants for Chart: '<S74>/ControlLogic'
+const uint8_T Real2SimGuidance_IN_ADRC{ 1U };
+
+const uint8_T Real2SimGuidance_IN_ADRC2PD{ 1U };
+
+const uint8_T Real2SimGuidance_IN_Debounce_n{ 2U };
+
+const uint8_T Real2SimGuidance_IN_PD{ 3U };
+
+const uint8_T Real2SimGuidance_IN_PD2ADRC{ 2U };
 
 // Named constants for Chart: '<Root>/TASgreaterthan15for1Sec'
 const uint8_T Real2SimGuidance_IN_InAir{ 1U };
@@ -1152,31 +1163,14 @@ void Real2SimGuidance_Init(DW_Real2SimGuidance_f_T *localDW,
     // End of SystemInitialize for SubSystem: '<S6>/GenerateTrack'
 
     // SystemInitialize for Atomic SubSystem: '<S6>/SpeedControl'
-    // InitializeConditions for Delay: '<S67>/Delay'
-    for (i = 0; i < 108; i++) {
-        std::memset(&localDW->Delay_DSTATE[i], 0, sizeof
-                    (FixedWingGuidanceStateBus));
-    }
-
-    // End of InitializeConditions for Delay: '<S67>/Delay'
-
-    // SystemInitialize for Atomic SubSystem: '<S67>/VisualizeUAV'
-    // Start for MATLABSystem: '<S82>/Coordinate Transformation Conversion'
-    localDW->objisempty_g = true;
-    localDW->obj_h.isInitialized = 1;
-
-    // Start for MATLABSystem: '<S82>/UAV Animation'
-    localDW->objisempty = true;
-    localDW->obj_e.isInitialized = 1;
-
-    // End of SystemInitialize for SubSystem: '<S67>/VisualizeUAV'
-
     // SystemInitialize for Enabled SubSystem: '<S67>/ADRC'
-    // InitializeConditions for Integrator: '<S84>/Integrator'
+    // SystemInitialize for Enabled SubSystem: '<S74>/ADRC'
+    // InitializeConditions for Integrator: '<S86>/Integrator'
     localX->Integrator_CSTATE[0] = 0.0;
     localX->Integrator_CSTATE[1] = 0.0;
     localX->Integrator_CSTATE[2] = 0.0;
 
+    // End of SystemInitialize for SubSystem: '<S74>/ADRC'
     // End of SystemInitialize for SubSystem: '<S67>/ADRC'
     // End of SystemInitialize for SubSystem: '<S6>/SpeedControl'
 
@@ -1192,7 +1186,7 @@ void Real2SimGuidance_Init(DW_Real2SimGuidance_f_T *localDW,
     localDW->obj.StartFlag = true;
     localDW->obj.LookaheadFactor = 1.01;
     localDW->obj.SearchFlag = true;
-    localDW->objisempty_e = true;
+    localDW->objisempty = true;
     localDW->obj.isInitialized = 1;
 
     // InitializeConditions for MATLABSystem: '<S63>/TrackSimPath'
@@ -1245,16 +1239,6 @@ void Real2SimGuidance_Reset(DW_Real2SimGuidance_f_T *localDW,
 
     // End of SystemReset for SubSystem: '<S6>/GenerateTrack'
 
-    // SystemReset for Atomic SubSystem: '<S6>/SpeedControl'
-    // InitializeConditions for Delay: '<S67>/Delay'
-    for (i = 0; i < 108; i++) {
-        std::memset(&localDW->Delay_DSTATE[i], 0, sizeof
-                    (FixedWingGuidanceStateBus));
-    }
-
-    // End of InitializeConditions for Delay: '<S67>/Delay'
-    // End of SystemReset for SubSystem: '<S6>/SpeedControl'
-
     // SystemReset for Atomic SubSystem: '<S6>/HeadingLogic'
     // InitializeConditions for MATLABSystem: '<S63>/TrackSimPath'
     localDW->obj.WaypointIndex = 1.0;
@@ -1272,7 +1256,7 @@ void Real2SimGuidance_Reset(DW_Real2SimGuidance_f_T *localDW,
     // SystemReset for Chart: '<S69>/MissionSwitchInitialPersuit'
     localDW->temporalCounter_i1 = 0U;
     localDW->is_Normal = Real2SimGuidance_IN_NO_ACTIVE_CHILD;
-    localDW->is_Debounce = Real2SimGuidance_IN_NO_ACTIVE_CHILD;
+    localDW->is_Debounce_i = Real2SimGuidance_IN_NO_ACTIVE_CHILD;
     localDW->temporalCounter_i2 = 0U;
     localDW->is_active_c3_Real2SimGuidance = 0U;
     localDW->is_c3_Real2SimGuidance = Real2SimGuidance_IN_NO_ACTIVE_CHILD;
@@ -1292,7 +1276,7 @@ void Real2SimGuidance_Reset(DW_Real2SimGuidance_f_T *localDW,
     localDW->is_c16_Real2SimGuidance = Real2SimGuidance_IN_NO_ACTIVE_CHILD;
 
     // SystemReset for Chart: '<Root>/EngagementDebouncer'
-    localDW->is_Debounce_i = Real2SimGuidance_IN_NO_ACTIVE_CHILD;
+    localDW->is_Debounce_id = Real2SimGuidance_IN_NO_ACTIVE_CHILD;
     localDW->is_L0Engaged = Real2SimGuidance_IN_NO_ACTIVE_CHILD;
     localDW->is_Debounce_a = Real2SimGuidance_IN_NO_ACTIVE_CHILD;
     localDW->temporalCounter_i2_n = 0U;
@@ -1310,7 +1294,18 @@ void Real2SimGuidance_Disable(DW_Real2SimGuidance_f_T *localDW)
     // Disable for Atomic SubSystem: '<Root>/Real2SimNav'
     // Disable for Atomic SubSystem: '<S6>/SpeedControl'
     // Disable for Enabled SubSystem: '<S67>/ADRC'
-    localDW->ADRC_MODE = false;
+    if (localDW->ADRC_MODE) {
+        // Disable for Enabled SubSystem: '<S74>/ADRC'
+        localDW->ADRC_MODE_c = false;
+
+        // End of Disable for SubSystem: '<S74>/ADRC'
+
+        // Disable for Enabled SubSystem: '<S74>/PD'
+        localDW->PD_MODE = false;
+
+        // End of Disable for SubSystem: '<S74>/PD'
+        localDW->ADRC_MODE = false;
+    }
 
     // End of Disable for SubSystem: '<S67>/ADRC'
     // End of Disable for SubSystem: '<S6>/SpeedControl'
@@ -1326,12 +1321,14 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
                       FixedWingGuidanceBus *rtu_ImmedGuidanceCMD, const real_T
                       *rtu_BiasRatio, const real_T *rtu_ParamADRC_hat_b, const
                       real_T *rtu_ParamADRC_omega_o, const real_T
-                      *rtu_ParamADRC_omega_b, FCUCMD *rty_FCUCMD, uint8_T
+                      *rtu_ParamADRC_omega_b, const real_T *rtu_ParamADRC_P,
+                      const real_T *rtu_ParamADRC_D, FCUCMD *rty_FCUCMD, uint8_T
                       *rty_EngagedFlag, FlightLogging *rty_FlightLogging,
                       DW_Real2SimGuidance_f_T *localDW, X_Real2SimGuidance_n_T
                       *localX)
 {
     // local block i/o variables
+    FixedWingGuidanceStateBus rtb_FixedWingGuidanceStateBus;
     real_T rtb_SumNorth;
     real_T rtb_SumEast;
     static const int8_T a[9]{ 0, 0, 0, 1, 0, 0, 0, 1, 0 };
@@ -1343,7 +1340,6 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
     real_T Switch;
     real_T rtb_Abs1;
     real_T rtb_Gain_p;
-    real_T rtb_LookaheadT;
     real_T rtb_LowerBound;
     real_T rtb_RealUAVNEUState_idx_0;
     real_T rtb_RealUAVNEUState_idx_1;
@@ -1351,17 +1347,15 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
     real_T rtb_RefRngmMinRng;
     real_T rtb_Sum1_idx_0;
     real_T rtb_Sum1_idx_1;
-    real_T rtb_Sum_c;
-    real_T rtb_Sum_g0_idx_0;
-    real_T rtb_Sum_g0_idx_2;
     real_T rtb_Sum_k;
     real_T rtb_Switch;
-    real_T rtb_SwitchTargetHDG;
+    real_T rtb_Switch_b;
     real_T rtb_UpperBound;
     real_T rtb_UpperBound_e;
     int32_T i;
     uint8_T b_varargout_4;
     uint8_T b_varargout_6;
+    uint8_T rtb_Memory;
     boolean_T rtb_GreaterThanOrEqual_h;
     boolean_T rtb_NoNewMission;
     if (rtmIsMajorTimeStep(Real2SimGuidance_M)) {
@@ -1421,7 +1415,7 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         // Sum: '<S14>/Sum' incorporates:
         //   DataStoreRead: '<S4>/LongitudeGCS'
 
-        rtb_Abs1 = static_cast<real_T>(i) + LongitudeGCS;
+        rtb_Switch_b = static_cast<real_T>(i) + LongitudeGCS;
 
         // Switch: '<S24>/Switch' incorporates:
         //   Abs: '<S24>/Abs'
@@ -1432,15 +1426,15 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         //   Math: '<S24>/Math Function1'
         //   RelationalOperator: '<S28>/Compare'
 
-        if (std::abs(rtb_Abs1) > 180.0) {
-            rtb_Abs1 = rt_modd_snf(rtb_Abs1 + 180.0, 360.0) + -180.0;
+        if (std::abs(rtb_Switch_b) > 180.0) {
+            rtb_Switch_b = rt_modd_snf(rtb_Switch_b + 180.0, 360.0) + -180.0;
         }
 
         // End of Switch: '<S24>/Switch'
 
         // Sum: '<S12>/Sum1'
         rtb_Sum1_idx_0 = rtu_StateFCU->RealUAVState.Latitude_deg - rtb_Switch;
-        rtb_Sum1_idx_1 = rtu_StateFCU->RealUAVState.Longitude_deg - rtb_Abs1;
+        rtb_Sum1_idx_1 = rtu_StateFCU->RealUAVState.Longitude_deg - rtb_Switch_b;
 
         // Switch: '<S20>/Switch' incorporates:
         //   Abs: '<S20>/Abs'
@@ -1452,15 +1446,15 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         //   RelationalOperator: '<S21>/Compare'
 
         if (std::abs(rtb_Sum1_idx_0) > 180.0) {
-            rtb_Abs1 = rt_modd_snf(rtb_Sum1_idx_0 + 180.0, 360.0) + -180.0;
+            rtb_Switch_b = rt_modd_snf(rtb_Sum1_idx_0 + 180.0, 360.0) + -180.0;
         } else {
-            rtb_Abs1 = rtb_Sum1_idx_0;
+            rtb_Switch_b = rtb_Sum1_idx_0;
         }
 
         // End of Switch: '<S20>/Switch'
 
         // Abs: '<S17>/Abs1'
-        rtb_Sum1_idx_0 = std::abs(rtb_Abs1);
+        rtb_Abs1 = std::abs(rtb_Switch_b);
 
         // Switch: '<S17>/Switch' incorporates:
         //   Bias: '<S17>/Bias'
@@ -1473,20 +1467,20 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         //   RelationalOperator: '<S19>/Compare'
         //   Switch: '<S13>/Switch1'
 
-        if (rtb_Sum1_idx_0 > 90.0) {
+        if (rtb_Abs1 > 90.0) {
             // Signum: '<S17>/Sign1'
-            if (rtb_Abs1 < 0.0) {
-                rtb_Abs1 = -1.0;
-            } else if (rtb_Abs1 > 0.0) {
-                rtb_Abs1 = 1.0;
-            } else if (rtb_Abs1 == 0.0) {
-                rtb_Abs1 = 0.0;
+            if (rtb_Switch_b < 0.0) {
+                rtb_Switch_b = -1.0;
+            } else if (rtb_Switch_b > 0.0) {
+                rtb_Switch_b = 1.0;
+            } else if (rtb_Switch_b == 0.0) {
+                rtb_Switch_b = 0.0;
             } else {
-                rtb_Abs1 = (rtNaN);
+                rtb_Switch_b = (rtNaN);
             }
 
             // End of Signum: '<S17>/Sign1'
-            rtb_Abs1 *= -(rtb_Sum1_idx_0 + -90.0) + 90.0;
+            rtb_Switch_b *= -(rtb_Abs1 + -90.0) + 90.0;
             i = 180;
         } else {
             i = 0;
@@ -1515,7 +1509,7 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         // UnitConversion: '<S16>/Unit Conversion'
         // Unit Conversion - from: deg to: rad
         // Expression: output = (0.0174533*input) + (0)
-        rtb_Sum1_idx_0 = 0.017453292519943295 * rtb_Abs1;
+        rtb_Sum1_idx_0 = 0.017453292519943295 * rtb_Switch_b;
         rtb_Sum1_idx_1 = 0.017453292519943295 * rtb_Sum_k;
 
         // UnitConversion: '<S31>/Unit Conversion'
@@ -1536,14 +1530,14 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         //   Constant: '<S30>/Constant1'
         //   Sqrt: '<S30>/sqrt'
 
-        rtb_Abs1 = 6.378137E+6 / std::sqrt(rtb_Sum_k);
+        rtb_Switch_b = 6.378137E+6 / std::sqrt(rtb_Sum_k);
 
         // Product: '<S15>/dNorth' incorporates:
         //   Constant: '<S30>/Constant2'
         //   Product: '<S30>/Product3'
         //   Trigonometry: '<S30>/Trigonometric Function1'
 
-        rtb_Sum_k = rtb_Sum1_idx_0 / rt_atan2d_snf(1.0, rtb_Abs1 *
+        rtb_Sum_k = rtb_Sum1_idx_0 / rt_atan2d_snf(1.0, rtb_Switch_b *
             0.99330562000985867 / rtb_Sum_k);
 
         // Product: '<S15>/dEast' incorporates:
@@ -1554,40 +1548,47 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
 
         // Unit Conversion - from: deg to: rad
         // Expression: output = (0.0174533*input) + (0)
-        rtb_Abs1 = 1.0 / rt_atan2d_snf(1.0, rtb_Abs1 * std::cos(rtb_Switch)) *
-            rtb_Sum1_idx_1;
-
-        // Sum: '<S15>/Sum2' incorporates:
-        //   Product: '<S15>/x*cos'
-        //   Product: '<S15>/y*sin'
-
-        rtb_Switch = rtb_Abs1 * 0.0 + rtb_Sum_k;
-
-        // Sum: '<S15>/Sum3' incorporates:
-        //   Product: '<S15>/x*sin'
-        //   Product: '<S15>/y*cos'
-
-        rtb_LookaheadT = rtb_Abs1 - rtb_Sum_k * 0.0;
+        rtb_Switch_b = 1.0 / rt_atan2d_snf(1.0, rtb_Switch_b * std::cos
+            (rtb_Switch)) * rtb_Sum1_idx_1;
 
         // BusCreator: '<S4>/FixedWingGuidanceStateBus' incorporates:
+        //   Constant: '<S4>/dummyRollAngleRate'
+        //   DataStoreRead: '<S4>/AltitudeGCS'
+        //   Gain: '<S10>/Gain1'
+        //   Gain: '<S11>/Gain1'
+        //   Gain: '<S4>/inverse'
         //   Gain: '<S9>/Gain1'
+        //   Product: '<S15>/x*cos'
+        //   Product: '<S15>/x*sin'
+        //   Product: '<S15>/y*cos'
+        //   Product: '<S15>/y*sin'
+        //   Sum: '<S12>/Sum'
+        //   Sum: '<S15>/Sum2'
+        //   Sum: '<S15>/Sum3'
 
-        rtb_Abs1 = rtb_LookaheadT;
-        rtb_Sum1_idx_0 = rtu_StateFCU->RealUAVState.AirSpeed_mps;
-        rtb_Sum_k = 0.017453292519943295 *
+        rtb_FixedWingGuidanceStateBus.North = rtb_Switch_b * 0.0 + rtb_Sum_k;
+        rtb_FixedWingGuidanceStateBus.East = rtb_Switch_b - rtb_Sum_k * 0.0;
+        rtb_FixedWingGuidanceStateBus.Height =
+            rtu_StateFCU->RealUAVState.Height_meter + -AltitudeGCS;
+        rtb_FixedWingGuidanceStateBus.AirSpeed =
+            rtu_StateFCU->RealUAVState.AirSpeed_mps;
+        rtb_FixedWingGuidanceStateBus.HeadingAngle = 0.017453292519943295 *
             rtu_StateFCU->RealUAVState.HeadingAngle_deg;
+        rtb_FixedWingGuidanceStateBus.FlightPathAngle = 0.017453292519943295 *
+            rtu_StateFCU->RealUAVState.FlightPathAngle_deg;
+        rtb_FixedWingGuidanceStateBus.RollAngle = 0.017453292519943295 *
+            rtu_StateFCU->RealUAVState.RollAngle_deg;
+        rtb_FixedWingGuidanceStateBus.RollAngleRate = 0.0;
 
         // Outputs for Atomic SubSystem: '<Root>/Real2SimNav'
         // Outputs for Atomic SubSystem: '<S6>/HeadingNaNProtection'
         // Memory: '<S64>/MemoryRefHeight'
-        rtb_Sum1_idx_1 = localDW->MemoryRefHeight_PreviousInput;
+        rtb_Switch = localDW->MemoryRefHeight_PreviousInput;
 
         // End of Outputs for SubSystem: '<S6>/HeadingNaNProtection'
 
-        // Sum: '<S6>/Minus' incorporates:
-        //   BusCreator: '<S4>/FixedWingGuidanceStateBus'
-
-        localDW->HeadWind = rtu_StateFCU->RealUAVState.AirSpeed_mps -
+        // Sum: '<S6>/Minus'
+        localDW->HeadWind = rtb_FixedWingGuidanceStateBus.AirSpeed -
             rtu_StateFCU->GndSpd_mps;
 
         // Outputs for Atomic SubSystem: '<S6>/GenerateTrack'
@@ -1614,81 +1615,60 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
 
         // End of Outputs for SubSystem: '<S6>/GenerateTrack'
 
+        // Memory: '<S6>/Memory'
+        rtb_Memory = localDW->Memory_PreviousInput;
+
         // Outputs for Atomic SubSystem: '<S6>/SpeedControl'
-        // Selector: '<S67>/SimLocation' incorporates:
-        //   Concatenate: '<S62>/Matrix Concatenate'
-        //   Switch: '<Root>/SwitchLookAheadPoint'
-
-        rtb_SwitchLookAheadPoint[0] = localDW->MatrixConcatenate[108];
-
         // Sum: '<S81>/Sum' incorporates:
         //   Concatenate: '<S62>/Matrix Concatenate'
-        //   Selector: '<S67>/SimLocation'
         //   Selector: '<S67>/TargetLocation'
 
-        rtb_Sum_c = localDW->MatrixConcatenate[60] - localDW->MatrixConcatenate
-            [108];
+        rtb_Sum1_idx_0 = localDW->MatrixConcatenate[60] - rtu_SimUAVState->North;
 
         // DotProduct: '<S81>/Dot Product'
-        rtb_Sum_g0_idx_0 = rtb_Sum_c * rtb_Sum_c;
-
-        // Selector: '<S67>/SimLocation' incorporates:
-        //   Concatenate: '<S62>/Matrix Concatenate'
-        //   Switch: '<Root>/SwitchLookAheadPoint'
-
-        rtb_SwitchLookAheadPoint[1] = localDW->MatrixConcatenate[325];
+        rtb_Sum_k = rtb_Sum1_idx_0 * rtb_Sum1_idx_0;
 
         // Sum: '<S81>/Sum' incorporates:
         //   Concatenate: '<S62>/Matrix Concatenate'
-        //   Selector: '<S67>/SimLocation'
         //   Selector: '<S67>/TargetLocation'
 
-        rtb_Sum_c = localDW->MatrixConcatenate[277] - localDW->
-            MatrixConcatenate[325];
+        rtb_Sum1_idx_0 = localDW->MatrixConcatenate[277] - rtu_SimUAVState->East;
 
         // DotProduct: '<S81>/Dot Product'
-        rtb_Sum_g0_idx_0 += rtb_Sum_c * rtb_Sum_c;
-
-        // Selector: '<S67>/SimLocation' incorporates:
-        //   Concatenate: '<S62>/Matrix Concatenate'
-        //   Switch: '<Root>/SwitchLookAheadPoint'
-
-        rtb_SwitchLookAheadPoint[2] = localDW->MatrixConcatenate[542];
+        rtb_Sum_k += rtb_Sum1_idx_0 * rtb_Sum1_idx_0;
 
         // Sum: '<S81>/Sum' incorporates:
         //   Concatenate: '<S62>/Matrix Concatenate'
-        //   Selector: '<S67>/SimLocation'
         //   Selector: '<S67>/TargetLocation'
 
-        rtb_Sum_c = localDW->MatrixConcatenate[494] - localDW->
-            MatrixConcatenate[542];
+        rtb_Sum1_idx_0 = localDW->MatrixConcatenate[494] -
+            rtu_SimUAVState->Height;
 
         // Sqrt: '<S81>/sqrt' incorporates:
         //   DotProduct: '<S81>/Dot Product'
 
-        rtb_SwitchTargetHDG = std::sqrt(rtb_Sum_c * rtb_Sum_c + rtb_Sum_g0_idx_0);
+        rtb_Abs1 = std::sqrt(rtb_Sum1_idx_0 * rtb_Sum1_idx_0 + rtb_Sum_k);
 
-        // Delay: '<S67>/Delay'
-        localDW->Delay = localDW->Delay_DSTATE[0];
-
-        // Sum: '<S80>/Sum' incorporates:
-        //   BusCreator: '<S4>/FixedWingGuidanceStateBus'
-
-        rtb_Sum_g0_idx_0 = localDW->Delay.North - rtb_Switch;
-        rtb_LookaheadT = localDW->Delay.East - rtb_LookaheadT;
-        rtb_Sum_g0_idx_2 = localDW->Delay.Height - localDW->Delay.Height;
+        // Sum: '<S80>/Sum'
+        rtb_SwitchLookAheadPoint[0] = rtu_SimUAVState->North -
+            rtb_FixedWingGuidanceStateBus.North;
+        rtb_SwitchLookAheadPoint[1] = rtu_SimUAVState->East -
+            rtb_FixedWingGuidanceStateBus.East;
+        rtb_SwitchLookAheadPoint[2] = rtu_SimUAVState->Height -
+            rtu_SimUAVState->Height;
 
         // Sqrt: '<S80>/sqrt' incorporates:
         //   DotProduct: '<S80>/Dot Product'
 
-        rtb_LookaheadT = std::sqrt((rtb_Sum_g0_idx_0 * rtb_Sum_g0_idx_0 +
-            rtb_LookaheadT * rtb_LookaheadT) + rtb_Sum_g0_idx_2 *
-            rtb_Sum_g0_idx_2);
+        rtb_Switch_b = std::sqrt((rtb_SwitchLookAheadPoint[0] *
+            rtb_SwitchLookAheadPoint[0] + rtb_SwitchLookAheadPoint[1] *
+            rtb_SwitchLookAheadPoint[1]) + rtb_SwitchLookAheadPoint[2] *
+            rtb_SwitchLookAheadPoint[2]);
 
         // Gain: '<S67>/Gain' incorporates:
         //   Sum: '<S67>/LagDistanceSum'
 
-        localDW->Gain = -(rtb_SwitchTargetHDG - rtb_LookaheadT);
+        localDW->Gain = -(rtb_Abs1 - rtb_Switch_b);
 
         // DataStoreWrite: '<S67>/WriteLagDistance'
         localDW->LagDistance = localDW->Gain;
@@ -1711,13 +1691,27 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
                 if (static_cast<boolean_T>(static_cast<int32_T>
                                            (static_cast<int32_T>
                                             (localDW->ADRC_MODE) ^ 1))) {
-                    // InitializeConditions for Integrator: '<S84>/Integrator'
-                    localX->Integrator_CSTATE[0] = 0.0;
-                    localX->Integrator_CSTATE[1] = 0.0;
-                    localX->Integrator_CSTATE[2] = 0.0;
+                    // SystemReset for Chart: '<S74>/ControlLogic'
+                    localDW->is_Debounce = Real2SimGuidance_IN_NO_ACTIVE_CHILD;
+                    localDW->temporalCounter_i1_c = 0U;
+                    localDW->is_active_c6_Real2SimGuidance = 0U;
+                    localDW->is_c6_Real2SimGuidance =
+                        Real2SimGuidance_IN_NO_ACTIVE_CHILD;
+                    localDW->PD_U = false;
+                    localDW->EnablePD = false;
+                    localDW->EnableADRC = false;
                     localDW->ADRC_MODE = true;
                 }
-            } else {
+            } else if (localDW->ADRC_MODE) {
+                // Disable for Enabled SubSystem: '<S74>/ADRC'
+                localDW->ADRC_MODE_c = false;
+
+                // End of Disable for SubSystem: '<S74>/ADRC'
+
+                // Disable for Enabled SubSystem: '<S74>/PD'
+                localDW->PD_MODE = false;
+
+                // End of Disable for SubSystem: '<S74>/PD'
                 localDW->ADRC_MODE = false;
             }
 
@@ -1735,123 +1729,323 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
     //   EnablePort: '<S74>/Enable'
 
     if (localDW->ADRC_MODE) {
+        if (rtmIsMajorTimeStep(Real2SimGuidance_M)) {
+            // Chart: '<S74>/ControlLogic'
+            if (static_cast<uint32_T>(localDW->temporalCounter_i1_c) < 15U) {
+                localDW->temporalCounter_i1_c = static_cast<uint8_T>(
+                    static_cast<uint32_T>(static_cast<uint32_T>
+                    (localDW->temporalCounter_i1_c) + 1U));
+            }
+
+            // Gateway: Real2SimNav/SpeedControl/ADRC/ControlLogic
+            // During: Real2SimNav/SpeedControl/ADRC/ControlLogic
+            if (static_cast<uint32_T>(localDW->is_active_c6_Real2SimGuidance) ==
+                0U) {
+                // Entry: Real2SimNav/SpeedControl/ADRC/ControlLogic
+                localDW->is_active_c6_Real2SimGuidance = 1U;
+
+                // Entry Internal: Real2SimNav/SpeedControl/ADRC/ControlLogic
+                // Transition: '<S83>:81'
+                localDW->is_c6_Real2SimGuidance = Real2SimGuidance_IN_PD;
+
+                // Entry 'PD': '<S83>:53'
+                localDW->EnablePD = true;
+                localDW->EnableADRC = false;
+                localDW->PD_U = true;
+            } else {
+                switch (localDW->is_c6_Real2SimGuidance) {
+                  case Real2SimGuidance_IN_ADRC:
+                    localDW->EnablePD = false;
+                    localDW->EnableADRC = true;
+                    localDW->PD_U = false;
+
+                    // During 'ADRC': '<S83>:63'
+                    if (static_cast<int32_T>(rtb_Memory) == 0) {
+                        // Transition: '<S83>:84'
+                        localDW->is_c6_Real2SimGuidance =
+                            Real2SimGuidance_IN_Debounce_n;
+                        localDW->is_Debounce = Real2SimGuidance_IN_ADRC2PD;
+                        localDW->temporalCounter_i1_c = 0U;
+
+                        // Entry 'ADRC2PD': '<S83>:61'
+                        localDW->EnablePD = true;
+                    }
+                    break;
+
+                  case Real2SimGuidance_IN_Debounce_n:
+                    // During 'Debounce': '<S83>:58'
+                    if (static_cast<int32_T>(localDW->is_Debounce) == 1) {
+                        localDW->EnablePD = true;
+
+                        // During 'ADRC2PD': '<S83>:61'
+                        if (static_cast<uint32_T>(localDW->temporalCounter_i1_c)
+                            >= 10U) {
+                            // Transition: '<S83>:86'
+                            localDW->is_Debounce =
+                                Real2SimGuidance_IN_NO_ACTIVE_CHILD;
+                            localDW->is_c6_Real2SimGuidance =
+                                Real2SimGuidance_IN_PD;
+
+                            // Entry 'PD': '<S83>:53'
+                            localDW->EnablePD = true;
+                            localDW->EnableADRC = false;
+                            localDW->PD_U = true;
+                        } else if (static_cast<int32_T>(rtb_Memory) != 0) {
+                            // Transition: '<S83>:59'
+                            localDW->is_Debounce = Real2SimGuidance_IN_PD2ADRC;
+                            localDW->temporalCounter_i1_c = 0U;
+
+                            // Entry 'PD2ADRC': '<S83>:62'
+                            localDW->EnableADRC = true;
+                        }
+                    } else {
+                        localDW->EnableADRC = true;
+
+                        // During 'PD2ADRC': '<S83>:62'
+                        if (static_cast<uint32_T>(localDW->temporalCounter_i1_c)
+                            >= 10U) {
+                            // Transition: '<S83>:85'
+                            localDW->is_Debounce =
+                                Real2SimGuidance_IN_NO_ACTIVE_CHILD;
+                            localDW->is_c6_Real2SimGuidance =
+                                Real2SimGuidance_IN_ADRC;
+
+                            // Entry 'ADRC': '<S83>:63'
+                            localDW->EnablePD = false;
+                            localDW->EnableADRC = true;
+                            localDW->PD_U = false;
+                        } else if (static_cast<int32_T>(rtb_Memory) == 0) {
+                            // Transition: '<S83>:60'
+                            localDW->is_Debounce = Real2SimGuidance_IN_ADRC2PD;
+                            localDW->temporalCounter_i1_c = 0U;
+
+                            // Entry 'ADRC2PD': '<S83>:61'
+                            localDW->EnablePD = true;
+                        }
+                    }
+                    break;
+
+                  default:
+                    localDW->EnablePD = true;
+                    localDW->EnableADRC = false;
+                    localDW->PD_U = true;
+
+                    // During 'PD': '<S83>:53'
+                    if (static_cast<int32_T>(rtb_Memory) != 0) {
+                        // Transition: '<S83>:83'
+                        localDW->is_c6_Real2SimGuidance =
+                            Real2SimGuidance_IN_Debounce_n;
+                        localDW->is_Debounce = Real2SimGuidance_IN_PD2ADRC;
+                        localDW->temporalCounter_i1_c = 0U;
+
+                        // Entry 'PD2ADRC': '<S83>:62'
+                        localDW->EnableADRC = true;
+                    }
+                    break;
+                }
+            }
+
+            // End of Chart: '<S74>/ControlLogic'
+
+            // Outputs for Enabled SubSystem: '<S74>/ADRC' incorporates:
+            //   EnablePort: '<S82>/Enable'
+
+            if (rtmIsMajorTimeStep(Real2SimGuidance_M)) {
+                if (localDW->EnableADRC) {
+                    if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<
+                            int32_T>(localDW->ADRC_MODE_c) ^ 1))) {
+                        // InitializeConditions for Integrator: '<S86>/Integrator' 
+                        localX->Integrator_CSTATE[0] = 0.0;
+                        localX->Integrator_CSTATE[1] = 0.0;
+                        localX->Integrator_CSTATE[2] = 0.0;
+                        localDW->ADRC_MODE_c = true;
+                    }
+                } else {
+                    localDW->ADRC_MODE_c = false;
+                }
+            }
+
+            // End of Outputs for SubSystem: '<S74>/ADRC'
+        }
+
+        // Outputs for Enabled SubSystem: '<S74>/ADRC' incorporates:
+        //   EnablePort: '<S82>/Enable'
+
+        if (localDW->ADRC_MODE_c) {
+            // Integrator: '<S86>/Integrator'
+            localDW->Integrator[0] = localX->Integrator_CSTATE[0];
+            localDW->Integrator[1] = localX->Integrator_CSTATE[1];
+            localDW->Integrator[2] = localX->Integrator_CSTATE[2];
+
+            // MATLAB Function: '<S88>/Extended state feedback robust controller' 
+            // MATLAB Function 'ADRC controller/State feedback robust controller/Extended state feedback robust controller': '<S92>:1' 
+            // '<S92>:1:8'
+            if (*rtu_ParamADRC_hat_b == 0.0) {
+                // '<S92>:1:17'
+                // '<S92>:1:18'
+                rtb_Sum1_idx_0 = 1.0;
+            } else {
+                // '<S92>:1:20'
+                rtb_Sum1_idx_0 = *rtu_ParamADRC_hat_b;
+            }
+
+            // '<S92>:1:9'
+            if (*rtu_ParamADRC_omega_b == 0.0) {
+                // '<S92>:1:17'
+                // '<S92>:1:18'
+                rtb_Sum_k = 5.0;
+            } else {
+                // '<S92>:1:20'
+                rtb_Sum_k = *rtu_ParamADRC_omega_b;
+            }
+
+            // Product: '<S94>/Product' incorporates:
+            //   MATLAB Function: '<S88>/Extended state feedback robust controller'
+            //   Step: '<S94>/Step'
+
+            // '<S92>:1:10'
+            // '<S92>:1:25'
+            // '<S92>:1:26'
+            // '<S92>:1:12'
+            localDW->Product = ((rtb_Sum_k * rtb_Sum_k * localDW->Integrator[0]
+                                 + (rtb_Sum_k - (-rtb_Sum_k)) *
+                                 localDW->Integrator[1]) + localDW->Integrator[2])
+                * (1.0 / rtb_Sum1_idx_0) * static_cast<real_T>
+                (static_cast<int32_T>(static_cast<boolean_T>(static_cast<int32_T>
+                   (((*(Real2SimGuidance_M->timingBridge->
+                        taskTime[Real2SimGuidance_M->Timing.mdlref_GlobalTID[0]]))
+                     < 0.2) ^ 1))));
+
+            // MATLAB Function: '<S86>/Linear extended state observer'
+            // MATLAB Function 'ADRC controller/Linear extended state observer/Linear extended state observer': '<S89>:1' 
+            // '<S89>:1:16'
+            // '<S89>:1:10'
+            if (*rtu_ParamADRC_hat_b == 0.0) {
+                // '<S89>:1:22'
+                // '<S89>:1:23'
+                rtb_Sum1_idx_0 = 1.0;
+            } else {
+                // '<S89>:1:25'
+                rtb_Sum1_idx_0 = *rtu_ParamADRC_hat_b;
+            }
+
+            // '<S89>:1:11'
+            if (*rtu_ParamADRC_omega_o == 0.0) {
+                // '<S89>:1:22'
+                // '<S89>:1:23'
+                rtb_Sum_k = 25.0;
+            } else {
+                // '<S89>:1:25'
+                rtb_Sum_k = *rtu_ParamADRC_omega_o;
+            }
+
+            // '<S89>:1:13'
+            // '<S89>:1:35'
+            // '<S89>:1:14'
+            // '<S89>:1:39'
+            rtb_TmpSignalConversionAtSFunctionInport1[0] = 1.0;
+            rtb_TmpSignalConversionAtSFunctionInport1[1] = rtb_Sum_k;
+            rtb_TmpSignalConversionAtSFunctionInport1[2] = rtb_Sum_k * rtb_Sum_k;
+            for (i = 1; static_cast<int32_T>(i + 1) > 1; i = static_cast<int32_T>
+                    (i - 1)) {
+                rtb_TmpSignalConversionAtSFunctionInport1[i] -=
+                    rtb_TmpSignalConversionAtSFunctionInport1
+                    [static_cast<int32_T>(i - 1)] * -rtb_Sum_k;
+            }
+
+            rtb_TmpSignalConversionAtSFunctionInport1[3] = rtb_Sum_k *
+                rtb_TmpSignalConversionAtSFunctionInport1[2];
+            for (i = 2; static_cast<int32_T>(i + 1) > 1; i = static_cast<int32_T>
+                    (i - 1)) {
+                rtb_TmpSignalConversionAtSFunctionInport1[i] -=
+                    rtb_TmpSignalConversionAtSFunctionInport1
+                    [static_cast<int32_T>(i - 1)] * -rtb_Sum_k;
+            }
+
+            // '<S89>:1:40'
+            // '<S89>:1:16'
+            rtb_Sum_k = localDW->Gain - localDW->Integrator[0];
+            tmp[0] = 0.0 * localDW->Product;
+            tmp[1] = -rtb_Sum1_idx_0 * localDW->Product;
+            tmp[2] = 0.0 * localDW->Product;
+            for (i = 0; i < 3; i++) {
+                localDW->estimatedExtendedStateDerivative[i] =
+                    (((static_cast<real_T>(a[static_cast<int32_T>(i + 3)]) *
+                       localDW->Integrator[1] + 0.0 * localDW->Integrator[0]) +
+                      static_cast<real_T>(a[static_cast<int32_T>(i + 6)]) *
+                      localDW->Integrator[2]) + tmp[i]) +
+                    rtb_TmpSignalConversionAtSFunctionInport1
+                    [static_cast<int32_T>(i + 1)] * rtb_Sum_k;
+            }
+
+            // End of MATLAB Function: '<S86>/Linear extended state observer'
+        }
+
+        // End of Outputs for SubSystem: '<S74>/ADRC'
+
         // SignalConversion generated from: '<S74>/Vector Concatenate' incorporates:
         //   DataStoreWrite: '<S74>/WriteADRC_Log'
-        //   Integrator: '<S84>/Integrator'
 
-        localDW->ADRC_Log[0] = localX->Integrator_CSTATE[0];
-        localDW->ADRC_Log[1] = localX->Integrator_CSTATE[1];
-        localDW->ADRC_Log[2] = localX->Integrator_CSTATE[2];
+        localDW->ADRC_Log[0] = localDW->Integrator[0];
+        localDW->ADRC_Log[1] = localDW->Integrator[1];
+        localDW->ADRC_Log[2] = localDW->Integrator[2];
+        if (rtmIsMajorTimeStep(Real2SimGuidance_M)) {
+            // Outputs for Enabled SubSystem: '<S74>/PD' incorporates:
+            //   EnablePort: '<S84>/Enable'
 
-        // MATLAB Function: '<S86>/Extended state feedback robust controller'
-        // MATLAB Function 'ADRC controller/State feedback robust controller/Extended state feedback robust controller': '<S90>:1' 
-        // '<S90>:1:8'
-        if (*rtu_ParamADRC_hat_b == 0.0) {
-            // '<S90>:1:17'
-            // '<S90>:1:18'
-            rtb_Sum_g0_idx_0 = 1.0;
-        } else {
-            // '<S90>:1:20'
-            rtb_Sum_g0_idx_0 = *rtu_ParamADRC_hat_b;
+            if (rtmIsMajorTimeStep(Real2SimGuidance_M)) {
+                if (localDW->EnablePD) {
+                    if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<
+                            int32_T>(localDW->PD_MODE) ^ 1))) {
+                        // InitializeConditions for Delay: '<S123>/UD'
+                        localDW->UD_DSTATE = 0.0;
+                        localDW->PD_MODE = true;
+                    }
+                } else {
+                    localDW->PD_MODE = false;
+                }
+            }
+
+            if (localDW->PD_MODE) {
+                // Product: '<S122>/DProd Out'
+                rtb_Sum1_idx_0 = localDW->Gain * *rtu_ParamADRC_D;
+
+                // SampleTimeMath: '<S125>/Tsamp'
+                //
+                //  About '<S125>/Tsamp':
+                //   y = u * K where K = 1 / ( w * Ts )
+
+                localDW->Tsamp = rtb_Sum1_idx_0 * 10.0;
+
+                // Product: '<S135>/PProd Out'
+                rtb_Sum1_idx_0 = localDW->Gain * *rtu_ParamADRC_P;
+
+                // Sum: '<S139>/Sum' incorporates:
+                //   Delay: '<S123>/UD'
+                //   Sum: '<S123>/Diff'
+
+                localDW->Sum = (localDW->Tsamp - localDW->UD_DSTATE) +
+                    rtb_Sum1_idx_0;
+            }
+
+            // End of Outputs for SubSystem: '<S74>/PD'
         }
 
-        // '<S90>:1:9'
-        if (*rtu_ParamADRC_omega_b == 0.0) {
-            // '<S90>:1:17'
-            // '<S90>:1:18'
-            rtb_Sum_c = 5.0;
+        // Switch: '<S74>/Switch'
+        if (localDW->PD_U) {
+            // Switch: '<S74>/Switch'
+            localDW->Switch_p = localDW->Sum;
         } else {
-            // '<S90>:1:20'
-            rtb_Sum_c = *rtu_ParamADRC_omega_b;
+            // Switch: '<S74>/Switch'
+            localDW->Switch_p = localDW->Product;
         }
 
-        // Product: '<S92>/Product' incorporates:
-        //   Integrator: '<S84>/Integrator'
-        //   MATLAB Function: '<S86>/Extended state feedback robust controller'
-        //   Step: '<S92>/Step'
-
-        // '<S90>:1:10'
-        // '<S90>:1:25'
-        // '<S90>:1:26'
-        // '<S90>:1:12'
-        localDW->Product = ((rtb_Sum_c * rtb_Sum_c * localX->Integrator_CSTATE[0]
-                             + (rtb_Sum_c - (-rtb_Sum_c)) *
-                             localX->Integrator_CSTATE[1]) +
-                            localX->Integrator_CSTATE[2]) * (1.0 /
-            rtb_Sum_g0_idx_0) * static_cast<real_T>(static_cast<int32_T>(
-            static_cast<boolean_T>(static_cast<int32_T>
-            (((*(Real2SimGuidance_M->timingBridge->taskTime
-                 [Real2SimGuidance_M->Timing.mdlref_GlobalTID[0]])) < 0.2) ^ 1))));
+        // End of Switch: '<S74>/Switch'
 
         // SignalConversion generated from: '<S74>/Vector Concatenate' incorporates:
         //   DataStoreWrite: '<S74>/WriteADRC_Log'
 
-        localDW->ADRC_Log[3] = localDW->Product;
-
-        // MATLAB Function: '<S84>/Linear extended state observer' incorporates:
-        //   Integrator: '<S84>/Integrator'
-
-        // MATLAB Function 'ADRC controller/Linear extended state observer/Linear extended state observer': '<S87>:1' 
-        // '<S87>:1:16'
-        // '<S87>:1:10'
-        if (*rtu_ParamADRC_hat_b == 0.0) {
-            // '<S87>:1:22'
-            // '<S87>:1:23'
-            rtb_Sum_g0_idx_0 = 1.0;
-        } else {
-            // '<S87>:1:25'
-            rtb_Sum_g0_idx_0 = *rtu_ParamADRC_hat_b;
-        }
-
-        // '<S87>:1:11'
-        if (*rtu_ParamADRC_omega_o == 0.0) {
-            // '<S87>:1:22'
-            // '<S87>:1:23'
-            rtb_Sum_c = 25.0;
-        } else {
-            // '<S87>:1:25'
-            rtb_Sum_c = *rtu_ParamADRC_omega_o;
-        }
-
-        // '<S87>:1:13'
-        // '<S87>:1:35'
-        // '<S87>:1:14'
-        // '<S87>:1:39'
-        rtb_TmpSignalConversionAtSFunctionInport1[0] = 1.0;
-        rtb_TmpSignalConversionAtSFunctionInport1[1] = rtb_Sum_c;
-        rtb_TmpSignalConversionAtSFunctionInport1[2] = rtb_Sum_c * rtb_Sum_c;
-        for (i = 1; static_cast<int32_T>(i + 1) > 1; i = static_cast<int32_T>(i
-                - 1)) {
-            rtb_TmpSignalConversionAtSFunctionInport1[i] -=
-                rtb_TmpSignalConversionAtSFunctionInport1[static_cast<int32_T>(i
-                - 1)] * -rtb_Sum_c;
-        }
-
-        rtb_TmpSignalConversionAtSFunctionInport1[3] = rtb_Sum_c *
-            rtb_TmpSignalConversionAtSFunctionInport1[2];
-        for (i = 2; static_cast<int32_T>(i + 1) > 1; i = static_cast<int32_T>(i
-                - 1)) {
-            rtb_TmpSignalConversionAtSFunctionInport1[i] -=
-                rtb_TmpSignalConversionAtSFunctionInport1[static_cast<int32_T>(i
-                - 1)] * -rtb_Sum_c;
-        }
-
-        // '<S87>:1:40'
-        // '<S87>:1:16'
-        rtb_Sum_c = localDW->Gain - localX->Integrator_CSTATE[0];
-        tmp[0] = 0.0 * localDW->Product;
-        tmp[1] = -rtb_Sum_g0_idx_0 * localDW->Product;
-        tmp[2] = 0.0 * localDW->Product;
-        for (i = 0; i < 3; i++) {
-            localDW->estimatedExtendedStateDerivative[i] = (((static_cast<real_T>
-                (a[static_cast<int32_T>(i + 3)]) * localX->Integrator_CSTATE[1]
-                + 0.0 * localX->Integrator_CSTATE[0]) + static_cast<real_T>(a[
-                static_cast<int32_T>(i + 6)]) * localX->Integrator_CSTATE[2]) +
-                tmp[i]) + rtb_TmpSignalConversionAtSFunctionInport1[static_cast<
-                int32_T>(i + 1)] * rtb_Sum_c;
-        }
-
-        // End of MATLAB Function: '<S84>/Linear extended state observer'
+        localDW->ADRC_Log[3] = localDW->Switch_p;
     }
 
     // End of Outputs for SubSystem: '<S67>/ADRC'
@@ -1859,86 +2053,77 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         // Sum: '<S76>/Sum' incorporates:
         //   Concatenate: '<S62>/Matrix Concatenate'
         //   Selector: '<S67>/FrontBound'
-        //   Switch: '<Root>/SwitchLookAheadPoint'
 
-        rtb_Sum_c = localDW->MatrixConcatenate[108] - rtb_SwitchLookAheadPoint[0];
+        rtb_Sum1_idx_0 = localDW->MatrixConcatenate[108] -
+            rtu_SimUAVState->North;
 
         // DotProduct: '<S76>/Dot Product'
-        rtb_Sum_g0_idx_0 = rtb_Sum_c * rtb_Sum_c;
-
-        // Sum: '<S77>/Sum' incorporates:
-        //   Concatenate: '<S62>/Matrix Concatenate'
-        //   Selector: '<S67>/FrontBound'
-        //   Selector: '<S67>/TailBound'
-        //   Sum: '<S76>/Sum'
-        //   Switch: '<Root>/SwitchLookAheadPoint'
-
-        rtb_Sum_c = localDW->MatrixConcatenate[12] - rtb_SwitchLookAheadPoint[0];
-
-        // DotProduct: '<S77>/Dot Product'
-        Switch = rtb_Sum_c * rtb_Sum_c;
+        rtb_Sum_k = rtb_Sum1_idx_0 * rtb_Sum1_idx_0;
 
         // Sum: '<S76>/Sum' incorporates:
         //   Concatenate: '<S62>/Matrix Concatenate'
         //   Selector: '<S67>/FrontBound'
-        //   Switch: '<Root>/SwitchLookAheadPoint'
 
-        rtb_Sum_c = localDW->MatrixConcatenate[325] - rtb_SwitchLookAheadPoint[1];
+        rtb_Sum1_idx_0 = localDW->MatrixConcatenate[325] - rtu_SimUAVState->East;
 
         // DotProduct: '<S76>/Dot Product'
-        rtb_Sum_g0_idx_0 += rtb_Sum_c * rtb_Sum_c;
-
-        // Sum: '<S77>/Sum' incorporates:
-        //   Concatenate: '<S62>/Matrix Concatenate'
-        //   Selector: '<S67>/FrontBound'
-        //   Selector: '<S67>/TailBound'
-        //   Sum: '<S76>/Sum'
-        //   Switch: '<Root>/SwitchLookAheadPoint'
-
-        rtb_Sum_c = localDW->MatrixConcatenate[229] - rtb_SwitchLookAheadPoint[1];
-
-        // DotProduct: '<S77>/Dot Product'
-        Switch += rtb_Sum_c * rtb_Sum_c;
+        rtb_Sum_k += rtb_Sum1_idx_0 * rtb_Sum1_idx_0;
 
         // Sum: '<S76>/Sum' incorporates:
         //   Concatenate: '<S62>/Matrix Concatenate'
         //   Selector: '<S67>/FrontBound'
-        //   Switch: '<Root>/SwitchLookAheadPoint'
 
-        rtb_Sum_c = localDW->MatrixConcatenate[542] - rtb_SwitchLookAheadPoint[2];
-
-        // DotProduct: '<S76>/Dot Product'
-        rtb_Sum_g0_idx_0 += rtb_Sum_c * rtb_Sum_c;
-
-        // Sum: '<S77>/Sum' incorporates:
-        //   Concatenate: '<S62>/Matrix Concatenate'
-        //   Selector: '<S67>/FrontBound'
-        //   Selector: '<S67>/TailBound'
-        //   Sum: '<S76>/Sum'
-        //   Switch: '<Root>/SwitchLookAheadPoint'
-
-        rtb_Sum_c = localDW->MatrixConcatenate[446] - rtb_SwitchLookAheadPoint[2];
+        rtb_Sum1_idx_0 = localDW->MatrixConcatenate[542] -
+            rtu_SimUAVState->Height;
 
         // Sqrt: '<S76>/sqrt' incorporates:
         //   DotProduct: '<S76>/Dot Product'
 
-        rtb_Sum_g0_idx_0 = std::sqrt(rtb_Sum_g0_idx_0);
+        rtb_Sum1_idx_0 = std::sqrt(rtb_Sum1_idx_0 * rtb_Sum1_idx_0 + rtb_Sum_k);
 
         // Sum: '<S67>/ActRngmMinRng'
-        rtb_LookaheadT -= rtb_Sum_g0_idx_0;
+        rtb_Switch_b -= rtb_Sum1_idx_0;
+
+        // SignalConversion generated from: '<S67>/SimStateBus'
+        localDW->AirSpeed = rtu_SimUAVState->AirSpeed;
 
         // Sum: '<S67>/RefRngmMinRng'
-        rtb_RefRngmMinRng = rtb_SwitchTargetHDG - rtb_Sum_g0_idx_0;
+        rtb_RefRngmMinRng = rtb_Abs1 - rtb_Sum1_idx_0;
 
         // Sum: '<S67>/ComputeLB'
-        rtb_LowerBound = rtb_Sum_g0_idx_0 - rtb_SwitchTargetHDG;
+        rtb_LowerBound = rtb_Sum1_idx_0 - rtb_Abs1;
+
+        // Sum: '<S77>/Sum' incorporates:
+        //   Concatenate: '<S62>/Matrix Concatenate'
+        //   Selector: '<S67>/TailBound'
+
+        rtb_Sum1_idx_0 = localDW->MatrixConcatenate[12] - rtu_SimUAVState->North;
+
+        // DotProduct: '<S77>/Dot Product'
+        rtb_Sum_k = rtb_Sum1_idx_0 * rtb_Sum1_idx_0;
+
+        // Sum: '<S77>/Sum' incorporates:
+        //   Concatenate: '<S62>/Matrix Concatenate'
+        //   Selector: '<S67>/TailBound'
+
+        rtb_Sum1_idx_0 = localDW->MatrixConcatenate[229] - rtu_SimUAVState->East;
+
+        // DotProduct: '<S77>/Dot Product'
+        rtb_Sum_k += rtb_Sum1_idx_0 * rtb_Sum1_idx_0;
+
+        // Sum: '<S77>/Sum' incorporates:
+        //   Concatenate: '<S62>/Matrix Concatenate'
+        //   Selector: '<S67>/TailBound'
+
+        rtb_Sum1_idx_0 = localDW->MatrixConcatenate[446] -
+            rtu_SimUAVState->Height;
 
         // Sum: '<S67>/ComputeUB' incorporates:
         //   DotProduct: '<S77>/Dot Product'
         //   Sqrt: '<S77>/sqrt'
 
-        rtb_UpperBound = std::sqrt(rtb_Sum_c * rtb_Sum_c + Switch) -
-            rtb_SwitchTargetHDG;
+        rtb_UpperBound = std::sqrt(rtb_Sum1_idx_0 * rtb_Sum1_idx_0 + rtb_Sum_k)
+            - rtb_Abs1;
 
         // Outputs for Enabled SubSystem: '<S67>/EnableBias' incorporates:
         //   EnablePort: '<S75>/Enable'
@@ -1954,17 +2139,17 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         //   Bias: '<S67>/Bias'
         //   Math: '<S67>/Square'
 
-        rtb_Sum_g0_idx_0 = rtb_UpperBound_e / (rtb_RefRngmMinRng + 10.0);
+        rtb_Sum1_idx_0 = rtb_UpperBound_e / (rtb_RefRngmMinRng + 10.0);
 
         // Switch: '<S67>/Switch' incorporates:
         //   RelationalOperator: '<S67>/GreaterThanOrEqual'
 
-        if (rtb_LookaheadT >= rtb_Sum_g0_idx_0) {
+        if (rtb_Switch_b >= rtb_Sum1_idx_0) {
             // Switch: '<S67>/Switch'
-            Switch = rtb_LookaheadT;
+            Switch = rtb_Switch_b;
         } else {
             // Switch: '<S67>/Switch'
-            Switch = rtb_Sum_g0_idx_0;
+            Switch = rtb_Sum1_idx_0;
         }
 
         // End of Switch: '<S67>/Switch'
@@ -1984,87 +2169,74 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         // Sum: '<S78>/Sum' incorporates:
         //   Concatenate: '<S62>/Matrix Concatenate'
         //   Selector: '<S67>/L1FrontBound'
-        //   Switch: '<Root>/SwitchLookAheadPoint'
 
-        rtb_Sum_c = localDW->MatrixConcatenate[78] - rtb_SwitchLookAheadPoint[0];
+        rtb_Sum1_idx_0 = localDW->MatrixConcatenate[78] - rtu_SimUAVState->North;
 
         // DotProduct: '<S78>/Dot Product'
-        rtb_Sum_g0_idx_0 = rtb_Sum_c * rtb_Sum_c;
-
-        // Sum: '<S79>/Sum' incorporates:
-        //   Concatenate: '<S62>/Matrix Concatenate'
-        //   Selector: '<S67>/L1FrontBound'
-        //   Selector: '<S67>/L1TailBound'
-        //   Sum: '<S78>/Sum'
-        //   Switch: '<Root>/SwitchLookAheadPoint'
-
-        rtb_RefRngmMinRng = localDW->MatrixConcatenate[42] -
-            rtb_SwitchLookAheadPoint[0];
-
-        // DotProduct: '<S79>/Dot Product'
-        rtb_UpperBound_e = rtb_RefRngmMinRng * rtb_RefRngmMinRng;
+        rtb_Sum_k = rtb_Sum1_idx_0 * rtb_Sum1_idx_0;
 
         // Sum: '<S78>/Sum' incorporates:
         //   Concatenate: '<S62>/Matrix Concatenate'
         //   Selector: '<S67>/L1FrontBound'
-        //   Switch: '<Root>/SwitchLookAheadPoint'
 
-        rtb_Sum_c = localDW->MatrixConcatenate[295] - rtb_SwitchLookAheadPoint[1];
+        rtb_Sum1_idx_0 = localDW->MatrixConcatenate[295] - rtu_SimUAVState->East;
 
         // DotProduct: '<S78>/Dot Product'
-        rtb_Sum_g0_idx_0 += rtb_Sum_c * rtb_Sum_c;
-
-        // Sum: '<S79>/Sum' incorporates:
-        //   Concatenate: '<S62>/Matrix Concatenate'
-        //   Selector: '<S67>/L1FrontBound'
-        //   Selector: '<S67>/L1TailBound'
-        //   Sum: '<S78>/Sum'
-        //   Switch: '<Root>/SwitchLookAheadPoint'
-
-        rtb_RefRngmMinRng = localDW->MatrixConcatenate[259] -
-            rtb_SwitchLookAheadPoint[1];
-
-        // DotProduct: '<S79>/Dot Product'
-        rtb_UpperBound_e += rtb_RefRngmMinRng * rtb_RefRngmMinRng;
+        rtb_Sum_k += rtb_Sum1_idx_0 * rtb_Sum1_idx_0;
 
         // Sum: '<S78>/Sum' incorporates:
         //   Concatenate: '<S62>/Matrix Concatenate'
         //   Selector: '<S67>/L1FrontBound'
-        //   Switch: '<Root>/SwitchLookAheadPoint'
 
-        rtb_Sum_c = localDW->MatrixConcatenate[512] - rtb_SwitchLookAheadPoint[2];
-
-        // Sum: '<S79>/Sum' incorporates:
-        //   Concatenate: '<S62>/Matrix Concatenate'
-        //   Selector: '<S67>/L1FrontBound'
-        //   Selector: '<S67>/L1TailBound'
-        //   Sum: '<S78>/Sum'
-        //   Switch: '<Root>/SwitchLookAheadPoint'
-
-        rtb_RefRngmMinRng = localDW->MatrixConcatenate[476] -
-            rtb_SwitchLookAheadPoint[2];
+        rtb_Sum1_idx_0 = localDW->MatrixConcatenate[512] -
+            rtu_SimUAVState->Height;
 
         // Sum: '<S67>/L1ComputeLB' incorporates:
         //   DotProduct: '<S78>/Dot Product'
         //   Sqrt: '<S78>/sqrt'
 
-        Switch = std::sqrt(rtb_Sum_c * rtb_Sum_c + rtb_Sum_g0_idx_0) -
-            rtb_SwitchTargetHDG;
+        Switch = std::sqrt(rtb_Sum1_idx_0 * rtb_Sum1_idx_0 + rtb_Sum_k) -
+            rtb_Abs1;
+
+        // Sum: '<S79>/Sum' incorporates:
+        //   Concatenate: '<S62>/Matrix Concatenate'
+        //   Selector: '<S67>/L1TailBound'
+
+        rtb_Sum1_idx_0 = localDW->MatrixConcatenate[42] - rtu_SimUAVState->North;
+
+        // DotProduct: '<S79>/Dot Product'
+        rtb_Sum_k = rtb_Sum1_idx_0 * rtb_Sum1_idx_0;
+
+        // Sum: '<S79>/Sum' incorporates:
+        //   Concatenate: '<S62>/Matrix Concatenate'
+        //   Selector: '<S67>/L1TailBound'
+
+        rtb_Sum1_idx_0 = localDW->MatrixConcatenate[259] - rtu_SimUAVState->East;
+
+        // DotProduct: '<S79>/Dot Product'
+        rtb_Sum_k += rtb_Sum1_idx_0 * rtb_Sum1_idx_0;
+
+        // Sum: '<S79>/Sum' incorporates:
+        //   Concatenate: '<S62>/Matrix Concatenate'
+        //   Selector: '<S67>/L1TailBound'
+
+        rtb_Sum1_idx_0 = localDW->MatrixConcatenate[476] -
+            rtu_SimUAVState->Height;
 
         // Sum: '<S67>/L1ComputeUB' incorporates:
         //   DotProduct: '<S79>/Dot Product'
         //   Sqrt: '<S79>/sqrt'
 
-        rtb_UpperBound_e = std::sqrt(rtb_RefRngmMinRng * rtb_RefRngmMinRng +
-            rtb_UpperBound_e) - rtb_SwitchTargetHDG;
+        rtb_UpperBound_e = std::sqrt(rtb_Sum1_idx_0 * rtb_Sum1_idx_0 + rtb_Sum_k)
+            - rtb_Abs1;
 
         // Outputs for Atomic SubSystem: '<S6>/MaxBrake'
-        // Sum: '<S73>/Sum' incorporates:
-        //   BusCreator: '<S4>/FixedWingGuidanceStateBus'
-
-        rtb_Sum_g0_idx_0 = rtu_SimUAVState->North - rtb_Switch;
-        rtb_LookaheadT = rtu_SimUAVState->East - rtb_Abs1;
-        rtb_Sum_g0_idx_2 = rtu_SimUAVState->Height - rtb_Sum1_idx_1;
+        // Sum: '<S73>/Sum'
+        rtb_SwitchLookAheadPoint[0] = rtu_SimUAVState->North -
+            rtb_FixedWingGuidanceStateBus.North;
+        rtb_SwitchLookAheadPoint[1] = rtu_SimUAVState->East -
+            rtb_FixedWingGuidanceStateBus.East;
+        rtb_SwitchLookAheadPoint[2] = rtu_SimUAVState->Height - rtb_Switch;
 
         // Outputs for Atomic SubSystem: '<S6>/HeadingLogic'
         // Outputs for Atomic SubSystem: '<S63>/NewMissionHdg'
@@ -2072,7 +2244,7 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         //   Constant: '<S65>/SampleTime'
         //   Gain: '<S69>/Ts'
 
-        rtb_Sum_c = rtu_SimUAVState->AirSpeed * 0.1;
+        rtb_Sum_k = rtu_SimUAVState->AirSpeed * 0.1;
 
         // End of Outputs for SubSystem: '<S63>/NewMissionHdg'
         // End of Outputs for SubSystem: '<S6>/HeadingLogic'
@@ -2083,20 +2255,21 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         //   Product: '<S65>/BrkRng'
         //   Sqrt: '<S73>/sqrt'
 
-        rtb_LookaheadT = std::sqrt((rtb_Sum_g0_idx_0 * rtb_Sum_g0_idx_0 +
-            rtb_LookaheadT * rtb_LookaheadT) + rtb_Sum_g0_idx_2 *
-            rtb_Sum_g0_idx_2) - rtb_Sum_c * 132.0;
+        rtb_Switch_b = std::sqrt((rtb_SwitchLookAheadPoint[0] *
+            rtb_SwitchLookAheadPoint[0] + rtb_SwitchLookAheadPoint[1] *
+            rtb_SwitchLookAheadPoint[1]) + rtb_SwitchLookAheadPoint[2] *
+            rtb_SwitchLookAheadPoint[2]) - rtb_Sum_k * 132.0;
 
         // Gain: '<S65>/Gain'
-        rtb_Gain_p = -rtb_LookaheadT;
+        rtb_Gain_p = -rtb_Switch_b;
 
         // Switch: '<S65>/BrkSwitch' incorporates:
         //   Constant: '<S65>/MaxBrake'
         //   Sum: '<S67>/SumSpd'
 
-        if (rtb_LookaheadT >= 0.0) {
-            rtb_RefRngmMinRng = (localDW->HeadWind + localDW->Product) +
-                localDW->Delay.AirSpeed;
+        if (rtb_Switch_b >= 0.0) {
+            rtb_RefRngmMinRng = (localDW->HeadWind + localDW->Switch_p) +
+                localDW->AirSpeed;
         } else {
             rtb_RefRngmMinRng = 0.0;
         }
@@ -2115,15 +2288,16 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
 
         // Outputs for Atomic SubSystem: '<S6>/HeadingLogic'
         // Gain: '<S63>/LookaheadT'
-        rtb_LookaheadT = 3.6 * rtu_SimUAVState->AirSpeed;
+        rtb_Switch_b = 3.6 * rtu_SimUAVState->AirSpeed;
 
-        // SignalConversion generated from: '<S63>/TrackSimPath' incorporates:
-        //   BusCreator: '<S4>/FixedWingGuidanceStateBus'
-
-        rtb_TmpSignalConversionAtSFunctionInport1[0] = rtb_Switch;
-        rtb_TmpSignalConversionAtSFunctionInport1[1] = rtb_Abs1;
-        rtb_TmpSignalConversionAtSFunctionInport1[2] = rtb_Sum1_idx_1;
-        rtb_TmpSignalConversionAtSFunctionInport1[3] = rtb_Sum_k;
+        // SignalConversion generated from: '<S63>/TrackSimPath'
+        rtb_TmpSignalConversionAtSFunctionInport1[0] =
+            rtb_FixedWingGuidanceStateBus.North;
+        rtb_TmpSignalConversionAtSFunctionInport1[1] =
+            rtb_FixedWingGuidanceStateBus.East;
+        rtb_TmpSignalConversionAtSFunctionInport1[2] = rtb_Switch;
+        rtb_TmpSignalConversionAtSFunctionInport1[3] =
+            rtb_FixedWingGuidanceStateBus.HeadingAngle;
 
         // MATLABSystem: '<S63>/TrackSimPath' incorporates:
         //   Concatenate: '<S62>/Matrix Concatenate'
@@ -2131,15 +2305,15 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
 
         Real2SimGuidance_WaypointFollower_stepImpl(&localDW->obj,
             rtb_TmpSignalConversionAtSFunctionInport1,
-            localDW->MatrixConcatenate, rtb_LookaheadT, rtb_SwitchLookAheadPoint,
-            &rtb_SwitchTargetHDG, &rtb_Sum_g0_idx_0, &b_varargout_4,
+            localDW->MatrixConcatenate, rtb_Switch_b, rtb_SwitchLookAheadPoint,
+            &rtb_Abs1, &rtb_Sum1_idx_0, &b_varargout_4,
             &localDW->CrossTrackError, &b_varargout_6, localDW);
 
         // RelationalOperator: '<S63>/Relational Operator' incorporates:
         //   DataStoreWrite: '<S63>/WriteCrossTrackError'
         //   Gain: '<S63>/Gain'
 
-        rtb_NoNewMission = (localDW->CrossTrackError <= 0.5 * rtb_LookaheadT);
+        rtb_NoNewMission = (localDW->CrossTrackError <= 0.5 * rtb_Switch_b);
 
         // Outputs for Atomic SubSystem: '<S63>/NewMissionHdg'
         // Outputs for Enabled SubSystem: '<S69>/CalForwardShift' incorporates:
@@ -2148,9 +2322,9 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         if (rtu_SimUAVState->AirSpeed > 0.0) {
             // Saturate: '<S69>/Saturation'
             if (rtb_Gain_p <= 0.0) {
-                rtb_Sum1_idx_1 = 0.0;
+                rtb_Switch = 0.0;
             } else {
-                rtb_Sum1_idx_1 = rtb_Gain_p;
+                rtb_Switch = rtb_Gain_p;
             }
 
             // End of Saturate: '<S69>/Saturation'
@@ -2158,7 +2332,7 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
             // Gain: '<S71>/Gain' incorporates:
             //   Product: '<S71>/Divide'
 
-            localDW->Gain_b = rtb_Sum1_idx_1 / rtu_SimUAVState->AirSpeed * 10.0;
+            localDW->Gain_b = rtb_Switch / rtu_SimUAVState->AirSpeed * 10.0;
         }
 
         // End of Outputs for SubSystem: '<S69>/CalForwardShift'
@@ -2167,11 +2341,9 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         //   Constant: '<S69>/PenetrationDepthThreshold'
         //   Product: '<S69>/Product'
 
-        rtb_GreaterThanOrEqual_h = (rtb_Gain_p >= rtb_Sum_c * 72.0);
+        rtb_GreaterThanOrEqual_h = (rtb_Gain_p >= rtb_Sum_k * 72.0);
 
-        // Chart: '<S69>/MissionSwitchInitialPersuit' incorporates:
-        //   Memory: '<S6>/Memory'
-
+        // Chart: '<S69>/MissionSwitchInitialPersuit'
         if (static_cast<uint32_T>(localDW->temporalCounter_i2) < 15U) {
             localDW->temporalCounter_i2 = static_cast<uint8_T>
                 (static_cast<uint32_T>(static_cast<uint32_T>
@@ -2201,8 +2373,8 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
             // During 'Initial': '<S72>:12'
             if (static_cast<boolean_T>(static_cast<int32_T>
                                        ((localDW->temporalCounter_i1 >= 216U) &
-                                        (static_cast<int32_T>
-                    (localDW->Memory_PreviousInput) != 0)))) {
+                                        (static_cast<int32_T>(rtb_Memory) != 0))))
+            {
                 // Transition: '<S72>:15'
                 localDW->is_c3_Real2SimGuidance = Real2SimGuidance_IN_Normal;
 
@@ -2221,7 +2393,7 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
             // Transition: '<S72>:16'
             // Exit Internal 'Normal': '<S72>:13'
             // Exit Internal 'Debounce': '<S72>:38'
-            localDW->is_Debounce = Real2SimGuidance_IN_NO_ACTIVE_CHILD;
+            localDW->is_Debounce_i = Real2SimGuidance_IN_NO_ACTIVE_CHILD;
             localDW->is_Normal = Real2SimGuidance_IN_NO_ACTIVE_CHILD;
             localDW->is_c3_Real2SimGuidance = Real2SimGuidance_IN_Initial;
             localDW->temporalCounter_i1 = 0U;
@@ -2232,12 +2404,12 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
             switch (localDW->is_Normal) {
               case Real2SimGuidance_IN_Debounce:
                 // During 'Debounce': '<S72>:38'
-                if (static_cast<int32_T>(localDW->is_Debounce) == 1) {
+                if (static_cast<int32_T>(localDW->is_Debounce_i) == 1) {
                     // During 'L1Hdg': '<S72>:49'
                     if (static_cast<uint32_T>(localDW->temporalCounter_i2) >=
                             10U) {
                         // Transition: '<S72>:46'
-                        localDW->is_Debounce =
+                        localDW->is_Debounce_i =
                             Real2SimGuidance_IN_NO_ACTIVE_CHILD;
                         localDW->is_Normal = Real2SimGuidance_IN_L1Hdg;
 
@@ -2249,7 +2421,7 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
                                     (rtb_GreaterThanOrEqual_h) ^ 1))) &
                                  static_cast<int32_T>(rtb_NoNewMission)))) {
                         // Transition: '<S72>:50'
-                        localDW->is_Debounce = Real2SimGuidance_IN_SimPnt_g;
+                        localDW->is_Debounce_i = Real2SimGuidance_IN_SimPnt_g;
                         localDW->temporalCounter_i2 = 0U;
                     }
 
@@ -2257,14 +2429,14 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
                 } else if (static_cast<uint32_T>(localDW->temporalCounter_i2) >=
                            10U) {
                     // Transition: '<S72>:48'
-                    localDW->is_Debounce = Real2SimGuidance_IN_NO_ACTIVE_CHILD;
+                    localDW->is_Debounce_i = Real2SimGuidance_IN_NO_ACTIVE_CHILD;
                     localDW->is_Normal = Real2SimGuidance_IN_SimPnt;
 
                     // Entry 'SimPnt': '<S72>:37'
                     localDW->SimHdg = 1.0;
                 } else if (rtb_GreaterThanOrEqual_h) {
                     // Transition: '<S72>:51'
-                    localDW->is_Debounce = Real2SimGuidance_IN_L1Hdg_b;
+                    localDW->is_Debounce_i = Real2SimGuidance_IN_L1Hdg_b;
                     localDW->temporalCounter_i2 = 0U;
                 }
                 break;
@@ -2279,7 +2451,7 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
                 {
                     // Transition: '<S72>:45'
                     localDW->is_Normal = Real2SimGuidance_IN_Debounce;
-                    localDW->is_Debounce = Real2SimGuidance_IN_SimPnt_g;
+                    localDW->is_Debounce_i = Real2SimGuidance_IN_SimPnt_g;
                     localDW->temporalCounter_i2 = 0U;
                 }
                 break;
@@ -2289,7 +2461,7 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
                 if (rtb_GreaterThanOrEqual_h) {
                     // Transition: '<S72>:47'
                     localDW->is_Normal = Real2SimGuidance_IN_Debounce;
-                    localDW->is_Debounce = Real2SimGuidance_IN_L1Hdg_b;
+                    localDW->is_Debounce_i = Real2SimGuidance_IN_L1Hdg_b;
                     localDW->temporalCounter_i2 = 0U;
                 }
                 break;
@@ -2327,13 +2499,12 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         //   Rounding: '<S69>/Round'
         //   Sum: '<S69>/Minus'
 
-        rtb_Sum1_idx_1 = std::fmin(217.0, std::round((217.0 -
+        rtb_Switch = std::fmin(217.0, std::round((217.0 -
             localDW->DiscreteTimeIntegrator_DSTATE) + 1.5 * localDW->Gain_b));
 
         // End of Outputs for SubSystem: '<S63>/NewMissionHdg'
 
         // Switch: '<S63>/SwitchLookAheadNED' incorporates:
-        //   BusCreator: '<S4>/FixedWingGuidanceStateBus'
         //   DataStoreWrite: '<S63>/WriteStatus_Log'
         //   Sum: '<S70>/EastArrow'
         //   Sum: '<S70>/NorthArrow'
@@ -2345,30 +2516,31 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
             //   Concatenate: '<S62>/Matrix Concatenate'
             //   Sum: '<S70>/NorthArrow'
 
-            rtb_SwitchTargetHDG = localDW->MatrixConcatenate[static_cast<int32_T>
-                (static_cast<int32_T>(rtb_Sum1_idx_1) - 1)];
+            rtb_Abs1 = localDW->MatrixConcatenate[static_cast<int32_T>(
+                static_cast<int32_T>(rtb_Switch) - 1)];
 
             // Switch: '<S63>/SwitchLookAheadNED' incorporates:
             //   Selector: '<S63>/WayPoint3d3'
 
-            localDW->SwitchLookAheadNED[0] = rtb_SwitchTargetHDG;
+            localDW->SwitchLookAheadNED[0] = rtb_Abs1;
 
             // Selector: '<S63>/WayPoint3d3' incorporates:
             //   Concatenate: '<S62>/Matrix Concatenate'
             //   Sum: '<S70>/EastArrow'
 
-            rtb_LookaheadT = localDW->MatrixConcatenate[static_cast<int32_T>(
-                static_cast<int32_T>(rtb_Sum1_idx_1) + 216)];
+            rtb_Switch_b = localDW->MatrixConcatenate[static_cast<int32_T>(
+                static_cast<int32_T>(rtb_Switch) + 216)];
 
             // Switch: '<S63>/SwitchLookAheadNED' incorporates:
             //   Concatenate: '<S62>/Matrix Concatenate'
             //   Selector: '<S63>/WayPoint3d3'
 
-            localDW->SwitchLookAheadNED[1] = rtb_LookaheadT;
+            localDW->SwitchLookAheadNED[1] = rtb_Switch_b;
             localDW->SwitchLookAheadNED[2] = localDW->MatrixConcatenate[
-                static_cast<int32_T>(static_cast<int32_T>(rtb_Sum1_idx_1) + 433)];
-            rtb_SwitchTargetHDG = rt_atan2d_snf(rtb_LookaheadT - rtb_Abs1,
-                rtb_SwitchTargetHDG - rtb_Switch);
+                static_cast<int32_T>(static_cast<int32_T>(rtb_Switch) + 433)];
+            rtb_Abs1 = rt_atan2d_snf(rtb_Switch_b -
+                rtb_FixedWingGuidanceStateBus.East, rtb_Abs1 -
+                rtb_FixedWingGuidanceStateBus.North);
         } else {
             // Switch: '<S63>/SwitchLookAheadNED' incorporates:
             //   MATLABSystem: '<S63>/TrackSimPath'
@@ -2382,17 +2554,17 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         // End of Outputs for SubSystem: '<S6>/HeadingLogic'
 
         // DataStoreWrite: '<S6>/WriteHeading_Log' incorporates:
-        //   BusCreator: '<S4>/FixedWingGuidanceStateBus'
         //   MATLAB Function: '<S6>/AngLog'
 
         // MATLAB Function 'Real2SimNav/AngLog': '<S58>:1'
         // '<S58>:1:2'
         // '<S58>:1:3'
         // '<S58>:1:4'
-        localDW->Heading_Log[0] = angdiff_9SMt2WI9(rtb_Sum_k,
-            rtb_SwitchTargetHDG);
-        localDW->Heading_Log[1] = angdiff_9SMt2WI9(0.0, rtb_Sum_k);
-        localDW->Heading_Log[2] = angdiff_9SMt2WI9(0.0, rtb_SwitchTargetHDG);
+        localDW->Heading_Log[0] = angdiff_9SMt2WI9
+            (rtb_FixedWingGuidanceStateBus.HeadingAngle, rtb_Abs1);
+        localDW->Heading_Log[1] = angdiff_9SMt2WI9(0.0,
+            rtb_FixedWingGuidanceStateBus.HeadingAngle);
+        localDW->Heading_Log[2] = angdiff_9SMt2WI9(0.0, rtb_Abs1);
     }
 
     // End of Outputs for SubSystem: '<S6>/SpeedControl'
@@ -2492,7 +2664,7 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         //  CrossTrack Error within 1.5 Second Bound
         // Condition '#3': '<S61>:1:18'
         aVarTruthTableCondition_3 = (localDW->CrossTrackError <
-            localDW->Delay.AirSpeed * 72.0 * 0.1 / 5.0);
+            localDW->AirSpeed * 72.0 * 0.1 / 5.0);
         if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
                 (rtb_NoNewMission) & static_cast<int32_T>
                 (aVarTruthTableCondition_3)))) {
@@ -2533,23 +2705,23 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
 
     // MATLAB Function: '<S68>/fhan_Alt' incorporates:
     //   DataStoreWrite: '<S6>/WritebiasH_Log'
-    //   SignalConversion generated from: '<S94>/ SFunction '
+    //   SignalConversion generated from: '<S147>/ SFunction '
     //   Sum: '<S68>/Sum1'
 
-    // MATLAB Function 'Real2SimNav/TD/fhan_Alt': '<S94>:1'
-    // '<S94>:1:3'
-    // '<S94>:1:4'
-    // '<S94>:1:5'
-    // '<S94>:1:6'
-    // '<S94>:1:8'
-    // '<S94>:1:9'
+    // MATLAB Function 'Real2SimNav/TD/fhan_Alt': '<S147>:1'
+    // '<S147>:1:3'
+    // '<S147>:1:4'
+    // '<S147>:1:5'
+    // '<S147>:1:6'
+    // '<S147>:1:8'
+    // '<S147>:1:9'
     Switch = localDW->dotAltTD * 0.1;
 
-    // '<S94>:1:10'
+    // '<S147>:1:10'
     rtb_LowerBound = (localDW->biasH_Log - localDW->BiasHSwitch) + Switch;
 
-    // '<S94>:1:11'
-    // '<S94>:1:12'
+    // '<S147>:1:11'
+    // '<S147>:1:12'
     if (rtb_LowerBound < 0.0) {
         rtb_UpperBound = -1.0;
     } else if (rtb_LowerBound > 0.0) {
@@ -2564,8 +2736,8 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
                           0.004000000000000001) * 0.004000000000000001) -
                         0.004000000000000001) * rtb_UpperBound / 2.0 + Switch;
 
-    // '<S94>:1:13'
-    // '<S94>:1:14'
+    // '<S147>:1:13'
+    // '<S147>:1:14'
     if (rtb_LowerBound + 0.004000000000000001 < 0.0) {
         rtb_UpperBound = -1.0;
     } else if (rtb_LowerBound + 0.004000000000000001 > 0.0) {
@@ -2577,20 +2749,20 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
     }
 
     if (rtb_LowerBound - 0.004000000000000001 < 0.0) {
-        rtb_Sum_k = -1.0;
+        rtb_Gain_p = -1.0;
     } else if (rtb_LowerBound - 0.004000000000000001 > 0.0) {
-        rtb_Sum_k = 1.0;
+        rtb_Gain_p = 1.0;
     } else if (rtb_LowerBound - 0.004000000000000001 == 0.0) {
-        rtb_Sum_k = 0.0;
+        rtb_Gain_p = 0.0;
     } else {
-        rtb_Sum_k = (rtNaN);
+        rtb_Gain_p = (rtNaN);
     }
 
     rtb_LowerBound = ((Switch + rtb_LowerBound) - rtb_UpperBound_e) *
-        ((rtb_UpperBound - rtb_Sum_k) / 2.0) + rtb_UpperBound_e;
+        ((rtb_UpperBound - rtb_Gain_p) / 2.0) + rtb_UpperBound_e;
 
-    // '<S94>:1:15'
-    // '<S94>:1:17'
+    // '<S147>:1:15'
+    // '<S147>:1:17'
     if (rtb_LowerBound < 0.0) {
         Switch = -1.0;
     } else if (rtb_LowerBound > 0.0) {
@@ -2612,24 +2784,22 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
     }
 
     if (rtb_LowerBound - 0.004000000000000001 < 0.0) {
-        rtb_Sum_k = -1.0;
+        rtb_Gain_p = -1.0;
     } else if (rtb_LowerBound - 0.004000000000000001 > 0.0) {
-        rtb_Sum_k = 1.0;
+        rtb_Gain_p = 1.0;
     } else if (rtb_LowerBound - 0.004000000000000001 == 0.0) {
-        rtb_Sum_k = 0.0;
+        rtb_Gain_p = 0.0;
     } else {
-        rtb_Sum_k = (rtNaN);
+        rtb_Gain_p = (rtNaN);
     }
 
     localDW->fh = (rtb_LowerBound / 0.004000000000000001 - Switch) * -0.4 *
-        ((rtb_UpperBound - rtb_Sum_k) / 2.0) - 0.4 * Switch;
+        ((rtb_UpperBound - rtb_Gain_p) / 2.0) - 0.4 * Switch;
 
     // End of MATLAB Function: '<S68>/fhan_Alt'
     // End of Outputs for SubSystem: '<Root>/Real2SimNav'
     if (rtmIsMajorTimeStep(Real2SimGuidance_M)) {
-        // Chart: '<Root>/TASgreaterthan15for1Sec' incorporates:
-        //   BusCreator: '<S4>/FixedWingGuidanceStateBus'
-
+        // Chart: '<Root>/TASgreaterthan15for1Sec'
         // Gateway: TASgreaterthan15for1Sec
         // During: TASgreaterthan15for1Sec
         if (static_cast<uint32_T>(localDW->is_active_c16_Real2SimGuidance) == 0U)
@@ -2651,10 +2821,11 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         } else {
             // During 'NotTakeOff': '<S7>:2'
             if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
-                    (static_cast<boolean_T>(static_cast<int32_T>((rtb_Sum1_idx_0
-                      > 15.0) ^ 1))) | static_cast<int32_T>
                     (static_cast<boolean_T>(static_cast<int32_T>
-                    ((rtu_StateFCU->RealUAVState.Height_meter > 30.0) ^ 1))))))
+                    ((rtb_FixedWingGuidanceStateBus.AirSpeed > 15.0) ^ 1))) |
+                    static_cast<int32_T>(static_cast<boolean_T>
+                    (static_cast<int32_T>
+                     ((rtu_StateFCU->RealUAVState.Height_meter > 30.0) ^ 1))))))
             {
                 localDW->durationCounter_1 = 0;
             } else {
@@ -2672,8 +2843,9 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
             }
         }
 
-        if (static_cast<boolean_T>(static_cast<int32_T>((rtb_Sum1_idx_0 > 15.0)
-                & (rtu_StateFCU->RealUAVState.Height_meter > 30.0)))) {
+        if (static_cast<boolean_T>(static_cast<int32_T>
+                                   ((rtb_FixedWingGuidanceStateBus.AirSpeed >
+                15.0) & (rtu_StateFCU->RealUAVState.Height_meter > 30.0)))) {
             // '<S7>:5:1'
             localDW->durationCounter_1 = static_cast<int32_T>
                 (localDW->durationCounter_1 + 1);
@@ -2695,9 +2867,9 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
 
         // Chart: '<Root>/EngagementDebouncer'
         if (static_cast<uint32_T>(localDW->temporalCounter_i1_o) < 1023U) {
-            localDW->temporalCounter_i1_o = static_cast<uint16_T>
-                (static_cast<uint32_T>(static_cast<uint32_T>
-                  (localDW->temporalCounter_i1_o) + 1U));
+            localDW->temporalCounter_i1_o = static_cast<uint16_T>(static_cast<
+                uint32_T>(static_cast<uint32_T>(localDW->temporalCounter_i1_o) +
+                          1U));
         }
 
         if (static_cast<uint32_T>(localDW->temporalCounter_i2_n) < 63U) {
@@ -2731,7 +2903,8 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
                 {
                     // Transition: '<S2>:93'
                     // Exit Internal 'Debounce': '<S2>:90'
-                    localDW->is_Debounce_i = Real2SimGuidance_IN_NO_ACTIVE_CHILD;
+                    localDW->is_Debounce_id =
+                        Real2SimGuidance_IN_NO_ACTIVE_CHILD;
                     localDW->is_c34_Real2SimGuidance =
                         Real2SimGuidance_IN_Persuit;
 
@@ -2741,12 +2914,12 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
                     localDW->temporalCounter_i1_o = 0U;
 
                     // Entry 'Fault': '<S2>:94'
-                } else if (static_cast<int32_T>(localDW->is_Debounce_i) == 1) {
+                } else if (static_cast<int32_T>(localDW->is_Debounce_id) == 1) {
                     // During 'Off': '<S2>:103'
                     if (static_cast<uint32_T>(localDW->temporalCounter_i2_n) >=
                             40U) {
                         // Transition: '<S2>:87'
-                        localDW->is_Debounce_i =
+                        localDW->is_Debounce_id =
                             Real2SimGuidance_IN_NO_ACTIVE_CHILD;
                         localDW->is_c34_Real2SimGuidance =
                             Real2SimGuidance_IN_Persuit;
@@ -2759,7 +2932,7 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
                         localDW->is_Persuit = Real2SimGuidance_IN_Normal;
                     } else if (static_cast<int32_T>(*rty_EngagedFlag) > 0) {
                         // Transition: '<S2>:102'
-                        localDW->is_Debounce_i = Real2SimGuidance_IN_On;
+                        localDW->is_Debounce_id = Real2SimGuidance_IN_On;
                         localDW->temporalCounter_i2_n = 0U;
                     }
 
@@ -2767,7 +2940,8 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
                 } else if (static_cast<uint32_T>(localDW->temporalCounter_i2_n) >=
                            40U) {
                     // Transition: '<S2>:99'
-                    localDW->is_Debounce_i = Real2SimGuidance_IN_NO_ACTIVE_CHILD;
+                    localDW->is_Debounce_id =
+                        Real2SimGuidance_IN_NO_ACTIVE_CHILD;
                     localDW->is_c34_Real2SimGuidance =
                         Real2SimGuidance_IN_L0Engaged;
 
@@ -2783,7 +2957,7 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
                     localDW->is_L0Default = Real2SimGuidance_IN_Normal;
                 } else if (static_cast<int32_T>(*rty_EngagedFlag) <= 0) {
                     // Transition: '<S2>:96'
-                    localDW->is_Debounce_i = Real2SimGuidance_IN_Off;
+                    localDW->is_Debounce_id = Real2SimGuidance_IN_Off;
                     localDW->temporalCounter_i2_n = 0U;
                 }
                 break;
@@ -2802,7 +2976,7 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
                     localDW->is_c34_Real2SimGuidance =
                         Real2SimGuidance_IN_Debounce;
                     localDW->temporalCounter_i1_o = 0U;
-                    localDW->is_Debounce_i = Real2SimGuidance_IN_Off;
+                    localDW->is_Debounce_id = Real2SimGuidance_IN_Off;
                     localDW->temporalCounter_i2_n = 0U;
                 } else {
                     switch (localDW->is_L0Engaged) {
@@ -2929,7 +3103,7 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
                     localDW->is_c34_Real2SimGuidance =
                         Real2SimGuidance_IN_Debounce;
                     localDW->temporalCounter_i1_o = 0U;
-                    localDW->is_Debounce_i = Real2SimGuidance_IN_On;
+                    localDW->is_Debounce_id = Real2SimGuidance_IN_On;
                     localDW->temporalCounter_i2_n = 0U;
                 }
                 break;
@@ -2966,22 +3140,20 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
 
         if (rtu_ControlSwitch[0]) {
             // Sum: '<Root>/SumNorth' incorporates:
-            //   BusCreator: '<S4>/FixedWingGuidanceStateBus'
             //   Constant: '<Root>/LookAheadDis'
             //   Product: '<Root>/ProductNorth'
             //   Trigonometry: '<Root>/Cos'
 
             rtb_SumNorth = std::cos(rtu_ImmedGuidanceCMD->HeadingAngle) * 1000.0
-                + rtb_Switch;
+                + rtb_FixedWingGuidanceStateBus.North;
 
             // Sum: '<Root>/SumEast' incorporates:
-            //   BusCreator: '<S4>/FixedWingGuidanceStateBus'
             //   Constant: '<Root>/LookAheadDis'
             //   Product: '<Root>/ProductEast'
             //   Trigonometry: '<Root>/Sin'
 
             rtb_SumEast = 1000.0 * std::sin(rtu_ImmedGuidanceCMD->HeadingAngle)
-                + rtb_Abs1;
+                + rtb_FixedWingGuidanceStateBus.East;
             rtb_SwitchLookAheadPoint[0] = rtb_SumNorth;
             rtb_SwitchLookAheadPoint[1] = rtb_SumEast;
             rtb_SwitchLookAheadPoint[2] = rtu_ImmedGuidanceCMD->Height;
@@ -3006,15 +3178,15 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         // Unit Conversion - from: deg to: rad
         // Expression: output = (0.0174533*input) + (0)
         if (std::abs(LatitudeGCS) > 180.0) {
-            rtb_Sum_g0_idx_0 = rt_modd_snf(LatitudeGCS + 180.0, 360.0) + -180.0;
+            rtb_Sum1_idx_0 = rt_modd_snf(LatitudeGCS + 180.0, 360.0) + -180.0;
         } else {
-            rtb_Sum_g0_idx_0 = LatitudeGCS;
+            rtb_Sum1_idx_0 = LatitudeGCS;
         }
 
         // End of Switch: '<S49>/Switch'
 
         // Abs: '<S46>/Abs1'
-        rtb_Switch = std::abs(rtb_Sum_g0_idx_0);
+        rtb_LowerBound = std::abs(rtb_Sum1_idx_0);
 
         // Switch: '<S46>/Switch' incorporates:
         //   Bias: '<S46>/Bias'
@@ -3027,20 +3199,20 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         //   RelationalOperator: '<S48>/Compare'
         //   Switch: '<S37>/Switch1'
 
-        if (rtb_Switch > 90.0) {
+        if (rtb_LowerBound > 90.0) {
             // Signum: '<S46>/Sign1'
-            if (rtb_Sum_g0_idx_0 < 0.0) {
-                rtb_Sum_g0_idx_0 = -1.0;
-            } else if (rtb_Sum_g0_idx_0 > 0.0) {
-                rtb_Sum_g0_idx_0 = 1.0;
-            } else if (rtb_Sum_g0_idx_0 == 0.0) {
-                rtb_Sum_g0_idx_0 = 0.0;
+            if (rtb_Sum1_idx_0 < 0.0) {
+                rtb_Sum1_idx_0 = -1.0;
+            } else if (rtb_Sum1_idx_0 > 0.0) {
+                rtb_Sum1_idx_0 = 1.0;
+            } else if (rtb_Sum1_idx_0 == 0.0) {
+                rtb_Sum1_idx_0 = 0.0;
             } else {
-                rtb_Sum_g0_idx_0 = (rtNaN);
+                rtb_Sum1_idx_0 = (rtNaN);
             }
 
             // End of Signum: '<S46>/Sign1'
-            rtb_Sum_g0_idx_0 *= -(rtb_Switch + -90.0) + 90.0;
+            rtb_Sum1_idx_0 *= -(rtb_LowerBound + -90.0) + 90.0;
             i = 180;
         } else {
             i = 0;
@@ -3051,29 +3223,29 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         // UnitConversion: '<S54>/Unit Conversion'
         // Unit Conversion - from: deg to: rad
         // Expression: output = (0.0174533*input) + (0)
-        rtb_Sum_k = 0.017453292519943295 * rtb_Sum_g0_idx_0;
+        rtb_Sum_k = 0.017453292519943295 * rtb_Sum1_idx_0;
 
         // Trigonometry: '<S55>/Trigonometric Function1'
-        rtb_Abs1 = std::sin(rtb_Sum_k);
+        rtb_Switch_b = std::sin(rtb_Sum_k);
 
         // Sum: '<S55>/Sum1' incorporates:
         //   Constant: '<S55>/Constant'
         //   Product: '<S55>/Product1'
 
-        rtb_Abs1 = 1.0 - 0.0066943799901413295 * rtb_Abs1 * rtb_Abs1;
+        rtb_Switch_b = 1.0 - 0.0066943799901413295 * rtb_Switch_b * rtb_Switch_b;
 
         // Product: '<S52>/Product1' incorporates:
         //   Constant: '<S52>/Constant1'
         //   Sqrt: '<S52>/sqrt'
 
-        rtb_Switch = 6.378137E+6 / std::sqrt(rtb_Abs1);
+        rtb_Switch = 6.378137E+6 / std::sqrt(rtb_Switch_b);
 
         // Sum: '<S37>/Sum' incorporates:
         //   DataStoreRead: '<S5>/LongitudeGCS'
 
         // Unit Conversion - from: rad to: deg
         // Expression: output = (57.2958*input) + (0)
-        rtb_SwitchTargetHDG = static_cast<real_T>(i) + LongitudeGCS;
+        rtb_Abs1 = static_cast<real_T>(i) + LongitudeGCS;
 
         // Switch: '<S47>/Switch' incorporates:
         //   Abs: '<S47>/Abs'
@@ -3084,9 +3256,8 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         //   Math: '<S47>/Math Function1'
         //   RelationalOperator: '<S51>/Compare'
 
-        if (std::abs(rtb_SwitchTargetHDG) > 180.0) {
-            rtb_SwitchTargetHDG = rt_modd_snf(rtb_SwitchTargetHDG + 180.0, 360.0)
-                + -180.0;
+        if (std::abs(rtb_Abs1) > 180.0) {
+            rtb_Abs1 = rt_modd_snf(rtb_Abs1 + 180.0, 360.0) + -180.0;
         }
 
         // End of Switch: '<S47>/Switch'
@@ -3109,14 +3280,13 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         //   Trigonometry: '<S52>/Trigonometric Function2'
         //   UnitConversion: '<S39>/Unit Conversion'
 
-        rtb_Sum1_idx_0 = (rtb_SwitchLookAheadPoint[0] -
-                          rtb_SwitchLookAheadPoint[1] * 0.0) * rt_atan2d_snf(1.0,
-            rtb_Switch * 0.99330562000985867 / rtb_Abs1) * 57.295779513082323 +
-            rtb_Sum_g0_idx_0;
+        rtb_Sum1_idx_0 += (rtb_SwitchLookAheadPoint[0] -
+                           rtb_SwitchLookAheadPoint[1] * 0.0) * rt_atan2d_snf
+            (1.0, rtb_Switch * 0.99330562000985867 / rtb_Switch_b) *
+            57.295779513082323;
         rtb_Sum1_idx_1 = (rtb_SwitchLookAheadPoint[0] * 0.0 +
                           rtb_SwitchLookAheadPoint[1]) * rt_atan2d_snf(1.0,
-            rtb_Switch * std::cos(rtb_Sum_k)) * 57.295779513082323 +
-            rtb_SwitchTargetHDG;
+            rtb_Switch * std::cos(rtb_Sum_k)) * 57.295779513082323 + rtb_Abs1;
 
         // Switch: '<S43>/Switch' incorporates:
         //   Abs: '<S43>/Abs'
@@ -3128,16 +3298,15 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         //   RelationalOperator: '<S44>/Compare'
 
         if (std::abs(rtb_Sum1_idx_0) > 180.0) {
-            rtb_SwitchTargetHDG = rt_modd_snf(rtb_Sum1_idx_0 + 180.0, 360.0) +
-                -180.0;
+            rtb_Abs1 = rt_modd_snf(rtb_Sum1_idx_0 + 180.0, 360.0) + -180.0;
         } else {
-            rtb_SwitchTargetHDG = rtb_Sum1_idx_0;
+            rtb_Abs1 = rtb_Sum1_idx_0;
         }
 
         // End of Switch: '<S43>/Switch'
 
         // Abs: '<S40>/Abs1'
-        rtb_Switch = std::abs(rtb_SwitchTargetHDG);
+        rtb_LowerBound = std::abs(rtb_Abs1);
 
         // Switch: '<S40>/Switch' incorporates:
         //   Bias: '<S40>/Bias'
@@ -3150,20 +3319,20 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         //   RelationalOperator: '<S42>/Compare'
         //   Switch: '<S36>/Switch1'
 
-        if (rtb_Switch > 90.0) {
+        if (rtb_LowerBound > 90.0) {
             // Signum: '<S40>/Sign1'
-            if (rtb_SwitchTargetHDG < 0.0) {
-                rtb_SwitchTargetHDG = -1.0;
-            } else if (rtb_SwitchTargetHDG > 0.0) {
-                rtb_SwitchTargetHDG = 1.0;
-            } else if (rtb_SwitchTargetHDG == 0.0) {
-                rtb_SwitchTargetHDG = 0.0;
+            if (rtb_Abs1 < 0.0) {
+                rtb_Abs1 = -1.0;
+            } else if (rtb_Abs1 > 0.0) {
+                rtb_Abs1 = 1.0;
+            } else if (rtb_Abs1 == 0.0) {
+                rtb_Abs1 = 0.0;
             } else {
-                rtb_SwitchTargetHDG = (rtNaN);
+                rtb_Abs1 = (rtNaN);
             }
 
             // End of Signum: '<S40>/Sign1'
-            rtb_SwitchTargetHDG *= -(rtb_Switch + -90.0) + 90.0;
+            rtb_Abs1 *= -(rtb_LowerBound + -90.0) + 90.0;
             i = 180;
         } else {
             i = 0;
@@ -3172,7 +3341,7 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         // End of Switch: '<S40>/Switch'
 
         // Sum: '<S36>/Sum'
-        rtb_LookaheadT = static_cast<real_T>(i) + rtb_Sum1_idx_1;
+        rtb_Switch_b = static_cast<real_T>(i) + rtb_Sum1_idx_1;
 
         // Switch: '<S41>/Switch' incorporates:
         //   Abs: '<S41>/Abs'
@@ -3183,8 +3352,8 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         //   Math: '<S41>/Math Function1'
         //   RelationalOperator: '<S45>/Compare'
 
-        if (std::abs(rtb_LookaheadT) > 180.0) {
-            rtb_LookaheadT = rt_modd_snf(rtb_LookaheadT + 180.0, 360.0) + -180.0;
+        if (std::abs(rtb_Switch_b) > 180.0) {
+            rtb_Switch_b = rt_modd_snf(rtb_Switch_b + 180.0, 360.0) + -180.0;
         }
 
         // End of Switch: '<S41>/Switch'
@@ -3197,8 +3366,8 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         rty_FCUCMD->Height_meter = rtb_SwitchLookAheadPoint[2] - (-AltitudeGCS);
 
         // BusCreator: '<Root>/FcuCmdBus'
-        rty_FCUCMD->Latitude_deg = rtb_SwitchTargetHDG;
-        rty_FCUCMD->Longitude_deg = rtb_LookaheadT;
+        rty_FCUCMD->Latitude_deg = rtb_Abs1;
+        rty_FCUCMD->Longitude_deg = rtb_Switch_b;
 
         // Switch: '<Root>/SwitchSpdControl'
         if (rtu_ControlSwitch[1]) {
@@ -3247,67 +3416,66 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         // MATLAB Function: '<Root>/TimeNow'
         // MATLAB Function 'TimeNow': '<S8>:1'
         // '<S8>:1:3'
-        Real2SimGuidance_getLocalTime(&rtb_Switch, &rtb_RefRngmMinRng, &rtb_Abs1,
-            &rtb_Sum1_idx_0, &rtb_LowerBound, &rtb_UpperBound, &Switch,
-            &rtb_NoNewMission);
-        rtb_RealUAVNEUState_idx_0 = rtb_LowerBound;
-        rtb_RealUAVNEUState_idx_1 = rtb_Abs1;
-        rtb_RealUAVNEUState_idx_2 = rtb_RefRngmMinRng;
-        rtb_Sum_k = rtb_Switch / 1.0E+6;
-        rtb_Switch = rtb_RefRngmMinRng;
-        rtb_RefRngmMinRng = rtb_Sum_k;
-        rtb_Abs1 = (((((Switch + rtb_UpperBound) + rtb_LowerBound) +
-                      rtb_Sum1_idx_0) + rtb_Abs1) + rtb_RealUAVNEUState_idx_2) +
-            rtb_Sum_k;
+        Real2SimGuidance_getLocalTime(&rtb_RefRngmMinRng, &rtb_LowerBound,
+            &rtb_RealUAVNEUState_idx_0, &Switch, &rtb_UpperBound_e, &rtb_Gain_p,
+            &rtb_Abs1, &rtb_NoNewMission);
+        rtb_RealUAVNEUState_idx_1 = Switch;
+        rtb_RealUAVNEUState_idx_2 = rtb_LowerBound;
+        rtb_Switch = rtb_RefRngmMinRng / 1.0E+6;
+        rtb_RefRngmMinRng = rtb_LowerBound;
+        rtb_UpperBound = rtb_Switch;
+        rtb_LowerBound = (((((rtb_Abs1 + rtb_Gain_p) + rtb_UpperBound_e) +
+                            Switch) + rtb_RealUAVNEUState_idx_0) +
+                          rtb_LowerBound) + rtb_Switch;
         if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(
                 static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
-                 (std::isinf(rtb_Abs1)) ^ 1))) & static_cast<int32_T>(
+                 (std::isinf(rtb_LowerBound)) ^ 1))) & static_cast<int32_T>(
                 static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
-                 (std::isnan(rtb_Abs1)) ^ 1)))))) {
-            rtb_LowerBound = Switch;
-            rtb_Abs1 = rtb_UpperBound;
-            if ((rtb_UpperBound < 1.0) || (rtb_UpperBound > 12.0)) {
-                rtb_Abs1 = std::floor((rtb_UpperBound - 1.0) / 12.0);
-                rtb_LowerBound = Switch + rtb_Abs1;
-                rtb_Abs1 = ((rtb_UpperBound - 1.0) - rtb_Abs1 * 12.0) + 1.0;
+                 (std::isnan(rtb_LowerBound)) ^ 1)))))) {
+            rtb_LowerBound = rtb_Abs1;
+            Switch = rtb_Gain_p;
+            if ((rtb_Gain_p < 1.0) || (rtb_Gain_p > 12.0)) {
+                Switch = std::floor((rtb_Gain_p - 1.0) / 12.0);
+                rtb_LowerBound = rtb_Abs1 + Switch;
+                Switch = ((rtb_Gain_p - 1.0) - Switch * 12.0) + 1.0;
             }
 
-            if (rtb_Abs1 < 3.0) {
+            if (Switch < 3.0) {
                 rtb_LowerBound--;
-                rtb_Abs1 += 9.0;
+                Switch += 9.0;
             } else {
-                rtb_Abs1 -= 3.0;
+                Switch -= 3.0;
             }
 
-            if ((rtb_Sum_k < 0.0) || (1000.0 <= rtb_Sum_k)) {
-                rtb_RefRngmMinRng = std::floor(rtb_Sum_k / 1000.0);
-                rtb_Switch = rtb_RealUAVNEUState_idx_2 + rtb_RefRngmMinRng;
-                rtb_RefRngmMinRng = rtb_Sum_k - rtb_RefRngmMinRng * 1000.0;
+            if ((rtb_Switch < 0.0) || (1000.0 <= rtb_Switch)) {
+                rtb_UpperBound = std::floor(rtb_Switch / 1000.0);
+                rtb_RefRngmMinRng = rtb_RealUAVNEUState_idx_2 + rtb_UpperBound;
+                rtb_UpperBound = rtb_Switch - rtb_UpperBound * 1000.0;
             }
 
             inputArg_data.re = ((((((365.0 * rtb_LowerBound + std::floor
                 (rtb_LowerBound / 4.0)) - std::floor(rtb_LowerBound / 100.0)) +
                                    std::floor(rtb_LowerBound / 400.0)) + std::
-                                  floor((153.0 * rtb_Abs1 + 2.0) / 5.0)) +
-                                 rtb_RealUAVNEUState_idx_0) + 60.0) - 719529.0;
+                                  floor((153.0 * Switch + 2.0) / 5.0)) +
+                                 rtb_UpperBound_e) + 60.0) - 719529.0;
             inputArg_data.im = 0.0;
             inputArg_data = Real2SimGuidance_plus(Real2SimGuidance_plus
                 (Real2SimGuidance_plus(Real2SimGuidance_times(inputArg_data),
-                (60.0 * rtb_Sum1_idx_0 + rtb_RealUAVNEUState_idx_1) * 60000.0),
-                 rtb_Switch * 1000.0), rtb_RefRngmMinRng);
+                (60.0 * rtb_RealUAVNEUState_idx_1 + rtb_RealUAVNEUState_idx_0) *
+                60000.0), rtb_RefRngmMinRng * 1000.0), rtb_UpperBound);
         } else {
-            inputArg_data.re = rtb_Abs1;
+            inputArg_data.re = rtb_LowerBound;
             inputArg_data.im = 0.0;
         }
 
-        Real2SimGuidance_getDateVec(inputArg_data, &rtb_Switch,
-            &rtb_RefRngmMinRng, &rtb_Abs1, &rtb_Sum1_idx_0, &rtb_LowerBound,
-            &rtb_UpperBound);
-        rtb_Switch = std::round(rtb_Switch);
-        if (rtb_Switch < 2.147483648E+9) {
-            if (rtb_Switch >= -2.147483648E+9) {
+        Real2SimGuidance_getDateVec(inputArg_data, &rtb_RefRngmMinRng,
+            &rtb_LowerBound, &rtb_UpperBound, &Switch, &rtb_UpperBound_e,
+            &rtb_Gain_p);
+        rtb_RefRngmMinRng = std::round(rtb_RefRngmMinRng);
+        if (rtb_RefRngmMinRng < 2.147483648E+9) {
+            if (rtb_RefRngmMinRng >= -2.147483648E+9) {
                 rty_FlightLogging->TimeNow.year = static_cast<int32_T>
-                    (rtb_Switch);
+                    (rtb_RefRngmMinRng);
             } else {
                 rty_FlightLogging->TimeNow.year = MIN_int32_T;
             }
@@ -3315,14 +3483,14 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
             rty_FlightLogging->TimeNow.year = MAX_int32_T;
         }
 
-        Real2SimGuidance_getDateVec(inputArg_data, &rtb_Switch,
-            &rtb_RefRngmMinRng, &rtb_Abs1, &rtb_Sum1_idx_0, &rtb_LowerBound,
-            &rtb_UpperBound);
-        rtb_Switch = std::round(rtb_RefRngmMinRng);
-        if (rtb_Switch < 2.147483648E+9) {
-            if (rtb_Switch >= -2.147483648E+9) {
+        Real2SimGuidance_getDateVec(inputArg_data, &rtb_RefRngmMinRng,
+            &rtb_LowerBound, &rtb_UpperBound, &Switch, &rtb_UpperBound_e,
+            &rtb_Gain_p);
+        rtb_RefRngmMinRng = std::round(rtb_LowerBound);
+        if (rtb_RefRngmMinRng < 2.147483648E+9) {
+            if (rtb_RefRngmMinRng >= -2.147483648E+9) {
                 rty_FlightLogging->TimeNow.month = static_cast<int32_T>
-                    (rtb_Switch);
+                    (rtb_RefRngmMinRng);
             } else {
                 rty_FlightLogging->TimeNow.month = MIN_int32_T;
             }
@@ -3330,13 +3498,14 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
             rty_FlightLogging->TimeNow.month = MAX_int32_T;
         }
 
-        Real2SimGuidance_getDateVec(inputArg_data, &rtb_Switch,
-            &rtb_RefRngmMinRng, &rtb_Abs1, &rtb_Sum1_idx_0, &rtb_LowerBound,
-            &rtb_UpperBound);
-        rtb_Switch = std::round(rtb_Abs1);
-        if (rtb_Switch < 2.147483648E+9) {
-            if (rtb_Switch >= -2.147483648E+9) {
-                rty_FlightLogging->TimeNow.day = static_cast<int32_T>(rtb_Switch);
+        Real2SimGuidance_getDateVec(inputArg_data, &rtb_RefRngmMinRng,
+            &rtb_LowerBound, &rtb_UpperBound, &Switch, &rtb_UpperBound_e,
+            &rtb_Gain_p);
+        rtb_RefRngmMinRng = std::round(rtb_UpperBound);
+        if (rtb_RefRngmMinRng < 2.147483648E+9) {
+            if (rtb_RefRngmMinRng >= -2.147483648E+9) {
+                rty_FlightLogging->TimeNow.day = static_cast<int32_T>
+                    (rtb_RefRngmMinRng);
             } else {
                 rty_FlightLogging->TimeNow.day = MIN_int32_T;
             }
@@ -3344,14 +3513,14 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
             rty_FlightLogging->TimeNow.day = MAX_int32_T;
         }
 
-        Real2SimGuidance_getDateVec(inputArg_data, &rtb_Switch,
-            &rtb_RefRngmMinRng, &rtb_Abs1, &rtb_Sum1_idx_0, &rtb_LowerBound,
-            &rtb_UpperBound);
-        rtb_Switch = std::round(rtb_Sum1_idx_0);
-        if (rtb_Switch < 2.147483648E+9) {
-            if (rtb_Switch >= -2.147483648E+9) {
+        Real2SimGuidance_getDateVec(inputArg_data, &rtb_RefRngmMinRng,
+            &rtb_LowerBound, &rtb_UpperBound, &Switch, &rtb_UpperBound_e,
+            &rtb_Gain_p);
+        rtb_RefRngmMinRng = std::round(Switch);
+        if (rtb_RefRngmMinRng < 2.147483648E+9) {
+            if (rtb_RefRngmMinRng >= -2.147483648E+9) {
                 rty_FlightLogging->TimeNow.hour = static_cast<int32_T>
-                    (rtb_Switch);
+                    (rtb_RefRngmMinRng);
             } else {
                 rty_FlightLogging->TimeNow.hour = MIN_int32_T;
             }
@@ -3359,14 +3528,14 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
             rty_FlightLogging->TimeNow.hour = MAX_int32_T;
         }
 
-        Real2SimGuidance_getDateVec(inputArg_data, &rtb_Switch,
-            &rtb_RefRngmMinRng, &rtb_Abs1, &rtb_Sum1_idx_0, &rtb_LowerBound,
-            &rtb_UpperBound);
-        rtb_Switch = std::round(rtb_LowerBound);
-        if (rtb_Switch < 2.147483648E+9) {
-            if (rtb_Switch >= -2.147483648E+9) {
+        Real2SimGuidance_getDateVec(inputArg_data, &rtb_RefRngmMinRng,
+            &rtb_LowerBound, &rtb_UpperBound, &Switch, &rtb_UpperBound_e,
+            &rtb_Gain_p);
+        rtb_RefRngmMinRng = std::round(rtb_UpperBound_e);
+        if (rtb_RefRngmMinRng < 2.147483648E+9) {
+            if (rtb_RefRngmMinRng >= -2.147483648E+9) {
                 rty_FlightLogging->TimeNow.minute = static_cast<int32_T>
-                    (rtb_Switch);
+                    (rtb_RefRngmMinRng);
             } else {
                 rty_FlightLogging->TimeNow.minute = MIN_int32_T;
             }
@@ -3374,14 +3543,14 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
             rty_FlightLogging->TimeNow.minute = MAX_int32_T;
         }
 
-        Real2SimGuidance_getDateVec(inputArg_data, &rtb_Switch,
-            &rtb_RefRngmMinRng, &rtb_Abs1, &rtb_Sum1_idx_0, &rtb_LowerBound,
-            &rtb_UpperBound);
-        rtb_Switch = std::floor(rtb_UpperBound);
-        if (rtb_Switch < 2.147483648E+9) {
-            if (rtb_Switch >= -2.147483648E+9) {
+        Real2SimGuidance_getDateVec(inputArg_data, &rtb_RefRngmMinRng,
+            &rtb_LowerBound, &rtb_UpperBound, &Switch, &rtb_UpperBound_e,
+            &rtb_Gain_p);
+        rtb_RefRngmMinRng = std::floor(rtb_Gain_p);
+        if (rtb_RefRngmMinRng < 2.147483648E+9) {
+            if (rtb_RefRngmMinRng >= -2.147483648E+9) {
                 rty_FlightLogging->TimeNow.second = static_cast<int32_T>
-                    (rtb_Switch);
+                    (rtb_RefRngmMinRng);
             } else {
                 rty_FlightLogging->TimeNow.second = MIN_int32_T;
             }
@@ -3389,15 +3558,17 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
             rty_FlightLogging->TimeNow.second = MAX_int32_T;
         }
 
-        Real2SimGuidance_getDateVec(inputArg_data, &rtb_RefRngmMinRng, &rtb_Abs1,
-            &rtb_Sum1_idx_0, &rtb_LowerBound, &rtb_UpperBound, &rtb_Switch);
-        Real2SimGuidance_getDateVec(inputArg_data, &rtb_RefRngmMinRng, &rtb_Abs1,
-            &rtb_Sum1_idx_0, &rtb_LowerBound, &rtb_UpperBound, &Switch);
-        rtb_Switch = std::round((rtb_Switch - std::floor(Switch)) * 1000.0);
-        if (rtb_Switch < 2.147483648E+9) {
-            if (rtb_Switch >= -2.147483648E+9) {
+        Real2SimGuidance_getDateVec(inputArg_data, &rtb_LowerBound,
+            &rtb_UpperBound, &Switch, &rtb_UpperBound_e, &rtb_Gain_p,
+            &rtb_RefRngmMinRng);
+        Real2SimGuidance_getDateVec(inputArg_data, &rtb_LowerBound,
+            &rtb_UpperBound, &Switch, &rtb_UpperBound_e, &rtb_Gain_p, &rtb_Abs1);
+        rtb_RefRngmMinRng = std::round((rtb_RefRngmMinRng - std::floor(rtb_Abs1))
+            * 1000.0);
+        if (rtb_RefRngmMinRng < 2.147483648E+9) {
+            if (rtb_RefRngmMinRng >= -2.147483648E+9) {
                 rty_FlightLogging->TimeNow.millisecond = static_cast<int32_T>
-                    (rtb_Switch);
+                    (rtb_RefRngmMinRng);
             } else {
                 rty_FlightLogging->TimeNow.millisecond = MIN_int32_T;
             }
@@ -3422,22 +3593,19 @@ void Real2SimGuidance_Update(RT_MODEL_Real2SimGuidance_T * const
 {
     // Update for Atomic SubSystem: '<Root>/Real2SimNav'
     if (rtmIsMajorTimeStep(Real2SimGuidance_M)) {
-        int_T i;
-
         // Update for Atomic SubSystem: '<S6>/HeadingNaNProtection'
         // Switch: '<S64>/HeightSwitch' incorporates:
-        //   Gain: '<S64>/Height2Down'
         //   RelationalOperator: '<S64>/IsNaN'
 
-        if (std::isnan(-localDW->SwitchLookAheadNED[2])) {
+        if (std::isnan(localDW->SwitchLookAheadNED[2])) {
             // Update for Memory: '<S64>/MemoryRefHeight' incorporates:
             //   Constant: '<S64>/DefaultHeight'
 
             localDW->MemoryRefHeight_PreviousInput = -150.0;
         } else {
             // Update for Memory: '<S64>/MemoryRefHeight'
-            localDW->MemoryRefHeight_PreviousInput =
-                -localDW->SwitchLookAheadNED[2];
+            localDW->MemoryRefHeight_PreviousInput = localDW->
+                SwitchLookAheadNED[2];
         }
 
         // End of Switch: '<S64>/HeightSwitch'
@@ -3447,7 +3615,7 @@ void Real2SimGuidance_Update(RT_MODEL_Real2SimGuidance_T * const
         localDW->MemoryNotInBrake_PreviousInput = localDW->Compare;
 
         // Update for Atomic SubSystem: '<S6>/GenerateTrack'
-        for (i = 0; i < 215; i++) {
+        for (int_T i{0}; i < 215; i++) {
             // Update for S-Function (sfix_udelay): '<S62>/EastSequence'
             localDW->EastSequence_X[i] = localDW->EastSequence_X
                 [static_cast<int_T>(i + 1)];
@@ -3472,18 +3640,6 @@ void Real2SimGuidance_Update(RT_MODEL_Real2SimGuidance_T * const
 
         // End of Update for SubSystem: '<S6>/GenerateTrack'
 
-        // Update for Atomic SubSystem: '<S6>/SpeedControl'
-        // Update for Delay: '<S67>/Delay'
-        for (i = 0; i < 107; i++) {
-            localDW->Delay_DSTATE[i] = localDW->Delay_DSTATE[static_cast<int_T>
-                (i + 1)];
-        }
-
-        localDW->Delay_DSTATE[107] = *rtu_SimUAVState;
-
-        // End of Update for Delay: '<S67>/Delay'
-        // End of Update for SubSystem: '<S6>/SpeedControl'
-
         // Update for Memory: '<S6>/Memory'
         localDW->Memory_PreviousInput = localDW->Engaged;
 
@@ -3507,6 +3663,24 @@ void Real2SimGuidance_Update(RT_MODEL_Real2SimGuidance_T * const
         // End of Update for SubSystem: '<S6>/HeadingLogic'
     }
 
+    // Update for Atomic SubSystem: '<S6>/SpeedControl'
+    // Update for Enabled SubSystem: '<S67>/ADRC' incorporates:
+    //   EnablePort: '<S74>/Enable'
+
+    if (localDW->ADRC_MODE && rtmIsMajorTimeStep(Real2SimGuidance_M)) {
+        // Update for Enabled SubSystem: '<S74>/PD' incorporates:
+        //   EnablePort: '<S84>/Enable'
+
+        if (localDW->PD_MODE) {
+            // Update for Delay: '<S123>/UD'
+            localDW->UD_DSTATE = localDW->Tsamp;
+        }
+
+        // End of Update for SubSystem: '<S74>/PD'
+    }
+
+    // End of Update for SubSystem: '<S67>/ADRC'
+    // End of Update for SubSystem: '<S6>/SpeedControl'
     // End of Update for SubSystem: '<Root>/Real2SimNav'
 }
 
@@ -3518,13 +3692,27 @@ void Real2SimGuidance_Deriv(DW_Real2SimGuidance_f_T *localDW,
     // Derivatives for Atomic SubSystem: '<S6>/SpeedControl'
     // Derivatives for Enabled SubSystem: '<S67>/ADRC'
     if (localDW->ADRC_MODE) {
-        // Derivatives for Integrator: '<S84>/Integrator'
-        localXdot->Integrator_CSTATE[0] =
-            localDW->estimatedExtendedStateDerivative[0];
-        localXdot->Integrator_CSTATE[1] =
-            localDW->estimatedExtendedStateDerivative[1];
-        localXdot->Integrator_CSTATE[2] =
-            localDW->estimatedExtendedStateDerivative[2];
+        // Derivatives for Enabled SubSystem: '<S74>/ADRC'
+        if (localDW->ADRC_MODE_c) {
+            // Derivatives for Integrator: '<S86>/Integrator'
+            localXdot->Integrator_CSTATE[0] =
+                localDW->estimatedExtendedStateDerivative[0];
+            localXdot->Integrator_CSTATE[1] =
+                localDW->estimatedExtendedStateDerivative[1];
+            localXdot->Integrator_CSTATE[2] =
+                localDW->estimatedExtendedStateDerivative[2];
+        } else {
+            {
+                real_T *dx;
+                int_T i;
+                dx = &(localXdot->Integrator_CSTATE[0]);
+                for (i=0; i < 3; i++) {
+                    dx[i] = 0.0;
+                }
+            }
+        }
+
+        // End of Derivatives for SubSystem: '<S74>/ADRC'
     } else {
         {
             real_T *dx;

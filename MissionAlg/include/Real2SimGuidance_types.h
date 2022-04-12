@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'Real2SimGuidance'.
 //
-// Model version                  : 3.123
+// Model version                  : 3.128
 // Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Mon Apr 11 10:04:56 2022
+// C/C++ source code generated on : Tue Apr 12 04:37:41 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -23,6 +23,23 @@
 #include "DatalinkInterface.h"
 
 // Model Code Variants
+#ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceStateBus_
+#define DEFINED_TYPEDEF_FOR_FixedWingGuidanceStateBus_
+
+struct FixedWingGuidanceStateBus
+{
+    real_T North;
+    real_T East;
+    real_T Height;
+    real_T AirSpeed;
+    real_T HeadingAngle;
+    real_T FlightPathAngle;
+    real_T RollAngle;
+    real_T RollAngleRate;
+};
+
+#endif
+
 #ifndef DEFINED_TYPEDEF_FOR_RealUAVStateBus_
 #define DEFINED_TYPEDEF_FOR_RealUAVStateBus_
 
@@ -64,23 +81,6 @@ struct StateFCU
 
 #endif
 
-#ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceStateBus_
-#define DEFINED_TYPEDEF_FOR_FixedWingGuidanceStateBus_
-
-struct FixedWingGuidanceStateBus
-{
-    real_T North;
-    real_T East;
-    real_T Height;
-    real_T AirSpeed;
-    real_T HeadingAngle;
-    real_T FlightPathAngle;
-    real_T RollAngle;
-    real_T RollAngleRate;
-};
-
-#endif
-
 #ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
 #define DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
 
@@ -101,6 +101,9 @@ struct ParamADRC
     real_T hat_b;
     real_T omega_o;
     real_T omega_b;
+    real_T P;
+    real_T D;
+    boolean_T useADRC;
 };
 
 #endif
@@ -177,41 +180,6 @@ struct FlightLogging
 };
 
 #endif
-
-#ifndef struct_robotics_slcore_internal_block_CoordinateTransformationConversion_Real2SimGuidance_T
-#define struct_robotics_slcore_internal_block_CoordinateTransformationConversion_Real2SimGuidance_T
-
-struct
-    robotics_slcore_internal_block_CoordinateTransformationConversion_Real2SimGuidance_T
-{
-    int32_T isInitialized;
-};
-
-#endif
-// struct_robotics_slcore_internal_block_CoordinateTransformationConversion_Real2SimGuidance_T 
-
-#ifndef struct_b_robotics_slcore_internal_block_SampleTimeImpl_Real2SimGuidance_T
-#define struct_b_robotics_slcore_internal_block_SampleTimeImpl_Real2SimGuidance_T
-
-struct b_robotics_slcore_internal_block_SampleTimeImpl_Real2SimGuidance_T
-{
-    int32_T __dummy;
-};
-
-#endif
-// struct_b_robotics_slcore_internal_block_SampleTimeImpl_Real2SimGuidance_T
-
-#ifndef struct_uav_sluav_internal_system_UAVAnimation_Real2SimGuidance_T
-#define struct_uav_sluav_internal_system_UAVAnimation_Real2SimGuidance_T
-
-struct uav_sluav_internal_system_UAVAnimation_Real2SimGuidance_T
-{
-    int32_T isInitialized;
-    b_robotics_slcore_internal_block_SampleTimeImpl_Real2SimGuidance_T
-        SampleTimeHandler;
-};
-
-#endif      // struct_uav_sluav_internal_system_UAVAnimation_Real2SimGuidance_T
 
 // Custom Type definition for MATLAB Function: '<Root>/TimeNow'
 #include "coder_posix_time.h"

@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 3.190
+// Model version                  : 3.193
 // Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Mon Apr 11 10:06:00 2022
+// C/C++ source code generated on : Tue Apr 12 04:39:11 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -130,12 +130,12 @@ class codegenReal2MissionModelClass
         FixedWingGuidanceStateBus
             BusConversion_InsertedFor_ImmedMission_at_inport_0_BusCreator1;
         FixedWingGuidanceStateBus ImmedMission_o2;// '<S5>/ImmedMission'
+        ParamADRC DataStoreRead;       // '<S1>/Data Store Read'
+        ParamADRC ParamADRC_e;         // '<S1>/Data Store Memory'
         MemPool_missionCmd slMsgMgr_MemPool_missionCmd;// synthesized block
         FixedWingGuidanceBus ImmedMission_o4;// '<S5>/ImmedMission'
         FixedWingGuidanceBus PreemptableMissionModeSelector_o2;
                                       // '<S14>/PreemptableMissionModeSelector'
-        ParamADRC DataStoreRead;       // '<S1>/Data Store Read'
-        ParamADRC ParamADRC_e;         // '<S1>/Data Store Memory'
         Buffer_missionCmd Queue_InsertedFor_RcvNextMission_at_inport_0_Queue;// synthesized block 
         Buffer_missionCmd Queue_InsertedFor_FlightMission_at_inport_0_Queue;// synthesized block 
         Buffer_missionCmd Queue_InsertedFor_RcvImmedCMD_at_inport_0_Queue;// synthesized block 
@@ -213,7 +213,7 @@ class codegenReal2MissionModelClass
 
     // Constant parameters (default storage)
     struct ConstP_codegenReal2Mission_T {
-        // Expression: struct('hat_b', 0.25, 'omega_o', 15, 'omega_b', 1.5)
+        // Expression: struct('hat_b', 0.25, 'omega_o', 15, 'omega_b', 1.5, 'P', 1, 'D', 1, 'useADRC', true)
         //  Referenced by: '<S1>/Data Store Memory'
 
         ParamADRC DataStoreMemory_InitialValue;

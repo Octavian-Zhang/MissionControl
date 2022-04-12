@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 3.190
+// Model version                  : 3.193
 // Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Mon Apr 11 10:06:00 2022
+// C/C++ source code generated on : Tue Apr 12 04:39:11 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -194,6 +194,9 @@ struct ParamADRC
     real_T hat_b;
     real_T omega_o;
     real_T omega_b;
+    real_T P;
+    real_T D;
+    boolean_T useADRC;
 };
 
 #endif

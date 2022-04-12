@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 3.190
+// Model version                  : 3.193
 // Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Mon Apr 11 10:06:00 2022
+// C/C++ source code generated on : Tue Apr 12 04:39:11 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -2665,11 +2665,18 @@ void codegenReal2MissionModelClass::step()
                     (codegenReal2Mission_DW.ReceivePushedMissionCMD_o2.params.Param2);
                 codegenReal2Mission_DW.ParamADRC_e.omega_b = static_cast<real_T>
                     (codegenReal2Mission_DW.ReceivePushedMissionCMD_o2.params.Param3);
+                codegenReal2Mission_DW.ParamADRC_e.P = static_cast<real_T>
+                    (codegenReal2Mission_DW.ReceivePushedMissionCMD_o2.params.Param4);
+                codegenReal2Mission_DW.ParamADRC_e.D = static_cast<real_T>
+                    (codegenReal2Mission_DW.ReceivePushedMissionCMD_o2.params.Param5);
+                codegenReal2Mission_DW.ParamADRC_e.useADRC =
+                    (codegenReal2Mission_DW.ReceivePushedMissionCMD_o2.params.Param6
+                     != 0.0F);
 
                 // '<S30>:1:8'
             }
 
-            // '<S30>:1:13'
+            // '<S30>:1:16'
             processedInData[0] = static_cast<real_T>
                 (codegenReal2Mission_DW.ReceivePushedMissionCMD_o2.StartTime.year);
             processedInData[1] = static_cast<real_T>
@@ -2763,7 +2770,7 @@ void codegenReal2MissionModelClass::step()
             reactor_PrevCMD.FormationPos = 0;
             reactor_PrevCMD.StartTime = 0.0;
 
-            // '<S30>:1:14'
+            // '<S30>:1:17'
             if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
                     (codegenReal2Mission_isequaln
                      (&codegenReal2Mission_DW.MissionCMD, followSwitch_prev,
@@ -3148,9 +3155,9 @@ void codegenReal2MissionModelClass::step()
                 }
             }
 
-            // '<S30>:1:15'
-            // '<S30>:1:16'
-            // '<S30>:1:17'
+            // '<S30>:1:18'
+            // '<S30>:1:19'
+            // '<S30>:1:20'
             std::memcpy(&rtb_FeedbackCMD, &reactor_PrevCMD, sizeof(missionCmd));
 
             // Send: '<S28>/PushCMD' incorporates:
@@ -3991,6 +3998,8 @@ void codegenReal2MissionModelClass::step()
                      &codegenReal2Mission_DW.DataStoreRead.hat_b,
                      &codegenReal2Mission_DW.DataStoreRead.omega_o,
                      &codegenReal2Mission_DW.DataStoreRead.omega_b,
+                     &codegenReal2Mission_DW.DataStoreRead.P,
+                     &codegenReal2Mission_DW.DataStoreRead.D,
                      &codegenReal2Mission_Y.FlightCMD,
                      &codegenReal2Mission_DW.EngagedFlag_Log,
                      &rtb_Real2SimGuidance_o3,

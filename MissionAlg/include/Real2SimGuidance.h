@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'Real2SimGuidance'.
 //
-// Model version                  : 3.123
+// Model version                  : 3.128
 // Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Mon Apr 11 10:04:56 2022
+// C/C++ source code generated on : Tue Apr 12 04:37:41 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -34,14 +34,10 @@
 
 // Block signals and states (default storage) for model 'Real2SimGuidance'
 struct DW_Real2SimGuidance_f_T {
-    FixedWingGuidanceStateBus Delay_DSTATE[108];// '<S67>/Delay'
     uav_sluav_internal_system_WaypointFollower_Real2SimGuidance_T obj;// '<S63>/TrackSimPath' 
-    FixedWingGuidanceStateBus Delay;   // '<S67>/Delay'
-    uav_sluav_internal_system_UAVAnimation_Real2SimGuidance_T obj_e;// '<S82>/UAV Animation' 
-    robotics_slcore_internal_block_CoordinateTransformationConversion_Real2SimGuidance_T
-        obj_h;                  // '<S82>/Coordinate Transformation Conversion'
+    real_T Integrator[3];              // '<S86>/Integrator'
     real_T estimatedExtendedStateDerivative[3];
-                                      // '<S84>/Linear extended state observer'
+                                      // '<S86>/Linear extended state observer'
     real_T SwitchLookAheadNED[3];      // '<S63>/SwitchLookAheadNED'
     real_T EastSequence_X[216];        // '<S62>/EastSequence'
     real_T HeightSequence_X[216];      // '<S62>/HeightSequence'
@@ -56,11 +52,16 @@ struct DW_Real2SimGuidance_f_T {
     real_T dotAltTD;                   // '<S68>/dotAltTD'
     real_T fh;                         // '<S68>/fhan_Alt'
     real_T Gain;                       // '<S67>/Gain'
+    real_T AirSpeed;
     real_T biasHm70;                   // '<S75>/biasHm70'
-    real_T Product;                    // '<S92>/Product'
+    real_T Switch_p;                   // '<S74>/Switch'
+    real_T Tsamp;                      // '<S125>/Tsamp'
+    real_T Sum;                        // '<S139>/Sum'
+    real_T Product;                    // '<S94>/Product'
     real_T SimHdg;                     // '<S69>/MissionSwitchInitialPersuit'
     real_T Gain_b;                     // '<S71>/Gain'
     real_T Execution;                  // '<Root>/EngagementDebouncer'
+    real_T UD_DSTATE;                  // '<S123>/UD'
     real_T DiscreteTimeIntegrator_DSTATE;// '<S69>/Discrete-Time Integrator'
     real_T CrossTrackError;            // '<Root>/CrossTrackError'
     real_T EngagedFlag;                // '<Root>/EngagedFlag_Log'
@@ -77,48 +78,55 @@ struct DW_Real2SimGuidance_f_T {
     uint8_T is_active_c16_Real2SimGuidance;// '<Root>/TASgreaterthan15for1Sec'
     uint8_T is_c16_Real2SimGuidance;   // '<Root>/TASgreaterthan15for1Sec'
     uint8_T Memory_PreviousInput;      // '<S6>/Memory'
+    uint8_T is_active_c6_Real2SimGuidance;// '<S74>/ControlLogic'
+    uint8_T is_c6_Real2SimGuidance;    // '<S74>/ControlLogic'
+    uint8_T is_Debounce;               // '<S74>/ControlLogic'
+    uint8_T temporalCounter_i1_c;      // '<S74>/ControlLogic'
     uint8_T is_active_c3_Real2SimGuidance;// '<S69>/MissionSwitchInitialPersuit' 
     uint8_T is_c3_Real2SimGuidance;    // '<S69>/MissionSwitchInitialPersuit'
     uint8_T is_Normal;                 // '<S69>/MissionSwitchInitialPersuit'
-    uint8_T is_Debounce;               // '<S69>/MissionSwitchInitialPersuit'
+    uint8_T is_Debounce_i;             // '<S69>/MissionSwitchInitialPersuit'
     uint8_T temporalCounter_i2;        // '<S69>/MissionSwitchInitialPersuit'
     uint8_T is_active_c2_Real2SimGuidance;// '<S6>/Chart'
     uint8_T is_c2_Real2SimGuidance;    // '<S6>/Chart'
     uint8_T is_active_c34_Real2SimGuidance;// '<Root>/EngagementDebouncer'
     uint8_T is_c34_Real2SimGuidance;   // '<Root>/EngagementDebouncer'
     uint8_T is_Persuit;                // '<Root>/EngagementDebouncer'
-    uint8_T is_Debounce_i;             // '<Root>/EngagementDebouncer'
+    uint8_T is_Debounce_id;            // '<Root>/EngagementDebouncer'
     uint8_T is_L0Engaged;              // '<Root>/EngagementDebouncer'
     uint8_T is_L0Default;              // '<Root>/EngagementDebouncer'
     uint8_T is_Debounce_a;             // '<Root>/EngagementDebouncer'
     uint8_T temporalCounter_i2_n;      // '<Root>/EngagementDebouncer'
     boolean_T Compare;                 // '<S60>/Compare'
+    boolean_T PD_U;                    // '<S74>/ControlLogic'
+    boolean_T EnablePD;                // '<S74>/ControlLogic'
+    boolean_T EnableADRC;              // '<S74>/ControlLogic'
     boolean_T MemoryNotInBrake_PreviousInput;// '<S6>/MemoryNotInBrake'
-    boolean_T objisempty;              // '<S82>/UAV Animation'
-    boolean_T objisempty_g;     // '<S82>/Coordinate Transformation Conversion'
-    boolean_T objisempty_e;            // '<S63>/TrackSimPath'
+    boolean_T objisempty;              // '<S63>/TrackSimPath'
     boolean_T ADRC_MODE;               // '<S67>/ADRC'
+    boolean_T PD_MODE;                 // '<S74>/PD'
+    boolean_T ADRC_MODE_c;             // '<S74>/ADRC'
 };
 
 // Continuous states for model 'Real2SimGuidance'
 struct X_Real2SimGuidance_n_T {
     real_T TD_Alt_CSTATE;              // '<S68>/TD_Alt'
     real_T dotAltTD_CSTATE;            // '<S68>/dotAltTD'
-    real_T Integrator_CSTATE[3];       // '<S84>/Integrator'
+    real_T Integrator_CSTATE[3];       // '<S86>/Integrator'
 };
 
 // State derivatives for model 'Real2SimGuidance'
 struct XDot_Real2SimGuidance_n_T {
     real_T TD_Alt_CSTATE;              // '<S68>/TD_Alt'
     real_T dotAltTD_CSTATE;            // '<S68>/dotAltTD'
-    real_T Integrator_CSTATE[3];       // '<S84>/Integrator'
+    real_T Integrator_CSTATE[3];       // '<S86>/Integrator'
 };
 
 // State Disabled for model 'Real2SimGuidance'
 struct XDis_Real2SimGuidance_n_T {
     boolean_T TD_Alt_CSTATE;           // '<S68>/TD_Alt'
     boolean_T dotAltTD_CSTATE;         // '<S68>/dotAltTD'
-    boolean_T Integrator_CSTATE[3];    // '<S84>/Integrator'
+    boolean_T Integrator_CSTATE[3];    // '<S86>/Integrator'
 };
 
 // Real-time Model Data Structure
@@ -178,14 +186,16 @@ extern void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const
     rtu_ControlSwitch[2], const FixedWingGuidanceStateBus *rtu_SimUAVState,
     const FixedWingGuidanceBus *rtu_ImmedGuidanceCMD, const real_T
     *rtu_BiasRatio, const real_T *rtu_ParamADRC_hat_b, const real_T
-    *rtu_ParamADRC_omega_o, const real_T *rtu_ParamADRC_omega_b, FCUCMD
-    *rty_FCUCMD, uint8_T *rty_EngagedFlag, FlightLogging *rty_FlightLogging,
-    DW_Real2SimGuidance_f_T *localDW, X_Real2SimGuidance_n_T *localX);
+    *rtu_ParamADRC_omega_o, const real_T *rtu_ParamADRC_omega_b, const real_T
+    *rtu_ParamADRC_P, const real_T *rtu_ParamADRC_D, FCUCMD *rty_FCUCMD, uint8_T
+    *rty_EngagedFlag, FlightLogging *rty_FlightLogging, DW_Real2SimGuidance_f_T *
+    localDW, X_Real2SimGuidance_n_T *localX);
 
 //-
 //  These blocks were eliminated from the model due to optimizations:
 //
 //  Block '<S63>/SwitchDesiredYaw' : Unused code path elimination
+//  Block '<S123>/DTDup' : Unused code path elimination
 //  Block '<Root>/LookaheadPoint_ZOH' : Eliminated since input and output rates are identical
 //  Block '<S67>/ZOH_ADRC_LagDis' : Eliminated since input and output rates are identical
 
@@ -286,19 +296,72 @@ extern void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const
 //  '<S79>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/L1RangeSim2Track3d3'
 //  '<S80>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/Range2CurrentSim'
 //  '<S81>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/RangeSim2Track2d3'
-//  '<S82>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/VisualizeUAV'
-//  '<S83>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/ADRC controller'
-//  '<S84>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/ADRC controller/Linear extended state observer'
-//  '<S85>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/ADRC controller/Observer output'
-//  '<S86>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/ADRC controller/State feedback robust controller'
-//  '<S87>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/ADRC controller/Linear extended state observer/Linear extended state observer'
-//  '<S88>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/ADRC controller/Observer output/Whole estimated extended state'
-//  '<S89>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/ADRC controller/State feedback robust controller/Dead time'
-//  '<S90>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/ADRC controller/State feedback robust controller/Extended state feedback robust controller'
-//  '<S91>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/ADRC controller/State feedback robust controller/Saturation'
-//  '<S92>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/ADRC controller/State feedback robust controller/Dead time/Dead time on'
-//  '<S93>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/ADRC controller/State feedback robust controller/Saturation/Saturation off'
-//  '<S94>'  : 'Real2SimGuidance/Real2SimNav/TD/fhan_Alt'
+//  '<S82>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/ADRC'
+//  '<S83>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/ControlLogic'
+//  '<S84>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD'
+//  '<S85>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/ADRC/ADRC controller'
+//  '<S86>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/ADRC/ADRC controller/Linear extended state observer'
+//  '<S87>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/ADRC/ADRC controller/Observer output'
+//  '<S88>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/ADRC/ADRC controller/State feedback robust controller'
+//  '<S89>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/ADRC/ADRC controller/Linear extended state observer/Linear extended state observer'
+//  '<S90>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/ADRC/ADRC controller/Observer output/Whole estimated extended state'
+//  '<S91>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/ADRC/ADRC controller/State feedback robust controller/Dead time'
+//  '<S92>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/ADRC/ADRC controller/State feedback robust controller/Extended state feedback robust controller'
+//  '<S93>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/ADRC/ADRC controller/State feedback robust controller/Saturation'
+//  '<S94>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/ADRC/ADRC controller/State feedback robust controller/Dead time/Dead time on'
+//  '<S95>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/ADRC/ADRC controller/State feedback robust controller/Saturation/Saturation off'
+//  '<S96>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller'
+//  '<S97>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/Anti-windup'
+//  '<S98>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/D Gain'
+//  '<S99>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/Filter'
+//  '<S100>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/Filter ICs'
+//  '<S101>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/I Gain'
+//  '<S102>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/Ideal P Gain'
+//  '<S103>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/Ideal P Gain Fdbk'
+//  '<S104>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/Integrator'
+//  '<S105>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/Integrator ICs'
+//  '<S106>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/N Copy'
+//  '<S107>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/N Gain'
+//  '<S108>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/P Copy'
+//  '<S109>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/Parallel P Gain'
+//  '<S110>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/Reset Signal'
+//  '<S111>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/Saturation'
+//  '<S112>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/Saturation Fdbk'
+//  '<S113>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/Sum'
+//  '<S114>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/Sum Fdbk'
+//  '<S115>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/Tracking Mode'
+//  '<S116>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/Tracking Mode Sum'
+//  '<S117>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/Tsamp - Integral'
+//  '<S118>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/Tsamp - Ngain'
+//  '<S119>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/postSat Signal'
+//  '<S120>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/preSat Signal'
+//  '<S121>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/Anti-windup/Disabled'
+//  '<S122>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/D Gain/External Parameters'
+//  '<S123>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/Filter/Differentiator'
+//  '<S124>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/Filter/Differentiator/Tsamp'
+//  '<S125>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/Filter/Differentiator/Tsamp/Internal Ts'
+//  '<S126>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/Filter ICs/Internal IC - Differentiator'
+//  '<S127>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/I Gain/Disabled'
+//  '<S128>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/Ideal P Gain/Passthrough'
+//  '<S129>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/Ideal P Gain Fdbk/Disabled'
+//  '<S130>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/Integrator/Disabled'
+//  '<S131>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/Integrator ICs/Disabled'
+//  '<S132>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/N Copy/Disabled wSignal Specification'
+//  '<S133>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/N Gain/Passthrough'
+//  '<S134>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/P Copy/Disabled'
+//  '<S135>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/Parallel P Gain/External Parameters'
+//  '<S136>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/Reset Signal/Disabled'
+//  '<S137>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/Saturation/Passthrough'
+//  '<S138>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/Saturation Fdbk/Disabled'
+//  '<S139>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/Sum/Sum_PD'
+//  '<S140>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/Sum Fdbk/Disabled'
+//  '<S141>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/Tracking Mode/Disabled'
+//  '<S142>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/Tracking Mode Sum/Passthrough'
+//  '<S143>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/Tsamp - Integral/Disabled wSignal Specification'
+//  '<S144>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/Tsamp - Ngain/Passthrough'
+//  '<S145>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/postSat Signal/Forward_Path'
+//  '<S146>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/ADRC/PD/Discrete PID Controller/preSat Signal/Forward_Path'
+//  '<S147>' : 'Real2SimGuidance/Real2SimNav/TD/fhan_Alt'
 
 #endif                                 // RTW_HEADER_Real2SimGuidance_h_
 
