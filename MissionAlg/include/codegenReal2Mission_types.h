@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 3.193
+// Model version                  : 3.200
 // Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Tue Apr 12 04:39:11 2022
+// C/C++ source code generated on : Tue Apr 12 09:42:40 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -26,48 +26,15 @@
 
 // Model Code Variants
 #include "rtw_linux.h"
-#ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
-#define DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
+#ifndef DEFINED_TYPEDEF_FOR_FCUCMD_
+#define DEFINED_TYPEDEF_FOR_FCUCMD_
 
-struct FixedWingGuidanceBus
+struct FCUCMD
 {
-    real_T Height;
-    real_T AirSpeed;
-    real_T HeadingAngle;
-};
-
-#endif
-
-#ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceStateBus_
-#define DEFINED_TYPEDEF_FOR_FixedWingGuidanceStateBus_
-
-struct FixedWingGuidanceStateBus
-{
-    real_T North;
-    real_T East;
-    real_T Height;
-    real_T AirSpeed;
-    real_T HeadingAngle;
-    real_T FlightPathAngle;
-    real_T RollAngle;
-    real_T RollAngleRate;
-};
-
-#endif
-
-#ifndef DEFINED_TYPEDEF_FOR_missionCmd_
-#define DEFINED_TYPEDEF_FOR_missionCmd_
-
-struct missionCmd
-{
-    int32_T SequenceID;
-    MissionModes MissionMode;
-    Location MissionLocation;
-    Parameters params;
-    Location StartPosition;
-    int32_T numUAV;
-    int32_T FormationPos;
-    real_T StartTime;
+    real_T Latitude_deg;
+    real_T Longitude_deg;
+    real_T Height_meter;
+    real_T RefAirSpd_mps;
 };
 
 #endif
@@ -88,40 +55,19 @@ struct RealUAVStateBus
 
 #endif
 
-#ifndef DEFINED_TYPEDEF_FOR_VectorSpeed_
-#define DEFINED_TYPEDEF_FOR_VectorSpeed_
+#ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceStateBus_
+#define DEFINED_TYPEDEF_FOR_FixedWingGuidanceStateBus_
 
-struct VectorSpeed
+struct FixedWingGuidanceStateBus
 {
-    real_T eastSpeed;
-    real_T northSpeed;
-    real_T skySpeed;
-};
-
-#endif
-
-#ifndef DEFINED_TYPEDEF_FOR_StateFCU_
-#define DEFINED_TYPEDEF_FOR_StateFCU_
-
-struct StateFCU
-{
-    RealUAVStateBus RealUAVState;
-    real_T GndSpd_mps;
-    real_T Altitude;
-    VectorSpeed VecSpd;
-};
-
-#endif
-
-#ifndef DEFINED_TYPEDEF_FOR_FCUCMD_
-#define DEFINED_TYPEDEF_FOR_FCUCMD_
-
-struct FCUCMD
-{
-    real_T Latitude_deg;
-    real_T Longitude_deg;
-    real_T Height_meter;
-    real_T RefAirSpd_mps;
+    real_T North;
+    real_T East;
+    real_T Height;
+    real_T AirSpeed;
+    real_T HeadingAngle;
+    real_T FlightPathAngle;
+    real_T RollAngle;
+    real_T RollAngleRate;
 };
 
 #endif
@@ -156,6 +102,18 @@ struct MiscellaneousFlightStatus
 
 #endif
 
+#ifndef DEFINED_TYPEDEF_FOR_VectorSpeed_
+#define DEFINED_TYPEDEF_FOR_VectorSpeed_
+
+struct VectorSpeed
+{
+    real_T eastSpeed;
+    real_T northSpeed;
+    real_T skySpeed;
+};
+
+#endif
+
 #ifndef DEFINED_TYPEDEF_FOR_ADRC_
 #define DEFINED_TYPEDEF_FOR_ADRC_
 
@@ -186,6 +144,31 @@ struct FlightLogging
 
 #endif
 
+#ifndef DEFINED_TYPEDEF_FOR_StateFCU_
+#define DEFINED_TYPEDEF_FOR_StateFCU_
+
+struct StateFCU
+{
+    RealUAVStateBus RealUAVState;
+    real_T GndSpd_mps;
+    real_T Altitude;
+    VectorSpeed VecSpd;
+};
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
+#define DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
+
+struct FixedWingGuidanceBus
+{
+    real_T Height;
+    real_T AirSpeed;
+    real_T HeadingAngle;
+};
+
+#endif
+
 #ifndef DEFINED_TYPEDEF_FOR_ParamADRC_
 #define DEFINED_TYPEDEF_FOR_ParamADRC_
 
@@ -197,6 +180,23 @@ struct ParamADRC
     real_T P;
     real_T D;
     boolean_T useADRC;
+};
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_missionCmd_
+#define DEFINED_TYPEDEF_FOR_missionCmd_
+
+struct missionCmd
+{
+    int32_T SequenceID;
+    MissionModes MissionMode;
+    Location MissionLocation;
+    Parameters params;
+    Location StartPosition;
+    int32_T numUAV;
+    int32_T FormationPos;
+    real_T StartTime;
 };
 
 #endif

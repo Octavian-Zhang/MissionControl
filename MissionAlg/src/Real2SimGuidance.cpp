@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'Real2SimGuidance'.
 //
-// Model version                  : 3.128
+// Model version                  : 3.129
 // Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Tue Apr 12 04:37:41 2022
+// C/C++ source code generated on : Tue Apr 12 09:26:29 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -62,7 +62,7 @@ const uint8_T Real2SimGuidance_IN_SimPnt{ 3U };
 
 const uint8_T Real2SimGuidance_IN_SimPnt_g{ 2U };
 
-// Named constants for Chart: '<S74>/ControlLogic'
+// Named constants for Chart: '<S81>/ControlLogic'
 const uint8_T Real2SimGuidance_IN_ADRC{ 1U };
 
 const uint8_T Real2SimGuidance_IN_ADRC2PD{ 1U };
@@ -1163,15 +1163,15 @@ void Real2SimGuidance_Init(DW_Real2SimGuidance_f_T *localDW,
     // End of SystemInitialize for SubSystem: '<S6>/GenerateTrack'
 
     // SystemInitialize for Atomic SubSystem: '<S6>/SpeedControl'
-    // SystemInitialize for Enabled SubSystem: '<S67>/ADRC'
-    // SystemInitialize for Enabled SubSystem: '<S74>/ADRC'
+    // SystemInitialize for Enabled SubSystem: '<S67>/SpdFBControl'
+    // SystemInitialize for Enabled SubSystem: '<S81>/ADRC'
     // InitializeConditions for Integrator: '<S86>/Integrator'
     localX->Integrator_CSTATE[0] = 0.0;
     localX->Integrator_CSTATE[1] = 0.0;
     localX->Integrator_CSTATE[2] = 0.0;
 
-    // End of SystemInitialize for SubSystem: '<S74>/ADRC'
-    // End of SystemInitialize for SubSystem: '<S67>/ADRC'
+    // End of SystemInitialize for SubSystem: '<S81>/ADRC'
+    // End of SystemInitialize for SubSystem: '<S67>/SpdFBControl'
     // End of SystemInitialize for SubSystem: '<S6>/SpeedControl'
 
     // SystemInitialize for Atomic SubSystem: '<S6>/HeadingLogic'
@@ -1293,21 +1293,21 @@ void Real2SimGuidance_Disable(DW_Real2SimGuidance_f_T *localDW)
 {
     // Disable for Atomic SubSystem: '<Root>/Real2SimNav'
     // Disable for Atomic SubSystem: '<S6>/SpeedControl'
-    // Disable for Enabled SubSystem: '<S67>/ADRC'
-    if (localDW->ADRC_MODE) {
-        // Disable for Enabled SubSystem: '<S74>/ADRC'
-        localDW->ADRC_MODE_c = false;
+    // Disable for Enabled SubSystem: '<S67>/SpdFBControl'
+    if (localDW->SpdFBControl_MODE) {
+        // Disable for Enabled SubSystem: '<S81>/ADRC'
+        localDW->ADRC_MODE = false;
 
-        // End of Disable for SubSystem: '<S74>/ADRC'
+        // End of Disable for SubSystem: '<S81>/ADRC'
 
-        // Disable for Enabled SubSystem: '<S74>/PD'
+        // Disable for Enabled SubSystem: '<S81>/PD'
         localDW->PD_MODE = false;
 
-        // End of Disable for SubSystem: '<S74>/PD'
-        localDW->ADRC_MODE = false;
+        // End of Disable for SubSystem: '<S81>/PD'
+        localDW->SpdFBControl_MODE = false;
     }
 
-    // End of Disable for SubSystem: '<S67>/ADRC'
+    // End of Disable for SubSystem: '<S67>/SpdFBControl'
     // End of Disable for SubSystem: '<S6>/SpeedControl'
     // End of Disable for SubSystem: '<Root>/Real2SimNav'
 }
@@ -1619,37 +1619,36 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         rtb_Memory = localDW->Memory_PreviousInput;
 
         // Outputs for Atomic SubSystem: '<S6>/SpeedControl'
-        // Sum: '<S81>/Sum' incorporates:
+        // Sum: '<S80>/Sum' incorporates:
         //   Concatenate: '<S62>/Matrix Concatenate'
         //   Selector: '<S67>/TargetLocation'
 
-        rtb_Sum1_idx_0 = localDW->MatrixConcatenate[60] - rtu_SimUAVState->North;
+        rtb_Sum_k = localDW->MatrixConcatenate[60] - rtu_SimUAVState->North;
 
-        // DotProduct: '<S81>/Dot Product'
-        rtb_Sum_k = rtb_Sum1_idx_0 * rtb_Sum1_idx_0;
+        // DotProduct: '<S80>/Dot Product'
+        rtb_Sum1_idx_0 = rtb_Sum_k * rtb_Sum_k;
 
-        // Sum: '<S81>/Sum' incorporates:
+        // Sum: '<S80>/Sum' incorporates:
         //   Concatenate: '<S62>/Matrix Concatenate'
         //   Selector: '<S67>/TargetLocation'
 
-        rtb_Sum1_idx_0 = localDW->MatrixConcatenate[277] - rtu_SimUAVState->East;
+        rtb_Sum_k = localDW->MatrixConcatenate[277] - rtu_SimUAVState->East;
 
-        // DotProduct: '<S81>/Dot Product'
-        rtb_Sum_k += rtb_Sum1_idx_0 * rtb_Sum1_idx_0;
+        // DotProduct: '<S80>/Dot Product'
+        rtb_Sum1_idx_0 += rtb_Sum_k * rtb_Sum_k;
 
-        // Sum: '<S81>/Sum' incorporates:
+        // Sum: '<S80>/Sum' incorporates:
         //   Concatenate: '<S62>/Matrix Concatenate'
         //   Selector: '<S67>/TargetLocation'
 
-        rtb_Sum1_idx_0 = localDW->MatrixConcatenate[494] -
-            rtu_SimUAVState->Height;
+        rtb_Sum_k = localDW->MatrixConcatenate[494] - rtu_SimUAVState->Height;
 
-        // Sqrt: '<S81>/sqrt' incorporates:
-        //   DotProduct: '<S81>/Dot Product'
+        // Sqrt: '<S80>/sqrt' incorporates:
+        //   DotProduct: '<S80>/Dot Product'
 
-        rtb_Abs1 = std::sqrt(rtb_Sum1_idx_0 * rtb_Sum1_idx_0 + rtb_Sum_k);
+        rtb_Abs1 = std::sqrt(rtb_Sum_k * rtb_Sum_k + rtb_Sum1_idx_0);
 
-        // Sum: '<S80>/Sum'
+        // Sum: '<S79>/Sum'
         rtb_SwitchLookAheadPoint[0] = rtu_SimUAVState->North -
             rtb_FixedWingGuidanceStateBus.North;
         rtb_SwitchLookAheadPoint[1] = rtu_SimUAVState->East -
@@ -1657,8 +1656,8 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         rtb_SwitchLookAheadPoint[2] = rtu_SimUAVState->Height -
             rtu_SimUAVState->Height;
 
-        // Sqrt: '<S80>/sqrt' incorporates:
-        //   DotProduct: '<S80>/Dot Product'
+        // Sqrt: '<S79>/sqrt' incorporates:
+        //   DotProduct: '<S79>/Dot Product'
 
         rtb_Switch_b = std::sqrt((rtb_SwitchLookAheadPoint[0] *
             rtb_SwitchLookAheadPoint[0] + rtb_SwitchLookAheadPoint[1] *
@@ -1673,8 +1672,40 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         // DataStoreWrite: '<S67>/WriteLagDistance'
         localDW->LagDistance = localDW->Gain;
 
-        // Outputs for Enabled SubSystem: '<S67>/ADRC' incorporates:
-        //   EnablePort: '<S74>/Enable'
+        // Sum: '<S75>/Sum' incorporates:
+        //   Concatenate: '<S62>/Matrix Concatenate'
+        //   Selector: '<S67>/FrontBound'
+
+        rtb_Sum_k = localDW->MatrixConcatenate[108] - rtu_SimUAVState->North;
+
+        // DotProduct: '<S75>/Dot Product'
+        rtb_Sum1_idx_0 = rtb_Sum_k * rtb_Sum_k;
+
+        // Sum: '<S75>/Sum' incorporates:
+        //   Concatenate: '<S62>/Matrix Concatenate'
+        //   Selector: '<S67>/FrontBound'
+
+        rtb_Sum_k = localDW->MatrixConcatenate[325] - rtu_SimUAVState->East;
+
+        // DotProduct: '<S75>/Dot Product'
+        rtb_Sum1_idx_0 += rtb_Sum_k * rtb_Sum_k;
+
+        // Sum: '<S75>/Sum' incorporates:
+        //   Concatenate: '<S62>/Matrix Concatenate'
+        //   Selector: '<S67>/FrontBound'
+
+        rtb_Sum_k = localDW->MatrixConcatenate[542] - rtu_SimUAVState->Height;
+
+        // Sqrt: '<S75>/sqrt' incorporates:
+        //   DotProduct: '<S75>/Dot Product'
+
+        rtb_Sum1_idx_0 = std::sqrt(rtb_Sum_k * rtb_Sum_k + rtb_Sum1_idx_0);
+
+        // Sum: '<S67>/ActRngmMinRng'
+        rtb_Switch_b -= rtb_Sum1_idx_0;
+
+        // Outputs for Enabled SubSystem: '<S67>/SpdFBControl' incorporates:
+        //   EnablePort: '<S81>/Enable'
 
         if (rtmIsMajorTimeStep(Real2SimGuidance_M)) {
             // Logic: '<S6>/AND' incorporates:
@@ -1690,8 +1721,9 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
             {
                 if (static_cast<boolean_T>(static_cast<int32_T>
                                            (static_cast<int32_T>
-                                            (localDW->ADRC_MODE) ^ 1))) {
-                    // SystemReset for Chart: '<S74>/ControlLogic'
+                                            (localDW->SpdFBControl_MODE) ^ 1)))
+                {
+                    // SystemReset for Chart: '<S81>/ControlLogic'
                     localDW->is_Debounce = Real2SimGuidance_IN_NO_ACTIVE_CHILD;
                     localDW->temporalCounter_i1_c = 0U;
                     localDW->is_active_c6_Real2SimGuidance = 0U;
@@ -1700,51 +1732,51 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
                     localDW->PD_U = false;
                     localDW->EnablePD = false;
                     localDW->EnableADRC = false;
-                    localDW->ADRC_MODE = true;
+                    localDW->SpdFBControl_MODE = true;
                 }
-            } else if (localDW->ADRC_MODE) {
-                // Disable for Enabled SubSystem: '<S74>/ADRC'
-                localDW->ADRC_MODE_c = false;
+            } else if (localDW->SpdFBControl_MODE) {
+                // Disable for Enabled SubSystem: '<S81>/ADRC'
+                localDW->ADRC_MODE = false;
 
-                // End of Disable for SubSystem: '<S74>/ADRC'
+                // End of Disable for SubSystem: '<S81>/ADRC'
 
-                // Disable for Enabled SubSystem: '<S74>/PD'
+                // Disable for Enabled SubSystem: '<S81>/PD'
                 localDW->PD_MODE = false;
 
-                // End of Disable for SubSystem: '<S74>/PD'
-                localDW->ADRC_MODE = false;
+                // End of Disable for SubSystem: '<S81>/PD'
+                localDW->SpdFBControl_MODE = false;
             }
 
             // End of Logic: '<S6>/AND'
         }
 
-        // End of Outputs for SubSystem: '<S67>/ADRC'
+        // End of Outputs for SubSystem: '<S67>/SpdFBControl'
         // End of Outputs for SubSystem: '<S6>/SpeedControl'
         // End of Outputs for SubSystem: '<Root>/Real2SimNav'
     }
 
     // Outputs for Atomic SubSystem: '<Root>/Real2SimNav'
     // Outputs for Atomic SubSystem: '<S6>/SpeedControl'
-    // Outputs for Enabled SubSystem: '<S67>/ADRC' incorporates:
-    //   EnablePort: '<S74>/Enable'
+    // Outputs for Enabled SubSystem: '<S67>/SpdFBControl' incorporates:
+    //   EnablePort: '<S81>/Enable'
 
-    if (localDW->ADRC_MODE) {
+    if (localDW->SpdFBControl_MODE) {
         if (rtmIsMajorTimeStep(Real2SimGuidance_M)) {
-            // Chart: '<S74>/ControlLogic'
+            // Chart: '<S81>/ControlLogic'
             if (static_cast<uint32_T>(localDW->temporalCounter_i1_c) < 15U) {
                 localDW->temporalCounter_i1_c = static_cast<uint8_T>(
                     static_cast<uint32_T>(static_cast<uint32_T>
                     (localDW->temporalCounter_i1_c) + 1U));
             }
 
-            // Gateway: Real2SimNav/SpeedControl/ADRC/ControlLogic
-            // During: Real2SimNav/SpeedControl/ADRC/ControlLogic
+            // Gateway: Real2SimNav/SpeedControl/SpdFBControl/ControlLogic
+            // During: Real2SimNav/SpeedControl/SpdFBControl/ControlLogic
             if (static_cast<uint32_T>(localDW->is_active_c6_Real2SimGuidance) ==
                 0U) {
-                // Entry: Real2SimNav/SpeedControl/ADRC/ControlLogic
+                // Entry: Real2SimNav/SpeedControl/SpdFBControl/ControlLogic
                 localDW->is_active_c6_Real2SimGuidance = 1U;
 
-                // Entry Internal: Real2SimNav/SpeedControl/ADRC/ControlLogic
+                // Entry Internal: Real2SimNav/SpeedControl/SpdFBControl/ControlLogic 
                 // Transition: '<S83>:81'
                 localDW->is_c6_Real2SimGuidance = Real2SimGuidance_IN_PD;
 
@@ -1845,33 +1877,33 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
                 }
             }
 
-            // End of Chart: '<S74>/ControlLogic'
+            // End of Chart: '<S81>/ControlLogic'
 
-            // Outputs for Enabled SubSystem: '<S74>/ADRC' incorporates:
+            // Outputs for Enabled SubSystem: '<S81>/ADRC' incorporates:
             //   EnablePort: '<S82>/Enable'
 
             if (rtmIsMajorTimeStep(Real2SimGuidance_M)) {
                 if (localDW->EnableADRC) {
                     if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<
-                            int32_T>(localDW->ADRC_MODE_c) ^ 1))) {
+                            int32_T>(localDW->ADRC_MODE) ^ 1))) {
                         // InitializeConditions for Integrator: '<S86>/Integrator' 
                         localX->Integrator_CSTATE[0] = 0.0;
                         localX->Integrator_CSTATE[1] = 0.0;
                         localX->Integrator_CSTATE[2] = 0.0;
-                        localDW->ADRC_MODE_c = true;
+                        localDW->ADRC_MODE = true;
                     }
                 } else {
-                    localDW->ADRC_MODE_c = false;
+                    localDW->ADRC_MODE = false;
                 }
             }
 
-            // End of Outputs for SubSystem: '<S74>/ADRC'
+            // End of Outputs for SubSystem: '<S81>/ADRC'
         }
 
-        // Outputs for Enabled SubSystem: '<S74>/ADRC' incorporates:
+        // Outputs for Enabled SubSystem: '<S81>/ADRC' incorporates:
         //   EnablePort: '<S82>/Enable'
 
-        if (localDW->ADRC_MODE_c) {
+        if (localDW->ADRC_MODE) {
             // Integrator: '<S86>/Integrator'
             localDW->Integrator[0] = localX->Integrator_CSTATE[0];
             localDW->Integrator[1] = localX->Integrator_CSTATE[1];
@@ -1883,20 +1915,20 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
             if (*rtu_ParamADRC_hat_b == 0.0) {
                 // '<S92>:1:17'
                 // '<S92>:1:18'
-                rtb_Sum1_idx_0 = 1.0;
+                rtb_Sum_k = 1.0;
             } else {
                 // '<S92>:1:20'
-                rtb_Sum1_idx_0 = *rtu_ParamADRC_hat_b;
+                rtb_Sum_k = *rtu_ParamADRC_hat_b;
             }
 
             // '<S92>:1:9'
             if (*rtu_ParamADRC_omega_b == 0.0) {
                 // '<S92>:1:17'
                 // '<S92>:1:18'
-                rtb_Sum_k = 5.0;
+                rtb_Sum1_idx_1 = 5.0;
             } else {
                 // '<S92>:1:20'
-                rtb_Sum_k = *rtu_ParamADRC_omega_b;
+                rtb_Sum1_idx_1 = *rtu_ParamADRC_omega_b;
             }
 
             // Product: '<S94>/Product' incorporates:
@@ -1907,14 +1939,14 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
             // '<S92>:1:25'
             // '<S92>:1:26'
             // '<S92>:1:12'
-            localDW->Product = ((rtb_Sum_k * rtb_Sum_k * localDW->Integrator[0]
-                                 + (rtb_Sum_k - (-rtb_Sum_k)) *
-                                 localDW->Integrator[1]) + localDW->Integrator[2])
-                * (1.0 / rtb_Sum1_idx_0) * static_cast<real_T>
-                (static_cast<int32_T>(static_cast<boolean_T>(static_cast<int32_T>
-                   (((*(Real2SimGuidance_M->timingBridge->
-                        taskTime[Real2SimGuidance_M->Timing.mdlref_GlobalTID[0]]))
-                     < 0.2) ^ 1))));
+            localDW->Product = ((rtb_Sum1_idx_1 * rtb_Sum1_idx_1 *
+                                 localDW->Integrator[0] + (rtb_Sum1_idx_1 -
+                                  (-rtb_Sum1_idx_1)) * localDW->Integrator[1]) +
+                                localDW->Integrator[2]) * (1.0 / rtb_Sum_k) *
+                static_cast<real_T>(static_cast<int32_T>(static_cast<boolean_T>(
+                static_cast<int32_T>(((*(Real2SimGuidance_M->
+                timingBridge->taskTime
+                [Real2SimGuidance_M->Timing.mdlref_GlobalTID[0]])) < 0.2) ^ 1))));
 
             // MATLAB Function: '<S86>/Linear extended state observer'
             // MATLAB Function 'ADRC controller/Linear extended state observer/Linear extended state observer': '<S89>:1' 
@@ -1923,20 +1955,20 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
             if (*rtu_ParamADRC_hat_b == 0.0) {
                 // '<S89>:1:22'
                 // '<S89>:1:23'
-                rtb_Sum1_idx_0 = 1.0;
+                rtb_Sum_k = 1.0;
             } else {
                 // '<S89>:1:25'
-                rtb_Sum1_idx_0 = *rtu_ParamADRC_hat_b;
+                rtb_Sum_k = *rtu_ParamADRC_hat_b;
             }
 
             // '<S89>:1:11'
             if (*rtu_ParamADRC_omega_o == 0.0) {
                 // '<S89>:1:22'
                 // '<S89>:1:23'
-                rtb_Sum_k = 25.0;
+                rtb_Sum1_idx_1 = 25.0;
             } else {
                 // '<S89>:1:25'
-                rtb_Sum_k = *rtu_ParamADRC_omega_o;
+                rtb_Sum1_idx_1 = *rtu_ParamADRC_omega_o;
             }
 
             // '<S89>:1:13'
@@ -1944,29 +1976,30 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
             // '<S89>:1:14'
             // '<S89>:1:39'
             rtb_TmpSignalConversionAtSFunctionInport1[0] = 1.0;
-            rtb_TmpSignalConversionAtSFunctionInport1[1] = rtb_Sum_k;
-            rtb_TmpSignalConversionAtSFunctionInport1[2] = rtb_Sum_k * rtb_Sum_k;
+            rtb_TmpSignalConversionAtSFunctionInport1[1] = rtb_Sum1_idx_1;
+            rtb_TmpSignalConversionAtSFunctionInport1[2] = rtb_Sum1_idx_1 *
+                rtb_Sum1_idx_1;
             for (i = 1; static_cast<int32_T>(i + 1) > 1; i = static_cast<int32_T>
                     (i - 1)) {
                 rtb_TmpSignalConversionAtSFunctionInport1[i] -=
                     rtb_TmpSignalConversionAtSFunctionInport1
-                    [static_cast<int32_T>(i - 1)] * -rtb_Sum_k;
+                    [static_cast<int32_T>(i - 1)] * -rtb_Sum1_idx_1;
             }
 
-            rtb_TmpSignalConversionAtSFunctionInport1[3] = rtb_Sum_k *
+            rtb_TmpSignalConversionAtSFunctionInport1[3] = rtb_Sum1_idx_1 *
                 rtb_TmpSignalConversionAtSFunctionInport1[2];
             for (i = 2; static_cast<int32_T>(i + 1) > 1; i = static_cast<int32_T>
                     (i - 1)) {
                 rtb_TmpSignalConversionAtSFunctionInport1[i] -=
                     rtb_TmpSignalConversionAtSFunctionInport1
-                    [static_cast<int32_T>(i - 1)] * -rtb_Sum_k;
+                    [static_cast<int32_T>(i - 1)] * -rtb_Sum1_idx_1;
             }
 
             // '<S89>:1:40'
             // '<S89>:1:16'
-            rtb_Sum_k = localDW->Gain - localDW->Integrator[0];
+            rtb_Sum1_idx_1 = localDW->Gain - localDW->Integrator[0];
             tmp[0] = 0.0 * localDW->Product;
-            tmp[1] = -rtb_Sum1_idx_0 * localDW->Product;
+            tmp[1] = -rtb_Sum_k * localDW->Product;
             tmp[2] = 0.0 * localDW->Product;
             for (i = 0; i < 3; i++) {
                 localDW->estimatedExtendedStateDerivative[i] =
@@ -1975,22 +2008,22 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
                       static_cast<real_T>(a[static_cast<int32_T>(i + 6)]) *
                       localDW->Integrator[2]) + tmp[i]) +
                     rtb_TmpSignalConversionAtSFunctionInport1
-                    [static_cast<int32_T>(i + 1)] * rtb_Sum_k;
+                    [static_cast<int32_T>(i + 1)] * rtb_Sum1_idx_1;
             }
 
             // End of MATLAB Function: '<S86>/Linear extended state observer'
         }
 
-        // End of Outputs for SubSystem: '<S74>/ADRC'
+        // End of Outputs for SubSystem: '<S81>/ADRC'
 
-        // SignalConversion generated from: '<S74>/Vector Concatenate' incorporates:
-        //   DataStoreWrite: '<S74>/WriteADRC_Log'
+        // SignalConversion generated from: '<S81>/Vector Concatenate' incorporates:
+        //   DataStoreWrite: '<S81>/WriteADRC_Log'
 
         localDW->ADRC_Log[0] = localDW->Integrator[0];
         localDW->ADRC_Log[1] = localDW->Integrator[1];
         localDW->ADRC_Log[2] = localDW->Integrator[2];
         if (rtmIsMajorTimeStep(Real2SimGuidance_M)) {
-            // Outputs for Enabled SubSystem: '<S74>/PD' incorporates:
+            // Outputs for Enabled SubSystem: '<S81>/PD' incorporates:
             //   EnablePort: '<S84>/Enable'
 
             if (rtmIsMajorTimeStep(Real2SimGuidance_M)) {
@@ -2008,82 +2041,47 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
 
             if (localDW->PD_MODE) {
                 // Product: '<S122>/DProd Out'
-                rtb_Sum1_idx_0 = localDW->Gain * *rtu_ParamADRC_D;
+                rtb_Sum_k = localDW->Gain * *rtu_ParamADRC_D;
 
                 // SampleTimeMath: '<S125>/Tsamp'
                 //
                 //  About '<S125>/Tsamp':
                 //   y = u * K where K = 1 / ( w * Ts )
 
-                localDW->Tsamp = rtb_Sum1_idx_0 * 10.0;
+                localDW->Tsamp = rtb_Sum_k * 10.0;
 
                 // Product: '<S135>/PProd Out'
-                rtb_Sum1_idx_0 = localDW->Gain * *rtu_ParamADRC_P;
+                rtb_Sum_k = localDW->Gain * *rtu_ParamADRC_P;
 
                 // Sum: '<S139>/Sum' incorporates:
                 //   Delay: '<S123>/UD'
                 //   Sum: '<S123>/Diff'
 
-                localDW->Sum = (localDW->Tsamp - localDW->UD_DSTATE) +
-                    rtb_Sum1_idx_0;
+                localDW->Sum = (localDW->Tsamp - localDW->UD_DSTATE) + rtb_Sum_k;
             }
 
-            // End of Outputs for SubSystem: '<S74>/PD'
+            // End of Outputs for SubSystem: '<S81>/PD'
         }
 
-        // Switch: '<S74>/Switch'
+        // Switch: '<S81>/Switch'
         if (localDW->PD_U) {
-            // Switch: '<S74>/Switch'
+            // Switch: '<S81>/Switch'
             localDW->Switch_p = localDW->Sum;
         } else {
-            // Switch: '<S74>/Switch'
+            // Switch: '<S81>/Switch'
             localDW->Switch_p = localDW->Product;
         }
 
-        // End of Switch: '<S74>/Switch'
+        // End of Switch: '<S81>/Switch'
 
-        // SignalConversion generated from: '<S74>/Vector Concatenate' incorporates:
-        //   DataStoreWrite: '<S74>/WriteADRC_Log'
+        // SignalConversion generated from: '<S81>/Vector Concatenate' incorporates:
+        //   DataStoreWrite: '<S81>/WriteADRC_Log'
 
         localDW->ADRC_Log[3] = localDW->Switch_p;
     }
 
-    // End of Outputs for SubSystem: '<S67>/ADRC'
+    // End of Outputs for SubSystem: '<S67>/SpdFBControl'
     if (rtmIsMajorTimeStep(Real2SimGuidance_M)) {
-        // Sum: '<S76>/Sum' incorporates:
-        //   Concatenate: '<S62>/Matrix Concatenate'
-        //   Selector: '<S67>/FrontBound'
-
-        rtb_Sum1_idx_0 = localDW->MatrixConcatenate[108] -
-            rtu_SimUAVState->North;
-
-        // DotProduct: '<S76>/Dot Product'
-        rtb_Sum_k = rtb_Sum1_idx_0 * rtb_Sum1_idx_0;
-
-        // Sum: '<S76>/Sum' incorporates:
-        //   Concatenate: '<S62>/Matrix Concatenate'
-        //   Selector: '<S67>/FrontBound'
-
-        rtb_Sum1_idx_0 = localDW->MatrixConcatenate[325] - rtu_SimUAVState->East;
-
-        // DotProduct: '<S76>/Dot Product'
-        rtb_Sum_k += rtb_Sum1_idx_0 * rtb_Sum1_idx_0;
-
-        // Sum: '<S76>/Sum' incorporates:
-        //   Concatenate: '<S62>/Matrix Concatenate'
-        //   Selector: '<S67>/FrontBound'
-
-        rtb_Sum1_idx_0 = localDW->MatrixConcatenate[542] -
-            rtu_SimUAVState->Height;
-
-        // Sqrt: '<S76>/sqrt' incorporates:
-        //   DotProduct: '<S76>/Dot Product'
-
-        rtb_Sum1_idx_0 = std::sqrt(rtb_Sum1_idx_0 * rtb_Sum1_idx_0 + rtb_Sum_k);
-
-        // Sum: '<S67>/ActRngmMinRng'
-        rtb_Switch_b -= rtb_Sum1_idx_0;
-
         // SignalConversion generated from: '<S67>/SimStateBus'
         localDW->AirSpeed = rtu_SimUAVState->AirSpeed;
 
@@ -2093,43 +2091,42 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         // Sum: '<S67>/ComputeLB'
         rtb_LowerBound = rtb_Sum1_idx_0 - rtb_Abs1;
 
-        // Sum: '<S77>/Sum' incorporates:
+        // Sum: '<S76>/Sum' incorporates:
         //   Concatenate: '<S62>/Matrix Concatenate'
         //   Selector: '<S67>/TailBound'
 
-        rtb_Sum1_idx_0 = localDW->MatrixConcatenate[12] - rtu_SimUAVState->North;
+        rtb_Sum_k = localDW->MatrixConcatenate[12] - rtu_SimUAVState->North;
 
-        // DotProduct: '<S77>/Dot Product'
-        rtb_Sum_k = rtb_Sum1_idx_0 * rtb_Sum1_idx_0;
+        // DotProduct: '<S76>/Dot Product'
+        rtb_Sum1_idx_0 = rtb_Sum_k * rtb_Sum_k;
 
-        // Sum: '<S77>/Sum' incorporates:
+        // Sum: '<S76>/Sum' incorporates:
         //   Concatenate: '<S62>/Matrix Concatenate'
         //   Selector: '<S67>/TailBound'
 
-        rtb_Sum1_idx_0 = localDW->MatrixConcatenate[229] - rtu_SimUAVState->East;
+        rtb_Sum_k = localDW->MatrixConcatenate[229] - rtu_SimUAVState->East;
 
-        // DotProduct: '<S77>/Dot Product'
-        rtb_Sum_k += rtb_Sum1_idx_0 * rtb_Sum1_idx_0;
+        // DotProduct: '<S76>/Dot Product'
+        rtb_Sum1_idx_0 += rtb_Sum_k * rtb_Sum_k;
 
-        // Sum: '<S77>/Sum' incorporates:
+        // Sum: '<S76>/Sum' incorporates:
         //   Concatenate: '<S62>/Matrix Concatenate'
         //   Selector: '<S67>/TailBound'
 
-        rtb_Sum1_idx_0 = localDW->MatrixConcatenate[446] -
-            rtu_SimUAVState->Height;
+        rtb_Sum_k = localDW->MatrixConcatenate[446] - rtu_SimUAVState->Height;
 
         // Sum: '<S67>/ComputeUB' incorporates:
-        //   DotProduct: '<S77>/Dot Product'
-        //   Sqrt: '<S77>/sqrt'
+        //   DotProduct: '<S76>/Dot Product'
+        //   Sqrt: '<S76>/sqrt'
 
-        rtb_UpperBound = std::sqrt(rtb_Sum1_idx_0 * rtb_Sum1_idx_0 + rtb_Sum_k)
-            - rtb_Abs1;
+        rtb_UpperBound = std::sqrt(rtb_Sum_k * rtb_Sum_k + rtb_Sum1_idx_0) -
+            rtb_Abs1;
 
         // Outputs for Enabled SubSystem: '<S67>/EnableBias' incorporates:
-        //   EnablePort: '<S75>/Enable'
+        //   EnablePort: '<S74>/Enable'
 
         // Math: '<S67>/Square' incorporates:
-        //   Math: '<S75>/Square'
+        //   Math: '<S74>/Square'
 
         rtb_UpperBound_e = rtb_RefRngmMinRng * rtb_RefRngmMinRng;
 
@@ -2155,80 +2152,77 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         // End of Switch: '<S67>/Switch'
 
         // Outputs for Enabled SubSystem: '<S67>/EnableBias' incorporates:
-        //   EnablePort: '<S75>/Enable'
+        //   EnablePort: '<S74>/Enable'
 
         if (Switch > 0.0) {
-            // Sum: '<S75>/biasHm70' incorporates:
-            //   Product: '<S75>/Divide'
+            // Sum: '<S74>/biasHm70' incorporates:
+            //   Product: '<S74>/Divide'
 
             localDW->biasHm70 = rtb_UpperBound_e / Switch - rtb_RefRngmMinRng;
         }
 
         // End of Outputs for SubSystem: '<S67>/EnableBias'
 
-        // Sum: '<S78>/Sum' incorporates:
+        // Sum: '<S77>/Sum' incorporates:
         //   Concatenate: '<S62>/Matrix Concatenate'
         //   Selector: '<S67>/L1FrontBound'
 
-        rtb_Sum1_idx_0 = localDW->MatrixConcatenate[78] - rtu_SimUAVState->North;
+        rtb_Sum_k = localDW->MatrixConcatenate[78] - rtu_SimUAVState->North;
 
-        // DotProduct: '<S78>/Dot Product'
-        rtb_Sum_k = rtb_Sum1_idx_0 * rtb_Sum1_idx_0;
+        // DotProduct: '<S77>/Dot Product'
+        rtb_Sum1_idx_0 = rtb_Sum_k * rtb_Sum_k;
 
-        // Sum: '<S78>/Sum' incorporates:
+        // Sum: '<S77>/Sum' incorporates:
         //   Concatenate: '<S62>/Matrix Concatenate'
         //   Selector: '<S67>/L1FrontBound'
 
-        rtb_Sum1_idx_0 = localDW->MatrixConcatenate[295] - rtu_SimUAVState->East;
+        rtb_Sum_k = localDW->MatrixConcatenate[295] - rtu_SimUAVState->East;
 
-        // DotProduct: '<S78>/Dot Product'
-        rtb_Sum_k += rtb_Sum1_idx_0 * rtb_Sum1_idx_0;
+        // DotProduct: '<S77>/Dot Product'
+        rtb_Sum1_idx_0 += rtb_Sum_k * rtb_Sum_k;
 
-        // Sum: '<S78>/Sum' incorporates:
+        // Sum: '<S77>/Sum' incorporates:
         //   Concatenate: '<S62>/Matrix Concatenate'
         //   Selector: '<S67>/L1FrontBound'
 
-        rtb_Sum1_idx_0 = localDW->MatrixConcatenate[512] -
-            rtu_SimUAVState->Height;
+        rtb_Sum_k = localDW->MatrixConcatenate[512] - rtu_SimUAVState->Height;
 
         // Sum: '<S67>/L1ComputeLB' incorporates:
+        //   DotProduct: '<S77>/Dot Product'
+        //   Sqrt: '<S77>/sqrt'
+
+        Switch = std::sqrt(rtb_Sum_k * rtb_Sum_k + rtb_Sum1_idx_0) - rtb_Abs1;
+
+        // Sum: '<S78>/Sum' incorporates:
+        //   Concatenate: '<S62>/Matrix Concatenate'
+        //   Selector: '<S67>/L1TailBound'
+
+        rtb_Sum_k = localDW->MatrixConcatenate[42] - rtu_SimUAVState->North;
+
+        // DotProduct: '<S78>/Dot Product'
+        rtb_Sum1_idx_0 = rtb_Sum_k * rtb_Sum_k;
+
+        // Sum: '<S78>/Sum' incorporates:
+        //   Concatenate: '<S62>/Matrix Concatenate'
+        //   Selector: '<S67>/L1TailBound'
+
+        rtb_Sum_k = localDW->MatrixConcatenate[259] - rtu_SimUAVState->East;
+
+        // DotProduct: '<S78>/Dot Product'
+        rtb_Sum1_idx_0 += rtb_Sum_k * rtb_Sum_k;
+
+        // Sum: '<S78>/Sum' incorporates:
+        //   Concatenate: '<S62>/Matrix Concatenate'
+        //   Selector: '<S67>/L1TailBound'
+
+        rtb_Sum_k = localDW->MatrixConcatenate[476] - rtu_SimUAVState->Height;
+
+        // Sum: '<S67>/L1ComputeUB' incorporates:
         //   DotProduct: '<S78>/Dot Product'
         //   Sqrt: '<S78>/sqrt'
 
-        Switch = std::sqrt(rtb_Sum1_idx_0 * rtb_Sum1_idx_0 + rtb_Sum_k) -
+        rtb_UpperBound_e = std::sqrt(rtb_Sum_k * rtb_Sum_k + rtb_Sum1_idx_0) -
             rtb_Abs1;
-
-        // Sum: '<S79>/Sum' incorporates:
-        //   Concatenate: '<S62>/Matrix Concatenate'
-        //   Selector: '<S67>/L1TailBound'
-
-        rtb_Sum1_idx_0 = localDW->MatrixConcatenate[42] - rtu_SimUAVState->North;
-
-        // DotProduct: '<S79>/Dot Product'
-        rtb_Sum_k = rtb_Sum1_idx_0 * rtb_Sum1_idx_0;
-
-        // Sum: '<S79>/Sum' incorporates:
-        //   Concatenate: '<S62>/Matrix Concatenate'
-        //   Selector: '<S67>/L1TailBound'
-
-        rtb_Sum1_idx_0 = localDW->MatrixConcatenate[259] - rtu_SimUAVState->East;
-
-        // DotProduct: '<S79>/Dot Product'
-        rtb_Sum_k += rtb_Sum1_idx_0 * rtb_Sum1_idx_0;
-
-        // Sum: '<S79>/Sum' incorporates:
-        //   Concatenate: '<S62>/Matrix Concatenate'
-        //   Selector: '<S67>/L1TailBound'
-
-        rtb_Sum1_idx_0 = localDW->MatrixConcatenate[476] -
-            rtu_SimUAVState->Height;
-
-        // Sum: '<S67>/L1ComputeUB' incorporates:
-        //   DotProduct: '<S79>/Dot Product'
-        //   Sqrt: '<S79>/sqrt'
-
-        rtb_UpperBound_e = std::sqrt(rtb_Sum1_idx_0 * rtb_Sum1_idx_0 + rtb_Sum_k)
-            - rtb_Abs1;
 
         // Outputs for Atomic SubSystem: '<S6>/MaxBrake'
         // Sum: '<S73>/Sum'
@@ -2288,7 +2282,7 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
 
         // Outputs for Atomic SubSystem: '<S6>/HeadingLogic'
         // Gain: '<S63>/LookaheadT'
-        rtb_Switch_b = 3.6 * rtu_SimUAVState->AirSpeed;
+        rtb_Sum1_idx_0 = 3.6 * rtu_SimUAVState->AirSpeed;
 
         // SignalConversion generated from: '<S63>/TrackSimPath'
         rtb_TmpSignalConversionAtSFunctionInport1[0] =
@@ -2305,15 +2299,15 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
 
         Real2SimGuidance_WaypointFollower_stepImpl(&localDW->obj,
             rtb_TmpSignalConversionAtSFunctionInport1,
-            localDW->MatrixConcatenate, rtb_Switch_b, rtb_SwitchLookAheadPoint,
-            &rtb_Abs1, &rtb_Sum1_idx_0, &b_varargout_4,
-            &localDW->CrossTrackError, &b_varargout_6, localDW);
+            localDW->MatrixConcatenate, rtb_Sum1_idx_0, rtb_SwitchLookAheadPoint,
+            &rtb_Abs1, &rtb_Switch_b, &b_varargout_4, &localDW->CrossTrackError,
+            &b_varargout_6, localDW);
 
         // RelationalOperator: '<S63>/Relational Operator' incorporates:
         //   DataStoreWrite: '<S63>/WriteCrossTrackError'
         //   Gain: '<S63>/Gain'
 
-        rtb_NoNewMission = (localDW->CrossTrackError <= 0.5 * rtb_Switch_b);
+        rtb_NoNewMission = (localDW->CrossTrackError <= 0.5 * rtb_Sum1_idx_0);
 
         // Outputs for Atomic SubSystem: '<S63>/NewMissionHdg'
         // Outputs for Enabled SubSystem: '<S69>/CalForwardShift' incorporates:
@@ -3664,11 +3658,11 @@ void Real2SimGuidance_Update(RT_MODEL_Real2SimGuidance_T * const
     }
 
     // Update for Atomic SubSystem: '<S6>/SpeedControl'
-    // Update for Enabled SubSystem: '<S67>/ADRC' incorporates:
-    //   EnablePort: '<S74>/Enable'
+    // Update for Enabled SubSystem: '<S67>/SpdFBControl' incorporates:
+    //   EnablePort: '<S81>/Enable'
 
-    if (localDW->ADRC_MODE && rtmIsMajorTimeStep(Real2SimGuidance_M)) {
-        // Update for Enabled SubSystem: '<S74>/PD' incorporates:
+    if (localDW->SpdFBControl_MODE && rtmIsMajorTimeStep(Real2SimGuidance_M)) {
+        // Update for Enabled SubSystem: '<S81>/PD' incorporates:
         //   EnablePort: '<S84>/Enable'
 
         if (localDW->PD_MODE) {
@@ -3676,10 +3670,10 @@ void Real2SimGuidance_Update(RT_MODEL_Real2SimGuidance_T * const
             localDW->UD_DSTATE = localDW->Tsamp;
         }
 
-        // End of Update for SubSystem: '<S74>/PD'
+        // End of Update for SubSystem: '<S81>/PD'
     }
 
-    // End of Update for SubSystem: '<S67>/ADRC'
+    // End of Update for SubSystem: '<S67>/SpdFBControl'
     // End of Update for SubSystem: '<S6>/SpeedControl'
     // End of Update for SubSystem: '<Root>/Real2SimNav'
 }
@@ -3690,10 +3684,10 @@ void Real2SimGuidance_Deriv(DW_Real2SimGuidance_f_T *localDW,
 {
     // Derivatives for Atomic SubSystem: '<Root>/Real2SimNav'
     // Derivatives for Atomic SubSystem: '<S6>/SpeedControl'
-    // Derivatives for Enabled SubSystem: '<S67>/ADRC'
-    if (localDW->ADRC_MODE) {
-        // Derivatives for Enabled SubSystem: '<S74>/ADRC'
-        if (localDW->ADRC_MODE_c) {
+    // Derivatives for Enabled SubSystem: '<S67>/SpdFBControl'
+    if (localDW->SpdFBControl_MODE) {
+        // Derivatives for Enabled SubSystem: '<S81>/ADRC'
+        if (localDW->ADRC_MODE) {
             // Derivatives for Integrator: '<S86>/Integrator'
             localXdot->Integrator_CSTATE[0] =
                 localDW->estimatedExtendedStateDerivative[0];
@@ -3712,7 +3706,7 @@ void Real2SimGuidance_Deriv(DW_Real2SimGuidance_f_T *localDW,
             }
         }
 
-        // End of Derivatives for SubSystem: '<S74>/ADRC'
+        // End of Derivatives for SubSystem: '<S81>/ADRC'
     } else {
         {
             real_T *dx;
@@ -3724,7 +3718,7 @@ void Real2SimGuidance_Deriv(DW_Real2SimGuidance_f_T *localDW,
         }
     }
 
-    // End of Derivatives for SubSystem: '<S67>/ADRC'
+    // End of Derivatives for SubSystem: '<S67>/SpdFBControl'
     // End of Derivatives for SubSystem: '<S6>/SpeedControl'
 
     // Derivatives for Integrator: '<S68>/TD_Alt'
