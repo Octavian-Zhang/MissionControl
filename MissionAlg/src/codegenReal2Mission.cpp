@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 3.200
+// Model version                  : 3.201
 // Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Tue Apr 12 09:42:40 2022
+// C/C++ source code generated on : Wed Apr 13 04:41:14 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -3101,16 +3101,18 @@ void codegenReal2MissionModelClass::step()
                     (reactor_PrevCMD.params.Param3 / 1000.0F);
                 codegenReal2Mission_DW.ParamADRC_e.P = static_cast<real_T>
                     (reactor_PrevCMD.params.Param4 / 1000.0F);
-                codegenReal2Mission_DW.ParamADRC_e.D = static_cast<real_T>
+                codegenReal2Mission_DW.ParamADRC_e.I = static_cast<real_T>
                     (reactor_PrevCMD.params.Param5 / 1000.0F);
+                codegenReal2Mission_DW.ParamADRC_e.D = static_cast<real_T>
+                    (reactor_PrevCMD.params.Param6 / 1000.0F);
                 codegenReal2Mission_DW.ParamADRC_e.useADRC =
-                    (reactor_PrevCMD.params.Param6 != 0.0F);
+                    (reactor_PrevCMD.params.Param7 != 0.0F);
 
                 // '<S30>:1:14'
             }
 
-            // '<S30>:1:26'
             // '<S30>:1:27'
+            // '<S30>:1:28'
             std::memcpy(&rtb_FeedbackCMD, &reactor_PrevCMD, sizeof(missionCmd));
 
             // Send: '<S28>/PushCMD' incorporates:
@@ -3952,7 +3954,9 @@ void codegenReal2MissionModelClass::step()
                      &codegenReal2Mission_DW.DataStoreRead.omega_o,
                      &codegenReal2Mission_DW.DataStoreRead.omega_b,
                      &codegenReal2Mission_DW.DataStoreRead.P,
+                     &codegenReal2Mission_DW.DataStoreRead.I,
                      &codegenReal2Mission_DW.DataStoreRead.D,
+                     &codegenReal2Mission_DW.DataStoreRead.useADRC,
                      &codegenReal2Mission_Y.FlightCMD,
                      &codegenReal2Mission_DW.EngagedFlag_Log,
                      &rtb_Real2SimGuidance_o3,

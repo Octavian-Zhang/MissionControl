@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'Real2SimGuidance'.
 //
-// Model version                  : 3.129
+// Model version                  : 3.131
 // Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Tue Apr 12 09:26:29 2022
+// C/C++ source code generated on : Wed Apr 13 04:39:57 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -55,6 +55,7 @@ struct DW_Real2SimGuidance_f_T {
     real_T AirSpeed;
     real_T Switch_p;                   // '<S81>/Switch'
     real_T Tsamp;                      // '<S125>/Tsamp'
+    real_T IProdOut;                   // '<S127>/IProd Out'
     real_T Sum;                        // '<S139>/Sum'
     real_T Product;                    // '<S94>/Product'
     real_T biasHm70;                   // '<S74>/biasHm70'
@@ -62,6 +63,7 @@ struct DW_Real2SimGuidance_f_T {
     real_T Gain_b;                     // '<S71>/Gain'
     real_T Execution;                  // '<Root>/EngagementDebouncer'
     real_T UD_DSTATE;                  // '<S123>/UD'
+    real_T Integrator_DSTATE;          // '<S130>/Integrator'
     real_T DiscreteTimeIntegrator_DSTATE;// '<S69>/Discrete-Time Integrator'
     real_T CrossTrackError;            // '<Root>/CrossTrackError'
     real_T EngagedFlag;                // '<Root>/EngagedFlag_Log'
@@ -80,8 +82,9 @@ struct DW_Real2SimGuidance_f_T {
     uint8_T Memory_PreviousInput;      // '<S6>/Memory'
     uint8_T is_active_c6_Real2SimGuidance;// '<S81>/ControlLogic'
     uint8_T is_c6_Real2SimGuidance;    // '<S81>/ControlLogic'
+    uint8_T is_useADRC;                // '<S81>/ControlLogic'
     uint8_T is_Debounce;               // '<S81>/ControlLogic'
-    uint8_T temporalCounter_i1_c;      // '<S81>/ControlLogic'
+    uint8_T temporalCounter_i1_m;      // '<S81>/ControlLogic'
     uint8_T is_active_c3_Real2SimGuidance;// '<S69>/MissionSwitchInitialPersuit' 
     uint8_T is_c3_Real2SimGuidance;    // '<S69>/MissionSwitchInitialPersuit'
     uint8_T is_Normal;                 // '<S69>/MissionSwitchInitialPersuit'
@@ -98,13 +101,13 @@ struct DW_Real2SimGuidance_f_T {
     uint8_T is_Debounce_a;             // '<Root>/EngagementDebouncer'
     uint8_T temporalCounter_i2_n;      // '<Root>/EngagementDebouncer'
     boolean_T Compare;                 // '<S60>/Compare'
-    boolean_T PD_U;                    // '<S81>/ControlLogic'
-    boolean_T EnablePD;                // '<S81>/ControlLogic'
+    boolean_T PID_U;                   // '<S81>/ControlLogic'
     boolean_T EnableADRC;              // '<S81>/ControlLogic'
+    boolean_T EnablePID;               // '<S81>/ControlLogic'
     boolean_T MemoryNotInBrake_PreviousInput;// '<S6>/MemoryNotInBrake'
     boolean_T objisempty;              // '<S63>/TrackSimPath'
     boolean_T SpdFBControl_MODE;       // '<S67>/SpdFBControl'
-    boolean_T PD_MODE;                 // '<S81>/PD'
+    boolean_T PID_MODE;                // '<S81>/PID'
     boolean_T ADRC_MODE;               // '<S81>/ADRC'
 };
 
@@ -187,9 +190,10 @@ extern void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const
     const FixedWingGuidanceBus *rtu_ImmedGuidanceCMD, const real_T
     *rtu_BiasRatio, const real_T *rtu_ParamADRC_hat_b, const real_T
     *rtu_ParamADRC_omega_o, const real_T *rtu_ParamADRC_omega_b, const real_T
-    *rtu_ParamADRC_P, const real_T *rtu_ParamADRC_D, FCUCMD *rty_FCUCMD, uint8_T
-    *rty_EngagedFlag, FlightLogging *rty_FlightLogging, DW_Real2SimGuidance_f_T *
-    localDW, X_Real2SimGuidance_n_T *localX);
+    *rtu_ParamADRC_P, const real_T *rtu_ParamADRC_I, const real_T
+    *rtu_ParamADRC_D, const boolean_T *rtu_ParamADRC_useADRC, FCUCMD *rty_FCUCMD,
+    uint8_T *rty_EngagedFlag, FlightLogging *rty_FlightLogging,
+    DW_Real2SimGuidance_f_T *localDW, X_Real2SimGuidance_n_T *localX);
 
 //-
 //  These blocks were eliminated from the model due to optimizations:
@@ -298,7 +302,7 @@ extern void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const
 //  '<S81>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl'
 //  '<S82>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/ADRC'
 //  '<S83>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/ControlLogic'
-//  '<S84>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD'
+//  '<S84>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID'
 //  '<S85>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/ADRC/ADRC controller'
 //  '<S86>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/ADRC/ADRC controller/Linear extended state observer'
 //  '<S87>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/ADRC/ADRC controller/Observer output'
@@ -310,57 +314,57 @@ extern void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const
 //  '<S93>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/ADRC/ADRC controller/State feedback robust controller/Saturation'
 //  '<S94>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/ADRC/ADRC controller/State feedback robust controller/Dead time/Dead time on'
 //  '<S95>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/ADRC/ADRC controller/State feedback robust controller/Saturation/Saturation off'
-//  '<S96>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller'
-//  '<S97>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/Anti-windup'
-//  '<S98>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/D Gain'
-//  '<S99>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/Filter'
-//  '<S100>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/Filter ICs'
-//  '<S101>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/I Gain'
-//  '<S102>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/Ideal P Gain'
-//  '<S103>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/Ideal P Gain Fdbk'
-//  '<S104>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/Integrator'
-//  '<S105>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/Integrator ICs'
-//  '<S106>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/N Copy'
-//  '<S107>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/N Gain'
-//  '<S108>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/P Copy'
-//  '<S109>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/Parallel P Gain'
-//  '<S110>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/Reset Signal'
-//  '<S111>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/Saturation'
-//  '<S112>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/Saturation Fdbk'
-//  '<S113>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/Sum'
-//  '<S114>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/Sum Fdbk'
-//  '<S115>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/Tracking Mode'
-//  '<S116>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/Tracking Mode Sum'
-//  '<S117>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/Tsamp - Integral'
-//  '<S118>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/Tsamp - Ngain'
-//  '<S119>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/postSat Signal'
-//  '<S120>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/preSat Signal'
-//  '<S121>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/Anti-windup/Disabled'
-//  '<S122>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/D Gain/External Parameters'
-//  '<S123>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/Filter/Differentiator'
-//  '<S124>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/Filter/Differentiator/Tsamp'
-//  '<S125>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/Filter/Differentiator/Tsamp/Internal Ts'
-//  '<S126>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/Filter ICs/Internal IC - Differentiator'
-//  '<S127>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/I Gain/Disabled'
-//  '<S128>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/Ideal P Gain/Passthrough'
-//  '<S129>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/Ideal P Gain Fdbk/Disabled'
-//  '<S130>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/Integrator/Disabled'
-//  '<S131>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/Integrator ICs/Disabled'
-//  '<S132>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/N Copy/Disabled wSignal Specification'
-//  '<S133>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/N Gain/Passthrough'
-//  '<S134>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/P Copy/Disabled'
-//  '<S135>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/Parallel P Gain/External Parameters'
-//  '<S136>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/Reset Signal/Disabled'
-//  '<S137>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/Saturation/Passthrough'
-//  '<S138>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/Saturation Fdbk/Disabled'
-//  '<S139>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/Sum/Sum_PD'
-//  '<S140>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/Sum Fdbk/Disabled'
-//  '<S141>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/Tracking Mode/Disabled'
-//  '<S142>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/Tracking Mode Sum/Passthrough'
-//  '<S143>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/Tsamp - Integral/Disabled wSignal Specification'
-//  '<S144>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/Tsamp - Ngain/Passthrough'
-//  '<S145>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/postSat Signal/Forward_Path'
-//  '<S146>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PD/Discrete PID Controller/preSat Signal/Forward_Path'
+//  '<S96>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller'
+//  '<S97>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/Anti-windup'
+//  '<S98>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/D Gain'
+//  '<S99>'  : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/Filter'
+//  '<S100>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/Filter ICs'
+//  '<S101>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/I Gain'
+//  '<S102>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/Ideal P Gain'
+//  '<S103>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/Ideal P Gain Fdbk'
+//  '<S104>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/Integrator'
+//  '<S105>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/Integrator ICs'
+//  '<S106>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/N Copy'
+//  '<S107>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/N Gain'
+//  '<S108>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/P Copy'
+//  '<S109>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/Parallel P Gain'
+//  '<S110>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/Reset Signal'
+//  '<S111>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/Saturation'
+//  '<S112>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/Saturation Fdbk'
+//  '<S113>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/Sum'
+//  '<S114>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/Sum Fdbk'
+//  '<S115>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/Tracking Mode'
+//  '<S116>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/Tracking Mode Sum'
+//  '<S117>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/Tsamp - Integral'
+//  '<S118>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/Tsamp - Ngain'
+//  '<S119>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/postSat Signal'
+//  '<S120>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/preSat Signal'
+//  '<S121>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/Anti-windup/Passthrough'
+//  '<S122>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/D Gain/External Parameters'
+//  '<S123>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/Filter/Differentiator'
+//  '<S124>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/Filter/Differentiator/Tsamp'
+//  '<S125>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/Filter/Differentiator/Tsamp/Internal Ts'
+//  '<S126>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/Filter ICs/Internal IC - Differentiator'
+//  '<S127>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/I Gain/External Parameters'
+//  '<S128>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/Ideal P Gain/Passthrough'
+//  '<S129>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/Ideal P Gain Fdbk/Disabled'
+//  '<S130>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/Integrator/Discrete'
+//  '<S131>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/Integrator ICs/Internal IC'
+//  '<S132>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/N Copy/Disabled wSignal Specification'
+//  '<S133>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/N Gain/Passthrough'
+//  '<S134>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/P Copy/Disabled'
+//  '<S135>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/Parallel P Gain/External Parameters'
+//  '<S136>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/Reset Signal/Disabled'
+//  '<S137>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/Saturation/Passthrough'
+//  '<S138>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/Saturation Fdbk/Disabled'
+//  '<S139>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/Sum/Sum_PID'
+//  '<S140>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/Sum Fdbk/Disabled'
+//  '<S141>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/Tracking Mode/Disabled'
+//  '<S142>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/Tracking Mode Sum/Passthrough'
+//  '<S143>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/Tsamp - Integral/Passthrough'
+//  '<S144>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/Tsamp - Ngain/Passthrough'
+//  '<S145>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/postSat Signal/Forward_Path'
+//  '<S146>' : 'Real2SimGuidance/Real2SimNav/SpeedControl/SpdFBControl/PID/Discrete PID Controller/preSat Signal/Forward_Path'
 //  '<S147>' : 'Real2SimGuidance/Real2SimNav/TD/fhan_Alt'
 
 #endif                                 // RTW_HEADER_Real2SimGuidance_h_

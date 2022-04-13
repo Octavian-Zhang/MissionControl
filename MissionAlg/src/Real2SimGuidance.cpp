@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'Real2SimGuidance'.
 //
-// Model version                  : 3.129
+// Model version                  : 3.131
 // Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Tue Apr 12 09:26:29 2022
+// C/C++ source code generated on : Wed Apr 13 04:39:57 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -65,13 +65,15 @@ const uint8_T Real2SimGuidance_IN_SimPnt_g{ 2U };
 // Named constants for Chart: '<S81>/ControlLogic'
 const uint8_T Real2SimGuidance_IN_ADRC{ 1U };
 
-const uint8_T Real2SimGuidance_IN_ADRC2PD{ 1U };
+const uint8_T Real2SimGuidance_IN_ADRC2PID{ 1U };
 
 const uint8_T Real2SimGuidance_IN_Debounce_n{ 2U };
 
-const uint8_T Real2SimGuidance_IN_PD{ 3U };
+const uint8_T Real2SimGuidance_IN_PID{ 1U };
 
-const uint8_T Real2SimGuidance_IN_PD2ADRC{ 2U };
+const uint8_T Real2SimGuidance_IN_PID2ADRC{ 2U };
+
+const uint8_T Real2SimGuidance_IN_useADRC{ 2U };
 
 // Named constants for Chart: '<Root>/TASgreaterthan15for1Sec'
 const uint8_T Real2SimGuidance_IN_InAir{ 1U };
@@ -1300,10 +1302,10 @@ void Real2SimGuidance_Disable(DW_Real2SimGuidance_f_T *localDW)
 
         // End of Disable for SubSystem: '<S81>/ADRC'
 
-        // Disable for Enabled SubSystem: '<S81>/PD'
-        localDW->PD_MODE = false;
+        // Disable for Enabled SubSystem: '<S81>/PID'
+        localDW->PID_MODE = false;
 
-        // End of Disable for SubSystem: '<S81>/PD'
+        // End of Disable for SubSystem: '<S81>/PID'
         localDW->SpdFBControl_MODE = false;
     }
 
@@ -1322,10 +1324,11 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
                       *rtu_BiasRatio, const real_T *rtu_ParamADRC_hat_b, const
                       real_T *rtu_ParamADRC_omega_o, const real_T
                       *rtu_ParamADRC_omega_b, const real_T *rtu_ParamADRC_P,
-                      const real_T *rtu_ParamADRC_D, FCUCMD *rty_FCUCMD, uint8_T
-                      *rty_EngagedFlag, FlightLogging *rty_FlightLogging,
-                      DW_Real2SimGuidance_f_T *localDW, X_Real2SimGuidance_n_T
-                      *localX)
+                      const real_T *rtu_ParamADRC_I, const real_T
+                      *rtu_ParamADRC_D, const boolean_T *rtu_ParamADRC_useADRC,
+                      FCUCMD *rty_FCUCMD, uint8_T *rty_EngagedFlag,
+                      FlightLogging *rty_FlightLogging, DW_Real2SimGuidance_f_T *
+                      localDW, X_Real2SimGuidance_n_T *localX)
 {
     // local block i/o variables
     FixedWingGuidanceStateBus rtb_FixedWingGuidanceStateBus;
@@ -1724,14 +1727,15 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
                                             (localDW->SpdFBControl_MODE) ^ 1)))
                 {
                     // SystemReset for Chart: '<S81>/ControlLogic'
+                    localDW->is_useADRC = Real2SimGuidance_IN_NO_ACTIVE_CHILD;
                     localDW->is_Debounce = Real2SimGuidance_IN_NO_ACTIVE_CHILD;
-                    localDW->temporalCounter_i1_c = 0U;
+                    localDW->temporalCounter_i1_m = 0U;
                     localDW->is_active_c6_Real2SimGuidance = 0U;
                     localDW->is_c6_Real2SimGuidance =
                         Real2SimGuidance_IN_NO_ACTIVE_CHILD;
-                    localDW->PD_U = false;
-                    localDW->EnablePD = false;
+                    localDW->PID_U = false;
                     localDW->EnableADRC = false;
+                    localDW->EnablePID = false;
                     localDW->SpdFBControl_MODE = true;
                 }
             } else if (localDW->SpdFBControl_MODE) {
@@ -1740,10 +1744,10 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
 
                 // End of Disable for SubSystem: '<S81>/ADRC'
 
-                // Disable for Enabled SubSystem: '<S81>/PD'
-                localDW->PD_MODE = false;
+                // Disable for Enabled SubSystem: '<S81>/PID'
+                localDW->PID_MODE = false;
 
-                // End of Disable for SubSystem: '<S81>/PD'
+                // End of Disable for SubSystem: '<S81>/PID'
                 localDW->SpdFBControl_MODE = false;
             }
 
@@ -1763,10 +1767,10 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
     if (localDW->SpdFBControl_MODE) {
         if (rtmIsMajorTimeStep(Real2SimGuidance_M)) {
             // Chart: '<S81>/ControlLogic'
-            if (static_cast<uint32_T>(localDW->temporalCounter_i1_c) < 15U) {
-                localDW->temporalCounter_i1_c = static_cast<uint8_T>(
+            if (static_cast<uint32_T>(localDW->temporalCounter_i1_m) < 15U) {
+                localDW->temporalCounter_i1_m = static_cast<uint8_T>(
                     static_cast<uint32_T>(static_cast<uint32_T>
-                    (localDW->temporalCounter_i1_c) + 1U));
+                    (localDW->temporalCounter_i1_m) + 1U));
             }
 
             // Gateway: Real2SimNav/SpeedControl/SpdFBControl/ControlLogic
@@ -1778,102 +1782,109 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
 
                 // Entry Internal: Real2SimNav/SpeedControl/SpdFBControl/ControlLogic 
                 // Transition: '<S83>:81'
-                localDW->is_c6_Real2SimGuidance = Real2SimGuidance_IN_PD;
+                localDW->is_c6_Real2SimGuidance = Real2SimGuidance_IN_PID;
 
-                // Entry 'PD': '<S83>:53'
-                localDW->EnablePD = true;
+                // Entry 'PID': '<S83>:53'
+                localDW->EnablePID = true;
                 localDW->EnableADRC = false;
-                localDW->PD_U = true;
-            } else {
-                switch (localDW->is_c6_Real2SimGuidance) {
-                  case Real2SimGuidance_IN_ADRC:
-                    localDW->EnablePD = false;
+                localDW->PID_U = true;
+            } else if (static_cast<int32_T>(localDW->is_c6_Real2SimGuidance) ==
+                       1) {
+                localDW->EnablePID = true;
+                localDW->EnableADRC = false;
+                localDW->PID_U = true;
+
+                // During 'PID': '<S83>:53'
+                rtb_NoNewMission = static_cast<boolean_T>(static_cast<int32_T>((
+                    static_cast<int32_T>(rtb_Memory) != 0) & static_cast<int32_T>
+                    (*rtu_ParamADRC_useADRC)));
+                if (rtb_NoNewMission) {
+                    // Transition: '<S83>:83'
+                    localDW->is_c6_Real2SimGuidance =
+                        Real2SimGuidance_IN_useADRC;
+                    localDW->is_useADRC = Real2SimGuidance_IN_Debounce_n;
+                    localDW->is_Debounce = Real2SimGuidance_IN_PID2ADRC;
+                    localDW->temporalCounter_i1_m = 0U;
+
+                    // Entry 'PID2ADRC': '<S83>:62'
                     localDW->EnableADRC = true;
-                    localDW->PD_U = false;
+                }
 
-                    // During 'ADRC': '<S83>:63'
-                    if (static_cast<int32_T>(rtb_Memory) == 0) {
-                        // Transition: '<S83>:84'
-                        localDW->is_c6_Real2SimGuidance =
-                            Real2SimGuidance_IN_Debounce_n;
-                        localDW->is_Debounce = Real2SimGuidance_IN_ADRC2PD;
-                        localDW->temporalCounter_i1_c = 0U;
+                // During 'useADRC': '<S83>:92'
+            } else if (static_cast<boolean_T>(static_cast<int32_T>
+                        (static_cast<int32_T>(*rtu_ParamADRC_useADRC) ^ 1))) {
+                // Transition: '<S83>:98'
+                // Exit Internal 'useADRC': '<S83>:92'
+                // Exit Internal 'Debounce': '<S83>:58'
+                localDW->is_Debounce = Real2SimGuidance_IN_NO_ACTIVE_CHILD;
+                localDW->is_useADRC = Real2SimGuidance_IN_NO_ACTIVE_CHILD;
+                localDW->is_c6_Real2SimGuidance = Real2SimGuidance_IN_PID;
 
-                        // Entry 'ADRC2PD': '<S83>:61'
-                        localDW->EnablePD = true;
-                    }
-                    break;
+                // Entry 'PID': '<S83>:53'
+                localDW->EnablePID = true;
+                localDW->EnableADRC = false;
+                localDW->PID_U = true;
+            } else if (static_cast<int32_T>(localDW->is_useADRC) == 1) {
+                localDW->EnablePID = false;
+                localDW->EnableADRC = true;
+                localDW->PID_U = false;
 
-                  case Real2SimGuidance_IN_Debounce_n:
-                    // During 'Debounce': '<S83>:58'
-                    if (static_cast<int32_T>(localDW->is_Debounce) == 1) {
-                        localDW->EnablePD = true;
+                // During 'ADRC': '<S83>:63'
+                if (static_cast<int32_T>(rtb_Memory) == 0) {
+                    // Transition: '<S83>:84'
+                    localDW->is_useADRC = Real2SimGuidance_IN_Debounce_n;
+                    localDW->is_Debounce = Real2SimGuidance_IN_ADRC2PID;
+                    localDW->temporalCounter_i1_m = 0U;
 
-                        // During 'ADRC2PD': '<S83>:61'
-                        if (static_cast<uint32_T>(localDW->temporalCounter_i1_c)
-                            >= 10U) {
-                            // Transition: '<S83>:86'
-                            localDW->is_Debounce =
-                                Real2SimGuidance_IN_NO_ACTIVE_CHILD;
-                            localDW->is_c6_Real2SimGuidance =
-                                Real2SimGuidance_IN_PD;
+                    // Entry 'ADRC2PID': '<S83>:61'
+                    localDW->EnablePID = true;
+                }
 
-                            // Entry 'PD': '<S83>:53'
-                            localDW->EnablePD = true;
-                            localDW->EnableADRC = false;
-                            localDW->PD_U = true;
-                        } else if (static_cast<int32_T>(rtb_Memory) != 0) {
-                            // Transition: '<S83>:59'
-                            localDW->is_Debounce = Real2SimGuidance_IN_PD2ADRC;
-                            localDW->temporalCounter_i1_c = 0U;
+                // During 'Debounce': '<S83>:58'
+            } else if (static_cast<int32_T>(localDW->is_Debounce) == 1) {
+                localDW->EnablePID = true;
 
-                            // Entry 'PD2ADRC': '<S83>:62'
-                            localDW->EnableADRC = true;
-                        }
-                    } else {
-                        localDW->EnableADRC = true;
+                // During 'ADRC2PID': '<S83>:61'
+                if (static_cast<uint32_T>(localDW->temporalCounter_i1_m) >= 10U)
+                {
+                    // Transition: '<S83>:86'
+                    localDW->is_Debounce = Real2SimGuidance_IN_NO_ACTIVE_CHILD;
+                    localDW->is_useADRC = Real2SimGuidance_IN_NO_ACTIVE_CHILD;
+                    localDW->is_c6_Real2SimGuidance = Real2SimGuidance_IN_PID;
 
-                        // During 'PD2ADRC': '<S83>:62'
-                        if (static_cast<uint32_T>(localDW->temporalCounter_i1_c)
-                            >= 10U) {
-                            // Transition: '<S83>:85'
-                            localDW->is_Debounce =
-                                Real2SimGuidance_IN_NO_ACTIVE_CHILD;
-                            localDW->is_c6_Real2SimGuidance =
-                                Real2SimGuidance_IN_ADRC;
-
-                            // Entry 'ADRC': '<S83>:63'
-                            localDW->EnablePD = false;
-                            localDW->EnableADRC = true;
-                            localDW->PD_U = false;
-                        } else if (static_cast<int32_T>(rtb_Memory) == 0) {
-                            // Transition: '<S83>:60'
-                            localDW->is_Debounce = Real2SimGuidance_IN_ADRC2PD;
-                            localDW->temporalCounter_i1_c = 0U;
-
-                            // Entry 'ADRC2PD': '<S83>:61'
-                            localDW->EnablePD = true;
-                        }
-                    }
-                    break;
-
-                  default:
-                    localDW->EnablePD = true;
+                    // Entry 'PID': '<S83>:53'
+                    localDW->EnablePID = true;
                     localDW->EnableADRC = false;
-                    localDW->PD_U = true;
+                    localDW->PID_U = true;
+                } else if (static_cast<int32_T>(rtb_Memory) != 0) {
+                    // Transition: '<S83>:59'
+                    localDW->is_Debounce = Real2SimGuidance_IN_PID2ADRC;
+                    localDW->temporalCounter_i1_m = 0U;
 
-                    // During 'PD': '<S83>:53'
-                    if (static_cast<int32_T>(rtb_Memory) != 0) {
-                        // Transition: '<S83>:83'
-                        localDW->is_c6_Real2SimGuidance =
-                            Real2SimGuidance_IN_Debounce_n;
-                        localDW->is_Debounce = Real2SimGuidance_IN_PD2ADRC;
-                        localDW->temporalCounter_i1_c = 0U;
+                    // Entry 'PID2ADRC': '<S83>:62'
+                    localDW->EnableADRC = true;
+                }
+            } else {
+                localDW->EnableADRC = true;
 
-                        // Entry 'PD2ADRC': '<S83>:62'
-                        localDW->EnableADRC = true;
-                    }
-                    break;
+                // During 'PID2ADRC': '<S83>:62'
+                if (static_cast<uint32_T>(localDW->temporalCounter_i1_m) >= 10U)
+                {
+                    // Transition: '<S83>:85'
+                    localDW->is_Debounce = Real2SimGuidance_IN_NO_ACTIVE_CHILD;
+                    localDW->is_useADRC = Real2SimGuidance_IN_ADRC;
+
+                    // Entry 'ADRC': '<S83>:63'
+                    localDW->EnablePID = false;
+                    localDW->EnableADRC = true;
+                    localDW->PID_U = false;
+                } else if (static_cast<int32_T>(rtb_Memory) == 0) {
+                    // Transition: '<S83>:60'
+                    localDW->is_Debounce = Real2SimGuidance_IN_ADRC2PID;
+                    localDW->temporalCounter_i1_m = 0U;
+
+                    // Entry 'ADRC2PID': '<S83>:61'
+                    localDW->EnablePID = true;
                 }
             }
 
@@ -2023,23 +2034,26 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         localDW->ADRC_Log[1] = localDW->Integrator[1];
         localDW->ADRC_Log[2] = localDW->Integrator[2];
         if (rtmIsMajorTimeStep(Real2SimGuidance_M)) {
-            // Outputs for Enabled SubSystem: '<S81>/PD' incorporates:
+            // Outputs for Enabled SubSystem: '<S81>/PID' incorporates:
             //   EnablePort: '<S84>/Enable'
 
             if (rtmIsMajorTimeStep(Real2SimGuidance_M)) {
-                if (localDW->EnablePD) {
+                if (localDW->EnablePID) {
                     if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<
-                            int32_T>(localDW->PD_MODE) ^ 1))) {
+                            int32_T>(localDW->PID_MODE) ^ 1))) {
                         // InitializeConditions for Delay: '<S123>/UD'
                         localDW->UD_DSTATE = 0.0;
-                        localDW->PD_MODE = true;
+
+                        // InitializeConditions for DiscreteIntegrator: '<S130>/Integrator' 
+                        localDW->Integrator_DSTATE = 0.0;
+                        localDW->PID_MODE = true;
                     }
                 } else {
-                    localDW->PD_MODE = false;
+                    localDW->PID_MODE = false;
                 }
             }
 
-            if (localDW->PD_MODE) {
+            if (localDW->PID_MODE) {
                 // Product: '<S122>/DProd Out'
                 rtb_Sum_k = localDW->Gain * *rtu_ParamADRC_D;
 
@@ -2050,21 +2064,26 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
 
                 localDW->Tsamp = rtb_Sum_k * 10.0;
 
+                // Product: '<S127>/IProd Out'
+                localDW->IProdOut = localDW->Gain * *rtu_ParamADRC_I;
+
                 // Product: '<S135>/PProd Out'
                 rtb_Sum_k = localDW->Gain * *rtu_ParamADRC_P;
 
                 // Sum: '<S139>/Sum' incorporates:
                 //   Delay: '<S123>/UD'
+                //   DiscreteIntegrator: '<S130>/Integrator'
                 //   Sum: '<S123>/Diff'
 
-                localDW->Sum = (localDW->Tsamp - localDW->UD_DSTATE) + rtb_Sum_k;
+                localDW->Sum = (rtb_Sum_k + localDW->Integrator_DSTATE) +
+                    (localDW->Tsamp - localDW->UD_DSTATE);
             }
 
-            // End of Outputs for SubSystem: '<S81>/PD'
+            // End of Outputs for SubSystem: '<S81>/PID'
         }
 
         // Switch: '<S81>/Switch'
-        if (localDW->PD_U) {
+        if (localDW->PID_U) {
             // Switch: '<S81>/Switch'
             localDW->Switch_p = localDW->Sum;
         } else {
@@ -3109,17 +3128,19 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         // DataStoreWrite: '<Root>/WriteEngagedFlag_Log'
         localDW->EngagedFlag = localDW->Execution;
 
+        // Logic: '<Root>/NoNewMission'
+        rtb_NoNewMission = static_cast<boolean_T>(static_cast<int32_T>(
+            static_cast<int32_T>(*rtu_NewMission) ^ 1));
+
         // Product: '<Root>/Product' incorporates:
         //   DataStoreWrite: '<Root>/WriteFlightMode_Log'
         //   DataTypeConversion: '<Root>/Cast To Double'
         //   Logic: '<Root>/NOT'
-        //   Logic: '<Root>/NoNewMission'
 
-        localDW->FlightMode_Log = (static_cast<boolean_T>(static_cast<int32_T>(
-            static_cast<int32_T>(*rtu_NewMission) ^ 1)) ? static_cast<real_T>
-            (*rtu_FlightMode) : 0.0) * static_cast<real_T>(static_cast<int32_T>(
+        localDW->FlightMode_Log = static_cast<real_T>(static_cast<int32_T>(
             static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
-            (rtu_ControlSwitch[1]) ^ 1))));
+            (rtu_ControlSwitch[1]) ^ 1)))) * (rtb_NoNewMission ?
+            static_cast<real_T>(*rtu_FlightMode) : 0.0);
 
         // BusCreator: '<Root>/CreatADRC' incorporates:
         //   DataStoreRead: '<Root>/ReadADRC_Log'
@@ -3662,15 +3683,18 @@ void Real2SimGuidance_Update(RT_MODEL_Real2SimGuidance_T * const
     //   EnablePort: '<S81>/Enable'
 
     if (localDW->SpdFBControl_MODE && rtmIsMajorTimeStep(Real2SimGuidance_M)) {
-        // Update for Enabled SubSystem: '<S81>/PD' incorporates:
+        // Update for Enabled SubSystem: '<S81>/PID' incorporates:
         //   EnablePort: '<S84>/Enable'
 
-        if (localDW->PD_MODE) {
+        if (localDW->PID_MODE) {
             // Update for Delay: '<S123>/UD'
             localDW->UD_DSTATE = localDW->Tsamp;
+
+            // Update for DiscreteIntegrator: '<S130>/Integrator'
+            localDW->Integrator_DSTATE += 0.1 * localDW->IProdOut;
         }
 
-        // End of Update for SubSystem: '<S81>/PD'
+        // End of Update for SubSystem: '<S81>/PID'
     }
 
     // End of Update for SubSystem: '<S67>/SpdFBControl'
