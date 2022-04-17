@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'FlightMissionMode'.
 //
-// Model version                  : 2.81
+// Model version                  : 2.93
 // Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Tue Apr 12 09:39:32 2022
+// C/C++ source code generated on : Sat Apr 16 03:47:31 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -85,16 +85,14 @@ struct DW_SegmentSwitch_FlightMissionMode_T {
 
 // Block signals and states (default storage) for system '<S95>/StartPointGenerator' 
 struct DW_StartPointGenerator_FlightMissionMode_T {
-    initDubinsObj_FlightMissionMode_T gobj_0;// '<S95>/StartPointGenerator'
-    uavDubinsConnection_FlightMissionMode_T* connectionObj;// '<S95>/StartPointGenerator' 
-    boolean_T connectionObj_not_empty; // '<S95>/StartPointGenerator'
+    DubinsObjSingleton_FlightMissionMode_T SingletonInstance;// '<S95>/StartPointGenerator' 
+    boolean_T SingletonInstance_not_empty;// '<S95>/StartPointGenerator'
 };
 
 // Block signals and states (default storage) for system '<S95>/WayPointGenerator' 
 struct DW_WayPointGenerator_FlightMissionMode_T {
-    initDubinsObj_FlightMissionMode_f_T gobj_0;// '<S95>/WayPointGenerator'
-    uavDubinsConnection_FlightMissionMode_f_T* connectionObj;// '<S95>/WayPointGenerator' 
-    boolean_T connectionObj_not_empty; // '<S95>/WayPointGenerator'
+    DubinsObjSingleton_FlightMissionMode_a_T SingletonInstance;// '<S95>/WayPointGenerator' 
+    boolean_T SingletonInstance_not_empty;// '<S95>/WayPointGenerator'
 };
 
 // Block signals and states (default storage) for model 'FlightMissionMode'
@@ -118,18 +116,20 @@ struct DW_FlightMissionMode_f_T {
     DW_biasNED_FlightMissionMode_T sf_biasNED;// '<S38>/biasNED'
     DW_RotateATMissionHdg_FlightMissionMode_T RotateATMissionHdg;// '<S38>/RotateATMissionHdg' 
     emxArray_uavDubinsPathSegment_1_FlightMissionMode_T pathSegment0;
-    cell_wrap_1_FlightMissionMode_T motionType1List[500];
-    cell_wrap_1_FlightMissionMode_T motionType2List[500];
+    cell_wrap_2_FlightMissionMode_T motionType1List[500];
+    cell_wrap_2_FlightMissionMode_T motionType2List[500];
     uav_sluav_internal_system_OrbitFollower_FlightMissionMode_T obj;// '<S9>/Orbit Follower' 
-    initDubinsObj_FlightMissionMode_f_T gobj_0;// '<S38>/WayPointGenerator'
-    initDubinsObj_FlightMissionMode_o_T gobj_0_p;// '<S178>/WayPointGenerator'
+    DubinsObjSingleton_FlightMissionMode_a_T SingletonInstance;// '<S38>/WayPointGenerator' 
+    DubinsObjSingleton_FlightMissionMode_o_T SingletonInstance_n;// '<S178>/WayPointGenerator' 
     real_T nedWayPoint[3];             // '<S178>/biasNEDstartpose'
     real_T startPose[5];               // '<S178>/WayPointGenerator'
     real_T nedWayPoint_a[30720];       // '<S201>/biasNED'
     real_T ProductFlipStartPose[5];    // '<S137>/ProductFlipStartPose'
+    real_T MatrixConcatenateWayPoint[1500];// '<S137>/Matrix Concatenate WayPoint' 
     real_T nedWayPoint_b[3];           // '<S137>/biasNEDstartpose1'
     real_T ImpAsg_InsertedFor_nedWayPoint_at_inport_0[1500];// '<S169>/biasNED'
     real_T MergeLookAheadP[3];         // '<S136>/MergeLookAheadP'
+    real_T MatrixConcatenateWayPoint_g[1500];// '<S95>/Matrix Concatenate WayPoint' 
     real_T nedWayPoint_m[3];           // '<S95>/biasNEDstartpose'
     real_T ImpAsg_InsertedFor_nedWayPoint_at_inport_0_c[1500];// '<S126>/biasNED' 
     real_T startPose_o[5];             // '<S95>/StartPointGenerator'
@@ -137,7 +137,6 @@ struct DW_FlightMissionMode_f_T {
     real_T nedWayPoint_l[30720];       // '<S38>/biasNED'
     real_T RotateRelPrevPos_DWORK4[9]; // '<S38>/RotateRelPrevPos'
     real_T WayPoint0[61440];
-    real_T MatrixConcatenateWayPoint_g[1500];// '<S95>/Matrix Concatenate WayPoint' 
     real_T WayPoint_i[30720];          // '<S38>/WayPointGenerator'
     real_T rtb_WayPoint_i_m[30720];
     real_T Sum;                        // '<S178>/Sum'
@@ -145,8 +144,6 @@ struct DW_FlightMissionMode_f_T {
     real_T MergeDesiredCourse;         // '<S136>/MergeDesiredCourse'
     real_T Sum_i;                      // '<S95>/Sum'
     real_T MergeDesiredCourse_p;       // '<S94>/MergeDesiredCourse'
-    uavDubinsConnection_FlightMissionMode_f_T* connectionObj_j;// '<S38>/WayPointGenerator' 
-    uavDubinsConnection_FlightMissionMode_a_T* connectionObj;// '<S178>/WayPointGenerator' 
     MissionModes FlightMission;      // '<Root>/PreemptableMissionModeSelector'
     RunWayLineSegment RunWayLineMode;  // '<S136>/Chart'
     RunWayLineSegment RunWayLineMode_n;// '<S94>/Chart'
@@ -154,8 +151,8 @@ struct DW_FlightMissionMode_f_T {
     uint8_T is_active_c2_FlightMissionMode;
                                      // '<Root>/PreemptableMissionModeSelector'
     uint8_T is_c2_FlightMissionMode; // '<Root>/PreemptableMissionModeSelector'
-    boolean_T connectionObj_not_empty; // '<S178>/WayPointGenerator'
-    boolean_T connectionObj_not_empty_p;// '<S38>/WayPointGenerator'
+    boolean_T SingletonInstance_not_empty;// '<S178>/WayPointGenerator'
+    boolean_T SingletonInstance_not_empty_k;// '<S38>/WayPointGenerator'
     boolean_T objisempty;              // '<S9>/Orbit Follower'
     boolean_T WayPointGenerator_MODE;  // '<S175>/WayPointGenerator'
     boolean_T WayPointGenerator_MODE_m;// '<S132>/WayPointGenerator'

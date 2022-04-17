@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 3.201
+// Model version                  : 3.219
 // Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Wed Apr 13 04:41:14 2022
+// C/C++ source code generated on : Sat Apr 16 03:50:33 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -115,22 +115,22 @@ class codegenReal2MissionModelClass
                                       // '<S14>/PreemptableMissionModeSelector'
         MdlrefDW_ImmedMission_T ImmedMission_InstanceData;// '<S5>/ImmedMission' 
         MdlrefDW_MissionUAV_T MissionUavModel_InstanceData;// '<S23>/MissionUavModel' 
-        MdlrefDW_Real2SimGuidance_T Real2SimGuidance_InstanceData;// '<S32>/Real2SimGuidance' 
+        MdlrefDW_Real2SimGuidance_T Real2SimGuidance_InstanceData;// '<S33>/Real2SimGuidance' 
         FILE* eml_openfiles[20];       // '<S9>/PrintOnboardLog'
         missionCmd slMsgMgr_memArray_missionCmd[9];// synthesized block
+        FlightLogging Real2SimGuidance_o3;// '<S33>/Real2SimGuidance'
         IndividualUAVCmd ReceivePushedMissionCMD_o2;// '<S1>/ReceivePushedMissionCMD' 
         IndividualUAVCmd IndivCMD;     // '<S9>/IndivCMD'
         missionCmd RcvNextMission;     // '<S1>/RcvNextMission'
         missionCmd RcvImmedCMD_o2;     // '<S1>/RcvImmedCMD'
         missionCmd ReceiveThisMission_o2;// '<S3>/ReceiveThisMission'
-        missionCmd ImmedCMD;           // '<S28>/CommandCheck'
+        missionCmd ImmedCMD;           // '<S29>/CommandCheck'
         missionCmd ReceiveCurrentMission_o2;// '<S14>/ReceiveCurrentMission'
         missionCmd CurrentFlightMission;// '<S1>/DataStoreMissionCmd'
-        missionCmd MissionCMD;         // '<S28>/DataStoreMissionCmd'
+        missionCmd MissionCMD;         // '<S29>/DataStoreMissionCmd'
         FixedWingGuidanceStateBus
             BusConversion_InsertedFor_ImmedMission_at_inport_0_BusCreator1;
         FixedWingGuidanceStateBus ImmedMission_o2;// '<S5>/ImmedMission'
-        ParamADRC DataStoreRead;       // '<S1>/Data Store Read'
         ParamADRC ParamADRC_e;         // '<S1>/Data Store Memory'
         MemPool_missionCmd slMsgMgr_MemPool_missionCmd;// synthesized block
         FixedWingGuidanceBus ImmedMission_o4;// '<S5>/ImmedMission'
@@ -148,9 +148,9 @@ class codegenReal2MissionModelClass
             [4];
         real_T MemoryPose_PreviousInput[4];// '<S14>/MemoryPose'
         real_T thisTaskStatus;         // '<S5>/ImmedMission'
-        real_T PushImmed;              // '<S28>/CommandCheck'
+        real_T PushImmed;              // '<S29>/CommandCheck'
         real_T TriggerSend;            // '<S13>/MisisonCMDTemporalLogic'
-        real_T DivideThree;            // '<S26>/DivideThree'
+        real_T DivideThree;            // '<S27>/DivideThree'
         real_T thisTaskStatus_g;      // '<S14>/PreemptableMissionModeSelector'
         real_T CastToDouble;           // '<S23>/Cast To Double'
         real_T North;                  // '<S23>/MissionUavModel'
@@ -168,7 +168,7 @@ class codegenReal2MissionModelClass
         int32_T MemoryFlightStatus_PreviousInput;// '<S3>/MemoryFlightStatus'
         int32_T MemoryImmedStatus_PreviousInput;// '<S3>/MemoryImmedStatus'
         int32_T followSwitch_start;    // '<S13>/NewMission'
-        uint8_T EngagedFlag_Log;       // '<S32>/Real2SimGuidance'
+        uint8_T EngagedFlag_Log;       // '<S33>/Real2SimGuidance'
         uint8_T Memory;                // '<S1>/Memory'
         uint8_T Memory_PreviousInput_l;// '<S1>/Memory'
         uint8_T is_active_c14_codegenReal2Mission;// '<S13>/NewMission'
@@ -188,19 +188,19 @@ class codegenReal2MissionModelClass
 
     // Continuous states (default storage)
     struct X_codegenReal2Mission_T {
-        X_Real2SimGuidance_n_T Real2SimGuidance_CSTATE;// '<S32>/Real2SimGuidance' 
+        X_Real2SimGuidance_n_T Real2SimGuidance_CSTATE;// '<S33>/Real2SimGuidance' 
         X_MissionUAV_n_T MissionUavModel_CSTATE;// '<S23>/MissionUavModel'
     };
 
     // State derivatives (default storage)
     struct XDot_codegenReal2Mission_T {
-        XDot_Real2SimGuidance_n_T Real2SimGuidance_CSTATE;// '<S32>/Real2SimGuidance' 
+        XDot_Real2SimGuidance_n_T Real2SimGuidance_CSTATE;// '<S33>/Real2SimGuidance' 
         XDot_MissionUAV_n_T MissionUavModel_CSTATE;// '<S23>/MissionUavModel'
     };
 
     // State disabled
     struct XDis_codegenReal2Mission_T {
-        XDis_Real2SimGuidance_n_T Real2SimGuidance_CSTATE;// '<S32>/Real2SimGuidance' 
+        XDis_Real2SimGuidance_n_T Real2SimGuidance_CSTATE;// '<S33>/Real2SimGuidance' 
         XDis_MissionUAV_n_T MissionUavModel_CSTATE;// '<S23>/MissionUavModel'
     };
 
@@ -213,7 +213,7 @@ class codegenReal2MissionModelClass
 
     // Constant parameters (default storage)
     struct ConstP_codegenReal2Mission_T {
-        // Expression: struct('hat_b', 0.25, 'omega_o', 15, 'omega_b', 1.5, 'P', 1, 'I', 0, 'D', 1, 'useADRC', true)
+        // Expression: struct('hat_b', 0.25, 'omega_o', 1, 'omega_b', 0.1, 'P', 0.2, 'I', 0.01, 'D', 0.01, 'useADRC', true)
         //  Referenced by: '<S1>/Data Store Memory'
 
         ParamADRC DataStoreMemory_InitialValue;
@@ -429,22 +429,22 @@ extern const codegenReal2MissionModelClass::ConstP_codegenReal2Mission_T
 //-
 //  These blocks were eliminated from the model due to optimizations:
 //
-//  Block '<S26>/BiasID' : Unused code path elimination
-//  Block '<S26>/Divide' : Unused code path elimination
-//  Block '<S26>/GreaterThan' : Unused code path elimination
-//  Block '<S26>/Mod' : Unused code path elimination
-//  Block '<S26>/One' : Unused code path elimination
-//  Block '<S26>/Sum' : Unused code path elimination
-//  Block '<S26>/SwitchpDelay' : Unused code path elimination
-//  Block '<S26>/SwitchxDelay' : Unused code path elimination
-//  Block '<S26>/Zero' : Unused code path elimination
-//  Block '<S26>/deBiasID' : Unused code path elimination
-//  Block '<S26>/half' : Unused code path elimination
-//  Block '<S26>/pCeil' : Unused code path elimination
-//  Block '<S26>/pGain' : Unused code path elimination
-//  Block '<S26>/pMinus' : Unused code path elimination
-//  Block '<S26>/xCeil' : Unused code path elimination
-//  Block '<S26>/xGain' : Unused code path elimination
+//  Block '<S27>/BiasID' : Unused code path elimination
+//  Block '<S27>/Divide' : Unused code path elimination
+//  Block '<S27>/GreaterThan' : Unused code path elimination
+//  Block '<S27>/Mod' : Unused code path elimination
+//  Block '<S27>/One' : Unused code path elimination
+//  Block '<S27>/Sum' : Unused code path elimination
+//  Block '<S27>/SwitchpDelay' : Unused code path elimination
+//  Block '<S27>/SwitchxDelay' : Unused code path elimination
+//  Block '<S27>/Zero' : Unused code path elimination
+//  Block '<S27>/deBiasID' : Unused code path elimination
+//  Block '<S27>/half' : Unused code path elimination
+//  Block '<S27>/pCeil' : Unused code path elimination
+//  Block '<S27>/pGain' : Unused code path elimination
+//  Block '<S27>/pMinus' : Unused code path elimination
+//  Block '<S27>/xCeil' : Unused code path elimination
+//  Block '<S27>/xGain' : Unused code path elimination
 //  Block '<S3>/Cast To uint8' : Eliminate redundant data type conversion
 //  Block '<S3>/intFormationPos' : Eliminate redundant data type conversion
 //  Block '<S3>/intMissionMode' : Eliminate redundant data type conversion
@@ -490,15 +490,16 @@ extern const codegenReal2MissionModelClass::ConstP_codegenReal2Mission_T
 //  '<S21>'  : 'codegenReal2Mission/MissionLogic/FlightMission_Variant/VariantScheduler/SingleUAV/FlightMission/Compare To Zero (ID)'
 //  '<S22>'  : 'codegenReal2Mission/MissionLogic/FlightMission_Variant/VariantScheduler/SingleUAV/FlightMission/FeedbackMissionCMD'
 //  '<S23>'  : 'codegenReal2Mission/MissionLogic/FlightMission_Variant/VariantScheduler/SingleUAV/FlightMission/MissionSimUAV'
-//  '<S24>'  : 'codegenReal2Mission/MissionLogic/FlightMission_Variant/VariantScheduler/SingleUAV/FlightMission/SimState2Pose'
-//  '<S25>'  : 'codegenReal2Mission/MissionLogic/FlightMission_Variant/VariantScheduler/SingleUAV/FlightMission/TriggerStartSim'
-//  '<S26>'  : 'codegenReal2Mission/MissionLogic/FlightMission_Variant/VariantScheduler/SingleUAV/JumpDelay/ComputDelay'
-//  '<S27>'  : 'codegenReal2Mission/MissionLogic/MissionValidation/Compare To Zero'
-//  '<S28>'  : 'codegenReal2Mission/MissionLogic/MissionValidation/TriggerMissionDispatch'
-//  '<S29>'  : 'codegenReal2Mission/MissionLogic/MissionValidation/getCurrentTime'
-//  '<S30>'  : 'codegenReal2Mission/MissionLogic/MissionValidation/TriggerMissionDispatch/CommandCheck'
-//  '<S31>'  : 'codegenReal2Mission/MissionLogic/VisualizeUAV/VisualizeUAV'
-//  '<S32>'  : 'codegenReal2Mission/TrackingControl/Real2SimGuidance'
+//  '<S24>'  : 'codegenReal2Mission/MissionLogic/FlightMission_Variant/VariantScheduler/SingleUAV/FlightMission/NullLoc'
+//  '<S25>'  : 'codegenReal2Mission/MissionLogic/FlightMission_Variant/VariantScheduler/SingleUAV/FlightMission/SimState2Pose'
+//  '<S26>'  : 'codegenReal2Mission/MissionLogic/FlightMission_Variant/VariantScheduler/SingleUAV/FlightMission/TriggerStartSim'
+//  '<S27>'  : 'codegenReal2Mission/MissionLogic/FlightMission_Variant/VariantScheduler/SingleUAV/JumpDelay/ComputDelay'
+//  '<S28>'  : 'codegenReal2Mission/MissionLogic/MissionValidation/Compare To Zero'
+//  '<S29>'  : 'codegenReal2Mission/MissionLogic/MissionValidation/TriggerMissionDispatch'
+//  '<S30>'  : 'codegenReal2Mission/MissionLogic/MissionValidation/getCurrentTime'
+//  '<S31>'  : 'codegenReal2Mission/MissionLogic/MissionValidation/TriggerMissionDispatch/CommandCheck'
+//  '<S32>'  : 'codegenReal2Mission/MissionLogic/VisualizeUAV/VisualizeUAV'
+//  '<S33>'  : 'codegenReal2Mission/TrackingControl/Real2SimGuidance'
 
 #endif                                 // RTW_HEADER_codegenReal2Mission_h_
 

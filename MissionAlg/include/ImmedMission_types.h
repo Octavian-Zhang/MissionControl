@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'ImmedMission'.
 //
-// Model version                  : 2.137
+// Model version                  : 2.140
 // Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Mon Apr 11 09:18:20 2022
+// C/C++ source code generated on : Sat Apr 16 03:36:25 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -20,7 +20,6 @@
 #define RTW_HEADER_ImmedMission_types_h_
 #include "rtwtypes.h"
 #include "zero_crossing_types.h"
-#include "MissionModes.h"
 #include "DatalinkInterface.h"
 
 // Model Code Variants
@@ -127,6 +126,29 @@ struct
 
 #endif
 // struct_robotics_slcore_internal_block_CoordinateTransformationConversion_ImmedMission_T 
+
+// Custom Type definition for MATLAB Function: '<S135>/BaseWayPoint'
+#ifndef struct_uavDubinsConnection_ImmedMission_T
+#define struct_uavDubinsConnection_ImmedMission_T
+
+struct uavDubinsConnection_ImmedMission_T
+{
+    real_T MinTurningRadius;
+    real_T AirSpeed;
+    real_T MaxRollAngle;
+};
+
+#endif                             // struct_uavDubinsConnection_ImmedMission_T
+
+#ifndef struct_DubinsObjSingleton_ImmedMission_T
+#define struct_DubinsObjSingleton_ImmedMission_T
+
+struct DubinsObjSingleton_ImmedMission_T
+{
+    uavDubinsConnection_ImmedMission_T DubinsConnector;
+};
+
+#endif                              // struct_DubinsObjSingleton_ImmedMission_T
 
 #ifndef struct_emxArray_real_T_ImmedMission_T
 #define struct_emxArray_real_T_ImmedMission_T

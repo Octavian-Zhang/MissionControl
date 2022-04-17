@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'ImmedMission'.
 //
-// Model version                  : 2.137
+// Model version                  : 2.140
 // Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Mon Apr 11 09:18:20 2022
+// C/C++ source code generated on : Sat Apr 16 03:36:25 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -61,7 +61,7 @@ const uint8_T ImmedMission_IN_Running{ 1U };
 
 const uint8_T ImmedMission_IN_Waiting{ 2U };
 
-// Named constants for Chart: '<S218>/EnableSailShift'
+// Named constants for Chart: '<S219>/EnableSailShift'
 const uint8_T ImmedMission_IN_NotShift{ 1U };
 
 const uint8_T ImmedMission_IN_Shift{ 2U };
@@ -100,11 +100,11 @@ static void ImmedMission_emxEnsureCapacity_real_T1
 static void ImmedMission_binary_expand_op_pu(emxArray_real_T_ImmedMission_T
     *WayPoint, const emxArray_real_T_ImmedMission_T *step, int32_T ntilerows,
     int32_T nm1d2);
-static void ImmedMission_binary_expand_op_p(int32_T SFunction_DIMS2_j[2], const
+static void ImmedMission_binary_expand_op_p(int32_T SFunction_DIMS2_i[2], const
     emxArray_real_T_ImmedMission_T *rotWayPoint, const
     emxArray_real_T_ImmedMission_T *WayPoint);
 static void ImmedMission_binary_expand_op(real_T rtb_nedWayPoint_0[30720], const
-    int32_T SFunction_DIMS2_j[2], const emxArray_real_T_ImmedMission_T
+    int32_T SFunction_DIMS2_i[2], const emxArray_real_T_ImmedMission_T
     *rotWayPoint, const emxArray_real_T_ImmedMission_T *WayPoint);
 
 //
@@ -711,6 +711,53 @@ void ImmedMission_Altitude(const real_T rtu_0[4], const real_T rtu_1[6], real_T
     }
 
     // End of MATLABSystem: '<S183>/Altitude'
+}
+
+// System initialize for atomic system:
+void ImmedMission_CoordinateTransformationConversion_Init
+    (DW_CoordinateTransformationConversion_ImmedMission_T *localDW)
+{
+    // Start for MATLABSystem: '<S217>/Coordinate Transformation Conversion'
+    localDW->objisempty = true;
+    localDW->obj.isInitialized = 1;
+}
+
+// Output and update for atomic system:
+void ImmedMission_CoordinateTransformationConversion(const real_T rtu_0[3],
+    DW_CoordinateTransformationConversion_ImmedMission_T *localDW)
+{
+    real_T out[9];
+    real_T ct_idx_0;
+    real_T ct_idx_1;
+    real_T ct_idx_2;
+    real_T out_tmp;
+    real_T out_tmp_0;
+    real_T st_idx_0;
+    real_T st_idx_1;
+    real_T st_idx_2;
+
+    // MATLABSystem: '<S217>/Coordinate Transformation Conversion'
+    ct_idx_0 = std::cos(rtu_0[0]);
+    ct_idx_1 = std::cos(rtu_0[1]);
+    ct_idx_2 = std::cos(rtu_0[2]);
+    st_idx_0 = std::sin(rtu_0[0]);
+    st_idx_1 = std::sin(rtu_0[1]);
+    st_idx_2 = std::sin(rtu_0[2]);
+    out[0] = ct_idx_0 * ct_idx_1;
+    out_tmp = st_idx_1 * st_idx_2;
+    out[3] = out_tmp * ct_idx_0 - st_idx_0 * ct_idx_2;
+    out_tmp_0 = st_idx_1 * ct_idx_2;
+    out[6] = out_tmp_0 * ct_idx_0 + st_idx_0 * st_idx_2;
+    out[1] = st_idx_0 * ct_idx_1;
+    out[4] = out_tmp * st_idx_0 + ct_idx_0 * ct_idx_2;
+    out[7] = out_tmp_0 * st_idx_0 - ct_idx_0 * st_idx_2;
+    out[2] = -st_idx_1;
+    out[5] = ct_idx_1 * st_idx_2;
+    out[8] = ct_idx_1 * ct_idx_2;
+
+    // MATLABSystem: '<S217>/Coordinate Transformation Conversion'
+    std::memcpy(&localDW->CoordinateTransformationConversion[0], &out[0],
+                static_cast<uint32_T>(9U * sizeof(real_T)));
 }
 
 //
@@ -1935,7 +1982,7 @@ static void ImmedMission_binary_expand_op_pu(emxArray_real_T_ImmedMission_T
     ImmedMission_emxFree_real_T(&WayPoint_0);
 }
 
-static void ImmedMission_binary_expand_op_p(int32_T SFunction_DIMS2_j[2], const
+static void ImmedMission_binary_expand_op_p(int32_T SFunction_DIMS2_i[2], const
     emxArray_real_T_ImmedMission_T *rotWayPoint, const
     emxArray_real_T_ImmedMission_T *WayPoint)
 {
@@ -2028,8 +2075,8 @@ static void ImmedMission_binary_expand_op_p(int32_T SFunction_DIMS2_j[2], const
     // SwitchCase: '<S1>/Switch Case' incorporates:
     //   MATLAB Function: '<S135>/BaseWayPoint'
 
-    SFunction_DIMS2_j[0] = rotWayPoint_1->size[0];
-    SFunction_DIMS2_j[1] = 3;
+    SFunction_DIMS2_i[0] = rotWayPoint_1->size[0];
+    SFunction_DIMS2_i[1] = 3;
 
     // End of Outputs for SubSystem: '<S129>/WayPointGen'
     // End of Outputs for SubSystem: '<S1>/Mode131_SqCalibr'
@@ -2037,11 +2084,11 @@ static void ImmedMission_binary_expand_op_p(int32_T SFunction_DIMS2_j[2], const
 }
 
 static void ImmedMission_binary_expand_op(real_T rtb_nedWayPoint_0[30720], const
-    int32_T SFunction_DIMS2_j[2], const emxArray_real_T_ImmedMission_T
+    int32_T SFunction_DIMS2_i[2], const emxArray_real_T_ImmedMission_T
     *rotWayPoint, const emxArray_real_T_ImmedMission_T *WayPoint)
 {
     emxArray_real_T_ImmedMission_T *rotWayPoint_0;
-    int32_T SFunction_DIMS2_j_idx_0;
+    int32_T SFunction_DIMS2_i_idx_0;
     int32_T i;
     int32_T loop_ub;
     int32_T loop_ub_0;
@@ -2082,7 +2129,7 @@ static void ImmedMission_binary_expand_op(real_T rtb_nedWayPoint_0[30720], const
             + i)];
     }
 
-    SFunction_DIMS2_j_idx_0 = SFunction_DIMS2_j[0];
+    SFunction_DIMS2_i_idx_0 = SFunction_DIMS2_i[0];
     loop_ub_1 = (rotWayPoint_0->size[0] != 1);
     stride_1_0 = (WayPoint->size[0] != 1);
     loop_ub = WayPoint->size[0] == 1 ? rotWayPoint_0->size[0] : WayPoint->size[0];
@@ -2090,7 +2137,7 @@ static void ImmedMission_binary_expand_op(real_T rtb_nedWayPoint_0[30720], const
         for (loop_ub_0 = 0; loop_ub_0 <= static_cast<int32_T>(loop_ub - 1);
                 loop_ub_0++) {
             rtb_nedWayPoint_0[static_cast<int32_T>(loop_ub_0 +
-                static_cast<int32_T>(SFunction_DIMS2_j_idx_0 * i))] =
+                static_cast<int32_T>(SFunction_DIMS2_i_idx_0 * i))] =
                 rotWayPoint_0->data[static_cast<int32_T>(static_cast<int32_T>
                 (loop_ub_0 * loop_ub_1) + static_cast<int32_T>
                 (rotWayPoint_0->size[0] * i))] + WayPoint->data
@@ -2164,7 +2211,7 @@ void ImmedMission_Init(boolean_T rty_ControlSwitch[2], FixedWingGuidanceBus
     localDW->obj_j.LookaheadFactor = 1.01;
     localDW->obj_j.SearchFlag = true;
     localDW->obj_j.CacheInputSizes = false;
-    localDW->objisempty_kv = true;
+    localDW->objisempty_k = true;
     localDW->obj_j.isInitialized = 1;
     for (ForEach_itr_c = 0; ForEach_itr_c < 8; ForEach_itr_c++) {
         localDW->obj_j.inputVarSize[0].f1[ForEach_itr_c] = 1U;
@@ -2217,7 +2264,7 @@ void ImmedMission_Init(boolean_T rty_ControlSwitch[2], FixedWingGuidanceBus
     localDW->obj.StartFlag = true;
     localDW->obj.LookaheadFactor = 1.01;
     localDW->obj.CacheInputSizes = false;
-    localDW->objisempty_k = true;
+    localDW->objisempty = true;
     localDW->obj.isInitialized = 1;
     for (ForEach_itr_c = 0; ForEach_itr_c < 8; ForEach_itr_c++) {
         localDW->obj.inputVarSize[0].f1[ForEach_itr_c] = 1U;
@@ -2267,15 +2314,19 @@ void ImmedMission_Init(boolean_T rty_ControlSwitch[2], FixedWingGuidanceBus
 
     // End of SystemInitialize for SubSystem: '<S1>/Mode132_pAttack'
 
+    // SystemInitialize for IfAction SubSystem: '<S1>/Mode254_ShiftENU'
+    ImmedMission_CoordinateTransformationConversion_Init
+        (&localDW->CoordinateTransformationConversion);
+
+    // End of SystemInitialize for SubSystem: '<S1>/Mode254_ShiftENU'
+
     // SystemInitialize for IfAction SubSystem: '<S1>/Mode253_ShiftXYZ'
     // SystemInitialize for Enabled SubSystem: '<S210>/DivisionByZeroProtection' 
     ImmedMission_DivisionByZeroProtection_Init(&localDW->Omega_g);
 
     // End of SystemInitialize for SubSystem: '<S210>/DivisionByZeroProtection'
-
-    // Start for MATLABSystem: '<S210>/Coordinate Transformation Conversion'
-    localDW->objisempty = true;
-    localDW->obj_o.isInitialized = 1;
+    ImmedMission_CoordinateTransformationConversion_Init
+        (&localDW->CoordinateTransformationConversion_j);
 
     // End of SystemInitialize for SubSystem: '<S1>/Mode253_ShiftXYZ'
 
@@ -2329,13 +2380,13 @@ void ImmedMission_Reset(DW_ImmedMission_f_T *localDW)
 void ImmedMission_Disable(DW_ImmedMission_f_T *localDW)
 {
     // Disable for Atomic SubSystem: '<S217>/SailDistance'
-    // Disable for Enabled SubSystem: '<S218>/SailShift'
+    // Disable for Enabled SubSystem: '<S219>/SailShift'
     // Disable for SwitchCase: '<S1>/Switch Case'
     localDW->SailShift_MODE = static_cast<boolean_T>(static_cast<int32_T>((
         static_cast<int32_T>(localDW->SwitchCase_ActiveSubsystem) != 5) &
         static_cast<int32_T>(localDW->SailShift_MODE)));
 
-    // End of Disable for SubSystem: '<S218>/SailShift'
+    // End of Disable for SubSystem: '<S219>/SailShift'
     // End of Disable for SubSystem: '<S217>/SailDistance'
     localDW->SwitchCase_ActiveSubsystem = -1;
 }
@@ -2360,6 +2411,9 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
 {
     // local block i/o variables
     real_T rtb_CentripetalAcc_p;
+    real_T rtb_TmpSignalConversionAtCoordinateTransformationConversionInport1[3];
+    real_T rtb_TmpSignalConversionAtCoordinateTransformationConversionInport1_e
+        [3];
     real_T rtb_TmpSignalConversionAtAltitudeInport1[4];
     real_T rtb_sqrt;
     real_T rtb_MinusVecCenter2UAV[3];
@@ -2628,7 +2682,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
     emxArray_real_T_ImmedMission_T MatrixConcatenate_d;
     emxArray_real_T_ImmedMission_T *WayPoint;
     emxArray_real_T_ImmedMission_T *WayPoint_0;
-    emxArray_real_T_ImmedMission_T *c_b;
+    emxArray_real_T_ImmedMission_T *d_b;
     emxArray_real_T_ImmedMission_T *rotWayPoint;
     emxArray_real_T_ImmedMission_T *rotWayPoint_0;
     emxArray_real_T_ImmedMission_T *rotWayPoint_1;
@@ -2842,37 +2896,37 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
     //   ActionPort: '<S7>/Action Port'
 
     // Outputs for Iterator SubSystem: '<S3>/For Each Subsystem' incorporates:
-    //   ForEach: '<S248>/For Each'
+    //   ForEach: '<S249>/For Each'
 
-    // Outputs for Atomic SubSystem: '<S248>/LatLon2NorthEast'
+    // Outputs for Atomic SubSystem: '<S249>/LatLon2NorthEast'
     // SwitchCase: '<S1>/Switch Case' incorporates:
     //   Abs: '<S149>/Abs'
     //   Abs: '<S172>/Abs'
     //   Abs: '<S200>/Abs'
-    //   Abs: '<S239>/Abs'
-    //   Abs: '<S269>/Abs'
+    //   Abs: '<S240>/Abs'
+    //   Abs: '<S270>/Abs'
     //   Abs: '<S55>/Abs'
     //   Abs: '<S88>/Abs'
     //   DataStoreRead: '<S2>/LatitudeGCS'
 
     t = std::abs(LatitudeGCS);
 
-    // End of Outputs for SubSystem: '<S248>/LatLon2NorthEast'
+    // End of Outputs for SubSystem: '<S249>/LatLon2NorthEast'
     // End of Outputs for SubSystem: '<S3>/For Each Subsystem'
     // End of Outputs for SubSystem: '<S1>/Mode129_CollAvoidance'
     // End of Outputs for SubSystem: '<S1>/Mode128_DetailedInsp'
     // End of Outputs for SubSystem: '<S1>/Mode132_pAttack'
     // End of Outputs for SubSystem: '<S1>/Mode131_SqCalibr'
 
-    // Switch: '<S239>/Switch' incorporates:
-    //   Abs: '<S239>/Abs'
-    //   Bias: '<S239>/Bias'
-    //   Bias: '<S239>/Bias1'
-    //   Constant: '<S239>/Constant2'
-    //   Constant: '<S240>/Constant'
+    // Switch: '<S240>/Switch' incorporates:
+    //   Abs: '<S240>/Abs'
+    //   Bias: '<S240>/Bias'
+    //   Bias: '<S240>/Bias1'
+    //   Constant: '<S240>/Constant2'
+    //   Constant: '<S241>/Constant'
     //   DataStoreRead: '<S2>/LatitudeGCS'
-    //   Math: '<S239>/Math Function1'
-    //   RelationalOperator: '<S240>/Compare'
+    //   Math: '<S240>/Math Function1'
+    //   RelationalOperator: '<S241>/Compare'
 
     if (t > 180.0) {
         rtb_Switch = rt_modd_snf(LatitudeGCS + 180.0, 360.0) + -180.0;
@@ -2880,24 +2934,24 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
         rtb_Switch = LatitudeGCS;
     }
 
-    // End of Switch: '<S239>/Switch'
+    // End of Switch: '<S240>/Switch'
 
-    // Abs: '<S236>/Abs1'
+    // Abs: '<S237>/Abs1'
     rtb_Abs1 = std::abs(rtb_Switch);
 
-    // Switch: '<S236>/Switch' incorporates:
-    //   Bias: '<S236>/Bias'
-    //   Bias: '<S236>/Bias1'
-    //   Constant: '<S227>/Constant'
-    //   Constant: '<S227>/Constant1'
-    //   Constant: '<S238>/Constant'
-    //   Gain: '<S236>/Gain'
-    //   Product: '<S236>/Divide1'
-    //   RelationalOperator: '<S238>/Compare'
-    //   Switch: '<S227>/Switch1'
+    // Switch: '<S237>/Switch' incorporates:
+    //   Bias: '<S237>/Bias'
+    //   Bias: '<S237>/Bias1'
+    //   Constant: '<S228>/Constant'
+    //   Constant: '<S228>/Constant1'
+    //   Constant: '<S239>/Constant'
+    //   Gain: '<S237>/Gain'
+    //   Product: '<S237>/Divide1'
+    //   RelationalOperator: '<S239>/Compare'
+    //   Switch: '<S228>/Switch1'
 
     if (rtb_Abs1 > 90.0) {
-        // Signum: '<S236>/Sign1'
+        // Signum: '<S237>/Sign1'
         if (rtb_Switch < 0.0) {
             rtb_Switch = -1.0;
         } else if (rtb_Switch > 0.0) {
@@ -2908,47 +2962,47 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             rtb_Switch = (rtNaN);
         }
 
-        // End of Signum: '<S236>/Sign1'
+        // End of Signum: '<S237>/Sign1'
         rtb_Switch *= -(rtb_Abs1 + -90.0) + 90.0;
         coffset = 180;
     } else {
         coffset = 0;
     }
 
-    // End of Switch: '<S236>/Switch'
+    // End of Switch: '<S237>/Switch'
 
-    // Sum: '<S227>/Sum' incorporates:
+    // Sum: '<S228>/Sum' incorporates:
     //   DataStoreRead: '<S2>/LongitudeGCS'
 
     rtb_Switch_m2 = static_cast<real_T>(coffset) + LongitudeGCS;
 
-    // Switch: '<S237>/Switch' incorporates:
-    //   Abs: '<S237>/Abs'
-    //   Bias: '<S237>/Bias'
-    //   Bias: '<S237>/Bias1'
-    //   Constant: '<S237>/Constant2'
-    //   Constant: '<S241>/Constant'
-    //   Math: '<S237>/Math Function1'
-    //   RelationalOperator: '<S241>/Compare'
+    // Switch: '<S238>/Switch' incorporates:
+    //   Abs: '<S238>/Abs'
+    //   Bias: '<S238>/Bias'
+    //   Bias: '<S238>/Bias1'
+    //   Constant: '<S238>/Constant2'
+    //   Constant: '<S242>/Constant'
+    //   Math: '<S238>/Math Function1'
+    //   RelationalOperator: '<S242>/Compare'
 
     if (std::abs(rtb_Switch_m2) > 180.0) {
         rtb_Switch_m2 = rt_modd_snf(rtb_Switch_m2 + 180.0, 360.0) + -180.0;
     }
 
-    // End of Switch: '<S237>/Switch'
+    // End of Switch: '<S238>/Switch'
 
-    // Sum: '<S225>/Sum1'
+    // Sum: '<S226>/Sum1'
     rtb_Sum1[0] = rtu_RealUAVState->Latitude_deg - rtb_Switch;
     rtb_Sum1[1] = rtu_RealUAVState->Longitude_deg - rtb_Switch_m2;
 
-    // Switch: '<S233>/Switch' incorporates:
-    //   Abs: '<S233>/Abs'
-    //   Bias: '<S233>/Bias'
-    //   Bias: '<S233>/Bias1'
-    //   Constant: '<S233>/Constant2'
-    //   Constant: '<S234>/Constant'
-    //   Math: '<S233>/Math Function1'
-    //   RelationalOperator: '<S234>/Compare'
+    // Switch: '<S234>/Switch' incorporates:
+    //   Abs: '<S234>/Abs'
+    //   Bias: '<S234>/Bias'
+    //   Bias: '<S234>/Bias1'
+    //   Constant: '<S234>/Constant2'
+    //   Constant: '<S235>/Constant'
+    //   Math: '<S234>/Math Function1'
+    //   RelationalOperator: '<S235>/Compare'
 
     if (std::abs(rtb_Sum1[0]) > 180.0) {
         rtb_Switch_m2 = rt_modd_snf(rtb_Sum1[0] + 180.0, 360.0) + -180.0;
@@ -2956,24 +3010,24 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
         rtb_Switch_m2 = rtb_Sum1[0];
     }
 
-    // End of Switch: '<S233>/Switch'
+    // End of Switch: '<S234>/Switch'
 
-    // Abs: '<S230>/Abs1'
+    // Abs: '<S231>/Abs1'
     rtb_Abs1 = std::abs(rtb_Switch_m2);
 
-    // Switch: '<S230>/Switch' incorporates:
-    //   Bias: '<S230>/Bias'
-    //   Bias: '<S230>/Bias1'
-    //   Constant: '<S226>/Constant'
-    //   Constant: '<S226>/Constant1'
-    //   Constant: '<S232>/Constant'
-    //   Gain: '<S230>/Gain'
-    //   Product: '<S230>/Divide1'
-    //   RelationalOperator: '<S232>/Compare'
-    //   Switch: '<S226>/Switch1'
+    // Switch: '<S231>/Switch' incorporates:
+    //   Bias: '<S231>/Bias'
+    //   Bias: '<S231>/Bias1'
+    //   Constant: '<S227>/Constant'
+    //   Constant: '<S227>/Constant1'
+    //   Constant: '<S233>/Constant'
+    //   Gain: '<S231>/Gain'
+    //   Product: '<S231>/Divide1'
+    //   RelationalOperator: '<S233>/Compare'
+    //   Switch: '<S227>/Switch1'
 
     if (rtb_Abs1 > 90.0) {
-        // Signum: '<S230>/Sign1'
+        // Signum: '<S231>/Sign1'
         if (rtb_Switch_m2 < 0.0) {
             rtb_Switch_m2 = -1.0;
         } else if (rtb_Switch_m2 > 0.0) {
@@ -2984,72 +3038,72 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             rtb_Switch_m2 = (rtNaN);
         }
 
-        // End of Signum: '<S230>/Sign1'
+        // End of Signum: '<S231>/Sign1'
         rtb_Switch_m2 *= -(rtb_Abs1 + -90.0) + 90.0;
         coffset = 180;
     } else {
         coffset = 0;
     }
 
-    // End of Switch: '<S230>/Switch'
+    // End of Switch: '<S231>/Switch'
 
-    // Sum: '<S226>/Sum'
+    // Sum: '<S227>/Sum'
     rtb_Sum_dq = static_cast<real_T>(coffset) + rtb_Sum1[1];
 
-    // Switch: '<S231>/Switch' incorporates:
-    //   Abs: '<S231>/Abs'
-    //   Bias: '<S231>/Bias'
-    //   Bias: '<S231>/Bias1'
-    //   Constant: '<S231>/Constant2'
-    //   Constant: '<S235>/Constant'
-    //   Math: '<S231>/Math Function1'
-    //   RelationalOperator: '<S235>/Compare'
+    // Switch: '<S232>/Switch' incorporates:
+    //   Abs: '<S232>/Abs'
+    //   Bias: '<S232>/Bias'
+    //   Bias: '<S232>/Bias1'
+    //   Constant: '<S232>/Constant2'
+    //   Constant: '<S236>/Constant'
+    //   Math: '<S232>/Math Function1'
+    //   RelationalOperator: '<S236>/Compare'
 
     if (std::abs(rtb_Sum_dq) > 180.0) {
         rtb_Sum_dq = rt_modd_snf(rtb_Sum_dq + 180.0, 360.0) + -180.0;
     }
 
-    // End of Switch: '<S231>/Switch'
+    // End of Switch: '<S232>/Switch'
 
-    // UnitConversion: '<S229>/Unit Conversion'
+    // UnitConversion: '<S230>/Unit Conversion'
     // Unit Conversion - from: deg to: rad
     // Expression: output = (0.0174533*input) + (0)
     rtb_Sum1[0] = 0.017453292519943295 * rtb_Switch_m2;
     rtb_Sum1[1] = 0.017453292519943295 * rtb_Sum_dq;
 
-    // UnitConversion: '<S244>/Unit Conversion'
+    // UnitConversion: '<S245>/Unit Conversion'
     // Unit Conversion - from: deg to: rad
     // Expression: output = (0.0174533*input) + (0)
     rtb_Switch *= 0.017453292519943295;
 
-    // Trigonometry: '<S245>/Trigonometric Function1'
+    // Trigonometry: '<S246>/Trigonometric Function1'
     rtb_Sum_dq = std::sin(rtb_Switch);
 
-    // Sum: '<S245>/Sum1' incorporates:
-    //   Constant: '<S245>/Constant'
-    //   Product: '<S245>/Product1'
+    // Sum: '<S246>/Sum1' incorporates:
+    //   Constant: '<S246>/Constant'
+    //   Product: '<S246>/Product1'
 
     rtb_Sum_dq = 1.0 - 0.0066943799901413295 * rtb_Sum_dq * rtb_Sum_dq;
 
-    // Product: '<S243>/Product1' incorporates:
-    //   Constant: '<S243>/Constant1'
-    //   Sqrt: '<S243>/sqrt'
+    // Product: '<S244>/Product1' incorporates:
+    //   Constant: '<S244>/Constant1'
+    //   Sqrt: '<S244>/sqrt'
 
     rtb_Switch_m2 = 6.378137E+6 / std::sqrt(rtb_Sum_dq);
 
-    // Product: '<S228>/dNorth' incorporates:
-    //   Constant: '<S243>/Constant2'
-    //   Product: '<S243>/Product3'
-    //   Trigonometry: '<S243>/Trigonometric Function1'
+    // Product: '<S229>/dNorth' incorporates:
+    //   Constant: '<S244>/Constant2'
+    //   Product: '<S244>/Product3'
+    //   Trigonometry: '<S244>/Trigonometric Function1'
 
     rtb_Sum_dq = rtb_Sum1[0] / rt_atan2d_snf(1.0, rtb_Switch_m2 *
         0.99330562000985867 / rtb_Sum_dq);
 
-    // Product: '<S228>/dEast' incorporates:
-    //   Constant: '<S243>/Constant3'
-    //   Product: '<S243>/Product4'
-    //   Trigonometry: '<S243>/Trigonometric Function'
-    //   Trigonometry: '<S243>/Trigonometric Function2'
+    // Product: '<S229>/dEast' incorporates:
+    //   Constant: '<S244>/Constant3'
+    //   Product: '<S244>/Product4'
+    //   Trigonometry: '<S244>/Trigonometric Function'
+    //   Trigonometry: '<S244>/Trigonometric Function2'
 
     // Unit Conversion - from: deg to: rad
     // Expression: output = (0.0174533*input) + (0)
@@ -3060,44 +3114,44 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
     // Gain: '<S4>/Gain2' incorporates:
     //   DataStoreRead: '<S2>/AltitudeGCS'
     //   Gain: '<S2>/inverse'
-    //   Sum: '<S225>/Sum'
+    //   Sum: '<S226>/Sum'
 
     rtb_Abs1 = -(rtu_RealUAVState->Height_meter + -AltitudeGCS);
 
     // SignalConversion generated from: '<S4>/SimPose' incorporates:
-    //   Product: '<S228>/x*cos'
-    //   Product: '<S228>/y*sin'
-    //   Sum: '<S228>/Sum2'
+    //   Product: '<S229>/x*cos'
+    //   Product: '<S229>/y*sin'
+    //   Sum: '<S229>/Sum2'
 
     rtb_North = rtb_Switch_m2 * 0.0 + rtb_Sum_dq;
 
     // SignalConversion generated from: '<S4>/SimPose' incorporates:
-    //   Product: '<S228>/x*sin'
-    //   Product: '<S228>/y*cos'
-    //   Sum: '<S228>/Sum3'
+    //   Product: '<S229>/x*sin'
+    //   Product: '<S229>/y*cos'
+    //   Sum: '<S229>/Sum3'
 
     rtb_East = rtb_Switch_m2 - rtb_Sum_dq * 0.0;
 
     // SignalConversion generated from: '<S4>/SimPose' incorporates:
-    //   Gain: '<S222>/Gain1'
+    //   Gain: '<S223>/Gain1'
 
     rtb_HeadingAngle = 0.017453292519943295 * rtu_RealUAVState->HeadingAngle_deg;
 
     // End of Outputs for SubSystem: '<Root>/RealState2Pose'
 
     // Outputs for Iterator SubSystem: '<S3>/For Each Subsystem' incorporates:
-    //   ForEach: '<S248>/For Each'
+    //   ForEach: '<S249>/For Each'
 
     for (ForEach_itr = 0; ForEach_itr < 128; ForEach_itr++) {
-        // Outputs for Atomic SubSystem: '<S248>/LatLon2NorthEast'
-        // Switch: '<S269>/Switch' incorporates:
-        //   Bias: '<S269>/Bias'
-        //   Bias: '<S269>/Bias1'
-        //   Constant: '<S269>/Constant2'
-        //   Constant: '<S270>/Constant'
+        // Outputs for Atomic SubSystem: '<S249>/LatLon2NorthEast'
+        // Switch: '<S270>/Switch' incorporates:
+        //   Bias: '<S270>/Bias'
+        //   Bias: '<S270>/Bias1'
+        //   Constant: '<S270>/Constant2'
+        //   Constant: '<S271>/Constant'
         //   DataStoreRead: '<S3>/LatitudeGCS'
-        //   Math: '<S269>/Math Function1'
-        //   RelationalOperator: '<S270>/Compare'
+        //   Math: '<S270>/Math Function1'
+        //   RelationalOperator: '<S271>/Compare'
 
         if (t > 180.0) {
             rtb_Switch_gh = rt_modd_snf(LatitudeGCS + 180.0, 360.0) + -180.0;
@@ -3105,24 +3159,24 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             rtb_Switch_gh = LatitudeGCS;
         }
 
-        // End of Switch: '<S269>/Switch'
+        // End of Switch: '<S270>/Switch'
 
-        // Abs: '<S266>/Abs1'
+        // Abs: '<S267>/Abs1'
         rtb_Abs1_k = std::abs(rtb_Switch_gh);
 
-        // Switch: '<S266>/Switch' incorporates:
-        //   Bias: '<S266>/Bias'
-        //   Bias: '<S266>/Bias1'
-        //   Constant: '<S257>/Constant'
-        //   Constant: '<S257>/Constant1'
-        //   Constant: '<S268>/Constant'
-        //   Gain: '<S266>/Gain'
-        //   Product: '<S266>/Divide1'
-        //   RelationalOperator: '<S268>/Compare'
-        //   Switch: '<S257>/Switch1'
+        // Switch: '<S267>/Switch' incorporates:
+        //   Bias: '<S267>/Bias'
+        //   Bias: '<S267>/Bias1'
+        //   Constant: '<S258>/Constant'
+        //   Constant: '<S258>/Constant1'
+        //   Constant: '<S269>/Constant'
+        //   Gain: '<S267>/Gain'
+        //   Product: '<S267>/Divide1'
+        //   RelationalOperator: '<S269>/Compare'
+        //   Switch: '<S258>/Switch1'
 
         if (rtb_Abs1_k > 90.0) {
-            // Signum: '<S266>/Sign1'
+            // Signum: '<S267>/Sign1'
             if (rtb_Switch_gh < 0.0) {
                 rtb_Switch_gh = -1.0;
             } else if (rtb_Switch_gh > 0.0) {
@@ -3133,64 +3187,64 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                 rtb_Switch_gh = (rtNaN);
             }
 
-            // End of Signum: '<S266>/Sign1'
+            // End of Signum: '<S267>/Sign1'
             rtb_Switch_gh *= -(rtb_Abs1_k + -90.0) + 90.0;
             coffset = 180;
         } else {
             coffset = 0;
         }
 
-        // End of Switch: '<S266>/Switch'
+        // End of Switch: '<S267>/Switch'
 
-        // Sum: '<S257>/Sum' incorporates:
+        // Sum: '<S258>/Sum' incorporates:
         //   DataStoreRead: '<S3>/LongitudeGCS'
 
         rtb_Sum_n = static_cast<real_T>(coffset) + LongitudeGCS;
 
-        // Switch: '<S267>/Switch' incorporates:
-        //   Abs: '<S267>/Abs'
-        //   Bias: '<S267>/Bias'
-        //   Bias: '<S267>/Bias1'
-        //   Constant: '<S267>/Constant2'
-        //   Constant: '<S271>/Constant'
-        //   Math: '<S267>/Math Function1'
-        //   RelationalOperator: '<S271>/Compare'
+        // Switch: '<S268>/Switch' incorporates:
+        //   Abs: '<S268>/Abs'
+        //   Bias: '<S268>/Bias'
+        //   Bias: '<S268>/Bias1'
+        //   Constant: '<S268>/Constant2'
+        //   Constant: '<S272>/Constant'
+        //   Math: '<S268>/Math Function1'
+        //   RelationalOperator: '<S272>/Compare'
 
         if (std::abs(rtb_Sum_n) > 180.0) {
             rtb_Sum_n = rt_modd_snf(rtb_Sum_n + 180.0, 360.0) + -180.0;
         }
 
-        // End of Switch: '<S267>/Switch'
-        // End of Outputs for SubSystem: '<S248>/LatLon2NorthEast'
+        // End of Switch: '<S268>/Switch'
+        // End of Outputs for SubSystem: '<S249>/LatLon2NorthEast'
 
-        // ForEachSliceSelector generated from: '<S248>/OtherUAVstate'
+        // ForEachSliceSelector generated from: '<S249>/OtherUAVstate'
         rtb_Sum1_tmp = rtu_OtherUAVstate[ForEach_itr].Latitude_deg;
 
-        // Outputs for Atomic SubSystem: '<S248>/LatLon2NorthEast'
-        // Sum: '<S255>/Sum1' incorporates:
-        //   ForEachSliceSelector generated from: '<S248>/OtherUAVstate'
+        // Outputs for Atomic SubSystem: '<S249>/LatLon2NorthEast'
+        // Sum: '<S256>/Sum1' incorporates:
+        //   ForEachSliceSelector generated from: '<S249>/OtherUAVstate'
 
         rtb_Sum1[0] = rtb_Sum1_tmp - rtb_Switch_gh;
 
-        // End of Outputs for SubSystem: '<S248>/LatLon2NorthEast'
+        // End of Outputs for SubSystem: '<S249>/LatLon2NorthEast'
 
-        // ForEachSliceSelector generated from: '<S248>/OtherUAVstate'
+        // ForEachSliceSelector generated from: '<S249>/OtherUAVstate'
         rtb_Sum1_tmp_0 = rtu_OtherUAVstate[ForEach_itr].Longitude_deg;
 
-        // Outputs for Atomic SubSystem: '<S248>/LatLon2NorthEast'
-        // Sum: '<S255>/Sum1' incorporates:
-        //   ForEachSliceSelector generated from: '<S248>/OtherUAVstate'
+        // Outputs for Atomic SubSystem: '<S249>/LatLon2NorthEast'
+        // Sum: '<S256>/Sum1' incorporates:
+        //   ForEachSliceSelector generated from: '<S249>/OtherUAVstate'
 
         rtb_Sum1[1] = rtb_Sum1_tmp_0 - rtb_Sum_n;
 
-        // Switch: '<S263>/Switch' incorporates:
-        //   Abs: '<S263>/Abs'
-        //   Bias: '<S263>/Bias'
-        //   Bias: '<S263>/Bias1'
-        //   Constant: '<S263>/Constant2'
-        //   Constant: '<S264>/Constant'
-        //   Math: '<S263>/Math Function1'
-        //   RelationalOperator: '<S264>/Compare'
+        // Switch: '<S264>/Switch' incorporates:
+        //   Abs: '<S264>/Abs'
+        //   Bias: '<S264>/Bias'
+        //   Bias: '<S264>/Bias1'
+        //   Constant: '<S264>/Constant2'
+        //   Constant: '<S265>/Constant'
+        //   Math: '<S264>/Math Function1'
+        //   RelationalOperator: '<S265>/Compare'
 
         if (std::abs(rtb_Sum1[0]) > 180.0) {
             rtb_Sum_n = rt_modd_snf(rtb_Sum1[0] + 180.0, 360.0) + -180.0;
@@ -3198,24 +3252,24 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             rtb_Sum_n = rtb_Sum1[0];
         }
 
-        // End of Switch: '<S263>/Switch'
+        // End of Switch: '<S264>/Switch'
 
-        // Abs: '<S260>/Abs1'
+        // Abs: '<S261>/Abs1'
         rtb_Abs1_k = std::abs(rtb_Sum_n);
 
-        // Switch: '<S260>/Switch' incorporates:
-        //   Bias: '<S260>/Bias'
-        //   Bias: '<S260>/Bias1'
-        //   Constant: '<S256>/Constant'
-        //   Constant: '<S256>/Constant1'
-        //   Constant: '<S262>/Constant'
-        //   Gain: '<S260>/Gain'
-        //   Product: '<S260>/Divide1'
-        //   RelationalOperator: '<S262>/Compare'
-        //   Switch: '<S256>/Switch1'
+        // Switch: '<S261>/Switch' incorporates:
+        //   Bias: '<S261>/Bias'
+        //   Bias: '<S261>/Bias1'
+        //   Constant: '<S257>/Constant'
+        //   Constant: '<S257>/Constant1'
+        //   Constant: '<S263>/Constant'
+        //   Gain: '<S261>/Gain'
+        //   Product: '<S261>/Divide1'
+        //   RelationalOperator: '<S263>/Compare'
+        //   Switch: '<S257>/Switch1'
 
         if (rtb_Abs1_k > 90.0) {
-            // Signum: '<S260>/Sign1'
+            // Signum: '<S261>/Sign1'
             if (rtb_Sum_n < 0.0) {
                 rtb_Sum_n = -1.0;
             } else if (rtb_Sum_n > 0.0) {
@@ -3226,196 +3280,196 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                 rtb_Sum_n = (rtNaN);
             }
 
-            // End of Signum: '<S260>/Sign1'
+            // End of Signum: '<S261>/Sign1'
             rtb_Sum_n *= -(rtb_Abs1_k + -90.0) + 90.0;
             coffset = 180;
         } else {
             coffset = 0;
         }
 
-        // End of Switch: '<S260>/Switch'
+        // End of Switch: '<S261>/Switch'
 
-        // Sum: '<S256>/Sum'
+        // Sum: '<S257>/Sum'
         rtb_Product2 = static_cast<real_T>(coffset) + rtb_Sum1[1];
 
-        // Switch: '<S261>/Switch' incorporates:
-        //   Abs: '<S261>/Abs'
-        //   Bias: '<S261>/Bias'
-        //   Bias: '<S261>/Bias1'
-        //   Constant: '<S261>/Constant2'
-        //   Constant: '<S265>/Constant'
-        //   Math: '<S261>/Math Function1'
-        //   RelationalOperator: '<S265>/Compare'
+        // Switch: '<S262>/Switch' incorporates:
+        //   Abs: '<S262>/Abs'
+        //   Bias: '<S262>/Bias'
+        //   Bias: '<S262>/Bias1'
+        //   Constant: '<S262>/Constant2'
+        //   Constant: '<S266>/Constant'
+        //   Math: '<S262>/Math Function1'
+        //   RelationalOperator: '<S266>/Compare'
 
         if (std::abs(rtb_Product2) > 180.0) {
             rtb_Product2 = rt_modd_snf(rtb_Product2 + 180.0, 360.0) + -180.0;
         }
 
-        // End of Switch: '<S261>/Switch'
+        // End of Switch: '<S262>/Switch'
 
-        // UnitConversion: '<S274>/Unit Conversion'
+        // UnitConversion: '<S275>/Unit Conversion'
         // Unit Conversion - from: deg to: rad
         // Expression: output = (0.0174533*input) + (0)
         rtb_Switch_gh *= 0.017453292519943295;
 
-        // Trigonometry: '<S275>/Trigonometric Function1'
+        // Trigonometry: '<S276>/Trigonometric Function1'
         rtb_Switch_m2 = std::sin(rtb_Switch_gh);
 
-        // Sum: '<S275>/Sum1' incorporates:
-        //   Constant: '<S275>/Constant'
-        //   Product: '<S275>/Product1'
+        // Sum: '<S276>/Sum1' incorporates:
+        //   Constant: '<S276>/Constant'
+        //   Product: '<S276>/Product1'
 
         rtb_Switch_m2 = 1.0 - 0.0066943799901413295 * rtb_Switch_m2 *
             rtb_Switch_m2;
 
-        // Product: '<S273>/Product1' incorporates:
-        //   Constant: '<S273>/Constant1'
-        //   Sqrt: '<S273>/sqrt'
+        // Product: '<S274>/Product1' incorporates:
+        //   Constant: '<S274>/Constant1'
+        //   Sqrt: '<S274>/sqrt'
 
         rtb_Switch = 6.378137E+6 / std::sqrt(rtb_Switch_m2);
 
-        // Product: '<S273>/Product4' incorporates:
-        //   Trigonometry: '<S273>/Trigonometric Function'
+        // Product: '<S274>/Product4' incorporates:
+        //   Trigonometry: '<S274>/Trigonometric Function'
 
         absxk = rtb_Switch * std::cos(rtb_Switch_gh);
 
-        // UnitConversion: '<S259>/Unit Conversion'
+        // UnitConversion: '<S260>/Unit Conversion'
         // Unit Conversion - from: deg to: rad
         // Expression: output = (0.0174533*input) + (0)
         rtb_Sum1[0] = 0.017453292519943295 * rtb_Sum_n;
         rtb_Sum1[1] = 0.017453292519943295 * rtb_Product2;
 
-        // Product: '<S258>/dNorth' incorporates:
-        //   Constant: '<S273>/Constant2'
-        //   Product: '<S273>/Product3'
-        //   Trigonometry: '<S273>/Trigonometric Function1'
+        // Product: '<S259>/dNorth' incorporates:
+        //   Constant: '<S274>/Constant2'
+        //   Product: '<S274>/Product3'
+        //   Trigonometry: '<S274>/Trigonometric Function1'
 
         rtb_Switch_gh = rtb_Sum1[0] / rt_atan2d_snf(1.0, rtb_Switch *
             0.99330562000985867 / rtb_Switch_m2);
 
-        // Product: '<S258>/dEast' incorporates:
-        //   Constant: '<S273>/Constant3'
-        //   Trigonometry: '<S273>/Trigonometric Function2'
+        // Product: '<S259>/dEast' incorporates:
+        //   Constant: '<S274>/Constant3'
+        //   Trigonometry: '<S274>/Trigonometric Function2'
 
         rtb_Switch_m2 = 1.0 / rt_atan2d_snf(1.0, absxk) * rtb_Sum1[1];
 
-        // End of Outputs for SubSystem: '<S248>/LatLon2NorthEast'
+        // End of Outputs for SubSystem: '<S249>/LatLon2NorthEast'
 
-        // RelationalOperator: '<S251>/Compare' incorporates:
-        //   Constant: '<S251>/Constant'
+        // RelationalOperator: '<S252>/Compare' incorporates:
+        //   Constant: '<S252>/Constant'
 
         rtb_IsNaN[0] = (rtb_Sum1_tmp != 0.0);
         rtb_IsNaN[1] = (rtb_Sum1_tmp_0 != 0.0);
 
-        // Outputs for Atomic SubSystem: '<S248>/LatLon2NorthEast'
-        // ForEachSliceSelector generated from: '<S248>/OtherUAVstate' incorporates:
-        //   Gain: '<S250>/Down2Up'
+        // Outputs for Atomic SubSystem: '<S249>/LatLon2NorthEast'
+        // ForEachSliceSelector generated from: '<S249>/OtherUAVstate' incorporates:
+        //   Gain: '<S251>/Down2Up'
 
         rtb_Abs1_k = rtu_OtherUAVstate[ForEach_itr].Height_meter;
 
-        // End of Outputs for SubSystem: '<S248>/LatLon2NorthEast'
+        // End of Outputs for SubSystem: '<S249>/LatLon2NorthEast'
 
-        // RelationalOperator: '<S251>/Compare' incorporates:
-        //   Constant: '<S251>/Constant'
-        //   ForEachSliceSelector generated from: '<S248>/OtherUAVstate'
+        // RelationalOperator: '<S252>/Compare' incorporates:
+        //   Constant: '<S252>/Constant'
+        //   ForEachSliceSelector generated from: '<S249>/OtherUAVstate'
 
         rtb_IsNaN[2] = (rtb_Abs1_k != 0.0);
 
-        // ForEachSliceSelector generated from: '<S248>/OtherUAVstate'
+        // ForEachSliceSelector generated from: '<S249>/OtherUAVstate'
         rtb_Switch = rtu_OtherUAVstate[ForEach_itr].AirSpeed_mps;
 
-        // RelationalOperator: '<S251>/Compare' incorporates:
-        //   Constant: '<S251>/Constant'
-        //   ForEachSliceSelector generated from: '<S248>/OtherUAVstate'
+        // RelationalOperator: '<S252>/Compare' incorporates:
+        //   Constant: '<S252>/Constant'
+        //   ForEachSliceSelector generated from: '<S249>/OtherUAVstate'
 
         rtb_IsNaN[3] = (rtb_Switch != 0.0);
 
-        // Outputs for Atomic SubSystem: '<S248>/LatLon2NorthEast'
-        // ForEachSliceSelector generated from: '<S248>/OtherUAVstate' incorporates:
-        //   Gain: '<S252>/Gain1'
+        // Outputs for Atomic SubSystem: '<S249>/LatLon2NorthEast'
+        // ForEachSliceSelector generated from: '<S249>/OtherUAVstate' incorporates:
+        //   Gain: '<S253>/Gain1'
 
         rtb_Sum_n = rtu_OtherUAVstate[ForEach_itr].HeadingAngle_deg;
 
-        // End of Outputs for SubSystem: '<S248>/LatLon2NorthEast'
+        // End of Outputs for SubSystem: '<S249>/LatLon2NorthEast'
 
-        // RelationalOperator: '<S251>/Compare' incorporates:
-        //   Constant: '<S251>/Constant'
-        //   ForEachSliceSelector generated from: '<S248>/OtherUAVstate'
+        // RelationalOperator: '<S252>/Compare' incorporates:
+        //   Constant: '<S252>/Constant'
+        //   ForEachSliceSelector generated from: '<S249>/OtherUAVstate'
 
         rtb_IsNaN[4] = (rtb_Sum_n != 0.0);
 
-        // Outputs for Atomic SubSystem: '<S248>/LatLon2NorthEast'
-        // ForEachSliceSelector generated from: '<S248>/OtherUAVstate' incorporates:
-        //   Gain: '<S253>/Gain1'
+        // Outputs for Atomic SubSystem: '<S249>/LatLon2NorthEast'
+        // ForEachSliceSelector generated from: '<S249>/OtherUAVstate' incorporates:
+        //   Gain: '<S254>/Gain1'
 
         rtb_Sum1_tmp = rtu_OtherUAVstate[ForEach_itr].FlightPathAngle_deg;
 
-        // End of Outputs for SubSystem: '<S248>/LatLon2NorthEast'
+        // End of Outputs for SubSystem: '<S249>/LatLon2NorthEast'
 
-        // RelationalOperator: '<S251>/Compare' incorporates:
-        //   Constant: '<S251>/Constant'
-        //   ForEachSliceSelector generated from: '<S248>/OtherUAVstate'
+        // RelationalOperator: '<S252>/Compare' incorporates:
+        //   Constant: '<S252>/Constant'
+        //   ForEachSliceSelector generated from: '<S249>/OtherUAVstate'
 
         rtb_IsNaN[5] = (rtb_Sum1_tmp != 0.0);
 
-        // Outputs for Atomic SubSystem: '<S248>/LatLon2NorthEast'
-        // ForEachSliceSelector generated from: '<S248>/OtherUAVstate' incorporates:
-        //   Gain: '<S254>/Gain1'
+        // Outputs for Atomic SubSystem: '<S249>/LatLon2NorthEast'
+        // ForEachSliceSelector generated from: '<S249>/OtherUAVstate' incorporates:
+        //   Gain: '<S255>/Gain1'
 
         rtb_Sum1_tmp_0 = rtu_OtherUAVstate[ForEach_itr].RollAngle_deg;
 
-        // End of Outputs for SubSystem: '<S248>/LatLon2NorthEast'
+        // End of Outputs for SubSystem: '<S249>/LatLon2NorthEast'
 
-        // RelationalOperator: '<S251>/Compare' incorporates:
-        //   Constant: '<S251>/Constant'
-        //   ForEachSliceSelector generated from: '<S248>/OtherUAVstate'
+        // RelationalOperator: '<S252>/Compare' incorporates:
+        //   Constant: '<S252>/Constant'
+        //   ForEachSliceSelector generated from: '<S249>/OtherUAVstate'
 
         rtb_IsNaN[6] = (rtb_Sum1_tmp_0 != 0.0);
 
-        // Sum: '<S248>/Sum of Elements'
+        // Sum: '<S249>/Sum of Elements'
         tmp = 0U;
         for (coffset = 0; coffset < 7; coffset++) {
             tmp = static_cast<uint32_T>(tmp + static_cast<uint32_T>
                 (rtb_IsNaN[coffset]));
         }
 
-        // Switch: '<S248>/Switch' incorporates:
+        // Switch: '<S249>/Switch' incorporates:
         //   DataStoreRead: '<S3>/AltitudeGCS'
-        //   Gain: '<S250>/Down2Up'
-        //   Gain: '<S250>/inverse'
-        //   Gain: '<S252>/Gain1'
+        //   Gain: '<S251>/Down2Up'
+        //   Gain: '<S251>/inverse'
         //   Gain: '<S253>/Gain1'
         //   Gain: '<S254>/Gain1'
-        //   Product: '<S258>/x*cos'
-        //   Product: '<S258>/x*sin'
-        //   Product: '<S258>/y*cos'
-        //   Product: '<S258>/y*sin'
-        //   Sum: '<S248>/Sum of Elements'
-        //   Sum: '<S255>/Sum'
-        //   Sum: '<S258>/Sum2'
-        //   Sum: '<S258>/Sum3'
+        //   Gain: '<S255>/Gain1'
+        //   Product: '<S259>/x*cos'
+        //   Product: '<S259>/x*sin'
+        //   Product: '<S259>/y*cos'
+        //   Product: '<S259>/y*sin'
+        //   Sum: '<S249>/Sum of Elements'
+        //   Sum: '<S256>/Sum'
+        //   Sum: '<S259>/Sum2'
+        //   Sum: '<S259>/Sum3'
 
         rtb_Equal = (static_cast<int32_T>(static_cast<uint8_T>(tmp)) != 0);
 
-        // Outputs for Atomic SubSystem: '<S248>/LatLon2NorthEast'
+        // Outputs for Atomic SubSystem: '<S249>/LatLon2NorthEast'
         rtb_Switch_o[0] = rtb_Switch_m2 * 0.0 + rtb_Switch_gh;
         rtb_Switch_o[1] = rtb_Switch_m2 - rtb_Switch_gh * 0.0;
         rtb_Switch_o[2] = rtb_Abs1_k + -AltitudeGCS;
 
-        // End of Outputs for SubSystem: '<S248>/LatLon2NorthEast'
+        // End of Outputs for SubSystem: '<S249>/LatLon2NorthEast'
         rtb_Switch_o[3] = rtb_Switch;
 
-        // Outputs for Atomic SubSystem: '<S248>/LatLon2NorthEast'
+        // Outputs for Atomic SubSystem: '<S249>/LatLon2NorthEast'
         rtb_Switch_o[4] = 0.017453292519943295 * rtb_Sum_n;
         rtb_Switch_o[5] = 0.017453292519943295 * rtb_Sum1_tmp;
         rtb_Switch_o[6] = 0.017453292519943295 * rtb_Sum1_tmp_0;
 
-        // End of Outputs for SubSystem: '<S248>/LatLon2NorthEast'
+        // End of Outputs for SubSystem: '<S249>/LatLon2NorthEast'
 
-        // ForEachSliceAssignment generated from: '<S248>/OtherUAVNED'
+        // ForEachSliceAssignment generated from: '<S249>/OtherUAVNED'
         for (coffset = 0; coffset < 7; coffset++) {
-            // Switch: '<S248>/Switch' incorporates:
-            //   ForEachSliceAssignment generated from: '<S248>/OtherUAVNED'
+            // Switch: '<S249>/Switch' incorporates:
+            //   ForEachSliceAssignment generated from: '<S249>/OtherUAVNED'
 
             if (rtb_Equal) {
                 localDW->ImpAsg_InsertedFor_OtherUAVNED_at_inport_0[static_cast<
@@ -3428,7 +3482,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             }
         }
 
-        // End of ForEachSliceAssignment generated from: '<S248>/OtherUAVNED'
+        // End of ForEachSliceAssignment generated from: '<S249>/OtherUAVNED'
     }
 
     // End of Outputs for SubSystem: '<S3>/For Each Subsystem'
@@ -3453,12 +3507,12 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
     //   Constant: '<S35>/ControlSpd'
     //   Constant: '<S35>/ShiftSimUAV'
     //   Constant: '<S5>/ShiftSimUAV'
-    //   ForEachSliceAssignment generated from: '<S248>/OtherUAVNED'
+    //   ForEachSliceAssignment generated from: '<S249>/OtherUAVNED'
     //   ForEachSliceSelector generated from: '<S18>/StateNow'
     //   Gain: '<S17>/Gravity'
     //   Gain: '<S210>/Gravity'
-    //   Gain: '<S223>/Gain1'
     //   Gain: '<S224>/Gain1'
+    //   Gain: '<S225>/Gain1'
     //   Inport: '<S38>/OrbitNavHdg'
     //   MATLAB Function: '<S135>/BaseWayPoint'
     //   MATLABSystem: '<S129>/Waypoint Follower'
@@ -3468,7 +3522,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
     //   Product: '<S28>/HorizSpd'
     //   QuatInterp: '<S98>/Quaternion Interpolation'
     //   Sum: '<S18>/Sum of Elements'
-    //   Sum: '<S248>/Sum of Elements'
+    //   Sum: '<S249>/Sum of Elements'
     //   Sum: '<S71>/MinusVecCenter2UAV'
     //   Trigonometry: '<S17>/Cos'
     //   Trigonometry: '<S17>/Tan'
@@ -3514,12 +3568,12 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
     localDW->SwitchCase_ActiveSubsystem = rtAction;
     if (static_cast<int32_T>(rtPrevAction) != static_cast<int32_T>(rtAction)) {
         // Disable for Atomic SubSystem: '<S217>/SailDistance'
-        // Disable for Enabled SubSystem: '<S218>/SailShift'
+        // Disable for Enabled SubSystem: '<S219>/SailShift'
         localDW->SailShift_MODE = static_cast<boolean_T>(static_cast<int32_T>((
             static_cast<int32_T>(rtPrevAction) != 5) & static_cast<int32_T>
             (localDW->SailShift_MODE)));
 
-        // End of Disable for SubSystem: '<S218>/SailShift'
+        // End of Disable for SubSystem: '<S219>/SailShift'
         // End of Disable for SubSystem: '<S217>/SailDistance'
     }
 
@@ -4087,11 +4141,11 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                         }
 
                         t = ImmedMission_norm_pv(u);
-                        rtb_Switch = ImmedMission_norm_pv(rtb_Sum_o);
+                        rtb_Switch_m2 = ImmedMission_norm_pv(rtb_Sum_o);
                         turnVector_idx_0 = u[0] / t;
-                        rtb_Sum_dq = rtb_Sum_o[0] / rtb_Switch;
-                        rtb_Switch_m2 = u[1] / t;
-                        rtb_Sum1_tmp_0 = rtb_Sum_o[1] / rtb_Switch;
+                        rtb_Sum_dq = rtb_Sum_o[0] / rtb_Switch_m2;
+                        rtb_Switch = u[1] / t;
+                        rtb_Sum1_tmp_0 = rtb_Sum_o[1] / rtb_Switch_m2;
                         localDW->obj_c.PrevPosition[0] =
                             rtb_TmpSignalConversionAtOrbitFollowerInport1[0];
                         localDW->obj_c.PrevPosition[1] =
@@ -4100,10 +4154,9 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                             rtb_TmpSignalConversionAtOrbitFollowerInport1[2];
                         localDW->obj_c.NumCircles += rt_atan2d_snf
                             (turnVector_idx_0 * rtb_Sum1_tmp_0 - rtb_Sum_dq *
-                             rtb_Switch_m2, (turnVector_idx_0 * rtb_Sum_dq +
-                                             rtb_Switch_m2 * rtb_Sum1_tmp_0) +
-                             0.0 / t * (0.0 / rtb_Switch)) / 2.0 /
-                            3.1415926535897931;
+                             rtb_Switch, (turnVector_idx_0 * rtb_Sum_dq +
+                                          rtb_Switch * rtb_Sum1_tmp_0) + 0.0 / t
+                             * (0.0 / rtb_Switch_m2)) / 2.0 / 3.1415926535897931;
                         rtb_Sum_o[0] = xyCenter[0] -
                             rtb_TmpSignalConversionAtOrbitFollowerInport1[0];
                         rtb_Sum_o[1] = xyCenter[1] -
@@ -5665,26 +5718,29 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                     // Product: '<S71>/Scale2ExpansionChannel' incorporates:
                     //   DataTypeConversion: '<S65>/Param2'
 
-                    t = static_cast<real_T>(rtu_MissionInput->params.Param2) /
-                        rtb_Switch_m2;
+                    rtb_Sum1_tmp_0 = static_cast<real_T>
+                        (rtu_MissionInput->params.Param2) / rtb_Switch_m2;
                     rtb_Sum_o[0] = (static_cast<real_T>
                                     (rtu_MissionInput->params.Param1) *
                                     localDW->CoreSubsys[ForEach_itr_c].
-                                    ProductTargetVec[0] / rtb_Sum_n + t *
-                                    localDW->CoreSubsys[ForEach_itr_c].
-                                    ProductTargetVec[0]) + rtb_Switch;
+                                    ProductTargetVec[0] / rtb_Sum_n +
+                                    rtb_Sum1_tmp_0 * localDW->
+                                    CoreSubsys[ForEach_itr_c].ProductTargetVec[0])
+                        + rtb_Switch;
                     rtb_Sum_o[1] = (static_cast<real_T>
                                     (rtu_MissionInput->params.Param1) *
                                     localDW->CoreSubsys[ForEach_itr_c].
-                                    ProductTargetVec[1] / rtb_Sum_n + t *
-                                    localDW->CoreSubsys[ForEach_itr_c].
-                                    ProductTargetVec[1]) + rtb_Abs1_k;
+                                    ProductTargetVec[1] / rtb_Sum_n +
+                                    rtb_Sum1_tmp_0 * localDW->
+                                    CoreSubsys[ForEach_itr_c].ProductTargetVec[1])
+                        + rtb_Abs1_k;
                     rtb_Sum_o[2] = (static_cast<real_T>
                                     (rtu_MissionInput->params.Param1) *
                                     localDW->CoreSubsys[ForEach_itr_c].
-                                    ProductTargetVec[2] / rtb_Sum_n + t *
-                                    localDW->CoreSubsys[ForEach_itr_c].
-                                    ProductTargetVec[2]) + rtb_Switch_gh;
+                                    ProductTargetVec[2] / rtb_Sum_n +
+                                    rtb_Sum1_tmp_0 * localDW->
+                                    CoreSubsys[ForEach_itr_c].ProductTargetVec[2])
+                        + rtb_Switch_gh;
                 } else {
                     rtb_Sum_o[0] = localDW->MatrixConcatenateState[ForEach_itr_c];
                     rtb_Sum_o[1] = rtb_Sum1_tmp_0;
@@ -6115,8 +6171,10 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                 // SystemReset for Triggered SubSystem: '<S129>/WayPointGen'
                 // SystemReset for SwitchCase: '<S1>/Switch Case' incorporates:
                 //   Chart: '<S129>/TriggerCalibrStart'
+                //   MATLAB Function: '<S135>/BaseWayPoint'
                 //   MATLABSystem: '<S129>/Waypoint Follower'
 
+                localDW->SingletonInstance_not_empty = false;
                 localZCE->WayPointGen_Trig_ZCE_d = NEG_ZCSIG;
 
                 // End of SystemReset for SubSystem: '<S129>/WayPointGen'
@@ -6263,7 +6321,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             // End of Switch: '<S163>/Switch'
 
             // Sum: '<S159>/Sum'
-            rtb_Sum_n = static_cast<real_T>(coffset) + rtb_Sum1[1];
+            rtb_Sum_dq = static_cast<real_T>(coffset) + rtb_Sum1[1];
 
             // Switch: '<S164>/Switch' incorporates:
             //   Abs: '<S164>/Abs'
@@ -6274,8 +6332,8 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             //   Math: '<S164>/Math Function1'
             //   RelationalOperator: '<S168>/Compare'
 
-            if (std::abs(rtb_Sum_n) > 180.0) {
-                rtb_Sum_n = rt_modd_snf(rtb_Sum_n + 180.0, 360.0) + -180.0;
+            if (std::abs(rtb_Sum_dq) > 180.0) {
+                rtb_Sum_dq = rt_modd_snf(rtb_Sum_dq + 180.0, 360.0) + -180.0;
             }
 
             // End of Switch: '<S164>/Switch'
@@ -6284,7 +6342,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             // Unit Conversion - from: deg to: rad
             // Expression: output = (0.0174533*input) + (0)
             rtb_Sum1[0] = 0.017453292519943295 * rtb_Switch;
-            rtb_Sum1[1] = 0.017453292519943295 * rtb_Sum_n;
+            rtb_Sum1[1] = 0.017453292519943295 * rtb_Sum_dq;
 
             // UnitConversion: '<S177>/Unit Conversion'
             // Unit Conversion - from: deg to: rad
@@ -6292,27 +6350,27 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             rtb_Switch_m2 *= 0.017453292519943295;
 
             // Trigonometry: '<S178>/Trigonometric Function1'
-            rtb_Sum_n = std::sin(rtb_Switch_m2);
+            rtb_Sum_dq = std::sin(rtb_Switch_m2);
 
             // Sum: '<S178>/Sum1' incorporates:
             //   Constant: '<S178>/Constant'
             //   Product: '<S178>/Product1'
 
-            rtb_Sum_n = 1.0 - 0.0066943799901413295 * rtb_Sum_n * rtb_Sum_n;
+            rtb_Sum_dq = 1.0 - 0.0066943799901413295 * rtb_Sum_dq * rtb_Sum_dq;
 
             // Product: '<S176>/Product1' incorporates:
             //   Constant: '<S176>/Constant1'
             //   Sqrt: '<S176>/sqrt'
 
-            rtb_Switch = 6.378137E+6 / std::sqrt(rtb_Sum_n);
+            rtb_Switch = 6.378137E+6 / std::sqrt(rtb_Sum_dq);
 
             // Product: '<S161>/dNorth' incorporates:
             //   Constant: '<S176>/Constant2'
             //   Product: '<S176>/Product3'
             //   Trigonometry: '<S176>/Trigonometric Function1'
 
-            rtb_Sum_n = rtb_Sum1[0] / rt_atan2d_snf(1.0, rtb_Switch *
-                0.99330562000985867 / rtb_Sum_n);
+            rtb_Sum_dq = rtb_Sum1[0] / rt_atan2d_snf(1.0, rtb_Switch *
+                0.99330562000985867 / rtb_Sum_dq);
 
             // Product: '<S161>/dEast' incorporates:
             //   Constant: '<S176>/Constant3'
@@ -6341,15 +6399,17 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             //   Sum: '<S161>/Sum3'
             //   UnaryMinus: '<S158>/Ze2height'
 
-            u[0] = rtb_Switch * 0.0 + rtb_Sum_n;
-            u[1] = rtb_Switch - rtb_Sum_n * 0.0;
-            u[2] = -rtb_Switch_m2;
+            rtb_Sum_o[0] = rtb_Switch * 0.0 + rtb_Sum_dq;
+            rtb_Sum_o[1] = rtb_Switch - rtb_Sum_dq * 0.0;
+            rtb_Sum_o[2] = -rtb_Switch_m2;
 
             // Sum: '<S129>/Minus' incorporates:
             //   Reshape: '<S129>/ReshapeXe'
 
-            rtb_TmpSignalConversionAtOrbitFollowerInport2[0] = rtb_North - u[0];
-            rtb_TmpSignalConversionAtOrbitFollowerInport2[1] = rtb_East - u[1];
+            rtb_TmpSignalConversionAtOrbitFollowerInport2[0] = rtb_North -
+                rtb_Sum_o[0];
+            rtb_TmpSignalConversionAtOrbitFollowerInport2[1] = rtb_East -
+                rtb_Sum_o[1];
 
             // Switch: '<S149>/Switch' incorporates:
             //   Bias: '<S149>/Bias'
@@ -6361,15 +6421,15 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             //   RelationalOperator: '<S150>/Compare'
 
             if (t > 180.0) {
-                rtb_Switch_m2 = rt_modd_snf(LatitudeGCS + 180.0, 360.0) + -180.0;
+                rtb_Sum_n = rt_modd_snf(LatitudeGCS + 180.0, 360.0) + -180.0;
             } else {
-                rtb_Switch_m2 = LatitudeGCS;
+                rtb_Sum_n = LatitudeGCS;
             }
 
             // End of Switch: '<S149>/Switch'
 
             // Abs: '<S146>/Abs1'
-            rtb_Abs1_k = std::abs(rtb_Switch_m2);
+            rtb_Abs1_k = std::abs(rtb_Sum_n);
 
             // Switch: '<S146>/Switch' incorporates:
             //   Bias: '<S146>/Bias'
@@ -6384,18 +6444,18 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
 
             if (rtb_Abs1_k > 90.0) {
                 // Signum: '<S146>/Sign1'
-                if (rtb_Switch_m2 < 0.0) {
-                    rtb_Switch_m2 = -1.0;
-                } else if (rtb_Switch_m2 > 0.0) {
-                    rtb_Switch_m2 = 1.0;
-                } else if (rtb_Switch_m2 == 0.0) {
-                    rtb_Switch_m2 = 0.0;
+                if (rtb_Sum_n < 0.0) {
+                    rtb_Sum_n = -1.0;
+                } else if (rtb_Sum_n > 0.0) {
+                    rtb_Sum_n = 1.0;
+                } else if (rtb_Sum_n == 0.0) {
+                    rtb_Sum_n = 0.0;
                 } else {
-                    rtb_Switch_m2 = (rtNaN);
+                    rtb_Sum_n = (rtNaN);
                 }
 
                 // End of Signum: '<S146>/Sign1'
-                rtb_Switch_m2 *= -(rtb_Abs1_k + -90.0) + 90.0;
+                rtb_Sum_n *= -(rtb_Abs1_k + -90.0) + 90.0;
                 coffset = 180;
             } else {
                 coffset = 0;
@@ -6425,7 +6485,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             // End of Switch: '<S147>/Switch'
 
             // Sum: '<S132>/Sum1'
-            rtb_Sum1[0] = rtu_MissionInput->MissionLocation.Lat - rtb_Switch_m2;
+            rtb_Sum1[0] = rtu_MissionInput->MissionLocation.Lat - rtb_Sum_n;
             rtb_Sum1[1] = rtu_MissionInput->MissionLocation.Lon - rtb_Switch_gh;
 
             // Switch: '<S143>/Switch' incorporates:
@@ -6481,7 +6541,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             // End of Switch: '<S140>/Switch'
 
             // Sum: '<S136>/Sum'
-            rtb_Sum_n = static_cast<real_T>(coffset) + rtb_Sum1[1];
+            rtb_Sum_dq = static_cast<real_T>(coffset) + rtb_Sum1[1];
 
             // Switch: '<S141>/Switch' incorporates:
             //   Abs: '<S141>/Abs'
@@ -6492,8 +6552,8 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             //   Math: '<S141>/Math Function1'
             //   RelationalOperator: '<S145>/Compare'
 
-            if (std::abs(rtb_Sum_n) > 180.0) {
-                rtb_Sum_n = rt_modd_snf(rtb_Sum_n + 180.0, 360.0) + -180.0;
+            if (std::abs(rtb_Sum_dq) > 180.0) {
+                rtb_Sum_dq = rt_modd_snf(rtb_Sum_dq + 180.0, 360.0) + -180.0;
             }
 
             // End of Switch: '<S141>/Switch'
@@ -6502,15 +6562,15 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             // Unit Conversion - from: deg to: rad
             // Expression: output = (0.0174533*input) + (0)
             rtb_Sum1[0] = 0.017453292519943295 * rtb_Switch_gh;
-            rtb_Sum1[1] = 0.017453292519943295 * rtb_Sum_n;
+            rtb_Sum1[1] = 0.017453292519943295 * rtb_Sum_dq;
 
             // UnitConversion: '<S154>/Unit Conversion'
             // Unit Conversion - from: deg to: rad
             // Expression: output = (0.0174533*input) + (0)
-            rtb_Switch_m2 *= 0.017453292519943295;
+            rtb_Sum_n *= 0.017453292519943295;
 
             // Trigonometry: '<S155>/Trigonometric Function1'
-            rtb_Switch_gh = std::sin(rtb_Switch_m2);
+            rtb_Switch_gh = std::sin(rtb_Sum_n);
 
             // Sum: '<S155>/Sum1' incorporates:
             //   Constant: '<S155>/Constant'
@@ -6523,14 +6583,14 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             //   Constant: '<S153>/Constant1'
             //   Sqrt: '<S153>/sqrt'
 
-            rtb_Sum_n = 6.378137E+6 / std::sqrt(rtb_Switch_gh);
+            rtb_Sum_dq = 6.378137E+6 / std::sqrt(rtb_Switch_gh);
 
             // Product: '<S138>/dNorth' incorporates:
             //   Constant: '<S153>/Constant2'
             //   Product: '<S153>/Product3'
             //   Trigonometry: '<S153>/Trigonometric Function1'
 
-            rtb_Switch_gh = rtb_Sum1[0] / rt_atan2d_snf(1.0, rtb_Sum_n *
+            rtb_Switch_gh = rtb_Sum1[0] / rt_atan2d_snf(1.0, rtb_Sum_dq *
                 0.99330562000985867 / rtb_Switch_gh);
 
             // Product: '<S138>/dEast' incorporates:
@@ -6541,8 +6601,8 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
 
             // Unit Conversion - from: deg to: rad
             // Expression: output = (0.0174533*input) + (0)
-            rtb_Switch_m2 = 1.0 / rt_atan2d_snf(1.0, rtb_Sum_n * std::cos
-                (rtb_Switch_m2)) * rtb_Sum1[1];
+            rtb_Sum_n = 1.0 / rt_atan2d_snf(1.0, rtb_Sum_dq * std::cos(rtb_Sum_n))
+                * rtb_Sum1[1];
 
             // Outputs for Triggered SubSystem: '<S129>/WayPointGen' incorporates:
             //   TriggerPort: '<S135>/Trigger'
@@ -6555,13 +6615,13 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                 int32_T colToCopy;
 
                 // Saturate: '<S135>/Saturation' incorporates:
-                //   DataTypeConversion: '<S129>/Param5'
+                //   DataTypeConversion: '<S129>/Param2'
 
-                if (rtu_MissionInput->params.Param5 <= 1.0F) {
-                    rtb_Sum_n = 1.0;
+                if (rtu_MissionInput->params.Param2 <= 1.0F) {
+                    rtb_Switch_m2 = 1.0;
                 } else {
-                    rtb_Sum_n = static_cast<real_T>
-                        (rtu_MissionInput->params.Param5);
+                    rtb_Switch_m2 = static_cast<real_T>
+                        (rtu_MissionInput->params.Param2);
                 }
 
                 // End of Saturate: '<S135>/Saturation'
@@ -6570,23 +6630,19 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                 //   Bias: '<S135>/Bias'
                 //   Gain: '<S131>/Gain1'
 
-                turnVector_idx_0 = 0.017453292519943295 *
+                u[0] = 0.017453292519943295 *
                     rtu_MissionInput->MissionLocation.degHDG +
                     -0.78539816339744828;
 
                 // MATLABSystem: '<S135>/RotateATMissionHdg'
-                rtb_Sum_o[0] = std::cos(turnVector_idx_0);
-                turnVector_idx_0 = std::sin(turnVector_idx_0);
-                rtb_VectorConcatenate_a[0] = rtb_Sum_o[0];
-                rtb_VectorConcatenate_a[3] = 0.0 * rtb_Sum_o[0] -
-                    turnVector_idx_0;
-                rtb_VectorConcatenate_a[6] = 0.0 * rtb_Sum_o[0] +
-                    turnVector_idx_0 * 0.0;
-                rtb_VectorConcatenate_a[1] = turnVector_idx_0;
-                rtb_VectorConcatenate_a[4] = 0.0 * turnVector_idx_0 + rtb_Sum_o
-                    [0];
-                rtb_VectorConcatenate_a[7] = 0.0 * turnVector_idx_0 - rtb_Sum_o
-                    [0] * 0.0;
+                turnVector_idx_0 = std::cos(u[0]);
+                u[0] = std::sin(u[0]);
+                rtb_VectorConcatenate_a[0] = turnVector_idx_0;
+                rtb_VectorConcatenate_a[3] = 0.0 * turnVector_idx_0 - u[0];
+                rtb_VectorConcatenate_a[6] = 0.0 * turnVector_idx_0 + u[0] * 0.0;
+                rtb_VectorConcatenate_a[1] = u[0];
+                rtb_VectorConcatenate_a[4] = 0.0 * u[0] + turnVector_idx_0;
+                rtb_VectorConcatenate_a[7] = 0.0 * u[0] - turnVector_idx_0 * 0.0;
                 rtb_VectorConcatenate_a[2] = -0.0;
                 rtb_VectorConcatenate_a[5] = 0.0;
                 rtb_VectorConcatenate_a[8] = 1.0;
@@ -6603,42 +6659,70 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                 //   Sum: '<S138>/Sum3'
                 //   UnaryMinus: '<S132>/Ze2height'
 
-                rtb_Sum_o[0] = rtb_Switch_m2 * 0.0 + rtb_Switch_gh;
-                rtb_Sum_o[1] = rtb_Switch_m2 - rtb_Switch_gh * 0.0;
-                rtb_Sum_o[2] = -(rtu_MissionInput->MissionLocation.Alt +
-                                 -AltitudeGCS);
+                u[0] = rtb_Sum_n * 0.0 + rtb_Switch_gh;
+                u[1] = rtb_Sum_n - rtb_Switch_gh * 0.0;
+                u[2] = -(rtu_MissionInput->MissionLocation.Alt + -AltitudeGCS);
 
                 // MATLAB Function: '<S135>/BaseWayPoint' incorporates:
                 //   DataTypeConversion: '<S129>/Param1'
-                //   DataTypeConversion: '<S129>/Param2'
                 //   DataTypeConversion: '<S129>/Param3'
 
                 // MATLAB Function 'ImmedMissionGuidance/Mode131_SqCalibr/Mode131_Variant/Mode131/WayPointGen/BaseWayPoint': '<S181>:1' 
                 // '<S181>:1:5'
-                // '<S181>:1:25'
+                // '<S181>:1:26'
                 // '<S181>:1:5'
-                // '<S181>:1:7'
-                for (coffset = 0; coffset < 360; coffset++) {
-                    ForEach_itr = static_cast<int32_T>(coffset << 1);
-                    localDW->CirVec[ForEach_itr] = b_a[ForEach_itr] *
-                        static_cast<real_T>(rtu_MissionInput->params.Param2);
-                    localDW->CirVec[static_cast<int32_T>(ForEach_itr + 1)] =
-                        b_a[static_cast<int32_T>(ForEach_itr + 1)] *
-                        static_cast<real_T>(rtu_MissionInput->params.Param2);
+                if (static_cast<boolean_T>(static_cast<int32_T>
+                                           (static_cast<int32_T>
+                                            (localDW->SingletonInstance_not_empty)
+                      ^ 1))) {
+                    localDW->SingletonInstance.DubinsConnector.AirSpeed = 10.0;
+                    localDW->SingletonInstance.DubinsConnector.MaxRollAngle =
+                        0.3490658503988659;
+                    rtb_Abs1_k =
+                        localDW->SingletonInstance.DubinsConnector.MaxRollAngle;
+                    localDW->SingletonInstance.DubinsConnector.MinTurningRadius =
+                        localDW->SingletonInstance.DubinsConnector.AirSpeed *
+                        localDW->SingletonInstance.DubinsConnector.AirSpeed /
+                        (9.8 * std::tan(rtb_Abs1_k));
+                    localDW->SingletonInstance.DubinsConnector.AirSpeed = 35.0;
+                    rtb_Abs1_k =
+                        localDW->SingletonInstance.DubinsConnector.MaxRollAngle;
+                    localDW->SingletonInstance.DubinsConnector.MinTurningRadius =
+                        localDW->SingletonInstance.DubinsConnector.AirSpeed *
+                        localDW->SingletonInstance.DubinsConnector.AirSpeed /
+                        (9.8 * std::tan(rtb_Abs1_k));
+                    rtb_Abs1_k =
+                        localDW->SingletonInstance.DubinsConnector.MaxRollAngle;
+                    localDW->SingletonInstance.DubinsConnector.MinTurningRadius =
+                        localDW->SingletonInstance.DubinsConnector.AirSpeed *
+                        localDW->SingletonInstance.DubinsConnector.AirSpeed /
+                        (9.8 * std::tan(rtb_Abs1_k));
+                    localDW->SingletonInstance_not_empty = true;
                 }
 
-                // '<S181>:1:10'
+                rtb_Abs1_k =
+                    localDW->SingletonInstance.DubinsConnector.MinTurningRadius;
+
+                // '<S181>:1:8'
+                for (coffset = 0; coffset < 360; coffset++) {
+                    ForEach_itr = static_cast<int32_T>(coffset << 1);
+                    localDW->CirVec[ForEach_itr] = b_a[ForEach_itr] * rtb_Abs1_k;
+                    localDW->CirVec[static_cast<int32_T>(ForEach_itr + 1)] =
+                        b_a[static_cast<int32_T>(ForEach_itr + 1)] * rtb_Abs1_k;
+                }
+
                 // '<S181>:1:11'
+                // '<S181>:1:12'
                 linspace_Fzs74Tls(static_cast<real_T>
                                   (rtu_MissionInput->params.Param3), WPQ1_tmp);
 
-                // '<S181>:1:15'
                 // '<S181>:1:16'
-                // '<S181>:1:20'
+                // '<S181>:1:17'
                 // '<S181>:1:21'
-                // '<S181>:1:25'
+                // '<S181>:1:22'
                 // '<S181>:1:26'
-                // '<S181>:1:30'
+                // '<S181>:1:27'
+                // '<S181>:1:31'
                 rtb_Switch_gh = static_cast<real_T>
                     (rtu_MissionInput->params.Param1) / 2.0;
                 rtb_Abs1_k = -static_cast<real_T>
@@ -6688,18 +6772,18 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                         rtb_Switch;
                 }
 
-                ImmedMission_emxInit_real_T(&c_b, 2);
-                coffset = static_cast<int32_T>(c_b->size[0] * c_b->size[1]);
+                ImmedMission_emxInit_real_T(&d_b, 2);
+                coffset = static_cast<int32_T>(d_b->size[0] * d_b->size[1]);
 
                 // MATLAB Function: '<S135>/BaseWayPoint'
-                c_b->size[0] = 3;
-                c_b->size[1] = static_cast<int32_T>(364 * static_cast<int32_T>
-                    (rtb_Sum_n));
-                ImmedMission_emxEnsureCapacity_real_T(c_b, coffset);
+                d_b->size[0] = 3;
+                d_b->size[1] = static_cast<int32_T>(364 * static_cast<int32_T>
+                    (rtb_Switch_m2));
+                ImmedMission_emxEnsureCapacity_real_T(d_b, coffset);
 
                 // MATLAB Function: '<S135>/BaseWayPoint'
                 for (colIdx = 0; colIdx <= static_cast<int32_T>
-                        (static_cast<int32_T>(rtb_Sum_n) - 1); colIdx =
+                        (static_cast<int32_T>(rtb_Switch_m2) - 1); colIdx =
                         static_cast<int32_T>(colIdx + 1)) {
                     colToCopy = static_cast<int32_T>(static_cast<int32_T>(colIdx
                         * 1092) - 1);
@@ -6708,10 +6792,10 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                         coffset = static_cast<int32_T>(static_cast<int32_T>(
                             static_cast<int32_T>(ForEach_itr * 3) + colToCopy) +
                             1);
-                        c_b->data[coffset] = localDW->a[ForEach_itr_c];
-                        c_b->data[static_cast<int32_T>(coffset + 1)] =
+                        d_b->data[coffset] = localDW->a[ForEach_itr_c];
+                        d_b->data[static_cast<int32_T>(coffset + 1)] =
                             localDW->a[static_cast<int32_T>(ForEach_itr_c + 1)];
-                        c_b->data[static_cast<int32_T>(coffset + 2)] =
+                        d_b->data[static_cast<int32_T>(coffset + 2)] =
                             localDW->a[static_cast<int32_T>(ForEach_itr_c + 2)];
                     }
                 }
@@ -6721,23 +6805,23 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                     WayPoint->size[1]);
 
                 // MATLAB Function: '<S135>/BaseWayPoint'
-                WayPoint->size[0] = c_b->size[1];
+                WayPoint->size[0] = d_b->size[1];
                 WayPoint->size[1] = 3;
                 ImmedMission_emxEnsureCapacity_real_T(WayPoint, coffset);
 
                 // MATLAB Function: '<S135>/BaseWayPoint'
-                ForEach_itr_c = c_b->size[1];
+                ForEach_itr_c = d_b->size[1];
                 for (coffset = 0; coffset < 3; coffset++) {
                     for (ForEach_itr = 0; ForEach_itr <= static_cast<int32_T>
                             (ForEach_itr_c - 1); ForEach_itr++) {
                         WayPoint->data[static_cast<int32_T>(ForEach_itr +
                             static_cast<int32_T>(WayPoint->size[0] * coffset))] =
-                            c_b->data[static_cast<int32_T>(static_cast<int32_T>
+                            d_b->data[static_cast<int32_T>(static_cast<int32_T>
                             (3 * ForEach_itr) + coffset)];
                     }
                 }
 
-                ImmedMission_emxFree_real_T(&c_b);
+                ImmedMission_emxFree_real_T(&d_b);
                 ImmedMission_emxInit_real_T(&y, 2);
 
                 // MATLAB Function: '<S135>/BaseWayPoint' incorporates:
@@ -6745,8 +6829,8 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
 
                 ImmedMission_circshift(WayPoint);
 
-                // '<S181>:1:31'
-                rtb_Switch = 4.0 * rtb_Sum_n * static_cast<real_T>
+                // '<S181>:1:32'
+                rtb_Switch = 4.0 * rtb_Switch_m2 * static_cast<real_T>
                     (rtu_MissionInput->params.Param3);
                 if (std::isnan(static_cast<real_T>
                                (rtu_MissionInput->params.Param3))) {
@@ -6934,7 +7018,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                     ForEach_itr_c = static_cast<int32_T>(step->size[1] - 46);
                 }
 
-                // '<S181>:1:32'
+                // '<S181>:1:33'
                 if (static_cast<int32_T>(ForEach_itr_c - ForEach_itr) ==
                         WayPoint->size[0]) {
                     ImmedMission_emxInit_real_T1(&WayPoint_0, 1);
@@ -6968,9 +7052,9 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
 
                 // MATLAB Function: '<S135>/BaseWayPoint' incorporates:
                 //   Sum: '<S18>/Sum of Elements'
-                //   Sum: '<S248>/Sum of Elements'
+                //   Sum: '<S249>/Sum of Elements'
 
-                // '<S181>:1:34'
+                // '<S181>:1:35'
                 ForEach_itr_c = WayPoint->size[0];
                 coffset = static_cast<int32_T>(rotWayPoint->size[0] *
                     rotWayPoint->size[1]);
@@ -7018,14 +7102,14 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                 for (colToCopy = 0; colToCopy <= static_cast<int32_T>
                         (ForEach_itr - 1); colToCopy = static_cast<int32_T>
                         (colToCopy + 1)) {
-                    WayPoint->data[colToCopy] = rtb_Sum_o[0];
+                    WayPoint->data[colToCopy] = u[0];
                 }
 
                 for (colToCopy = 0; colToCopy <= static_cast<int32_T>
                         (ForEach_itr - 1); colToCopy = static_cast<int32_T>
                         (colToCopy + 1)) {
                     WayPoint->data[static_cast<int32_T>(ForEach_itr + colToCopy)]
-                        = rtb_Sum_o[1];
+                        = u[1];
                 }
 
                 colIdx = static_cast<int32_T>(rotWayPoint->size[0] << 1);
@@ -7033,10 +7117,10 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                         (ForEach_itr - 1); colToCopy = static_cast<int32_T>
                         (colToCopy + 1)) {
                     WayPoint->data[static_cast<int32_T>(colIdx + colToCopy)] =
-                        rtb_Sum_o[2];
+                        u[2];
                 }
 
-                // '<S181>:1:37'
+                // '<S181>:1:38'
                 ImmedMission_emxInit_real_T(&rotWayPoint_0, 2);
                 if (rotWayPoint->size[0] == WayPoint->size[0]) {
                     ForEach_itr_c = rotWayPoint->size[0];
@@ -7082,11 +7166,11 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                             data[coffset] + WayPoint->data[coffset];
                     }
 
-                    localDW->SFunction_DIMS2_j[0] = rotWayPoint_1->size[0];
-                    localDW->SFunction_DIMS2_j[1] = 3;
+                    localDW->SFunction_DIMS2_i[0] = rotWayPoint_1->size[0];
+                    localDW->SFunction_DIMS2_i[1] = 3;
                     ImmedMission_emxFree_real_T(&rotWayPoint_1);
                 } else {
-                    ImmedMission_binary_expand_op_p(localDW->SFunction_DIMS2_j,
+                    ImmedMission_binary_expand_op_p(localDW->SFunction_DIMS2_i,
                         rotWayPoint, WayPoint);
                 }
 
@@ -7129,7 +7213,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                     }
                 } else {
                     ImmedMission_binary_expand_op(localDW->nedWayPoint,
-                        localDW->SFunction_DIMS2_j, rotWayPoint, WayPoint);
+                        localDW->SFunction_DIMS2_i, rotWayPoint, WayPoint);
                 }
 
                 ImmedMission_emxFree_real_T(&rotWayPoint_0);
@@ -7142,18 +7226,18 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                 //   Reshape: '<S129>/ReshapeXe'
 
                 localDW->MatrixConcatenate_DIMS1[0] = static_cast<int32_T>
-                    (localDW->SFunction_DIMS2_j[0] + 1);
+                    (localDW->SFunction_DIMS2_i[0] + 1);
                 localDW->MatrixConcatenate_DIMS1[1] = localDW->
-                    SFunction_DIMS2_j[1];
-                localDW->MatrixConcatenate_d[0] = u[0];
+                    SFunction_DIMS2_i[1];
+                localDW->MatrixConcatenate_d[0] = rtb_Sum_o[0];
                 localDW->MatrixConcatenate_d[localDW->MatrixConcatenate_DIMS1[0]]
-                    = u[1];
+                    = rtb_Sum_o[1];
                 localDW->MatrixConcatenate_d[static_cast<int32_T>
-                    (localDW->MatrixConcatenate_DIMS1[0] << 1)] = u[2];
-                ForEach_itr_c = localDW->SFunction_DIMS2_j[1];
+                    (localDW->MatrixConcatenate_DIMS1[0] << 1)] = rtb_Sum_o[2];
+                ForEach_itr_c = localDW->SFunction_DIMS2_i[1];
                 for (coffset = 0; coffset <= static_cast<int32_T>(ForEach_itr_c
                         - 1); coffset++) {
-                    colIdx = localDW->SFunction_DIMS2_j[0];
+                    colIdx = localDW->SFunction_DIMS2_i[0];
                     for (ForEach_itr = 0; ForEach_itr <= static_cast<int32_T>
                             (colIdx - 1); ForEach_itr++) {
                         localDW->MatrixConcatenate_d[static_cast<int32_T>(
@@ -7161,7 +7245,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                             int32_T>(localDW->MatrixConcatenate_DIMS1[0] *
                                      coffset)) + 1)] = localDW->nedWayPoint[
                             static_cast<int32_T>(static_cast<int32_T>
-                            (localDW->SFunction_DIMS2_j[0] * coffset) +
+                            (localDW->SFunction_DIMS2_i[0] * coffset) +
                             ForEach_itr)];
                     }
                 }
@@ -7173,11 +7257,11 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                 //   Reshape: '<S129>/ReshapeXe'
                 //   Selector: '<S135>/Selector'
 
-                localDW->Minus[0] = localDW->nedWayPoint[0] - u[0];
+                localDW->Minus[0] = localDW->nedWayPoint[0] - rtb_Sum_o[0];
                 localDW->Minus[1] = localDW->nedWayPoint
-                    [localDW->SFunction_DIMS2_j[0]] - u[1];
+                    [localDW->SFunction_DIMS2_i[0]] - rtb_Sum_o[1];
                 localDW->Minus[2] = localDW->nedWayPoint[static_cast<int32_T>
-                    (localDW->SFunction_DIMS2_j[0] << 1)] - u[2];
+                    (localDW->SFunction_DIMS2_i[0] << 1)] - rtb_Sum_o[2];
             }
 
             // End of Outputs for SubSystem: '<S129>/WayPointGen'
@@ -7186,7 +7270,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             //   Constant: '<S129>/InitTrigger'
             //   MATLAB Function: '<S135>/BaseWayPoint'
             //   Sum: '<S18>/Sum of Elements'
-            //   Sum: '<S248>/Sum of Elements'
+            //   Sum: '<S249>/Sum of Elements'
 
             rtb_TmpSignalConversionAtOrbitFollowerInport1[0] = rtb_North;
             rtb_TmpSignalConversionAtOrbitFollowerInport1[1] = rtb_East;
@@ -7462,13 +7546,13 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                         turnVector[0] = rtb_HeadingAngle;
                         rtb_Abs1_k = turnVector_idx_1 - u[1];
                         turnVector[1] = rtb_Abs1_k;
-                        rtb_Switch = rtb_Switch_gh - u[2];
-                        turnVector[2] = rtb_Switch;
+                        rtb_Switch_m2 = rtb_Switch_gh - u[2];
+                        turnVector[2] = rtb_Switch_m2;
                         t = ImmedMission_norm_pv(turnVector);
                         rtb_HeadingAngle = (rtb_HeadingAngle / t * (rtb_Sum_o[0]
                                              / rtb_Abs1) + rtb_Abs1_k / t *
                                             (rtb_Sum_o[1] / rtb_Abs1)) +
-                            rtb_Switch / t * (rtb_Sum_o[2] / rtb_Abs1);
+                            rtb_Switch_m2 / t * (rtb_Sum_o[2] / rtb_Abs1);
                         if (rtb_HeadingAngle < 0.0) {
                             rtb_HeadingAngle = -1.0;
                         } else if (rtb_HeadingAngle > 0.0) {
@@ -7521,19 +7605,18 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                             static_cast<int32_T>(waypoints->size[0] << 1)) - 1)];
                     }
 
-                    rtb_Abs1_k = turnVector_idx_0 - u[0];
-                    rtb_Switch_m2 = rtb_North - u[0];
+                    t = turnVector_idx_0 - u[0];
+                    rtb_Sum1_tmp_0 = rtb_North - u[0];
                     rtb_Switch = turnVector_idx_1 - u[1];
                     rtb_HeadingAngle = rtb_East - u[1];
                     rtb_Sum_n = rtb_Switch_gh - u[2];
                     rtb_Sum1_tmp =
                         rtb_TmpSignalConversionAtOrbitFollowerInport1[2] - u[2];
-                    rtb_Abs1 = ((rtb_HeadingAngle * rtb_Switch + rtb_Switch_m2 *
-                                 rtb_Abs1_k) + rtb_Sum1_tmp * rtb_Sum_n) /
-                        ((rtb_Switch * rtb_Switch + rtb_Abs1_k * rtb_Abs1_k) +
-                         rtb_Sum_n * rtb_Sum_n);
+                    rtb_Abs1 = ((rtb_HeadingAngle * rtb_Switch + rtb_Sum1_tmp_0 *
+                                 t) + rtb_Sum1_tmp * rtb_Sum_n) / ((rtb_Switch *
+                        rtb_Switch + t * t) + rtb_Sum_n * rtb_Sum_n);
                     if (rtb_Abs1 < 0.0) {
-                        rtb_Sum_o[0] = rtb_Switch_m2;
+                        rtb_Sum_o[0] = rtb_Sum1_tmp_0;
                         rtb_Sum_o[1] = rtb_HeadingAngle;
                         rtb_Sum_o[2] = rtb_Sum1_tmp;
                         rtb_Abs1 = ImmedMission_norm_pv(rtb_Sum_o);
@@ -7545,7 +7628,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                             rtb_Switch_gh;
                         rtb_Abs1 = ImmedMission_norm_pv(rtb_Sum_o);
                     } else {
-                        rtb_Sum_o[0] = rtb_North - (rtb_Abs1 * rtb_Abs1_k + u[0]);
+                        rtb_Sum_o[0] = rtb_North - (rtb_Abs1 * t + u[0]);
                         rtb_Sum_o[1] = rtb_East - (rtb_Abs1 * rtb_Switch + u[1]);
                         rtb_Sum_o[2] =
                             rtb_TmpSignalConversionAtOrbitFollowerInport1[2] -
@@ -7554,16 +7637,14 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                     }
 
                     if (localDW->obj.LastWaypointFlag) {
-                        rtb_Abs1 = (((rtb_North - u[0]) * (turnVector_idx_0 - u
-                                      [0]) + (rtb_East - u[1]) *
-                                     (turnVector_idx_1 - u[1])) +
+                        rtb_Abs1 = (((rtb_East - u[1]) * (turnVector_idx_1 - u[1])
+                                     + rtb_Sum1_tmp_0 * t) +
                                     (rtb_TmpSignalConversionAtOrbitFollowerInport1
                                      [2] - u[2]) * (rtb_Switch_gh - u[2])) /
-                            (((turnVector_idx_0 - u[0]) * (turnVector_idx_0 - u
-                               [0]) + (turnVector_idx_1 - u[1]) *
-                              (turnVector_idx_1 - u[1])) + (rtb_Switch_gh - u[2])
-                             * (rtb_Switch_gh - u[2]));
-                        rtb_Sum_o[0] = rtb_North - (rtb_Abs1 * rtb_Abs1_k + u[0]);
+                            (((turnVector_idx_1 - u[1]) * (turnVector_idx_1 - u
+                               [1]) + t * t) + (rtb_Switch_gh - u[2]) *
+                             (rtb_Switch_gh - u[2]));
+                        rtb_Sum_o[0] = rtb_North - (rtb_Abs1 * t + u[0]);
                         rtb_Sum_o[1] = rtb_East - (rtb_Abs1 * rtb_Switch + u[1]);
                         rtb_Sum_o[2] =
                             rtb_TmpSignalConversionAtOrbitFollowerInport1[2] -
@@ -7611,8 +7692,8 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                         (rtb_Switch_gh - u[2]) * (rtb_Switch_gh - u[2]);
                     rtb_North = u[2] -
                         rtb_TmpSignalConversionAtOrbitFollowerInport1[2];
-                    rtb_Abs1 = ((rtb_Abs1_k * rtb_Sum1_tmp_0 + rtb_Switch *
-                                 rtb_East) + rtb_Sum_n * rtb_North) * 2.0;
+                    rtb_Abs1 = ((t * rtb_Sum1_tmp_0 + rtb_Switch * rtb_East) +
+                                rtb_Sum_n * rtb_North) * 2.0;
                     rtb_North = std::sqrt(rtb_Abs1 * rtb_Abs1 -
                                           (((rtb_Sum1_tmp_0 * rtb_Sum1_tmp_0 +
                         rtb_East * rtb_East) + rtb_North * rtb_North) -
@@ -8093,7 +8174,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
 
                 // SystemReset for Atomic SubSystem: '<S217>/SailDistance'
                 // SystemReset for SwitchCase: '<S1>/Switch Case' incorporates:
-                //   Chart: '<S218>/EnableSailShift'
+                //   Chart: '<S219>/EnableSailShift'
 
                 localDW->temporalCounter_i1 = 0U;
                 localDW->is_active_c12_ImmedMission = 0U;
@@ -8107,7 +8188,53 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             //   ActionPort: '<S12>/Action Port'
 
             // Outputs for Atomic SubSystem: '<S217>/SailDistance'
-            // Chart: '<S218>/EnableSailShift'
+            // Outputs for Enabled SubSystem: '<S219>/SailShift' incorporates:
+            //   EnablePort: '<S221>/Enable'
+
+            // Gain: '<S218>/Gain1' incorporates:
+            //   Gain: '<S222>/Gain1'
+
+            rtb_Abs1 = 0.017453292519943295 *
+                rtu_MissionInput->StartPosition.degHDG;
+
+            // End of Outputs for SubSystem: '<S219>/SailShift'
+            // End of Outputs for SubSystem: '<S217>/SailDistance'
+
+            // SignalConversion generated from: '<S217>/Coordinate Transformation Conversion' incorporates:
+            //   Constant: '<S217>/Zero'
+            //   Gain: '<S218>/Gain1'
+
+            rtb_TmpSignalConversionAtCoordinateTransformationConversionInport1_e[
+                0] = rtb_Abs1;
+            rtb_TmpSignalConversionAtCoordinateTransformationConversionInport1_e[
+                1] = 0.0;
+            rtb_TmpSignalConversionAtCoordinateTransformationConversionInport1_e[
+                2] = 0.0;
+            ImmedMission_CoordinateTransformationConversion
+                (rtb_TmpSignalConversionAtCoordinateTransformationConversionInport1_e,
+                 &localDW->CoordinateTransformationConversion);
+
+            // Product: '<S217>/Product' incorporates:
+            //   MATLABSystem: '<S217>/Coordinate Transformation Conversion'
+            //   Reshape: '<S217>/Reshape'
+
+            for (coffset = 0; coffset < 3; coffset++) {
+                rtb_TmpSignalConversionAtOrbitFollowerInport2[coffset] =
+                    (localDW->CoordinateTransformationConversion.CoordinateTransformationConversion
+                     [static_cast<int32_T>(static_cast<int32_T>(3 * coffset) + 1)]
+                     * rtu_MissionInput->StartPosition.Lon +
+                     localDW->CoordinateTransformationConversion.CoordinateTransformationConversion
+                     [static_cast<int32_T>(3 * coffset)] *
+                     rtu_MissionInput->StartPosition.Lat) +
+                    localDW->CoordinateTransformationConversion.CoordinateTransformationConversion
+                    [static_cast<int32_T>(static_cast<int32_T>(3 * coffset) + 2)]
+                    * rtu_MissionInput->StartPosition.Alt;
+            }
+
+            // End of Product: '<S217>/Product'
+
+            // Outputs for Atomic SubSystem: '<S217>/SailDistance'
+            // Chart: '<S219>/EnableSailShift'
             if (static_cast<uint32_T>(localDW->temporalCounter_i1) < 127U) {
                 localDW->temporalCounter_i1 = static_cast<uint8_T>
                     (static_cast<uint32_T>(static_cast<uint32_T>
@@ -8124,109 +8251,107 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                 localDW->is_active_c12_ImmedMission = 1U;
 
                 // Entry Internal: ImmedMissionGuidance/Mode254_ShiftENU/Mode254_Variant/Mode254/SailDistance/EnableSailShift 
-                // Transition: '<S219>:5'
+                // Transition: '<S220>:5'
                 localDW->is_c12_ImmedMission = ImmedMission_IN_NotShift;
                 localDW->temporalCounter_i1 = 0U;
 
-                // Entry 'NotShift': '<S219>:4'
+                // Entry 'NotShift': '<S220>:4'
                 guard1 = true;
             } else if (static_cast<int32_T>(localDW->is_c12_ImmedMission) == 1)
             {
-                // During 'NotShift': '<S219>:4'
+                // During 'NotShift': '<S220>:4'
                 if (static_cast<boolean_T>(static_cast<int32_T>
                                            ((static_cast<uint32_T>
                         (localDW->temporalCounter_i1) >= 100U) &
                                             (rtu_MissionInput->params.Param5 !=
                         0.0F)))) {
-                    // Transition: '<S219>:8'
+                    // Transition: '<S220>:8'
                     localDW->is_c12_ImmedMission = ImmedMission_IN_Shift;
 
-                    // Entry 'Shift': '<S219>:6'
+                    // Entry 'Shift': '<S220>:6'
                     guard2 = true;
                 } else {
                     guard1 = true;
                 }
 
-                // During 'Shift': '<S219>:6'
+                // During 'Shift': '<S220>:6'
             } else if (rtu_MissionInput->params.Param5 == 0.0F) {
-                // Transition: '<S219>:9'
+                // Transition: '<S220>:9'
                 localDW->is_c12_ImmedMission = ImmedMission_IN_NotShift;
                 localDW->temporalCounter_i1 = 0U;
 
-                // Entry 'NotShift': '<S219>:4'
+                // Entry 'NotShift': '<S220>:4'
                 guard1 = true;
             } else {
                 guard2 = true;
             }
 
             if (guard2) {
-                // Outputs for Enabled SubSystem: '<S218>/SailShift' incorporates:
-                //   EnablePort: '<S220>/Enable'
+                // Outputs for Enabled SubSystem: '<S219>/SailShift' incorporates:
+                //   EnablePort: '<S221>/Enable'
 
                 if (static_cast<boolean_T>(static_cast<int32_T>
                                            (static_cast<int32_T>
                                             (localDW->SailShift_MODE) ^ 1))) {
-                    // InitializeConditions for DiscreteIntegrator: '<S220>/Discrete-Time Integrator' 
+                    // InitializeConditions for DiscreteIntegrator: '<S221>/Discrete-Time Integrator' 
                     localDW->DiscreteTimeIntegrator_DSTATE[0] = 0.0;
                     localDW->DiscreteTimeIntegrator_DSTATE[1] = 0.0;
                     localDW->SailShift_MODE = true;
                 }
 
-                // Gain: '<S221>/Gain1'
-                rtb_North = 0.017453292519943295 *
-                    rtu_MissionInput->StartPosition.degHDG;
-
-                // Product: '<S220>/Product' incorporates:
-                //   Trigonometry: '<S220>/Cos'
-                //   Trigonometry: '<S220>/Sin'
+                // Product: '<S221>/Product' incorporates:
+                //   Trigonometry: '<S221>/Cos'
+                //   Trigonometry: '<S221>/Sin'
 
                 localDW->Product[0] = static_cast<real_T>
-                    (rtu_MissionInput->params.Param5) * std::cos(rtb_North);
+                    (rtu_MissionInput->params.Param5) * std::cos(rtb_Abs1);
                 localDW->Product[1] = static_cast<real_T>
-                    (rtu_MissionInput->params.Param5) * std::sin(rtb_North);
+                    (rtu_MissionInput->params.Param5) * std::sin(rtb_Abs1);
 
-                // DiscreteIntegrator: '<S220>/Discrete-Time Integrator'
+                // DiscreteIntegrator: '<S221>/Discrete-Time Integrator'
                 localDW->DiscreteTimeIntegrator[0] = 0.05 * localDW->Product[0]
                     + localDW->DiscreteTimeIntegrator_DSTATE[0];
                 localDW->DiscreteTimeIntegrator[1] = 0.05 * localDW->Product[1]
                     + localDW->DiscreteTimeIntegrator_DSTATE[1];
 
-                // End of Outputs for SubSystem: '<S218>/SailShift'
+                // End of Outputs for SubSystem: '<S219>/SailShift'
 
-                // Switch: '<S218>/Switch'
+                // Switch: '<S219>/Switch'
                 rtb_Sum1[0] = localDW->DiscreteTimeIntegrator[0];
                 rtb_Sum1[1] = localDW->DiscreteTimeIntegrator[1];
             }
 
             if (guard1) {
-                // Outputs for Enabled SubSystem: '<S218>/SailShift' incorporates:
-                //   EnablePort: '<S220>/Enable'
+                // Outputs for Enabled SubSystem: '<S219>/SailShift' incorporates:
+                //   EnablePort: '<S221>/Enable'
 
                 localDW->SailShift_MODE = false;
 
-                // End of Outputs for SubSystem: '<S218>/SailShift'
+                // End of Outputs for SubSystem: '<S219>/SailShift'
 
-                // Switch: '<S218>/Switch' incorporates:
-                //   Constant: '<S218>/Zero'
+                // Switch: '<S219>/Switch' incorporates:
+                //   Constant: '<S219>/Zero'
 
                 rtb_Sum1[0] = 0.0;
                 rtb_Sum1[1] = 0.0;
             }
 
-            // End of Chart: '<S218>/EnableSailShift'
+            // End of Chart: '<S219>/EnableSailShift'
             // End of Outputs for SubSystem: '<S217>/SailDistance'
 
             // Sum: '<S217>/AddEast'
             rtb_Abs1 = (rtu_SimUAVstate->East +
-                        rtu_MissionInput->StartPosition.Lat) + rtb_Sum1[1];
+                        rtb_TmpSignalConversionAtOrbitFollowerInport2[0]) +
+                rtb_Sum1[1];
 
             // Sum: '<S217>/AddHeight'
             rtb_North = rtu_SimUAVstate->Height +
-                rtu_MissionInput->StartPosition.Alt;
+                rtb_TmpSignalConversionAtOrbitFollowerInport2[2];
 
             // Sum: '<S217>/AddNorth'
             rtb_East = (rtu_SimUAVstate->North +
-                        rtu_MissionInput->StartPosition.Lon) + rtb_Sum1[0];
+                        rtb_TmpSignalConversionAtOrbitFollowerInport2[1]) +
+                rtb_Sum1[0];
 
             // Merge: '<S1>/MergeCollAvoidSimUAV' incorporates:
             //   BusAssignment: '<S217>/Bus Assignment'
@@ -8262,41 +8387,29 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             //   ActionPort: '<S11>/Action Port'
 
             // SignalConversion generated from: '<S210>/Coordinate Transformation Conversion' 
-            u[0] = rtu_SimUAVstate->HeadingAngle;
-            u[1] = rtu_SimUAVstate->FlightPathAngle;
-            u[2] = rtu_SimUAVstate->RollAngle;
-
-            // MATLABSystem: '<S210>/Coordinate Transformation Conversion'
-            rtb_Sum_o[0] = std::cos(u[0]);
-            rtb_Sum_o[1] = std::cos(u[1]);
-            rtb_Sum_o[2] = std::cos(u[2]);
-            u[0] = std::sin(u[0]);
-            u[1] = std::sin(u[1]);
-            u[2] = std::sin(u[2]);
-            rtb_VectorConcatenate_a[0] = rtb_Sum_o[0] * rtb_Sum_o[1];
-            rtb_Product2 = u[1] * u[2];
-            rtb_VectorConcatenate_a[3] = rtb_Product2 * rtb_Sum_o[0] - u[0] *
-                rtb_Sum_o[2];
-            t = u[1] * rtb_Sum_o[2];
-            rtb_VectorConcatenate_a[6] = t * rtb_Sum_o[0] + u[0] * u[2];
-            rtb_VectorConcatenate_a[1] = u[0] * rtb_Sum_o[1];
-            rtb_VectorConcatenate_a[4] = rtb_Product2 * u[0] + rtb_Sum_o[0] *
-                rtb_Sum_o[2];
-            rtb_VectorConcatenate_a[7] = t * u[0] - rtb_Sum_o[0] * u[2];
-            rtb_VectorConcatenate_a[2] = -u[1];
-            rtb_VectorConcatenate_a[5] = rtb_Sum_o[1] * u[2];
-            rtb_VectorConcatenate_a[8] = rtb_Sum_o[1] * rtb_Sum_o[2];
+            rtb_TmpSignalConversionAtCoordinateTransformationConversionInport1[0]
+                = rtu_SimUAVstate->HeadingAngle;
+            rtb_TmpSignalConversionAtCoordinateTransformationConversionInport1[1]
+                = rtu_SimUAVstate->FlightPathAngle;
+            rtb_TmpSignalConversionAtCoordinateTransformationConversionInport1[2]
+                = rtu_SimUAVstate->RollAngle;
+            ImmedMission_CoordinateTransformationConversion
+                (rtb_TmpSignalConversionAtCoordinateTransformationConversionInport1,
+                 &localDW->CoordinateTransformationConversion_j);
 
             // Product: '<S210>/Matrix Multiply' incorporates:
             //   MATLABSystem: '<S210>/Coordinate Transformation Conversion'
             //   SignalConversion generated from: '<S210>/Matrix Multiply'
 
             for (coffset = 0; coffset < 3; coffset++) {
-                rtb_Sum_o[coffset] = (rtb_VectorConcatenate_a
-                                      [static_cast<int32_T>(coffset + 3)] *
-                                      rtu_MissionInput->StartPosition.Lon +
-                                      rtb_VectorConcatenate_a[coffset] * 0.0) +
-                    rtb_VectorConcatenate_a[static_cast<int32_T>(coffset + 6)] *
+                rtb_Sum_o[coffset] =
+                    (localDW->CoordinateTransformationConversion_j.CoordinateTransformationConversion
+                     [static_cast<int32_T>(coffset + 3)] *
+                     rtu_MissionInput->StartPosition.Lon +
+                     localDW->CoordinateTransformationConversion_j.CoordinateTransformationConversion
+                     [coffset] * 0.0) +
+                    localDW->CoordinateTransformationConversion_j.CoordinateTransformationConversion
+                    [static_cast<int32_T>(coffset + 6)] *
                     rtu_MissionInput->StartPosition.Alt;
             }
 
@@ -8423,9 +8536,9 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             // MATLAB Function 'ImmedMissionGuidance/Mode253_ShiftXYZ/Mode253_Variant/Mode253/ConstTurnPred': '<S211>:1' 
             // '<S211>:1:2'
             rtb_Switch_gh = rtb_HeadingAngle;
-            rtb_Switch = rtb_North;
+            rtb_Switch_m2 = rtb_North;
             rtb_HeadingAngle = 57.295779513082323 * localDW->Omega_g;
-            rtb_Switch_m2 = -rtb_East;
+            rtb_Switch = -rtb_East;
 
             // '<S211>:1:4'
             rtb_North = std::fmax(std::abs(0.017453292519943295 *
@@ -8465,9 +8578,9 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                 rtb_Sum_o[0] + rtb_Switch_gh) - rtb_Abs1_k * rtb_Sum_o[1]) +
                 rtb_East;
             localDW->MergeCollAvoidSimUAV.East = ((rtb_Abs1_k * rtb_Sum_o[0] +
-                rtb_Switch) + rtb_HeadingAngle * rtb_Sum_o[1]) + rtb_East;
+                rtb_Switch_m2) + rtb_HeadingAngle * rtb_Sum_o[1]) + rtb_East;
             localDW->MergeCollAvoidSimUAV.Height = -((rtb_Sum_o[2] * rtb_Abs1 +
-                rtb_Switch_m2) + rtb_East);
+                rtb_Switch) + rtb_East);
             rty_ControlSwitch[0] = false;
             rty_ControlSwitch[1] = false;
 
@@ -8514,7 +8627,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                 tmp = 0U;
                 for (coffset = 0; coffset < 7; coffset++) {
                     // Sum: '<S18>/Sum of Elements' incorporates:
-                    //   ForEachSliceAssignment generated from: '<S248>/OtherUAVNED'
+                    //   ForEachSliceAssignment generated from: '<S249>/OtherUAVNED'
                     //   ForEachSliceSelector generated from: '<S18>/StateNow'
                     //   RelationalOperator: '<S18>/IsNaN'
 
@@ -8535,7 +8648,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
 
                 if (localDW->CoreSubsys_d[ForEach_itr_c].NOT) {
                     // ForEachSliceSelector generated from: '<S18>/StateNow' incorporates:
-                    //   ForEachSliceAssignment generated from: '<S248>/OtherUAVNED'
+                    //   ForEachSliceAssignment generated from: '<S249>/OtherUAVNED'
                     //   Trigonometry: '<S28>/Tan'
                     //   Trigonometry: '<S32>/sincos'
 
@@ -8561,7 +8674,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                     // End of Outputs for SubSystem: '<S28>/DivisionByZeroProtection' 
 
                     // ForEachSliceSelector generated from: '<S18>/StateNow' incorporates:
-                    //   ForEachSliceAssignment generated from: '<S248>/OtherUAVNED'
+                    //   ForEachSliceAssignment generated from: '<S249>/OtherUAVNED'
                     //   Product: '<S28>/HorizSpd'
                     //   Trigonometry: '<S28>/Cos'
                     //   Trigonometry: '<S32>/sincos'
@@ -8578,7 +8691,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                     rtb_Sum_o[0] = std::cos(rtb_East);
 
                     // ForEachSliceSelector generated from: '<S18>/StateNow' incorporates:
-                    //   ForEachSliceAssignment generated from: '<S248>/OtherUAVNED'
+                    //   ForEachSliceAssignment generated from: '<S249>/OtherUAVNED'
                     //   Trigonometry: '<S32>/sincos'
 
                     rtb_East =
@@ -8646,7 +8759,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
 
                     // Product: '<S28>/Product' incorporates:
                     //   Concatenate: '<S33>/Vector Concatenate'
-                    //   ForEachSliceAssignment generated from: '<S248>/OtherUAVNED'
+                    //   ForEachSliceAssignment generated from: '<S249>/OtherUAVNED'
                     //   ForEachSliceSelector generated from: '<S18>/StateNow'
                     //   Reshape: '<S28>/Reshape'
 
@@ -8667,7 +8780,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                     // End of Product: '<S28>/Product'
 
                     // MATLAB Function: '<S28>/MATLAB Function' incorporates:
-                    //   ForEachSliceAssignment generated from: '<S248>/OtherUAVNED'
+                    //   ForEachSliceAssignment generated from: '<S249>/OtherUAVNED'
                     //   ForEachSliceSelector generated from: '<S18>/StateNow'
                     //   Gain: '<S28>/Inverse'
                     //   Gain: '<S31>/Gain'
@@ -8726,7 +8839,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
 
                 // Switch: '<S18>/Switch' incorporates:
                 //   ForEachSliceAssignment generated from: '<S18>/StatePred'
-                //   ForEachSliceAssignment generated from: '<S248>/OtherUAVNED'
+                //   ForEachSliceAssignment generated from: '<S249>/OtherUAVNED'
                 //   ForEachSliceSelector generated from: '<S18>/StateNow'
                 //   Product: '<S28>/HorizSpd'
                 //   Trigonometry: '<S28>/Cos'
@@ -8756,7 +8869,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
 
             // MATLAB Function: '<S14>/AllUAVstateMAT' incorporates:
             //   ForEachSliceAssignment generated from: '<S18>/StatePred'
-            //   ForEachSliceAssignment generated from: '<S248>/OtherUAVNED'
+            //   ForEachSliceAssignment generated from: '<S249>/OtherUAVNED'
             //   ForEachSliceSelector generated from: '<S18>/StateNow'
             //   Product: '<S28>/HorizSpd'
             //   Trigonometry: '<S28>/Cos'
@@ -8816,8 +8929,8 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             // MATLAB Function: '<S14>/pdist2' incorporates:
             //   BusCreator: '<S2>/FixedWingGuidanceStateBus'
             //   Gain: '<S17>/Gravity'
-            //   Gain: '<S223>/Gain1'
             //   Gain: '<S224>/Gain1'
+            //   Gain: '<S225>/Gain1'
             //   Product: '<S17>/HorizSpd'
             //   Trigonometry: '<S17>/Cos'
             //   Trigonometry: '<S17>/Tan'
@@ -8957,18 +9070,18 @@ void ImmedMission_Update(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
         //   ActionPort: '<S12>/Action Port'
 
         // Update for Atomic SubSystem: '<S217>/SailDistance'
-        // Update for Enabled SubSystem: '<S218>/SailShift' incorporates:
-        //   EnablePort: '<S220>/Enable'
+        // Update for Enabled SubSystem: '<S219>/SailShift' incorporates:
+        //   EnablePort: '<S221>/Enable'
 
         if (localDW->SailShift_MODE) {
-            // Update for DiscreteIntegrator: '<S220>/Discrete-Time Integrator'
+            // Update for DiscreteIntegrator: '<S221>/Discrete-Time Integrator'
             localDW->DiscreteTimeIntegrator_DSTATE[0] = 0.05 * localDW->Product
                 [0] + localDW->DiscreteTimeIntegrator[0];
             localDW->DiscreteTimeIntegrator_DSTATE[1] = 0.05 * localDW->Product
                 [1] + localDW->DiscreteTimeIntegrator[1];
         }
 
-        // End of Update for SubSystem: '<S218>/SailShift'
+        // End of Update for SubSystem: '<S219>/SailShift'
         // End of Update for SubSystem: '<S217>/SailDistance'
         // End of Update for SubSystem: '<S1>/Mode254_ShiftENU'
         break;

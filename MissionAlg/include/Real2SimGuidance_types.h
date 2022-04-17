@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'Real2SimGuidance'.
 //
-// Model version                  : 3.131
+// Model version                  : 3.146
 // Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Wed Apr 13 04:39:57 2022
+// C/C++ source code generated on : Sat Apr 16 03:35:25 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -181,6 +181,28 @@ struct FlightLogging
 };
 
 #endif
+
+// Custom Type definition for MATLAB Function: '<Root>/Get Nominal Flight Speed' 
+#ifndef struct_uavDubinsConnection_Real2SimGuidance_T
+#define struct_uavDubinsConnection_Real2SimGuidance_T
+
+struct uavDubinsConnection_Real2SimGuidance_T
+{
+    real_T AirSpeed;
+    real_T MaxRollAngle;
+};
+
+#endif                         // struct_uavDubinsConnection_Real2SimGuidance_T
+
+#ifndef struct_DubinsObjSingleton_Real2SimGuidance_T
+#define struct_DubinsObjSingleton_Real2SimGuidance_T
+
+struct DubinsObjSingleton_Real2SimGuidance_T
+{
+    uavDubinsConnection_Real2SimGuidance_T DubinsConnector;
+};
+
+#endif                          // struct_DubinsObjSingleton_Real2SimGuidance_T
 
 // Custom Type definition for MATLAB Function: '<Root>/TimeNow'
 #include "coder_posix_time.h"

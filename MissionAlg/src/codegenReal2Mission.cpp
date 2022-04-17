@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 3.201
+// Model version                  : 3.219
 // Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Wed Apr 13 04:41:14 2022
+// C/C++ source code generated on : Sat Apr 16 03:50:33 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -246,7 +246,7 @@ creal_T codegenReal2MissionModelClass::codegenReal2Mission_plus(const creal_T a,
     return c;
 }
 
-// Function for MATLAB Function: '<S28>/CommandCheck'
+// Function for MATLAB Function: '<S29>/CommandCheck'
 creal_T codegenReal2MissionModelClass::codegenReal2Mission_createFromDateVec(
     const real_T inData[7])
 {
@@ -301,7 +301,7 @@ creal_T codegenReal2MissionModelClass::codegenReal2Mission_createFromDateVec(
     return t;
 }
 
-// Function for MATLAB Function: '<S28>/CommandCheck'
+// Function for MATLAB Function: '<S29>/CommandCheck'
 boolean_T codegenReal2MissionModelClass::codegenReal2Mission_isequaln_f
     (MissionModes varargin_1, MissionModes varargin_2)
 {
@@ -314,7 +314,7 @@ boolean_T codegenReal2MissionModelClass::codegenReal2Mission_isequaln_f
     return p;
 }
 
-// Function for MATLAB Function: '<S28>/CommandCheck'
+// Function for MATLAB Function: '<S29>/CommandCheck'
 boolean_T codegenReal2MissionModelClass::codegenReal2Mission_isequaln(const
     missionCmd *varargin_1, int32_T varargin_2_SequenceID, MissionModes
     varargin_2_MissionMode, real_T varargin_2_MissionLocation_Lat, real_T
@@ -536,7 +536,7 @@ boolean_T codegenReal2MissionModelClass::codegenReal2Mission_isequaln(const
     return p;
 }
 
-// Function for MATLAB Function: '<S28>/CommandCheck'
+// Function for MATLAB Function: '<S29>/CommandCheck'
 boolean_T codegenReal2MissionModelClass::codegenReal2Mission_isPalindrome
     (MissionModes inputNum)
 {
@@ -641,7 +641,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_getLocalTime(real_T
     *t_tm_isdst = (origStructTm.tm_isdst != 0);
 }
 
-// Function for MATLAB Function: '<S28>/CommandCheck'
+// Function for MATLAB Function: '<S29>/CommandCheck'
 MissionModes codegenReal2MissionModelClass::
     codegenReal2Mission_convert_to_enum_MissionModes(int32_T input)
 {
@@ -699,7 +699,7 @@ creal_T codegenReal2MissionModelClass::codegenReal2Mission_two_diff(real_T a,
     return c;
 }
 
-// Function for MATLAB Function: '<S28>/CommandCheck'
+// Function for MATLAB Function: '<S29>/CommandCheck'
 creal_T codegenReal2MissionModelClass::codegenReal2Mission_divide(const creal_T
     a)
 {
@@ -787,7 +787,7 @@ creal_T codegenReal2MissionModelClass::codegenReal2Mission_minus(const creal_T a
     return cout;
 }
 
-// Function for MATLAB Function: '<S28>/CommandCheck'
+// Function for MATLAB Function: '<S29>/CommandCheck'
 void codegenReal2MissionModelClass::codegenReal2Mission_days2ymd(real_T days,
     real_T *y, real_T *m, real_T *d)
 {
@@ -876,7 +876,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_days2ymd(real_T days,
     }
 }
 
-// Function for MATLAB Function: '<S28>/CommandCheck'
+// Function for MATLAB Function: '<S29>/CommandCheck'
 void codegenReal2MissionModelClass::codegenReal2Mission_secs2hms(real_T secs,
     real_T *h, real_T *m, real_T *s)
 {
@@ -898,7 +898,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_secs2hms(real_T secs,
     }
 }
 
-// Function for MATLAB Function: '<S28>/CommandCheck'
+// Function for MATLAB Function: '<S29>/CommandCheck'
 void codegenReal2MissionModelClass::codegenReal2Mission_getDateVec_j(real_T dd,
     real_T *y, real_T *mo, real_T *d, real_T *h, real_T *m, real_T *s)
 {
@@ -974,7 +974,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_getDateVec_j(real_T dd,
     }
 }
 
-// Function for MATLAB Function: '<S28>/CommandCheck'
+// Function for MATLAB Function: '<S29>/CommandCheck'
 void codegenReal2MissionModelClass::codegenReal2Mission_getDateVec_jr(const
     creal_T dd, real_T *y, real_T *mo, real_T *d, real_T *h, real_T *m, real_T
     *s)
@@ -1108,7 +1108,7 @@ int32_T codegenReal2MissionModelClass::
     int32_T status{ 1 };
 
     // DiscreteEventSubgraph generated from: '<S1>/FeedbackCurrentMission' incorporates:
-    //   Send: '<S28>/PushCMD'
+    //   Send: '<S29>/PushCMD'
 
     msg = codegenReal2Mission_createMsg(data);
 
@@ -2570,12 +2570,11 @@ void codegenReal2MissionModelClass::codegenReal2Mission_initMemPool
 void codegenReal2MissionModelClass::step()
 {
     // local block i/o variables
-    FlightLogging rtb_Real2SimGuidance_o3;
     int32_T rtb_intFlightStatus;
     int32_T rtb_intImmedStatus;
     IndividualUAVCmd *tmp_4;
-    Location rtb_DataStoreRead_p_MissionLocation;
-    missionCmd reactor_PrevCMD;
+    Location rtb_Switch;
+    missionCmd reactor_FeedbackCMD;
     missionCmd rtb_FeedbackCMD;
     missionCmd rtb_FlightCMD;
     creal_T TimeNow_data;
@@ -2641,20 +2640,20 @@ void codegenReal2MissionModelClass::step()
 
         // Outputs for Atomic SubSystem: '<S1>/MissionValidation'
         // Outputs for Enabled SubSystem: '<S7>/TriggerMissionDispatch' incorporates:
-        //   EnablePort: '<S28>/Enable'
+        //   EnablePort: '<S29>/Enable'
 
         if (rtb_ReceivePushedMissionCMD_o1) {
             MissionModes reactor_NewCMD_MissionMode;
             int32_T reactor_NewCMD_FormationPos;
             int32_T reactor_NewCMD_numUAV;
 
-            // MATLAB Function: '<S28>/CommandCheck' incorporates:
-            //   DataStoreRead: '<S28>/Data Store Read'
-            //   DataStoreWrite: '<S28>/WriteCurrentCMD'
+            // MATLAB Function: '<S29>/CommandCheck' incorporates:
+            //   DataStoreRead: '<S29>/Data Store Read'
+            //   DataStoreRead: '<S29>/ReadPreviousCMD'
             //   Receive: '<S1>/ReceivePushedMissionCMD'
 
-            // MATLAB Function 'MissionLogic/MissionValidation/TriggerMissionDispatch/CommandCheck': '<S30>:1' 
-            // '<S30>:1:6'
+            // MATLAB Function 'MissionLogic/MissionValidation/TriggerMissionDispatch/CommandCheck': '<S31>:1' 
+            // '<S31>:1:6'
             processedInData[0] = static_cast<real_T>
                 (codegenReal2Mission_DW.ReceivePushedMissionCMD_o2.StartTime.year);
             processedInData[1] = static_cast<real_T>
@@ -2675,11 +2674,11 @@ void codegenReal2MissionModelClass::step()
                 codegenReal2Mission_DW.ReceivePushedMissionCMD_o2.SequenceID;
             reactor_NewCMD_MissionMode =
                 codegenReal2Mission_DW.ReceivePushedMissionCMD_o2.MissionMode;
-            reactor_PrevCMD.MissionLocation =
+            reactor_FeedbackCMD.MissionLocation =
                 codegenReal2Mission_DW.ReceivePushedMissionCMD_o2.MissionLocation;
-            reactor_PrevCMD.params =
+            reactor_FeedbackCMD.params =
                 codegenReal2Mission_DW.ReceivePushedMissionCMD_o2.params;
-            reactor_PrevCMD.StartPosition =
+            reactor_FeedbackCMD.StartPosition =
                 codegenReal2Mission_DW.ReceivePushedMissionCMD_o2.StartPosition;
             reactor_NewCMD_numUAV =
                 codegenReal2Mission_DW.ReceivePushedMissionCMD_o2.numUAV;
@@ -2727,128 +2726,36 @@ void codegenReal2MissionModelClass::step()
             codegenReal2Mission_DW.ImmedCMD.numUAV = 0;
             codegenReal2Mission_DW.ImmedCMD.FormationPos = 0;
             codegenReal2Mission_DW.ImmedCMD.StartTime = 0.0;
-            reactor_PrevCMD.SequenceID = followSwitch_prev;
-            reactor_PrevCMD.MissionMode = reactor_NewCMD_MissionMode;
-            reactor_PrevCMD.numUAV = reactor_NewCMD_numUAV;
-            reactor_PrevCMD.FormationPos = reactor_NewCMD_FormationPos;
-            reactor_PrevCMD.StartTime = check;
+            reactor_FeedbackCMD.SequenceID = followSwitch_prev;
+            reactor_FeedbackCMD.MissionMode = reactor_NewCMD_MissionMode;
+            reactor_FeedbackCMD.numUAV = reactor_NewCMD_numUAV;
+            reactor_FeedbackCMD.FormationPos = reactor_NewCMD_FormationPos;
+            reactor_FeedbackCMD.StartTime = check;
             if (codegenReal2Mission_DW.ReceivePushedMissionCMD_o2.MissionMode !=
                 MissionModes_TuneADRC) {
-                // '<S30>:1:8'
-                // '<S30>:1:9'
+                // '<S31>:1:8'
+                // '<S31>:1:9'
                 if (static_cast<boolean_T>(static_cast<int32_T>
                                            (static_cast<int32_T>
                                             (codegenReal2Mission_isequaln
                         (&codegenReal2Mission_DW.MissionCMD, followSwitch_prev,
                          reactor_NewCMD_MissionMode,
-                         reactor_PrevCMD.MissionLocation.Lat,
-                         reactor_PrevCMD.MissionLocation.Lon,
-                         reactor_PrevCMD.MissionLocation.Alt,
-                         reactor_PrevCMD.MissionLocation.degHDG,
-                         reactor_PrevCMD.params.Param1,
-                         reactor_PrevCMD.params.Param2,
-                         reactor_PrevCMD.params.Param3,
-                         reactor_PrevCMD.params.Param4,
-                         reactor_PrevCMD.params.Param5,
-                         reactor_PrevCMD.params.Param6,
-                         reactor_PrevCMD.params.Param7,
-                         reactor_PrevCMD.StartPosition, reactor_NewCMD_numUAV,
-                         reactor_NewCMD_FormationPos, check)) ^ 1))) {
-                    if (codegenReal2Mission_DW.ReceivePushedMissionCMD_o2.params.Param7
-                        == 1.0F) {
-                        if (static_cast<boolean_T>(static_cast<int32_T>
-                                                   ((codegenReal2Mission_DW.ReceivePushedMissionCMD_o2.MissionMode
-                               == MissionModes_None) |
-                                                    (codegenReal2Mission_DW.ReceivePushedMissionCMD_o2.MissionMode
-                               ==
-                                codegenReal2Mission_DW.CurrentFlightMission.MissionMode))))
-                        {
-                            std::memcpy(&reactor_PrevCMD,
-                                        &codegenReal2Mission_DW.CurrentFlightMission,
-                                        sizeof(missionCmd));
-                            if (codegenReal2Mission_DW.ReceivePushedMissionCMD_o2.MissionLocation.Lat
-                                != 0.0) {
-                                reactor_PrevCMD.MissionLocation.Lat =
-                                    codegenReal2Mission_DW.ReceivePushedMissionCMD_o2.MissionLocation.Lat;
-                            }
-
-                            if (codegenReal2Mission_DW.ReceivePushedMissionCMD_o2.MissionLocation.Lon
-                                != 0.0) {
-                                reactor_PrevCMD.MissionLocation.Lon =
-                                    codegenReal2Mission_DW.ReceivePushedMissionCMD_o2.MissionLocation.Lon;
-                            }
-
-                            if (codegenReal2Mission_DW.ReceivePushedMissionCMD_o2.MissionLocation.Alt
-                                != 0.0) {
-                                reactor_PrevCMD.MissionLocation.Alt =
-                                    codegenReal2Mission_DW.ReceivePushedMissionCMD_o2.MissionLocation.Alt;
-                            }
-
-                            if (codegenReal2Mission_DW.ReceivePushedMissionCMD_o2.MissionLocation.degHDG
-                                != 0.0) {
-                                reactor_PrevCMD.MissionLocation.degHDG =
-                                    codegenReal2Mission_DW.ReceivePushedMissionCMD_o2.MissionLocation.degHDG;
-                            }
-
-                            if (codegenReal2Mission_DW.ReceivePushedMissionCMD_o2.params.Param1
-                                != 0.0F) {
-                                reactor_PrevCMD.params.Param1 =
-                                    codegenReal2Mission_DW.ReceivePushedMissionCMD_o2.params.Param1;
-                            }
-
-                            if (codegenReal2Mission_DW.ReceivePushedMissionCMD_o2.params.Param2
-                                != 0.0F) {
-                                reactor_PrevCMD.params.Param2 =
-                                    codegenReal2Mission_DW.ReceivePushedMissionCMD_o2.params.Param2;
-                            }
-
-                            if (codegenReal2Mission_DW.ReceivePushedMissionCMD_o2.params.Param3
-                                != 0.0F) {
-                                reactor_PrevCMD.params.Param3 =
-                                    codegenReal2Mission_DW.ReceivePushedMissionCMD_o2.params.Param3;
-                            }
-
-                            if (codegenReal2Mission_DW.ReceivePushedMissionCMD_o2.params.Param4
-                                != 0.0F) {
-                                reactor_PrevCMD.params.Param4 =
-                                    codegenReal2Mission_DW.ReceivePushedMissionCMD_o2.params.Param4;
-                            }
-
-                            if (codegenReal2Mission_DW.ReceivePushedMissionCMD_o2.params.Param5
-                                != 0.0F) {
-                                reactor_PrevCMD.params.Param5 =
-                                    codegenReal2Mission_DW.ReceivePushedMissionCMD_o2.params.Param5;
-                            }
-
-                            if (codegenReal2Mission_DW.ReceivePushedMissionCMD_o2.params.Param6
-                                != 0.0F) {
-                                reactor_PrevCMD.params.Param6 =
-                                    codegenReal2Mission_DW.ReceivePushedMissionCMD_o2.params.Param6;
-                            }
-
-                            reactor_PrevCMD.params.Param7 = 1.0F;
-                            reactor_PrevCMD.SequenceID =
-                                codegenReal2Mission_DW.ReceivePushedMissionCMD_o2.SequenceID;
-                            reactor_PrevCMD.StartTime = check;
-                            printf("Reset flight mission, cancel immediate mission!\n");
-                            fflush(stdout);
-                            codegenReal2Mission_getLocalTime(&second,
-                                &c_tm_year[5], &c_tm_year[4], &c_tm_year[3],
-                                &c_tm_year[2], &c_tm_year[1], &c_tm_year[0],
-                                &rtb_ReceiveCurrentMission_o1);
-                            c_tm_year[6] = second / 1.0E+6;
-                            codegenReal2Mission_DW.PushImmed =
-                                (codegenReal2Mission_createFromDateVec(c_tm_year))
-                                .re / 1000.0 + 1.0;
-                            rtb_ReceivePushedMissionCMD_o1 = true;
-                            std::memcpy(&rtb_FlightCMD, &reactor_PrevCMD, sizeof
-                                        (missionCmd));
-                        } else {
-                            printf("Can not reset flight mission to a new mode!\n");
-                            fflush(stdout);
-                        }
-                    } else if (codegenReal2Mission_DW.MissionCMD.SequenceID ==
-                               codegenReal2Mission_DW.ReceivePushedMissionCMD_o2.SequenceID)
+                         reactor_FeedbackCMD.MissionLocation.Lat,
+                         reactor_FeedbackCMD.MissionLocation.Lon,
+                         reactor_FeedbackCMD.MissionLocation.Alt,
+                         reactor_FeedbackCMD.MissionLocation.degHDG,
+                         reactor_FeedbackCMD.params.Param1,
+                         reactor_FeedbackCMD.params.Param2,
+                         reactor_FeedbackCMD.params.Param3,
+                         reactor_FeedbackCMD.params.Param4,
+                         reactor_FeedbackCMD.params.Param5,
+                         reactor_FeedbackCMD.params.Param6,
+                         reactor_FeedbackCMD.params.Param7,
+                         reactor_FeedbackCMD.StartPosition,
+                         reactor_NewCMD_numUAV, reactor_NewCMD_FormationPos,
+                         check)) ^ 1))) {
+                    if (codegenReal2Mission_DW.MissionCMD.SequenceID ==
+                            codegenReal2Mission_DW.ReceivePushedMissionCMD_o2.SequenceID)
                     {
                         printf("Use a new Sequence ID for each new mission!\n");
                         fflush(stdout);
@@ -2882,16 +2789,85 @@ void codegenReal2MissionModelClass::step()
                             codegenReal2Mission_DW.ImmedCMD.MissionMode =
                                 reactor_NewCMD_MissionMode;
                             codegenReal2Mission_DW.ImmedCMD.MissionLocation =
-                                reactor_PrevCMD.MissionLocation;
+                                reactor_FeedbackCMD.MissionLocation;
                             codegenReal2Mission_DW.ImmedCMD.params =
-                                reactor_PrevCMD.params;
+                                reactor_FeedbackCMD.params;
                             codegenReal2Mission_DW.ImmedCMD.StartPosition =
-                                reactor_PrevCMD.StartPosition;
+                                reactor_FeedbackCMD.StartPosition;
                             codegenReal2Mission_DW.ImmedCMD.numUAV =
                                 reactor_NewCMD_numUAV;
                             codegenReal2Mission_DW.ImmedCMD.FormationPos =
                                 reactor_NewCMD_FormationPos;
                             codegenReal2Mission_DW.ImmedCMD.StartTime = check;
+                        } else if
+                                (codegenReal2Mission_DW.ReceivePushedMissionCMD_o2.params.Param7
+                                 == 1.0F) {
+                            reactor_NewCMD_MissionMode =
+                                codegenReal2Mission_DW.CurrentFlightMission.MissionMode;
+                            if (static_cast<boolean_T>(static_cast<int32_T>
+                                                       ((codegenReal2Mission_DW.ReceivePushedMissionCMD_o2.MissionMode
+                                   == MissionModes_None) |
+                                                        (codegenReal2Mission_DW.ReceivePushedMissionCMD_o2.MissionMode
+                                   == reactor_NewCMD_MissionMode)))) {
+                                printf("Reset flight mission, cancel immediate mission!\n");
+                                fflush(stdout);
+                                reactor_FeedbackCMD.SequenceID =
+                                    followSwitch_prev;
+                                reactor_FeedbackCMD.MissionMode =
+                                    reactor_NewCMD_MissionMode;
+                                reactor_FeedbackCMD.numUAV =
+                                    codegenReal2Mission_DW.CurrentFlightMission.numUAV;
+                                reactor_FeedbackCMD.FormationPos =
+                                    codegenReal2Mission_DW.CurrentFlightMission.FormationPos;
+                                reactor_FeedbackCMD.StartTime = check;
+                                rtb_ReceivePushedMissionCMD_o1 = true;
+                                rtb_FlightCMD.SequenceID = followSwitch_prev;
+                                rtb_FlightCMD.MissionMode =
+                                    reactor_NewCMD_MissionMode;
+                                rtb_FlightCMD.MissionLocation =
+                                    reactor_FeedbackCMD.MissionLocation;
+                                rtb_FlightCMD.params =
+                                    reactor_FeedbackCMD.params;
+                                rtb_FlightCMD.StartPosition =
+                                    reactor_FeedbackCMD.StartPosition;
+                                rtb_FlightCMD.numUAV =
+                                    codegenReal2Mission_DW.CurrentFlightMission.numUAV;
+                                rtb_FlightCMD.FormationPos =
+                                    codegenReal2Mission_DW.CurrentFlightMission.FormationPos;
+                                rtb_FlightCMD.StartTime = check;
+                                codegenReal2Mission_getLocalTime(&second, &temp,
+                                    &fracSecs, &tmp, &c_tm_mday, &c_tm_mon,
+                                    &da_im, &rtb_ReceiveCurrentMission_o1);
+                                codegenReal2Mission_DW.ImmedCMD.SequenceID =
+                                    followSwitch_prev;
+                                codegenReal2Mission_DW.ImmedCMD.MissionLocation =
+                                    reactor_FeedbackCMD.MissionLocation;
+                                codegenReal2Mission_DW.ImmedCMD.params =
+                                    reactor_FeedbackCMD.params;
+                                codegenReal2Mission_DW.ImmedCMD.StartPosition =
+                                    reactor_FeedbackCMD.StartPosition;
+                                codegenReal2Mission_DW.ImmedCMD.numUAV =
+                                    codegenReal2Mission_DW.CurrentFlightMission.numUAV;
+                                codegenReal2Mission_DW.ImmedCMD.FormationPos =
+                                    codegenReal2Mission_DW.CurrentFlightMission.FormationPos;
+                                codegenReal2Mission_DW.ImmedCMD.StartTime =
+                                    check;
+                                codegenReal2Mission_DW.ImmedCMD.MissionMode =
+                                    codegenReal2Mission_convert_to_enum_MissionModes
+                                    (static_cast<int32_T>
+                                     (reactor_FeedbackCMD.params.Param6));
+                                codegenReal2Mission_getLocalTime(&second,
+                                    &c_tm_year[5], &c_tm_year[4], &c_tm_year[3],
+                                    &c_tm_year[2], &c_tm_year[1], &c_tm_year[0],
+                                    &rtb_ReceiveCurrentMission_o1);
+                                c_tm_year[6] = second / 1.0E+6;
+                                codegenReal2Mission_DW.PushImmed =
+                                    (codegenReal2Mission_createFromDateVec
+                                     (c_tm_year)).re / 1000.0 + 1.0;
+                            } else {
+                                printf("Can not reset flight mission to a new mode!\n");
+                                fflush(stdout);
+                            }
                         } else {
                             codegenReal2Mission_getLocalTime(&second,
                                 &c_tm_year[5], &c_tm_year[4], &c_tm_year[3],
@@ -2904,50 +2880,53 @@ void codegenReal2MissionModelClass::step()
                                         codegenReal2Mission_isPalindrome
                                         (reactor_NewCMD_MissionMode)) {
                                     rtb_ReceivePushedMissionCMD_o1 = true;
-                                    codegenReal2Mission_DW.PushImmed = check;
                                     rtb_FlightCMD.SequenceID = followSwitch_prev;
                                     rtb_FlightCMD.MissionMode =
                                         reactor_NewCMD_MissionMode;
                                     rtb_FlightCMD.MissionLocation =
-                                        reactor_PrevCMD.MissionLocation;
+                                        reactor_FeedbackCMD.MissionLocation;
                                     rtb_FlightCMD.params =
-                                        reactor_PrevCMD.params;
+                                        reactor_FeedbackCMD.params;
                                     rtb_FlightCMD.StartPosition =
-                                        reactor_PrevCMD.StartPosition;
+                                        reactor_FeedbackCMD.StartPosition;
                                     rtb_FlightCMD.numUAV = reactor_NewCMD_numUAV;
                                     rtb_FlightCMD.FormationPos =
                                         reactor_NewCMD_FormationPos;
                                     rtb_FlightCMD.StartTime = check;
+                                    codegenReal2Mission_getLocalTime(&second,
+                                        &temp, &fracSecs, &tmp, &c_tm_mday,
+                                        &c_tm_mon, &da_im,
+                                        &rtb_ReceiveCurrentMission_o1);
                                     codegenReal2Mission_DW.ImmedCMD.SequenceID =
                                         followSwitch_prev;
                                     codegenReal2Mission_DW.ImmedCMD.MissionLocation
-                                        = reactor_PrevCMD.MissionLocation;
+                                        = reactor_FeedbackCMD.MissionLocation;
                                     codegenReal2Mission_DW.ImmedCMD.params =
-                                        reactor_PrevCMD.params;
+                                        reactor_FeedbackCMD.params;
                                     codegenReal2Mission_DW.ImmedCMD.StartPosition
-                                        = reactor_PrevCMD.StartPosition;
+                                        = reactor_FeedbackCMD.StartPosition;
                                     codegenReal2Mission_DW.ImmedCMD.numUAV =
                                         reactor_NewCMD_numUAV;
                                     codegenReal2Mission_DW.ImmedCMD.FormationPos
                                         = reactor_NewCMD_FormationPos;
                                     codegenReal2Mission_DW.ImmedCMD.StartTime =
                                         check;
+                                    codegenReal2Mission_DW.PushImmed = check;
                                     codegenReal2Mission_DW.ImmedCMD.MissionMode =
                                         codegenReal2Mission_convert_to_enum_MissionModes
                                         (static_cast<int32_T>
-                                         (reactor_PrevCMD.params.Param6));
+                                         (reactor_FeedbackCMD.params.Param6));
                                 } else {
                                     rtb_ReceivePushedMissionCMD_o1 = true;
-                                    codegenReal2Mission_DW.PushImmed = check;
                                     rtb_FlightCMD.SequenceID = followSwitch_prev;
                                     rtb_FlightCMD.MissionMode =
                                         reactor_NewCMD_MissionMode;
                                     rtb_FlightCMD.MissionLocation =
-                                        reactor_PrevCMD.MissionLocation;
+                                        reactor_FeedbackCMD.MissionLocation;
                                     rtb_FlightCMD.params =
-                                        reactor_PrevCMD.params;
+                                        reactor_FeedbackCMD.params;
                                     rtb_FlightCMD.StartPosition =
-                                        reactor_PrevCMD.StartPosition;
+                                        reactor_FeedbackCMD.StartPosition;
                                     rtb_FlightCMD.numUAV = reactor_NewCMD_numUAV;
                                     rtb_FlightCMD.FormationPos =
                                         reactor_NewCMD_FormationPos;
@@ -3090,49 +3069,54 @@ void codegenReal2MissionModelClass::step()
                     }
                 }
 
-                // '<S30>:1:10'
+                // '<S31>:1:10'
+                std::memcpy(&rtb_FeedbackCMD, &reactor_FeedbackCMD, sizeof
+                            (missionCmd));
             } else {
-                // '<S30>:1:12'
+                // '<S31>:1:12'
+                std::memcpy(&rtb_FeedbackCMD, &reactor_FeedbackCMD, sizeof
+                            (missionCmd));
                 codegenReal2Mission_DW.ParamADRC_e.hat_b = static_cast<real_T>
-                    (reactor_PrevCMD.params.Param1 / 1000.0F);
+                    (reactor_FeedbackCMD.params.Param1 / 100.0F);
                 codegenReal2Mission_DW.ParamADRC_e.omega_o = static_cast<real_T>
-                    (reactor_PrevCMD.params.Param2 / 1000.0F);
+                    (reactor_FeedbackCMD.params.Param2 / 100.0F);
                 codegenReal2Mission_DW.ParamADRC_e.omega_b = static_cast<real_T>
-                    (reactor_PrevCMD.params.Param3 / 1000.0F);
+                    (reactor_FeedbackCMD.params.Param3 / 100.0F);
                 codegenReal2Mission_DW.ParamADRC_e.P = static_cast<real_T>
-                    (reactor_PrevCMD.params.Param4 / 1000.0F);
+                    (reactor_FeedbackCMD.params.Param4 / 100.0F);
                 codegenReal2Mission_DW.ParamADRC_e.I = static_cast<real_T>
-                    (reactor_PrevCMD.params.Param5 / 1000.0F);
+                    (reactor_FeedbackCMD.params.Param5 / 100.0F);
                 codegenReal2Mission_DW.ParamADRC_e.D = static_cast<real_T>
-                    (reactor_PrevCMD.params.Param6 / 1000.0F);
+                    (reactor_FeedbackCMD.params.Param6 / 100.0F);
                 codegenReal2Mission_DW.ParamADRC_e.useADRC =
-                    (reactor_PrevCMD.params.Param7 != 0.0F);
+                    (reactor_FeedbackCMD.params.Param7 != 0.0F);
 
-                // '<S30>:1:14'
+                // '<S31>:1:14'
             }
 
-            // '<S30>:1:27'
-            // '<S30>:1:28'
-            std::memcpy(&rtb_FeedbackCMD, &reactor_PrevCMD, sizeof(missionCmd));
+            // DataStoreWrite: '<S29>/WriteCurrentCMD'
+            // '<S31>:1:27'
+            // '<S31>:1:28'
+            codegenReal2Mission_DW.MissionCMD = rtb_FeedbackCMD;
 
-            // Send: '<S28>/PushCMD' incorporates:
-            //   MATLAB Function: '<S28>/CommandCheck'
+            // Send: '<S29>/PushCMD' incorporates:
+            //   MATLAB Function: '<S29>/CommandCheck'
 
             if (rtb_ReceivePushedMissionCMD_o1) {
                 codegenReal2Mission_RcvNextMission_SendData(&rtb_FlightCMD);
             }
 
-            // End of Send: '<S28>/PushCMD'
+            // End of Send: '<S29>/PushCMD'
 
-            // Send: '<S28>/SendFeedbackMissionCMD'
+            // Send: '<S29>/SendFeedbackMissionCMD'
             codegenReal2Mission_MessageMerge_In1_SendData(&rtb_FeedbackCMD);
         }
 
         // End of Outputs for SubSystem: '<S7>/TriggerMissionDispatch'
 
         // MATLAB Function: '<S7>/getCurrentTime'
-        // MATLAB Function 'getCurrentTime': '<S29>:1'
-        // '<S29>:1:3'
+        // MATLAB Function 'getCurrentTime': '<S30>:1'
+        // '<S30>:1:3'
         codegenReal2Mission_getLocalTime(&second, &temp, &processedInData[4],
             &tmp, &c_tm_mday, &c_tm_mon, &da_im, &rtb_ReceiveCurrentMission_o1);
         processedInData[5] = temp;
@@ -3198,10 +3182,10 @@ void codegenReal2MissionModelClass::step()
                0.0)));
 
         // Send: '<S7>/SndImmedCMD' incorporates:
-        //   Constant: '<S27>/Constant'
+        //   Constant: '<S28>/Constant'
         //   DataTypeConversion: '<S7>/Cast To Double'
         //   Memory: '<S7>/Memory'
-        //   RelationalOperator: '<S27>/Compare'
+        //   RelationalOperator: '<S28>/Compare'
         //   Sum: '<S7>/Minus'
 
         if (static_cast<real_T>(rtb_ReceivePushedMissionCMD_o1) -
@@ -3378,39 +3362,65 @@ void codegenReal2MissionModelClass::step()
             codegenReal2Mission_DW.is_active_c4_codegenReal2Mission = 1U;
 
             // Entry Internal: MissionLogic/FlightMission_Variant/VariantScheduler/SingleUAV/FlightMission/TriggerStartSim 
-            // Transition: '<S25>:4'
+            // Transition: '<S26>:4'
             codegenReal2Mission_DW.is_c4_codegenReal2Mission =
                 codegenReal2Mission_IN_Pending;
 
-            // Entry 'Pending': '<S25>:3'
+            // Entry 'Pending': '<S26>:3'
             codegenReal2Mission_DW.StartSim = false;
         } else if (codegenReal2Mission_DW.is_c4_codegenReal2Mission ==
                    codegenReal2Mission_IN_Pending) {
-            // During 'Pending': '<S25>:3'
+            // During 'Pending': '<S26>:3'
             if (static_cast<boolean_T>(static_cast<int32_T>
                                        ((codegenReal2Mission_DW.ReceiveCurrentMission_o2.MissionMode
                    != MissionModes_None) &
                                         (codegenReal2Mission_DW.ReceiveCurrentMission_o2.SequenceID
                    > 0)))) {
-                // Transition: '<S25>:6'
+                // Transition: '<S26>:6'
                 codegenReal2Mission_DW.is_c4_codegenReal2Mission =
                     codegenReal2Mission_IN_Running;
 
-                // Entry 'Running': '<S25>:5'
+                // Entry 'Running': '<S26>:5'
                 codegenReal2Mission_DW.StartSim = true;
             } else {
                 codegenReal2Mission_DW.StartSim = false;
             }
         } else {
-            // During 'Running': '<S25>:5'
+            // During 'Running': '<S26>:5'
             codegenReal2Mission_DW.StartSim = true;
         }
 
         // End of Chart: '<S14>/TriggerStartSim'
 
-        // DataStoreRead: '<S14>/Data Store Read'
-        rtb_DataStoreRead_p_MissionLocation =
-            codegenReal2Mission_DW.CurrentFlightMission.MissionLocation;
+        // Switch: '<S14>/Switch' incorporates:
+        //   Constant: '<S14>/Constant'
+        //   RelationalOperator: '<S14>/Equal'
+
+        if (codegenReal2Mission_DW.ReceiveCurrentMission_o2.MissionMode ==
+                MissionModes_CustomFrmnNav) {
+            // Outputs for Atomic SubSystem: '<S14>/NullLoc'
+            // Switch: '<S14>/Switch' incorporates:
+            //   BusCreator: '<S24>/Bus Creator'
+            //   Constant: '<S24>/Alt'
+            //   Constant: '<S24>/Lat'
+            //   Constant: '<S24>/Lon'
+            //   Constant: '<S24>/degHDG'
+
+            rtb_Switch.Lat = 0.0;
+            rtb_Switch.Lon = 0.0;
+            rtb_Switch.Alt = 0.0;
+            rtb_Switch.degHDG = 0.0;
+
+            // End of Outputs for SubSystem: '<S14>/NullLoc'
+        } else {
+            // Switch: '<S14>/Switch' incorporates:
+            //   DataStoreRead: '<S14>/Data Store Read'
+
+            rtb_Switch =
+                codegenReal2Mission_DW.CurrentFlightMission.MissionLocation;
+        }
+
+        // End of Switch: '<S14>/Switch'
 
         // Logic: '<S14>/Reset' incorporates:
         //   Logic: '<S14>/NOT'
@@ -3432,7 +3442,7 @@ void codegenReal2MissionModelClass::step()
         // ModelReference: '<S14>/PreemptableMissionModeSelector'
         FlightMissionMode(&codegenReal2Mission_DW.StartSim,
                           &codegenReal2Mission_DW.ReceiveCurrentMission_o2.MissionMode,
-                          &rtb_DataStoreRead_p_MissionLocation,
+                          &rtb_Switch,
                           &codegenReal2Mission_DW.ReceiveCurrentMission_o2.MissionLocation,
                           &codegenReal2Mission_DW.ReceiveCurrentMission_o2.params,
                           &codegenReal2Mission_DW.Reset,
@@ -3511,8 +3521,8 @@ void codegenReal2MissionModelClass::step()
     // End of Outputs for SubSystem: '<S14>/MissionSimUAV'
     if (rtmIsMajorTimeStep((&codegenReal2Mission_M))) {
         // Outputs for Atomic SubSystem: '<S14>/SimState2Pose'
-        // SignalConversion generated from: '<S24>/Pose' incorporates:
-        //   Gain: '<S24>/Gain2'
+        // SignalConversion generated from: '<S25>/Pose' incorporates:
+        //   Gain: '<S25>/Gain2'
 
         codegenReal2Mission_DW.TmpSignalConversionAtBufferToMakeInportVirtual_InsertedFor_Pose_at_inport_0Inport1
             [0] = codegenReal2Mission_DW.North;
@@ -3900,10 +3910,10 @@ void codegenReal2MissionModelClass::step()
 
         // Outputs for Atomic SubSystem: '<S13>/JumpDelay'
         // Outputs for Atomic SubSystem: '<S15>/ComputDelay'
-        // Switch: '<S26>/AllPositivePosSwitch' incorporates:
-        //   DataTypeConversion: '<S26>/doubleFormPos'
-        //   DataTypeConversion: '<S26>/doubleNumUAV'
-        //   Sum: '<S26>/Minus'
+        // Switch: '<S27>/AllPositivePosSwitch' incorporates:
+        //   DataTypeConversion: '<S27>/doubleFormPos'
+        //   DataTypeConversion: '<S27>/doubleNumUAV'
+        //   Sum: '<S27>/Minus'
 
         if (codegenReal2Mission_DW.RcvNextMission.FormationPos > 0) {
             check = static_cast<real_T>
@@ -3914,14 +3924,14 @@ void codegenReal2MissionModelClass::step()
                 real_T>(codegenReal2Mission_DW.RcvNextMission.FormationPos);
         }
 
-        // End of Switch: '<S26>/AllPositivePosSwitch'
+        // End of Switch: '<S27>/AllPositivePosSwitch'
 
-        // Product: '<S26>/DivideThree' incorporates:
-        //   Bias: '<S26>/Bias'
-        //   Constant: '<S26>/Three'
-        //   Math: '<S26>/ModThree'
-        //   Product: '<S26>/DivideByThree'
-        //   Rounding: '<S26>/idxCeil'
+        // Product: '<S27>/DivideThree' incorporates:
+        //   Bias: '<S27>/Bias'
+        //   Constant: '<S27>/Three'
+        //   Math: '<S27>/ModThree'
+        //   Product: '<S27>/DivideByThree'
+        //   Rounding: '<S27>/idxCeil'
 
         codegenReal2Mission_DW.DivideThree = (rt_modd_snf(std::ceil(check / 3.0),
             3.0) + 1.0) / 3.0;
@@ -3931,13 +3941,10 @@ void codegenReal2MissionModelClass::step()
     }
 
     // End of Outputs for SubSystem: '<S13>/FlightMission'
-
-    // DataStoreRead: '<S1>/Data Store Read'
-    codegenReal2Mission_DW.DataStoreRead = codegenReal2Mission_DW.ParamADRC_e;
-
     // End of Outputs for SubSystem: '<Root>/MissionLogic'
 
-    // ModelReference generated from: '<S32>/Real2SimGuidance' incorporates:
+    // ModelReference generated from: '<S33>/Real2SimGuidance' incorporates:
+    //   DataStoreRead: '<S1>/Data Store Read'
     //   Inport: '<Root>/FlightMode'
     //   Inport: '<Root>/FlightState'
     //   Outport: '<Root>/FlightCMD'
@@ -3950,22 +3957,22 @@ void codegenReal2MissionModelClass::step()
                      &codegenReal2Mission_DW.ImmedMission_o2,
                      &codegenReal2Mission_DW.ImmedMission_o4,
                      &codegenReal2Mission_DW.DivideThree,
-                     &codegenReal2Mission_DW.DataStoreRead.hat_b,
-                     &codegenReal2Mission_DW.DataStoreRead.omega_o,
-                     &codegenReal2Mission_DW.DataStoreRead.omega_b,
-                     &codegenReal2Mission_DW.DataStoreRead.P,
-                     &codegenReal2Mission_DW.DataStoreRead.I,
-                     &codegenReal2Mission_DW.DataStoreRead.D,
-                     &codegenReal2Mission_DW.DataStoreRead.useADRC,
+                     &codegenReal2Mission_DW.ParamADRC_e.hat_b,
+                     &codegenReal2Mission_DW.ParamADRC_e.omega_o,
+                     &codegenReal2Mission_DW.ParamADRC_e.omega_b,
+                     &codegenReal2Mission_DW.ParamADRC_e.P,
+                     &codegenReal2Mission_DW.ParamADRC_e.I,
+                     &codegenReal2Mission_DW.ParamADRC_e.D,
+                     &codegenReal2Mission_DW.ParamADRC_e.useADRC,
                      &codegenReal2Mission_Y.FlightCMD,
                      &codegenReal2Mission_DW.EngagedFlag_Log,
-                     &rtb_Real2SimGuidance_o3,
+                     &codegenReal2Mission_DW.Real2SimGuidance_o3,
                      &(codegenReal2Mission_DW.Real2SimGuidance_InstanceData.rtdw),
                      &(codegenReal2Mission_X.Real2SimGuidance_CSTATE));
     if (rtmIsMajorTimeStep((&codegenReal2Mission_M))) {
         // Send: '<S2>/SendLog'
-        FlightLogSendData.SendData(&rtb_Real2SimGuidance_o3, sizeof
-            (FlightLogging), &status);
+        FlightLogSendData.SendData(&codegenReal2Mission_DW.Real2SimGuidance_o3,
+            sizeof(FlightLogging), &status);
     }
 
     if (rtmIsMajorTimeStep((&codegenReal2Mission_M))) {
@@ -4024,7 +4031,7 @@ void codegenReal2MissionModelClass::step()
 
         // End of Update for SubSystem: '<Root>/MissionLogic'
 
-        // Update for ModelReference generated from: '<S32>/Real2SimGuidance'
+        // Update for ModelReference generated from: '<S33>/Real2SimGuidance'
         Real2SimGuidance_Update
             (&(codegenReal2Mission_DW.Real2SimGuidance_InstanceData.rtm),
              &codegenReal2Mission_DW.OR, &codegenReal2Mission_DW.ImmedMission_o2,
@@ -4098,7 +4105,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_derivatives()
     // End of Derivatives for SubSystem: '<S13>/FlightMission'
     // End of Derivatives for SubSystem: '<Root>/MissionLogic'
 
-    // Derivatives for ModelReference generated from: '<S32>/Real2SimGuidance'
+    // Derivatives for ModelReference generated from: '<S33>/Real2SimGuidance'
     Real2SimGuidance_Deriv
         (&(codegenReal2Mission_DW.Real2SimGuidance_InstanceData.rtdw),
          &(((XDot_codegenReal2Mission_T *) (&codegenReal2Mission_M)->derivs)
@@ -4203,7 +4210,7 @@ void codegenReal2MissionModelClass::initialize()
     ImmedMission_initialize(rtmGetErrorStatusPointer((&codegenReal2Mission_M)),
                             &(codegenReal2Mission_DW.ImmedMission_InstanceData.rtm));
 
-    // Model Initialize function for ModelReference Block: '<S32>/Real2SimGuidance' 
+    // Model Initialize function for ModelReference Block: '<S33>/Real2SimGuidance' 
     Real2SimGuidance_initialize(rtmGetErrorStatusPointer((&codegenReal2Mission_M)),
         rtmGetStopRequestedPtr((&codegenReal2Mission_M)),
         &((&codegenReal2Mission_M)->solverInfo), &(&codegenReal2Mission_M)
@@ -4296,7 +4303,7 @@ void codegenReal2MissionModelClass::initialize()
         // End of Outputs for SubSystem: '<S1>/InitializeSimLocation'
         // End of SystemInitialize for SubSystem: '<Root>/MissionLogic'
 
-        // SystemInitialize for ModelReference generated from: '<S32>/Real2SimGuidance' 
+        // SystemInitialize for ModelReference generated from: '<S33>/Real2SimGuidance' 
         Real2SimGuidance_Init
             (&(codegenReal2Mission_DW.Real2SimGuidance_InstanceData.rtdw),
              &(codegenReal2Mission_X.Real2SimGuidance_CSTATE));

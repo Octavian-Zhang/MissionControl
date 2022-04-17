@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'FlightMissionMode'.
 //
-// Model version                  : 2.81
+// Model version                  : 2.93
 // Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Tue Apr 12 09:39:32 2022
+// C/C++ source code generated on : Sat Apr 16 03:47:31 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -217,15 +217,15 @@ struct uavDubinsConnection_FlightMissionMode_T
 
 #endif                        // struct_uavDubinsConnection_FlightMissionMode_T
 
-#ifndef struct_initDubinsObj_FlightMissionMode_T
-#define struct_initDubinsObj_FlightMissionMode_T
+#ifndef struct_DubinsObjSingleton_FlightMissionMode_T
+#define struct_DubinsObjSingleton_FlightMissionMode_T
 
-struct initDubinsObj_FlightMissionMode_T
+struct DubinsObjSingleton_FlightMissionMode_T
 {
-    uavDubinsConnection_FlightMissionMode_T DubinsObj;
+    uavDubinsConnection_FlightMissionMode_T DubinsConnector;
 };
 
-#endif                              // struct_initDubinsObj_FlightMissionMode_T
+#endif                         // struct_DubinsObjSingleton_FlightMissionMode_T
 
 #ifndef struct_emxArray_int32_T_28_FlightMissionMode_T
 #define struct_emxArray_int32_T_28_FlightMissionMode_T
@@ -252,15 +252,15 @@ struct uavDubinsConnection_FlightMissionMode_f_T
 
 #endif                      // struct_uavDubinsConnection_FlightMissionMode_f_T
 
-#ifndef struct_initDubinsObj_FlightMissionMode_f_T
-#define struct_initDubinsObj_FlightMissionMode_f_T
+#ifndef struct_DubinsObjSingleton_FlightMissionMode_a_T
+#define struct_DubinsObjSingleton_FlightMissionMode_a_T
 
-struct initDubinsObj_FlightMissionMode_f_T
+struct DubinsObjSingleton_FlightMissionMode_a_T
 {
-    uavDubinsConnection_FlightMissionMode_f_T DubinsObj;
+    uavDubinsConnection_FlightMissionMode_f_T DubinsConnector;
 };
 
-#endif                            // struct_initDubinsObj_FlightMissionMode_f_T
+#endif                       // struct_DubinsObjSingleton_FlightMissionMode_a_T
 
 #ifndef struct_cell_wrap_10_FlightMissionMode_T
 #define struct_cell_wrap_10_FlightMissionMode_T
@@ -315,25 +315,25 @@ struct emxArray_char_T_FlightMissionMode_T
 #endif                            // struct_emxArray_char_T_FlightMissionMode_T
 
 // Custom Type definition for MATLAB Function: '<S178>/WayPointGenerator'
-#ifndef struct_cell_wrap_0_FlightMissionMode_f_T
-#define struct_cell_wrap_0_FlightMissionMode_f_T
-
-struct cell_wrap_0_FlightMissionMode_f_T
-{
-    emxArray_char_T_FlightMissionMode_T *f1;
-};
-
-#endif                              // struct_cell_wrap_0_FlightMissionMode_f_T
-
 #ifndef struct_cell_wrap_1_FlightMissionMode_T
 #define struct_cell_wrap_1_FlightMissionMode_T
 
 struct cell_wrap_1_FlightMissionMode_T
 {
-    cell_wrap_0_FlightMissionMode_f_T f1[4];
+    emxArray_char_T_FlightMissionMode_T *f1;
 };
 
 #endif                                // struct_cell_wrap_1_FlightMissionMode_T
+
+#ifndef struct_cell_wrap_2_FlightMissionMode_T
+#define struct_cell_wrap_2_FlightMissionMode_T
+
+struct cell_wrap_2_FlightMissionMode_T
+{
+    cell_wrap_1_FlightMissionMode_T f1[4];
+};
+
+#endif                                // struct_cell_wrap_2_FlightMissionMode_T
 
 #ifndef struct_emxArray_real_T_1x4_FlightMissionMode_T
 #define struct_emxArray_real_T_1x4_FlightMissionMode_T
@@ -358,26 +358,26 @@ struct uavDubinsPathSegment_FlightMissionMode_g_T
     real_T AirSpeed;
     real_T MinTurningRadius;
     real_T HelixRadius;
-    cell_wrap_0_FlightMissionMode_f_T MotionTypes[4];
+    cell_wrap_1_FlightMissionMode_T MotionTypes[4];
     real_T MotionLengths[4];
     real_T Length;
 };
 
 #endif                     // struct_uavDubinsPathSegment_FlightMissionMode_g_T
 
-#ifndef struct_emxArray_cell_wrap_0_FlightMissionMode_T
-#define struct_emxArray_cell_wrap_0_FlightMissionMode_T
+#ifndef struct_emxArray_cell_wrap_1_FlightMissionMode_T
+#define struct_emxArray_cell_wrap_1_FlightMissionMode_T
 
-struct emxArray_cell_wrap_0_FlightMissionMode_T
+struct emxArray_cell_wrap_1_FlightMissionMode_T
 {
-    cell_wrap_0_FlightMissionMode_f_T *data;
+    cell_wrap_1_FlightMissionMode_T *data;
     int32_T *size;
     int32_T allocatedSize;
     int32_T numDimensions;
     boolean_T canFreeData;
 };
 
-#endif                       // struct_emxArray_cell_wrap_0_FlightMissionMode_T
+#endif                       // struct_emxArray_cell_wrap_1_FlightMissionMode_T
 
 #ifndef struct_uavDubinsConnection_1_FlightMissionMode_T
 #define struct_uavDubinsConnection_1_FlightMissionMode_T
@@ -388,7 +388,7 @@ struct uavDubinsConnection_1_FlightMissionMode_T
     real_T AirSpeed;
     real_T MaxRollAngle;
     real_T FlightPathAngleLimit[2];
-    emxArray_cell_wrap_0_FlightMissionMode_T *DisabledPathTypes;
+    emxArray_cell_wrap_1_FlightMissionMode_T *DisabledPathTypes;
 };
 
 #endif                      // struct_uavDubinsConnection_1_FlightMissionMode_T
@@ -405,23 +405,23 @@ struct uavDubinsPathSegment_1_FlightMissionMode_T
     real_T AirSpeed;
     real_T MinTurningRadius;
     real_T HelixRadius;
-    cell_wrap_0_FlightMissionMode_f_T MotionTypes[4];
+    cell_wrap_1_FlightMissionMode_T MotionTypes[4];
     real_T MotionLengths[4];
     real_T Length;
 };
 
 #endif                     // struct_uavDubinsPathSegment_1_FlightMissionMode_T
 
-#ifndef struct_emxArray_cell_wrap_0_1x28_FlightMissionMode_T
-#define struct_emxArray_cell_wrap_0_1x28_FlightMissionMode_T
+#ifndef struct_emxArray_cell_wrap_1_1x28_FlightMissionMode_T
+#define struct_emxArray_cell_wrap_1_1x28_FlightMissionMode_T
 
-struct emxArray_cell_wrap_0_1x28_FlightMissionMode_T
+struct emxArray_cell_wrap_1_1x28_FlightMissionMode_T
 {
-    cell_wrap_0_FlightMissionMode_f_T data[28];
+    cell_wrap_1_FlightMissionMode_T data[28];
     int32_T size[2];
 };
 
-#endif                  // struct_emxArray_cell_wrap_0_1x28_FlightMissionMode_T
+#endif                  // struct_emxArray_cell_wrap_1_1x28_FlightMissionMode_T
 
 #ifndef struct_emxArray_uint64_T_FlightMissionMode_T
 #define struct_emxArray_uint64_T_FlightMissionMode_T
@@ -464,15 +464,15 @@ struct uavDubinsConnection_FlightMissionMode_a_T
 
 #endif                      // struct_uavDubinsConnection_FlightMissionMode_a_T
 
-#ifndef struct_initDubinsObj_FlightMissionMode_o_T
-#define struct_initDubinsObj_FlightMissionMode_o_T
+#ifndef struct_DubinsObjSingleton_FlightMissionMode_o_T
+#define struct_DubinsObjSingleton_FlightMissionMode_o_T
 
-struct initDubinsObj_FlightMissionMode_o_T
+struct DubinsObjSingleton_FlightMissionMode_o_T
 {
-    uavDubinsConnection_FlightMissionMode_a_T DubinsObj;
+    uavDubinsConnection_FlightMissionMode_a_T DubinsConnector;
 };
 
-#endif                            // struct_initDubinsObj_FlightMissionMode_o_T
+#endif                       // struct_DubinsObjSingleton_FlightMissionMode_o_T
 
 #ifndef struct_emxArray_uavDubinsPathSegment_1_FlightMissionMode_T
 #define struct_emxArray_uavDubinsPathSegment_1_FlightMissionMode_T
