@@ -1,19 +1,23 @@
 //
-// File: mod_ZflSpsmf.cpp
+// File: mod_d42kHWKw.cpp
 //
 // Code generated for Simulink model 'FlightMissionMode'.
 //
-// Model version                  : 2.81
-// Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Mon Apr 11 09:29:16 2022
+// Model version                  : 2.93
+// Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
+// C/C++ source code generated on : Sun Apr 24 02:53:00 2022
 //
 #include "rtwtypes.h"
-#include "rt_nonfinite.h"
+#include "mod_d42kHWKw.h"
 #include <cmath>
-#include "mod_ZflSpsmf.h"
 
+extern "C" {
+
+#include "rt_nonfinite.h"
+
+}
 // Function for MATLAB Function: '<S95>/StartPointGenerator'
-real_T mod_ZflSpsmf(real_T x)
+    real_T mod_d42kHWKw(real_T x)
 {
     real_T r;
     if (std::isnan(x)) {

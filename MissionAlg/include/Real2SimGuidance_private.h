@@ -4,8 +4,8 @@
 // Code generated for Simulink model 'Real2SimGuidance'.
 //
 // Model version                  : 3.146
-// Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Sat Apr 16 03:35:25 2022
+// Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
+// C/C++ source code generated on : Sun Apr 24 02:58:34 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -20,6 +20,7 @@
 #define RTW_HEADER_Real2SimGuidance_private_h_
 #include "rtwtypes.h"
 #include "model_reference_types.h"
+#include "Real2SimGuidance.h"
 
 // Private macros used by the generated code to access rtModel
 #ifndef rtmIsMajorTimeStep

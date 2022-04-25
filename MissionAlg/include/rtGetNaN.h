@@ -1,17 +1,15 @@
 //
 // File: rtGetNaN.h
 //
-// Code generated for Simulink model 'MissionUAV'.
+// Code generated for Simulink model 'FlightMissionMode'.
 //
-// Model version                  : 2.12
-// Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Mon Apr 11 09:16:53 2022
+// Model version                  : 2.93
+// Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
+// C/C++ source code generated on : Sun Apr 24 02:53:00 2022
 //
 #ifndef RTW_HEADER_rtGetNaN_h_
 #define RTW_HEADER_rtGetNaN_h_
-#include <stddef.h>
 #include "rtwtypes.h"
-#include "rt_nonfinite.h"
 #ifdef __cplusplus
 
 extern "C" {

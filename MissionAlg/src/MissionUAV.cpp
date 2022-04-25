@@ -4,8 +4,8 @@
 // Code generated for Simulink model 'MissionUAV'.
 //
 // Model version                  : 2.12
-// Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Mon Apr 11 09:16:53 2022
+// Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
+// C/C++ source code generated on : Sun Apr 24 02:57:24 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -17,12 +17,22 @@
 // Validation result: Not run
 //
 #include "MissionUAV.h"
-#include "MissionUAV_private.h"
+#include "rtwtypes.h"
+#include "MissionUAV_types.h"
+#include <cstring>
+#include <cmath>
 #include "rt_atan2d_snf.h"
+#include "MissionUAV_private.h"
 
+extern "C" {
+
+#include "rt_nonfinite.h"
+
+}
 // Forward declaration for local functions
-static void MissionUAV_Model_resetImpl
+    static void MissionUAV_Model_resetImpl
     (robotics_core_internal_system_navigation_Model_MissionUAV_T *obj);
+
 static void MissionUAV_Model_resetImpl
     (robotics_core_internal_system_navigation_Model_MissionUAV_T *obj)
 {
@@ -180,7 +190,7 @@ void MissionUAV(RT_MODEL_MissionUAV_T * const MissionUAV_M, const real_T
     // Integrator: '<S2>/Integrator' incorporates:
     //   Integrator: '<S4>/TD_Bank'
 
-    if (rtmIsMajorTimeStep(MissionUAV_M)) {
+    if (rtsiIsModeUpdateTimeStep(MissionUAV_M->solverInfo)) {
         // evaluate the level of the reset signal
         if (static_cast<boolean_T>(static_cast<int32_T>((*rtu_ResetState != 0.0)
               | (localDW->Integrator_IWORK != 0)))) {
@@ -366,7 +376,8 @@ void MissionUAV(RT_MODEL_MissionUAV_T * const MissionUAV_M, const real_T
     }
 
     // Integrator: '<S4>/dotBankTD'
-    if (rtmIsMajorTimeStep(MissionUAV_M) && (*rtu_ResetState != 0.0)) {
+    if (rtsiIsModeUpdateTimeStep(MissionUAV_M->solverInfo) && (*rtu_ResetState
+            != 0.0)) {
         // evaluate the level of the reset signal
         localX->dotBankTD_CSTATE = 0.0;
     }
@@ -393,14 +404,12 @@ void MissionUAV(RT_MODEL_MissionUAV_T * const MissionUAV_M, const real_T
 
     // '<S5>:1:11'
     // '<S5>:1:12'
-    if (y < 0.0) {
+    if (std::isnan(y)) {
+        rtb_AirSpeed_n = y;
+    } else if (y < 0.0) {
         rtb_AirSpeed_n = -1.0;
-    } else if (y > 0.0) {
-        rtb_AirSpeed_n = 1.0;
-    } else if (y == 0.0) {
-        rtb_AirSpeed_n = 0.0;
     } else {
-        rtb_AirSpeed_n = (rtNaN);
+        rtb_AirSpeed_n = static_cast<real_T>(y > 0.0);
     }
 
     skySpeed = (std::sqrt((8.0 * std::abs(y) + 0.020943951023931956) *
@@ -409,62 +418,52 @@ void MissionUAV(RT_MODEL_MissionUAV_T * const MissionUAV_M, const real_T
 
     // '<S5>:1:13'
     // '<S5>:1:14'
-    if (y + 0.020943951023931956 < 0.0) {
+    if (std::isnan(y + 0.020943951023931956)) {
+        rtb_AirSpeed_n = y + 0.020943951023931956;
+    } else if (y + 0.020943951023931956 < 0.0) {
         rtb_AirSpeed_n = -1.0;
-    } else if (y + 0.020943951023931956 > 0.0) {
-        rtb_AirSpeed_n = 1.0;
-    } else if (y + 0.020943951023931956 == 0.0) {
-        rtb_AirSpeed_n = 0.0;
     } else {
-        rtb_AirSpeed_n = (rtNaN);
+        rtb_AirSpeed_n = static_cast<real_T>(y + 0.020943951023931956 > 0.0);
     }
 
-    if (y - 0.020943951023931956 < 0.0) {
+    if (std::isnan(y - 0.020943951023931956)) {
+        y_tmp = y - 0.020943951023931956;
+    } else if (y - 0.020943951023931956 < 0.0) {
         y_tmp = -1.0;
-    } else if (y - 0.020943951023931956 > 0.0) {
-        y_tmp = 1.0;
-    } else if (y - 0.020943951023931956 == 0.0) {
-        y_tmp = 0.0;
     } else {
-        y_tmp = (rtNaN);
+        y_tmp = static_cast<real_T>(y - 0.020943951023931956 > 0.0);
     }
 
     a0 = ((a0 + y) - skySpeed) * ((rtb_AirSpeed_n - y_tmp) / 2.0) + skySpeed;
 
     // '<S5>:1:15'
     // '<S5>:1:17'
-    if (a0 < 0.0) {
+    if (std::isnan(a0)) {
+        y = a0;
+    } else if (a0 < 0.0) {
         y = -1.0;
-    } else if (a0 > 0.0) {
-        y = 1.0;
-    } else if (a0 == 0.0) {
-        y = 0.0;
     } else {
-        y = (rtNaN);
+        y = static_cast<real_T>(a0 > 0.0);
     }
 
-    if (a0 + 0.020943951023931956 < 0.0) {
-        skySpeed = -1.0;
-    } else if (a0 + 0.020943951023931956 > 0.0) {
-        skySpeed = 1.0;
-    } else if (a0 + 0.020943951023931956 == 0.0) {
-        skySpeed = 0.0;
-    } else {
-        skySpeed = (rtNaN);
-    }
-
-    if (a0 - 0.020943951023931956 < 0.0) {
+    if (std::isnan(a0 + 0.020943951023931956)) {
+        rtb_AirSpeed_n = a0 + 0.020943951023931956;
+    } else if (a0 + 0.020943951023931956 < 0.0) {
         rtb_AirSpeed_n = -1.0;
-    } else if (a0 - 0.020943951023931956 > 0.0) {
-        rtb_AirSpeed_n = 1.0;
-    } else if (a0 - 0.020943951023931956 == 0.0) {
-        rtb_AirSpeed_n = 0.0;
     } else {
-        rtb_AirSpeed_n = (rtNaN);
+        rtb_AirSpeed_n = static_cast<real_T>(a0 + 0.020943951023931956 > 0.0);
+    }
+
+    if (std::isnan(a0 - 0.020943951023931956)) {
+        y_tmp = a0 - 0.020943951023931956;
+    } else if (a0 - 0.020943951023931956 < 0.0) {
+        y_tmp = -1.0;
+    } else {
+        y_tmp = static_cast<real_T>(a0 - 0.020943951023931956 > 0.0);
     }
 
     localDW->fh = (a0 / 0.020943951023931956 - y) * -2.0943951023931953 *
-        ((skySpeed - rtb_AirSpeed_n) / 2.0) - 2.0943951023931953 * y;
+        ((rtb_AirSpeed_n - y_tmp) / 2.0) - 2.0943951023931953 * y;
 
     // End of MATLAB Function: '<S4>/fhan_Bank'
     if (rtmIsMajorTimeStep(MissionUAV_M)) {

@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'ImmedMission'.
 //
-// Model version                  : 2.140
-// Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Sat Apr 16 03:36:25 2022
+// Model version                  : 2.143
+// Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
+// C/C++ source code generated on : Sun Apr 24 20:29:31 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -18,18 +18,25 @@
 //
 #ifndef RTW_HEADER_ImmedMission_h_
 #define RTW_HEADER_ImmedMission_h_
-#include <cmath>
-#include <cstdlib>
-#include <cstring>
-#include <math.h>
 #include "rtwtypes.h"
-#include "zero_crossing_types.h"
 #include "rtw_continuous.h"
 #include "rtw_solver.h"
 #include "ImmedMission_types.h"
+#include "MissionModes.h"
+
+extern "C" {
+
 #include "rt_nonfinite.h"
+
+}
 #include "rt_zcfcn.h"
+
+extern "C" {
+
 #include "rtGetInf.h"
+
+}
+#include "zero_crossing_types.h"
 
 // Block signals and states (default storage) for system '<S65>/MapTrack'
 struct DW_CoreSubsys_ImmedMission_T {
@@ -102,12 +109,12 @@ struct DW_ImmedMission_f_T {
     real_T CirVec[720];
     real_T a[1092];
     real_T MatrixConcatenateState[2888];// '<S72>/Matrix Concatenate State'
-    real_T Track[2700];                // '<S65>/Long Track'
     real_T ImpAsg_InsertedFor_hisTrack_at_inport_0[1083];// '<S71>/Matrix Concatenate' 
-    real_T nedWayPoint[30720];         // '<S135>/BaseWayPoint'
+    real_T Track[2700];                // '<S65>/Long Track'
     real_T paddedWaypts_m[2700];
-    real_T waypoints_data[2700];
-    real_T waypoints_data_c[2703];
+    real_T waypoints_data[2703];
+    real_T virtualWaypoint_data[2703];
+    real_T in2_data[2703];
     real_T Omega_g;                    // '<S212>/Divide'
     real_T sqrt_f;                     // '<S66>/sqrt'
     real_T OrbitNavHdg;                // '<S38>/OrbitNavHdg'
@@ -115,13 +122,15 @@ struct DW_ImmedMission_f_T {
     real_T xSign_start;                // '<S129>/TriggerCalibrStart'
     real_T MemoryPrevRange_PreviousInput;// '<S65>/MemoryPrevRange'
     void *MatrixConcatenate_PWORK;     // '<S135>/Matrix Concatenate'
-    int32_T SFunction_DIMS2_o[2];      // '<S14>/AllUAVstateMAT'
+    int32_T SFunction_DIMS2_m[2];      // '<S14>/AllUAVstateMAT'
     int32_T MatrixConcatenate_DIMS1[2];// '<S135>/Matrix Concatenate'
-    int32_T SFunction_DIMS2_i[2];      // '<S135>/BaseWayPoint'
-    int32_T SFunction_DIMS2_k[2];      // '<S65>/Long Track'
-    MissionModes ImmedMission_h;       // '<S1>/PreemptableMissionModeSelector'
+    int32_T SFunction_DIMS2_l[2];      // '<S135>/BaseWayPoint'
+    int32_T SFunction_DIMS2_j[2];      // '<S65>/Long Track'
     int32_T SFunction_DIMS2;           // '<S14>/pdist2'
-    int16_T j_data[10241];
+    MissionModes ImmedMission_a;       // '<S1>/PreemptableMissionModeSelector'
+    MissionModes FlightMode_prev;      // '<S1>/PreemptableMissionModeSelector'
+    MissionModes FlightMode_start;     // '<S1>/PreemptableMissionModeSelector'
+    int16_T j_data[10242];
     int8_T SwitchCase_ActiveSubsystem; // '<S1>/Switch Case'
     uint8_T WaypointFollower_o5;       // '<S129>/Waypoint Follower'
     uint8_T TrackSimPath_o5;           // '<S68>/TrackSimPath'
@@ -135,16 +144,16 @@ struct DW_ImmedMission_f_T {
     uint8_T MemoryStatus_PreviousInput;// '<S65>/MemoryStatus'
     uint8_T is_active_c4_ImmedMission; // '<S65>/TrackSwitch'
     uint8_T is_c4_ImmedMission;        // '<S65>/TrackSwitch'
-    uint8_T temporalCounter_i1_i;      // '<S65>/TrackSwitch'
+    uint8_T temporalCounter_i1_d;      // '<S65>/TrackSwitch'
     uint8_T is_active_c1_ImmedMission; // '<S35>/HdgHoldLogic'
     uint8_T is_c1_ImmedMission;        // '<S35>/HdgHoldLogic'
-    uint8_T temporalCounter_i1_e;      // '<S35>/HdgHoldLogic'
+    uint8_T temporalCounter_i1_p;      // '<S35>/HdgHoldLogic'
     uint8_T is_active_c25_ImmedMission;// '<S1>/PreemptableMissionModeSelector'
     uint8_T is_c25_ImmedMission;       // '<S1>/PreemptableMissionModeSelector'
     uint8_T is_ImmedMission;           // '<S1>/PreemptableMissionModeSelector'
     boolean_T InDangerSequence_X[360]; // '<S72>/InDangerSequence'
-    boolean_T i_data[10241];
-    boolean_T x_data[30723];
+    boolean_T i_data[10242];
+    boolean_T x_data[30726];
     boolean_T InDanger;                // '<S65>/Relational Operator'
     boolean_T objisempty;              // '<S129>/Waypoint Follower'
     boolean_T objisempty_o;            // '<S135>/RotateATMissionHdg'
@@ -220,14 +229,22 @@ extern void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
     *rtu_FlightMission_MissionLocation_degHDG, const real32_T
     *rtu_FlightMission_params_Param3, const int32_T *rtu_FlightMission_numUAV,
     const int32_T *rtu_FlightMission_FormationPos, const RealUAVStateBus
-    rtu_OtherUAVstate[128], real_T *rty_TaskStatus, FixedWingGuidanceStateBus
-    *rty_FinalSimUAVState, boolean_T rty_ControlSwitch[2], FixedWingGuidanceBus *
-    rty_GuidanceCMD, DW_ImmedMission_f_T *localDW, ZCE_ImmedMission_T *localZCE);
+    rtu_OtherUAVstate[128], const MissionModes *rtu_FlightMode, real_T
+    *rty_TaskStatus, FixedWingGuidanceStateBus *rty_FinalSimUAVState, boolean_T
+    rty_ControlSwitch[2], FixedWingGuidanceBus *rty_GuidanceCMD,
+    DW_ImmedMission_f_T *localDW, ZCE_ImmedMission_T *localZCE);
 
 //-
 //  These blocks were eliminated from the model due to optimizations:
 //
 //  Block '<S37>/Gain1' : Unused code path elimination
+//  Block '<S40>/Data Type Duplicate' : Unused code path elimination
+//  Block '<S69>/Data Type Duplicate' : Unused code path elimination
+//  Block '<S132>/Data Type Duplicate' : Unused code path elimination
+//  Block '<S158>/Data Type Duplicate' : Unused code path elimination
+//  Block '<S185>/Data Type Duplicate' : Unused code path elimination
+//  Block '<S226>/Data Type Duplicate' : Unused code path elimination
+//  Block '<S256>/Data Type Duplicate' : Unused code path elimination
 //  Block '<S25>/Reshape (9) to [3x3] column-major' : Reshape block reduction
 //  Block '<S33>/Reshape (9) to [3x3] column-major' : Reshape block reduction
 //  Block '<S35>/FlightSpeed' : Eliminate redundant signal conversion block

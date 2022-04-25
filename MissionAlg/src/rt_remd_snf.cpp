@@ -3,17 +3,21 @@
 //
 // Code generated for Simulink model 'FlightMissionMode'.
 //
-// Model version                  : 2.81
-// Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Mon Apr 11 09:29:16 2022
+// Model version                  : 2.93
+// Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
+// C/C++ source code generated on : Sun Apr 24 02:53:00 2022
 //
 #include "rtwtypes.h"
-#include "rt_nonfinite.h"
-#include <cfloat>
-#include <cmath>
 #include "rt_remd_snf.h"
+#include <cmath>
+#include <cfloat>
 
-real_T rt_remd_snf(real_T u0, real_T u1)
+extern "C" {
+
+#include "rt_nonfinite.h"
+
+}
+    real_T rt_remd_snf(real_T u0, real_T u1)
 {
     real_T y;
     if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(

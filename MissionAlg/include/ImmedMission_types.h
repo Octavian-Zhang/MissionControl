@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'ImmedMission'.
 //
-// Model version                  : 2.140
-// Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Sat Apr 16 03:36:25 2022
+// Model version                  : 2.143
+// Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
+// C/C++ source code generated on : Sun Apr 24 20:29:31 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -19,7 +19,7 @@
 #ifndef RTW_HEADER_ImmedMission_types_h_
 #define RTW_HEADER_ImmedMission_types_h_
 #include "rtwtypes.h"
-#include "zero_crossing_types.h"
+#include "MissionModes.h"
 #include "DatalinkInterface.h"
 
 // Model Code Variants
@@ -36,18 +36,6 @@ struct FixedWingGuidanceStateBus
     real_T FlightPathAngle;
     real_T RollAngle;
     real_T RollAngleRate;
-};
-
-#endif
-
-#ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
-#define DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
-
-struct FixedWingGuidanceBus
-{
-    real_T Height;
-    real_T AirSpeed;
-    real_T HeadingAngle;
 };
 
 #endif
@@ -81,6 +69,18 @@ struct RealUAVStateBus
     real_T HeadingAngle_deg;
     real_T FlightPathAngle_deg;
     real_T RollAngle_deg;
+};
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
+#define DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
+
+struct FixedWingGuidanceBus
+{
+    real_T Height;
+    real_T AirSpeed;
+    real_T HeadingAngle;
 };
 
 #endif
@@ -127,6 +127,27 @@ struct
 #endif
 // struct_robotics_slcore_internal_block_CoordinateTransformationConversion_ImmedMission_T 
 
+#ifndef struct_uav_sluav_internal_system_OrbitFollower_ImmedMission_T
+#define struct_uav_sluav_internal_system_OrbitFollower_ImmedMission_T
+
+struct uav_sluav_internal_system_OrbitFollower_ImmedMission_T
+{
+    int32_T isInitialized;
+    real_T NumCircles;
+    real_T PrevPosition[3];
+    boolean_T StartFlag;
+    real_T LookaheadDistance;
+    boolean_T SelectTurnDirectionFlag;
+    real_T TurnDirectionInternal;
+    real_T OrbitCenterInternal[3];
+    real_T OrbitRadiusInternal;
+    uint8_T OrbitRadiusFlag;
+    uint8_T LookaheadDistFlag;
+    real_T PrevResetSignal;
+};
+
+#endif         // struct_uav_sluav_internal_system_OrbitFollower_ImmedMission_T
+
 // Custom Type definition for MATLAB Function: '<S135>/BaseWayPoint'
 #ifndef struct_uavDubinsConnection_ImmedMission_T
 #define struct_uavDubinsConnection_ImmedMission_T
@@ -163,28 +184,6 @@ struct emxArray_real_T_ImmedMission_T
 };
 
 #endif                                 // struct_emxArray_real_T_ImmedMission_T
-
-#ifndef struct_uav_sluav_internal_system_OrbitFollower_ImmedMission_T
-#define struct_uav_sluav_internal_system_OrbitFollower_ImmedMission_T
-
-struct uav_sluav_internal_system_OrbitFollower_ImmedMission_T
-{
-    int32_T isInitialized;
-    cell_wrap_ImmedMission_T inputVarSize[5];
-    real_T NumCircles;
-    real_T PrevPosition[3];
-    boolean_T StartFlag;
-    real_T LookaheadDistance;
-    boolean_T SelectTurnDirectionFlag;
-    real_T TurnDirectionInternal;
-    real_T OrbitCenterInternal[3];
-    real_T OrbitRadiusInternal;
-    uint8_T OrbitRadiusFlag;
-    uint8_T LookaheadDistFlag;
-    real_T PrevResetSignal;
-};
-
-#endif         // struct_uav_sluav_internal_system_OrbitFollower_ImmedMission_T
 
 #ifndef struct_uav_sluav_internal_system_WaypointFollower_ImmedMission_c_T
 #define struct_uav_sluav_internal_system_WaypointFollower_ImmedMission_c_T

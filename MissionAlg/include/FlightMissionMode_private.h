@@ -4,8 +4,8 @@
 // Code generated for Simulink model 'FlightMissionMode'.
 //
 // Model version                  : 2.93
-// Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Sat Apr 16 03:47:31 2022
+// Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
+// C/C++ source code generated on : Sun Apr 24 02:53:00 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -19,6 +19,8 @@
 #ifndef RTW_HEADER_FlightMissionMode_private_h_
 #define RTW_HEADER_FlightMissionMode_private_h_
 #include "rtwtypes.h"
+#include "FlightMissionMode_types.h"
+#include "FlightMissionMode.h"
 #ifndef PORTABLE_WORDSIZES
 #ifndef UCHAR_MAX
 #include <limits.h>

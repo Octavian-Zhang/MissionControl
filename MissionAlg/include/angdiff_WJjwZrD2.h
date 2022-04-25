@@ -1,5 +1,5 @@
 //
-// File: div_s32.h
+// File: angdiff_WJjwZrD2.h
 //
 // Code generated for Simulink model 'Real2SimGuidance'.
 //
@@ -7,13 +7,13 @@
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
 // C/C++ source code generated on : Sun Apr 24 02:58:34 2022
 //
-#ifndef RTW_HEADER_div_s32_h_
-#define RTW_HEADER_div_s32_h_
+#ifndef RTW_HEADER_angdiff_WJjwZrD2_h_
+#define RTW_HEADER_angdiff_WJjwZrD2_h_
 #include "rtwtypes.h"
 
-extern int32_T div_s32(int32_T numerator, int32_T denominator);
+extern real_T angdiff_WJjwZrD2(real_T x, real_T y);
 
-#endif                                 // RTW_HEADER_div_s32_h_
+#endif                                 // RTW_HEADER_angdiff_WJjwZrD2_h_
 
 //
 // File trailer for generated code.

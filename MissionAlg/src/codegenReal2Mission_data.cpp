@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 3.219
-// Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Sat Apr 16 03:50:33 2022
+// Model version                  : 3.220
+// Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
+// C/C++ source code generated on : Sun Apr 24 20:30:50 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -17,7 +17,6 @@
 // Validation result: Not run
 //
 #include "codegenReal2Mission.h"
-#include "codegenReal2Mission_private.h"
 
 // Constant parameters (default storage)
 const codegenReal2MissionModelClass::ConstP_codegenReal2Mission_T

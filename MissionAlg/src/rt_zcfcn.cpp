@@ -3,11 +3,14 @@
 //
 // Code generated for Simulink model 'ImmedMission'.
 //
-// Model version                  : 2.137
-// Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Mon Apr 11 09:18:20 2022
+// Model version                  : 3.2
+// Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
+// C/C++ source code generated on : Sun Apr 24 02:56:40 2022
 //
+#include "rtwtypes.h"
+#include "zero_crossing_types.h"
 #include "rt_zcfcn.h"
+#include "solver_zc.h"
 
 extern "C" {
     // Detect zero crossings events.
@@ -34,14 +37,14 @@ extern "C" {
         };
 
         // get prevZcEvent and prevZcSign from prevZc
-        slZcEventType prevEv{ (slZcEventType)(((uint8_T)(*prevZc)) >> 2) };
+        const slZcEventType prevEv{ (slZcEventType)(((uint8_T)(*prevZc)) >> 2) };
 
-        slZcSignalSignType prevSign{ (slZcSignalSignType)(((uint8_T)(*prevZc)) &
-            (uint8_T)0x03) };
+        const slZcSignalSignType prevSign{ (slZcSignalSignType)(((uint8_T)
+            (*prevZc)) & (uint8_T)0x03) };
 
         // get current zcSignal sign from current zcSignal value
-        slZcSignalSignType currSign{ (slZcSignalSignType)((currValue) > 0.0 ?
-            SL_ZCS_SIGN_POS :
+        const slZcSignalSignType currSign{ (slZcSignalSignType)((currValue) >
+            0.0 ? SL_ZCS_SIGN_POS :
             ((currValue) < 0.0 ? SL_ZCS_SIGN_NEG : SL_ZCS_SIGN_ZERO)) };
 
         // get current zcEvent based on prev and current zcSignal value

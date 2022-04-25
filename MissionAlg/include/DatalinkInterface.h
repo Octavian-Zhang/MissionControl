@@ -3,15 +3,15 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 3.219
-// Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Sat Apr 16 03:50:33 2022
+// Model version                  : 3.220
+// Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
+// C/C++ source code generated on : Sun Apr 24 20:30:50 2022
 //
 
 #ifndef RTW_HEADER_DatalinkInterface_h_
 #define RTW_HEADER_DatalinkInterface_h_
-#include "MissionModes.h"
 #include "rtwtypes.h"
+#include "MissionModes.h"
 
 struct Location
 {

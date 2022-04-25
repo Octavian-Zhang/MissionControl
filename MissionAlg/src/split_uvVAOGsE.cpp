@@ -1,18 +1,18 @@
 //
-// File: split_lIfqwsQg.cpp
+// File: split_uvVAOGsE.cpp
 //
 // Code generated for Simulink model 'Real2SimGuidance'.
 //
-// Model version                  : 3.119
-// Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Mon Apr 11 09:17:33 2022
+// Model version                  : 3.146
+// Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
+// C/C++ source code generated on : Sun Apr 24 02:58:34 2022
 //
 #include "rtwtypes.h"
+#include "split_uvVAOGsE.h"
 #include <cmath>
-#include "split_lIfqwsQg.h"
 
 // Function for MATLAB Function: '<Root>/TimeNow'
-creal_T split_lIfqwsQg(real_T a)
+creal_T split_uvVAOGsE(real_T a)
 {
     creal_T aout;
     if (std::abs(a) <= 6.69692879491417E+299) {

@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 3.219
-// Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Sat Apr 16 03:50:33 2022
+// Model version                  : 3.220
+// Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
+// C/C++ source code generated on : Sun Apr 24 20:30:50 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -19,26 +19,11 @@
 #ifndef RTW_HEADER_codegenReal2Mission_types_h_
 #define RTW_HEADER_codegenReal2Mission_types_h_
 #include "rtwtypes.h"
-#include "model_reference_types.h"
-#include "builtin_typeid_types.h"
-#include "zero_crossing_types.h"
+#include "MissionModes.h"
 #include "DatalinkInterface.h"
+#include "rtw_linux.h"
 
 // Model Code Variants
-#include "rtw_linux.h"
-#ifndef DEFINED_TYPEDEF_FOR_FCUCMD_
-#define DEFINED_TYPEDEF_FOR_FCUCMD_
-
-struct FCUCMD
-{
-    real_T Latitude_deg;
-    real_T Longitude_deg;
-    real_T Height_meter;
-    real_T RefAirSpd_mps;
-};
-
-#endif
-
 #ifndef DEFINED_TYPEDEF_FOR_RealUAVStateBus_
 #define DEFINED_TYPEDEF_FOR_RealUAVStateBus_
 
@@ -51,6 +36,43 @@ struct RealUAVStateBus
     real_T HeadingAngle_deg;
     real_T FlightPathAngle_deg;
     real_T RollAngle_deg;
+};
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_VectorSpeed_
+#define DEFINED_TYPEDEF_FOR_VectorSpeed_
+
+struct VectorSpeed
+{
+    real_T eastSpeed;
+    real_T northSpeed;
+    real_T skySpeed;
+};
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_StateFCU_
+#define DEFINED_TYPEDEF_FOR_StateFCU_
+
+struct StateFCU
+{
+    RealUAVStateBus RealUAVState;
+    real_T GndSpd_mps;
+    real_T Altitude;
+    VectorSpeed VecSpd;
+};
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
+#define DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
+
+struct FixedWingGuidanceBus
+{
+    real_T Height;
+    real_T AirSpeed;
+    real_T HeadingAngle;
 };
 
 #endif
@@ -68,6 +90,36 @@ struct FixedWingGuidanceStateBus
     real_T FlightPathAngle;
     real_T RollAngle;
     real_T RollAngleRate;
+};
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_missionCmd_
+#define DEFINED_TYPEDEF_FOR_missionCmd_
+
+struct missionCmd
+{
+    int32_T SequenceID;
+    MissionModes MissionMode;
+    Location MissionLocation;
+    Parameters params;
+    Location StartPosition;
+    int32_T numUAV;
+    int32_T FormationPos;
+    real_T StartTime;
+};
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_FCUCMD_
+#define DEFINED_TYPEDEF_FOR_FCUCMD_
+
+struct FCUCMD
+{
+    real_T Latitude_deg;
+    real_T Longitude_deg;
+    real_T Height_meter;
+    real_T RefAirSpd_mps;
 };
 
 #endif
@@ -102,18 +154,6 @@ struct MiscellaneousFlightStatus
 
 #endif
 
-#ifndef DEFINED_TYPEDEF_FOR_VectorSpeed_
-#define DEFINED_TYPEDEF_FOR_VectorSpeed_
-
-struct VectorSpeed
-{
-    real_T eastSpeed;
-    real_T northSpeed;
-    real_T skySpeed;
-};
-
-#endif
-
 #ifndef DEFINED_TYPEDEF_FOR_ADRC_
 #define DEFINED_TYPEDEF_FOR_ADRC_
 
@@ -144,31 +184,6 @@ struct FlightLogging
 
 #endif
 
-#ifndef DEFINED_TYPEDEF_FOR_StateFCU_
-#define DEFINED_TYPEDEF_FOR_StateFCU_
-
-struct StateFCU
-{
-    RealUAVStateBus RealUAVState;
-    real_T GndSpd_mps;
-    real_T Altitude;
-    VectorSpeed VecSpd;
-};
-
-#endif
-
-#ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
-#define DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
-
-struct FixedWingGuidanceBus
-{
-    real_T Height;
-    real_T AirSpeed;
-    real_T HeadingAngle;
-};
-
-#endif
-
 #ifndef DEFINED_TYPEDEF_FOR_ParamADRC_
 #define DEFINED_TYPEDEF_FOR_ParamADRC_
 
@@ -181,23 +196,6 @@ struct ParamADRC
     real_T I;
     real_T D;
     boolean_T useADRC;
-};
-
-#endif
-
-#ifndef DEFINED_TYPEDEF_FOR_missionCmd_
-#define DEFINED_TYPEDEF_FOR_missionCmd_
-
-struct missionCmd
-{
-    int32_T SequenceID;
-    MissionModes MissionMode;
-    Location MissionLocation;
-    Parameters params;
-    Location StartPosition;
-    int32_T numUAV;
-    int32_T FormationPos;
-    real_T StartTime;
 };
 
 #endif
@@ -221,12 +219,13 @@ struct TaskStatus
 #ifndef DEFINED_TYPEDEF_FOR_QueuePolicy_T_
 #define DEFINED_TYPEDEF_FOR_QueuePolicy_T_
 
-typedef enum {
+enum class QueuePolicy_T
+    : int32_T {
     MSG_QUEUE_UNUSED = -1,             // Default value
     MSG_FIFO_QUEUE,
     MSG_LIFO_QUEUE,
     MSG_PRIORITY_QUEUE
-} QueuePolicy_T;
+};
 
 #endif
 
@@ -341,6 +340,14 @@ struct cell_wrap_1_codegenReal2Mission_T
 };
 
 #endif                              // struct_cell_wrap_1_codegenReal2Mission_T
+
+#ifndef SS_UINT64
+#define SS_UINT64                      49
+#endif
+
+#ifndef SS_INT64
+#define SS_INT64                       50
+#endif
 #endif                               // RTW_HEADER_codegenReal2Mission_types_h_
 
 //

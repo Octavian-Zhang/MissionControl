@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 3.219
-// Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Sat Apr 16 03:50:33 2022
+// Model version                  : 3.220
+// Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
+// C/C++ source code generated on : Sun Apr 24 20:30:50 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -18,32 +18,33 @@
 //
 #ifndef RTW_HEADER_codegenReal2Mission_h_
 #define RTW_HEADER_codegenReal2Mission_h_
-#include <cmath>
-#include <cstring>
-#include <stddef.h>
-#include "RecvData_IndividualUAVCmdT.h"
-#include "SendData_IndividualUAVCmdT.h"
 #include <stdio.h>
 #include "rtwtypes.h"
-#include "zero_crossing_types.h"
 #include "rtw_continuous.h"
 #include "rtw_solver.h"
+#include <stddef.h>
+#include "SendData_IndividualUAVCmdT.h"
 #include "codegenReal2Mission_types.h"
-
-// Shared type includes
-#include "model_reference_types.h"
-
-// Child system includes
-#include "Real2SimGuidance.h"
-#include "ImmedMission.h"
+#include "RecvData_IndividualUAVCmdT.h"
+#include "MissionModes.h"
+#include "DatalinkInterface.h"
 #include "FlightMissionMode.h"
+#include "ImmedMission.h"
 #include "MissionUAV.h"
+#include "Real2SimGuidance.h"
+#include "rtGetInf.h"
+
+extern "C" {
+
+#include "rt_nonfinite.h"
+
+}
+#include "model_reference_types.h"
+#include <cstring>
+#include "zero_crossing_types.h"
 
 // Includes for objects with custom storage classes
 #include "GCS_Location.h"
-#include "rtGetInf.h"
-#include "rt_nonfinite.h"
-#include "rtw_linux.h"
 
 // Macros for accessing real-time model data structure
 #ifndef rtmGetErrorStatus
@@ -105,7 +106,7 @@ extern void* LatitudeGCS_m0;           // synthesized block
 extern void* LongitudeGCS_m0;          // synthesized block
 
 // Class declaration for model codegenReal2Mission
-class codegenReal2MissionModelClass
+class codegenReal2MissionModelClass final
 {
     // public data and function members
   public:
@@ -281,11 +282,18 @@ class codegenReal2MissionModelClass
     };
 
     // Copy Constructor
-    codegenReal2MissionModelClass(codegenReal2MissionModelClass const&) =delete;
+    codegenReal2MissionModelClass(codegenReal2MissionModelClass const&) = delete;
 
     // Assignment Operator
     codegenReal2MissionModelClass& operator= (codegenReal2MissionModelClass
         const&) & = delete;
+
+    // Move Constructor
+    codegenReal2MissionModelClass(codegenReal2MissionModelClass &&) = delete;
+
+    // Move Assignment Operator
+    codegenReal2MissionModelClass& operator= (codegenReal2MissionModelClass &&) =
+        delete;
 
     // Real-Time Model get method
     codegenReal2MissionModelClass::RT_MODEL_codegenReal2Mission_T * getRTM();
@@ -347,16 +355,20 @@ class codegenReal2MissionModelClass
     creal_T codegenReal2Mission_two_sum(real_T a, real_T b);
     creal_T codegenReal2Mission_plus(const creal_T a, real_T b);
     creal_T codegenReal2Mission_createFromDateVec(const real_T inData[7]);
-    boolean_T codegenReal2Mission_isequaln_f(MissionModes varargin_1,
+    boolean_T codegenReal2Mission_isequaln_n(MissionModes varargin_1,
         MissionModes varargin_2);
-    boolean_T codegenReal2Mission_isequaln(const missionCmd *varargin_1, int32_T
-        varargin_2_SequenceID, MissionModes varargin_2_MissionMode, real_T
-        varargin_2_MissionLocation_Lat, real_T varargin_2_MissionLocation_Lon,
-        real_T varargin_2_MissionLocation_Alt, real_T
-        varargin_2_MissionLocation_degHDG, real32_T varargin_2_params_Param1,
-        real32_T varargin_2_params_Param2, real32_T varargin_2_params_Param3,
-        real32_T varargin_2_params_Param4, real32_T varargin_2_params_Param5,
-        real32_T varargin_2_params_Param6, real32_T varargin_2_params_Param7,
+    boolean_T codegenReal2Mission_isequaln(int32_T varargin_1_SequenceID,
+        MissionModes varargin_1_MissionMode, real_T
+        varargin_1_MissionLocation_Lat, real_T varargin_1_MissionLocation_Lon,
+        real_T varargin_1_MissionLocation_Alt, real_T
+        varargin_1_MissionLocation_degHDG, real32_T varargin_1_params_Param1,
+        real32_T varargin_1_params_Param2, real32_T varargin_1_params_Param3,
+        real32_T varargin_1_params_Param4, real32_T varargin_1_params_Param5,
+        real32_T varargin_1_params_Param6, real32_T varargin_1_params_Param7,
+        const Location varargin_1_StartPosition, int32_T varargin_1_numUAV,
+        int32_T varargin_1_FormationPos, real_T varargin_1_StartTime, int32_T
+        varargin_2_SequenceID, MissionModes varargin_2_MissionMode, const
+        Location varargin_2_MissionLocation, const Parameters varargin_2_params,
         const Location varargin_2_StartPosition, int32_T varargin_2_numUAV,
         int32_T varargin_2_FormationPos, real_T varargin_2_StartTime);
     boolean_T codegenReal2Mission_isPalindrome(MissionModes inputNum);
@@ -371,9 +383,9 @@ class codegenReal2MissionModelClass
         d);
     void codegenReal2Mission_secs2hms(real_T secs, real_T *h, real_T *m, real_T *
         s);
-    void codegenReal2Mission_getDateVec_j(real_T dd, real_T *y, real_T *mo,
+    void codegenReal2Mission_getDateVec_o(real_T dd, real_T *y, real_T *mo,
         real_T *d, real_T *h, real_T *m, real_T *s);
-    void codegenReal2Mission_getDateVec_jr(const creal_T dd, real_T *y, real_T
+    void codegenReal2Mission_getDateVec_oe(const creal_T dd, real_T *y, real_T
         *mo, real_T *d, real_T *h, real_T *m, real_T *s);
     missionCmd *codegenReal2Mission_allocMemPool(MemPool_missionCmd *memPool,
         int32_T width);
@@ -394,7 +406,7 @@ class codegenReal2MissionModelClass
     int32_T codegenReal2Mission_ReceiveCurrentMission_RecvData(missionCmd *data);
     int32_T codegenReal2Mission_RcvImmedCMD_RecvData(missionCmd *data);
     int32_T codegenReal2Mission_ReceiveThisMission_RecvData(missionCmd *data);
-    void codegenReal2Mission_getDateVec_m(real_T dd, real_T *y, real_T *mo,
+    void codegenReal2Mission_getDateVec_g(real_T dd, real_T *y, real_T *mo,
         real_T *d, real_T *h, real_T *m, real_T *s);
     int8_T codegenReal2Mission_filedata(void) const;
     int8_T codegenReal2Mission_cfopen(const char_T *cfilename, const char_T
@@ -406,8 +418,20 @@ class codegenReal2MissionModelClass
     creal_T codegenReal2Mission_datetime_datetime(void);
     void codegenReal2Mission_getDateVec(const creal_T dd, real_T *y, real_T *mo,
         real_T *d, real_T *h, real_T *m, real_T *s);
-    void codegenReal2Mission_printIndivMissionCMD(const IndividualUAVCmd
-        *IndivMissionCMD, real_T fileID);
+    void codegenReal2Mission_printIndivMissionCMD(int32_T
+        IndivMissionCMD_SequenceID, MissionModes IndivMissionCMD_MissionMode,
+        real_T IndivMissionCMD_MissionLocation_Lat, real_T
+        IndivMissionCMD_MissionLocation_Lon, real_T
+        IndivMissionCMD_MissionLocation_Alt, real_T
+        IndivMissionCMD_MissionLocation_degHDG, real32_T
+        IndivMissionCMD_params_Param1, real32_T IndivMissionCMD_params_Param2,
+        real32_T IndivMissionCMD_params_Param3, real32_T
+        IndivMissionCMD_params_Param4, real32_T IndivMissionCMD_params_Param5,
+        real32_T IndivMissionCMD_params_Param6, real32_T
+        IndivMissionCMD_params_Param7, const Location
+        IndivMissionCMD_StartPosition, int32_T IndivMissionCMD_numUAV, int32_T
+        IndivMissionCMD_FormationPos, const Time IndivMissionCMD_StartTime,
+        real_T fileID);
     int32_T codegenReal2Mission_cfclose(real_T fid);
     void codegenReal2Mission_initMemPool(MemPool_missionCmd *memPool, missionCmd
         *memArray, missionCmd **freeList, int32_T size);

@@ -4,8 +4,8 @@
 // Code generated for Simulink model 'Real2SimGuidance'.
 //
 // Model version                  : 3.146
-// Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Sat Apr 16 03:35:25 2022
+// Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
+// C/C++ source code generated on : Sun Apr 24 02:58:34 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -19,10 +19,26 @@
 #ifndef RTW_HEADER_Real2SimGuidance_types_h_
 #define RTW_HEADER_Real2SimGuidance_types_h_
 #include "rtwtypes.h"
-#include "model_reference_types.h"
 #include "DatalinkInterface.h"
 
 // Model Code Variants
+#ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceStateBus_
+#define DEFINED_TYPEDEF_FOR_FixedWingGuidanceStateBus_
+
+struct FixedWingGuidanceStateBus
+{
+    real_T North;
+    real_T East;
+    real_T Height;
+    real_T AirSpeed;
+    real_T HeadingAngle;
+    real_T FlightPathAngle;
+    real_T RollAngle;
+    real_T RollAngleRate;
+};
+
+#endif
+
 #ifndef DEFINED_TYPEDEF_FOR_RealUAVStateBus_
 #define DEFINED_TYPEDEF_FOR_RealUAVStateBus_
 
@@ -60,23 +76,6 @@ struct StateFCU
     real_T GndSpd_mps;
     real_T Altitude;
     VectorSpeed VecSpd;
-};
-
-#endif
-
-#ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceStateBus_
-#define DEFINED_TYPEDEF_FOR_FixedWingGuidanceStateBus_
-
-struct FixedWingGuidanceStateBus
-{
-    real_T North;
-    real_T East;
-    real_T Height;
-    real_T AirSpeed;
-    real_T HeadingAngle;
-    real_T FlightPathAngle;
-    real_T RollAngle;
-    real_T RollAngleRate;
 };
 
 #endif

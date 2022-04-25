@@ -3,12 +3,12 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 3.188
-// Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Mon Apr 11 09:35:15 2022
+// Model version                  : 4.0
+// Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
+// C/C++ source code generated on : Sun Apr 24 03:00:24 2022
 //
-#include "rtwtypes.h"
 #include "div_nde_s32_floor.h"
+#include "rtwtypes.h"
 
 int32_T div_nde_s32_floor(int32_T numerator, int32_T denominator)
 {

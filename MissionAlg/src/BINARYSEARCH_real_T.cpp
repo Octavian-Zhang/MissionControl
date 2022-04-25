@@ -3,12 +3,12 @@
 //
 // Code generated for Simulink model 'ImmedMission'.
 //
-// Model version                  : 2.137
-// Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Mon Apr 11 09:18:20 2022
+// Model version                  : 3.2
+// Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
+// C/C++ source code generated on : Sun Apr 24 02:56:40 2022
 //
-#include "rtwtypes.h"
 #include "BINARYSEARCH_real_T.h"
+#include "rtwtypes.h"
 
 // Lookup Binary Search Utility BINARYSEARCH_real_T
 void BINARYSEARCH_real_T(uint32_T *piLeft, uint32_T *piRght, real_T u, const

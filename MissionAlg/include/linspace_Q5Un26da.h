@@ -1,5 +1,5 @@
 //
-// File: LookUp_real_T_real_T.h
+// File: linspace_Q5Un26da.h
 //
 // Code generated for Simulink model 'ImmedMission'.
 //
@@ -7,14 +7,13 @@
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
 // C/C++ source code generated on : Sun Apr 24 02:56:40 2022
 //
-#ifndef RTW_HEADER_LookUp_real_T_real_T_h_
-#define RTW_HEADER_LookUp_real_T_real_T_h_
+#ifndef RTW_HEADER_linspace_Q5Un26da_h_
+#define RTW_HEADER_linspace_Q5Un26da_h_
 #include "rtwtypes.h"
 
-void LookUp_real_T_real_T(real_T *pY, const real_T *pYData, real_T u, const
-    real_T *pUData, uint32_T iHi);
+extern void linspace_Q5Un26da(real_T d2, real_T y[91]);
 
-#endif                                 // RTW_HEADER_LookUp_real_T_real_T_h_
+#endif                                 // RTW_HEADER_linspace_Q5Un26da_h_
 
 //
 // File trailer for generated code.

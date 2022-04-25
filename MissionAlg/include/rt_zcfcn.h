@@ -3,15 +3,15 @@
 //
 // Code generated for Simulink model 'ImmedMission'.
 //
-// Model version                  : 2.137
-// Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Mon Apr 11 09:18:20 2022
+// Model version                  : 3.2
+// Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
+// C/C++ source code generated on : Sun Apr 24 02:56:40 2022
 //
 #ifndef RTW_HEADER_rt_zcfcn_h_
 #define RTW_HEADER_rt_zcfcn_h_
 #include "rtwtypes.h"
-#include "solver_zc.h"
 #include "zero_crossing_types.h"
+#include "solver_zc.h"
 #ifndef slZcHadEvent
 #define slZcHadEvent(ev, zcsDir)       (((ev) & (zcsDir)) != 0x00 )
 #endif

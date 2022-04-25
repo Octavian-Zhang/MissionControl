@@ -4,8 +4,8 @@
 // Code generated for Simulink model 'Real2SimGuidance'.
 //
 // Model version                  : 3.146
-// Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Sat Apr 16 03:35:25 2022
+// Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
+// C/C++ source code generated on : Sun Apr 24 02:58:34 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -18,19 +18,18 @@
 //
 #ifndef RTW_HEADER_Real2SimGuidance_h_
 #define RTW_HEADER_Real2SimGuidance_h_
-#include <cmath>
-#include <cstdlib>
-#include <cstring>
-#include <math.h>
 #include "rtwtypes.h"
 #include "rtw_continuous.h"
 #include "rtw_solver.h"
 #include "Real2SimGuidance_types.h"
 
-// Shared type includes
-#include "model_reference_types.h"
+extern "C" {
+
 #include "rt_nonfinite.h"
+
+}
 #include "rtGetInf.h"
+#include "model_reference_types.h"
 
 // Block signals and states (default storage) for model 'Real2SimGuidance'
 struct DW_Real2SimGuidance_f_T {
@@ -75,7 +74,7 @@ struct DW_Real2SimGuidance_f_T {
     real_T MemoryRefHeight_PreviousInput;// '<S66>/MemoryRefHeight'
     int32_T durationCounter_1;         // '<Root>/TASgreaterthan15for1Sec'
     uint32_T temporalCounter_i1;       // '<S71>/MissionSwitchInitialPersuit'
-    uint16_T temporalCounter_i1_o;     // '<Root>/EngagementDebouncer'
+    uint16_T temporalCounter_i1_i;     // '<Root>/EngagementDebouncer'
     int8_T DiscreteTimeIntegrator_PrevResetState;// '<S71>/Discrete-Time Integrator' 
     uint8_T Engaged;                   // '<S8>/Engagement'
     uint8_T HdgStatus_Log;             // '<Root>/Status_Log'
@@ -86,22 +85,22 @@ struct DW_Real2SimGuidance_f_T {
     uint8_T is_c6_Real2SimGuidance;    // '<S83>/ControlLogic'
     uint8_T is_useADRC;                // '<S83>/ControlLogic'
     uint8_T is_Debounce;               // '<S83>/ControlLogic'
-    uint8_T temporalCounter_i1_m;      // '<S83>/ControlLogic'
+    uint8_T temporalCounter_i1_n;      // '<S83>/ControlLogic'
     uint8_T is_active_c3_Real2SimGuidance;// '<S71>/MissionSwitchInitialPersuit' 
     uint8_T is_c3_Real2SimGuidance;    // '<S71>/MissionSwitchInitialPersuit'
     uint8_T is_Normal;                 // '<S71>/MissionSwitchInitialPersuit'
-    uint8_T is_Debounce_i;             // '<S71>/MissionSwitchInitialPersuit'
+    uint8_T is_Debounce_m;             // '<S71>/MissionSwitchInitialPersuit'
     uint8_T temporalCounter_i2;        // '<S71>/MissionSwitchInitialPersuit'
     uint8_T is_active_c2_Real2SimGuidance;// '<S8>/Chart'
     uint8_T is_c2_Real2SimGuidance;    // '<S8>/Chart'
     uint8_T is_active_c34_Real2SimGuidance;// '<Root>/EngagementDebouncer'
     uint8_T is_c34_Real2SimGuidance;   // '<Root>/EngagementDebouncer'
     uint8_T is_Persuit;                // '<Root>/EngagementDebouncer'
-    uint8_T is_Debounce_id;            // '<Root>/EngagementDebouncer'
+    uint8_T is_Debounce_m4;            // '<Root>/EngagementDebouncer'
     uint8_T is_L0Engaged;              // '<Root>/EngagementDebouncer'
     uint8_T is_L0Default;              // '<Root>/EngagementDebouncer'
-    uint8_T is_Debounce_a;             // '<Root>/EngagementDebouncer'
-    uint8_T temporalCounter_i2_n;      // '<Root>/EngagementDebouncer'
+    uint8_T is_Debounce_b;             // '<Root>/EngagementDebouncer'
+    uint8_T temporalCounter_i2_f;      // '<Root>/EngagementDebouncer'
     boolean_T Compare;                 // '<S62>/Compare'
     boolean_T PID_U;                   // '<S83>/ControlLogic'
     boolean_T EnableADRC;              // '<S83>/ControlLogic'
@@ -201,6 +200,8 @@ extern void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const
 //-
 //  These blocks were eliminated from the model due to optimizations:
 //
+//  Block '<S14>/Data Type Duplicate' : Unused code path elimination
+//  Block '<S37>/Data Type Duplicate' : Unused code path elimination
 //  Block '<S65>/SwitchDesiredYaw' : Unused code path elimination
 //  Block '<S125>/DTDup' : Unused code path elimination
 //  Block '<Root>/LookaheadPoint_ZOH' : Eliminated since input and output rates are identical

@@ -1,11 +1,11 @@
 //
 // File: zero_crossing_types.h
 //
-// Code generated for Simulink model 'MissionUAV'.
+// Code generated for Simulink model 'ImmedMission'.
 //
-// Model version                  : 2.12
-// Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Mon Apr 11 09:16:53 2022
+// Model version                  : 3.2
+// Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
+// C/C++ source code generated on : Sun Apr 24 02:56:40 2022
 //
 #ifndef ZERO_CROSSING_TYPES_H
 #define ZERO_CROSSING_TYPES_H
@@ -28,11 +28,8 @@ typedef uint8_T ZCSigState;
 #define ZERO_ZCSIG                     0x00U
 
 // Current state of a trigger signal
-typedef enum {
-    FALLING_ZCEVENT = -1,
-    NO_ZCEVENT = 0,
-    RISING_ZCEVENT = 1
-} ZCEventType;
+typedef enum { FALLING_ZCEVENT = -1, NO_ZCEVENT = 0, RISING_ZCEVENT = 1 }
+    ZCEventType;
 
 #endif                                 // ZERO_CROSSING_TYPES_H
 

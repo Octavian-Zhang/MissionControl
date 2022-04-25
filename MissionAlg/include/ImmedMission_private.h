@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'ImmedMission'.
 //
-// Model version                  : 2.140
-// Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Sat Apr 16 03:36:25 2022
+// Model version                  : 2.143
+// Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
+// C/C++ source code generated on : Sun Apr 24 20:29:31 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -20,6 +20,9 @@
 #define RTW_HEADER_ImmedMission_private_h_
 #include "rtwtypes.h"
 #include "zero_crossing_types.h"
+#include "ImmedMission_types.h"
+#include "MissionModes.h"
+#include "ImmedMission.h"
 
 // Macros for accessing real-time model data structure
 #ifndef rtmGetErrorStatus

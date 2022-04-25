@@ -1,18 +1,26 @@
 //
 // File: rtGetNaN.cpp
 //
-// Code generated for Simulink model 'MissionUAV'.
+// Code generated for Simulink model 'FlightMissionMode'.
 //
-// Model version                  : 2.12
-// Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Mon Apr 11 09:16:53 2022
+// Model version                  : 2.93
+// Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
+// C/C++ source code generated on : Sun Apr 24 02:53:00 2022
 //
+#include "rtwtypes.h"
 
-//
-//  Abstract:
-//       Function to initialize non-finite, NaN
+extern "C" {
 
 #include "rtGetNaN.h"
+
+}
+#include <stddef.h>
+
+extern "C" {
+
+#include "rt_nonfinite.h"
+
+}
 #define NumBitsPerChar                 8U
 
 extern "C" {

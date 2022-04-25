@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 3.188
-// Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Mon Apr 11 09:35:15 2022
+// Model version                  : 4.0
+// Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
+// C/C++ source code generated on : Sun Apr 24 03:00:24 2022
 //
 #ifndef BUILTIN_TYPEID_TYPES_H
 #define BUILTIN_TYPEID_TYPES_H
@@ -30,6 +30,16 @@ typedef enum {
 
 // Enumeration for MAT-file logging code
 typedef int_T DTypeId;
+
+// Enumeration of pre-defined data types
+typedef enum {
+    SS_FCN_CALL = 9,
+    SS_INTEGER = 10,
+    SS_POINTER = 11,
+    SS_INTERNAL_DTYPE2 = 12,
+    SS_TIMER_UINT32_PAIR = 13,
+    SS_CONNECTION_TYPE = 14
+} PreDefinedDTypeId;
 
 #endif                                 // BUILTIN_TYPEID_TYPES
 #endif                                 // BUILTIN_TYPEID_TYPES_H

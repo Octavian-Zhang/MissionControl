@@ -1,22 +1,22 @@
 //
-// File: linspace_Fzs74Tls.cpp
+// File: linspace_Q5Un26da.cpp
 //
 // Code generated for Simulink model 'ImmedMission'.
 //
-// Model version                  : 2.137
-// Simulink Coder version         : 9.6 (R2021b) 14-May-2021
-// C/C++ source code generated on : Mon Apr 11 09:18:20 2022
+// Model version                  : 3.2
+// Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
+// C/C++ source code generated on : Sun Apr 24 02:56:40 2022
 //
 #include "rtwtypes.h"
+#include "linspace_Q5Un26da.h"
 #include <cmath>
-#include "linspace_Fzs74Tls.h"
 
 // Function for MATLAB Function: '<S135>/BaseWayPoint'
-void linspace_Fzs74Tls(real_T d2, real_T y[91])
+void linspace_Q5Un26da(real_T d2, real_T y[91])
 {
     y[90] = d2;
     y[0] = 0.0;
-    if (0.0 == -d2) {
+    if (-d2 == 0.0) {
         real_T delta1;
         delta1 = d2 / 90.0;
         for (int32_T c_k{0}; c_k < 89; c_k++) {
