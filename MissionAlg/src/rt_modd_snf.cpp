@@ -1,11 +1,11 @@
 //
 // File: rt_modd_snf.cpp
 //
-// Code generated for Simulink model 'FlightMissionMode'.
+// Code generated for Simulink model 'Real2SimGuidance'.
 //
-// Model version                  : 2.93
+// Model version                  : 3.146
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Sun Apr 24 02:53:00 2022
+// C/C++ source code generated on : Mon May  2 19:21:02 2022
 //
 #include "rtwtypes.h"
 #include "rt_modd_snf.h"
@@ -14,10 +14,17 @@
 
 extern "C" {
 
+#include "rtGetNaN.h"
+
+}
+    extern "C"
+{
+
 #include "rt_nonfinite.h"
 
 }
-    real_T rt_modd_snf(real_T u0, real_T u1)
+
+real_T rt_modd_snf(real_T u0, real_T u1)
 {
     real_T y;
     y = u0;

@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 3.220
+// Model version                  : 3.222
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Sun Apr 24 20:30:50 2022
+// C/C++ source code generated on : Tue May  3 03:10:34 2022
 //
 
 #ifndef RTW_HEADER_MissionModes_h_
@@ -16,9 +16,9 @@
 enum class MissionModes
     : int32_T {
     CircNav = 1,
-    HorzFrmnNav = 2,
+    HorzScanNav = 2,
     RunWayNav = 3,
-    NewRunWay = 5,
+    NewRunWay = 6,
     DetailedInsp = 128,
     CollAvoidance = 129,
     FlightMissionRH = 130,
@@ -28,11 +28,12 @@ enum class MissionModes
     CustomFrmnNav = 22,
     FrmnRunWay = 33,
     ProtLine = 44,
+    FrmnWayPoint = 55,
     WaitToStart = 255,
     None = 0,                          // Default value
     TuneADRC = 252,
-    ShiftENU = 254,
-    ShiftXYZ = 253
+    ShiftEarthENU = 254,
+    ShiftBodyXYZ = 253
 };
 
 #endif                                 // RTW_HEADER_MissionModes_h_

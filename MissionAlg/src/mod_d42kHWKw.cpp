@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'FlightMissionMode'.
 //
-// Model version                  : 2.93
+// Model version                  : 2.113
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Sun Apr 24 02:53:00 2022
+// C/C++ source code generated on : Mon May  2 19:34:10 2022
 //
 #include "rtwtypes.h"
 #include "mod_d42kHWKw.h"
@@ -16,7 +16,7 @@ extern "C" {
 #include "rt_nonfinite.h"
 
 }
-// Function for MATLAB Function: '<S95>/StartPointGenerator'
+// Function for MATLAB Function: '<S96>/StartPointGenerator'
     real_T mod_d42kHWKw(real_T x)
 {
     real_T r;

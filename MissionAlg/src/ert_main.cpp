@@ -27,33 +27,14 @@
 #include <time.h>
 #include "rt_nonfinite.h"
 #include <stdio.h>              // This example main program uses printf/fflush
-#include "codegenReal2Mission.h"       // Model's header file
-
-#include "msgQueue.hpp"
-#include "DataLogging.hpp"
-
-/* Simulink Model IO */
-static msgQueue MQ_ExtU("/PosixMQ_ExtU", O_CREAT | O_RDONLY | O_NONBLOCK, 1, sizeof(codegenReal2MissionModelClass::ExtU_codegenReal2Mission_T));
-static msgQueue MQ_ExtY("/PosixMQ_ExtY", O_CREAT | O_WRONLY | O_NONBLOCK, 1, sizeof(codegenReal2MissionModelClass::ExtY_codegenReal2Mission_T));
+#include "codegenReal2Mission.h"       // Model header file
 
 class codegenReal2MissionModelClassSendData_IndividualUAVCmdT : public
     SendData_IndividualUAVCmdT{
-    mqd_t msgQueue;
   public:
     void SendData(const IndividualUAVCmd* data, int32_T length, int32_T* status)
     {
         // Add send data logic here
-        unsigned int priority = 1; // Mission feedback -> Lowest priority
-        *status = -mq_send(msgQueue, (char*)data, length, priority);
-        if (*status == 0) // Not failed, successfully received
-        {
-            printf("\nSent Mission Feedback: %i\n", data->SequenceID);
-            fflush(stdout);
-        }
-    }
-    void SetMQ(mqd_t mq)
-    {
-        msgQueue = mq;
     }
 };
 
@@ -65,7 +46,6 @@ class codegenReal2MissionModelClassSendData_FlightLoggingT : public
     void SendData(const FlightLogging* data, int32_T length, int32_T* status)
     {
         // Add send data logic here
-        DataLogging::wrtieLog(data);
     }
 };
 
@@ -73,22 +53,10 @@ static codegenReal2MissionModelClassSendData_FlightLoggingT
     FlightLogSendData_arg;
 class codegenReal2MissionModelClassRecvData_IndividualUAVCmdT : public
     RecvData_IndividualUAVCmdT{
-    mqd_t msgQueue;
   public:
     void RecvData(IndividualUAVCmd* data, int32_T length, int32_T* status)
     {
         // Add receive data logic here
-        unsigned int priority = 16384; // Mission upload -> Highest priority
-        *status = -mq_receive(msgQueue, (char *)data, length, &priority);
-        if (*status < 0) // Not failed, successfully received
-        {
-            printf("\nReceived Mission Command: %i\n", data->SequenceID);
-            fflush(stdout);
-        }
-    }
-    void SetMQ(mqd_t mq)
-    {
-        msgQueue = mq;
     }
 };
 
@@ -206,30 +174,9 @@ void* periodicTask(void *arg)
     MW_blockSignal(SIGRTMIN, &ss);
     while (1) {
         MW_sem_wait(&periodicTaskStartSem[taskId]);
-
-        unsigned int priority = 8192;
-
-        // Set model inputs here
-        codegenReal2MissionModelClass::ExtU_codegenReal2Mission_T ExtU{};
-        if (mq_receive(MQ_ExtU.getMQ(), (char *)&ExtU, sizeof(ExtU), &priority) > 0)
-        {
-            printf(">"); // resemble istream operator >>
-            fflush(stdout);
-        }
-        codegenReal2Mission_Obj.setExternalInputs(&ExtU);
-
         codegenReal2Mission_Obj.step();
-        printf("."); fflush(stdout);
 
         // Get model outputs here
-        codegenReal2MissionModelClass::ExtY_codegenReal2Mission_T ExtY{};
-        ExtY = codegenReal2Mission_Obj.getExternalOutputs();
-        if (mq_send(MQ_ExtY.getMQ(), (char *)&ExtY, sizeof(ExtY), priority) == 0)
-        {
-            printf("<"); // resemble ostream operator <<
-            fflush(stdout);
-        }
-        
         ret = sem_post(&periodicTaskStopSem[taskId]);
         CHECK_STATUS(ret, "sem_post");
     }
@@ -291,7 +238,7 @@ int main(int argc, const char *argv[])
     pthread_t periodicThread[1];
     pthread_t periodicTriggerThread[1];
     struct sched_param sp;
-    int ret, policy = SCHED_RR;
+    int ret, policy;
     pthread_attr_t attr;
     double periodicTriggerRate[1];
     int priority[1];
@@ -313,30 +260,15 @@ int main(int argc, const char *argv[])
 
     // Create threads executing the Simulink model
     pthread_attr_init(&attr);
-    ret = pthread_attr_setinheritsched(&attr, PTHREAD_EXPLICIT_SCHED);
+    ret = pthread_attr_setinheritsched(&attr, PTHREAD_INHERIT_SCHED);
     CHECK_STATUS(ret, "pthread_attr_setinheritsched");
     ret = pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
     CHECK_STATUS(ret, "pthread_attr_setdetachstate");
-    ret = pthread_attr_setschedpolicy(&attr, policy);
-    CHECK_STATUS(ret, "pthread_attr_setschedpolicy");
     ret = pthread_attr_getschedpolicy(&attr, &policy);
     CHECK_STATUS(ret, "pthread_attr_getschedpolicy");
 
     // Initialize model
     codegenReal2Mission_Obj.initialize();
-
-    // Open POSIX message queue
-    msgQueue mqSndCMD("/PosixMQ_SndCMD", O_CREAT | O_WRONLY | O_NONBLOCK, 1, sizeof(IndividualUAVCmd));
-    msgQueue mqRcvCMD("/PosixMQ_RcvCMD", O_CREAT | O_RDONLY | O_NONBLOCK, 1, sizeof(IndividualUAVCmd));
-
-    CurrentMissionSendData_arg.SetMQ(mqSndCMD.getMQ());
-    MissionCMDRecvData_arg.SetMQ(mqRcvCMD.getMQ());
-
-    // Waiting for OS clock calibration
-    msgQueue mqStart("/ptrPosixMQ_Start", O_CREAT | O_RDONLY, 1, sizeof(bool));
-    bool startflag{}; printf("Waiting for OS Clock Calibration\n");
-    printf((mq_receive(mqStart.getMQ(), (char *)&startflag, sizeof(bool), nullptr) > 0) 
-        ? "OS Clock Calibrated: %c\n" : "MQ_Receive Error %c", startflag);
 
     {
         // Connect and enable the signal handler for timers notification

@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 3.220
+// Model version                  : 3.222
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Sun Apr 24 20:30:50 2022
+// C/C++ source code generated on : Tue May  3 03:10:34 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -176,8 +176,8 @@ class codegenReal2MissionModelClass final
         uint8_T is_c14_codegenReal2Mission;// '<S13>/NewMission'
         uint8_T is_active_c12_codegenReal2Mission;// '<S13>/MisisonCMDTemporalLogic' 
         uint8_T is_c12_codegenReal2Mission;// '<S13>/MisisonCMDTemporalLogic'
-        uint8_T is_active_c4_codegenReal2Mission;// '<S14>/TriggerStartSim'
-        uint8_T is_c4_codegenReal2Mission;// '<S14>/TriggerStartSim'
+        uint8_T is_active_c5_codegenReal2Mission;// '<S14>/TriggerStartSim'
+        uint8_T is_c5_codegenReal2Mission;// '<S14>/TriggerStartSim'
         boolean_T ImmedMission_o3[2];  // '<S5>/ImmedMission'
         boolean_T eml_autoflush[20];   // '<S9>/PrintOnboardLog'
         boolean_T OR;                  // '<S3>/OR'
@@ -371,7 +371,6 @@ class codegenReal2MissionModelClass final
         Location varargin_2_MissionLocation, const Parameters varargin_2_params,
         const Location varargin_2_StartPosition, int32_T varargin_2_numUAV,
         int32_T varargin_2_FormationPos, real_T varargin_2_StartTime);
-    boolean_T codegenReal2Mission_isPalindrome(MissionModes inputNum);
     void codegenReal2Mission_getLocalTime(real_T *t_tm_nsec, real_T *t_tm_sec,
         real_T *t_tm_min, real_T *t_tm_hour, real_T *t_tm_mday, real_T *t_tm_mon,
         real_T *t_tm_year, boolean_T *t_tm_isdst);

@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'ImmedMission'.
 //
-// Model version                  : 2.143
+// Model version                  : 2.149
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Sun Apr 24 20:29:31 2022
+// C/C++ source code generated on : Mon May  2 19:21:44 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -2281,13 +2281,13 @@ void ImmedMission_Init(boolean_T rty_ControlSwitch[2], FixedWingGuidanceBus
 
     // End of SystemInitialize for SubSystem: '<S1>/Mode132_pAttack'
 
-    // SystemInitialize for IfAction SubSystem: '<S1>/Mode254_ShiftENU'
+    // SystemInitialize for IfAction SubSystem: '<S1>/Mode254_ShiftEarthENU'
     ImmedMission_CoordinateTransformationConversion_Init
         (&localDW->CoordinateTransformationConversion);
 
-    // End of SystemInitialize for SubSystem: '<S1>/Mode254_ShiftENU'
+    // End of SystemInitialize for SubSystem: '<S1>/Mode254_ShiftEarthENU'
 
-    // SystemInitialize for IfAction SubSystem: '<S1>/Mode253_ShiftXYZ'
+    // SystemInitialize for IfAction SubSystem: '<S1>/Mode253_ShiftBodyXYZ'
     // SystemInitialize for Enabled SubSystem: '<S210>/DivisionByZeroProtection' 
     ImmedMission_DivisionByZeroProtection_Init(&localDW->Omega_g);
 
@@ -2295,7 +2295,7 @@ void ImmedMission_Init(boolean_T rty_ControlSwitch[2], FixedWingGuidanceBus
     ImmedMission_CoordinateTransformationConversion_Init
         (&localDW->CoordinateTransformationConversion_j);
 
-    // End of SystemInitialize for SubSystem: '<S1>/Mode253_ShiftXYZ'
+    // End of SystemInitialize for SubSystem: '<S1>/Mode253_ShiftBodyXYZ'
 
     // SystemInitialize for IfAction SubSystem: '<S1>/AvoidInterPlaneCollision'
     // SystemInitialize for Iterator SubSystem: '<S14>/For Each Subsystem'
@@ -2839,21 +2839,21 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             if (rtu_MissionInput->SequenceID == *rtu_FlightMission_SequenceID) {
                 // Transition: '<S13>:243'
                 switch (rtu_MissionInput->MissionMode) {
-                  case MissionModes::ShiftENU:
+                  case MissionModes::ShiftEarthENU:
                     // Transition: '<S13>:231'
                     // Transition: '<S13>:233'
                     localDW->is_c25_ImmedMission = ImmedMission_IN_ImmedMission;
                     localDW->is_ImmedMission = ImmedMission_IN_Formation;
-                    localDW->ImmedMission_a = MissionModes::ShiftENU;
+                    localDW->ImmedMission_a = MissionModes::ShiftEarthENU;
                     break;
 
-                  case MissionModes::ShiftXYZ:
+                  case MissionModes::ShiftBodyXYZ:
                     // Transition: '<S13>:228'
                     // Transition: '<S13>:232'
                     // Transition: '<S13>:235'
                     localDW->is_c25_ImmedMission = ImmedMission_IN_ImmedMission;
                     localDW->is_ImmedMission = ImmedMission_IN_Formation;
-                    localDW->ImmedMission_a = MissionModes::ShiftXYZ;
+                    localDW->ImmedMission_a = MissionModes::ShiftBodyXYZ;
                     break;
                 }
             }
@@ -3422,11 +3422,11 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
         rtAction = 4;
         break;
 
-      case MissionModes::ShiftENU:
+      case MissionModes::ShiftEarthENU:
         rtAction = 5;
         break;
 
-      case MissionModes::ShiftXYZ:
+      case MissionModes::ShiftBodyXYZ:
         rtAction = 6;
         break;
 
@@ -5920,7 +5920,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
         //   Constant: '<S127>/Constant'
 
         rtb_Compare_lh = (*rtu_FlightMission_MissionMode == MissionModes::
-                          HorzFrmnNav);
+                          HorzScanNav);
 
         // DataTypeConversion: '<S125>/DoubleStatus'
         *rty_TaskStatus = static_cast<real_T>(rtb_Compare_lh);
@@ -7678,7 +7678,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             boolean_T guard2;
             if (static_cast<int32_T>(rtAction) != static_cast<int32_T>
                     (rtPrevAction)) {
-                // SystemReset for IfAction SubSystem: '<S1>/Mode254_ShiftENU' incorporates:
+                // SystemReset for IfAction SubSystem: '<S1>/Mode254_ShiftEarthENU' incorporates:
                 //   ActionPort: '<S12>/Action Port'
 
                 // SystemReset for Atomic SubSystem: '<S217>/SailDistance'
@@ -7690,10 +7690,10 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                 localDW->is_c12_ImmedMission = ImmedMission_IN_NO_ACTIVE_CHILD;
 
                 // End of SystemReset for SubSystem: '<S217>/SailDistance'
-                // End of SystemReset for SubSystem: '<S1>/Mode254_ShiftENU'
+                // End of SystemReset for SubSystem: '<S1>/Mode254_ShiftEarthENU' 
             }
 
-            // Outputs for IfAction SubSystem: '<S1>/Mode254_ShiftENU' incorporates:
+            // Outputs for IfAction SubSystem: '<S1>/Mode254_ShiftEarthENU' incorporates:
             //   ActionPort: '<S12>/Action Port'
 
             // Outputs for Atomic SubSystem: '<S217>/SailDistance'
@@ -7750,16 +7750,16 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                       (localDW->temporalCounter_i1) + 1U));
             }
 
-            // Gateway: ImmedMissionGuidance/Mode254_ShiftENU/Mode254_Variant/Mode254/SailDistance/EnableSailShift 
-            // During: ImmedMissionGuidance/Mode254_ShiftENU/Mode254_Variant/Mode254/SailDistance/EnableSailShift 
+            // Gateway: ImmedMissionGuidance/Mode254_ShiftEarthENU/Mode254_Variant/Mode254/SailDistance/EnableSailShift 
+            // During: ImmedMissionGuidance/Mode254_ShiftEarthENU/Mode254_Variant/Mode254/SailDistance/EnableSailShift 
             guard1 = false;
             guard2 = false;
             if (static_cast<uint32_T>(localDW->is_active_c12_ImmedMission) == 0U)
             {
-                // Entry: ImmedMissionGuidance/Mode254_ShiftENU/Mode254_Variant/Mode254/SailDistance/EnableSailShift 
+                // Entry: ImmedMissionGuidance/Mode254_ShiftEarthENU/Mode254_Variant/Mode254/SailDistance/EnableSailShift 
                 localDW->is_active_c12_ImmedMission = 1U;
 
-                // Entry Internal: ImmedMissionGuidance/Mode254_ShiftENU/Mode254_Variant/Mode254/SailDistance/EnableSailShift 
+                // Entry Internal: ImmedMissionGuidance/Mode254_ShiftEarthENU/Mode254_Variant/Mode254/SailDistance/EnableSailShift 
                 // Transition: '<S220>:5'
                 localDW->is_c12_ImmedMission = ImmedMission_IN_NotShift;
                 localDW->temporalCounter_i1 = 0U;
@@ -7884,7 +7884,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             // SignalConversion generated from: '<S12>/thisTaskStatus'
             *rty_TaskStatus = 0.0;
 
-            // End of Outputs for SubSystem: '<S1>/Mode254_ShiftENU'
+            // End of Outputs for SubSystem: '<S1>/Mode254_ShiftEarthENU'
         }
         break;
 
@@ -7892,7 +7892,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
         {
             FixedWingGuidanceStateBus rtb_BusAssignment;
 
-            // Outputs for IfAction SubSystem: '<S1>/Mode253_ShiftXYZ' incorporates:
+            // Outputs for IfAction SubSystem: '<S1>/Mode253_ShiftBodyXYZ' incorporates:
             //   ActionPort: '<S11>/Action Port'
 
             // SignalConversion generated from: '<S210>/Coordinate Transformation Conversion' 
@@ -8036,7 +8036,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             //   Gain: '<S210>/Inverse'
             //   Gain: '<S213>/Gain'
 
-            // MATLAB Function 'ImmedMissionGuidance/Mode253_ShiftXYZ/Mode253_Variant/Mode253/ConstTurnPred': '<S211>:1' 
+            // MATLAB Function 'ImmedMissionGuidance/Mode253_ShiftBodyXYZ/Mode253_Variant/Mode253/ConstTurnPred': '<S211>:1' 
             // '<S211>:1:2'
             rtb_Switch_gh = rtb_HeadingAngle;
             rtb_Switch_m2 = rtb_North;
@@ -8097,7 +8097,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             // SignalConversion generated from: '<S11>/thisTaskStatus'
             *rty_TaskStatus = 0.0;
 
-            // End of Outputs for SubSystem: '<S1>/Mode253_ShiftXYZ'
+            // End of Outputs for SubSystem: '<S1>/Mode253_ShiftBodyXYZ'
         }
         break;
 
@@ -8571,7 +8571,7 @@ void ImmedMission_Update(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
         break;
 
       case 5:
-        // Update for IfAction SubSystem: '<S1>/Mode254_ShiftENU' incorporates:
+        // Update for IfAction SubSystem: '<S1>/Mode254_ShiftEarthENU' incorporates:
         //   ActionPort: '<S12>/Action Port'
 
         // Update for Atomic SubSystem: '<S217>/SailDistance'
@@ -8588,7 +8588,7 @@ void ImmedMission_Update(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
 
         // End of Update for SubSystem: '<S219>/SailShift'
         // End of Update for SubSystem: '<S217>/SailDistance'
-        // End of Update for SubSystem: '<S1>/Mode254_ShiftENU'
+        // End of Update for SubSystem: '<S1>/Mode254_ShiftEarthENU'
         break;
     }
 
