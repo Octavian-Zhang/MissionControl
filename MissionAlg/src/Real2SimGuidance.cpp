@@ -5,7 +5,7 @@
 //
 // Model version                  : 3.146
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Mon May  2 19:21:02 2022
+// C/C++ source code generated on : Sun May  8 08:31:13 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -19,17 +19,18 @@
 #include "Real2SimGuidance.h"
 #include "rtwtypes.h"
 #include "Real2SimGuidance_types.h"
+#include <stdio.h>
 #include <cmath>
 #include "rt_modd_snf.h"
 #include "rt_atan2d_snf.h"
 #include "angdiff_WJjwZrD2.h"
+#include <stddef.h>
 #include <cstring>
 #include <math.h>
 #include "coder_posix_time.h"
 #include "split_uvVAOGsE.h"
 #include "floor_LKLalLcG.h"
 #include <cstdlib>
-#include <stddef.h>
 #include "div_s32.h"
 #include "Real2SimGuidance_private.h"
 
@@ -109,17 +110,63 @@ static void Real2SimGuidance_WaypointFollower_stepImpl
      lookaheadDistance, real_T varargout_1[3], real_T *varargout_2, real_T
      *varargout_3, uint8_T *varargout_4, real_T *varargout_5, uint8_T
      *varargout_6, DW_Real2SimGuidance_f_T *localDW);
+static void Real2SimGuidance_emxInit_char_T(emxArray_char_T_Real2SimGuidance_T **
+    pEmxArray, int32_T numDimensions);
+static int8_T Real2SimGuidance_filedata(DW_Real2SimGuidance_f_T *localDW);
+static int8_T Real2SimGuidance_cfopen(const char_T cfilename[10], const char_T
+    *cpermission, DW_Real2SimGuidance_f_T *localDW);
+static void Real2SimGuidance_emxEnsureCapacity_char_T
+    (emxArray_char_T_Real2SimGuidance_T *emxArray, int32_T oldNumel);
+static void Real2SimGuidance_fread(real_T fileID,
+    emxArray_char_T_Real2SimGuidance_T *A, DW_Real2SimGuidance_f_T *localDW);
 static void Real2SimGuidance_getLocalTime(real_T *t_tm_nsec, real_T *t_tm_sec,
     real_T *t_tm_min, real_T *t_tm_hour, real_T *t_tm_mday, real_T *t_tm_mon,
     real_T *t_tm_year, boolean_T *t_tm_isdst);
+static int32_T Real2SimGuidance_cfclose(real_T fid, DW_Real2SimGuidance_f_T
+    *localDW);
 static creal_T Real2SimGuidance_two_prod(real_T a);
 static creal_T Real2SimGuidance_two_diff(real_T a, real_T b);
 static creal_T Real2SimGuidance_times(const creal_T a);
 static creal_T Real2SimGuidance_minus(const creal_T a, const creal_T b);
 static void Real2SimGuidance_getDateVec(const creal_T dd, real_T *y, real_T *mo,
     real_T *d, real_T *h, real_T *m, real_T *s);
+static void Real2SimGuidance_emxFree_char_T(emxArray_char_T_Real2SimGuidance_T **
+    pEmxArray);
+static boolean_T Real2SimGuidance_copydigits(emxArray_char_T_Real2SimGuidance_T *
+    s1, int32_T *idx, const emxArray_char_T_Real2SimGuidance_T *s, int32_T *k,
+    int32_T n, boolean_T allowpoint);
+static void Real2SimGuidance_readfloat(emxArray_char_T_Real2SimGuidance_T *s1,
+    int32_T *idx, const emxArray_char_T_Real2SimGuidance_T *s, int32_T *k,
+    int32_T n, boolean_T allowimag, boolean_T *isimag, boolean_T *b_finite,
+    real_T *nfv, boolean_T *foundsign, boolean_T *success);
+static creal_T Real2SimGuidance_str2double(const
+    emxArray_char_T_Real2SimGuidance_T *s);
 static creal_T Real2SimGuidance_two_sum(real_T a, real_T b);
 static creal_T Real2SimGuidance_plus(const creal_T a, real_T b);
+static void Real2SimGuidance_strtok(const emxArray_char_T_Real2SimGuidance_T *x,
+    emxArray_char_T_Real2SimGuidance_T *token,
+    emxArray_char_T_Real2SimGuidance_T *remain);
+static void Real2SimGuidance_strtok_g(const emxArray_char_T_Real2SimGuidance_T
+    *x, emxArray_char_T_Real2SimGuidance_T *token);
+static void Real2SimGuidance_strtrim(const emxArray_char_T_Real2SimGuidance_T *x,
+    emxArray_char_T_Real2SimGuidance_T *y);
+static boolean_T Real2SimGuidance_strcmp(const
+    emxArray_char_T_Real2SimGuidance_T *a);
+static boolean_T Real2SimGuidance_contains(const
+    emxArray_char_T_Real2SimGuidance_T *str);
+static void Real2SimGuidance_find_token(const emxArray_char_T_Real2SimGuidance_T
+    *x, int32_T *itoken, int32_T *iremain);
+static void Real2SimGuidance_strtok_gd(const emxArray_char_T_Real2SimGuidance_T *
+    x, emxArray_char_T_Real2SimGuidance_T *token,
+    emxArray_char_T_Real2SimGuidance_T *remain);
+static void Real2SimGuidance_strtok_gdx(const emxArray_char_T_Real2SimGuidance_T
+    *x, emxArray_char_T_Real2SimGuidance_T *token);
+static boolean_T Real2SimGuidance_strcmp_g(const
+    emxArray_char_T_Real2SimGuidance_T *a);
+static boolean_T Real2SimGuidance_strcmp_gh(const
+    emxArray_char_T_Real2SimGuidance_T *a);
+static boolean_T Real2SimGuidance_strcmp_ghb(const
+    emxArray_char_T_Real2SimGuidance_T *a);
 static void Real2SimGuidance_emxInit_real_T(emxArray_real_T_Real2SimGuidance_T **
     pEmxArray, int32_T numDimensions)
 {
@@ -778,6 +825,213 @@ static void Real2SimGuidance_WaypointFollower_stepImpl
     Real2SimGuidance_emxFree_real_T(&d);
 }
 
+static void Real2SimGuidance_emxInit_char_T(emxArray_char_T_Real2SimGuidance_T **
+    pEmxArray, int32_T numDimensions)
+{
+    emxArray_char_T_Real2SimGuidance_T *emxArray;
+    *pEmxArray = static_cast<emxArray_char_T_Real2SimGuidance_T *>(std::malloc
+        (sizeof(emxArray_char_T_Real2SimGuidance_T)));
+    emxArray = *pEmxArray;
+    emxArray->data = static_cast<char_T *>(nullptr);
+    emxArray->numDimensions = numDimensions;
+    emxArray->size = static_cast<int32_T *>(std::malloc(static_cast<uint32_T>
+        (sizeof(int32_T) * static_cast<uint32_T>(numDimensions))));
+    emxArray->allocatedSize = 0;
+    emxArray->canFreeData = true;
+    for (int32_T i{0}; i <= static_cast<int32_T>(numDimensions - 1); i++) {
+        emxArray->size[i] = 0;
+    }
+}
+
+// Function for MATLAB Function: '<Root>/Get Nominal Flight Speed'
+static int8_T Real2SimGuidance_filedata(DW_Real2SimGuidance_f_T *localDW)
+{
+    int32_T k;
+    int8_T f;
+    boolean_T exitg1;
+    f = 0;
+    k = 1;
+    exitg1 = false;
+    while ((!exitg1) && (static_cast<int32_T>(k - 1) < 20)) {
+        if (localDW->eml_openfiles[static_cast<int32_T>(static_cast<int32_T>(
+                static_cast<int8_T>(k)) - 1)] == NULL) {
+            f = static_cast<int8_T>(k);
+            exitg1 = true;
+        } else {
+            k = static_cast<int32_T>(k + 1);
+        }
+    }
+
+    return f;
+}
+
+// Function for MATLAB Function: '<Root>/Get Nominal Flight Speed'
+static int8_T Real2SimGuidance_cfopen(const char_T cfilename[10], const char_T
+    *cpermission, DW_Real2SimGuidance_f_T *localDW)
+{
+    char_T ccfilename[11];
+    int8_T fileid;
+    int8_T j;
+    fileid = -1;
+    j = Real2SimGuidance_filedata(localDW);
+    if (static_cast<int32_T>(j) >= 1) {
+        FILE* filestar;
+        int32_T i;
+        for (i = 0; i < 10; i++) {
+            ccfilename[i] = cfilename[i];
+        }
+
+        ccfilename[10] = '\x00';
+        filestar = fopen(&ccfilename[0], cpermission);
+        if (filestar != NULL) {
+            localDW->eml_openfiles[static_cast<int32_T>(static_cast<int32_T>(j)
+                - 1)] = filestar;
+            i = static_cast<int32_T>(static_cast<int32_T>(j) + 2);
+            if (static_cast<int32_T>(static_cast<int32_T>(j) + 2) > 127) {
+                i = 127;
+            }
+
+            fileid = static_cast<int8_T>(i);
+        }
+    }
+
+    return fileid;
+}
+
+static void Real2SimGuidance_emxEnsureCapacity_char_T
+    (emxArray_char_T_Real2SimGuidance_T *emxArray, int32_T oldNumel)
+{
+    int32_T i;
+    int32_T newNumel;
+    void *newData;
+    if (oldNumel < 0) {
+        oldNumel = 0;
+    }
+
+    newNumel = 1;
+    for (i = 0; i <= static_cast<int32_T>(emxArray->numDimensions - 1); i++) {
+        newNumel = static_cast<int32_T>(newNumel * emxArray->size[i]);
+    }
+
+    if (newNumel > emxArray->allocatedSize) {
+        i = emxArray->allocatedSize;
+        if (i < 16) {
+            i = 16;
+        }
+
+        while (i < newNumel) {
+            if (i > 1073741823) {
+                i = MAX_int32_T;
+            } else {
+                i = static_cast<int32_T>(i << 1);
+            }
+        }
+
+        newData = std::calloc(static_cast<uint32_T>(i), sizeof(char_T));
+        if (emxArray->data != nullptr) {
+            std::memcpy(newData, emxArray->data, static_cast<uint32_T>(sizeof
+                         (char_T) * static_cast<uint32_T>(oldNumel)));
+            if (emxArray->canFreeData) {
+                std::free(emxArray->data);
+            }
+        }
+
+        emxArray->data = static_cast<char_T *>(newData);
+        emxArray->allocatedSize = i;
+        emxArray->canFreeData = true;
+    }
+}
+
+// Function for MATLAB Function: '<Root>/Get Nominal Flight Speed'
+static void Real2SimGuidance_fread(real_T fileID,
+    emxArray_char_T_Real2SimGuidance_T *A, DW_Real2SimGuidance_f_T *localDW)
+{
+    FILE* filestar;
+    size_t nBytes;
+    char_T tbuf[1024];
+    int8_T fileid;
+    nBytes = sizeof(char_T);
+    fileid = static_cast<int8_T>(std::round(fileID));
+    if (fileID != static_cast<real_T>(fileid)) {
+        fileid = -1;
+    }
+
+    if (static_cast<int32_T>(fileid) >= 3) {
+        filestar = localDW->eml_openfiles[static_cast<int32_T>
+            (static_cast<int32_T>(fileid) - 3)];
+    } else {
+        switch (static_cast<int32_T>(fileid)) {
+          case 0:
+            filestar = stdin;
+            break;
+
+          case 1:
+            filestar = stdout;
+            break;
+
+          case 2:
+            filestar = stderr;
+            break;
+
+          default:
+            filestar = NULL;
+            break;
+        }
+    }
+
+    if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(
+            static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(
+              static_cast<boolean_T>(static_cast<int32_T>((fileID != 0.0) ^ 1)))
+             | static_cast<int32_T>(static_cast<boolean_T>(static_cast<int32_T>
+               ((fileID != 1.0) ^ 1)))))) | static_cast<int32_T>
+            (static_cast<boolean_T>(static_cast<int32_T>((fileID != 2.0) ^ 1))))))
+    {
+        filestar = NULL;
+    }
+
+    A->size[0] = 0;
+    if (static_cast<boolean_T>(static_cast<int32_T>((filestar == NULL) ^ 1))) {
+        int32_T c;
+        c = 1;
+        while (c > 0) {
+            int32_T c_0;
+            int32_T i;
+            int32_T numRead;
+            c = 0;
+            numRead = 1;
+            while (static_cast<boolean_T>(static_cast<int32_T>((c < 1024) &
+                     (numRead > 0)))) {
+                size_t numReadSizeT;
+                numReadSizeT = fread(&tbuf[c], nBytes, (size_t)(1024 - c),
+                                     filestar);
+                numRead = (int32_T)numReadSizeT;
+                c = static_cast<int32_T>(c + (int32_T)numReadSizeT);
+            }
+
+            numRead = A->size[0];
+            if (c < 1) {
+                c_0 = -1;
+            } else {
+                c_0 = static_cast<int32_T>(c - 1);
+            }
+
+            i = A->size[0];
+            A->size[0] = static_cast<int32_T>(static_cast<int32_T>(c_0 + A->
+                size[0]) + 1);
+            Real2SimGuidance_emxEnsureCapacity_char_T(A, i);
+            if (c < 1) {
+                c_0 = -1;
+            } else {
+                c_0 = static_cast<int32_T>(c - 1);
+            }
+
+            for (i = 0; i <= c_0; i++) {
+                A->data[static_cast<int32_T>(numRead + i)] = tbuf[i];
+            }
+        }
+    }
+}
+
 // Function for MATLAB Function: '<Root>/TimeNow'
 static void Real2SimGuidance_getLocalTime(real_T *t_tm_nsec, real_T *t_tm_sec,
     real_T *t_tm_min, real_T *t_tm_hour, real_T *t_tm_mday, real_T *t_tm_mon,
@@ -793,6 +1047,62 @@ static void Real2SimGuidance_getLocalTime(real_T *t_tm_nsec, real_T *t_tm_sec,
     *t_tm_mon = static_cast<real_T>(origStructTm.tm_mon);
     *t_tm_year = static_cast<real_T>(origStructTm.tm_year);
     *t_tm_isdst = (origStructTm.tm_isdst != 0);
+}
+
+// Function for MATLAB Function: '<Root>/Get Nominal Flight Speed'
+static int32_T Real2SimGuidance_cfclose(real_T fid, DW_Real2SimGuidance_f_T
+    *localDW)
+{
+    FILE* filestar;
+    int32_T st;
+    int8_T b_fileid;
+    int8_T fileid;
+    st = -1;
+    fileid = static_cast<int8_T>(std::round(fid));
+    if (fid != static_cast<real_T>(fileid)) {
+        fileid = -1;
+    }
+
+    b_fileid = fileid;
+    if (static_cast<int32_T>(fileid) < 0) {
+        b_fileid = -1;
+    }
+
+    if (static_cast<int32_T>(b_fileid) >= 3) {
+        filestar = localDW->eml_openfiles[static_cast<int32_T>
+            (static_cast<int32_T>(b_fileid) - 3)];
+    } else {
+        switch (static_cast<int32_T>(b_fileid)) {
+          case 0:
+            filestar = stdin;
+            break;
+
+          case 1:
+            filestar = stdout;
+            break;
+
+          case 2:
+            filestar = stderr;
+            break;
+
+          default:
+            filestar = NULL;
+            break;
+        }
+    }
+
+    if (static_cast<boolean_T>(static_cast<int32_T>((filestar != NULL) & (
+            static_cast<int32_T>(fileid) >= 3)))) {
+        int32_T cst;
+        cst = fclose(filestar);
+        if (cst == 0) {
+            st = 0;
+            localDW->eml_openfiles[static_cast<int32_T>(static_cast<int32_T>
+                (fileid) - 3)] = NULL;
+        }
+    }
+
+    return st;
 }
 
 // Function for MATLAB Function: '<Root>/TimeNow'
@@ -1095,6 +1405,582 @@ static void Real2SimGuidance_getDateVec(const creal_T dd, real_T *y, real_T *mo,
     }
 }
 
+static void Real2SimGuidance_emxFree_char_T(emxArray_char_T_Real2SimGuidance_T **
+    pEmxArray)
+{
+    if (*pEmxArray != static_cast<emxArray_char_T_Real2SimGuidance_T *>(nullptr))
+    {
+        if (((*pEmxArray)->data != static_cast<char_T *>(nullptr)) &&
+                (*pEmxArray)->canFreeData) {
+            std::free((*pEmxArray)->data);
+        }
+
+        std::free((*pEmxArray)->size);
+        std::free(*pEmxArray);
+        *pEmxArray = static_cast<emxArray_char_T_Real2SimGuidance_T *>(nullptr);
+    }
+}
+
+// Function for MATLAB Function: '<Root>/Get Nominal Flight Speed'
+static boolean_T Real2SimGuidance_copydigits(emxArray_char_T_Real2SimGuidance_T *
+    s1, int32_T *idx, const emxArray_char_T_Real2SimGuidance_T *s, int32_T *k,
+    int32_T n, boolean_T allowpoint)
+{
+    boolean_T exitg1;
+    boolean_T haspoint;
+    boolean_T success;
+    success = (*k <= n);
+    haspoint = false;
+    exitg1 = false;
+    while ((!exitg1) && (static_cast<boolean_T>(static_cast<int32_T>((*k <= n) &
+              static_cast<int32_T>(success))))) {
+        char_T tmp;
+        tmp = s->data[static_cast<int32_T>(*k - 1)];
+        if ((tmp >= '0') && (tmp <= '9')) {
+            s1->data[static_cast<int32_T>(*idx - 1)] = tmp;
+            *idx = static_cast<int32_T>(*idx + 1);
+            *k = static_cast<int32_T>(*k + 1);
+        } else if (tmp == '.') {
+            success = static_cast<boolean_T>(static_cast<int32_T>
+                (static_cast<int32_T>(static_cast<boolean_T>(static_cast<int32_T>
+                (static_cast<int32_T>(haspoint) ^ 1))) & static_cast<int32_T>
+                 (allowpoint)));
+            if (success) {
+                s1->data[static_cast<int32_T>(*idx - 1)] = '.';
+                *idx = static_cast<int32_T>(*idx + 1);
+                haspoint = true;
+            }
+
+            *k = static_cast<int32_T>(*k + 1);
+        } else if (tmp == ',') {
+            *k = static_cast<int32_T>(*k + 1);
+        } else {
+            exitg1 = true;
+        }
+    }
+
+    return success;
+}
+
+// Function for MATLAB Function: '<Root>/Get Nominal Flight Speed'
+static void Real2SimGuidance_readfloat(emxArray_char_T_Real2SimGuidance_T *s1,
+    int32_T *idx, const emxArray_char_T_Real2SimGuidance_T *s, int32_T *k,
+    int32_T n, boolean_T allowimag, boolean_T *isimag, boolean_T *b_finite,
+    real_T *nfv, boolean_T *foundsign, boolean_T *success)
+{
+    static const boolean_T b[128]{ false, false, false, false, false, false,
+        false, false, false, true, true, true, true, true, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, true, true, true, true, true, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false };
+
+    emxArray_char_T_Real2SimGuidance_T *d;
+    int32_T b_idx;
+    int32_T b_k;
+    int32_T g_k;
+    char_T c_idx_0;
+    boolean_T a__3;
+    boolean_T exitg1;
+    boolean_T isneg;
+    Real2SimGuidance_emxInit_char_T(&d, 2);
+    *isimag = false;
+    *b_finite = true;
+    *nfv = 0.0;
+    b_idx = *idx;
+    b_k = *k;
+    isneg = false;
+    *foundsign = false;
+    exitg1 = false;
+    while ((!exitg1) && (b_k <= n)) {
+        c_idx_0 = s->data[static_cast<int32_T>(b_k - 1)];
+        if (c_idx_0 == '-') {
+            isneg = static_cast<boolean_T>(static_cast<int32_T>
+                (static_cast<int32_T>(isneg) ^ 1));
+            *foundsign = true;
+            b_k = static_cast<int32_T>(b_k + 1);
+        } else if (c_idx_0 == ',') {
+            b_k = static_cast<int32_T>(b_k + 1);
+        } else if (c_idx_0 == '+') {
+            *foundsign = true;
+            b_k = static_cast<int32_T>(b_k + 1);
+        } else if (static_cast<boolean_T>(static_cast<int32_T>
+                    (static_cast<int32_T>(b[static_cast<int32_T>
+                      (static_cast<int32_T>(static_cast<uint8_T>(c_idx_0)) & 127)])
+                     ^ 1))) {
+            exitg1 = true;
+        } else {
+            b_k = static_cast<int32_T>(b_k + 1);
+        }
+    }
+
+    *success = (b_k <= n);
+    if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
+            (*success) & static_cast<int32_T>(isneg)))) {
+        if ((*idx >= 2) && (s1->data[static_cast<int32_T>(*idx - 2)] == '-')) {
+            s1->data[static_cast<int32_T>(*idx - 2)] = ' ';
+        } else {
+            s1->data[static_cast<int32_T>(*idx - 1)] = '-';
+            b_idx = static_cast<int32_T>(*idx + 1);
+        }
+    }
+
+    *idx = b_idx;
+    *k = b_k;
+    if (*success) {
+        char_T c_idx_1;
+        char_T c_idx_2;
+        isneg = false;
+        if (b_k <= n) {
+            c_idx_0 = s->data[static_cast<int32_T>(b_k - 1)];
+            if (c_idx_0 == 'j') {
+                isneg = true;
+            } else if (c_idx_0 == 'i') {
+                if (b_k >= static_cast<int32_T>(n - 1)) {
+                    isneg = true;
+                } else {
+                    g_k = b_k;
+                    c_idx_0 = '\x00';
+                    while ((g_k <= n) && (s->data[static_cast<int32_T>(g_k - 1)]
+                                          == ',')) {
+                        g_k = static_cast<int32_T>(g_k + 1);
+                    }
+
+                    if (g_k <= n) {
+                        c_idx_0 = s->data[static_cast<int32_T>(g_k - 1)];
+                    }
+
+                    g_k = static_cast<int32_T>(g_k + 1);
+                    c_idx_1 = '\x00';
+                    while ((g_k <= n) && (s->data[static_cast<int32_T>(g_k - 1)]
+                                          == ',')) {
+                        g_k = static_cast<int32_T>(g_k + 1);
+                    }
+
+                    if (g_k <= n) {
+                        c_idx_1 = s->data[static_cast<int32_T>(g_k - 1)];
+                    }
+
+                    g_k = static_cast<int32_T>(g_k + 1);
+                    c_idx_2 = '\x00';
+                    while ((g_k <= n) && (s->data[static_cast<int32_T>(g_k - 1)]
+                                          == ',')) {
+                        g_k = static_cast<int32_T>(g_k + 1);
+                    }
+
+                    if (g_k <= n) {
+                        c_idx_2 = s->data[static_cast<int32_T>(g_k - 1)];
+                    }
+
+                    if (((c_idx_0 == 'I') || (c_idx_0 == 'i')) && ((c_idx_1 ==
+                            'N') || (c_idx_1 == 'n')) && ((c_idx_2 == 'F') ||
+                            (c_idx_2 == 'f'))) {
+                    } else if ((c_idx_0 == 'N') || (c_idx_0 == 'n')) {
+                        if ((c_idx_1 == 'A') || (c_idx_1 == 'a')) {
+                            if ((c_idx_2 != 'N') && (c_idx_2 != 'n')) {
+                                isneg = true;
+                            }
+                        } else {
+                            isneg = true;
+                        }
+                    } else {
+                        isneg = true;
+                    }
+                }
+            }
+        }
+
+        if (isneg) {
+            if (allowimag) {
+                *isimag = true;
+                *k = static_cast<int32_T>(b_k + 1);
+                exitg1 = false;
+                while ((!exitg1) && (*k <= n)) {
+                    if (b[static_cast<int32_T>(static_cast<int32_T>
+                                               (static_cast<uint8_T>(s->data[
+                            static_cast<int32_T>(*k - 1)])) & 127)]) {
+                        *k = static_cast<int32_T>(*k + 1);
+                    } else {
+                        c_idx_0 = s->data[static_cast<int32_T>(*k - 1)];
+                        if ((c_idx_0 == '\x00') || (c_idx_0 == ',')) {
+                            *k = static_cast<int32_T>(*k + 1);
+                        } else {
+                            exitg1 = true;
+                        }
+                    }
+                }
+
+                if ((*k <= n) && (s->data[static_cast<int32_T>(*k - 1)] == '*'))
+                {
+                    *k = static_cast<int32_T>(*k + 1);
+                    Real2SimGuidance_readfloat(s1, idx, s, k, n, false, &isneg,
+                        b_finite, nfv, &a__3, success);
+                } else {
+                    s1->data[static_cast<int32_T>(b_idx - 1)] = '1';
+                    *idx = static_cast<int32_T>(b_idx + 1);
+                }
+            } else {
+                *success = false;
+            }
+        } else {
+            g_k = b_k;
+            c_idx_0 = '\x00';
+            while ((g_k <= n) && (s->data[static_cast<int32_T>(g_k - 1)] == ','))
+            {
+                g_k = static_cast<int32_T>(g_k + 1);
+            }
+
+            if (g_k <= n) {
+                c_idx_0 = s->data[static_cast<int32_T>(g_k - 1)];
+            }
+
+            g_k = static_cast<int32_T>(g_k + 1);
+            c_idx_1 = '\x00';
+            while ((g_k <= n) && (s->data[static_cast<int32_T>(g_k - 1)] == ','))
+            {
+                g_k = static_cast<int32_T>(g_k + 1);
+            }
+
+            if (g_k <= n) {
+                c_idx_1 = s->data[static_cast<int32_T>(g_k - 1)];
+            }
+
+            g_k = static_cast<int32_T>(g_k + 1);
+            c_idx_2 = '\x00';
+            while ((g_k <= n) && (s->data[static_cast<int32_T>(g_k - 1)] == ','))
+            {
+                g_k = static_cast<int32_T>(g_k + 1);
+            }
+
+            if (g_k <= n) {
+                c_idx_2 = s->data[static_cast<int32_T>(g_k - 1)];
+            }
+
+            g_k = static_cast<int32_T>(g_k + 1);
+            if (((c_idx_0 == 'I') || (c_idx_0 == 'i')) && ((c_idx_1 == 'N') ||
+                    (c_idx_1 == 'n')) && ((c_idx_2 == 'F') || (c_idx_2 == 'f')))
+            {
+                *b_finite = false;
+                *nfv = (rtInf);
+            } else if (((c_idx_0 == 'N') || (c_idx_0 == 'n')) && ((c_idx_1 ==
+                         'A') || (c_idx_1 == 'a')) && ((c_idx_2 == 'N') ||
+                        (c_idx_2 == 'n'))) {
+                *b_finite = false;
+                *nfv = (rtNaN);
+            } else {
+                g_k = b_k;
+            }
+
+            *k = g_k;
+            if (*b_finite) {
+                int32_T loop_ub;
+                b_k = static_cast<int32_T>(d->size[0] * d->size[1]);
+                d->size[0] = 1;
+                d->size[1] = s1->size[1];
+                Real2SimGuidance_emxEnsureCapacity_char_T(d, b_k);
+                loop_ub = static_cast<int32_T>(s1->size[1] - 1);
+                for (b_k = 0; b_k <= loop_ub; b_k++) {
+                    d->data[b_k] = s1->data[b_k];
+                }
+
+                *success = Real2SimGuidance_copydigits(d, &b_idx, s, &g_k, n,
+                    true);
+                b_k = static_cast<int32_T>(s1->size[0] * s1->size[1]);
+                s1->size[0] = 1;
+                s1->size[1] = d->size[1];
+                Real2SimGuidance_emxEnsureCapacity_char_T(s1, b_k);
+                loop_ub = d->size[1];
+                for (b_k = 0; b_k <= static_cast<int32_T>(loop_ub - 1); b_k++) {
+                    s1->data[b_k] = d->data[b_k];
+                }
+
+                *idx = b_idx;
+                *k = g_k;
+                if ((*success) && (g_k <= n)) {
+                    c_idx_0 = s->data[static_cast<int32_T>(g_k - 1)];
+                    if ((c_idx_0 == 'E') || (c_idx_0 == 'e')) {
+                        s1->data[static_cast<int32_T>(b_idx - 1)] = 'e';
+                        *idx = static_cast<int32_T>(b_idx + 1);
+                        while ((static_cast<int32_T>(g_k + 1) <= n) && (s->
+                                data[g_k] == ',')) {
+                            g_k = static_cast<int32_T>(g_k + 1);
+                        }
+
+                        if (static_cast<int32_T>(g_k + 1) <= n) {
+                            if (s->data[g_k] == '-') {
+                                s1->data[b_idx] = '-';
+                                *idx = static_cast<int32_T>(b_idx + 2);
+                                g_k = static_cast<int32_T>(g_k + 1);
+                            } else if (s->data[g_k] == '+') {
+                                g_k = static_cast<int32_T>(g_k + 1);
+                            }
+                        }
+
+                        b_k = static_cast<int32_T>(d->size[0] * d->size[1]);
+                        d->size[0] = 1;
+                        d->size[1] = s1->size[1];
+                        Real2SimGuidance_emxEnsureCapacity_char_T(d, b_k);
+                        loop_ub = static_cast<int32_T>(s1->size[1] - 1);
+                        for (b_k = 0; b_k <= loop_ub; b_k++) {
+                            d->data[b_k] = s1->data[b_k];
+                        }
+
+                        b_idx = static_cast<int32_T>(g_k + 1);
+                        isneg = Real2SimGuidance_copydigits(d, idx, s, &b_idx, n,
+                            false);
+                        b_k = static_cast<int32_T>(s1->size[0] * s1->size[1]);
+                        s1->size[0] = 1;
+                        s1->size[1] = d->size[1];
+                        Real2SimGuidance_emxEnsureCapacity_char_T(s1, b_k);
+                        loop_ub = d->size[1];
+                        for (b_k = 0; b_k <= static_cast<int32_T>(loop_ub - 1);
+                                b_k++) {
+                            s1->data[b_k] = d->data[b_k];
+                        }
+
+                        *k = b_idx;
+                        if (static_cast<boolean_T>(static_cast<int32_T>((b_idx <=
+                               static_cast<int32_T>(g_k + 1)) |
+                                static_cast<int32_T>(static_cast<boolean_T>(
+                                static_cast<int32_T>(static_cast<int32_T>(isneg)
+                                 ^ 1)))))) {
+                            *success = false;
+                        }
+                    }
+                }
+            } else if ((b_idx >= 2) && (s1->data[static_cast<int32_T>(b_idx - 2)]
+                        == '-')) {
+                *idx = static_cast<int32_T>(b_idx - 1);
+                s1->data[static_cast<int32_T>(b_idx - 2)] = ' ';
+                *nfv = -*nfv;
+            }
+
+            exitg1 = false;
+            while ((!exitg1) && (*k <= n)) {
+                if (b[static_cast<int32_T>(static_cast<int32_T>
+                                           (static_cast<uint8_T>(s->data[
+                        static_cast<int32_T>(*k - 1)])) & 127)]) {
+                    *k = static_cast<int32_T>(*k + 1);
+                } else {
+                    c_idx_0 = s->data[static_cast<int32_T>(*k - 1)];
+                    if ((c_idx_0 == '\x00') || (c_idx_0 == ',')) {
+                        *k = static_cast<int32_T>(*k + 1);
+                    } else {
+                        exitg1 = true;
+                    }
+                }
+            }
+
+            if ((*k <= n) && (s->data[static_cast<int32_T>(*k - 1)] == '*')) {
+                *k = static_cast<int32_T>(*k + 1);
+                while ((*k <= n) && (b[static_cast<int32_T>(static_cast<int32_T>
+                         (static_cast<uint8_T>(s->data[static_cast<int32_T>(*k -
+                            1)])) & 127)] || (s->data[static_cast<int32_T>(*k -
+                          1)] == '\x00') || (s->data[static_cast<int32_T>(*k - 1)]
+                         == ','))) {
+                    *k = static_cast<int32_T>(*k + 1);
+                }
+            }
+
+            if (*k <= n) {
+                c_idx_0 = s->data[static_cast<int32_T>(*k - 1)];
+                if ((c_idx_0 == 'i') || (c_idx_0 == 'j')) {
+                    *k = static_cast<int32_T>(*k + 1);
+                    *isimag = true;
+                }
+            }
+        }
+
+        exitg1 = false;
+        while ((!exitg1) && (*k <= n)) {
+            c_idx_0 = s->data[static_cast<int32_T>(*k - 1)];
+            if (b[static_cast<int32_T>(static_cast<int32_T>(static_cast<uint8_T>
+                    (c_idx_0)) & 127)] || (c_idx_0 == '\x00') || (c_idx_0 == ','))
+            {
+                *k = static_cast<int32_T>(*k + 1);
+            } else {
+                exitg1 = true;
+            }
+        }
+    }
+
+    Real2SimGuidance_emxFree_char_T(&d);
+}
+
+// Function for MATLAB Function: '<Root>/Get Nominal Flight Speed'
+static creal_T Real2SimGuidance_str2double(const
+    emxArray_char_T_Real2SimGuidance_T *s)
+{
+    static const boolean_T c[128]{ false, false, false, false, false, false,
+        false, false, false, true, true, true, true, true, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, true, true, true, true, true, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false };
+
+    emxArray_char_T_Real2SimGuidance_T *d;
+    emxArray_char_T_Real2SimGuidance_T *s1;
+    creal_T x;
+    real_T b_scanned1;
+    real_T scanned1;
+    real_T scanned2;
+    int32_T idx;
+    int32_T k;
+    boolean_T a__1;
+    boolean_T c_success;
+    boolean_T foundsign;
+    boolean_T isfinite1;
+    boolean_T isimag1;
+    boolean_T success;
+    Real2SimGuidance_emxInit_char_T(&d, 2);
+    x.re = (rtNaN);
+    x.im = 0.0;
+    if (s->size[1] >= 1) {
+        int32_T i;
+        int32_T loop_ub;
+        int32_T ntoread;
+        boolean_T exitg1;
+        Real2SimGuidance_emxInit_char_T(&s1, 2);
+        ntoread = 0;
+        k = 1;
+        exitg1 = false;
+        while ((!exitg1) && (k <= s->size[1])) {
+            char_T tmp;
+            tmp = s->data[static_cast<int32_T>(k - 1)];
+            if (c[static_cast<int32_T>(static_cast<int32_T>(static_cast<uint8_T>
+                    (tmp)) & 127)] || (tmp == '\x00')) {
+                k = static_cast<int32_T>(k + 1);
+            } else {
+                exitg1 = true;
+            }
+        }
+
+        i = static_cast<int32_T>(d->size[0] * d->size[1]);
+        d->size[0] = 1;
+        d->size[1] = static_cast<int32_T>(s->size[1] + 2);
+        Real2SimGuidance_emxEnsureCapacity_char_T(d, i);
+        loop_ub = s->size[1];
+        for (i = 0; i <= static_cast<int32_T>(loop_ub + 1); i++) {
+            d->data[i] = '\x00';
+        }
+
+        idx = 1;
+        Real2SimGuidance_readfloat(d, &idx, s, &k, s->size[1], true, &isimag1,
+            &isfinite1, &scanned1, &a__1, &success);
+        i = static_cast<int32_T>(s1->size[0] * s1->size[1]);
+        s1->size[0] = 1;
+        s1->size[1] = d->size[1];
+        Real2SimGuidance_emxEnsureCapacity_char_T(s1, i);
+        loop_ub = static_cast<int32_T>(d->size[1] - 1);
+        for (i = 0; i <= loop_ub; i++) {
+            s1->data[i] = d->data[i];
+        }
+
+        if (isfinite1) {
+            ntoread = 1;
+        }
+
+        if (success) {
+            if (k <= s->size[1]) {
+                s1->data[static_cast<int32_T>(idx - 1)] = ' ';
+                i = static_cast<int32_T>(d->size[0] * d->size[1]);
+                d->size[0] = 1;
+                d->size[1] = s1->size[1];
+                Real2SimGuidance_emxEnsureCapacity_char_T(d, i);
+                loop_ub = static_cast<int32_T>(s1->size[1] - 1);
+                for (i = 0; i <= loop_ub; i++) {
+                    d->data[i] = s1->data[i];
+                }
+
+                idx = static_cast<int32_T>(idx + 1);
+                Real2SimGuidance_readfloat(d, &idx, s, &k, s->size[1], true,
+                    &a__1, &success, &scanned2, &foundsign, &c_success);
+                i = static_cast<int32_T>(s1->size[0] * s1->size[1]);
+                s1->size[0] = 1;
+                s1->size[1] = d->size[1];
+                Real2SimGuidance_emxEnsureCapacity_char_T(s1, i);
+                loop_ub = static_cast<int32_T>(d->size[1] - 1);
+                for (i = 0; i <= loop_ub; i++) {
+                    s1->data[i] = d->data[i];
+                }
+
+                if (success) {
+                    ntoread = static_cast<int32_T>(ntoread + 1);
+                }
+
+                success = static_cast<boolean_T>(static_cast<int32_T>(
+                    static_cast<int32_T>(static_cast<boolean_T>
+                    (static_cast<int32_T>(static_cast<int32_T>
+                    (static_cast<boolean_T>(static_cast<int32_T>
+                    (static_cast<int32_T>(static_cast<boolean_T>
+                    (static_cast<int32_T>(static_cast<int32_T>(isimag1) ^
+                    static_cast<int32_T>(a__1)))) & static_cast<int32_T>
+                     (foundsign)))) & (k > s->size[1])))) & static_cast<int32_T>
+                    (c_success)));
+            } else {
+                scanned2 = 0.0;
+            }
+        } else {
+            scanned2 = 0.0;
+        }
+
+        if (success) {
+            s1->data[static_cast<int32_T>(idx - 1)] = '\x00';
+            switch (ntoread) {
+              case 2:
+                ntoread = sscanf(&s1->data[0], "%lf %lf", &scanned1, &scanned2);
+                if (ntoread != 2) {
+                    scanned1 = (rtNaN);
+                    scanned2 = (rtNaN);
+                }
+                break;
+
+              case 1:
+                ntoread = sscanf(&s1->data[0], "%lf", &b_scanned1);
+                if (isfinite1) {
+                    if (ntoread == 1) {
+                        scanned1 = b_scanned1;
+                    } else {
+                        scanned1 = (rtNaN);
+                    }
+                } else if (ntoread == 1) {
+                    scanned2 = b_scanned1;
+                } else {
+                    scanned2 = (rtNaN);
+                }
+                break;
+            }
+
+            if (isimag1) {
+                x.re = scanned2;
+                x.im = scanned1;
+            } else {
+                x.re = scanned1;
+                x.im = scanned2;
+            }
+        }
+
+        Real2SimGuidance_emxFree_char_T(&s1);
+    }
+
+    Real2SimGuidance_emxFree_char_T(&d);
+    return x;
+}
+
 // Function for MATLAB Function: '<Root>/TimeNow'
 static creal_T Real2SimGuidance_two_sum(real_T a, real_T b)
 {
@@ -1156,10 +2042,525 @@ static creal_T Real2SimGuidance_plus(const creal_T a, real_T b)
     return c;
 }
 
+// Function for MATLAB Function: '<Root>/Get Nominal Flight Speed'
+static void Real2SimGuidance_strtok(const emxArray_char_T_Real2SimGuidance_T *x,
+    emxArray_char_T_Real2SimGuidance_T *token,
+    emxArray_char_T_Real2SimGuidance_T *remain)
+{
+    int32_T b;
+    int32_T i;
+    int32_T itoken;
+    int32_T k;
+    int32_T n;
+    n = x->size[1];
+    k = 0;
+    while ((static_cast<int32_T>(k + 1) <= n) && (x->data[k] == '\x0a')) {
+        k = static_cast<int32_T>(k + 1);
+    }
+
+    itoken = static_cast<int32_T>(k + 1);
+    while ((static_cast<int32_T>(k + 1) <= n) && (x->data[k] != '\x0a')) {
+        k = static_cast<int32_T>(k + 1);
+    }
+
+    if (static_cast<int32_T>(k + 1) > x->size[1]) {
+        n = 0;
+        b = 0;
+    } else {
+        n = k;
+        b = x->size[1];
+    }
+
+    i = static_cast<int32_T>(remain->size[0] * remain->size[1]);
+    remain->size[0] = 1;
+    b = static_cast<int32_T>(b - n);
+    remain->size[1] = b;
+    Real2SimGuidance_emxEnsureCapacity_char_T(remain, i);
+    for (i = 0; i <= static_cast<int32_T>(b - 1); i++) {
+        remain->data[i] = x->data[static_cast<int32_T>(n + i)];
+    }
+
+    if (itoken > k) {
+        itoken = 0;
+        k = 0;
+    } else {
+        itoken = static_cast<int32_T>(itoken - 1);
+    }
+
+    i = static_cast<int32_T>(token->size[0] * token->size[1]);
+    token->size[0] = 1;
+    b = static_cast<int32_T>(k - itoken);
+    token->size[1] = b;
+    Real2SimGuidance_emxEnsureCapacity_char_T(token, i);
+    for (i = 0; i <= static_cast<int32_T>(b - 1); i++) {
+        token->data[i] = x->data[static_cast<int32_T>(itoken + i)];
+    }
+}
+
+// Function for MATLAB Function: '<Root>/Get Nominal Flight Speed'
+static void Real2SimGuidance_strtok_g(const emxArray_char_T_Real2SimGuidance_T
+    *x, emxArray_char_T_Real2SimGuidance_T *token)
+{
+    int32_T itoken;
+    int32_T k;
+    int32_T n;
+    n = x->size[1];
+    k = 1;
+    while ((k <= n) && (x->data[static_cast<int32_T>(k - 1)] == ';')) {
+        k = static_cast<int32_T>(k + 1);
+    }
+
+    itoken = k;
+    while ((k <= n) && (x->data[static_cast<int32_T>(k - 1)] != ';')) {
+        k = static_cast<int32_T>(k + 1);
+    }
+
+    if (itoken > static_cast<int32_T>(k - 1)) {
+        n = 0;
+        k = 0;
+    } else {
+        n = static_cast<int32_T>(itoken - 1);
+        k = static_cast<int32_T>(k - 1);
+    }
+
+    itoken = static_cast<int32_T>(token->size[0] * token->size[1]);
+    token->size[0] = 1;
+    k = static_cast<int32_T>(k - n);
+    token->size[1] = k;
+    Real2SimGuidance_emxEnsureCapacity_char_T(token, itoken);
+    for (itoken = 0; itoken <= static_cast<int32_T>(k - 1); itoken++) {
+        token->data[itoken] = x->data[static_cast<int32_T>(n + itoken)];
+    }
+}
+
+// Function for MATLAB Function: '<Root>/Get Nominal Flight Speed'
+static void Real2SimGuidance_strtrim(const emxArray_char_T_Real2SimGuidance_T *x,
+    emxArray_char_T_Real2SimGuidance_T *y)
+{
+    static const boolean_T d[128]{ false, false, false, false, false, false,
+        false, false, false, true, true, true, true, true, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, true, true, true, true, true, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false };
+
+    int32_T b_j1;
+    int32_T i;
+    int32_T j2;
+    b_j1 = 0;
+    while ((static_cast<int32_T>(b_j1 + 1) <= x->size[1]) &&
+            (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(d[
+               static_cast<int32_T>(static_cast<int32_T>(static_cast<uint8_T>
+                 (x->data[b_j1])) & 127)]) & (x->data[b_j1] != '\x00'))))) {
+        b_j1 = static_cast<int32_T>(b_j1 + 1);
+    }
+
+    j2 = static_cast<int32_T>(x->size[1] - 1);
+    while ((static_cast<int32_T>(j2 + 1) > 0) && (static_cast<boolean_T>(
+             static_cast<int32_T>(static_cast<int32_T>(d[static_cast<int32_T>(
+                static_cast<int32_T>(static_cast<uint8_T>(x->data[j2])) & 127)])
+              & (x->data[j2] != '\x00'))))) {
+        j2 = static_cast<int32_T>(j2 - 1);
+    }
+
+    if (static_cast<int32_T>(b_j1 + 1) > static_cast<int32_T>(j2 + 1)) {
+        b_j1 = 0;
+        j2 = -1;
+    }
+
+    i = static_cast<int32_T>(y->size[0] * y->size[1]);
+    y->size[0] = 1;
+    j2 = static_cast<int32_T>(j2 - b_j1);
+    y->size[1] = static_cast<int32_T>(j2 + 1);
+    Real2SimGuidance_emxEnsureCapacity_char_T(y, i);
+    for (i = 0; i <= j2; i++) {
+        y->data[i] = x->data[static_cast<int32_T>(b_j1 + i)];
+    }
+}
+
+// Function for MATLAB Function: '<Root>/Get Nominal Flight Speed'
+static boolean_T Real2SimGuidance_strcmp(const
+    emxArray_char_T_Real2SimGuidance_T *a)
+{
+    static const char_T c[128]{ '\x00', '\x01', '\x02', '\x03', '\x04', '\x05',
+        '\x06', '\x07', '\x08', '\x09', '\x0a', '\x0b', '\x0c', '\x0d', '\x0e',
+        '\x0f', '\x10', '\x11', '\x12', '\x13', '\x14', '\x15', '\x16', '\x17',
+        '\x18', '\x19', '\x1a', '\x1b', '\x1c', '\x1d', '\x1e', '\x1f', ' ', '!',
+        '\"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/',
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=',
+        '>', '?', '@', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
+        'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
+        'z', '[', '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g',
+        'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
+        'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~', '\x7f' };
+
+    static const char_T d[3]{ 'U', 'A', 'V' };
+
+    emxArray_char_T_Real2SimGuidance_T *aTmp;
+    int32_T loop_ub;
+    boolean_T b_bool;
+    Real2SimGuidance_emxInit_char_T(&aTmp, 2);
+    if (a->size[1] == 0) {
+        aTmp->size[0] = 1;
+        aTmp->size[1] = 0;
+    } else {
+        int32_T i;
+        i = static_cast<int32_T>(aTmp->size[0] * aTmp->size[1]);
+        aTmp->size[0] = 1;
+        aTmp->size[1] = a->size[1];
+        Real2SimGuidance_emxEnsureCapacity_char_T(aTmp, i);
+        loop_ub = static_cast<int32_T>(a->size[1] - 1);
+        for (i = 0; i <= loop_ub; i++) {
+            aTmp->data[i] = a->data[i];
+        }
+    }
+
+    b_bool = false;
+    if (aTmp->size[1] == 3) {
+        loop_ub = 0;
+        int32_T exitg1;
+        do {
+            exitg1 = 0;
+            if (loop_ub < 3) {
+                if (c[static_cast<int32_T>(static_cast<int32_T>
+                                           (static_cast<uint8_T>(aTmp->
+                        data[loop_ub])) & 127)] != c[static_cast<int32_T>
+                        (d[loop_ub])]) {
+                    exitg1 = 1;
+                } else {
+                    loop_ub = static_cast<int32_T>(loop_ub + 1);
+                }
+            } else {
+                b_bool = true;
+                exitg1 = 1;
+            }
+        } while (exitg1 == 0);
+    }
+
+    Real2SimGuidance_emxFree_char_T(&aTmp);
+    return b_bool;
+}
+
+// Function for MATLAB Function: '<Root>/Get Nominal Flight Speed'
+static boolean_T Real2SimGuidance_contains(const
+    emxArray_char_T_Real2SimGuidance_T *str)
+{
+    int32_T matchPos;
+    matchPos = 0;
+    int32_T exitg1;
+    do {
+        exitg1 = 0;
+        if (matchPos <= static_cast<int32_T>(str->size[1] - 1)) {
+            if (str->data[matchPos] == '=') {
+                exitg1 = 1;
+            } else {
+                matchPos = static_cast<int32_T>(matchPos + 1);
+            }
+        } else {
+            matchPos = -1;
+            exitg1 = 1;
+        }
+    } while (exitg1 == 0);
+
+    return static_cast<int32_T>(matchPos + 1) > 0;
+}
+
+// Function for MATLAB Function: '<Root>/Get Nominal Flight Speed'
+static void Real2SimGuidance_find_token(const emxArray_char_T_Real2SimGuidance_T
+    *x, int32_T *itoken, int32_T *iremain)
+{
+    int32_T n;
+    n = x->size[1];
+    *iremain = 1;
+    while ((*iremain <= n) && (x->data[static_cast<int32_T>(*iremain - 1)] ==
+                               '=')) {
+        *iremain = static_cast<int32_T>(*iremain + 1);
+    }
+
+    *itoken = *iremain;
+    while ((*iremain <= n) && (x->data[static_cast<int32_T>(*iremain - 1)] !=
+                               '=')) {
+        *iremain = static_cast<int32_T>(*iremain + 1);
+    }
+}
+
+// Function for MATLAB Function: '<Root>/Get Nominal Flight Speed'
+static void Real2SimGuidance_strtok_gd(const emxArray_char_T_Real2SimGuidance_T *
+    x, emxArray_char_T_Real2SimGuidance_T *token,
+    emxArray_char_T_Real2SimGuidance_T *remain)
+{
+    int32_T b;
+    int32_T c;
+    int32_T i;
+    int32_T iremain;
+    int32_T itoken;
+    Real2SimGuidance_find_token(x, &itoken, &iremain);
+    if (iremain > x->size[1]) {
+        c = 0;
+        b = 0;
+    } else {
+        c = static_cast<int32_T>(iremain - 1);
+        b = x->size[1];
+    }
+
+    i = static_cast<int32_T>(remain->size[0] * remain->size[1]);
+    remain->size[0] = 1;
+    b = static_cast<int32_T>(b - c);
+    remain->size[1] = b;
+    Real2SimGuidance_emxEnsureCapacity_char_T(remain, i);
+    for (i = 0; i <= static_cast<int32_T>(b - 1); i++) {
+        remain->data[i] = x->data[static_cast<int32_T>(c + i)];
+    }
+
+    if (itoken > static_cast<int32_T>(iremain - 1)) {
+        itoken = 0;
+        iremain = 0;
+    } else {
+        itoken = static_cast<int32_T>(itoken - 1);
+        iremain = static_cast<int32_T>(iremain - 1);
+    }
+
+    i = static_cast<int32_T>(token->size[0] * token->size[1]);
+    token->size[0] = 1;
+    b = static_cast<int32_T>(iremain - itoken);
+    token->size[1] = b;
+    Real2SimGuidance_emxEnsureCapacity_char_T(token, i);
+    for (i = 0; i <= static_cast<int32_T>(b - 1); i++) {
+        token->data[i] = x->data[static_cast<int32_T>(itoken + i)];
+    }
+}
+
+// Function for MATLAB Function: '<Root>/Get Nominal Flight Speed'
+static void Real2SimGuidance_strtok_gdx(const emxArray_char_T_Real2SimGuidance_T
+    *x, emxArray_char_T_Real2SimGuidance_T *token)
+{
+    int32_T i;
+    int32_T iremain;
+    int32_T itoken;
+    Real2SimGuidance_find_token(x, &itoken, &iremain);
+    if (itoken > static_cast<int32_T>(iremain - 1)) {
+        itoken = 0;
+        iremain = 0;
+    } else {
+        itoken = static_cast<int32_T>(itoken - 1);
+        iremain = static_cast<int32_T>(iremain - 1);
+    }
+
+    i = static_cast<int32_T>(token->size[0] * token->size[1]);
+    token->size[0] = 1;
+    iremain = static_cast<int32_T>(iremain - itoken);
+    token->size[1] = iremain;
+    Real2SimGuidance_emxEnsureCapacity_char_T(token, i);
+    for (i = 0; i <= static_cast<int32_T>(iremain - 1); i++) {
+        token->data[i] = x->data[static_cast<int32_T>(itoken + i)];
+    }
+}
+
+// Function for MATLAB Function: '<Root>/Get Nominal Flight Speed'
+static boolean_T Real2SimGuidance_strcmp_g(const
+    emxArray_char_T_Real2SimGuidance_T *a)
+{
+    static const char_T c[128]{ '\x00', '\x01', '\x02', '\x03', '\x04', '\x05',
+        '\x06', '\x07', '\x08', '\x09', '\x0a', '\x0b', '\x0c', '\x0d', '\x0e',
+        '\x0f', '\x10', '\x11', '\x12', '\x13', '\x14', '\x15', '\x16', '\x17',
+        '\x18', '\x19', '\x1a', '\x1b', '\x1c', '\x1d', '\x1e', '\x1f', ' ', '!',
+        '\"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/',
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=',
+        '>', '?', '@', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
+        'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
+        'z', '[', '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g',
+        'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
+        'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~', '\x7f' };
+
+    static const char_T d[12]{ 'M', 'a', 'x', 'R', 'o', 'l', 'l', 'A', 'n', 'g',
+        'l', 'e' };
+
+    emxArray_char_T_Real2SimGuidance_T *aTmp;
+    int32_T loop_ub;
+    boolean_T b_bool;
+    Real2SimGuidance_emxInit_char_T(&aTmp, 2);
+    if (a->size[1] == 0) {
+        aTmp->size[0] = 1;
+        aTmp->size[1] = 0;
+    } else {
+        int32_T i;
+        i = static_cast<int32_T>(aTmp->size[0] * aTmp->size[1]);
+        aTmp->size[0] = 1;
+        aTmp->size[1] = a->size[1];
+        Real2SimGuidance_emxEnsureCapacity_char_T(aTmp, i);
+        loop_ub = static_cast<int32_T>(a->size[1] - 1);
+        for (i = 0; i <= loop_ub; i++) {
+            aTmp->data[i] = a->data[i];
+        }
+    }
+
+    b_bool = false;
+    if (aTmp->size[1] == 12) {
+        loop_ub = 0;
+        int32_T exitg1;
+        do {
+            exitg1 = 0;
+            if (loop_ub < 12) {
+                if (c[static_cast<int32_T>(static_cast<int32_T>
+                                           (static_cast<uint8_T>(aTmp->
+                        data[loop_ub])) & 127)] != c[static_cast<int32_T>
+                        (d[loop_ub])]) {
+                    exitg1 = 1;
+                } else {
+                    loop_ub = static_cast<int32_T>(loop_ub + 1);
+                }
+            } else {
+                b_bool = true;
+                exitg1 = 1;
+            }
+        } while (exitg1 == 0);
+    }
+
+    Real2SimGuidance_emxFree_char_T(&aTmp);
+    return b_bool;
+}
+
+// Function for MATLAB Function: '<Root>/Get Nominal Flight Speed'
+static boolean_T Real2SimGuidance_strcmp_gh(const
+    emxArray_char_T_Real2SimGuidance_T *a)
+{
+    static const char_T c[128]{ '\x00', '\x01', '\x02', '\x03', '\x04', '\x05',
+        '\x06', '\x07', '\x08', '\x09', '\x0a', '\x0b', '\x0c', '\x0d', '\x0e',
+        '\x0f', '\x10', '\x11', '\x12', '\x13', '\x14', '\x15', '\x16', '\x17',
+        '\x18', '\x19', '\x1a', '\x1b', '\x1c', '\x1d', '\x1e', '\x1f', ' ', '!',
+        '\"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/',
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=',
+        '>', '?', '@', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
+        'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
+        'z', '[', '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g',
+        'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
+        'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~', '\x7f' };
+
+    static const char_T d[15]{ 'C', 'l', 'i', 'm', 'b', 'A', 'n', 'g', 'l', 'e',
+        'L', 'i', 'm', 'i', 't' };
+
+    emxArray_char_T_Real2SimGuidance_T *aTmp;
+    int32_T loop_ub;
+    boolean_T b_bool;
+    Real2SimGuidance_emxInit_char_T(&aTmp, 2);
+    if (a->size[1] == 0) {
+        aTmp->size[0] = 1;
+        aTmp->size[1] = 0;
+    } else {
+        int32_T i;
+        i = static_cast<int32_T>(aTmp->size[0] * aTmp->size[1]);
+        aTmp->size[0] = 1;
+        aTmp->size[1] = a->size[1];
+        Real2SimGuidance_emxEnsureCapacity_char_T(aTmp, i);
+        loop_ub = static_cast<int32_T>(a->size[1] - 1);
+        for (i = 0; i <= loop_ub; i++) {
+            aTmp->data[i] = a->data[i];
+        }
+    }
+
+    b_bool = false;
+    if (aTmp->size[1] == 15) {
+        loop_ub = 0;
+        int32_T exitg1;
+        do {
+            exitg1 = 0;
+            if (loop_ub < 15) {
+                if (c[static_cast<int32_T>(static_cast<int32_T>
+                                           (static_cast<uint8_T>(aTmp->
+                        data[loop_ub])) & 127)] != c[static_cast<int32_T>
+                        (d[loop_ub])]) {
+                    exitg1 = 1;
+                } else {
+                    loop_ub = static_cast<int32_T>(loop_ub + 1);
+                }
+            } else {
+                b_bool = true;
+                exitg1 = 1;
+            }
+        } while (exitg1 == 0);
+    }
+
+    Real2SimGuidance_emxFree_char_T(&aTmp);
+    return b_bool;
+}
+
+// Function for MATLAB Function: '<Root>/Get Nominal Flight Speed'
+static boolean_T Real2SimGuidance_strcmp_ghb(const
+    emxArray_char_T_Real2SimGuidance_T *a)
+{
+    static const char_T c[128]{ '\x00', '\x01', '\x02', '\x03', '\x04', '\x05',
+        '\x06', '\x07', '\x08', '\x09', '\x0a', '\x0b', '\x0c', '\x0d', '\x0e',
+        '\x0f', '\x10', '\x11', '\x12', '\x13', '\x14', '\x15', '\x16', '\x17',
+        '\x18', '\x19', '\x1a', '\x1b', '\x1c', '\x1d', '\x1e', '\x1f', ' ', '!',
+        '\"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/',
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=',
+        '>', '?', '@', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
+        'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
+        'z', '[', '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g',
+        'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
+        'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~', '\x7f' };
+
+    static const char_T d[14]{ 'D', 'i', 'v', 'e', 'A', 'n', 'g', 'l', 'e', 'L',
+        'i', 'm', 'i', 't' };
+
+    emxArray_char_T_Real2SimGuidance_T *aTmp;
+    int32_T loop_ub;
+    boolean_T b_bool;
+    Real2SimGuidance_emxInit_char_T(&aTmp, 2);
+    if (a->size[1] == 0) {
+        aTmp->size[0] = 1;
+        aTmp->size[1] = 0;
+    } else {
+        int32_T i;
+        i = static_cast<int32_T>(aTmp->size[0] * aTmp->size[1]);
+        aTmp->size[0] = 1;
+        aTmp->size[1] = a->size[1];
+        Real2SimGuidance_emxEnsureCapacity_char_T(aTmp, i);
+        loop_ub = static_cast<int32_T>(a->size[1] - 1);
+        for (i = 0; i <= loop_ub; i++) {
+            aTmp->data[i] = a->data[i];
+        }
+    }
+
+    b_bool = false;
+    if (aTmp->size[1] == 14) {
+        loop_ub = 0;
+        int32_T exitg1;
+        do {
+            exitg1 = 0;
+            if (loop_ub < 14) {
+                if (c[static_cast<int32_T>(static_cast<int32_T>
+                                           (static_cast<uint8_T>(aTmp->
+                        data[loop_ub])) & 127)] != c[static_cast<int32_T>
+                        (d[loop_ub])]) {
+                    exitg1 = 1;
+                } else {
+                    loop_ub = static_cast<int32_T>(loop_ub + 1);
+                }
+            } else {
+                b_bool = true;
+                exitg1 = 1;
+            }
+        } while (exitg1 == 0);
+    }
+
+    Real2SimGuidance_emxFree_char_T(&aTmp);
+    return b_bool;
+}
+
 // System initialize for referenced model: 'Real2SimGuidance'
 void Real2SimGuidance_Init(DW_Real2SimGuidance_f_T *localDW,
     X_Real2SimGuidance_n_T *localX)
 {
+    FILE* a;
+
     // SystemInitialize for Atomic SubSystem: '<Root>/Real2SimNav'
     // InitializeConditions for Integrator: '<S70>/TD_Alt'
     localX->TD_Alt_CSTATE = 0.0;
@@ -1211,12 +2612,22 @@ void Real2SimGuidance_Init(DW_Real2SimGuidance_f_T *localDW,
 
     // End of SystemInitialize for SubSystem: '<S8>/HeadingLogic'
     // End of SystemInitialize for SubSystem: '<Root>/Real2SimNav'
+
+    // SystemInitialize for MATLAB Function: '<Root>/Get Nominal Flight Speed'
+    a = NULL;
+    for (int32_T i{0}; i < 20; i++) {
+        localDW->eml_openfiles[i] = a;
+    }
+
+    // End of SystemInitialize for MATLAB Function: '<Root>/Get Nominal Flight Speed' 
 }
 
 // System reset for referenced model: 'Real2SimGuidance'
 void Real2SimGuidance_Reset(DW_Real2SimGuidance_f_T *localDW,
     X_Real2SimGuidance_n_T *localX)
 {
+    FILE* a;
+
     // SystemReset for Atomic SubSystem: '<Root>/Real2SimNav'
     // InitializeConditions for Memory: '<S8>/MemoryNotInBrake'
     localDW->MemoryNotInBrake_PreviousInput = false;
@@ -1300,6 +2711,12 @@ void Real2SimGuidance_Reset(DW_Real2SimGuidance_f_T *localDW,
 
     // SystemReset for MATLAB Function: '<Root>/Get Nominal Flight Speed'
     localDW->SingletonInstance_not_empty = false;
+    a = NULL;
+    for (int32_T i{0}; i < 20; i++) {
+        localDW->eml_openfiles[i] = a;
+    }
+
+    // End of SystemReset for MATLAB Function: '<Root>/Get Nominal Flight Speed' 
 }
 
 // Disable for referenced model: 'Real2SimGuidance'
@@ -1346,9 +2763,49 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
     FixedWingGuidanceStateBus rtb_FixedWingGuidanceStateBus;
     real_T rtb_SumNorth;
     real_T rtb_SumEast;
+    static const char_T m[128]{ '\x00', '\x01', '\x02', '\x03', '\x04', '\x05',
+        '\x06', '\x07', '\x08', '\x09', '\x0a', '\x0b', '\x0c', '\x0d', '\x0e',
+        '\x0f', '\x10', '\x11', '\x12', '\x13', '\x14', '\x15', '\x16', '\x17',
+        '\x18', '\x19', '\x1a', '\x1b', '\x1c', '\x1d', '\x1e', '\x1f', ' ', '!',
+        '\"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/',
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=',
+        '>', '?', '@', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
+        'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
+        'z', '[', '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g',
+        'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
+        'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~', '\x7f' };
+
+    static const char_T k[10]{ 'c', 'o', 'n', 'f', 'i', 'g', '.', 'i', 'n', 'i'
+    };
+
+    static const char_T n[10]{ 'N', 'o', 'r', 'm', 'A', 'i', 'r', 'S', 'p', 'd'
+    };
+
     static const int8_T a[9]{ 0, 0, 0, 1, 0, 0, 0, 1, 0 };
 
-    creal_T inputArg_data;
+    DubinsObjSingleton_Real2SimGuidance_T *obj;
+    emxArray_char_T_Real2SimGuidance_T *aTmp;
+    emxArray_char_T_Real2SimGuidance_T *curKey;
+    emxArray_char_T_Real2SimGuidance_T *curLine;
+    emxArray_char_T_Real2SimGuidance_T *curSection;
+    emxArray_char_T_Real2SimGuidance_T *curVal;
+    emxArray_char_T_Real2SimGuidance_T *data;
+    emxArray_char_T_Real2SimGuidance_T *data_0;
+    emxArray_char_T_Real2SimGuidance_T *data_1;
+    emxArray_char_T_Real2SimGuidance_T *data_2;
+    emxArray_char_T_Real2SimGuidance_T *data_3;
+    emxArray_char_T_Real2SimGuidance_T *o;
+    emxArray_char_T_Real2SimGuidance_T *ret;
+    emxArray_char_T_Real2SimGuidance_T *tmp_1;
+    emxArray_char_T_Real2SimGuidance_T *tmp_2;
+    emxArray_char_T_Real2SimGuidance_T *tmp_3;
+    emxArray_char_T_Real2SimGuidance_T *tmp_4;
+    emxArray_char_T_Real2SimGuidance_T *tmp_5;
+    emxArray_char_T_Real2SimGuidance_T *tmp_6;
+    emxArray_char_T_Real2SimGuidance_T *tmp_7;
+    emxArray_char_T_Real2SimGuidance_T *tmp_8;
+    creal_T b_b;
+    creal_T tmp_0;
     real_T rtb_TmpSignalConversionAtSFunctionInport1[4];
     real_T rtb_SwitchLookAheadPoint[3];
     real_T tmp[3];
@@ -1367,6 +2824,7 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
     real_T rtb_Switch;
     real_T rtb_SwitchLookAheadPoint_c;
     int32_T i;
+    char_T b_obj_Value[10];
     uint8_T b_varargout_4;
     uint8_T b_varargout_6;
     uint8_T rtb_Memory;
@@ -2321,7 +3779,7 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
 
         // Outputs for Atomic SubSystem: '<S8>/HeadingLogic'
         // Gain: '<S65>/LookaheadT'
-        rtb_Sum1_idx_0 = 3.6 * rtu_SimUAVState->AirSpeed;
+        rtb_HeadWind = 3.6 * rtu_SimUAVState->AirSpeed;
 
         // SignalConversion generated from: '<S65>/TrackSimPath'
         rtb_TmpSignalConversionAtSFunctionInport1[0] =
@@ -2338,15 +3796,15 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
 
         Real2SimGuidance_WaypointFollower_stepImpl(&localDW->obj,
             rtb_TmpSignalConversionAtSFunctionInport1,
-            localDW->MatrixConcatenate, rtb_Sum1_idx_0, rtb_SwitchLookAheadPoint,
-            &rtb_HeadWind, &rtb_Sum_i, &b_varargout_4, &localDW->CrossTrackError,
-            &b_varargout_6, localDW);
+            localDW->MatrixConcatenate, rtb_HeadWind, rtb_SwitchLookAheadPoint,
+            &rtb_Sum1_idx_0, &rtb_Sum_i, &b_varargout_4,
+            &localDW->CrossTrackError, &b_varargout_6, localDW);
 
         // RelationalOperator: '<S65>/Relational Operator' incorporates:
         //   DataStoreWrite: '<S65>/WriteCrossTrackError'
         //   Gain: '<S65>/Gain'
 
-        rtb_NoNewMission = (localDW->CrossTrackError <= 0.5 * rtb_Sum1_idx_0);
+        rtb_NoNewMission = (localDW->CrossTrackError <= 0.5 * rtb_HeadWind);
 
         // Outputs for Atomic SubSystem: '<S65>/NewMissionHdg'
         // Outputs for Enabled SubSystem: '<S71>/CalForwardShift' incorporates:
@@ -2571,7 +4029,7 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
             localDW->SwitchLookAheadNED[1] = rtb_HeadWind;
             localDW->SwitchLookAheadNED[2] = localDW->MatrixConcatenate[
                 static_cast<int32_T>(static_cast<int32_T>(rtb_Abs1_k) + 433)];
-            rtb_HeadWind = rt_atan2d_snf(rtb_HeadWind -
+            rtb_Sum1_idx_0 = rt_atan2d_snf(rtb_HeadWind -
                 rtb_FixedWingGuidanceStateBus.East, rtb_Sum1_idx_0 -
                 rtb_FixedWingGuidanceStateBus.North);
         } else {
@@ -2594,10 +4052,10 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         // '<S60>:1:3'
         // '<S60>:1:4'
         localDW->Heading_Log[0] = angdiff_WJjwZrD2
-            (rtb_FixedWingGuidanceStateBus.HeadingAngle, rtb_HeadWind);
+            (rtb_FixedWingGuidanceStateBus.HeadingAngle, rtb_Sum1_idx_0);
         localDW->Heading_Log[1] = angdiff_WJjwZrD2(0.0,
             rtb_FixedWingGuidanceStateBus.HeadingAngle);
-        localDW->Heading_Log[2] = angdiff_WJjwZrD2(0.0, rtb_HeadWind);
+        localDW->Heading_Log[2] = angdiff_WJjwZrD2(0.0, rtb_Sum1_idx_0);
     }
 
     // End of Outputs for SubSystem: '<S8>/SpeedControl'
@@ -3357,11 +4815,592 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         // '<S5>:1:3'
         if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
                 (localDW->SingletonInstance_not_empty) ^ 1))) {
+            int32_T i_0;
+            int32_T j;
+            int32_T loop_ub;
+            int8_T fileid;
+            boolean_T exitg3;
+            boolean_T guard1{ false };
+
+            obj = &localDW->SingletonInstance;
+            for (i = 0; i < 10; i++) {
+                localDW->SingletonInstance.config.Value[i] = k[i];
+            }
+
+            for (i = 0; i < 10; i++) {
+                b_obj_Value[i] = localDW->SingletonInstance.config.Value[i];
+            }
+
+            Real2SimGuidance_emxInit_char_T(&ret, 2);
+            Real2SimGuidance_emxInit_char_T(&data, 2);
+            Real2SimGuidance_emxInit_char_T(&o, 1);
+            ret->size[0] = 1;
+            ret->size[1] = 0;
+            fileid = Real2SimGuidance_cfopen(b_obj_Value, "rb", localDW);
+            Real2SimGuidance_fread(static_cast<real_T>(fileid), o, localDW);
+            i_0 = static_cast<int32_T>(data->size[0] * data->size[1]);
+            data->size[0] = 1;
+            data->size[1] = o->size[0];
+            Real2SimGuidance_emxEnsureCapacity_char_T(data, i_0);
+            loop_ub = o->size[0];
+            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+                data->data[i] = o->data[i];
+            }
+
+            Real2SimGuidance_emxInit_char_T(&curSection, 2);
+            Real2SimGuidance_emxInit_char_T(&curKey, 2);
+            Real2SimGuidance_emxInit_char_T(&curVal, 2);
+            Real2SimGuidance_cfclose(static_cast<real_T>(fileid), localDW);
+            curSection->size[0] = 1;
+            curSection->size[1] = 0;
+            curKey->size[0] = 1;
+            curKey->size[1] = 0;
+            curVal->size[0] = 1;
+            curVal->size[1] = 0;
+            Real2SimGuidance_emxInit_char_T(&curLine, 2);
+            Real2SimGuidance_emxInit_char_T(&aTmp, 2);
+            Real2SimGuidance_emxInit_char_T(&tmp_7, 2);
+            Real2SimGuidance_emxInit_char_T(&tmp_8, 2);
+            Real2SimGuidance_emxInit_char_T(&data_3, 2);
+            int32_T exitg1;
+            do {
+                exitg1 = 0;
+                if (data->size[1] != 0) {
+                    i_0 = static_cast<int32_T>(data_3->size[0] * data_3->size[1]);
+                    data_3->size[0] = 1;
+                    data_3->size[1] = data->size[1];
+                    Real2SimGuidance_emxEnsureCapacity_char_T(data_3, i_0);
+                    loop_ub = static_cast<int32_T>(static_cast<int32_T>
+                        (data->size[0] * data->size[1]) - 1);
+                    for (i_0 = 0; i_0 <= loop_ub; i_0++) {
+                        data_3->data[i_0] = data->data[i_0];
+                    }
+
+                    Real2SimGuidance_strtok(data_3, curLine, data);
+                    Real2SimGuidance_strtok_g(curLine, tmp_8);
+                    Real2SimGuidance_strtrim(tmp_8, curLine);
+                    if (curLine->size[1] >= 2) {
+                        rtb_GreaterThanOrEqual_h = false;
+                        if (curLine->data[0] == '[') {
+                            rtb_GreaterThanOrEqual_h = true;
+                        }
+
+                        guard1 = false;
+                        if (rtb_GreaterThanOrEqual_h) {
+                            rtb_GreaterThanOrEqual_h = false;
+                            if (curLine->data[static_cast<int32_T>(curLine->
+                                    size[1] - 1)] == ']') {
+                                rtb_GreaterThanOrEqual_h = true;
+                            }
+
+                            if (rtb_GreaterThanOrEqual_h) {
+                                if (static_cast<int32_T>(curLine->size[1] - 1) <
+                                    2) {
+                                    j = 0;
+                                    i = 0;
+                                } else {
+                                    j = 1;
+                                    i = static_cast<int32_T>(curLine->size[1] -
+                                        1);
+                                }
+
+                                i_0 = static_cast<int32_T>(curSection->size[0] *
+                                    curSection->size[1]);
+                                curSection->size[0] = 1;
+                                loop_ub = static_cast<int32_T>(i - j);
+                                curSection->size[1] = loop_ub;
+                                Real2SimGuidance_emxEnsureCapacity_char_T
+                                    (curSection, i_0);
+                                for (i = 0; i <= static_cast<int32_T>(loop_ub -
+                                        1); i++) {
+                                    curSection->data[i] = curLine->data[
+                                        static_cast<int32_T>(j + i)];
+                                }
+
+                                curKey->size[0] = 1;
+                                curKey->size[1] = 0;
+                            } else {
+                                guard1 = true;
+                            }
+                        } else {
+                            guard1 = true;
+                        }
+
+                        if (guard1) {
+                            if (curLine->data[0] == ';') {
+                                rtb_GreaterThanOrEqual_h = true;
+                            }
+
+                            if ((static_cast<boolean_T>(static_cast<int32_T>(
+                                    static_cast<int32_T>
+                                    (rtb_GreaterThanOrEqual_h) ^ 1))) &&
+                                    Real2SimGuidance_contains(curLine)) {
+                                Real2SimGuidance_strtok_gd(curLine, aTmp, curVal);
+                                Real2SimGuidance_strtrim(aTmp, curKey);
+                                Real2SimGuidance_strtok_gdx(curVal, tmp_7);
+                                Real2SimGuidance_strtrim(tmp_7, curVal);
+                            }
+                        }
+                    }
+
+                    if (Real2SimGuidance_strcmp(curSection)) {
+                        if (curKey->size[1] == 0) {
+                            aTmp->size[0] = 1;
+                            aTmp->size[1] = 0;
+                        } else {
+                            i_0 = static_cast<int32_T>(aTmp->size[0] *
+                                aTmp->size[1]);
+                            aTmp->size[0] = 1;
+                            aTmp->size[1] = curKey->size[1];
+                            Real2SimGuidance_emxEnsureCapacity_char_T(aTmp, i_0);
+                            loop_ub = static_cast<int32_T>(curKey->size[1] - 1);
+                            for (i = 0; i <= loop_ub; i++) {
+                                aTmp->data[i] = curKey->data[i];
+                            }
+                        }
+
+                        rtb_GreaterThanOrEqual_h = false;
+                        if (aTmp->size[1] == 10) {
+                            j = 0;
+                            int32_T exitg2;
+                            do {
+                                exitg2 = 0;
+                                if (j < 10) {
+                                    if (m[static_cast<int32_T>
+                                            (static_cast<int32_T>
+                                             (static_cast<uint8_T>(aTmp->data[j]))
+                                             & 127)] != m[static_cast<int32_T>
+                                            (n[j])]) {
+                                        exitg2 = 1;
+                                    } else {
+                                        j = static_cast<int32_T>(j + 1);
+                                    }
+                                } else {
+                                    rtb_GreaterThanOrEqual_h = true;
+                                    exitg2 = 1;
+                                }
+                            } while (exitg2 == 0);
+                        }
+
+                        if (rtb_GreaterThanOrEqual_h) {
+                            i_0 = static_cast<int32_T>(ret->size[0] * ret->size
+                                [1]);
+                            ret->size[0] = 1;
+                            ret->size[1] = curVal->size[1];
+                            Real2SimGuidance_emxEnsureCapacity_char_T(ret, i_0);
+                            loop_ub = static_cast<int32_T>(curVal->size[1] - 1);
+                            for (i = 0; i <= loop_ub; i++) {
+                                ret->data[i] = curVal->data[i];
+                            }
+
+                            exitg1 = 1;
+                        }
+                    }
+                } else {
+                    exitg1 = 1;
+                }
+            } while (exitg1 == 0);
+
+            Real2SimGuidance_emxFree_char_T(&data_3);
+            Real2SimGuidance_emxFree_char_T(&tmp_8);
+            Real2SimGuidance_emxFree_char_T(&tmp_7);
+            obj->AirSpeed = Real2SimGuidance_str2double(ret);
+            for (i = 0; i < 10; i++) {
+                b_obj_Value[i] = localDW->SingletonInstance.config.Value[i];
+            }
+
+            ret->size[0] = 1;
+            ret->size[1] = 0;
+            fileid = Real2SimGuidance_cfopen(b_obj_Value, "rb", localDW);
+            Real2SimGuidance_fread(static_cast<real_T>(fileid), o, localDW);
+            i_0 = static_cast<int32_T>(data->size[0] * data->size[1]);
+            data->size[0] = 1;
+            data->size[1] = o->size[0];
+            Real2SimGuidance_emxEnsureCapacity_char_T(data, i_0);
+            loop_ub = o->size[0];
+            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+                data->data[i] = o->data[i];
+            }
+
+            Real2SimGuidance_cfclose(static_cast<real_T>(fileid), localDW);
+            curSection->size[0] = 1;
+            curSection->size[1] = 0;
+            curKey->size[0] = 1;
+            curKey->size[1] = 0;
+            curVal->size[0] = 1;
+            curVal->size[1] = 0;
+            Real2SimGuidance_emxInit_char_T(&tmp_5, 2);
+            Real2SimGuidance_emxInit_char_T(&tmp_6, 2);
+            Real2SimGuidance_emxInit_char_T(&data_2, 2);
+            exitg3 = false;
+            while ((!exitg3) && (data->size[1] != 0)) {
+                i_0 = static_cast<int32_T>(data_2->size[0] * data_2->size[1]);
+                data_2->size[0] = 1;
+                data_2->size[1] = data->size[1];
+                Real2SimGuidance_emxEnsureCapacity_char_T(data_2, i_0);
+                loop_ub = static_cast<int32_T>(static_cast<int32_T>(data->size[0]
+                    * data->size[1]) - 1);
+                for (i_0 = 0; i_0 <= loop_ub; i_0++) {
+                    data_2->data[i_0] = data->data[i_0];
+                }
+
+                Real2SimGuidance_strtok(data_2, curLine, data);
+                Real2SimGuidance_strtok_g(curLine, tmp_6);
+                Real2SimGuidance_strtrim(tmp_6, curLine);
+                if (curLine->size[1] >= 2) {
+                    rtb_GreaterThanOrEqual_h = false;
+                    if (curLine->data[0] == '[') {
+                        rtb_GreaterThanOrEqual_h = true;
+                    }
+
+                    guard1 = false;
+                    if (rtb_GreaterThanOrEqual_h) {
+                        rtb_GreaterThanOrEqual_h = false;
+                        if (curLine->data[static_cast<int32_T>(curLine->size[1]
+                                - 1)] == ']') {
+                            rtb_GreaterThanOrEqual_h = true;
+                        }
+
+                        if (rtb_GreaterThanOrEqual_h) {
+                            if (static_cast<int32_T>(curLine->size[1] - 1) < 2)
+                            {
+                                j = 0;
+                                i = 0;
+                            } else {
+                                j = 1;
+                                i = static_cast<int32_T>(curLine->size[1] - 1);
+                            }
+
+                            i_0 = static_cast<int32_T>(curSection->size[0] *
+                                curSection->size[1]);
+                            curSection->size[0] = 1;
+                            loop_ub = static_cast<int32_T>(i - j);
+                            curSection->size[1] = loop_ub;
+                            Real2SimGuidance_emxEnsureCapacity_char_T(curSection,
+                                i_0);
+                            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1);
+                                    i++) {
+                                curSection->data[i] = curLine->data[static_cast<
+                                    int32_T>(j + i)];
+                            }
+
+                            curKey->size[0] = 1;
+                            curKey->size[1] = 0;
+                        } else {
+                            guard1 = true;
+                        }
+                    } else {
+                        guard1 = true;
+                    }
+
+                    if (guard1) {
+                        if (curLine->data[0] == ';') {
+                            rtb_GreaterThanOrEqual_h = true;
+                        }
+
+                        if ((static_cast<boolean_T>(static_cast<int32_T>(
+                                static_cast<int32_T>(rtb_GreaterThanOrEqual_h) ^
+                               1))) && Real2SimGuidance_contains(curLine)) {
+                            Real2SimGuidance_strtok_gd(curLine, aTmp, curVal);
+                            Real2SimGuidance_strtrim(aTmp, curKey);
+                            Real2SimGuidance_strtok_gdx(curVal, tmp_5);
+                            Real2SimGuidance_strtrim(tmp_5, curVal);
+                        }
+                    }
+                }
+
+                if (Real2SimGuidance_strcmp(curSection) &&
+                        Real2SimGuidance_strcmp_g(curKey)) {
+                    i_0 = static_cast<int32_T>(ret->size[0] * ret->size[1]);
+                    ret->size[0] = 1;
+                    ret->size[1] = curVal->size[1];
+                    Real2SimGuidance_emxEnsureCapacity_char_T(ret, i_0);
+                    loop_ub = static_cast<int32_T>(curVal->size[1] - 1);
+                    for (i = 0; i <= loop_ub; i++) {
+                        ret->data[i] = curVal->data[i];
+                    }
+
+                    exitg3 = true;
+                }
+            }
+
+            Real2SimGuidance_emxFree_char_T(&data_2);
+            Real2SimGuidance_emxFree_char_T(&tmp_6);
+            Real2SimGuidance_emxFree_char_T(&tmp_5);
+            b_b = Real2SimGuidance_str2double(ret);
+            localDW->SingletonInstance.MaxRollAngle.re = 0.017453292519943295 *
+                b_b.re;
+            localDW->SingletonInstance.MaxRollAngle.im = 0.017453292519943295 *
+                b_b.im;
+            for (i = 0; i < 10; i++) {
+                b_obj_Value[i] = localDW->SingletonInstance.config.Value[i];
+            }
+
+            ret->size[0] = 1;
+            ret->size[1] = 0;
+            fileid = Real2SimGuidance_cfopen(b_obj_Value, "rb", localDW);
+            Real2SimGuidance_fread(static_cast<real_T>(fileid), o, localDW);
+            i_0 = static_cast<int32_T>(data->size[0] * data->size[1]);
+            data->size[0] = 1;
+            data->size[1] = o->size[0];
+            Real2SimGuidance_emxEnsureCapacity_char_T(data, i_0);
+            loop_ub = o->size[0];
+            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+                data->data[i] = o->data[i];
+            }
+
+            Real2SimGuidance_cfclose(static_cast<real_T>(fileid), localDW);
+            curSection->size[0] = 1;
+            curSection->size[1] = 0;
+            curKey->size[0] = 1;
+            curKey->size[1] = 0;
+            curVal->size[0] = 1;
+            curVal->size[1] = 0;
+            Real2SimGuidance_emxInit_char_T(&tmp_3, 2);
+            Real2SimGuidance_emxInit_char_T(&tmp_4, 2);
+            Real2SimGuidance_emxInit_char_T(&data_1, 2);
+            exitg3 = false;
+            while ((!exitg3) && (data->size[1] != 0)) {
+                i_0 = static_cast<int32_T>(data_1->size[0] * data_1->size[1]);
+                data_1->size[0] = 1;
+                data_1->size[1] = data->size[1];
+                Real2SimGuidance_emxEnsureCapacity_char_T(data_1, i_0);
+                loop_ub = static_cast<int32_T>(static_cast<int32_T>(data->size[0]
+                    * data->size[1]) - 1);
+                for (i_0 = 0; i_0 <= loop_ub; i_0++) {
+                    data_1->data[i_0] = data->data[i_0];
+                }
+
+                Real2SimGuidance_strtok(data_1, curLine, data);
+                Real2SimGuidance_strtok_g(curLine, tmp_4);
+                Real2SimGuidance_strtrim(tmp_4, curLine);
+                if (curLine->size[1] >= 2) {
+                    rtb_GreaterThanOrEqual_h = false;
+                    if (curLine->data[0] == '[') {
+                        rtb_GreaterThanOrEqual_h = true;
+                    }
+
+                    guard1 = false;
+                    if (rtb_GreaterThanOrEqual_h) {
+                        rtb_GreaterThanOrEqual_h = false;
+                        if (curLine->data[static_cast<int32_T>(curLine->size[1]
+                                - 1)] == ']') {
+                            rtb_GreaterThanOrEqual_h = true;
+                        }
+
+                        if (rtb_GreaterThanOrEqual_h) {
+                            if (static_cast<int32_T>(curLine->size[1] - 1) < 2)
+                            {
+                                j = 0;
+                                i = 0;
+                            } else {
+                                j = 1;
+                                i = static_cast<int32_T>(curLine->size[1] - 1);
+                            }
+
+                            i_0 = static_cast<int32_T>(curSection->size[0] *
+                                curSection->size[1]);
+                            curSection->size[0] = 1;
+                            loop_ub = static_cast<int32_T>(i - j);
+                            curSection->size[1] = loop_ub;
+                            Real2SimGuidance_emxEnsureCapacity_char_T(curSection,
+                                i_0);
+                            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1);
+                                    i++) {
+                                curSection->data[i] = curLine->data[static_cast<
+                                    int32_T>(j + i)];
+                            }
+
+                            curKey->size[0] = 1;
+                            curKey->size[1] = 0;
+                        } else {
+                            guard1 = true;
+                        }
+                    } else {
+                        guard1 = true;
+                    }
+
+                    if (guard1) {
+                        if (curLine->data[0] == ';') {
+                            rtb_GreaterThanOrEqual_h = true;
+                        }
+
+                        if ((static_cast<boolean_T>(static_cast<int32_T>(
+                                static_cast<int32_T>(rtb_GreaterThanOrEqual_h) ^
+                               1))) && Real2SimGuidance_contains(curLine)) {
+                            Real2SimGuidance_strtok_gd(curLine, aTmp, curVal);
+                            Real2SimGuidance_strtrim(aTmp, curKey);
+                            Real2SimGuidance_strtok_gdx(curVal, tmp_3);
+                            Real2SimGuidance_strtrim(tmp_3, curVal);
+                        }
+                    }
+                }
+
+                if (Real2SimGuidance_strcmp(curSection) &&
+                        Real2SimGuidance_strcmp_gh(curKey)) {
+                    i_0 = static_cast<int32_T>(ret->size[0] * ret->size[1]);
+                    ret->size[0] = 1;
+                    ret->size[1] = curVal->size[1];
+                    Real2SimGuidance_emxEnsureCapacity_char_T(ret, i_0);
+                    loop_ub = static_cast<int32_T>(curVal->size[1] - 1);
+                    for (i = 0; i <= loop_ub; i++) {
+                        ret->data[i] = curVal->data[i];
+                    }
+
+                    exitg3 = true;
+                }
+            }
+
+            Real2SimGuidance_emxFree_char_T(&data_1);
+            Real2SimGuidance_emxFree_char_T(&tmp_4);
+            Real2SimGuidance_emxFree_char_T(&tmp_3);
+            b_b = Real2SimGuidance_str2double(ret);
+            for (i = 0; i < 10; i++) {
+                b_obj_Value[i] = localDW->SingletonInstance.config.Value[i];
+            }
+
+            ret->size[0] = 1;
+            ret->size[1] = 0;
+            fileid = Real2SimGuidance_cfopen(b_obj_Value, "rb", localDW);
+            Real2SimGuidance_fread(static_cast<real_T>(fileid), o, localDW);
+            i_0 = static_cast<int32_T>(data->size[0] * data->size[1]);
+            data->size[0] = 1;
+            data->size[1] = o->size[0];
+            Real2SimGuidance_emxEnsureCapacity_char_T(data, i_0);
+            loop_ub = o->size[0];
+            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+                data->data[i] = o->data[i];
+            }
+
+            Real2SimGuidance_emxFree_char_T(&o);
+            Real2SimGuidance_cfclose(static_cast<real_T>(fileid), localDW);
+            curSection->size[0] = 1;
+            curSection->size[1] = 0;
+            curKey->size[0] = 1;
+            curKey->size[1] = 0;
+            curVal->size[0] = 1;
+            curVal->size[1] = 0;
+            Real2SimGuidance_emxInit_char_T(&tmp_1, 2);
+            Real2SimGuidance_emxInit_char_T(&tmp_2, 2);
+            Real2SimGuidance_emxInit_char_T(&data_0, 2);
+            exitg3 = false;
+            while ((!exitg3) && (data->size[1] != 0)) {
+                i_0 = static_cast<int32_T>(data_0->size[0] * data_0->size[1]);
+                data_0->size[0] = 1;
+                data_0->size[1] = data->size[1];
+                Real2SimGuidance_emxEnsureCapacity_char_T(data_0, i_0);
+                loop_ub = static_cast<int32_T>(static_cast<int32_T>(data->size[0]
+                    * data->size[1]) - 1);
+                for (i_0 = 0; i_0 <= loop_ub; i_0++) {
+                    data_0->data[i_0] = data->data[i_0];
+                }
+
+                Real2SimGuidance_strtok(data_0, curLine, data);
+                Real2SimGuidance_strtok_g(curLine, tmp_2);
+                Real2SimGuidance_strtrim(tmp_2, curLine);
+                if (curLine->size[1] >= 2) {
+                    rtb_GreaterThanOrEqual_h = false;
+                    if (curLine->data[0] == '[') {
+                        rtb_GreaterThanOrEqual_h = true;
+                    }
+
+                    guard1 = false;
+                    if (rtb_GreaterThanOrEqual_h) {
+                        rtb_GreaterThanOrEqual_h = false;
+                        if (curLine->data[static_cast<int32_T>(curLine->size[1]
+                                - 1)] == ']') {
+                            rtb_GreaterThanOrEqual_h = true;
+                        }
+
+                        if (rtb_GreaterThanOrEqual_h) {
+                            if (static_cast<int32_T>(curLine->size[1] - 1) < 2)
+                            {
+                                j = 0;
+                                i = 0;
+                            } else {
+                                j = 1;
+                                i = static_cast<int32_T>(curLine->size[1] - 1);
+                            }
+
+                            i_0 = static_cast<int32_T>(curSection->size[0] *
+                                curSection->size[1]);
+                            curSection->size[0] = 1;
+                            loop_ub = static_cast<int32_T>(i - j);
+                            curSection->size[1] = loop_ub;
+                            Real2SimGuidance_emxEnsureCapacity_char_T(curSection,
+                                i_0);
+                            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1);
+                                    i++) {
+                                curSection->data[i] = curLine->data[static_cast<
+                                    int32_T>(j + i)];
+                            }
+
+                            curKey->size[0] = 1;
+                            curKey->size[1] = 0;
+                        } else {
+                            guard1 = true;
+                        }
+                    } else {
+                        guard1 = true;
+                    }
+
+                    if (guard1) {
+                        if (curLine->data[0] == ';') {
+                            rtb_GreaterThanOrEqual_h = true;
+                        }
+
+                        if ((static_cast<boolean_T>(static_cast<int32_T>(
+                                static_cast<int32_T>(rtb_GreaterThanOrEqual_h) ^
+                               1))) && Real2SimGuidance_contains(curLine)) {
+                            Real2SimGuidance_strtok_gd(curLine, aTmp, curVal);
+                            Real2SimGuidance_strtrim(aTmp, curKey);
+                            Real2SimGuidance_strtok_gdx(curVal, tmp_1);
+                            Real2SimGuidance_strtrim(tmp_1, curVal);
+                        }
+                    }
+                }
+
+                if (Real2SimGuidance_strcmp(curSection) &&
+                        Real2SimGuidance_strcmp_ghb(curKey)) {
+                    i_0 = static_cast<int32_T>(ret->size[0] * ret->size[1]);
+                    ret->size[0] = 1;
+                    ret->size[1] = curVal->size[1];
+                    Real2SimGuidance_emxEnsureCapacity_char_T(ret, i_0);
+                    loop_ub = static_cast<int32_T>(curVal->size[1] - 1);
+                    for (i = 0; i <= loop_ub; i++) {
+                        ret->data[i] = curVal->data[i];
+                    }
+
+                    exitg3 = true;
+                }
+            }
+
+            creal_T c_b;
+            Real2SimGuidance_emxFree_char_T(&data_0);
+            Real2SimGuidance_emxFree_char_T(&tmp_2);
+            Real2SimGuidance_emxFree_char_T(&tmp_1);
+            Real2SimGuidance_emxFree_char_T(&aTmp);
+            Real2SimGuidance_emxFree_char_T(&curLine);
+            Real2SimGuidance_emxFree_char_T(&curVal);
+            Real2SimGuidance_emxFree_char_T(&curKey);
+            Real2SimGuidance_emxFree_char_T(&curSection);
+            Real2SimGuidance_emxFree_char_T(&data);
+            c_b = Real2SimGuidance_str2double(ret);
+            localDW->SingletonInstance.FlightPathAngleLimit[0].re =
+                0.017453292519943295 * c_b.re;
+            localDW->SingletonInstance.FlightPathAngleLimit[0].im =
+                0.017453292519943295 * c_b.im;
+            localDW->SingletonInstance.FlightPathAngleLimit[1].re =
+                0.017453292519943295 * b_b.re;
+            localDW->SingletonInstance.FlightPathAngleLimit[1].im =
+                0.017453292519943295 * b_b.im;
+            rtb_Gain_p = localDW->SingletonInstance.AirSpeed.re;
+            rtb_Switch = localDW->SingletonInstance.MaxRollAngle.re;
             localDW->SingletonInstance.DubinsConnector.AirSpeed = 10.0;
-            localDW->SingletonInstance.DubinsConnector.MaxRollAngle =
-                0.3490658503988659;
-            localDW->SingletonInstance.DubinsConnector.AirSpeed = 35.0;
+            localDW->SingletonInstance.DubinsConnector.MaxRollAngle = rtb_Switch;
+            localDW->SingletonInstance.DubinsConnector.AirSpeed = rtb_Gain_p;
             localDW->SingletonInstance_not_empty = true;
+            Real2SimGuidance_emxFree_char_T(&ret);
         }
 
         Switch = localDW->SingletonInstance.DubinsConnector.AirSpeed;
@@ -3459,107 +5498,133 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
                 rtb_Switch = rtb_Sum1_idx_0 - rtb_Switch * 1000.0;
             }
 
-            inputArg_data.re = ((((((365.0 * rtb_Gain_p + std::floor(rtb_Gain_p /
-                4.0)) - std::floor(rtb_Gain_p / 100.0)) + std::floor(rtb_Gain_p /
-                                    400.0)) + std::floor((153.0 * rtb_Abs1 + 2.0)
-                                   / 5.0)) + rtb_Abs1_k) + 60.0) - 719529.0;
-            inputArg_data.im = 0.0;
-            inputArg_data = Real2SimGuidance_plus(Real2SimGuidance_plus
-                (Real2SimGuidance_plus(Real2SimGuidance_times(inputArg_data),
-                (60.0 * rtb_RealUAVNEUState_idx_1 + rtb_RealUAVNEUState_idx_0) *
-                60000.0), rtb_RefAirspeed_Log * 1000.0), rtb_Switch);
+            tmp_0.re = ((((((365.0 * rtb_Gain_p + std::floor(rtb_Gain_p / 4.0))
+                            - std::floor(rtb_Gain_p / 100.0)) + std::floor
+                           (rtb_Gain_p / 400.0)) + std::floor((153.0 * rtb_Abs1
+                            + 2.0) / 5.0)) + rtb_Abs1_k) + 60.0) - 719529.0;
+            tmp_0.im = 0.0;
+            b_b = Real2SimGuidance_plus(Real2SimGuidance_plus
+                (Real2SimGuidance_plus(Real2SimGuidance_times(tmp_0), (60.0 *
+                rtb_RealUAVNEUState_idx_1 + rtb_RealUAVNEUState_idx_0) * 60000.0),
+                 rtb_RefAirspeed_Log * 1000.0), rtb_Switch);
         } else {
-            inputArg_data.re = rtb_Gain_p;
-            inputArg_data.im = 0.0;
+            b_b.re = rtb_Gain_p;
+            b_b.im = 0.0;
         }
 
-        Real2SimGuidance_getDateVec(inputArg_data, &rtb_RefAirspeed_Log,
-            &rtb_Gain_p, &rtb_Switch, &rtb_Abs1, &rtb_Abs1_k, &Switch);
-        Real2SimGuidance_getDateVec(inputArg_data, &rtb_Switch, &rtb_Gain_p,
-            &rtb_Abs1, &rtb_Abs1_k, &Switch, &rtb_Sum_k);
-        Real2SimGuidance_getDateVec(inputArg_data, &rtb_Abs1, &rtb_Abs1_k,
-            &rtb_Switch, &Switch, &rtb_Sum_k, &rtb_HeadWind);
-        Real2SimGuidance_getDateVec(inputArg_data, &rtb_Abs1_k, &Switch,
-            &rtb_Sum_k, &rtb_Abs1, &rtb_HeadWind, &rtb_Sum1_idx_0);
-        Real2SimGuidance_getDateVec(inputArg_data, &Switch, &rtb_Sum_k,
-            &rtb_HeadWind, &rtb_Sum1_idx_0, &rtb_Abs1_k, &rtb_Sum_i);
-        Real2SimGuidance_getDateVec(inputArg_data, &rtb_Sum_k, &rtb_HeadWind,
-            &rtb_Sum1_idx_0, &rtb_Sum_i, &rtb_SwitchLookAheadPoint_c, &Switch);
-        Real2SimGuidance_getDateVec(inputArg_data, &rtb_HeadWind,
-            &rtb_Sum1_idx_0, &rtb_Sum_i, &rtb_SwitchLookAheadPoint_c,
-            &rtb_RealUAVNEUState_idx_1, &rtb_Sum_k);
-        Real2SimGuidance_getDateVec(inputArg_data, &rtb_HeadWind,
-            &rtb_Sum1_idx_0, &rtb_Sum_i, &rtb_SwitchLookAheadPoint_c,
-            &rtb_RealUAVNEUState_idx_1, &rtb_RealUAVNEUState_idx_0);
+        Real2SimGuidance_getDateVec(b_b, &rtb_RefAirspeed_Log, &rtb_Gain_p,
+            &rtb_Switch, &rtb_Abs1, &rtb_Abs1_k, &Switch);
+        Real2SimGuidance_getDateVec(b_b, &rtb_Switch, &rtb_Gain_p, &rtb_Abs1,
+            &rtb_Abs1_k, &Switch, &rtb_Sum_k);
+        Real2SimGuidance_getDateVec(b_b, &rtb_Abs1, &rtb_Abs1_k, &rtb_Switch,
+            &Switch, &rtb_Sum_k, &rtb_Sum1_idx_0);
+        Real2SimGuidance_getDateVec(b_b, &rtb_Abs1_k, &Switch, &rtb_Sum_k,
+            &rtb_Abs1, &rtb_Sum1_idx_0, &rtb_HeadWind);
+        Real2SimGuidance_getDateVec(b_b, &Switch, &rtb_Sum_k, &rtb_Sum1_idx_0,
+            &rtb_HeadWind, &rtb_Abs1_k, &rtb_Sum_i);
+        Real2SimGuidance_getDateVec(b_b, &rtb_Sum_k, &rtb_Sum1_idx_0,
+            &rtb_HeadWind, &rtb_Sum_i, &rtb_SwitchLookAheadPoint_c, &Switch);
+        Real2SimGuidance_getDateVec(b_b, &rtb_Sum1_idx_0, &rtb_HeadWind,
+            &rtb_Sum_i, &rtb_SwitchLookAheadPoint_c, &rtb_RealUAVNEUState_idx_1,
+            &rtb_Sum_k);
+        Real2SimGuidance_getDateVec(b_b, &rtb_Sum1_idx_0, &rtb_HeadWind,
+            &rtb_Sum_i, &rtb_SwitchLookAheadPoint_c, &rtb_RealUAVNEUState_idx_1,
+            &rtb_RealUAVNEUState_idx_0);
+
+        // BusCreator: '<Root>/LoggingBus'
+        rty_FlightLogging->RealUAVState = rtu_StateFCU->RealUAVState;
+        rty_FlightLogging->SimUAVState = *rtu_SimUAVState;
+        rty_FlightLogging->FlightCMD = *rty_FCUCMD;
+        rty_FlightLogging->VectorSpd = rtu_StateFCU->VecSpd;
+
+        // MATLAB Function: '<Root>/TimeNow'
         rtb_Sum1_idx_0 = std::round(rtb_RefAirspeed_Log);
         if (rtb_Sum1_idx_0 < 2.147483648E+9) {
             if (rtb_Sum1_idx_0 >= -2.147483648E+9) {
+                // BusCreator: '<Root>/LoggingBus'
                 rty_FlightLogging->TimeNow.year = static_cast<int32_T>
                     (rtb_Sum1_idx_0);
             } else {
+                // BusCreator: '<Root>/LoggingBus'
                 rty_FlightLogging->TimeNow.year = MIN_int32_T;
             }
         } else {
+            // BusCreator: '<Root>/LoggingBus'
             rty_FlightLogging->TimeNow.year = MAX_int32_T;
         }
 
         rtb_Sum1_idx_0 = std::round(rtb_Gain_p);
         if (rtb_Sum1_idx_0 < 2.147483648E+9) {
             if (rtb_Sum1_idx_0 >= -2.147483648E+9) {
+                // BusCreator: '<Root>/LoggingBus'
                 rty_FlightLogging->TimeNow.month = static_cast<int32_T>
                     (rtb_Sum1_idx_0);
             } else {
+                // BusCreator: '<Root>/LoggingBus'
                 rty_FlightLogging->TimeNow.month = MIN_int32_T;
             }
         } else {
+            // BusCreator: '<Root>/LoggingBus'
             rty_FlightLogging->TimeNow.month = MAX_int32_T;
         }
 
         rtb_Sum1_idx_0 = std::round(rtb_Switch);
         if (rtb_Sum1_idx_0 < 2.147483648E+9) {
             if (rtb_Sum1_idx_0 >= -2.147483648E+9) {
+                // BusCreator: '<Root>/LoggingBus'
                 rty_FlightLogging->TimeNow.day = static_cast<int32_T>
                     (rtb_Sum1_idx_0);
             } else {
+                // BusCreator: '<Root>/LoggingBus'
                 rty_FlightLogging->TimeNow.day = MIN_int32_T;
             }
         } else {
+            // BusCreator: '<Root>/LoggingBus'
             rty_FlightLogging->TimeNow.day = MAX_int32_T;
         }
 
         rtb_Sum1_idx_0 = std::round(rtb_Abs1);
         if (rtb_Sum1_idx_0 < 2.147483648E+9) {
             if (rtb_Sum1_idx_0 >= -2.147483648E+9) {
+                // BusCreator: '<Root>/LoggingBus'
                 rty_FlightLogging->TimeNow.hour = static_cast<int32_T>
                     (rtb_Sum1_idx_0);
             } else {
+                // BusCreator: '<Root>/LoggingBus'
                 rty_FlightLogging->TimeNow.hour = MIN_int32_T;
             }
         } else {
+            // BusCreator: '<Root>/LoggingBus'
             rty_FlightLogging->TimeNow.hour = MAX_int32_T;
         }
 
         rtb_Sum1_idx_0 = std::round(rtb_Abs1_k);
         if (rtb_Sum1_idx_0 < 2.147483648E+9) {
             if (rtb_Sum1_idx_0 >= -2.147483648E+9) {
+                // BusCreator: '<Root>/LoggingBus'
                 rty_FlightLogging->TimeNow.minute = static_cast<int32_T>
                     (rtb_Sum1_idx_0);
             } else {
+                // BusCreator: '<Root>/LoggingBus'
                 rty_FlightLogging->TimeNow.minute = MIN_int32_T;
             }
         } else {
+            // BusCreator: '<Root>/LoggingBus'
             rty_FlightLogging->TimeNow.minute = MAX_int32_T;
         }
 
         rtb_Sum1_idx_0 = std::floor(Switch);
         if (rtb_Sum1_idx_0 < 2.147483648E+9) {
             if (rtb_Sum1_idx_0 >= -2.147483648E+9) {
+                // BusCreator: '<Root>/LoggingBus'
                 rty_FlightLogging->TimeNow.second = static_cast<int32_T>
                     (rtb_Sum1_idx_0);
             } else {
+                // BusCreator: '<Root>/LoggingBus'
                 rty_FlightLogging->TimeNow.second = MIN_int32_T;
             }
         } else {
+            // BusCreator: '<Root>/LoggingBus'
             rty_FlightLogging->TimeNow.second = MAX_int32_T;
         }
 
@@ -3567,22 +5632,17 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
             (rtb_RealUAVNEUState_idx_0)) * 1000.0);
         if (rtb_Sum1_idx_0 < 2.147483648E+9) {
             if (rtb_Sum1_idx_0 >= -2.147483648E+9) {
+                // BusCreator: '<Root>/LoggingBus'
                 rty_FlightLogging->TimeNow.millisecond = static_cast<int32_T>
                     (rtb_Sum1_idx_0);
             } else {
+                // BusCreator: '<Root>/LoggingBus'
                 rty_FlightLogging->TimeNow.millisecond = MIN_int32_T;
             }
         } else {
+            // BusCreator: '<Root>/LoggingBus'
             rty_FlightLogging->TimeNow.millisecond = MAX_int32_T;
         }
-
-        // End of MATLAB Function: '<Root>/TimeNow'
-
-        // BusCreator: '<Root>/LoggingBus'
-        rty_FlightLogging->RealUAVState = rtu_StateFCU->RealUAVState;
-        rty_FlightLogging->SimUAVState = *rtu_SimUAVState;
-        rty_FlightLogging->FlightCMD = *rty_FCUCMD;
-        rty_FlightLogging->VectorSpd = rtu_StateFCU->VecSpd;
     }
 }
 

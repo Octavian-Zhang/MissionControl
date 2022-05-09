@@ -5,7 +5,7 @@
 //
 // Model version                  : 2.149
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Mon May  2 19:21:44 2022
+// C/C++ source code generated on : Sun May  8 08:32:01 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -18,6 +18,7 @@
 //
 #ifndef RTW_HEADER_ImmedMission_h_
 #define RTW_HEADER_ImmedMission_h_
+#include <stdio.h>
 #include "rtwtypes.h"
 #include "rtw_continuous.h"
 #include "rtw_solver.h"
@@ -29,13 +30,14 @@ extern "C" {
 #include "rt_nonfinite.h"
 
 }
-#include "rt_zcfcn.h"
-
-extern "C" {
+    extern "C"
+{
 
 #include "rtGetInf.h"
 
 }
+
+#include "rt_zcfcn.h"
 #include "zero_crossing_types.h"
 
 // Block signals and states (default storage) for system '<S65>/MapTrack'
@@ -82,12 +84,13 @@ struct DW_ImmedMission_f_T {
     DW_Altitude_ImmedMission_T Heading;// '<S183>/Altitude'
     DW_Altitude_ImmedMission_T Altitude;// '<S183>/Altitude'
     DW_CoreSubsys_ImmedMission_T CoreSubsys[361];// '<S65>/MapTrack'
+    FILE* eml_openfiles[20];           // '<S135>/BaseWayPoint'
     uav_sluav_internal_system_WaypointFollower_ImmedMission_cc_T obj;// '<S129>/Waypoint Follower' 
     FixedWingGuidanceStateBus ImpAsg_InsertedFor_CollAvoidSimUAV_at_inport_0[361];// '<S71>/AssignmentHeight' 
     uav_sluav_internal_system_WaypointFollower_ImmedMission_c_T obj_j;// '<S68>/TrackSimPath' 
+    DubinsObjSingleton_ImmedMission_T SingletonInstance;// '<S135>/BaseWayPoint' 
     uav_sluav_internal_system_OrbitFollower_ImmedMission_T obj_c;// '<S35>/Orbit Follower' 
     FixedWingGuidanceStateBus MergeCollAvoidSimUAV;// '<S1>/MergeCollAvoidSimUAV' 
-    DubinsObjSingleton_ImmedMission_T SingletonInstance;// '<S135>/BaseWayPoint' 
     robotics_slcore_internal_block_CoordinateTransformationConversion_ImmedMission_T
         obj_n;                         // '<S135>/RotateATMissionHdg'
     real_T ImpAsg_InsertedFor_OtherUAVNED_at_inport_0[896];// '<S249>/Reshape'
@@ -96,6 +99,7 @@ struct DW_ImmedMission_f_T {
     real_T MatrixConcatenate[6];       // '<S186>/Matrix Concatenate'
     real_T MatrixConcatenate_d[30723]; // '<S135>/Matrix Concatenate'
     real_T Minus[3];                   // '<S135>/Minus'
+    real_T nedWayPoint[30720];         // '<S135>/BaseWayPoint'
     real_T DiscreteTimeIntegrator_DSTATE[2];// '<S221>/Discrete-Time Integrator' 
     real_T NorthSeq_X[360];            // '<S72>/NorthSeq'
     real_T EastSeq_X[360];             // '<S72>/EastSeq'
@@ -107,10 +111,10 @@ struct DW_ImmedMission_f_T {
     real_T RollRateSeq_X[360];         // '<S72>/RollRateSeq'
     real_T paddedWaypts[30723];
     real_T CirVec[720];
-    real_T a[1092];
     real_T MatrixConcatenateState[2888];// '<S72>/Matrix Concatenate State'
     real_T ImpAsg_InsertedFor_hisTrack_at_inport_0[1083];// '<S71>/Matrix Concatenate' 
     real_T Track[2700];                // '<S65>/Long Track'
+    real_T rtu_MissionInput[1092];
     real_T paddedWaypts_m[2700];
     real_T waypoints_data[2703];
     real_T virtualWaypoint_data[2703];
@@ -124,7 +128,7 @@ struct DW_ImmedMission_f_T {
     void *MatrixConcatenate_PWORK;     // '<S135>/Matrix Concatenate'
     int32_T SFunction_DIMS2_m[2];      // '<S14>/AllUAVstateMAT'
     int32_T MatrixConcatenate_DIMS1[2];// '<S135>/Matrix Concatenate'
-    int32_T SFunction_DIMS2_l[2];      // '<S135>/BaseWayPoint'
+    int32_T SFunction_DIMS2_b[2];      // '<S135>/BaseWayPoint'
     int32_T SFunction_DIMS2_j[2];      // '<S65>/Long Track'
     int32_T SFunction_DIMS2;           // '<S14>/pdist2'
     MissionModes ImmedMission_a;       // '<S1>/PreemptableMissionModeSelector'

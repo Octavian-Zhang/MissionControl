@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 3.222
+// Model version                  : 4.22
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Tue May  3 03:10:34 2022
+// C/C++ source code generated on : Sun May  8 08:51:09 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -27,7 +27,7 @@
 #include <time.h>
 #include "rt_nonfinite.h"
 #include <stdio.h>              // This example main program uses printf/fflush
-#include "codegenReal2Mission.h"       // Model's header file
+#include "codegenReal2Mission.h"       // Model header file
 
 #include "msgQueue.hpp"
 #include "DataLogging.hpp"

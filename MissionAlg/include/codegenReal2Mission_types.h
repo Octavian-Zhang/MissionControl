@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 3.222
+// Model version                  : 4.22
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Tue May  3 03:10:34 2022
+// C/C++ source code generated on : Sun May  8 08:51:09 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -19,52 +19,11 @@
 #ifndef RTW_HEADER_codegenReal2Mission_types_h_
 #define RTW_HEADER_codegenReal2Mission_types_h_
 #include "rtwtypes.h"
-#include "MissionModes.h"
 #include "DatalinkInterface.h"
+#include "MissionModes.h"
 #include "rtw_linux.h"
 
 // Model Code Variants
-#ifndef DEFINED_TYPEDEF_FOR_RealUAVStateBus_
-#define DEFINED_TYPEDEF_FOR_RealUAVStateBus_
-
-struct RealUAVStateBus
-{
-    real_T Latitude_deg;
-    real_T Longitude_deg;
-    real_T Height_meter;
-    real_T AirSpeed_mps;
-    real_T HeadingAngle_deg;
-    real_T FlightPathAngle_deg;
-    real_T RollAngle_deg;
-};
-
-#endif
-
-#ifndef DEFINED_TYPEDEF_FOR_VectorSpeed_
-#define DEFINED_TYPEDEF_FOR_VectorSpeed_
-
-struct VectorSpeed
-{
-    real_T eastSpeed;
-    real_T northSpeed;
-    real_T skySpeed;
-};
-
-#endif
-
-#ifndef DEFINED_TYPEDEF_FOR_StateFCU_
-#define DEFINED_TYPEDEF_FOR_StateFCU_
-
-struct StateFCU
-{
-    RealUAVStateBus RealUAVState;
-    real_T GndSpd_mps;
-    real_T Altitude;
-    VectorSpeed VecSpd;
-};
-
-#endif
-
 #ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
 #define DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
 
@@ -107,6 +66,22 @@ struct missionCmd
     int32_T numUAV;
     int32_T FormationPos;
     real_T StartTime;
+};
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_RealUAVStateBus_
+#define DEFINED_TYPEDEF_FOR_RealUAVStateBus_
+
+struct RealUAVStateBus
+{
+    real_T Latitude_deg;
+    real_T Longitude_deg;
+    real_T Height_meter;
+    real_T AirSpeed_mps;
+    real_T HeadingAngle_deg;
+    real_T FlightPathAngle_deg;
+    real_T RollAngle_deg;
 };
 
 #endif
@@ -154,6 +129,18 @@ struct MiscellaneousFlightStatus
 
 #endif
 
+#ifndef DEFINED_TYPEDEF_FOR_VectorSpeed_
+#define DEFINED_TYPEDEF_FOR_VectorSpeed_
+
+struct VectorSpeed
+{
+    real_T eastSpeed;
+    real_T northSpeed;
+    real_T skySpeed;
+};
+
+#endif
+
 #ifndef DEFINED_TYPEDEF_FOR_ADRC_
 #define DEFINED_TYPEDEF_FOR_ADRC_
 
@@ -180,6 +167,19 @@ struct FlightLogging
     VectorSpeed VectorSpd;
     Time TimeNow;
     ADRC ADRC_Log;
+};
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_StateFCU_
+#define DEFINED_TYPEDEF_FOR_StateFCU_
+
+struct StateFCU
+{
+    RealUAVStateBus RealUAVState;
+    real_T GndSpd_mps;
+    real_T Altitude;
+    VectorSpeed VecSpd;
 };
 
 #endif
@@ -264,6 +264,44 @@ struct MemPool_missionCmd
 
 #endif
 
+#ifndef DEFINED_TYPEDEF_FOR_Msg_IndividualUAVCmd_
+#define DEFINED_TYPEDEF_FOR_Msg_IndividualUAVCmd_
+
+struct Msg_IndividualUAVCmd
+{
+    IndividualUAVCmd *fData;
+};
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_Queue_IndividualUAVCmd_
+#define DEFINED_TYPEDEF_FOR_Queue_IndividualUAVCmd_
+
+struct Queue_IndividualUAVCmd
+{
+    QueuePolicy_T fPolicy;
+    int32_T fHead;
+    int32_T fTail;
+    int32_T fCapacity;
+    Msg_IndividualUAVCmd *fArray;
+};
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_MemPool_IndividualUAVCmd_
+#define DEFINED_TYPEDEF_FOR_MemPool_IndividualUAVCmd_
+
+struct MemPool_IndividualUAVCmd
+{
+    IndividualUAVCmd *fMemArray;
+    int32_T fNumUsed;
+    IndividualUAVCmd **fFreeList;
+    int32_T fNumFree;
+    int32_T fSize;
+};
+
+#endif
+
 #ifndef DEFINED_TYPEDEF_FOR_SendData_FlightLoggingT_
 #define DEFINED_TYPEDEF_FOR_SendData_FlightLoggingT_
 
@@ -279,10 +317,10 @@ class SendData_FlightLoggingT
 
 #endif
 
-// Custom Type definition for MATLAB Function: '<S29>/CommandCheck'
+// Custom Type definition for MATLAB Function: '<S34>/CommandCheck'
 #include <stdio.h>
 
-// Custom Type definition for MATLAB Function: '<S7>/getCurrentTime'
+// Custom Type definition for MATLAB Function: '<S32>/getCurrentTime'
 #include "coder_posix_time.h"
 #ifndef struct_robotics_slcore_internal_block_CoordinateTransformationConversion_codegenReal2Mission_T
 #define struct_robotics_slcore_internal_block_CoordinateTransformationConversion_codegenReal2Mission_T
@@ -319,6 +357,20 @@ struct uav_sluav_internal_system_UAVAnimation_codegenReal2Mission_T
 
 #endif   // struct_uav_sluav_internal_system_UAVAnimation_codegenReal2Mission_T
 
+#ifndef struct_emxArray_char_T_codegenReal2Mission_T
+#define struct_emxArray_char_T_codegenReal2Mission_T
+
+struct emxArray_char_T_codegenReal2Mission_T
+{
+    char_T *data;
+    int32_T *size;
+    int32_T allocatedSize;
+    int32_T numDimensions;
+    boolean_T canFreeData;
+};
+
+#endif                          // struct_emxArray_char_T_codegenReal2Mission_T
+
 #ifndef struct_emxArray_char_T_1x16_codegenReal2Mission_T
 #define struct_emxArray_char_T_1x16_codegenReal2Mission_T
 
@@ -342,11 +394,11 @@ struct cell_wrap_1_codegenReal2Mission_T
 #endif                              // struct_cell_wrap_1_codegenReal2Mission_T
 
 #ifndef SS_UINT64
-#define SS_UINT64                      49
+#define SS_UINT64                      55
 #endif
 
 #ifndef SS_INT64
-#define SS_INT64                       50
+#define SS_INT64                       56
 #endif
 #endif                               // RTW_HEADER_codegenReal2Mission_types_h_
 

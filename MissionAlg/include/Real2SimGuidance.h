@@ -5,7 +5,7 @@
 //
 // Model version                  : 3.146
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Mon May  2 19:21:02 2022
+// C/C++ source code generated on : Sun May  8 08:31:13 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -18,6 +18,7 @@
 //
 #ifndef RTW_HEADER_Real2SimGuidance_h_
 #define RTW_HEADER_Real2SimGuidance_h_
+#include <stdio.h>
 #include "rtwtypes.h"
 #include "rtw_continuous.h"
 #include "rtw_solver.h"
@@ -25,20 +26,26 @@
 
 extern "C" {
 
-#include "rt_nonfinite.h"
+#include "rtGetNaN.h"
 
 }
     extern "C"
 {
 
-#include "rtGetInf.h"
+#include "rt_nonfinite.h"
 
 }
 
+extern "C" {
+
+#include "rtGetInf.h"
+
+}
 #include "model_reference_types.h"
 
 // Block signals and states (default storage) for model 'Real2SimGuidance'
 struct DW_Real2SimGuidance_f_T {
+    FILE* eml_openfiles[20];           // '<Root>/Get Nominal Flight Speed'
     uav_sluav_internal_system_WaypointFollower_Real2SimGuidance_T obj;// '<S65>/TrackSimPath' 
     DubinsObjSingleton_Real2SimGuidance_T SingletonInstance;// '<Root>/Get Nominal Flight Speed' 
     real_T VectorConcatenate[4];       // '<S83>/Vector Concatenate'

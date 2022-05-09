@@ -5,7 +5,7 @@
 //
 // Model version                  : 2.117
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Tue May  3 03:07:24 2022
+// C/C++ source code generated on : Sun May  8 08:47:00 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -59,9 +59,7 @@ struct DW_WaypointFollower_FlightMissionMode_T {
     real_T WaypointFollower_o1[3];     // '<S35>/Waypoint Follower'
     real_T paddedWaypts[30720];
     real_T WaypointFollower_o2;        // '<S35>/Waypoint Follower'
-    real_T WaypointFollower_o3;        // '<S35>/Waypoint Follower'
     int16_T c_data[10240];
-    uint8_T WaypointFollower_o4;       // '<S35>/Waypoint Follower'
     uint8_T WaypointFollower_o5;       // '<S35>/Waypoint Follower'
     boolean_T b[10240];
     boolean_T x[30720];
@@ -97,12 +95,14 @@ struct DW_SegmentSwitch_FlightMissionMode_T {
 
 // Block signals and states (default storage) for system '<S96>/StartPointGenerator' 
 struct DW_StartPointGenerator_FlightMissionMode_T {
+    FILE* eml_openfiles[20];           // '<S96>/StartPointGenerator'
     DubinsObjSingleton_FlightMissionMode_T SingletonInstance;// '<S96>/StartPointGenerator' 
     boolean_T SingletonInstance_not_empty;// '<S96>/StartPointGenerator'
 };
 
 // Block signals and states (default storage) for system '<S96>/WayPointGenerator' 
 struct DW_WayPointGenerator_FlightMissionMode_T {
+    FILE* eml_openfiles[20];           // '<S96>/WayPointGenerator'
     DubinsObjSingleton_FlightMissionMode_b_T SingletonInstance;// '<S96>/WayPointGenerator' 
     boolean_T SingletonInstance_not_empty;// '<S96>/WayPointGenerator'
 };
@@ -113,7 +113,6 @@ struct DW_FlightMissionMode_f_T {
     DW_biasNED_FlightMissionMode_T sf_biasNED_i;// '<S232>/biasNED'
     DW_RotateATMissionHdg_FlightMissionMode_T RotateUpward_d;// '<S39>/RotateATMissionHdg' 
     DW_RotateATMissionHdg_FlightMissionMode_T RotateATMissionHdg_d;// '<S39>/RotateATMissionHdg' 
-    DW_WaypointFollower_FlightMissionMode_T WaypointFollower_m0;// '<S35>/Waypoint Follower' 
     DW_WayPointGenerator_FlightMissionMode_T sf_WayPointGenerator_f;// '<S138>/WayPointGenerator' 
     DW_StartPointGenerator_FlightMissionMode_T sf_StartPointGenerator_k;// '<S138>/StartPointGenerator' 
     DW_RotateATMissionHdg_FlightMissionMode_T RotateATRunWayHdg_k;// '<S39>/RotateATMissionHdg' 
@@ -128,18 +127,21 @@ struct DW_FlightMissionMode_f_T {
     DW_WaypointFollower_FlightMissionMode_T WaypointFollower;// '<S35>/Waypoint Follower' 
     DW_biasNED_FlightMissionMode_T sf_biasNED;// '<S39>/biasNED'
     DW_RotateATMissionHdg_FlightMissionMode_T RotateATMissionHdg;// '<S39>/RotateATMissionHdg' 
-    FILE* eml_openfiles[20];           // '<S181>/WayPointGenerator'
-    uav_sluav_internal_system_WaypointFollower_FlightMissionMode_c_T obj;// '<S179>/Waypoint Follower' 
+    FILE* eml_openfiles[20];           // '<S39>/WayPointGenerator'
+    FILE* eml_openfiles_f[20];         // '<S209>/WayPointGenerator'
+    FILE* eml_openfiles_n[20];         // '<S181>/WayPointGenerator'
+    uav_sluav_internal_system_WaypointFollower_FlightMissionMode_c_T obj_j;// '<S179>/Waypoint Follower' 
+    uav_sluav_internal_system_WaypointFollower_FlightMissionMode_T obj;// '<S180>/Waypoint Follower' 
     emxArray_uavDubinsPathSegment_1_FlightMissionMode_T pathSegment0;
     cell_wrap_2_FlightMissionMode_T motionType1List[500];
     cell_wrap_2_FlightMissionMode_T motionType2List[500];
-    uav_sluav_internal_system_OrbitFollower_FlightMissionMode_T obj_f;// '<S10>/Orbit Follower' 
     DubinsObjSingleton_FlightMissionMode_T SingletonInstance;// '<S39>/WayPointGenerator' 
     DubinsObjSingleton_FlightMissionMode_bw_T SingletonInstance_j;// '<S209>/WayPointGenerator' 
+    uav_sluav_internal_system_OrbitFollower_FlightMissionMode_T obj_f;// '<S10>/Orbit Follower' 
     real_T nedWayPoint[3];             // '<S209>/biasNEDstartpose'
     real_T startPose[5];               // '<S209>/WayPointGenerator'
     real_T nedWayPoint_c[30720];       // '<S232>/biasNED'
-    real_T WayPoint[30720];            // '<S181>/WayPointGenerator'
+    real_T WayPoint_l[30720];          // '<S181>/WayPointGenerator'
     real_T ProductFlipStartPose[5];    // '<S138>/ProductFlipStartPose'
     real_T MatrixConcatenateWayPoint[1500];// '<S138>/Matrix Concatenate WayPoint' 
     real_T nedWayPoint_h[3];           // '<S138>/biasNEDstartpose1'
@@ -189,6 +191,7 @@ struct DW_FlightMissionMode_f_T {
     RunWayLineSegment RunWayLineMode;  // '<S137>/Chart'
     RunWayLineSegment RunWayLineMode_k;// '<S95>/Chart'
     int16_T c_data_f[10240];
+    int16_T c_data_g[10240];
     int8_T SwitchCase_ActiveSubsystem; // '<Root>/Switch Case'
     int8_T SwitchCase_ActiveSubsystem_c;// '<S176>/Switch Case'
     uint8_T is_active_c2_FlightMissionMode;
@@ -196,8 +199,11 @@ struct DW_FlightMissionMode_f_T {
     uint8_T is_c2_FlightMissionMode; // '<Root>/PreemptableMissionModeSelector'
     boolean_T b[10240];
     boolean_T x[30720];
+    boolean_T b_g[10240];
+    boolean_T x_m[30720];
     boolean_T SingletonInstance_not_empty;// '<S209>/WayPointGenerator'
-    boolean_T objisempty;              // '<S179>/Waypoint Follower'
+    boolean_T objisempty;              // '<S180>/Waypoint Follower'
+    boolean_T objisempty_e;            // '<S179>/Waypoint Follower'
     boolean_T SingletonInstance_not_empty_m;// '<S39>/WayPointGenerator'
     boolean_T objisempty_b;            // '<S10>/Orbit Follower'
     boolean_T WayPointGenerator_MODE;  // '<S206>/WayPointGenerator'
@@ -267,6 +273,8 @@ extern void FlightMissionMode_SegmentSwitch(const int32_T *rtu_Reset, const
     rty_LookAheadPoint[3], real_T *rty_DesiredCourse, RunWayLineSegment
     *rty_Status, real_T rtp_LookAheadDis, DW_SegmentSwitch_FlightMissionMode_T
     *localDW);
+extern void FlightMissionMode_StartPointGenerator_Init
+    (DW_StartPointGenerator_FlightMissionMode_T *localDW);
 extern void FlightMissionMode_StartPointGenerator_Reset
     (DW_StartPointGenerator_FlightMissionMode_T *localDW);
 extern void FlightMissionMode_StartPointGenerator(real_T rtu_Length, real_T
@@ -276,6 +284,8 @@ extern void FlightMissionMode_minus(const real_T rtu_uP[300], const real_T
     rtu_uN[3], real_T rty_y[300]);
 extern void FlightMissionMode_biasNED_j(const real_T rtu_MissionNED[3], const
     real_T rtu_IndivRotWP[300], real_T rty_nedWayPoint[300]);
+extern void FlightMissionMode_WayPointGenerator_Init
+    (DW_WayPointGenerator_FlightMissionMode_T *localDW);
 extern void FlightMissionMode_WayPointGenerator_Reset
     (DW_WayPointGenerator_FlightMissionMode_T *localDW);
 extern void FlightMissionMode_WayPointGenerator(real_T rtu_Length, real_T

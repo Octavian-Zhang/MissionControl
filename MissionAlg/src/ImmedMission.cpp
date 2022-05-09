@@ -5,7 +5,7 @@
 //
 // Model version                  : 2.149
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Mon May  2 19:21:44 2022
+// C/C++ source code generated on : Sun May  8 08:32:01 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -24,10 +24,11 @@
 #include "rt_atan2d_snf.h"
 #include <math.h>
 #include <cstring>
+#include <stdio.h>
 #include "rt_modd_snf.h"
 #include "linspace_Q5Un26da.h"
-#include <cstdlib>
 #include <stddef.h>
+#include <cstdlib>
 #include "LookUp_real_T_real_T.h"
 #include "zero_crossing_types.h"
 #include "ImmedMission_private.h"
@@ -89,6 +90,8 @@ static void ImmedMission_emxInit_real_T(emxArray_real_T_ImmedMission_T
 static void ImmedMission_emxFree_real_T(emxArray_real_T_ImmedMission_T
     **pEmxArray);
 static real_T ImmedMission_norm_p(const real_T x[2]);
+static void ImmedMission_emxInit_char_T(emxArray_char_T_ImmedMission_T
+    **pEmxArray, int32_T numDimensions);
 static void ImmedMission_binary_expand_op_pu(boolean_T in1_data[], int32_T
     in1_size[2], const real_T in2_data[], const int32_T in2_size[2], int32_T in3,
     int32_T in4, DW_ImmedMission_f_T *localDW);
@@ -105,6 +108,18 @@ static void ImmedMission_WaypointFollower_stepImpl
      waypoints_size[2], real_T lookaheadDistance, real_T varargout_1[3], real_T *
      varargout_2, real_T *varargout_3, uint8_T *varargout_4, uint8_T
      *varargout_5, DW_ImmedMission_f_T *localDW);
+static int8_T ImmedMission_filedata(DW_ImmedMission_f_T *localDW);
+static int8_T ImmedMission_cfopen(const char_T cfilename[10], const char_T
+    *cpermission, DW_ImmedMission_f_T *localDW);
+static real_T ImmedMission_fileManager(const char_T varargin_1[10],
+    DW_ImmedMission_f_T *localDW);
+static void ImmedMission_emxEnsureCapacity_char_T(emxArray_char_T_ImmedMission_T
+    *emxArray, int32_T oldNumel);
+static void ImmedMission_fread(real_T fileID, emxArray_char_T_ImmedMission_T *A,
+    DW_ImmedMission_f_T *localDW);
+static int32_T ImmedMission_cfclose(real_T fid, DW_ImmedMission_f_T *localDW);
+static void ImmedMission_repmat(const real_T a[1092], real_T varargin_2,
+    emxArray_real_T_ImmedMission_T *b);
 static void ImmedMission_binary_expand_op_puh(boolean_T in1_data[], int32_T
     in1_size[2], const emxArray_real_T_ImmedMission_T *in2, int32_T in3, int32_T
     in4);
@@ -112,12 +127,55 @@ static void ImmedMission_WaypointFollowerBase_getDistinctWpts(const
     emxArray_real_T_ImmedMission_T *waypoints, emxArray_real_T_ImmedMission_T
     *distinctWpts, DW_ImmedMission_f_T *localDW);
 static void ImmedMission_circshift(emxArray_real_T_ImmedMission_T *a);
-static real_T ImmedMission_angdiff(real_T x, real_T y);
+static void ImmedMission_emxFree_char_T(emxArray_char_T_ImmedMission_T
+    **pEmxArray);
+static boolean_T ImmedMission_copydigits(emxArray_char_T_ImmedMission_T *s1,
+    int32_T *idx, const emxArray_char_T_ImmedMission_T *s, int32_T *k, int32_T n,
+    boolean_T allowpoint);
+static void ImmedMission_readfloat(emxArray_char_T_ImmedMission_T *s1, int32_T
+    *idx, const emxArray_char_T_ImmedMission_T *s, int32_T *k, int32_T n,
+    boolean_T allowimag, boolean_T *isimag, boolean_T *b_finite, real_T *nfv,
+    boolean_T *foundsign, boolean_T *success);
+static creal_T ImmedMission_str2double(const emxArray_char_T_ImmedMission_T *s);
+static void ImmedMission_strtok(const emxArray_char_T_ImmedMission_T *x,
+    emxArray_char_T_ImmedMission_T *token, emxArray_char_T_ImmedMission_T
+    *remain);
+static void ImmedMission_strtok_n(const emxArray_char_T_ImmedMission_T *x,
+    emxArray_char_T_ImmedMission_T *token);
+static void ImmedMission_strtrim(const emxArray_char_T_ImmedMission_T *x,
+    emxArray_char_T_ImmedMission_T *y);
+static boolean_T ImmedMission_strcmp(const emxArray_char_T_ImmedMission_T *a);
+static boolean_T ImmedMission_strcmp_h(const emxArray_char_T_ImmedMission_T *a);
+static void ImmedMission_eml_float_colon(real_T d, real_T b,
+    emxArray_real_T_ImmedMission_T *y);
+static void ImmedMission_repelem(const emxArray_real_T_ImmedMission_T *x,
+    emxArray_real_T_ImmedMission_T *y);
+static boolean_T ImmedMission_contains(const emxArray_char_T_ImmedMission_T *str);
+static void ImmedMission_find_token(const emxArray_char_T_ImmedMission_T *x,
+    int32_T *itoken, int32_T *iremain);
+static void ImmedMission_strtok_nx(const emxArray_char_T_ImmedMission_T *x,
+    emxArray_char_T_ImmedMission_T *token, emxArray_char_T_ImmedMission_T
+    *remain);
+static void ImmedMission_strtok_nx2(const emxArray_char_T_ImmedMission_T *x,
+    emxArray_char_T_ImmedMission_T *token);
 static void ImmedMission_binary_expand_op_p(emxArray_real_T_ImmedMission_T *in1,
     const emxArray_real_T_ImmedMission_T *in2, int32_T in3, int32_T in4);
+static void ImmedMission_mtimes(const emxArray_real_T_ImmedMission_T *A, const
+    real_T B[9], emxArray_real_T_ImmedMission_T *C);
+static real_T ImmedMission_angdiff(real_T x, real_T y);
+static void ImmedMission_repmat_o(const real_T a[3], real_T varargin_1,
+    emxArray_real_T_ImmedMission_T *b);
 static void ImmedMission_binary_expand_op(emxArray_real_T_ImmedMission_T *in1,
-    const emxArray_real_T_ImmedMission_T *in2, const
-    emxArray_real_T_ImmedMission_T *in3);
+    const emxArray_real_T_ImmedMission_T *in2, real_T in3, real_T in4, real_T
+    in5, real_T in6, const missionCmd *in7, real_T in8, real_T in9);
+static boolean_T ImmedMission_strcmp_ho(const emxArray_char_T_ImmedMission_T *a);
+static boolean_T ImmedMission_strcmp_hoc(const emxArray_char_T_ImmedMission_T *a);
+static boolean_T ImmedMission_strcmp_hocj(const emxArray_char_T_ImmedMission_T
+    *a);
+static uavDubinsConnection_ImmedMission_T
+    *ImmedMission_uavDubinsConnection_uavDubinsConnection
+    (uavDubinsConnection_ImmedMission_T *b_this, real_T varargin_2, real_T
+     varargin_4);
 
 //
 // Output and update for atomic system:
@@ -870,6 +928,24 @@ static real_T ImmedMission_norm_p(const real_T x[2])
     return scale * std::sqrt(y);
 }
 
+static void ImmedMission_emxInit_char_T(emxArray_char_T_ImmedMission_T
+    **pEmxArray, int32_T numDimensions)
+{
+    emxArray_char_T_ImmedMission_T *emxArray;
+    *pEmxArray = static_cast<emxArray_char_T_ImmedMission_T *>(std::malloc
+        (sizeof(emxArray_char_T_ImmedMission_T)));
+    emxArray = *pEmxArray;
+    emxArray->data = static_cast<char_T *>(nullptr);
+    emxArray->numDimensions = numDimensions;
+    emxArray->size = static_cast<int32_T *>(std::malloc(static_cast<uint32_T>
+        (sizeof(int32_T) * static_cast<uint32_T>(numDimensions))));
+    emxArray->allocatedSize = 0;
+    emxArray->canFreeData = true;
+    for (int32_T i{0}; i <= static_cast<int32_T>(numDimensions - 1); i++) {
+        emxArray->size[i] = 0;
+    }
+}
+
 static void ImmedMission_binary_expand_op_pu(boolean_T in1_data[], int32_T
     in1_size[2], const real_T in2_data[], const int32_T in2_size[2], int32_T in3,
     int32_T in4, DW_ImmedMission_f_T *localDW)
@@ -1617,6 +1693,290 @@ static void ImmedMission_WaypointFollower_stepImpl
     }
 }
 
+// Function for MATLAB Function: '<S135>/BaseWayPoint'
+static int8_T ImmedMission_filedata(DW_ImmedMission_f_T *localDW)
+{
+    int32_T k;
+    int8_T f;
+    boolean_T exitg1;
+    f = 0;
+    k = 1;
+    exitg1 = false;
+    while ((!exitg1) && (static_cast<int32_T>(k - 1) < 20)) {
+        if (localDW->eml_openfiles[static_cast<int32_T>(static_cast<int32_T>(
+                static_cast<int8_T>(k)) - 1)] == NULL) {
+            f = static_cast<int8_T>(k);
+            exitg1 = true;
+        } else {
+            k = static_cast<int32_T>(k + 1);
+        }
+    }
+
+    return f;
+}
+
+// Function for MATLAB Function: '<S135>/BaseWayPoint'
+static int8_T ImmedMission_cfopen(const char_T cfilename[10], const char_T
+    *cpermission, DW_ImmedMission_f_T *localDW)
+{
+    char_T ccfilename[11];
+    int8_T fileid;
+    int8_T j;
+    fileid = -1;
+    j = ImmedMission_filedata(localDW);
+    if (static_cast<int32_T>(j) >= 1) {
+        FILE* filestar;
+        int32_T i;
+        for (i = 0; i < 10; i++) {
+            ccfilename[i] = cfilename[i];
+        }
+
+        ccfilename[10] = '\x00';
+        filestar = fopen(&ccfilename[0], cpermission);
+        if (filestar != NULL) {
+            localDW->eml_openfiles[static_cast<int32_T>(static_cast<int32_T>(j)
+                - 1)] = filestar;
+            i = static_cast<int32_T>(static_cast<int32_T>(j) + 2);
+            if (static_cast<int32_T>(static_cast<int32_T>(j) + 2) > 127) {
+                i = 127;
+            }
+
+            fileid = static_cast<int8_T>(i);
+        }
+    }
+
+    return fileid;
+}
+
+// Function for MATLAB Function: '<S135>/BaseWayPoint'
+static real_T ImmedMission_fileManager(const char_T varargin_1[10],
+    DW_ImmedMission_f_T *localDW)
+{
+    real_T f;
+    int8_T fileid;
+    fileid = ImmedMission_cfopen(varargin_1, "rb", localDW);
+    f = static_cast<real_T>(fileid);
+    return f;
+}
+
+static void ImmedMission_emxEnsureCapacity_char_T(emxArray_char_T_ImmedMission_T
+    *emxArray, int32_T oldNumel)
+{
+    int32_T i;
+    int32_T newNumel;
+    void *newData;
+    if (oldNumel < 0) {
+        oldNumel = 0;
+    }
+
+    newNumel = 1;
+    for (i = 0; i <= static_cast<int32_T>(emxArray->numDimensions - 1); i++) {
+        newNumel = static_cast<int32_T>(newNumel * emxArray->size[i]);
+    }
+
+    if (newNumel > emxArray->allocatedSize) {
+        i = emxArray->allocatedSize;
+        if (i < 16) {
+            i = 16;
+        }
+
+        while (i < newNumel) {
+            if (i > 1073741823) {
+                i = MAX_int32_T;
+            } else {
+                i = static_cast<int32_T>(i << 1);
+            }
+        }
+
+        newData = std::calloc(static_cast<uint32_T>(i), sizeof(char_T));
+        if (emxArray->data != nullptr) {
+            std::memcpy(newData, emxArray->data, static_cast<uint32_T>(sizeof
+                         (char_T) * static_cast<uint32_T>(oldNumel)));
+            if (emxArray->canFreeData) {
+                std::free(emxArray->data);
+            }
+        }
+
+        emxArray->data = static_cast<char_T *>(newData);
+        emxArray->allocatedSize = i;
+        emxArray->canFreeData = true;
+    }
+}
+
+// Function for MATLAB Function: '<S135>/BaseWayPoint'
+static void ImmedMission_fread(real_T fileID, emxArray_char_T_ImmedMission_T *A,
+    DW_ImmedMission_f_T *localDW)
+{
+    FILE* filestar;
+    size_t nBytes;
+    char_T tbuf[1024];
+    int8_T fileid;
+    nBytes = sizeof(char_T);
+    fileid = static_cast<int8_T>(std::round(fileID));
+    if (fileID != static_cast<real_T>(fileid)) {
+        fileid = -1;
+    }
+
+    if (static_cast<int32_T>(fileid) >= 3) {
+        filestar = localDW->eml_openfiles[static_cast<int32_T>
+            (static_cast<int32_T>(fileid) - 3)];
+    } else {
+        switch (static_cast<int32_T>(fileid)) {
+          case 0:
+            filestar = stdin;
+            break;
+
+          case 1:
+            filestar = stdout;
+            break;
+
+          case 2:
+            filestar = stderr;
+            break;
+
+          default:
+            filestar = NULL;
+            break;
+        }
+    }
+
+    if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(
+            static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(
+              static_cast<boolean_T>(static_cast<int32_T>((fileID != 0.0) ^ 1)))
+             | static_cast<int32_T>(static_cast<boolean_T>(static_cast<int32_T>
+               ((fileID != 1.0) ^ 1)))))) | static_cast<int32_T>
+            (static_cast<boolean_T>(static_cast<int32_T>((fileID != 2.0) ^ 1))))))
+    {
+        filestar = NULL;
+    }
+
+    A->size[0] = 0;
+    if (static_cast<boolean_T>(static_cast<int32_T>((filestar == NULL) ^ 1))) {
+        int32_T c;
+        c = 1;
+        while (c > 0) {
+            int32_T c_0;
+            int32_T i;
+            int32_T numRead;
+            c = 0;
+            numRead = 1;
+            while (static_cast<boolean_T>(static_cast<int32_T>((c < 1024) &
+                     (numRead > 0)))) {
+                size_t numReadSizeT;
+                numReadSizeT = fread(&tbuf[c], nBytes, (size_t)(1024 - c),
+                                     filestar);
+                numRead = (int32_T)numReadSizeT;
+                c = static_cast<int32_T>(c + (int32_T)numReadSizeT);
+            }
+
+            numRead = A->size[0];
+            if (c < 1) {
+                c_0 = -1;
+            } else {
+                c_0 = static_cast<int32_T>(c - 1);
+            }
+
+            i = A->size[0];
+            A->size[0] = static_cast<int32_T>(static_cast<int32_T>(c_0 + A->
+                size[0]) + 1);
+            ImmedMission_emxEnsureCapacity_char_T(A, i);
+            if (c < 1) {
+                c_0 = -1;
+            } else {
+                c_0 = static_cast<int32_T>(c - 1);
+            }
+
+            for (i = 0; i <= c_0; i++) {
+                A->data[static_cast<int32_T>(numRead + i)] = tbuf[i];
+            }
+        }
+    }
+}
+
+// Function for MATLAB Function: '<S135>/BaseWayPoint'
+static int32_T ImmedMission_cfclose(real_T fid, DW_ImmedMission_f_T *localDW)
+{
+    FILE* filestar;
+    int32_T st;
+    int8_T b_fileid;
+    int8_T fileid;
+    st = -1;
+    fileid = static_cast<int8_T>(std::round(fid));
+    if (fid != static_cast<real_T>(fileid)) {
+        fileid = -1;
+    }
+
+    b_fileid = fileid;
+    if (static_cast<int32_T>(fileid) < 0) {
+        b_fileid = -1;
+    }
+
+    if (static_cast<int32_T>(b_fileid) >= 3) {
+        filestar = localDW->eml_openfiles[static_cast<int32_T>
+            (static_cast<int32_T>(b_fileid) - 3)];
+    } else {
+        switch (static_cast<int32_T>(b_fileid)) {
+          case 0:
+            filestar = stdin;
+            break;
+
+          case 1:
+            filestar = stdout;
+            break;
+
+          case 2:
+            filestar = stderr;
+            break;
+
+          default:
+            filestar = NULL;
+            break;
+        }
+    }
+
+    if (static_cast<boolean_T>(static_cast<int32_T>((filestar != NULL) & (
+            static_cast<int32_T>(fileid) >= 3)))) {
+        int32_T cst;
+        cst = fclose(filestar);
+        if (cst == 0) {
+            st = 0;
+            localDW->eml_openfiles[static_cast<int32_T>(static_cast<int32_T>
+                (fileid) - 3)] = NULL;
+        }
+    }
+
+    return st;
+}
+
+// Function for MATLAB Function: '<S135>/BaseWayPoint'
+static void ImmedMission_repmat(const real_T a[1092], real_T varargin_2,
+    emxArray_real_T_ImmedMission_T *b)
+{
+    int32_T jcol;
+    jcol = static_cast<int32_T>(b->size[0] * b->size[1]);
+    b->size[0] = 3;
+    b->size[1] = static_cast<int32_T>(364 * static_cast<int32_T>(varargin_2));
+    ImmedMission_emxEnsureCapacity_real_T(b, jcol);
+    for (int32_T jtilecol{0}; jtilecol <= static_cast<int32_T>
+            (static_cast<int32_T>(varargin_2) - 1); jtilecol =
+            static_cast<int32_T>(jtilecol + 1)) {
+        int32_T ibtile;
+        ibtile = static_cast<int32_T>(static_cast<int32_T>(jtilecol * 1092) - 1);
+        for (jcol = 0; jcol < 364; jcol++) {
+            int32_T iacol;
+            int32_T ibmat;
+            iacol = static_cast<int32_T>(jcol * 3);
+            ibmat = static_cast<int32_T>(static_cast<int32_T>
+                (static_cast<int32_T>(jcol * 3) + ibtile) + 1);
+            b->data[ibmat] = a[iacol];
+            b->data[static_cast<int32_T>(ibmat + 1)] = a[static_cast<int32_T>
+                (iacol + 1)];
+            b->data[static_cast<int32_T>(ibmat + 2)] = a[static_cast<int32_T>
+                (iacol + 2)];
+        }
+    }
+}
+
 static void ImmedMission_binary_expand_op_puh(boolean_T in1_data[], int32_T
     in1_size[2], const emxArray_real_T_ImmedMission_T *in2, int32_T in3, int32_T
     in4)
@@ -1974,45 +2334,1046 @@ static void ImmedMission_circshift(emxArray_real_T_ImmedMission_T *a)
     }
 }
 
-static real_T ImmedMission_angdiff(real_T x, real_T y)
+static void ImmedMission_emxFree_char_T(emxArray_char_T_ImmedMission_T
+    **pEmxArray)
 {
-    real_T delta;
-    delta = y - x;
-    if (std::abs(delta) > 3.1415926535897931) {
-        real_T thetaWrap;
-        if (std::isnan(delta + 3.1415926535897931) || std::isinf(delta +
-                3.1415926535897931)) {
-            thetaWrap = (rtNaN);
-        } else if (delta + 3.1415926535897931 == 0.0) {
-            thetaWrap = 0.0;
+    if (*pEmxArray != static_cast<emxArray_char_T_ImmedMission_T *>(nullptr)) {
+        if (((*pEmxArray)->data != static_cast<char_T *>(nullptr)) &&
+                (*pEmxArray)->canFreeData) {
+            std::free((*pEmxArray)->data);
+        }
+
+        std::free((*pEmxArray)->size);
+        std::free(*pEmxArray);
+        *pEmxArray = static_cast<emxArray_char_T_ImmedMission_T *>(nullptr);
+    }
+}
+
+// Function for MATLAB Function: '<S135>/BaseWayPoint'
+static boolean_T ImmedMission_copydigits(emxArray_char_T_ImmedMission_T *s1,
+    int32_T *idx, const emxArray_char_T_ImmedMission_T *s, int32_T *k, int32_T n,
+    boolean_T allowpoint)
+{
+    boolean_T exitg1;
+    boolean_T haspoint;
+    boolean_T success;
+    success = (*k <= n);
+    haspoint = false;
+    exitg1 = false;
+    while ((!exitg1) && (static_cast<boolean_T>(static_cast<int32_T>((*k <= n) &
+              static_cast<int32_T>(success))))) {
+        char_T tmp;
+        tmp = s->data[static_cast<int32_T>(*k - 1)];
+        if ((tmp >= '0') && (tmp <= '9')) {
+            s1->data[static_cast<int32_T>(*idx - 1)] = tmp;
+            *idx = static_cast<int32_T>(*idx + 1);
+            *k = static_cast<int32_T>(*k + 1);
+        } else if (tmp == '.') {
+            success = static_cast<boolean_T>(static_cast<int32_T>
+                (static_cast<int32_T>(static_cast<boolean_T>(static_cast<int32_T>
+                (static_cast<int32_T>(haspoint) ^ 1))) & static_cast<int32_T>
+                 (allowpoint)));
+            if (success) {
+                s1->data[static_cast<int32_T>(*idx - 1)] = '.';
+                *idx = static_cast<int32_T>(*idx + 1);
+                haspoint = true;
+            }
+
+            *k = static_cast<int32_T>(*k + 1);
+        } else if (tmp == ',') {
+            *k = static_cast<int32_T>(*k + 1);
         } else {
-            boolean_T rEQ0;
-            thetaWrap = std::fmod(delta + 3.1415926535897931, 6.2831853071795862);
-            rEQ0 = (thetaWrap == 0.0);
-            if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
-                    (rEQ0) ^ 1))) {
-                real_T q;
-                q = std::abs((delta + 3.1415926535897931) / 6.2831853071795862);
-                rEQ0 = static_cast<boolean_T>(static_cast<int32_T>((std::abs(q -
-                    std::floor(q + 0.5)) > 2.2204460492503131E-16 * q) ^ 1));
-            }
-
-            if (rEQ0) {
-                thetaWrap = 0.0;
-            } else if (delta + 3.1415926535897931 < 0.0) {
-                thetaWrap += 6.2831853071795862;
-            }
+            exitg1 = true;
         }
-
-        if (static_cast<boolean_T>(static_cast<int32_T>((delta +
-                3.1415926535897931 > 0.0) & (thetaWrap == 0.0)))) {
-            thetaWrap = 6.2831853071795862;
-        }
-
-        delta = thetaWrap - 3.1415926535897931;
     }
 
-    return delta;
+    return success;
+}
+
+// Function for MATLAB Function: '<S135>/BaseWayPoint'
+static void ImmedMission_readfloat(emxArray_char_T_ImmedMission_T *s1, int32_T
+    *idx, const emxArray_char_T_ImmedMission_T *s, int32_T *k, int32_T n,
+    boolean_T allowimag, boolean_T *isimag, boolean_T *b_finite, real_T *nfv,
+    boolean_T *foundsign, boolean_T *success)
+{
+    static const boolean_T b[128]{ false, false, false, false, false, false,
+        false, false, false, true, true, true, true, true, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, true, true, true, true, true, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false };
+
+    emxArray_char_T_ImmedMission_T *d;
+    int32_T b_idx;
+    int32_T b_k;
+    int32_T g_k;
+    char_T c_idx_0;
+    boolean_T a__3;
+    boolean_T exitg1;
+    boolean_T isneg;
+    ImmedMission_emxInit_char_T(&d, 2);
+    *isimag = false;
+    *b_finite = true;
+    *nfv = 0.0;
+    b_idx = *idx;
+    b_k = *k;
+    isneg = false;
+    *foundsign = false;
+    exitg1 = false;
+    while ((!exitg1) && (b_k <= n)) {
+        c_idx_0 = s->data[static_cast<int32_T>(b_k - 1)];
+        if (c_idx_0 == '-') {
+            isneg = static_cast<boolean_T>(static_cast<int32_T>
+                (static_cast<int32_T>(isneg) ^ 1));
+            *foundsign = true;
+            b_k = static_cast<int32_T>(b_k + 1);
+        } else if (c_idx_0 == ',') {
+            b_k = static_cast<int32_T>(b_k + 1);
+        } else if (c_idx_0 == '+') {
+            *foundsign = true;
+            b_k = static_cast<int32_T>(b_k + 1);
+        } else if (static_cast<boolean_T>(static_cast<int32_T>
+                    (static_cast<int32_T>(b[static_cast<int32_T>
+                      (static_cast<int32_T>(static_cast<uint8_T>(c_idx_0)) & 127)])
+                     ^ 1))) {
+            exitg1 = true;
+        } else {
+            b_k = static_cast<int32_T>(b_k + 1);
+        }
+    }
+
+    *success = (b_k <= n);
+    if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
+            (*success) & static_cast<int32_T>(isneg)))) {
+        if ((*idx >= 2) && (s1->data[static_cast<int32_T>(*idx - 2)] == '-')) {
+            s1->data[static_cast<int32_T>(*idx - 2)] = ' ';
+        } else {
+            s1->data[static_cast<int32_T>(*idx - 1)] = '-';
+            b_idx = static_cast<int32_T>(*idx + 1);
+        }
+    }
+
+    *idx = b_idx;
+    *k = b_k;
+    if (*success) {
+        char_T c_idx_1;
+        char_T c_idx_2;
+        isneg = false;
+        if (b_k <= n) {
+            c_idx_0 = s->data[static_cast<int32_T>(b_k - 1)];
+            if (c_idx_0 == 'j') {
+                isneg = true;
+            } else if (c_idx_0 == 'i') {
+                if (b_k >= static_cast<int32_T>(n - 1)) {
+                    isneg = true;
+                } else {
+                    g_k = b_k;
+                    c_idx_0 = '\x00';
+                    while ((g_k <= n) && (s->data[static_cast<int32_T>(g_k - 1)]
+                                          == ',')) {
+                        g_k = static_cast<int32_T>(g_k + 1);
+                    }
+
+                    if (g_k <= n) {
+                        c_idx_0 = s->data[static_cast<int32_T>(g_k - 1)];
+                    }
+
+                    g_k = static_cast<int32_T>(g_k + 1);
+                    c_idx_1 = '\x00';
+                    while ((g_k <= n) && (s->data[static_cast<int32_T>(g_k - 1)]
+                                          == ',')) {
+                        g_k = static_cast<int32_T>(g_k + 1);
+                    }
+
+                    if (g_k <= n) {
+                        c_idx_1 = s->data[static_cast<int32_T>(g_k - 1)];
+                    }
+
+                    g_k = static_cast<int32_T>(g_k + 1);
+                    c_idx_2 = '\x00';
+                    while ((g_k <= n) && (s->data[static_cast<int32_T>(g_k - 1)]
+                                          == ',')) {
+                        g_k = static_cast<int32_T>(g_k + 1);
+                    }
+
+                    if (g_k <= n) {
+                        c_idx_2 = s->data[static_cast<int32_T>(g_k - 1)];
+                    }
+
+                    if (((c_idx_0 == 'I') || (c_idx_0 == 'i')) && ((c_idx_1 ==
+                            'N') || (c_idx_1 == 'n')) && ((c_idx_2 == 'F') ||
+                            (c_idx_2 == 'f'))) {
+                    } else if ((c_idx_0 == 'N') || (c_idx_0 == 'n')) {
+                        if ((c_idx_1 == 'A') || (c_idx_1 == 'a')) {
+                            if ((c_idx_2 != 'N') && (c_idx_2 != 'n')) {
+                                isneg = true;
+                            }
+                        } else {
+                            isneg = true;
+                        }
+                    } else {
+                        isneg = true;
+                    }
+                }
+            }
+        }
+
+        if (isneg) {
+            if (allowimag) {
+                *isimag = true;
+                *k = static_cast<int32_T>(b_k + 1);
+                exitg1 = false;
+                while ((!exitg1) && (*k <= n)) {
+                    if (b[static_cast<int32_T>(static_cast<int32_T>
+                                               (static_cast<uint8_T>(s->data[
+                            static_cast<int32_T>(*k - 1)])) & 127)]) {
+                        *k = static_cast<int32_T>(*k + 1);
+                    } else {
+                        c_idx_0 = s->data[static_cast<int32_T>(*k - 1)];
+                        if ((c_idx_0 == '\x00') || (c_idx_0 == ',')) {
+                            *k = static_cast<int32_T>(*k + 1);
+                        } else {
+                            exitg1 = true;
+                        }
+                    }
+                }
+
+                if ((*k <= n) && (s->data[static_cast<int32_T>(*k - 1)] == '*'))
+                {
+                    *k = static_cast<int32_T>(*k + 1);
+                    ImmedMission_readfloat(s1, idx, s, k, n, false, &isneg,
+                                           b_finite, nfv, &a__3, success);
+                } else {
+                    s1->data[static_cast<int32_T>(b_idx - 1)] = '1';
+                    *idx = static_cast<int32_T>(b_idx + 1);
+                }
+            } else {
+                *success = false;
+            }
+        } else {
+            g_k = b_k;
+            c_idx_0 = '\x00';
+            while ((g_k <= n) && (s->data[static_cast<int32_T>(g_k - 1)] == ','))
+            {
+                g_k = static_cast<int32_T>(g_k + 1);
+            }
+
+            if (g_k <= n) {
+                c_idx_0 = s->data[static_cast<int32_T>(g_k - 1)];
+            }
+
+            g_k = static_cast<int32_T>(g_k + 1);
+            c_idx_1 = '\x00';
+            while ((g_k <= n) && (s->data[static_cast<int32_T>(g_k - 1)] == ','))
+            {
+                g_k = static_cast<int32_T>(g_k + 1);
+            }
+
+            if (g_k <= n) {
+                c_idx_1 = s->data[static_cast<int32_T>(g_k - 1)];
+            }
+
+            g_k = static_cast<int32_T>(g_k + 1);
+            c_idx_2 = '\x00';
+            while ((g_k <= n) && (s->data[static_cast<int32_T>(g_k - 1)] == ','))
+            {
+                g_k = static_cast<int32_T>(g_k + 1);
+            }
+
+            if (g_k <= n) {
+                c_idx_2 = s->data[static_cast<int32_T>(g_k - 1)];
+            }
+
+            g_k = static_cast<int32_T>(g_k + 1);
+            if (((c_idx_0 == 'I') || (c_idx_0 == 'i')) && ((c_idx_1 == 'N') ||
+                    (c_idx_1 == 'n')) && ((c_idx_2 == 'F') || (c_idx_2 == 'f')))
+            {
+                *b_finite = false;
+                *nfv = (rtInf);
+            } else if (((c_idx_0 == 'N') || (c_idx_0 == 'n')) && ((c_idx_1 ==
+                         'A') || (c_idx_1 == 'a')) && ((c_idx_2 == 'N') ||
+                        (c_idx_2 == 'n'))) {
+                *b_finite = false;
+                *nfv = (rtNaN);
+            } else {
+                g_k = b_k;
+            }
+
+            *k = g_k;
+            if (*b_finite) {
+                int32_T loop_ub;
+                b_k = static_cast<int32_T>(d->size[0] * d->size[1]);
+                d->size[0] = 1;
+                d->size[1] = s1->size[1];
+                ImmedMission_emxEnsureCapacity_char_T(d, b_k);
+                loop_ub = static_cast<int32_T>(s1->size[1] - 1);
+                for (b_k = 0; b_k <= loop_ub; b_k++) {
+                    d->data[b_k] = s1->data[b_k];
+                }
+
+                *success = ImmedMission_copydigits(d, &b_idx, s, &g_k, n, true);
+                b_k = static_cast<int32_T>(s1->size[0] * s1->size[1]);
+                s1->size[0] = 1;
+                s1->size[1] = d->size[1];
+                ImmedMission_emxEnsureCapacity_char_T(s1, b_k);
+                loop_ub = d->size[1];
+                for (b_k = 0; b_k <= static_cast<int32_T>(loop_ub - 1); b_k++) {
+                    s1->data[b_k] = d->data[b_k];
+                }
+
+                *idx = b_idx;
+                *k = g_k;
+                if ((*success) && (g_k <= n)) {
+                    c_idx_0 = s->data[static_cast<int32_T>(g_k - 1)];
+                    if ((c_idx_0 == 'E') || (c_idx_0 == 'e')) {
+                        s1->data[static_cast<int32_T>(b_idx - 1)] = 'e';
+                        *idx = static_cast<int32_T>(b_idx + 1);
+                        while ((static_cast<int32_T>(g_k + 1) <= n) && (s->
+                                data[g_k] == ',')) {
+                            g_k = static_cast<int32_T>(g_k + 1);
+                        }
+
+                        if (static_cast<int32_T>(g_k + 1) <= n) {
+                            if (s->data[g_k] == '-') {
+                                s1->data[b_idx] = '-';
+                                *idx = static_cast<int32_T>(b_idx + 2);
+                                g_k = static_cast<int32_T>(g_k + 1);
+                            } else if (s->data[g_k] == '+') {
+                                g_k = static_cast<int32_T>(g_k + 1);
+                            }
+                        }
+
+                        b_k = static_cast<int32_T>(d->size[0] * d->size[1]);
+                        d->size[0] = 1;
+                        d->size[1] = s1->size[1];
+                        ImmedMission_emxEnsureCapacity_char_T(d, b_k);
+                        loop_ub = static_cast<int32_T>(s1->size[1] - 1);
+                        for (b_k = 0; b_k <= loop_ub; b_k++) {
+                            d->data[b_k] = s1->data[b_k];
+                        }
+
+                        b_idx = static_cast<int32_T>(g_k + 1);
+                        isneg = ImmedMission_copydigits(d, idx, s, &b_idx, n,
+                            false);
+                        b_k = static_cast<int32_T>(s1->size[0] * s1->size[1]);
+                        s1->size[0] = 1;
+                        s1->size[1] = d->size[1];
+                        ImmedMission_emxEnsureCapacity_char_T(s1, b_k);
+                        loop_ub = d->size[1];
+                        for (b_k = 0; b_k <= static_cast<int32_T>(loop_ub - 1);
+                                b_k++) {
+                            s1->data[b_k] = d->data[b_k];
+                        }
+
+                        *k = b_idx;
+                        if (static_cast<boolean_T>(static_cast<int32_T>((b_idx <=
+                               static_cast<int32_T>(g_k + 1)) |
+                                static_cast<int32_T>(static_cast<boolean_T>(
+                                static_cast<int32_T>(static_cast<int32_T>(isneg)
+                                 ^ 1)))))) {
+                            *success = false;
+                        }
+                    }
+                }
+            } else if ((b_idx >= 2) && (s1->data[static_cast<int32_T>(b_idx - 2)]
+                        == '-')) {
+                *idx = static_cast<int32_T>(b_idx - 1);
+                s1->data[static_cast<int32_T>(b_idx - 2)] = ' ';
+                *nfv = -*nfv;
+            }
+
+            exitg1 = false;
+            while ((!exitg1) && (*k <= n)) {
+                if (b[static_cast<int32_T>(static_cast<int32_T>
+                                           (static_cast<uint8_T>(s->data[
+                        static_cast<int32_T>(*k - 1)])) & 127)]) {
+                    *k = static_cast<int32_T>(*k + 1);
+                } else {
+                    c_idx_0 = s->data[static_cast<int32_T>(*k - 1)];
+                    if ((c_idx_0 == '\x00') || (c_idx_0 == ',')) {
+                        *k = static_cast<int32_T>(*k + 1);
+                    } else {
+                        exitg1 = true;
+                    }
+                }
+            }
+
+            if ((*k <= n) && (s->data[static_cast<int32_T>(*k - 1)] == '*')) {
+                *k = static_cast<int32_T>(*k + 1);
+                while ((*k <= n) && (b[static_cast<int32_T>(static_cast<int32_T>
+                         (static_cast<uint8_T>(s->data[static_cast<int32_T>(*k -
+                            1)])) & 127)] || (s->data[static_cast<int32_T>(*k -
+                          1)] == '\x00') || (s->data[static_cast<int32_T>(*k - 1)]
+                         == ','))) {
+                    *k = static_cast<int32_T>(*k + 1);
+                }
+            }
+
+            if (*k <= n) {
+                c_idx_0 = s->data[static_cast<int32_T>(*k - 1)];
+                if ((c_idx_0 == 'i') || (c_idx_0 == 'j')) {
+                    *k = static_cast<int32_T>(*k + 1);
+                    *isimag = true;
+                }
+            }
+        }
+
+        exitg1 = false;
+        while ((!exitg1) && (*k <= n)) {
+            c_idx_0 = s->data[static_cast<int32_T>(*k - 1)];
+            if (b[static_cast<int32_T>(static_cast<int32_T>(static_cast<uint8_T>
+                    (c_idx_0)) & 127)] || (c_idx_0 == '\x00') || (c_idx_0 == ','))
+            {
+                *k = static_cast<int32_T>(*k + 1);
+            } else {
+                exitg1 = true;
+            }
+        }
+    }
+
+    ImmedMission_emxFree_char_T(&d);
+}
+
+// Function for MATLAB Function: '<S135>/BaseWayPoint'
+static creal_T ImmedMission_str2double(const emxArray_char_T_ImmedMission_T *s)
+{
+    static const boolean_T c[128]{ false, false, false, false, false, false,
+        false, false, false, true, true, true, true, true, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, true, true, true, true, true, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false };
+
+    emxArray_char_T_ImmedMission_T *d;
+    emxArray_char_T_ImmedMission_T *s1;
+    creal_T x;
+    real_T b_scanned1;
+    real_T scanned1;
+    real_T scanned2;
+    int32_T idx;
+    int32_T k;
+    boolean_T a__1;
+    boolean_T c_success;
+    boolean_T foundsign;
+    boolean_T isfinite1;
+    boolean_T isimag1;
+    boolean_T success;
+    ImmedMission_emxInit_char_T(&d, 2);
+    x.re = (rtNaN);
+    x.im = 0.0;
+    if (s->size[1] >= 1) {
+        int32_T i;
+        int32_T loop_ub;
+        int32_T ntoread;
+        boolean_T exitg1;
+        ImmedMission_emxInit_char_T(&s1, 2);
+        ntoread = 0;
+        k = 1;
+        exitg1 = false;
+        while ((!exitg1) && (k <= s->size[1])) {
+            char_T tmp;
+            tmp = s->data[static_cast<int32_T>(k - 1)];
+            if (c[static_cast<int32_T>(static_cast<int32_T>(static_cast<uint8_T>
+                    (tmp)) & 127)] || (tmp == '\x00')) {
+                k = static_cast<int32_T>(k + 1);
+            } else {
+                exitg1 = true;
+            }
+        }
+
+        i = static_cast<int32_T>(d->size[0] * d->size[1]);
+        d->size[0] = 1;
+        d->size[1] = static_cast<int32_T>(s->size[1] + 2);
+        ImmedMission_emxEnsureCapacity_char_T(d, i);
+        loop_ub = s->size[1];
+        for (i = 0; i <= static_cast<int32_T>(loop_ub + 1); i++) {
+            d->data[i] = '\x00';
+        }
+
+        idx = 1;
+        ImmedMission_readfloat(d, &idx, s, &k, s->size[1], true, &isimag1,
+                               &isfinite1, &scanned1, &a__1, &success);
+        i = static_cast<int32_T>(s1->size[0] * s1->size[1]);
+        s1->size[0] = 1;
+        s1->size[1] = d->size[1];
+        ImmedMission_emxEnsureCapacity_char_T(s1, i);
+        loop_ub = static_cast<int32_T>(d->size[1] - 1);
+        for (i = 0; i <= loop_ub; i++) {
+            s1->data[i] = d->data[i];
+        }
+
+        if (isfinite1) {
+            ntoread = 1;
+        }
+
+        if (success) {
+            if (k <= s->size[1]) {
+                s1->data[static_cast<int32_T>(idx - 1)] = ' ';
+                i = static_cast<int32_T>(d->size[0] * d->size[1]);
+                d->size[0] = 1;
+                d->size[1] = s1->size[1];
+                ImmedMission_emxEnsureCapacity_char_T(d, i);
+                loop_ub = static_cast<int32_T>(s1->size[1] - 1);
+                for (i = 0; i <= loop_ub; i++) {
+                    d->data[i] = s1->data[i];
+                }
+
+                idx = static_cast<int32_T>(idx + 1);
+                ImmedMission_readfloat(d, &idx, s, &k, s->size[1], true, &a__1,
+                                       &success, &scanned2, &foundsign,
+                                       &c_success);
+                i = static_cast<int32_T>(s1->size[0] * s1->size[1]);
+                s1->size[0] = 1;
+                s1->size[1] = d->size[1];
+                ImmedMission_emxEnsureCapacity_char_T(s1, i);
+                loop_ub = static_cast<int32_T>(d->size[1] - 1);
+                for (i = 0; i <= loop_ub; i++) {
+                    s1->data[i] = d->data[i];
+                }
+
+                if (success) {
+                    ntoread = static_cast<int32_T>(ntoread + 1);
+                }
+
+                success = static_cast<boolean_T>(static_cast<int32_T>(
+                    static_cast<int32_T>(static_cast<boolean_T>
+                    (static_cast<int32_T>(static_cast<int32_T>
+                    (static_cast<boolean_T>(static_cast<int32_T>
+                    (static_cast<int32_T>(static_cast<boolean_T>
+                    (static_cast<int32_T>(static_cast<int32_T>(isimag1) ^
+                    static_cast<int32_T>(a__1)))) & static_cast<int32_T>
+                     (foundsign)))) & (k > s->size[1])))) & static_cast<int32_T>
+                    (c_success)));
+            } else {
+                scanned2 = 0.0;
+            }
+        } else {
+            scanned2 = 0.0;
+        }
+
+        if (success) {
+            s1->data[static_cast<int32_T>(idx - 1)] = '\x00';
+            switch (ntoread) {
+              case 2:
+                ntoread = sscanf(&s1->data[0], "%lf %lf", &scanned1, &scanned2);
+                if (ntoread != 2) {
+                    scanned1 = (rtNaN);
+                    scanned2 = (rtNaN);
+                }
+                break;
+
+              case 1:
+                ntoread = sscanf(&s1->data[0], "%lf", &b_scanned1);
+                if (isfinite1) {
+                    if (ntoread == 1) {
+                        scanned1 = b_scanned1;
+                    } else {
+                        scanned1 = (rtNaN);
+                    }
+                } else if (ntoread == 1) {
+                    scanned2 = b_scanned1;
+                } else {
+                    scanned2 = (rtNaN);
+                }
+                break;
+            }
+
+            if (isimag1) {
+                x.re = scanned2;
+                x.im = scanned1;
+            } else {
+                x.re = scanned1;
+                x.im = scanned2;
+            }
+        }
+
+        ImmedMission_emxFree_char_T(&s1);
+    }
+
+    ImmedMission_emxFree_char_T(&d);
+    return x;
+}
+
+// Function for MATLAB Function: '<S135>/BaseWayPoint'
+static void ImmedMission_strtok(const emxArray_char_T_ImmedMission_T *x,
+    emxArray_char_T_ImmedMission_T *token, emxArray_char_T_ImmedMission_T
+    *remain)
+{
+    int32_T b;
+    int32_T i;
+    int32_T itoken;
+    int32_T k;
+    int32_T n;
+    n = x->size[1];
+    k = 0;
+    while ((static_cast<int32_T>(k + 1) <= n) && (x->data[k] == '\x0a')) {
+        k = static_cast<int32_T>(k + 1);
+    }
+
+    itoken = static_cast<int32_T>(k + 1);
+    while ((static_cast<int32_T>(k + 1) <= n) && (x->data[k] != '\x0a')) {
+        k = static_cast<int32_T>(k + 1);
+    }
+
+    if (static_cast<int32_T>(k + 1) > x->size[1]) {
+        n = 0;
+        b = 0;
+    } else {
+        n = k;
+        b = x->size[1];
+    }
+
+    i = static_cast<int32_T>(remain->size[0] * remain->size[1]);
+    remain->size[0] = 1;
+    b = static_cast<int32_T>(b - n);
+    remain->size[1] = b;
+    ImmedMission_emxEnsureCapacity_char_T(remain, i);
+    for (i = 0; i <= static_cast<int32_T>(b - 1); i++) {
+        remain->data[i] = x->data[static_cast<int32_T>(n + i)];
+    }
+
+    if (itoken > k) {
+        itoken = 0;
+        k = 0;
+    } else {
+        itoken = static_cast<int32_T>(itoken - 1);
+    }
+
+    i = static_cast<int32_T>(token->size[0] * token->size[1]);
+    token->size[0] = 1;
+    b = static_cast<int32_T>(k - itoken);
+    token->size[1] = b;
+    ImmedMission_emxEnsureCapacity_char_T(token, i);
+    for (i = 0; i <= static_cast<int32_T>(b - 1); i++) {
+        token->data[i] = x->data[static_cast<int32_T>(itoken + i)];
+    }
+}
+
+// Function for MATLAB Function: '<S135>/BaseWayPoint'
+static void ImmedMission_strtok_n(const emxArray_char_T_ImmedMission_T *x,
+    emxArray_char_T_ImmedMission_T *token)
+{
+    int32_T itoken;
+    int32_T k;
+    int32_T n;
+    n = x->size[1];
+    k = 1;
+    while ((k <= n) && (x->data[static_cast<int32_T>(k - 1)] == ';')) {
+        k = static_cast<int32_T>(k + 1);
+    }
+
+    itoken = k;
+    while ((k <= n) && (x->data[static_cast<int32_T>(k - 1)] != ';')) {
+        k = static_cast<int32_T>(k + 1);
+    }
+
+    if (itoken > static_cast<int32_T>(k - 1)) {
+        n = 0;
+        k = 0;
+    } else {
+        n = static_cast<int32_T>(itoken - 1);
+        k = static_cast<int32_T>(k - 1);
+    }
+
+    itoken = static_cast<int32_T>(token->size[0] * token->size[1]);
+    token->size[0] = 1;
+    k = static_cast<int32_T>(k - n);
+    token->size[1] = k;
+    ImmedMission_emxEnsureCapacity_char_T(token, itoken);
+    for (itoken = 0; itoken <= static_cast<int32_T>(k - 1); itoken++) {
+        token->data[itoken] = x->data[static_cast<int32_T>(n + itoken)];
+    }
+}
+
+// Function for MATLAB Function: '<S135>/BaseWayPoint'
+static void ImmedMission_strtrim(const emxArray_char_T_ImmedMission_T *x,
+    emxArray_char_T_ImmedMission_T *y)
+{
+    static const boolean_T d[128]{ false, false, false, false, false, false,
+        false, false, false, true, true, true, true, true, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, true, true, true, true, true, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false };
+
+    int32_T b_j1;
+    int32_T i;
+    int32_T j2;
+    b_j1 = 0;
+    while ((static_cast<int32_T>(b_j1 + 1) <= x->size[1]) &&
+            (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(d[
+               static_cast<int32_T>(static_cast<int32_T>(static_cast<uint8_T>
+                 (x->data[b_j1])) & 127)]) & (x->data[b_j1] != '\x00'))))) {
+        b_j1 = static_cast<int32_T>(b_j1 + 1);
+    }
+
+    j2 = static_cast<int32_T>(x->size[1] - 1);
+    while ((static_cast<int32_T>(j2 + 1) > 0) && (static_cast<boolean_T>(
+             static_cast<int32_T>(static_cast<int32_T>(d[static_cast<int32_T>(
+                static_cast<int32_T>(static_cast<uint8_T>(x->data[j2])) & 127)])
+              & (x->data[j2] != '\x00'))))) {
+        j2 = static_cast<int32_T>(j2 - 1);
+    }
+
+    if (static_cast<int32_T>(b_j1 + 1) > static_cast<int32_T>(j2 + 1)) {
+        b_j1 = 0;
+        j2 = -1;
+    }
+
+    i = static_cast<int32_T>(y->size[0] * y->size[1]);
+    y->size[0] = 1;
+    j2 = static_cast<int32_T>(j2 - b_j1);
+    y->size[1] = static_cast<int32_T>(j2 + 1);
+    ImmedMission_emxEnsureCapacity_char_T(y, i);
+    for (i = 0; i <= j2; i++) {
+        y->data[i] = x->data[static_cast<int32_T>(b_j1 + i)];
+    }
+}
+
+// Function for MATLAB Function: '<S135>/BaseWayPoint'
+static boolean_T ImmedMission_strcmp(const emxArray_char_T_ImmedMission_T *a)
+{
+    static const char_T c[128]{ '\x00', '\x01', '\x02', '\x03', '\x04', '\x05',
+        '\x06', '\x07', '\x08', '\x09', '\x0a', '\x0b', '\x0c', '\x0d', '\x0e',
+        '\x0f', '\x10', '\x11', '\x12', '\x13', '\x14', '\x15', '\x16', '\x17',
+        '\x18', '\x19', '\x1a', '\x1b', '\x1c', '\x1d', '\x1e', '\x1f', ' ', '!',
+        '\"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/',
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=',
+        '>', '?', '@', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
+        'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
+        'z', '[', '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g',
+        'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
+        'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~', '\x7f' };
+
+    static const char_T d[3]{ 'U', 'A', 'V' };
+
+    emxArray_char_T_ImmedMission_T *aTmp;
+    int32_T loop_ub;
+    boolean_T b_bool;
+    ImmedMission_emxInit_char_T(&aTmp, 2);
+    if (a->size[1] == 0) {
+        aTmp->size[0] = 1;
+        aTmp->size[1] = 0;
+    } else {
+        int32_T i;
+        i = static_cast<int32_T>(aTmp->size[0] * aTmp->size[1]);
+        aTmp->size[0] = 1;
+        aTmp->size[1] = a->size[1];
+        ImmedMission_emxEnsureCapacity_char_T(aTmp, i);
+        loop_ub = static_cast<int32_T>(a->size[1] - 1);
+        for (i = 0; i <= loop_ub; i++) {
+            aTmp->data[i] = a->data[i];
+        }
+    }
+
+    b_bool = false;
+    if (aTmp->size[1] == 3) {
+        loop_ub = 0;
+        int32_T exitg1;
+        do {
+            exitg1 = 0;
+            if (loop_ub < 3) {
+                if (c[static_cast<int32_T>(static_cast<int32_T>
+                                           (static_cast<uint8_T>(aTmp->
+                        data[loop_ub])) & 127)] != c[static_cast<int32_T>
+                        (d[loop_ub])]) {
+                    exitg1 = 1;
+                } else {
+                    loop_ub = static_cast<int32_T>(loop_ub + 1);
+                }
+            } else {
+                b_bool = true;
+                exitg1 = 1;
+            }
+        } while (exitg1 == 0);
+    }
+
+    ImmedMission_emxFree_char_T(&aTmp);
+    return b_bool;
+}
+
+// Function for MATLAB Function: '<S135>/BaseWayPoint'
+static boolean_T ImmedMission_strcmp_h(const emxArray_char_T_ImmedMission_T *a)
+{
+    static const char_T c[128]{ '\x00', '\x01', '\x02', '\x03', '\x04', '\x05',
+        '\x06', '\x07', '\x08', '\x09', '\x0a', '\x0b', '\x0c', '\x0d', '\x0e',
+        '\x0f', '\x10', '\x11', '\x12', '\x13', '\x14', '\x15', '\x16', '\x17',
+        '\x18', '\x19', '\x1a', '\x1b', '\x1c', '\x1d', '\x1e', '\x1f', ' ', '!',
+        '\"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/',
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=',
+        '>', '?', '@', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
+        'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
+        'z', '[', '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g',
+        'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
+        'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~', '\x7f' };
+
+    static const char_T d[10]{ 'N', 'o', 'r', 'm', 'A', 'i', 'r', 'S', 'p', 'd'
+    };
+
+    emxArray_char_T_ImmedMission_T *aTmp;
+    int32_T loop_ub;
+    boolean_T b_bool;
+    ImmedMission_emxInit_char_T(&aTmp, 2);
+    if (a->size[1] == 0) {
+        aTmp->size[0] = 1;
+        aTmp->size[1] = 0;
+    } else {
+        int32_T i;
+        i = static_cast<int32_T>(aTmp->size[0] * aTmp->size[1]);
+        aTmp->size[0] = 1;
+        aTmp->size[1] = a->size[1];
+        ImmedMission_emxEnsureCapacity_char_T(aTmp, i);
+        loop_ub = static_cast<int32_T>(a->size[1] - 1);
+        for (i = 0; i <= loop_ub; i++) {
+            aTmp->data[i] = a->data[i];
+        }
+    }
+
+    b_bool = false;
+    if (aTmp->size[1] == 10) {
+        loop_ub = 0;
+        int32_T exitg1;
+        do {
+            exitg1 = 0;
+            if (loop_ub < 10) {
+                if (c[static_cast<int32_T>(static_cast<int32_T>
+                                           (static_cast<uint8_T>(aTmp->
+                        data[loop_ub])) & 127)] != c[static_cast<int32_T>
+                        (d[loop_ub])]) {
+                    exitg1 = 1;
+                } else {
+                    loop_ub = static_cast<int32_T>(loop_ub + 1);
+                }
+            } else {
+                b_bool = true;
+                exitg1 = 1;
+            }
+        } while (exitg1 == 0);
+    }
+
+    ImmedMission_emxFree_char_T(&aTmp);
+    return b_bool;
+}
+
+// Function for MATLAB Function: '<S135>/BaseWayPoint'
+static void ImmedMission_eml_float_colon(real_T d, real_T b,
+    emxArray_real_T_ImmedMission_T *y)
+{
+    real_T apnd;
+    real_T cdiff;
+    real_T ndbl;
+    int32_T n;
+    int32_T nm1d2;
+    ndbl = std::floor(b / d + 0.5);
+    apnd = ndbl * d;
+    if (d > 0.0) {
+        cdiff = apnd - b;
+    } else {
+        cdiff = b - apnd;
+    }
+
+    if (std::abs(cdiff) < 4.4408920985006262E-16 * std::fmax(0.0, std::abs(b)))
+    {
+        ndbl++;
+        apnd = b;
+    } else if (cdiff > 0.0) {
+        apnd = (ndbl - 1.0) * d;
+    } else {
+        ndbl++;
+    }
+
+    if (ndbl >= 0.0) {
+        n = static_cast<int32_T>(static_cast<int32_T>(ndbl) - 1);
+    } else {
+        n = -1;
+    }
+
+    nm1d2 = static_cast<int32_T>(y->size[0] * y->size[1]);
+    y->size[0] = 1;
+    y->size[1] = static_cast<int32_T>(n + 1);
+    ImmedMission_emxEnsureCapacity_real_T(y, nm1d2);
+    if (static_cast<int32_T>(n + 1) > 0) {
+        y->data[0] = 0.0;
+        if (static_cast<int32_T>(n + 1) > 1) {
+            y->data[n] = apnd;
+            nm1d2 = static_cast<int32_T>(n / 2);
+            for (int32_T k{1}; static_cast<int32_T>(k - 1) <=
+                    static_cast<int32_T>(nm1d2 - 2); k = static_cast<int32_T>(k
+                    + 1)) {
+                ndbl = static_cast<real_T>(k) * d;
+                y->data[k] = ndbl;
+                y->data[static_cast<int32_T>(n - k)] = apnd - ndbl;
+            }
+
+            if (static_cast<int32_T>(nm1d2 << 1) == n) {
+                y->data[nm1d2] = apnd / 2.0;
+            } else {
+                ndbl = static_cast<real_T>(nm1d2) * d;
+                y->data[nm1d2] = ndbl;
+                y->data[static_cast<int32_T>(nm1d2 + 1)] = apnd - ndbl;
+            }
+        }
+    }
+}
+
+// Function for MATLAB Function: '<S135>/BaseWayPoint'
+static void ImmedMission_repelem(const emxArray_real_T_ImmedMission_T *x,
+    emxArray_real_T_ImmedMission_T *y)
+{
+    int32_T k;
+    k = static_cast<int32_T>(y->size[0] * y->size[1]);
+    y->size[0] = 1;
+    y->size[1] = static_cast<int32_T>(x->size[1] * 91);
+    ImmedMission_emxEnsureCapacity_real_T(y, k);
+    if (static_cast<int32_T>(x->size[1] * 91) != 0) {
+        int32_T colIdx;
+        colIdx = 0;
+        for (int32_T j{0}; j <= static_cast<int32_T>(x->size[1] - 1); j =
+                static_cast<int32_T>(j + 1)) {
+            y->data[colIdx] = x->data[j];
+            for (k = 0; k < 90; k++) {
+                y->data[static_cast<int32_T>(static_cast<int32_T>(colIdx + k) +
+                    1)] = y->data[colIdx];
+            }
+
+            colIdx = static_cast<int32_T>(colIdx + 91);
+        }
+    }
+}
+
+// Function for MATLAB Function: '<S135>/BaseWayPoint'
+static boolean_T ImmedMission_contains(const emxArray_char_T_ImmedMission_T *str)
+{
+    int32_T matchPos;
+    matchPos = 0;
+    int32_T exitg1;
+    do {
+        exitg1 = 0;
+        if (matchPos <= static_cast<int32_T>(str->size[1] - 1)) {
+            if (str->data[matchPos] == '=') {
+                exitg1 = 1;
+            } else {
+                matchPos = static_cast<int32_T>(matchPos + 1);
+            }
+        } else {
+            matchPos = -1;
+            exitg1 = 1;
+        }
+    } while (exitg1 == 0);
+
+    return static_cast<int32_T>(matchPos + 1) > 0;
+}
+
+// Function for MATLAB Function: '<S135>/BaseWayPoint'
+static void ImmedMission_find_token(const emxArray_char_T_ImmedMission_T *x,
+    int32_T *itoken, int32_T *iremain)
+{
+    int32_T n;
+    n = x->size[1];
+    *iremain = 1;
+    while ((*iremain <= n) && (x->data[static_cast<int32_T>(*iremain - 1)] ==
+                               '=')) {
+        *iremain = static_cast<int32_T>(*iremain + 1);
+    }
+
+    *itoken = *iremain;
+    while ((*iremain <= n) && (x->data[static_cast<int32_T>(*iremain - 1)] !=
+                               '=')) {
+        *iremain = static_cast<int32_T>(*iremain + 1);
+    }
+}
+
+// Function for MATLAB Function: '<S135>/BaseWayPoint'
+static void ImmedMission_strtok_nx(const emxArray_char_T_ImmedMission_T *x,
+    emxArray_char_T_ImmedMission_T *token, emxArray_char_T_ImmedMission_T
+    *remain)
+{
+    int32_T b;
+    int32_T c;
+    int32_T i;
+    int32_T iremain;
+    int32_T itoken;
+    ImmedMission_find_token(x, &itoken, &iremain);
+    if (iremain > x->size[1]) {
+        c = 0;
+        b = 0;
+    } else {
+        c = static_cast<int32_T>(iremain - 1);
+        b = x->size[1];
+    }
+
+    i = static_cast<int32_T>(remain->size[0] * remain->size[1]);
+    remain->size[0] = 1;
+    b = static_cast<int32_T>(b - c);
+    remain->size[1] = b;
+    ImmedMission_emxEnsureCapacity_char_T(remain, i);
+    for (i = 0; i <= static_cast<int32_T>(b - 1); i++) {
+        remain->data[i] = x->data[static_cast<int32_T>(c + i)];
+    }
+
+    if (itoken > static_cast<int32_T>(iremain - 1)) {
+        itoken = 0;
+        iremain = 0;
+    } else {
+        itoken = static_cast<int32_T>(itoken - 1);
+        iremain = static_cast<int32_T>(iremain - 1);
+    }
+
+    i = static_cast<int32_T>(token->size[0] * token->size[1]);
+    token->size[0] = 1;
+    b = static_cast<int32_T>(iremain - itoken);
+    token->size[1] = b;
+    ImmedMission_emxEnsureCapacity_char_T(token, i);
+    for (i = 0; i <= static_cast<int32_T>(b - 1); i++) {
+        token->data[i] = x->data[static_cast<int32_T>(itoken + i)];
+    }
+}
+
+// Function for MATLAB Function: '<S135>/BaseWayPoint'
+static void ImmedMission_strtok_nx2(const emxArray_char_T_ImmedMission_T *x,
+    emxArray_char_T_ImmedMission_T *token)
+{
+    int32_T i;
+    int32_T iremain;
+    int32_T itoken;
+    ImmedMission_find_token(x, &itoken, &iremain);
+    if (itoken > static_cast<int32_T>(iremain - 1)) {
+        itoken = 0;
+        iremain = 0;
+    } else {
+        itoken = static_cast<int32_T>(itoken - 1);
+        iremain = static_cast<int32_T>(iremain - 1);
+    }
+
+    i = static_cast<int32_T>(token->size[0] * token->size[1]);
+    token->size[0] = 1;
+    iremain = static_cast<int32_T>(iremain - itoken);
+    token->size[1] = iremain;
+    ImmedMission_emxEnsureCapacity_char_T(token, i);
+    for (i = 0; i <= static_cast<int32_T>(iremain - 1); i++) {
+        token->data[i] = x->data[static_cast<int32_T>(itoken + i)];
+    }
 }
 
 static void ImmedMission_binary_expand_op_p(emxArray_real_T_ImmedMission_T *in1,
@@ -2062,16 +3423,115 @@ static void ImmedMission_binary_expand_op_p(emxArray_real_T_ImmedMission_T *in1,
     ImmedMission_emxFree_real_T(&in1_0);
 }
 
+// Function for MATLAB Function: '<S135>/BaseWayPoint'
+static void ImmedMission_mtimes(const emxArray_real_T_ImmedMission_T *A, const
+    real_T B[9], emxArray_real_T_ImmedMission_T *C)
+{
+    int32_T j;
+    int32_T m;
+    m = A->size[0];
+    j = static_cast<int32_T>(C->size[0] * C->size[1]);
+    C->size[0] = A->size[0];
+    C->size[1] = 3;
+    ImmedMission_emxEnsureCapacity_real_T(C, j);
+    for (j = 0; j < 3; j++) {
+        int32_T boffset;
+        int32_T coffset;
+        coffset = static_cast<int32_T>(j * m);
+        boffset = static_cast<int32_T>(j * 3);
+        for (int32_T i{0}; i <= static_cast<int32_T>(m - 1); i =
+                static_cast<int32_T>(i + 1)) {
+            C->data[static_cast<int32_T>(coffset + i)] = (A->data
+                [static_cast<int32_T>(A->size[0] + i)] * B[static_cast<int32_T>
+                (boffset + 1)] + A->data[i] * B[boffset]) + A->data
+                [static_cast<int32_T>(static_cast<int32_T>(A->size[0] << 1) + i)]
+                * B[static_cast<int32_T>(boffset + 2)];
+        }
+    }
+}
+
+static real_T ImmedMission_angdiff(real_T x, real_T y)
+{
+    real_T delta;
+    delta = y - x;
+    if (std::abs(delta) > 3.1415926535897931) {
+        real_T thetaWrap;
+        if (std::isnan(delta + 3.1415926535897931) || std::isinf(delta +
+                3.1415926535897931)) {
+            thetaWrap = (rtNaN);
+        } else if (delta + 3.1415926535897931 == 0.0) {
+            thetaWrap = 0.0;
+        } else {
+            boolean_T rEQ0;
+            thetaWrap = std::fmod(delta + 3.1415926535897931, 6.2831853071795862);
+            rEQ0 = (thetaWrap == 0.0);
+            if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
+                    (rEQ0) ^ 1))) {
+                real_T q;
+                q = std::abs((delta + 3.1415926535897931) / 6.2831853071795862);
+                rEQ0 = static_cast<boolean_T>(static_cast<int32_T>((std::abs(q -
+                    std::floor(q + 0.5)) > 2.2204460492503131E-16 * q) ^ 1));
+            }
+
+            if (rEQ0) {
+                thetaWrap = 0.0;
+            } else if (delta + 3.1415926535897931 < 0.0) {
+                thetaWrap += 6.2831853071795862;
+            }
+        }
+
+        if (static_cast<boolean_T>(static_cast<int32_T>((delta +
+                3.1415926535897931 > 0.0) & (thetaWrap == 0.0)))) {
+            thetaWrap = 6.2831853071795862;
+        }
+
+        delta = thetaWrap - 3.1415926535897931;
+    }
+
+    return delta;
+}
+
+// Function for MATLAB Function: '<S135>/BaseWayPoint'
+static void ImmedMission_repmat_o(const real_T a[3], real_T varargin_1,
+    emxArray_real_T_ImmedMission_T *b)
+{
+    int32_T ibmat;
+    int32_T itilerow;
+    itilerow = static_cast<int32_T>(b->size[0] * b->size[1]);
+    b->size[0] = static_cast<int32_T>(varargin_1);
+    b->size[1] = 3;
+    ImmedMission_emxEnsureCapacity_real_T(b, itilerow);
+    for (itilerow = 0; itilerow <= static_cast<int32_T>(static_cast<int32_T>
+            (varargin_1) - 1); itilerow = static_cast<int32_T>(itilerow + 1)) {
+        b->data[itilerow] = a[0];
+    }
+
+    for (itilerow = 0; itilerow <= static_cast<int32_T>(static_cast<int32_T>
+            (varargin_1) - 1); itilerow = static_cast<int32_T>(itilerow + 1)) {
+        b->data[static_cast<int32_T>(static_cast<int32_T>(varargin_1) + itilerow)]
+            = a[1];
+    }
+
+    ibmat = static_cast<int32_T>(static_cast<int32_T>(varargin_1) << 1);
+    for (itilerow = 0; itilerow <= static_cast<int32_T>(static_cast<int32_T>
+            (varargin_1) - 1); itilerow = static_cast<int32_T>(itilerow + 1)) {
+        b->data[static_cast<int32_T>(ibmat + itilerow)] = a[2];
+    }
+}
+
 static void ImmedMission_binary_expand_op(emxArray_real_T_ImmedMission_T *in1,
-    const emxArray_real_T_ImmedMission_T *in2, const
-    emxArray_real_T_ImmedMission_T *in3)
+    const emxArray_real_T_ImmedMission_T *in2, real_T in3, real_T in4, real_T
+    in5, real_T in6, const missionCmd *in7, real_T in8, real_T in9)
 {
     emxArray_real_T_ImmedMission_T *in2_0;
+    emxArray_real_T_ImmedMission_T *tmp;
+    real_T in3_0[3];
     int32_T i;
     int32_T loop_ub;
     int32_T loop_ub_0;
     int32_T loop_ub_1;
     int32_T stride_1_0;
+    ImmedMission_emxInit_real_T(&tmp, 2);
     ImmedMission_emxInit_real_T(&in2_0, 2);
 
     // Outputs for IfAction SubSystem: '<S1>/Mode131_SqCalibr' incorporates:
@@ -2081,8 +3541,23 @@ static void ImmedMission_binary_expand_op(emxArray_real_T_ImmedMission_T *in1,
     //   TriggerPort: '<S135>/Trigger'
 
     // SwitchCase: '<S1>/Switch Case' incorporates:
+    //   DataStoreRead: '<S129>/AltitudeGCS'
+    //   Gain: '<S129>/inverse'
     //   MATLAB Function: '<S135>/BaseWayPoint'
+    //   Product: '<S138>/x*cos'
+    //   Product: '<S138>/x*sin'
+    //   Product: '<S138>/y*cos'
+    //   Product: '<S138>/y*sin'
+    //   Sum: '<S132>/Sum'
+    //   Sum: '<S138>/Sum2'
+    //   Sum: '<S138>/Sum3'
+    //   Trigonometry: '<S138>/SinCos'
+    //   UnaryMinus: '<S132>/Ze2height'
 
+    in3_0[0] = in3 * in4 + in5 * in6;
+    in3_0[1] = in5 * in4 - in3 * in6;
+    in3_0[2] = -(in8 * in9 + in7->MissionLocation.Alt);
+    ImmedMission_repmat_o(in3_0, static_cast<real_T>(in2->size[0]), tmp);
     loop_ub = in2->size[0];
     loop_ub_0 = in2->size[0];
     loop_ub_1 = in2->size[0];
@@ -2105,21 +3580,21 @@ static void ImmedMission_binary_expand_op(emxArray_real_T_ImmedMission_T *in1,
     }
 
     i = static_cast<int32_T>(in1->size[0] * in1->size[1]);
-    in1->size[0] = in3->size[0] == 1 ? in2_0->size[0] : in3->size[0];
+    in1->size[0] = tmp->size[0] == 1 ? in2_0->size[0] : tmp->size[0];
     in1->size[1] = 3;
     ImmedMission_emxEnsureCapacity_real_T(in1, i);
     loop_ub_1 = (in2_0->size[0] != 1);
-    stride_1_0 = (in3->size[0] != 1);
-    loop_ub = in3->size[0] == 1 ? in2_0->size[0] : in3->size[0];
+    stride_1_0 = (tmp->size[0] != 1);
+    loop_ub = tmp->size[0] == 1 ? in2_0->size[0] : tmp->size[0];
     for (i = 0; i < 3; i++) {
         for (loop_ub_0 = 0; loop_ub_0 <= static_cast<int32_T>(loop_ub - 1);
                 loop_ub_0++) {
             in1->data[static_cast<int32_T>(loop_ub_0 + static_cast<int32_T>
                 (in1->size[0] * i))] = in2_0->data[static_cast<int32_T>(
                 static_cast<int32_T>(loop_ub_0 * loop_ub_1) +
-                static_cast<int32_T>(in2_0->size[0] * i))] + in3->data[
+                static_cast<int32_T>(in2_0->size[0] * i))] + tmp->data[
                 static_cast<int32_T>(static_cast<int32_T>(loop_ub_0 * stride_1_0)
-                + static_cast<int32_T>(in3->size[0] * i))];
+                + static_cast<int32_T>(tmp->size[0] * i))];
         }
     }
 
@@ -2127,6 +3602,221 @@ static void ImmedMission_binary_expand_op(emxArray_real_T_ImmedMission_T *in1,
     // End of Outputs for SubSystem: '<S129>/WayPointGen'
     // End of Outputs for SubSystem: '<S1>/Mode131_SqCalibr'
     ImmedMission_emxFree_real_T(&in2_0);
+    ImmedMission_emxFree_real_T(&tmp);
+}
+
+// Function for MATLAB Function: '<S135>/BaseWayPoint'
+static boolean_T ImmedMission_strcmp_ho(const emxArray_char_T_ImmedMission_T *a)
+{
+    static const char_T c[128]{ '\x00', '\x01', '\x02', '\x03', '\x04', '\x05',
+        '\x06', '\x07', '\x08', '\x09', '\x0a', '\x0b', '\x0c', '\x0d', '\x0e',
+        '\x0f', '\x10', '\x11', '\x12', '\x13', '\x14', '\x15', '\x16', '\x17',
+        '\x18', '\x19', '\x1a', '\x1b', '\x1c', '\x1d', '\x1e', '\x1f', ' ', '!',
+        '\"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/',
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=',
+        '>', '?', '@', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
+        'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
+        'z', '[', '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g',
+        'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
+        'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~', '\x7f' };
+
+    static const char_T d[12]{ 'M', 'a', 'x', 'R', 'o', 'l', 'l', 'A', 'n', 'g',
+        'l', 'e' };
+
+    emxArray_char_T_ImmedMission_T *aTmp;
+    int32_T loop_ub;
+    boolean_T b_bool;
+    ImmedMission_emxInit_char_T(&aTmp, 2);
+    if (a->size[1] == 0) {
+        aTmp->size[0] = 1;
+        aTmp->size[1] = 0;
+    } else {
+        int32_T i;
+        i = static_cast<int32_T>(aTmp->size[0] * aTmp->size[1]);
+        aTmp->size[0] = 1;
+        aTmp->size[1] = a->size[1];
+        ImmedMission_emxEnsureCapacity_char_T(aTmp, i);
+        loop_ub = static_cast<int32_T>(a->size[1] - 1);
+        for (i = 0; i <= loop_ub; i++) {
+            aTmp->data[i] = a->data[i];
+        }
+    }
+
+    b_bool = false;
+    if (aTmp->size[1] == 12) {
+        loop_ub = 0;
+        int32_T exitg1;
+        do {
+            exitg1 = 0;
+            if (loop_ub < 12) {
+                if (c[static_cast<int32_T>(static_cast<int32_T>
+                                           (static_cast<uint8_T>(aTmp->
+                        data[loop_ub])) & 127)] != c[static_cast<int32_T>
+                        (d[loop_ub])]) {
+                    exitg1 = 1;
+                } else {
+                    loop_ub = static_cast<int32_T>(loop_ub + 1);
+                }
+            } else {
+                b_bool = true;
+                exitg1 = 1;
+            }
+        } while (exitg1 == 0);
+    }
+
+    ImmedMission_emxFree_char_T(&aTmp);
+    return b_bool;
+}
+
+// Function for MATLAB Function: '<S135>/BaseWayPoint'
+static boolean_T ImmedMission_strcmp_hoc(const emxArray_char_T_ImmedMission_T *a)
+{
+    static const char_T c[128]{ '\x00', '\x01', '\x02', '\x03', '\x04', '\x05',
+        '\x06', '\x07', '\x08', '\x09', '\x0a', '\x0b', '\x0c', '\x0d', '\x0e',
+        '\x0f', '\x10', '\x11', '\x12', '\x13', '\x14', '\x15', '\x16', '\x17',
+        '\x18', '\x19', '\x1a', '\x1b', '\x1c', '\x1d', '\x1e', '\x1f', ' ', '!',
+        '\"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/',
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=',
+        '>', '?', '@', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
+        'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
+        'z', '[', '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g',
+        'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
+        'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~', '\x7f' };
+
+    static const char_T d[15]{ 'C', 'l', 'i', 'm', 'b', 'A', 'n', 'g', 'l', 'e',
+        'L', 'i', 'm', 'i', 't' };
+
+    emxArray_char_T_ImmedMission_T *aTmp;
+    int32_T loop_ub;
+    boolean_T b_bool;
+    ImmedMission_emxInit_char_T(&aTmp, 2);
+    if (a->size[1] == 0) {
+        aTmp->size[0] = 1;
+        aTmp->size[1] = 0;
+    } else {
+        int32_T i;
+        i = static_cast<int32_T>(aTmp->size[0] * aTmp->size[1]);
+        aTmp->size[0] = 1;
+        aTmp->size[1] = a->size[1];
+        ImmedMission_emxEnsureCapacity_char_T(aTmp, i);
+        loop_ub = static_cast<int32_T>(a->size[1] - 1);
+        for (i = 0; i <= loop_ub; i++) {
+            aTmp->data[i] = a->data[i];
+        }
+    }
+
+    b_bool = false;
+    if (aTmp->size[1] == 15) {
+        loop_ub = 0;
+        int32_T exitg1;
+        do {
+            exitg1 = 0;
+            if (loop_ub < 15) {
+                if (c[static_cast<int32_T>(static_cast<int32_T>
+                                           (static_cast<uint8_T>(aTmp->
+                        data[loop_ub])) & 127)] != c[static_cast<int32_T>
+                        (d[loop_ub])]) {
+                    exitg1 = 1;
+                } else {
+                    loop_ub = static_cast<int32_T>(loop_ub + 1);
+                }
+            } else {
+                b_bool = true;
+                exitg1 = 1;
+            }
+        } while (exitg1 == 0);
+    }
+
+    ImmedMission_emxFree_char_T(&aTmp);
+    return b_bool;
+}
+
+// Function for MATLAB Function: '<S135>/BaseWayPoint'
+static boolean_T ImmedMission_strcmp_hocj(const emxArray_char_T_ImmedMission_T
+    *a)
+{
+    static const char_T c[128]{ '\x00', '\x01', '\x02', '\x03', '\x04', '\x05',
+        '\x06', '\x07', '\x08', '\x09', '\x0a', '\x0b', '\x0c', '\x0d', '\x0e',
+        '\x0f', '\x10', '\x11', '\x12', '\x13', '\x14', '\x15', '\x16', '\x17',
+        '\x18', '\x19', '\x1a', '\x1b', '\x1c', '\x1d', '\x1e', '\x1f', ' ', '!',
+        '\"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/',
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=',
+        '>', '?', '@', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
+        'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
+        'z', '[', '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g',
+        'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
+        'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~', '\x7f' };
+
+    static const char_T d[14]{ 'D', 'i', 'v', 'e', 'A', 'n', 'g', 'l', 'e', 'L',
+        'i', 'm', 'i', 't' };
+
+    emxArray_char_T_ImmedMission_T *aTmp;
+    int32_T loop_ub;
+    boolean_T b_bool;
+    ImmedMission_emxInit_char_T(&aTmp, 2);
+    if (a->size[1] == 0) {
+        aTmp->size[0] = 1;
+        aTmp->size[1] = 0;
+    } else {
+        int32_T i;
+        i = static_cast<int32_T>(aTmp->size[0] * aTmp->size[1]);
+        aTmp->size[0] = 1;
+        aTmp->size[1] = a->size[1];
+        ImmedMission_emxEnsureCapacity_char_T(aTmp, i);
+        loop_ub = static_cast<int32_T>(a->size[1] - 1);
+        for (i = 0; i <= loop_ub; i++) {
+            aTmp->data[i] = a->data[i];
+        }
+    }
+
+    b_bool = false;
+    if (aTmp->size[1] == 14) {
+        loop_ub = 0;
+        int32_T exitg1;
+        do {
+            exitg1 = 0;
+            if (loop_ub < 14) {
+                if (c[static_cast<int32_T>(static_cast<int32_T>
+                                           (static_cast<uint8_T>(aTmp->
+                        data[loop_ub])) & 127)] != c[static_cast<int32_T>
+                        (d[loop_ub])]) {
+                    exitg1 = 1;
+                } else {
+                    loop_ub = static_cast<int32_T>(loop_ub + 1);
+                }
+            } else {
+                b_bool = true;
+                exitg1 = 1;
+            }
+        } while (exitg1 == 0);
+    }
+
+    ImmedMission_emxFree_char_T(&aTmp);
+    return b_bool;
+}
+
+// Function for MATLAB Function: '<S135>/BaseWayPoint'
+static uavDubinsConnection_ImmedMission_T
+    *ImmedMission_uavDubinsConnection_uavDubinsConnection
+    (uavDubinsConnection_ImmedMission_T *b_this, real_T varargin_2, real_T
+     varargin_4)
+{
+    uavDubinsConnection_ImmedMission_T *c_this;
+    real_T b_x;
+    c_this = b_this;
+    b_this->AirSpeed = 10.0;
+    b_this->MaxRollAngle = varargin_4;
+    b_x = b_this->MaxRollAngle;
+    b_this->MinTurningRadius = b_this->AirSpeed * b_this->AirSpeed / (9.8 * std::
+        tan(b_x));
+    b_this->AirSpeed = varargin_2;
+    b_x = b_this->MaxRollAngle;
+    b_this->MinTurningRadius = b_this->AirSpeed * b_this->AirSpeed / (9.8 * std::
+        tan(b_x));
+    b_x = b_this->MaxRollAngle;
+    b_this->MinTurningRadius = b_this->AirSpeed * b_this->AirSpeed / (9.8 * std::
+        tan(b_x));
+    return c_this;
 }
 
 // System initialize for referenced model: 'ImmedMission'
@@ -2134,8 +3824,9 @@ void ImmedMission_Init(boolean_T rty_ControlSwitch[2], FixedWingGuidanceBus
                        *rty_GuidanceCMD, DW_ImmedMission_f_T *localDW,
                        ZCE_ImmedMission_T *localZCE)
 {
+    FILE* a;
     real_T Omega;
-    int32_T ForEach_itr_c;
+    int32_T i;
 
     // Start for SwitchCase: '<S1>/Switch Case'
     localDW->SwitchCase_ActiveSubsystem = -1;
@@ -2190,38 +3881,37 @@ void ImmedMission_Init(boolean_T rty_ControlSwitch[2], FixedWingGuidanceBus
     localDW->obj_j.CacheInputSizes = false;
     localDW->objisempty_k = true;
     localDW->obj_j.isInitialized = 1;
-    for (ForEach_itr_c = 0; ForEach_itr_c < 8; ForEach_itr_c++) {
-        localDW->obj_j.inputVarSize[0].f1[ForEach_itr_c] = 1U;
+    for (i = 0; i < 8; i++) {
+        localDW->obj_j.inputVarSize[0].f1[i] = 1U;
     }
 
-    ForEach_itr_c = localDW->SFunction_DIMS2_j[0];
+    i = localDW->SFunction_DIMS2_j[0];
     if (localDW->SFunction_DIMS2_j[0] < 0) {
-        ForEach_itr_c = 0;
+        i = 0;
     }
 
-    localDW->obj_j.inputVarSize[1].f1[0] = static_cast<uint32_T>(ForEach_itr_c);
-    ForEach_itr_c = localDW->SFunction_DIMS2_j[1];
+    localDW->obj_j.inputVarSize[1].f1[0] = static_cast<uint32_T>(i);
+    i = localDW->SFunction_DIMS2_j[1];
     if (localDW->SFunction_DIMS2_j[1] < 0) {
-        ForEach_itr_c = 0;
+        i = 0;
     }
 
-    localDW->obj_j.inputVarSize[1].f1[1] = static_cast<uint32_T>(ForEach_itr_c);
-    for (ForEach_itr_c = 0; ForEach_itr_c < 6; ForEach_itr_c++) {
-        localDW->obj_j.inputVarSize[1].f1[static_cast<int32_T>(ForEach_itr_c + 2)]
-            = 1U;
+    localDW->obj_j.inputVarSize[1].f1[1] = static_cast<uint32_T>(i);
+    for (i = 0; i < 6; i++) {
+        localDW->obj_j.inputVarSize[1].f1[static_cast<int32_T>(i + 2)] = 1U;
     }
 
-    for (ForEach_itr_c = 0; ForEach_itr_c < 8; ForEach_itr_c++) {
-        localDW->obj_j.inputVarSize[2].f1[ForEach_itr_c] = 1U;
+    for (i = 0; i < 8; i++) {
+        localDW->obj_j.inputVarSize[2].f1[i] = 1U;
     }
 
     // End of Start for MATLABSystem: '<S68>/TrackSimPath'
 
     // InitializeConditions for MATLABSystem: '<S68>/TrackSimPath'
     localDW->obj_j.WaypointIndex = 1.0;
-    for (ForEach_itr_c = 0; ForEach_itr_c < 2700; ForEach_itr_c++) {
+    for (i = 0; i < 2700; i++) {
         // InitializeConditions for MATLABSystem: '<S68>/TrackSimPath'
-        localDW->obj_j.WaypointsInternal[ForEach_itr_c] = (rtNaN);
+        localDW->obj_j.WaypointsInternal[i] = (rtNaN);
     }
 
     // End of SystemInitialize for SubSystem: '<S65>/HeadingControl'
@@ -2229,6 +3919,14 @@ void ImmedMission_Init(boolean_T rty_ControlSwitch[2], FixedWingGuidanceBus
 
     // SystemInitialize for IfAction SubSystem: '<S1>/Mode131_SqCalibr'
     // SystemInitialize for Triggered SubSystem: '<S129>/WayPointGen'
+    // SystemInitialize for MATLAB Function: '<S135>/BaseWayPoint'
+    a = NULL;
+    for (i = 0; i < 20; i++) {
+        localDW->eml_openfiles[i] = a;
+    }
+
+    // End of SystemInitialize for MATLAB Function: '<S135>/BaseWayPoint'
+
     // Start for MATLABSystem: '<S135>/RotateATMissionHdg'
     localDW->objisempty_o = true;
     localDW->obj_n.isInitialized = 1;
@@ -2243,28 +3941,27 @@ void ImmedMission_Init(boolean_T rty_ControlSwitch[2], FixedWingGuidanceBus
     localDW->obj.CacheInputSizes = false;
     localDW->objisempty = true;
     localDW->obj.isInitialized = 1;
-    for (ForEach_itr_c = 0; ForEach_itr_c < 8; ForEach_itr_c++) {
-        localDW->obj.inputVarSize[0].f1[ForEach_itr_c] = 1U;
+    for (i = 0; i < 8; i++) {
+        localDW->obj.inputVarSize[0].f1[i] = 1U;
     }
 
     localDW->obj.inputVarSize[1].f1[0] = 0U;
     localDW->obj.inputVarSize[1].f1[1] = 0U;
-    for (ForEach_itr_c = 0; ForEach_itr_c < 6; ForEach_itr_c++) {
-        localDW->obj.inputVarSize[1].f1[static_cast<int32_T>(ForEach_itr_c + 2)]
-            = 1U;
+    for (i = 0; i < 6; i++) {
+        localDW->obj.inputVarSize[1].f1[static_cast<int32_T>(i + 2)] = 1U;
     }
 
-    for (ForEach_itr_c = 0; ForEach_itr_c < 8; ForEach_itr_c++) {
-        localDW->obj.inputVarSize[2].f1[ForEach_itr_c] = 1U;
+    for (i = 0; i < 8; i++) {
+        localDW->obj.inputVarSize[2].f1[i] = 1U;
     }
 
     // End of Start for MATLABSystem: '<S129>/Waypoint Follower'
 
     // InitializeConditions for MATLABSystem: '<S129>/Waypoint Follower'
     localDW->obj.WaypointIndex = 1.0;
-    for (ForEach_itr_c = 0; ForEach_itr_c < 30723; ForEach_itr_c++) {
+    for (i = 0; i < 30723; i++) {
         // InitializeConditions for MATLABSystem: '<S129>/Waypoint Follower'
-        localDW->obj.WaypointsInternal[ForEach_itr_c] = (rtNaN);
+        localDW->obj.WaypointsInternal[i] = (rtNaN);
     }
 
     // End of SystemInitialize for SubSystem: '<S1>/Mode131_SqCalibr'
@@ -2299,11 +3996,11 @@ void ImmedMission_Init(boolean_T rty_ControlSwitch[2], FixedWingGuidanceBus
 
     // SystemInitialize for IfAction SubSystem: '<S1>/AvoidInterPlaneCollision'
     // SystemInitialize for Iterator SubSystem: '<S14>/For Each Subsystem'
-    for (ForEach_itr_c = 0; ForEach_itr_c < 128; ForEach_itr_c++) {
+    for (i = 0; i < 128; i++) {
         // SystemInitialize for Enabled SubSystem: '<S18>/NoPredNaN'
         // SystemInitialize for Enabled SubSystem: '<S28>/DivisionByZeroProtection' 
-        ImmedMission_DivisionByZeroProtection_Init(&localDW->
-            CoreSubsys_d[ForEach_itr_c].Omega);
+        ImmedMission_DivisionByZeroProtection_Init(&localDW->CoreSubsys_d[i].
+            Omega);
 
         // End of SystemInitialize for SubSystem: '<S28>/DivisionByZeroProtection' 
         // End of SystemInitialize for SubSystem: '<S18>/NoPredNaN'
@@ -2400,7 +4097,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
     real_T rtb_U;
     real_T rtb_ProductN;
     real_T rtb_ProductE;
-    static const real_T b_a[722]{ 1.0, 0.0, 0.99984769515639127,
+    static const real_T a_0[722]{ 1.0, 0.0, 0.99984769515639127,
         0.017452406437283512, 0.99939082701909576, 0.034899496702500969,
         0.99862953475457383, 0.052335956242943835, 0.9975640502598242,
         0.0697564737441253, 0.99619469809174555, 0.087155742747658166,
@@ -2641,7 +4338,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
         -0.034899496702500823, 0.99984769515639127, -0.01745240643728356, 1.0,
         -2.4492935982947064E-16 };
 
-    static const int16_T d[91]{ 270, 271, 272, 273, 274, 275, 276, 277, 278, 279,
+    static const int16_T n[91]{ 270, 271, 272, 273, 274, 275, 276, 277, 278, 279,
         280, 281, 282, 283, 284, 285, 286, 287, 288, 289, 290, 291, 292, 293,
         294, 295, 296, 297, 298, 299, 300, 301, 302, 303, 304, 305, 306, 307,
         308, 309, 310, 311, 312, 313, 314, 315, 316, 317, 318, 319, 320, 321,
@@ -2649,16 +4346,41 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
         336, 337, 338, 339, 340, 341, 342, 343, 344, 345, 346, 347, 348, 349,
         350, 351, 352, 353, 354, 355, 356, 357, 358, 359, 0 };
 
+    static const char_T l[10]{ 'c', 'o', 'n', 'f', 'i', 'g', '.', 'i', 'n', 'i'
+    };
+
+    DubinsObjSingleton_ImmedMission_T *obj;
+    emxArray_char_T_ImmedMission_T *b_remainder;
+    emxArray_char_T_ImmedMission_T *curKey;
+    emxArray_char_T_ImmedMission_T *curLine;
+    emxArray_char_T_ImmedMission_T *curSection;
+    emxArray_char_T_ImmedMission_T *curVal;
+    emxArray_char_T_ImmedMission_T *data;
+    emxArray_char_T_ImmedMission_T *data_0;
+    emxArray_char_T_ImmedMission_T *data_1;
+    emxArray_char_T_ImmedMission_T *data_2;
+    emxArray_char_T_ImmedMission_T *data_3;
+    emxArray_char_T_ImmedMission_T *o;
+    emxArray_char_T_ImmedMission_T *ret;
+    emxArray_char_T_ImmedMission_T *tmp_4;
+    emxArray_char_T_ImmedMission_T *tmp_5;
+    emxArray_char_T_ImmedMission_T *tmp_6;
+    emxArray_char_T_ImmedMission_T *tmp_7;
+    emxArray_char_T_ImmedMission_T *tmp_8;
+    emxArray_char_T_ImmedMission_T *tmp_9;
+    emxArray_char_T_ImmedMission_T *tmp_a;
+    emxArray_char_T_ImmedMission_T *tmp_b;
     emxArray_real_T_ImmedMission_T MatrixConcatenate_d;
     emxArray_real_T_ImmedMission_T *WayPoint;
     emxArray_real_T_ImmedMission_T *WayPoint_0;
-    emxArray_real_T_ImmedMission_T *d_b;
-    emxArray_real_T_ImmedMission_T *e;
+    emxArray_real_T_ImmedMission_T *q;
     emxArray_real_T_ImmedMission_T *rotWayPoint;
     emxArray_real_T_ImmedMission_T *rotWayPoint_0;
     emxArray_real_T_ImmedMission_T *step;
     emxArray_real_T_ImmedMission_T *tmp;
     emxArray_real_T_ImmedMission_T *tmp_1;
+    emxArray_real_T_ImmedMission_T *tmp_2;
+    emxArray_real_T_ImmedMission_T *tmp_3;
     emxArray_real_T_ImmedMission_T *waypointsIn;
     emxArray_real_T_ImmedMission_T *y;
     real_T rtb_ImpAsg_InsertedFor_StatePred_at_inport_0[384];
@@ -2690,17 +4412,18 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
     real_T rtb_Switch;
     real_T rtb_Switch_gh;
     real_T rtb_Switch_m2;
-    real_T rtb_Switch_tmp;
+    real_T stateNew_idx_0;
     real_T t;
     int32_T MatrixConcatenate_DIMS1[2];
     int32_T ForEach_itr;
     int32_T ForEach_itr_c;
-    int32_T coffset;
+    int32_T i;
     int32_T rtb_BiasNumUAV;
     int32_T rtb_BiasOldIdx;
     uint32_T inSize[8];
     uint32_T tmp_0;
     int16_T b_data[361];
+    char_T b_obj_Value[10];
     int8_T waypointsIn_0[2];
     int8_T rtAction;
     int8_T rtPrevAction;
@@ -2710,7 +4433,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
     boolean_T idx_data[128];
     boolean_T rtb_IsNaN[7];
     boolean_T rtb_Compare_lh;
-    ImmedMission_emxInit_real_T(&e, 2);
+    ImmedMission_emxInit_real_T(&q, 2);
 
     // Chart: '<S1>/PreemptableMissionModeSelector' incorporates:
     //   Memory: '<S1>/Memory'
@@ -2916,15 +4639,15 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
 
         // End of Signum: '<S231>/Sign1'
         rtb_Switch_m2 *= -(rtb_Abs1 + -90.0) + 90.0;
-        coffset = 180;
+        i = 180;
     } else {
-        coffset = 0;
+        i = 0;
     }
 
     // End of Switch: '<S231>/Switch'
 
     // Sum: '<S227>/Sum'
-    rtb_Sum_dq = static_cast<real_T>(coffset) + rtb_Sum1[1];
+    rtb_Sum_dq = static_cast<real_T>(i) + rtb_Sum1[1];
 
     // Switch: '<S232>/Switch' incorporates:
     //   Abs: '<S232>/Abs'
@@ -2966,7 +4689,6 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
     // SwitchCase: '<S1>/Switch Case' incorporates:
     //   DataStoreRead: '<S2>/LatitudeGCS'
     //   Switch: '<S240>/Switch'
-    //   Trigonometry: '<S155>/Trigonometric Function1'
     //   Trigonometry: '<S178>/Trigonometric Function1'
     //   Trigonometry: '<S206>/Trigonometric Function1'
     //   Trigonometry: '<S246>/Trigonometric Function1'
@@ -2983,8 +4705,8 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
 
     // Unit Conversion - from: deg to: rad
     // Expression: output = (0.0174533*input) + (0)
-    rtb_Switch_tmp = 0.017453292519943295 * LatitudeGCS;
-    rtb_QuaternionInterpolation_idx_3 = std::sin(rtb_Switch_tmp);
+    stateNew_idx_0 = 0.017453292519943295 * LatitudeGCS;
+    rtb_QuaternionInterpolation_idx_3 = std::sin(stateNew_idx_0);
 
     // End of Outputs for SubSystem: '<S249>/LatLon2NorthEast'
     // End of Outputs for SubSystem: '<S3>/For Each Subsystem'
@@ -3015,14 +4737,14 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
     rtb_Sum_dq = rtb_Sum1[0] / rt_atan2d_snf(1.0, rtb_Switch_m2 *
         0.99330562000985867 / rtb_Sum_dq);
 
-    // Outputs for IfAction SubSystem: '<S1>/Mode131_SqCalibr' incorporates:
-    //   ActionPort: '<S9>/Action Port'
-
     // Outputs for IfAction SubSystem: '<S1>/Mode132_pAttack' incorporates:
     //   ActionPort: '<S10>/Action Port'
 
     // Outputs for IfAction SubSystem: '<S1>/Mode128_DetailedInsp' incorporates:
     //   ActionPort: '<S6>/Action Port'
+
+    // Outputs for IfAction SubSystem: '<S1>/Mode131_SqCalibr' incorporates:
+    //   ActionPort: '<S9>/Action Port'
 
     // Outputs for IfAction SubSystem: '<S1>/Mode129_CollAvoidance' incorporates:
     //   ActionPort: '<S7>/Action Port'
@@ -3032,7 +4754,6 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
 
     // Outputs for Atomic SubSystem: '<S249>/LatLon2NorthEast'
     // SwitchCase: '<S1>/Switch Case' incorporates:
-    //   Trigonometry: '<S153>/Trigonometric Function'
     //   Trigonometry: '<S176>/Trigonometric Function'
     //   Trigonometry: '<S204>/Trigonometric Function'
     //   Trigonometry: '<S244>/Trigonometric Function'
@@ -3043,14 +4764,14 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
 
     // Unit Conversion - from: deg to: rad
     // Expression: output = (0.0174533*input) + (0)
-    rtb_QuaternionInterpolation_idx_2 = std::cos(rtb_Switch_tmp);
+    rtb_QuaternionInterpolation_idx_2 = std::cos(stateNew_idx_0);
 
     // End of Outputs for SubSystem: '<S249>/LatLon2NorthEast'
     // End of Outputs for SubSystem: '<S3>/For Each Subsystem'
     // End of Outputs for SubSystem: '<S1>/Mode129_CollAvoidance'
+    // End of Outputs for SubSystem: '<S1>/Mode131_SqCalibr'
     // End of Outputs for SubSystem: '<S1>/Mode128_DetailedInsp'
     // End of Outputs for SubSystem: '<S1>/Mode132_pAttack'
-    // End of Outputs for SubSystem: '<S1>/Mode131_SqCalibr'
 
     // Product: '<S229>/dEast' incorporates:
     //   Constant: '<S244>/Constant3'
@@ -3162,15 +4883,15 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
 
             // End of Signum: '<S261>/Sign1'
             rtb_Sum_n *= -(rtb_Abs1_k + -90.0) + 90.0;
-            coffset = 180;
+            i = 180;
         } else {
-            coffset = 0;
+            i = 0;
         }
 
         // End of Switch: '<S261>/Switch'
 
         // Sum: '<S257>/Sum'
-        rtb_Product2 = static_cast<real_T>(coffset) + rtb_Sum1[1];
+        rtb_Product2 = static_cast<real_T>(i) + rtb_Sum1[1];
 
         // Switch: '<S262>/Switch' incorporates:
         //   Abs: '<S262>/Abs'
@@ -3300,9 +5021,9 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
 
         // Sum: '<S249>/Sum of Elements'
         tmp_0 = 0U;
-        for (coffset = 0; coffset < 7; coffset++) {
+        for (i = 0; i < 7; i++) {
             tmp_0 = static_cast<uint32_T>(tmp_0 + static_cast<uint32_T>
-                (rtb_IsNaN[coffset]));
+                (rtb_IsNaN[i]));
         }
 
         // Switch: '<S249>/Switch' incorporates:
@@ -3339,17 +5060,17 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
         // End of Outputs for SubSystem: '<S249>/LatLon2NorthEast'
 
         // ForEachSliceAssignment generated from: '<S249>/OtherUAVNED'
-        for (coffset = 0; coffset < 7; coffset++) {
+        for (i = 0; i < 7; i++) {
             // Switch: '<S249>/Switch' incorporates:
             //   ForEachSliceAssignment generated from: '<S249>/OtherUAVNED'
 
             if (rtb_Compare_lh) {
                 localDW->ImpAsg_InsertedFor_OtherUAVNED_at_inport_0[static_cast<
-                    int32_T>(ForEach_itr + static_cast<int32_T>(coffset << 7))] =
-                    rtb_Switch_o[coffset];
+                    int32_T>(ForEach_itr + static_cast<int32_T>(i << 7))] =
+                    rtb_Switch_o[i];
             } else {
                 localDW->ImpAsg_InsertedFor_OtherUAVNED_at_inport_0[static_cast<
-                    int32_T>(ForEach_itr + static_cast<int32_T>(coffset << 7))] =
+                    int32_T>(ForEach_itr + static_cast<int32_T>(i << 7))] =
                     (rtNaN);
             }
         }
@@ -3360,6 +5081,16 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
     // End of Outputs for SubSystem: '<S3>/For Each Subsystem'
 
     // SwitchCase: '<S1>/Switch Case' incorporates:
+    //   Abs: '<S140>/Abs1'
+    //   Abs: '<S146>/Abs1'
+    //   Abs: '<S163>/Abs1'
+    //   Abs: '<S169>/Abs1'
+    //   Abs: '<S261>/Abs1'
+    //   Abs: '<S267>/Abs1'
+    //   Abs: '<S46>/Abs1'
+    //   Abs: '<S52>/Abs1'
+    //   Abs: '<S79>/Abs1'
+    //   Abs: '<S85>/Abs1'
     //   BusCreator: '<S2>/FixedWingGuidanceStateBus'
     //   Concatenate: '<S135>/Matrix Concatenate'
     //   Constant: '<S125>/ControlHdg'
@@ -3379,26 +5110,61 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
     //   Constant: '<S35>/ControlSpd'
     //   Constant: '<S35>/ShiftSimUAV'
     //   Constant: '<S5>/ShiftSimUAV'
+    //   DataTypeConversion: '<S129>/Param4'
     //   ForEachSliceAssignment generated from: '<S249>/OtherUAVNED'
     //   ForEachSliceSelector generated from: '<S18>/StateNow'
+    //   Gain: '<S129>/Down2Height'
     //   Gain: '<S17>/Gravity'
     //   Gain: '<S210>/Gravity'
     //   Gain: '<S224>/Gain1'
     //   Gain: '<S225>/Gain1'
+    //   Gain: '<S65>/Down2Up'
     //   MATLAB Function: '<S135>/BaseWayPoint'
     //   MATLABSystem: '<S129>/Waypoint Follower'
     //   Product: '<S17>/HorizSpd'
     //   Product: '<S210>/HorizSpd'
+    //   Product: '<S259>/dEast'
+    //   Product: '<S259>/dNorth'
     //   Product: '<S28>/HorizSpd'
+    //   Product: '<S44>/dEast'
+    //   Product: '<S77>/dEast'
+    //   Product: '<S77>/dNorth'
     //   QuatInterp: '<S98>/Quaternion Interpolation'
+    //   Sqrt: '<S36>/sqrt'
+    //   Sum: '<S137>/Sum'
+    //   Sum: '<S158>/Sum'
+    //   Sum: '<S160>/Sum'
     //   Sum: '<S18>/Sum of Elements'
+    //   Sum: '<S228>/Sum'
     //   Sum: '<S249>/Sum of Elements'
+    //   Sum: '<S43>/Sum'
+    //   Sum: '<S65>/Sum'
     //   Sum: '<S71>/MinusVecCenter2UAV'
+    //   Sum: '<S75>/Sum'
+    //   Sum: '<S76>/Sum'
+    //   Sum: '<S77>/Sum2'
+    //   Sum: '<S77>/Sum3'
+    //   Switch: '<S143>/Switch'
+    //   Switch: '<S149>/Switch'
+    //   Switch: '<S166>/Switch'
+    //   Switch: '<S172>/Switch'
+    //   Switch: '<S234>/Switch'
+    //   Switch: '<S240>/Switch'
+    //   Switch: '<S270>/Switch'
+    //   Switch: '<S35>/Switch'
+    //   Switch: '<S49>/Switch'
+    //   Switch: '<S55>/Switch'
+    //   Switch: '<S82>/Switch'
+    //   Switch: '<S88>/Switch'
+    //   Trigonometry: '<S138>/SinCos'
     //   Trigonometry: '<S17>/Cos'
     //   Trigonometry: '<S17>/Tan'
     //   Trigonometry: '<S210>/Cos'
     //   Trigonometry: '<S210>/Tan'
+    //   Trigonometry: '<S259>/SinCos'
     //   Trigonometry: '<S28>/Cos'
+    //   UnitConversion: '<S60>/Unit Conversion'
+    //   UnitConversion: '<S93>/Unit Conversion'
 
     rtPrevAction = localDW->SwitchCase_ActiveSubsystem;
     switch (localDW->ImmedMission_a) {
@@ -3535,15 +5301,15 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
 
                 // End of Signum: '<S46>/Sign1'
                 rtb_Switch_m2 *= -(rtb_Abs1_k + -90.0) + 90.0;
-                coffset = 180;
+                i = 180;
             } else {
-                coffset = 0;
+                i = 0;
             }
 
             // End of Switch: '<S46>/Switch'
 
             // Sum: '<S42>/Sum'
-            rtb_Sum_n = static_cast<real_T>(coffset) + rtb_Sum1[1];
+            rtb_Sum_n = static_cast<real_T>(i) + rtb_Sum1[1];
 
             // Switch: '<S47>/Switch' incorporates:
             //   Abs: '<S47>/Abs'
@@ -3771,17 +5537,16 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                 boolean_T rtb_Ctrl;
                 rtb_Compare_lh = false;
                 rtb_Ctrl = true;
-                ForEach_itr = 0;
+                i = 0;
                 exitg1 = false;
-                while ((!exitg1) && (ForEach_itr < 3)) {
-                    if ((localDW->obj_c.OrbitCenterInternal[ForEach_itr] ==
-                            rtb_TmpSignalConversionAtOrbitFollowerInport2[ForEach_itr])
-                        || (std::isnan(localDW->
-                                       obj_c.OrbitCenterInternal[ForEach_itr]) &&
+                while ((!exitg1) && (i < 3)) {
+                    if ((localDW->obj_c.OrbitCenterInternal[i] ==
+                            rtb_TmpSignalConversionAtOrbitFollowerInport2[i]) ||
+                        (std::isnan(localDW->obj_c.OrbitCenterInternal[i]) &&
                             std::isnan
-                            (rtb_TmpSignalConversionAtOrbitFollowerInport2[ForEach_itr])))
+                            (rtb_TmpSignalConversionAtOrbitFollowerInport2[i])))
                     {
-                        ForEach_itr = static_cast<int32_T>(ForEach_itr + 1);
+                        i = static_cast<int32_T>(i + 1);
                     } else {
                         rtb_Ctrl = false;
                         exitg1 = true;
@@ -3792,9 +5557,10 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                     rtb_Compare_lh = true;
                 }
 
-                if ((static_cast<boolean_T>(static_cast<int32_T>(static_cast<
-                        int32_T>(rtb_Compare_lh) ^ 1))) ||
-                        (!(localDW->obj_c.OrbitRadiusInternal == 0.1))) {
+                if ((static_cast<boolean_T>(static_cast<int32_T>
+                                            (static_cast<int32_T>(rtb_Compare_lh)
+                       ^ 1))) || (!(localDW->obj_c.OrbitRadiusInternal == 0.1)))
+                {
                     localDW->obj_c.NumCircles = 0.0;
                     localDW->obj_c.OrbitCenterInternal[0] =
                         rtb_TmpSignalConversionAtOrbitFollowerInport2[0];
@@ -3816,12 +5582,12 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                 rtb_Sum1[1] = rtb_TmpSignalConversionAtOrbitFollowerInport1[1];
                 xyCenter[0] = rtb_TmpSignalConversionAtOrbitFollowerInport2[0];
                 xyCenter[1] = rtb_TmpSignalConversionAtOrbitFollowerInport2[1];
-                rtb_Switch_tmp = rtb_Sum1[0] - xyCenter[0];
-                distToCenter_tmp[0] = rtb_Switch_tmp;
+                stateNew_idx_0 = rtb_Sum1[0] - xyCenter[0];
+                distToCenter_tmp[0] = stateNew_idx_0;
                 rtb_Sum_n = rtb_Sum1[1] - xyCenter[1];
                 distToCenter_tmp[1] = rtb_Sum_n;
-                rtb_Switch = std::sqrt(rtb_Sum_n * rtb_Sum_n + rtb_Switch_tmp *
-                                       rtb_Switch_tmp);
+                rtb_Switch = std::sqrt(rtb_Sum_n * rtb_Sum_n + stateNew_idx_0 *
+                                       stateNew_idx_0);
                 rtb_HeadingAngle = std::abs(localDW->obj_c.LookaheadDistance +
                     0.1);
                 rtb_Compare_lh = static_cast<boolean_T>(static_cast<int32_T>(
@@ -3874,7 +5640,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                             localDW->obj_c.StartFlag = false;
                         }
 
-                        rtb_TmpSignalConversionAtOrbitF[0] = rtb_Switch_tmp;
+                        rtb_TmpSignalConversionAtOrbitF[0] = stateNew_idx_0;
                         rtb_TmpSignalConversionAtOrbitF[1] = rtb_Sum_n;
                         rtb_East = ImmedMission_norm_p
                             (rtb_TmpSignalConversionAtOrbitF);
@@ -3885,16 +5651,16 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                         rtb_Sum_n = xyCenter[0] - rtb_Sum1[0];
                         rtb_North = rtb_Sum_n * rtb_Sum_dq / rtb_East +
                             rtb_Sum1[0];
-                        rtb_Switch_tmp = xyCenter[1] - rtb_Sum1[1];
-                        rtb_HeadingAngle = rtb_Switch_tmp * rtb_Sum_dq /
+                        stateNew_idx_0 = xyCenter[1] - rtb_Sum1[1];
+                        rtb_HeadingAngle = stateNew_idx_0 * rtb_Sum_dq /
                             rtb_East + rtb_Sum1[1];
                         rtb_Switch = std::sqrt(rtb_Switch - rtb_Sum_dq *
                                                rtb_Sum_dq);
-                        rtb_Switch_tmp = rtb_Switch_tmp * rtb_Switch / rtb_East;
-                        distToCenter_tmp[0] = rtb_North - rtb_Switch_tmp;
-                        distToCenter_tmp[1] = rtb_Switch_tmp + rtb_North;
+                        stateNew_idx_0 = stateNew_idx_0 * rtb_Switch / rtb_East;
+                        distToCenter_tmp[0] = rtb_North - stateNew_idx_0;
+                        distToCenter_tmp[1] = stateNew_idx_0 + rtb_North;
                         rtb_East = rtb_Sum_n * rtb_Switch / rtb_East;
-                        rtb_Switch_tmp = rtb_East + rtb_HeadingAngle;
+                        stateNew_idx_0 = rtb_East + rtb_HeadingAngle;
                         rtb_HeadingAngle -= rtb_East;
                         if ((rtb_Abs1 == 0.0) && (static_cast<boolean_T>(
                                 static_cast<int32_T>(static_cast<int32_T>
@@ -3962,11 +5728,11 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                           case 1:
                             if ((distToCenter_tmp[0] -
                                     rtb_TmpSignalConversionAtOrbitFollowerInport1
-                                    [0]) * rtb_Sum_o[1] - (rtb_Switch_tmp -
+                                    [0]) * rtb_Sum_o[1] - (stateNew_idx_0 -
                                     rtb_TmpSignalConversionAtOrbitFollowerInport1
                                     [1]) * rtb_Sum_o[0] > 0.0) {
                                 xyCenter[0] = distToCenter_tmp[0];
-                                xyCenter[1] = rtb_Switch_tmp;
+                                xyCenter[1] = stateNew_idx_0;
                             } else {
                                 xyCenter[0] = distToCenter_tmp[1];
                                 xyCenter[1] = rtb_HeadingAngle;
@@ -3976,11 +5742,11 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                           case -1:
                             if ((distToCenter_tmp[0] -
                                     rtb_TmpSignalConversionAtOrbitFollowerInport1
-                                    [0]) * rtb_Sum_o[1] - (rtb_Switch_tmp -
+                                    [0]) * rtb_Sum_o[1] - (stateNew_idx_0 -
                                     rtb_TmpSignalConversionAtOrbitFollowerInport1
                                     [1]) * rtb_Sum_o[0] < 0.0) {
                                 xyCenter[0] = distToCenter_tmp[0];
-                                xyCenter[1] = rtb_Switch_tmp;
+                                xyCenter[1] = stateNew_idx_0;
                             } else {
                                 xyCenter[0] = distToCenter_tmp[1];
                                 xyCenter[1] = rtb_HeadingAngle;
@@ -3989,7 +5755,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
 
                           default:
                             if (std::abs(ImmedMission_angdiff(rt_atan2d_snf
-                                    (rtb_Switch_tmp -
+                                    (stateNew_idx_0 -
                                      rtb_TmpSignalConversionAtOrbitFollowerInport1
                                      [1], distToCenter_tmp[0] -
                                      rtb_TmpSignalConversionAtOrbitFollowerInport1
@@ -4005,7 +5771,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                                                       rtb_TmpSignalConversionAtOrbitFollowerInport1
                                                       [3]))) {
                                 xyCenter[0] = distToCenter_tmp[0];
-                                xyCenter[1] = rtb_Switch_tmp;
+                                xyCenter[1] = stateNew_idx_0;
                             } else {
                                 xyCenter[0] = distToCenter_tmp[1];
                                 xyCenter[1] = rtb_HeadingAngle;
@@ -4029,7 +5795,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
 
                 if (guard1) {
                     rtb_Product2 = ImmedMission_norm_p(distToCenter_tmp);
-                    xyCenter[0] += rtb_Switch_tmp / rtb_Product2 * 0.1;
+                    xyCenter[0] += stateNew_idx_0 / rtb_Product2 * 0.1;
                     xyCenter[1] += rtb_Sum_n / rtb_Product2 * 0.1;
                 }
 
@@ -4089,7 +5855,6 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
 
       case 1:
         {
-            int32_T colToCopy;
             boolean_T exitg1;
             if (static_cast<int32_T>(rtAction) != static_cast<int32_T>
                     (rtPrevAction)) {
@@ -4141,8 +5906,8 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                 //   MATLABSystem: '<S68>/TrackSimPath'
 
                 localDW->obj_j.WaypointIndex = 1.0;
-                for (coffset = 0; coffset < 2700; coffset++) {
-                    localDW->obj_j.WaypointsInternal[coffset] = (rtNaN);
+                for (i = 0; i < 2700; i++) {
+                    localDW->obj_j.WaypointsInternal[i] = (rtNaN);
                 }
 
                 // End of SystemReset for SubSystem: '<S65>/HeadingControl'
@@ -4210,15 +5975,15 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
 
                 // End of Signum: '<S79>/Sign1'
                 rtb_Switch_gh *= -(rtb_Abs1_k + -90.0) + 90.0;
-                coffset = 180;
+                i = 180;
             } else {
-                coffset = 0;
+                i = 0;
             }
 
             // End of Switch: '<S79>/Switch'
 
             // Sum: '<S75>/Sum'
-            rtb_Switch_m2 = static_cast<real_T>(coffset) + rtb_Sum1[1];
+            rtb_Switch_m2 = static_cast<real_T>(i) + rtb_Sum1[1];
 
             // Switch: '<S80>/Switch' incorporates:
             //   Abs: '<S80>/Abs'
@@ -4349,42 +6114,37 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
 
             // S-Function (sfix_udelay): '<S72>/RollSeq'
             localDW->MatrixConcatenateState[2526] = rtu_SimUAVstate->RollAngle;
-            for (rtb_BiasNumUAV = 0; rtb_BiasNumUAV < 360; rtb_BiasNumUAV++) {
+            for (i = 0; i < 360; i++) {
                 // S-Function (sfix_udelay): '<S72>/NorthSeq'
-                localDW->MatrixConcatenateState[rtb_BiasNumUAV] =
-                    localDW->NorthSeq_X[rtb_BiasNumUAV];
+                localDW->MatrixConcatenateState[i] = localDW->NorthSeq_X[i];
 
                 // S-Function (sfix_udelay): '<S72>/EastSeq'
-                localDW->MatrixConcatenateState[static_cast<int_T>
-                    (rtb_BiasNumUAV + 361)] = localDW->EastSeq_X[rtb_BiasNumUAV];
+                localDW->MatrixConcatenateState[static_cast<int_T>(i + 361)] =
+                    localDW->EastSeq_X[i];
 
                 // S-Function (sfix_udelay): '<S72>/HeightSeq'
-                localDW->MatrixConcatenateState[static_cast<int_T>
-                    (rtb_BiasNumUAV + 722)] = localDW->
-                    HeightSeq_X[rtb_BiasNumUAV];
+                localDW->MatrixConcatenateState[static_cast<int_T>(i + 722)] =
+                    localDW->HeightSeq_X[i];
 
                 // S-Function (sfix_udelay): '<S72>/AirSpdSeq'
-                localDW->MatrixConcatenateState[static_cast<int_T>
-                    (rtb_BiasNumUAV + 1083)] = localDW->
-                    AirSpdSeq_X[rtb_BiasNumUAV];
+                localDW->MatrixConcatenateState[static_cast<int_T>(i + 1083)] =
+                    localDW->AirSpdSeq_X[i];
 
                 // S-Function (sfix_udelay): '<S72>/HdgSeq'
-                localDW->MatrixConcatenateState[static_cast<int_T>
-                    (rtb_BiasNumUAV + 1444)] = localDW->HdgSeq_X[rtb_BiasNumUAV];
+                localDW->MatrixConcatenateState[static_cast<int_T>(i + 1444)] =
+                    localDW->HdgSeq_X[i];
 
                 // S-Function (sfix_udelay): '<S72>/PitchSeq'
-                localDW->MatrixConcatenateState[static_cast<int_T>
-                    (rtb_BiasNumUAV + 1805)] = localDW->
-                    PitchSeq_X[rtb_BiasNumUAV];
+                localDW->MatrixConcatenateState[static_cast<int_T>(i + 1805)] =
+                    localDW->PitchSeq_X[i];
 
                 // S-Function (sfix_udelay): '<S72>/RollSeq'
-                localDW->MatrixConcatenateState[static_cast<int_T>
-                    (rtb_BiasNumUAV + 2166)] = localDW->RollSeq_X[rtb_BiasNumUAV];
+                localDW->MatrixConcatenateState[static_cast<int_T>(i + 2166)] =
+                    localDW->RollSeq_X[i];
 
                 // S-Function (sfix_udelay): '<S72>/RollRateSeq'
-                localDW->MatrixConcatenateState[static_cast<int_T>
-                    (rtb_BiasNumUAV + 2527)] = localDW->
-                    RollRateSeq_X[rtb_BiasNumUAV];
+                localDW->MatrixConcatenateState[static_cast<int_T>(i + 2527)] =
+                    localDW->RollRateSeq_X[i];
             }
 
             // S-Function (sfix_udelay): '<S72>/RollRateSeq'
@@ -4394,7 +6154,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             // Outputs for Iterator SubSystem: '<S65>/MapTrack' incorporates:
             //   ForEach: '<S71>/For Each'
 
-            for (ForEach_itr_c = 0; ForEach_itr_c < 361; ForEach_itr_c++) {
+            for (rtb_BiasNumUAV = 0; rtb_BiasNumUAV < 361; rtb_BiasNumUAV++) {
                 // Sum: '<S71>/MinusVecCenter2UAV' incorporates:
                 //   BusCreator: '<S71>/Bus Creator'
                 //   Concatenate: '<S72>/Matrix Concatenate State'
@@ -4402,7 +6162,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                 //   Reshape: '<S71>/Reshape'
 
                 rtb_MinusVecCenter2UAV[0] = localDW->
-                    MatrixConcatenateState[ForEach_itr_c] - rtb_Switch;
+                    MatrixConcatenateState[rtb_BiasNumUAV] - rtb_Switch;
 
                 // Sum: '<S71>/MinusVecCenter2UAV' incorporates:
                 //   BusCreator: '<S71>/Bus Creator'
@@ -4411,7 +6171,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                 //   Sum: '<S97>/Sum'
 
                 rtb_Product2 = localDW->MatrixConcatenateState
-                    [static_cast<int32_T>(ForEach_itr_c + 361)];
+                    [static_cast<int32_T>(rtb_BiasNumUAV + 361)];
 
                 // Sum: '<S71>/MinusVecCenter2UAV' incorporates:
                 //   BusCreator: '<S71>/Bus Creator'
@@ -4426,15 +6186,15 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                 //   ForEachSliceSelector generated from: '<S71>/SimUAVstate'
                 //   Sum: '<S97>/Sum'
 
-                rtb_Switch_tmp = localDW->MatrixConcatenateState
-                    [static_cast<int32_T>(ForEach_itr_c + 722)];
+                stateNew_idx_0 = localDW->MatrixConcatenateState
+                    [static_cast<int32_T>(rtb_BiasNumUAV + 722)];
 
                 // Sum: '<S71>/MinusVecCenter2UAV' incorporates:
                 //   BusCreator: '<S71>/Bus Creator'
                 //   ForEachSliceSelector generated from: '<S71>/SimUAVstate'
                 //   Reshape: '<S71>/Reshape'
 
-                rtb_MinusVecCenter2UAV[2] = rtb_Switch_tmp - rtb_Switch_gh;
+                rtb_MinusVecCenter2UAV[2] = stateNew_idx_0 - rtb_Switch_gh;
 
                 // Sum: '<S97>/Sum' incorporates:
                 //   BusCreator: '<S71>/Bus Creator'
@@ -4443,11 +6203,11 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                 //   Reshape: '<S71>/Reshape'
 
                 rtb_TmpSignalConversionAtOrbitFollowerInport2[0] = rtb_Switch -
-                    localDW->MatrixConcatenateState[ForEach_itr_c];
+                    localDW->MatrixConcatenateState[rtb_BiasNumUAV];
                 rtb_TmpSignalConversionAtOrbitFollowerInport2[1] = rtb_Abs1_k -
                     rtb_Product2;
                 rtb_TmpSignalConversionAtOrbitFollowerInport2[2] = rtb_Switch_gh
-                    - rtb_Switch_tmp;
+                    - stateNew_idx_0;
 
                 // Sqrt: '<S97>/sqrt' incorporates:
                 //   DotProduct: '<S97>/Dot Product'
@@ -4461,13 +6221,13 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                      rtb_TmpSignalConversionAtOrbitFollowerInport2[2]);
 
                 // RelationalOperator: '<S71>/Relational Operator'
-                localDW->CoreSubsys[ForEach_itr_c].InDanger = (rtb_Sum_n <=
+                localDW->CoreSubsys[rtb_BiasNumUAV].InDanger = (rtb_Sum_n <=
                     rtb_Switch_m2);
 
                 // Outputs for Enabled SubSystem: '<S71>/LinearSecantPercentage' incorporates:
                 //   EnablePort: '<S98>/Enable'
 
-                if (localDW->CoreSubsys[ForEach_itr_c].InDanger) {
+                if (localDW->CoreSubsys[rtb_BiasNumUAV].InDanger) {
                     real_T absxk;
                     real_T absxk_tmp;
                     real_T absxk_tmp_0;
@@ -4487,13 +6247,13 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
 
                     rtb_TmpSignalConversionAtOrbitFollowerInport2[0] =
                         localDW->MatrixConcatenateState[static_cast<int32_T>
-                        (ForEach_itr_c + 1444)];
+                        (rtb_BiasNumUAV + 1444)];
                     rtb_TmpSignalConversionAtOrbitFollowerInport2[1] =
                         localDW->MatrixConcatenateState[static_cast<int32_T>
-                        (ForEach_itr_c + 1805)];
+                        (rtb_BiasNumUAV + 1805)];
                     rtb_TmpSignalConversionAtOrbitFollowerInport2[2] =
                         localDW->MatrixConcatenateState[static_cast<int32_T>
-                        (ForEach_itr_c + 2166)];
+                        (rtb_BiasNumUAV + 2166)];
 
                     // Trigonometry: '<S107>/sincos'
                     rtb_Sum_o[0] = std::cos
@@ -4552,13 +6312,12 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                     // Outputs for Atomic SubSystem: '<S98>/Projection'
                     // Product: '<S105>/Product'
                     rtb_Sum_dq = 0.0;
-                    for (coffset = 0; coffset < 3; coffset++) {
+                    for (i = 0; i < 3; i++) {
                         rtb_QuaternionInterpolation_idx_2 =
-                            (rtb_VectorConcatenate_a[static_cast<int32_T>
-                             (coffset + 3)] * 0.0 +
-                             rtb_VectorConcatenate_a[coffset]) +
-                            rtb_VectorConcatenate_a[static_cast<int32_T>(coffset
-                            + 6)] * 0.0;
+                            (rtb_VectorConcatenate_a[static_cast<int32_T>(i + 3)]
+                             * 0.0 + rtb_VectorConcatenate_a[i]) +
+                            rtb_VectorConcatenate_a[static_cast<int32_T>(i + 6)]
+                            * 0.0;
 
                         // Product: '<S105>/Product' incorporates:
                         //   Concatenate: '<S119>/Vector Concatenate'
@@ -4566,7 +6325,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
 
                         rtb_Sum_dq += rtb_QuaternionInterpolation_idx_2 *
                             rtb_QuaternionInterpolation_idx_2;
-                        rtb_TmpSignalConversionAtOrbitFollowerInport2[coffset] =
+                        rtb_TmpSignalConversionAtOrbitFollowerInport2[i] =
                             rtb_QuaternionInterpolation_idx_2;
                     }
 
@@ -4580,43 +6339,38 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                     // Product: '<S105>/Divide' incorporates:
                     //   Math: '<S105>/Transpose'
 
-                    for (coffset = 0; coffset < 3; coffset++) {
+                    for (i = 0; i < 3; i++) {
                         rtb_Sum_dq =
-                            rtb_TmpSignalConversionAtOrbitFollowerInport2[coffset]
-                            / rtb_q3;
-                        rtb_Switch_gs_0[static_cast<int32_T>(3 * coffset)] =
+                            rtb_TmpSignalConversionAtOrbitFollowerInport2[i] /
+                            rtb_q3;
+                        rtb_Switch_gs_0[static_cast<int32_T>(3 * i)] =
                             rtb_TmpSignalConversionAtOrbitFollowerInport2[0] *
                             rtb_Sum_dq;
                         rtb_Switch_gs_0[static_cast<int32_T>(static_cast<int32_T>
-                            (3 * coffset) + 1)] =
+                            (3 * i) + 1)] =
                             rtb_TmpSignalConversionAtOrbitFollowerInport2[1] *
                             rtb_Sum_dq;
                         rtb_Switch_gs_0[static_cast<int32_T>(static_cast<int32_T>
-                            (3 * coffset) + 2)] =
+                            (3 * i) + 2)] =
                             rtb_TmpSignalConversionAtOrbitFollowerInport2[2] *
                             rtb_Sum_dq;
                     }
 
                     // End of Product: '<S105>/Divide'
                     // End of Outputs for SubSystem: '<S98>/Projection'
-                    for (rtb_BiasNumUAV = 0; rtb_BiasNumUAV < 3; rtb_BiasNumUAV
-                            ++) {
+                    for (i = 0; i < 3; i++) {
                         // Product: '<S98>/Product'
-                        rtb_ProjVec[rtb_BiasNumUAV] = 0.0;
-                        rtb_ProjVec[rtb_BiasNumUAV] +=
-                            rtb_Switch_gs_0[rtb_BiasNumUAV] *
+                        rtb_ProjVec[i] = 0.0;
+                        rtb_ProjVec[i] += rtb_Switch_gs_0[i] *
                             rtb_MinusVecCenter2UAV[0];
-                        rtb_ProjVec[rtb_BiasNumUAV] += rtb_Switch_gs_0[
-                            static_cast<int32_T>(rtb_BiasNumUAV + 3)] *
-                            rtb_MinusVecCenter2UAV[1];
-                        rtb_ProjVec[rtb_BiasNumUAV] += rtb_Switch_gs_0[
-                            static_cast<int32_T>(rtb_BiasNumUAV + 6)] *
-                            rtb_MinusVecCenter2UAV[2];
+                        rtb_ProjVec[i] += rtb_Switch_gs_0[static_cast<int32_T>(i
+                            + 3)] * rtb_MinusVecCenter2UAV[1];
+                        rtb_ProjVec[i] += rtb_Switch_gs_0[static_cast<int32_T>(i
+                            + 6)] * rtb_MinusVecCenter2UAV[2];
 
                         // Sum: '<S98>/MinusPerpVec'
-                        rtb_PerpVec[rtb_BiasNumUAV] =
-                            rtb_MinusVecCenter2UAV[rtb_BiasNumUAV] -
-                            rtb_ProjVec[rtb_BiasNumUAV];
+                        rtb_PerpVec[i] = rtb_MinusVecCenter2UAV[i] -
+                            rtb_ProjVec[i];
                     }
 
                     // Outputs for Atomic SubSystem: '<S98>/MagnitudePerpVec'
@@ -4671,18 +6425,18 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                     // Trigonometry: '<S98>/Asin' incorporates:
                     //   Product: '<S98>/DivideInOutVec'
 
-                    for (coffset = 0; coffset < 6; coffset++) {
+                    for (i = 0; i < 6; i++) {
                         // Product: '<S98>/DivideInOutVec' incorporates:
                         //   Trigonometry: '<S98>/Asin'
 
-                        rtb_Sum_dq = rtb_Asin[coffset] / rtb_Switch_m2;
+                        rtb_Sum_dq = rtb_Asin[i] / rtb_Switch_m2;
                         if (rtb_Sum_dq > 1.0) {
                             rtb_Sum_dq = 1.0;
                         } else if (rtb_Sum_dq < -1.0) {
                             rtb_Sum_dq = -1.0;
                         }
 
-                        rtb_Asin[coffset] = std::asin(rtb_Sum_dq);
+                        rtb_Asin[i] = std::asin(rtb_Sum_dq);
                     }
 
                     // End of Trigonometry: '<S98>/Asin'
@@ -5481,11 +7235,11 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                     rtb_U = std::sin(rtb_U);
 
                     // Product: '<S98>/ProductTargetVec'
-                    localDW->CoreSubsys[ForEach_itr_c].ProductTargetVec[0] =
+                    localDW->CoreSubsys[rtb_BiasNumUAV].ProductTargetVec[0] =
                         rtb_Sqrt * rtb_ProductN;
-                    localDW->CoreSubsys[ForEach_itr_c].ProductTargetVec[1] =
+                    localDW->CoreSubsys[rtb_BiasNumUAV].ProductTargetVec[1] =
                         rtb_Sqrt * rtb_ProductE;
-                    localDW->CoreSubsys[ForEach_itr_c].ProductTargetVec[2] =
+                    localDW->CoreSubsys[rtb_BiasNumUAV].ProductTargetVec[2] =
                         rtb_Sqrt * rtb_U;
 
                     // Product: '<S71>/Scale2ExpansionChannel' incorporates:
@@ -5504,21 +7258,21 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
 
                     rtb_TmpSignalConversionAtOrbitFollowerInport2[0] = (
                         static_cast<real_T>(rtu_MissionInput->params.Param1) *
-                        localDW->CoreSubsys[ForEach_itr_c].ProductTargetVec[0] /
+                        localDW->CoreSubsys[rtb_BiasNumUAV].ProductTargetVec[0] /
                         rtb_Sum_n + rtb_Product2 * localDW->
-                        CoreSubsys[ForEach_itr_c].ProductTargetVec[0]) +
+                        CoreSubsys[rtb_BiasNumUAV].ProductTargetVec[0]) +
                         rtb_Switch;
                     rtb_TmpSignalConversionAtOrbitFollowerInport2[1] = (
                         static_cast<real_T>(rtu_MissionInput->params.Param1) *
-                        localDW->CoreSubsys[ForEach_itr_c].ProductTargetVec[1] /
+                        localDW->CoreSubsys[rtb_BiasNumUAV].ProductTargetVec[1] /
                         rtb_Sum_n + rtb_Product2 * localDW->
-                        CoreSubsys[ForEach_itr_c].ProductTargetVec[1]) +
+                        CoreSubsys[rtb_BiasNumUAV].ProductTargetVec[1]) +
                         rtb_Abs1_k;
                     rtb_TmpSignalConversionAtOrbitFollowerInport2[2] = (
                         static_cast<real_T>(rtu_MissionInput->params.Param1) *
-                        localDW->CoreSubsys[ForEach_itr_c].ProductTargetVec[2] /
+                        localDW->CoreSubsys[rtb_BiasNumUAV].ProductTargetVec[2] /
                         rtb_Sum_n + rtb_Product2 * localDW->
-                        CoreSubsys[ForEach_itr_c].ProductTargetVec[2]) +
+                        CoreSubsys[rtb_BiasNumUAV].ProductTargetVec[2]) +
                         rtb_Switch_gh;
                 } else {
                     // Switch: '<S71>/Switch' incorporates:
@@ -5527,11 +7281,11 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                     //   ForEachSliceSelector generated from: '<S71>/SimUAVstate'
 
                     rtb_TmpSignalConversionAtOrbitFollowerInport2[0] =
-                        localDW->MatrixConcatenateState[ForEach_itr_c];
+                        localDW->MatrixConcatenateState[rtb_BiasNumUAV];
                     rtb_TmpSignalConversionAtOrbitFollowerInport2[1] =
                         rtb_Product2;
                     rtb_TmpSignalConversionAtOrbitFollowerInport2[2] =
-                        rtb_Switch_tmp;
+                        stateNew_idx_0;
                 }
 
                 // End of Outputs for SubSystem: '<S71>/LinearSecantPercentage'
@@ -5544,20 +7298,20 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                 //   Sum: '<S71>/MinusVecCenter2UAV'
 
                 rtb_Sum_n = (rtb_TmpSignalConversionAtOrbitFollowerInport2[2] -
-                             rtb_Switch_tmp) * 0.2 + rtb_Switch_tmp;
+                             stateNew_idx_0) * 0.2 + stateNew_idx_0;
 
                 // ForEachSliceAssignment generated from: '<S71>/hisTrack' incorporates:
                 //   BusAssignment: '<S71>/AssignmentHeight'
                 //   BusAssignment: '<S71>/Bus Assignment'
                 //   Gain: '<S71>/TrackInvH'
 
-                localDW->ImpAsg_InsertedFor_hisTrack_at_inport_0[ForEach_itr_c] =
-                    rtb_TmpSignalConversionAtOrbitFollowerInport2[0];
+                localDW->ImpAsg_InsertedFor_hisTrack_at_inport_0[rtb_BiasNumUAV]
+                    = rtb_TmpSignalConversionAtOrbitFollowerInport2[0];
                 localDW->ImpAsg_InsertedFor_hisTrack_at_inport_0
-                    [static_cast<int32_T>(ForEach_itr_c + 361)] =
+                    [static_cast<int32_T>(rtb_BiasNumUAV + 361)] =
                     rtb_TmpSignalConversionAtOrbitFollowerInport2[1];
                 localDW->ImpAsg_InsertedFor_hisTrack_at_inport_0
-                    [static_cast<int32_T>(ForEach_itr_c + 722)] = -rtb_Sum_n;
+                    [static_cast<int32_T>(rtb_BiasNumUAV + 722)] = -rtb_Sum_n;
 
                 // ForEachSliceAssignment generated from: '<S71>/CollAvoidSimUAV' incorporates:
                 //   BusAssignment: '<S71>/AssignmentHeight'
@@ -5566,34 +7320,34 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                 //   Concatenate: '<S72>/Matrix Concatenate State'
 
                 localDW->
-                    ImpAsg_InsertedFor_CollAvoidSimUAV_at_inport_0[ForEach_itr_c]
+                    ImpAsg_InsertedFor_CollAvoidSimUAV_at_inport_0[rtb_BiasNumUAV]
                     .North = rtb_TmpSignalConversionAtOrbitFollowerInport2[0];
                 localDW->
-                    ImpAsg_InsertedFor_CollAvoidSimUAV_at_inport_0[ForEach_itr_c]
+                    ImpAsg_InsertedFor_CollAvoidSimUAV_at_inport_0[rtb_BiasNumUAV]
                     .East = rtb_TmpSignalConversionAtOrbitFollowerInport2[1];
                 localDW->
-                    ImpAsg_InsertedFor_CollAvoidSimUAV_at_inport_0[ForEach_itr_c]
+                    ImpAsg_InsertedFor_CollAvoidSimUAV_at_inport_0[rtb_BiasNumUAV]
                     .Height = rtb_Sum_n;
                 localDW->
-                    ImpAsg_InsertedFor_CollAvoidSimUAV_at_inport_0[ForEach_itr_c]
+                    ImpAsg_InsertedFor_CollAvoidSimUAV_at_inport_0[rtb_BiasNumUAV]
                     .AirSpeed = localDW->MatrixConcatenateState
-                    [static_cast<int32_T>(ForEach_itr_c + 1083)];
+                    [static_cast<int32_T>(rtb_BiasNumUAV + 1083)];
                 localDW->
-                    ImpAsg_InsertedFor_CollAvoidSimUAV_at_inport_0[ForEach_itr_c]
-                    .HeadingAngle = localDW->MatrixConcatenateState[static_cast<
-                    int32_T>(ForEach_itr_c + 1444)];
+                    ImpAsg_InsertedFor_CollAvoidSimUAV_at_inport_0[rtb_BiasNumUAV]
+                    .HeadingAngle = localDW->MatrixConcatenateState
+                    [static_cast<int32_T>(rtb_BiasNumUAV + 1444)];
                 localDW->
-                    ImpAsg_InsertedFor_CollAvoidSimUAV_at_inport_0[ForEach_itr_c]
+                    ImpAsg_InsertedFor_CollAvoidSimUAV_at_inport_0[rtb_BiasNumUAV]
                     .FlightPathAngle = localDW->MatrixConcatenateState[
-                    static_cast<int32_T>(ForEach_itr_c + 1805)];
+                    static_cast<int32_T>(rtb_BiasNumUAV + 1805)];
                 localDW->
-                    ImpAsg_InsertedFor_CollAvoidSimUAV_at_inport_0[ForEach_itr_c]
+                    ImpAsg_InsertedFor_CollAvoidSimUAV_at_inport_0[rtb_BiasNumUAV]
                     .RollAngle = localDW->MatrixConcatenateState
-                    [static_cast<int32_T>(ForEach_itr_c + 2166)];
+                    [static_cast<int32_T>(rtb_BiasNumUAV + 2166)];
                 localDW->
-                    ImpAsg_InsertedFor_CollAvoidSimUAV_at_inport_0[ForEach_itr_c]
+                    ImpAsg_InsertedFor_CollAvoidSimUAV_at_inport_0[rtb_BiasNumUAV]
                     .RollAngleRate = localDW->MatrixConcatenateState[
-                    static_cast<int32_T>(ForEach_itr_c + 2527)];
+                    static_cast<int32_T>(rtb_BiasNumUAV + 2527)];
             }
 
             // End of Outputs for SubSystem: '<S65>/MapTrack'
@@ -5610,39 +7364,38 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             //   ForEachSliceAssignment generated from: '<S71>/hisTrack'
 
             // MATLAB Function 'ImmedMissionGuidance/Mode129_CollAvoidance/Mode129_Variant/Mode129/Long Track': '<S70>:1' 
-            colToCopy = 0;
+            rtb_BiasOldIdx = 0;
             for (ForEach_itr_c = 0; ForEach_itr_c < 361; ForEach_itr_c++) {
                 if (rtb_InDangerSequence[ForEach_itr_c]) {
-                    colToCopy = static_cast<int32_T>(colToCopy + 1);
+                    rtb_BiasOldIdx = static_cast<int32_T>(rtb_BiasOldIdx + 1);
                 }
             }
 
-            if (colToCopy <= 73) {
+            if (rtb_BiasOldIdx <= 73) {
                 // '<S70>:1:3'
                 // '<S70>:1:4'
                 localDW->SFunction_DIMS2_j[0] = 73;
                 localDW->SFunction_DIMS2_j[1] = 3;
-                for (coffset = 0; coffset < 3; coffset++) {
-                    for (ForEach_itr_c = 0; ForEach_itr_c < 73; ForEach_itr_c++)
-                    {
-                        localDW->Track[static_cast<int32_T>(ForEach_itr_c +
+                for (i = 0; i < 3; i++) {
+                    for (ForEach_itr = 0; ForEach_itr < 73; ForEach_itr++) {
+                        localDW->Track[static_cast<int32_T>(ForEach_itr +
                             static_cast<int32_T>(localDW->SFunction_DIMS2_j[0] *
-                            coffset))] =
+                            i))] =
                             localDW->ImpAsg_InsertedFor_hisTrack_at_inport_0[
                             static_cast<int32_T>(static_cast<int32_T>(
-                            static_cast<int32_T>(361 * coffset) + ForEach_itr_c)
-                            + 288)];
+                            static_cast<int32_T>(361 * i) + ForEach_itr) + 288)];
                     }
                 }
             } else {
+                int32_T b_size_idx_0;
                 rtb_BiasNumUAV = 0;
-                for (ForEach_itr = 0; ForEach_itr < 361; ForEach_itr++) {
-                    if (rtb_InDangerSequence[ForEach_itr]) {
+                for (i = 0; i < 361; i++) {
+                    if (rtb_InDangerSequence[i]) {
                         rtb_BiasNumUAV = static_cast<int32_T>(rtb_BiasNumUAV + 1);
                     }
                 }
 
-                ForEach_itr = rtb_BiasNumUAV;
+                b_size_idx_0 = rtb_BiasNumUAV;
                 rtb_BiasOldIdx = 0;
                 for (rtb_BiasNumUAV = 0; rtb_BiasNumUAV < 361; rtb_BiasNumUAV++)
                 {
@@ -5654,18 +7407,18 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                 }
 
                 // '<S70>:1:6'
-                localDW->SFunction_DIMS2_j[0] = ForEach_itr;
+                localDW->SFunction_DIMS2_j[0] = b_size_idx_0;
                 localDW->SFunction_DIMS2_j[1] = 3;
-                for (coffset = 0; coffset < 3; coffset++) {
-                    for (ForEach_itr_c = 0; ForEach_itr_c <= static_cast<int32_T>
-                            (ForEach_itr - 1); ForEach_itr_c++) {
-                        localDW->Track[static_cast<int32_T>(ForEach_itr_c +
+                for (i = 0; i < 3; i++) {
+                    for (ForEach_itr = 0; ForEach_itr <= static_cast<int32_T>
+                            (b_size_idx_0 - 1); ForEach_itr++) {
+                        localDW->Track[static_cast<int32_T>(ForEach_itr +
                             static_cast<int32_T>(localDW->SFunction_DIMS2_j[0] *
-                            coffset))] =
+                            i))] =
                             localDW->ImpAsg_InsertedFor_hisTrack_at_inport_0[
                             static_cast<int32_T>(static_cast<int32_T>(
-                            static_cast<int32_T>(361 * coffset) + static_cast<
-                            int32_T>(b_data[ForEach_itr_c])) - 1)];
+                            static_cast<int32_T>(361 * i) + static_cast<int32_T>
+                            (b_data[ForEach_itr])) - 1)];
                     }
                 }
             }
@@ -5677,42 +7430,40 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
                     (localDW->obj_j.CacheInputSizes) ^ 1))) {
                 localDW->obj_j.CacheInputSizes = true;
-                for (coffset = 0; coffset < 8; coffset++) {
-                    localDW->obj_j.inputVarSize[0].f1[coffset] = 1U;
+                for (i = 0; i < 8; i++) {
+                    localDW->obj_j.inputVarSize[0].f1[i] = 1U;
                 }
 
                 localDW->obj_j.inputVarSize[1].f1[0] = static_cast<uint32_T>
                     (localDW->SFunction_DIMS2_j[0]);
                 localDW->obj_j.inputVarSize[1].f1[1] = 3U;
-                for (coffset = 0; coffset < 6; coffset++) {
-                    localDW->obj_j.inputVarSize[1].f1[static_cast<int32_T>
-                        (coffset + 2)] = 1U;
+                for (i = 0; i < 6; i++) {
+                    localDW->obj_j.inputVarSize[1].f1[static_cast<int32_T>(i + 2)]
+                        = 1U;
                 }
 
-                for (coffset = 0; coffset < 8; coffset++) {
-                    localDW->obj_j.inputVarSize[2].f1[coffset] = 1U;
+                for (i = 0; i < 8; i++) {
+                    localDW->obj_j.inputVarSize[2].f1[i] = 1U;
                 }
             }
 
             inSize[0] = static_cast<uint32_T>(localDW->SFunction_DIMS2_j[0]);
             inSize[1] = 3U;
-            for (coffset = 0; coffset < 6; coffset++) {
-                inSize[static_cast<int32_T>(coffset + 2)] = 1U;
+            for (i = 0; i < 6; i++) {
+                inSize[static_cast<int32_T>(i + 2)] = 1U;
             }
 
-            ForEach_itr = 0;
+            i = 0;
             exitg1 = false;
-            while ((!exitg1) && (ForEach_itr < 8)) {
-                if (localDW->obj_j.inputVarSize[1].f1[ForEach_itr] !=
-                        inSize[ForEach_itr]) {
-                    for (coffset = 0; coffset < 8; coffset++) {
-                        localDW->obj_j.inputVarSize[1].f1[coffset] =
-                            inSize[coffset];
+            while ((!exitg1) && (i < 8)) {
+                if (localDW->obj_j.inputVarSize[1].f1[i] != inSize[i]) {
+                    for (i = 0; i < 8; i++) {
+                        localDW->obj_j.inputVarSize[1].f1[i] = inSize[i];
                     }
 
                     exitg1 = true;
                 } else {
-                    ForEach_itr = static_cast<int32_T>(ForEach_itr + 1);
+                    i = static_cast<int32_T>(i + 1);
                 }
             }
 
@@ -5930,11 +7681,16 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
 
       case 3:
         {
+            int32_T b_size_idx_0;
+            int32_T loop_ub;
             boolean_T exitg1;
+            boolean_T guard1;
             boolean_T rtb_Ctrl;
             ZCEventType zcEvent;
             if (static_cast<int32_T>(rtAction) != static_cast<int32_T>
                     (rtPrevAction)) {
+                FILE* a;
+
                 // SystemReset for IfAction SubSystem: '<S1>/Mode131_SqCalibr' incorporates:
                 //   ActionPort: '<S9>/Action Port'
 
@@ -5945,12 +7701,17 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                 //   MATLABSystem: '<S129>/Waypoint Follower'
 
                 localDW->SingletonInstance_not_empty = false;
+                a = NULL;
+                for (i = 0; i < 20; i++) {
+                    localDW->eml_openfiles[i] = a;
+                }
+
                 localZCE->WayPointGen_Trig_ZCE_d = NEG_ZCSIG;
 
                 // End of SystemReset for SubSystem: '<S129>/WayPointGen'
                 localDW->obj.WaypointIndex = 1.0;
-                for (coffset = 0; coffset < 30723; coffset++) {
-                    localDW->obj.WaypointsInternal[coffset] = (rtNaN);
+                for (i = 0; i < 30723; i++) {
+                    localDW->obj.WaypointsInternal[i] = (rtNaN);
                 }
 
                 localDW->is_active_c7_ImmedMission = 0U;
@@ -6016,15 +7777,15 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
 
                 // End of Signum: '<S163>/Sign1'
                 rtb_Switch *= -(rtb_Abs1_k + -90.0) + 90.0;
-                coffset = 180;
+                i = 180;
             } else {
-                coffset = 0;
+                i = 0;
             }
 
             // End of Switch: '<S163>/Switch'
 
             // Sum: '<S159>/Sum'
-            rtb_Sum_dq = static_cast<real_T>(coffset) + rtb_Sum1[1];
+            rtb_Sum_n = static_cast<real_T>(i) + rtb_Sum1[1];
 
             // Switch: '<S164>/Switch' incorporates:
             //   Abs: '<S164>/Abs'
@@ -6035,8 +7796,8 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             //   Math: '<S164>/Math Function1'
             //   RelationalOperator: '<S168>/Compare'
 
-            if (std::abs(rtb_Sum_dq) > 180.0) {
-                rtb_Sum_dq = rt_modd_snf(rtb_Sum_dq + 180.0, 360.0) + -180.0;
+            if (std::abs(rtb_Sum_n) > 180.0) {
+                rtb_Sum_n = rt_modd_snf(rtb_Sum_n + 180.0, 360.0) + -180.0;
             }
 
             // End of Switch: '<S164>/Switch'
@@ -6045,7 +7806,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             // Unit Conversion - from: deg to: rad
             // Expression: output = (0.0174533*input) + (0)
             rtb_Sum1[0] = 0.017453292519943295 * rtb_Switch;
-            rtb_Sum1[1] = 0.017453292519943295 * rtb_Sum_dq;
+            rtb_Sum1[1] = 0.017453292519943295 * rtb_Sum_n;
 
             // Sum: '<S178>/Sum1' incorporates:
             //   Constant: '<S178>/Constant'
@@ -6053,7 +7814,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
 
             // Unit Conversion - from: deg to: rad
             // Expression: output = (0.0174533*input) + (0)
-            rtb_Sum_dq = 1.0 - 0.0066943799901413295 *
+            rtb_Sum_n = 1.0 - 0.0066943799901413295 *
                 rtb_QuaternionInterpolation_idx_3 *
                 rtb_QuaternionInterpolation_idx_3;
 
@@ -6061,15 +7822,15 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             //   Constant: '<S176>/Constant1'
             //   Sqrt: '<S176>/sqrt'
 
-            rtb_Switch = 6.378137E+6 / std::sqrt(rtb_Sum_dq);
+            rtb_Switch = 6.378137E+6 / std::sqrt(rtb_Sum_n);
 
             // Product: '<S161>/dNorth' incorporates:
             //   Constant: '<S176>/Constant2'
             //   Product: '<S176>/Product3'
             //   Trigonometry: '<S176>/Trigonometric Function1'
 
-            rtb_Sum_dq = rtb_Sum1[0] / rt_atan2d_snf(1.0, rtb_Switch *
-                0.99330562000985867 / rtb_Sum_dq);
+            rtb_Sum_n = rtb_Sum1[0] / rt_atan2d_snf(1.0, rtb_Switch *
+                0.99330562000985867 / rtb_Sum_n);
 
             // Product: '<S161>/dEast' incorporates:
             //   Constant: '<S176>/Constant3'
@@ -6097,8 +7858,8 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             //   Sum: '<S161>/Sum3'
             //   UnaryMinus: '<S158>/Ze2height'
 
-            rtb_Sum_o[0] = rtb_Switch * 0.0 + rtb_Sum_dq;
-            rtb_Sum_o[1] = rtb_Switch - rtb_Sum_dq * 0.0;
+            rtb_Sum_o[0] = rtb_Switch * 0.0 + rtb_Sum_n;
+            rtb_Sum_o[1] = rtb_Switch - rtb_Sum_n * 0.0;
             rtb_Sum_o[2] = -rtb_Switch_m2;
 
             // Sum: '<S129>/Minus' incorporates:
@@ -6163,15 +7924,15 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
 
                 // End of Signum: '<S140>/Sign1'
                 rtb_Switch_gh *= -(rtb_Abs1_k + -90.0) + 90.0;
-                coffset = 180;
+                i = 180;
             } else {
-                coffset = 0;
+                i = 0;
             }
 
             // End of Switch: '<S140>/Switch'
 
             // Sum: '<S136>/Sum'
-            rtb_Sum_dq = static_cast<real_T>(coffset) + rtb_Sum1[1];
+            rtb_Sum_n = static_cast<real_T>(i) + rtb_Sum1[1];
 
             // Switch: '<S141>/Switch' incorporates:
             //   Abs: '<S141>/Abs'
@@ -6182,8 +7943,8 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             //   Math: '<S141>/Math Function1'
             //   RelationalOperator: '<S145>/Compare'
 
-            if (std::abs(rtb_Sum_dq) > 180.0) {
-                rtb_Sum_dq = rt_modd_snf(rtb_Sum_dq + 180.0, 360.0) + -180.0;
+            if (std::abs(rtb_Sum_n) > 180.0) {
+                rtb_Sum_n = rt_modd_snf(rtb_Sum_n + 180.0, 360.0) + -180.0;
             }
 
             // End of Switch: '<S141>/Switch'
@@ -6192,41 +7953,44 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             // Unit Conversion - from: deg to: rad
             // Expression: output = (0.0174533*input) + (0)
             rtb_Sum1[0] = 0.017453292519943295 * rtb_Switch_gh;
-            rtb_Sum1[1] = 0.017453292519943295 * rtb_Sum_dq;
+            rtb_Sum1[1] = 0.017453292519943295 * rtb_Sum_n;
+
+            // Trigonometry: '<S155>/Trigonometric Function1'
+            // Unit Conversion - from: deg to: rad
+            // Expression: output = (0.0174533*input) + (0)
+            rtb_Switch_gh = std::sin(stateNew_idx_0);
 
             // Sum: '<S155>/Sum1' incorporates:
             //   Constant: '<S155>/Constant'
             //   Product: '<S155>/Product1'
 
-            // Unit Conversion - from: deg to: rad
-            // Expression: output = (0.0174533*input) + (0)
-            rtb_Switch_gh = 1.0 - 0.0066943799901413295 *
-                rtb_QuaternionInterpolation_idx_3 *
-                rtb_QuaternionInterpolation_idx_3;
+            rtb_Switch_gh = 1.0 - 0.0066943799901413295 * rtb_Switch_gh *
+                rtb_Switch_gh;
 
             // Product: '<S153>/Product1' incorporates:
             //   Constant: '<S153>/Constant1'
             //   Sqrt: '<S153>/sqrt'
 
-            rtb_Sum_dq = 6.378137E+6 / std::sqrt(rtb_Switch_gh);
+            rtb_Sum_n = 6.378137E+6 / std::sqrt(rtb_Switch_gh);
 
             // Product: '<S138>/dNorth' incorporates:
             //   Constant: '<S153>/Constant2'
             //   Product: '<S153>/Product3'
             //   Trigonometry: '<S153>/Trigonometric Function1'
 
-            rtb_Switch_gh = rtb_Sum1[0] / rt_atan2d_snf(1.0, rtb_Sum_dq *
+            rtb_Switch_gh = rtb_Sum1[0] / rt_atan2d_snf(1.0, rtb_Sum_n *
                 0.99330562000985867 / rtb_Switch_gh);
 
             // Product: '<S138>/dEast' incorporates:
             //   Constant: '<S153>/Constant3'
             //   Product: '<S153>/Product4'
+            //   Trigonometry: '<S153>/Trigonometric Function'
             //   Trigonometry: '<S153>/Trigonometric Function2'
 
             // Unit Conversion - from: deg to: rad
             // Expression: output = (0.0174533*input) + (0)
-            rtb_Sum_n = 1.0 / rt_atan2d_snf(1.0, rtb_Sum_dq *
-                rtb_QuaternionInterpolation_idx_2) * rtb_Sum1[1];
+            rtb_Switch_m2 = 1.0 / rt_atan2d_snf(1.0, rtb_Sum_n * std::cos
+                (stateNew_idx_0)) * rtb_Sum1[1];
 
             // Outputs for Triggered SubSystem: '<S129>/WayPointGen' incorporates:
             //   TriggerPort: '<S135>/Trigger'
@@ -6235,16 +7999,15 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                                &localZCE->WayPointGen_Trig_ZCE_d,
                                (1.0));
             if (zcEvent != NO_ZCEVENT) {
-                int32_T colIdx;
-                int32_T colToCopy;
-
                 // Saturate: '<S135>/Saturation' incorporates:
                 //   DataTypeConversion: '<S129>/Param2'
 
                 if (rtu_MissionInput->params.Param2 <= 1.0F) {
-                    rtb_Switch_m2 = 1.0;
+                    // Saturate: '<S135>/Saturation'
+                    rtb_Sum_n = 1.0;
                 } else {
-                    rtb_Switch_m2 = static_cast<real_T>
+                    // Saturate: '<S135>/Saturation'
+                    rtb_Sum_n = static_cast<real_T>
                         (rtu_MissionInput->params.Param2);
                 }
 
@@ -6275,23 +8038,6 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                 rtb_VectorConcatenate_a[5] = 0.0;
                 rtb_VectorConcatenate_a[8] = 1.0;
 
-                // Reshape: '<S135>/ReshapeRowVec' incorporates:
-                //   DataStoreRead: '<S129>/AltitudeGCS'
-                //   Gain: '<S129>/inverse'
-                //   Product: '<S138>/x*cos'
-                //   Product: '<S138>/x*sin'
-                //   Product: '<S138>/y*cos'
-                //   Product: '<S138>/y*sin'
-                //   Sum: '<S132>/Sum'
-                //   Sum: '<S138>/Sum2'
-                //   Sum: '<S138>/Sum3'
-                //   UnaryMinus: '<S132>/Ze2height'
-
-                rtb_VectorConcatenate[0] = rtb_Sum_n * 0.0 + rtb_Switch_gh;
-                rtb_VectorConcatenate[1] = rtb_Sum_n - rtb_Switch_gh * 0.0;
-                rtb_VectorConcatenate[2] =
-                    -(rtu_MissionInput->MissionLocation.Alt + -AltitudeGCS);
-
                 // MATLAB Function: '<S135>/BaseWayPoint' incorporates:
                 //   DataTypeConversion: '<S129>/Param1'
                 //   DataTypeConversion: '<S129>/Param3'
@@ -6304,42 +8050,604 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                                            (static_cast<int32_T>
                                             (localDW->SingletonInstance_not_empty)
                       ^ 1))) {
-                    localDW->SingletonInstance.DubinsConnector.AirSpeed = 10.0;
-                    localDW->SingletonInstance.DubinsConnector.MaxRollAngle =
-                        0.3490658503988659;
-                    rtb_Abs1_k =
-                        localDW->SingletonInstance.DubinsConnector.MaxRollAngle;
-                    localDW->SingletonInstance.DubinsConnector.MinTurningRadius =
-                        localDW->SingletonInstance.DubinsConnector.AirSpeed *
-                        localDW->SingletonInstance.DubinsConnector.AirSpeed /
-                        (9.8 * std::tan(rtb_Abs1_k));
-                    localDW->SingletonInstance.DubinsConnector.AirSpeed = 35.0;
-                    rtb_Abs1_k =
-                        localDW->SingletonInstance.DubinsConnector.MaxRollAngle;
-                    localDW->SingletonInstance.DubinsConnector.MinTurningRadius =
-                        localDW->SingletonInstance.DubinsConnector.AirSpeed *
-                        localDW->SingletonInstance.DubinsConnector.AirSpeed /
-                        (9.8 * std::tan(rtb_Abs1_k));
-                    rtb_Abs1_k =
-                        localDW->SingletonInstance.DubinsConnector.MaxRollAngle;
-                    localDW->SingletonInstance.DubinsConnector.MinTurningRadius =
-                        localDW->SingletonInstance.DubinsConnector.AirSpeed *
-                        localDW->SingletonInstance.DubinsConnector.AirSpeed /
-                        (9.8 * std::tan(rtb_Abs1_k));
+                    creal_T e_b;
+                    obj = &localDW->SingletonInstance;
+                    for (i = 0; i < 10; i++) {
+                        localDW->SingletonInstance.config.Value[i] = l[i];
+                    }
+
+                    for (i = 0; i < 10; i++) {
+                        b_obj_Value[i] = localDW->
+                            SingletonInstance.config.Value[i];
+                    }
+
+                    ImmedMission_emxInit_char_T(&ret, 2);
+                    ImmedMission_emxInit_char_T(&data, 2);
+                    ImmedMission_emxInit_char_T(&o, 1);
+                    ret->size[0] = 1;
+                    ret->size[1] = 0;
+                    rtb_Sum_dq = ImmedMission_fileManager(b_obj_Value, localDW);
+                    ImmedMission_fread(rtb_Sum_dq, o, localDW);
+                    b_size_idx_0 = static_cast<int32_T>(data->size[0] *
+                        data->size[1]);
+                    data->size[0] = 1;
+                    data->size[1] = o->size[0];
+                    ImmedMission_emxEnsureCapacity_char_T(data, b_size_idx_0);
+                    loop_ub = o->size[0];
+                    for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+                        data->data[i] = o->data[i];
+                    }
+
+                    ImmedMission_emxInit_char_T(&curSection, 2);
+                    ImmedMission_emxInit_char_T(&curKey, 2);
+                    ImmedMission_emxInit_char_T(&curVal, 2);
+                    ImmedMission_cfclose(rtb_Sum_dq, localDW);
+                    curSection->size[0] = 1;
+                    curSection->size[1] = 0;
+                    curKey->size[0] = 1;
+                    curKey->size[1] = 0;
+                    curVal->size[0] = 1;
+                    curVal->size[1] = 0;
+                    ImmedMission_emxInit_char_T(&curLine, 2);
+                    ImmedMission_emxInit_char_T(&b_remainder, 2);
+                    ImmedMission_emxInit_char_T(&tmp_a, 2);
+                    ImmedMission_emxInit_char_T(&tmp_b, 2);
+                    ImmedMission_emxInit_char_T(&data_3, 2);
+                    exitg1 = false;
+                    while ((!exitg1) && (data->size[1] != 0)) {
+                        b_size_idx_0 = static_cast<int32_T>(data_3->size[0] *
+                            data_3->size[1]);
+                        data_3->size[0] = 1;
+                        data_3->size[1] = data->size[1];
+                        ImmedMission_emxEnsureCapacity_char_T(data_3,
+                            b_size_idx_0);
+                        loop_ub = static_cast<int32_T>(static_cast<int32_T>
+                            (data->size[0] * data->size[1]) - 1);
+                        for (b_size_idx_0 = 0; b_size_idx_0 <= loop_ub;
+                                b_size_idx_0++) {
+                            data_3->data[b_size_idx_0] = data->data[b_size_idx_0];
+                        }
+
+                        ImmedMission_strtok(data_3, curLine, data);
+                        ImmedMission_strtok_n(curLine, tmp_b);
+                        ImmedMission_strtrim(tmp_b, curLine);
+                        if (curLine->size[1] >= 2) {
+                            rtb_Compare_lh = false;
+                            if (curLine->data[0] == '[') {
+                                rtb_Compare_lh = true;
+                            }
+
+                            guard1 = false;
+                            if (rtb_Compare_lh) {
+                                rtb_Compare_lh = false;
+                                if (curLine->data[static_cast<int32_T>
+                                        (curLine->size[1] - 1)] == ']') {
+                                    rtb_Compare_lh = true;
+                                }
+
+                                if (rtb_Compare_lh) {
+                                    if (static_cast<int32_T>(curLine->size[1] -
+                                            1) < 2) {
+                                        ForEach_itr_c = 0;
+                                        i = 0;
+                                    } else {
+                                        ForEach_itr_c = 1;
+                                        i = static_cast<int32_T>(curLine->size[1]
+                                            - 1);
+                                    }
+
+                                    b_size_idx_0 = static_cast<int32_T>
+                                        (curSection->size[0] * curSection->size
+                                         [1]);
+                                    curSection->size[0] = 1;
+                                    loop_ub = static_cast<int32_T>(i -
+                                        ForEach_itr_c);
+                                    curSection->size[1] = loop_ub;
+                                    ImmedMission_emxEnsureCapacity_char_T
+                                        (curSection, b_size_idx_0);
+                                    for (i = 0; i <= static_cast<int32_T>
+                                            (loop_ub - 1); i++) {
+                                        curSection->data[i] = curLine->data[
+                                            static_cast<int32_T>(ForEach_itr_c +
+                                            i)];
+                                    }
+
+                                    curKey->size[0] = 1;
+                                    curKey->size[1] = 0;
+                                } else {
+                                    guard1 = true;
+                                }
+                            } else {
+                                guard1 = true;
+                            }
+
+                            if (guard1) {
+                                if (curLine->data[0] == ';') {
+                                    rtb_Compare_lh = true;
+                                }
+
+                                if ((static_cast<boolean_T>(static_cast<int32_T>
+                                                            (static_cast<int32_T>
+                                        (rtb_Compare_lh) ^ 1))) &&
+                                        ImmedMission_contains(curLine)) {
+                                    ImmedMission_strtok_nx(curLine, curVal,
+                                                           b_remainder);
+                                    ImmedMission_strtrim(curVal, curKey);
+                                    ImmedMission_strtok_nx2(b_remainder, tmp_a);
+                                    ImmedMission_strtrim(tmp_a, curVal);
+                                }
+                            }
+                        }
+
+                        if (ImmedMission_strcmp(curSection) &&
+                                ImmedMission_strcmp_h(curKey)) {
+                            b_size_idx_0 = static_cast<int32_T>(ret->size[0] *
+                                ret->size[1]);
+                            ret->size[0] = 1;
+                            ret->size[1] = curVal->size[1];
+                            ImmedMission_emxEnsureCapacity_char_T(ret,
+                                b_size_idx_0);
+                            loop_ub = static_cast<int32_T>(curVal->size[1] - 1);
+                            for (i = 0; i <= loop_ub; i++) {
+                                ret->data[i] = curVal->data[i];
+                            }
+
+                            exitg1 = true;
+                        }
+                    }
+
+                    ImmedMission_emxFree_char_T(&data_3);
+                    ImmedMission_emxFree_char_T(&tmp_b);
+                    ImmedMission_emxFree_char_T(&tmp_a);
+                    obj->AirSpeed = ImmedMission_str2double(ret);
+                    for (i = 0; i < 10; i++) {
+                        b_obj_Value[i] = localDW->
+                            SingletonInstance.config.Value[i];
+                    }
+
+                    ret->size[0] = 1;
+                    ret->size[1] = 0;
+                    rtb_Sum_dq = ImmedMission_fileManager(b_obj_Value, localDW);
+                    ImmedMission_fread(rtb_Sum_dq, o, localDW);
+                    b_size_idx_0 = static_cast<int32_T>(data->size[0] *
+                        data->size[1]);
+                    data->size[0] = 1;
+                    data->size[1] = o->size[0];
+                    ImmedMission_emxEnsureCapacity_char_T(data, b_size_idx_0);
+                    loop_ub = o->size[0];
+                    for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+                        data->data[i] = o->data[i];
+                    }
+
+                    ImmedMission_cfclose(rtb_Sum_dq, localDW);
+                    curSection->size[0] = 1;
+                    curSection->size[1] = 0;
+                    curKey->size[0] = 1;
+                    curKey->size[1] = 0;
+                    curVal->size[0] = 1;
+                    curVal->size[1] = 0;
+                    ImmedMission_emxInit_char_T(&tmp_8, 2);
+                    ImmedMission_emxInit_char_T(&tmp_9, 2);
+                    ImmedMission_emxInit_char_T(&data_2, 2);
+                    exitg1 = false;
+                    while ((!exitg1) && (data->size[1] != 0)) {
+                        b_size_idx_0 = static_cast<int32_T>(data_2->size[0] *
+                            data_2->size[1]);
+                        data_2->size[0] = 1;
+                        data_2->size[1] = data->size[1];
+                        ImmedMission_emxEnsureCapacity_char_T(data_2,
+                            b_size_idx_0);
+                        loop_ub = static_cast<int32_T>(static_cast<int32_T>
+                            (data->size[0] * data->size[1]) - 1);
+                        for (b_size_idx_0 = 0; b_size_idx_0 <= loop_ub;
+                                b_size_idx_0++) {
+                            data_2->data[b_size_idx_0] = data->data[b_size_idx_0];
+                        }
+
+                        ImmedMission_strtok(data_2, curLine, data);
+                        ImmedMission_strtok_n(curLine, tmp_9);
+                        ImmedMission_strtrim(tmp_9, curLine);
+                        if (curLine->size[1] >= 2) {
+                            rtb_Compare_lh = false;
+                            if (curLine->data[0] == '[') {
+                                rtb_Compare_lh = true;
+                            }
+
+                            guard1 = false;
+                            if (rtb_Compare_lh) {
+                                rtb_Compare_lh = false;
+                                if (curLine->data[static_cast<int32_T>
+                                        (curLine->size[1] - 1)] == ']') {
+                                    rtb_Compare_lh = true;
+                                }
+
+                                if (rtb_Compare_lh) {
+                                    if (static_cast<int32_T>(curLine->size[1] -
+                                            1) < 2) {
+                                        ForEach_itr_c = 0;
+                                        i = 0;
+                                    } else {
+                                        ForEach_itr_c = 1;
+                                        i = static_cast<int32_T>(curLine->size[1]
+                                            - 1);
+                                    }
+
+                                    b_size_idx_0 = static_cast<int32_T>
+                                        (curSection->size[0] * curSection->size
+                                         [1]);
+                                    curSection->size[0] = 1;
+                                    loop_ub = static_cast<int32_T>(i -
+                                        ForEach_itr_c);
+                                    curSection->size[1] = loop_ub;
+                                    ImmedMission_emxEnsureCapacity_char_T
+                                        (curSection, b_size_idx_0);
+                                    for (i = 0; i <= static_cast<int32_T>
+                                            (loop_ub - 1); i++) {
+                                        curSection->data[i] = curLine->data[
+                                            static_cast<int32_T>(ForEach_itr_c +
+                                            i)];
+                                    }
+
+                                    curKey->size[0] = 1;
+                                    curKey->size[1] = 0;
+                                } else {
+                                    guard1 = true;
+                                }
+                            } else {
+                                guard1 = true;
+                            }
+
+                            if (guard1) {
+                                if (curLine->data[0] == ';') {
+                                    rtb_Compare_lh = true;
+                                }
+
+                                if ((static_cast<boolean_T>(static_cast<int32_T>
+                                                            (static_cast<int32_T>
+                                        (rtb_Compare_lh) ^ 1))) &&
+                                        ImmedMission_contains(curLine)) {
+                                    ImmedMission_strtok_nx(curLine, curVal,
+                                                           b_remainder);
+                                    ImmedMission_strtrim(curVal, curKey);
+                                    ImmedMission_strtok_nx2(b_remainder, tmp_8);
+                                    ImmedMission_strtrim(tmp_8, curVal);
+                                }
+                            }
+                        }
+
+                        if (ImmedMission_strcmp(curSection) &&
+                                ImmedMission_strcmp_ho(curKey)) {
+                            b_size_idx_0 = static_cast<int32_T>(ret->size[0] *
+                                ret->size[1]);
+                            ret->size[0] = 1;
+                            ret->size[1] = curVal->size[1];
+                            ImmedMission_emxEnsureCapacity_char_T(ret,
+                                b_size_idx_0);
+                            loop_ub = static_cast<int32_T>(curVal->size[1] - 1);
+                            for (i = 0; i <= loop_ub; i++) {
+                                ret->data[i] = curVal->data[i];
+                            }
+
+                            exitg1 = true;
+                        }
+                    }
+
+                    ImmedMission_emxFree_char_T(&data_2);
+                    ImmedMission_emxFree_char_T(&tmp_9);
+                    ImmedMission_emxFree_char_T(&tmp_8);
+                    e_b = ImmedMission_str2double(ret);
+                    localDW->SingletonInstance.MaxRollAngle.re =
+                        0.017453292519943295 * e_b.re;
+                    localDW->SingletonInstance.MaxRollAngle.im =
+                        0.017453292519943295 * e_b.im;
+                    for (i = 0; i < 10; i++) {
+                        b_obj_Value[i] = localDW->
+                            SingletonInstance.config.Value[i];
+                    }
+
+                    ret->size[0] = 1;
+                    ret->size[1] = 0;
+                    rtb_Sum_dq = ImmedMission_fileManager(b_obj_Value, localDW);
+                    ImmedMission_fread(rtb_Sum_dq, o, localDW);
+                    b_size_idx_0 = static_cast<int32_T>(data->size[0] *
+                        data->size[1]);
+                    data->size[0] = 1;
+                    data->size[1] = o->size[0];
+                    ImmedMission_emxEnsureCapacity_char_T(data, b_size_idx_0);
+                    loop_ub = o->size[0];
+                    for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+                        data->data[i] = o->data[i];
+                    }
+
+                    ImmedMission_cfclose(rtb_Sum_dq, localDW);
+                    curSection->size[0] = 1;
+                    curSection->size[1] = 0;
+                    curKey->size[0] = 1;
+                    curKey->size[1] = 0;
+                    curVal->size[0] = 1;
+                    curVal->size[1] = 0;
+                    ImmedMission_emxInit_char_T(&tmp_6, 2);
+                    ImmedMission_emxInit_char_T(&tmp_7, 2);
+                    ImmedMission_emxInit_char_T(&data_1, 2);
+                    exitg1 = false;
+                    while ((!exitg1) && (data->size[1] != 0)) {
+                        b_size_idx_0 = static_cast<int32_T>(data_1->size[0] *
+                            data_1->size[1]);
+                        data_1->size[0] = 1;
+                        data_1->size[1] = data->size[1];
+                        ImmedMission_emxEnsureCapacity_char_T(data_1,
+                            b_size_idx_0);
+                        loop_ub = static_cast<int32_T>(static_cast<int32_T>
+                            (data->size[0] * data->size[1]) - 1);
+                        for (b_size_idx_0 = 0; b_size_idx_0 <= loop_ub;
+                                b_size_idx_0++) {
+                            data_1->data[b_size_idx_0] = data->data[b_size_idx_0];
+                        }
+
+                        ImmedMission_strtok(data_1, curLine, data);
+                        ImmedMission_strtok_n(curLine, tmp_7);
+                        ImmedMission_strtrim(tmp_7, curLine);
+                        if (curLine->size[1] >= 2) {
+                            rtb_Compare_lh = false;
+                            if (curLine->data[0] == '[') {
+                                rtb_Compare_lh = true;
+                            }
+
+                            guard1 = false;
+                            if (rtb_Compare_lh) {
+                                rtb_Compare_lh = false;
+                                if (curLine->data[static_cast<int32_T>
+                                        (curLine->size[1] - 1)] == ']') {
+                                    rtb_Compare_lh = true;
+                                }
+
+                                if (rtb_Compare_lh) {
+                                    if (static_cast<int32_T>(curLine->size[1] -
+                                            1) < 2) {
+                                        i = 0;
+                                        ForEach_itr_c = 0;
+                                    } else {
+                                        i = 1;
+                                        ForEach_itr_c = static_cast<int32_T>
+                                            (curLine->size[1] - 1);
+                                    }
+
+                                    b_size_idx_0 = static_cast<int32_T>
+                                        (curSection->size[0] * curSection->size
+                                         [1]);
+                                    curSection->size[0] = 1;
+                                    loop_ub = static_cast<int32_T>(ForEach_itr_c
+                                        - i);
+                                    curSection->size[1] = loop_ub;
+                                    ImmedMission_emxEnsureCapacity_char_T
+                                        (curSection, b_size_idx_0);
+                                    for (ForEach_itr = 0; ForEach_itr <=
+                                            static_cast<int32_T>(loop_ub - 1);
+                                            ForEach_itr++) {
+                                        curSection->data[ForEach_itr] =
+                                            curLine->data[static_cast<int32_T>(i
+                                            + ForEach_itr)];
+                                    }
+
+                                    curKey->size[0] = 1;
+                                    curKey->size[1] = 0;
+                                } else {
+                                    guard1 = true;
+                                }
+                            } else {
+                                guard1 = true;
+                            }
+
+                            if (guard1) {
+                                if (curLine->data[0] == ';') {
+                                    rtb_Compare_lh = true;
+                                }
+
+                                if ((static_cast<boolean_T>(static_cast<int32_T>
+                                                            (static_cast<int32_T>
+                                        (rtb_Compare_lh) ^ 1))) &&
+                                        ImmedMission_contains(curLine)) {
+                                    ImmedMission_strtok_nx(curLine, curVal,
+                                                           b_remainder);
+                                    ImmedMission_strtrim(curVal, curKey);
+                                    ImmedMission_strtok_nx2(b_remainder, tmp_6);
+                                    ImmedMission_strtrim(tmp_6, curVal);
+                                }
+                            }
+                        }
+
+                        if (ImmedMission_strcmp(curSection) &&
+                                ImmedMission_strcmp_hoc(curKey)) {
+                            b_size_idx_0 = static_cast<int32_T>(ret->size[0] *
+                                ret->size[1]);
+                            ret->size[0] = 1;
+                            ret->size[1] = curVal->size[1];
+                            ImmedMission_emxEnsureCapacity_char_T(ret,
+                                b_size_idx_0);
+                            loop_ub = static_cast<int32_T>(curVal->size[1] - 1);
+                            for (i = 0; i <= loop_ub; i++) {
+                                ret->data[i] = curVal->data[i];
+                            }
+
+                            exitg1 = true;
+                        }
+                    }
+
+                    ImmedMission_emxFree_char_T(&data_1);
+                    ImmedMission_emxFree_char_T(&tmp_7);
+                    ImmedMission_emxFree_char_T(&tmp_6);
+                    e_b = ImmedMission_str2double(ret);
+                    for (i = 0; i < 10; i++) {
+                        b_obj_Value[i] = localDW->
+                            SingletonInstance.config.Value[i];
+                    }
+
+                    ret->size[0] = 1;
+                    ret->size[1] = 0;
+                    rtb_Sum_dq = ImmedMission_fileManager(b_obj_Value, localDW);
+                    ImmedMission_fread(rtb_Sum_dq, o, localDW);
+                    b_size_idx_0 = static_cast<int32_T>(data->size[0] *
+                        data->size[1]);
+                    data->size[0] = 1;
+                    data->size[1] = o->size[0];
+                    ImmedMission_emxEnsureCapacity_char_T(data, b_size_idx_0);
+                    loop_ub = o->size[0];
+                    for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+                        data->data[i] = o->data[i];
+                    }
+
+                    ImmedMission_emxFree_char_T(&o);
+                    ImmedMission_cfclose(rtb_Sum_dq, localDW);
+                    curSection->size[0] = 1;
+                    curSection->size[1] = 0;
+                    curKey->size[0] = 1;
+                    curKey->size[1] = 0;
+                    curVal->size[0] = 1;
+                    curVal->size[1] = 0;
+                    ImmedMission_emxInit_char_T(&tmp_4, 2);
+                    ImmedMission_emxInit_char_T(&tmp_5, 2);
+                    ImmedMission_emxInit_char_T(&data_0, 2);
+                    exitg1 = false;
+                    while ((!exitg1) && (data->size[1] != 0)) {
+                        b_size_idx_0 = static_cast<int32_T>(data_0->size[0] *
+                            data_0->size[1]);
+                        data_0->size[0] = 1;
+                        data_0->size[1] = data->size[1];
+                        ImmedMission_emxEnsureCapacity_char_T(data_0,
+                            b_size_idx_0);
+                        loop_ub = static_cast<int32_T>(static_cast<int32_T>
+                            (data->size[0] * data->size[1]) - 1);
+                        for (b_size_idx_0 = 0; b_size_idx_0 <= loop_ub;
+                                b_size_idx_0++) {
+                            data_0->data[b_size_idx_0] = data->data[b_size_idx_0];
+                        }
+
+                        ImmedMission_strtok(data_0, curLine, data);
+                        ImmedMission_strtok_n(curLine, tmp_5);
+                        ImmedMission_strtrim(tmp_5, curLine);
+                        if (curLine->size[1] >= 2) {
+                            rtb_Compare_lh = false;
+                            if (curLine->data[0] == '[') {
+                                rtb_Compare_lh = true;
+                            }
+
+                            guard1 = false;
+                            if (rtb_Compare_lh) {
+                                rtb_Compare_lh = false;
+                                if (curLine->data[static_cast<int32_T>
+                                        (curLine->size[1] - 1)] == ']') {
+                                    rtb_Compare_lh = true;
+                                }
+
+                                if (rtb_Compare_lh) {
+                                    if (static_cast<int32_T>(curLine->size[1] -
+                                            1) < 2) {
+                                        ForEach_itr_c = 0;
+                                        i = 0;
+                                    } else {
+                                        ForEach_itr_c = 1;
+                                        i = static_cast<int32_T>(curLine->size[1]
+                                            - 1);
+                                    }
+
+                                    b_size_idx_0 = static_cast<int32_T>
+                                        (curSection->size[0] * curSection->size
+                                         [1]);
+                                    curSection->size[0] = 1;
+                                    loop_ub = static_cast<int32_T>(i -
+                                        ForEach_itr_c);
+                                    curSection->size[1] = loop_ub;
+                                    ImmedMission_emxEnsureCapacity_char_T
+                                        (curSection, b_size_idx_0);
+                                    for (i = 0; i <= static_cast<int32_T>
+                                            (loop_ub - 1); i++) {
+                                        curSection->data[i] = curLine->data[
+                                            static_cast<int32_T>(ForEach_itr_c +
+                                            i)];
+                                    }
+
+                                    curKey->size[0] = 1;
+                                    curKey->size[1] = 0;
+                                } else {
+                                    guard1 = true;
+                                }
+                            } else {
+                                guard1 = true;
+                            }
+
+                            if (guard1) {
+                                if (curLine->data[0] == ';') {
+                                    rtb_Compare_lh = true;
+                                }
+
+                                if ((static_cast<boolean_T>(static_cast<int32_T>
+                                                            (static_cast<int32_T>
+                                        (rtb_Compare_lh) ^ 1))) &&
+                                        ImmedMission_contains(curLine)) {
+                                    ImmedMission_strtok_nx(curLine, curVal,
+                                                           b_remainder);
+                                    ImmedMission_strtrim(curVal, curKey);
+                                    ImmedMission_strtok_nx2(b_remainder, tmp_4);
+                                    ImmedMission_strtrim(tmp_4, curVal);
+                                }
+                            }
+                        }
+
+                        if (ImmedMission_strcmp(curSection) &&
+                                ImmedMission_strcmp_hocj(curKey)) {
+                            b_size_idx_0 = static_cast<int32_T>(ret->size[0] *
+                                ret->size[1]);
+                            ret->size[0] = 1;
+                            ret->size[1] = curVal->size[1];
+                            ImmedMission_emxEnsureCapacity_char_T(ret,
+                                b_size_idx_0);
+                            loop_ub = static_cast<int32_T>(curVal->size[1] - 1);
+                            for (i = 0; i <= loop_ub; i++) {
+                                ret->data[i] = curVal->data[i];
+                            }
+
+                            exitg1 = true;
+                        }
+                    }
+
+                    creal_T f_b;
+                    ImmedMission_emxFree_char_T(&data_0);
+                    ImmedMission_emxFree_char_T(&tmp_5);
+                    ImmedMission_emxFree_char_T(&tmp_4);
+                    ImmedMission_emxFree_char_T(&b_remainder);
+                    ImmedMission_emxFree_char_T(&curLine);
+                    ImmedMission_emxFree_char_T(&curVal);
+                    ImmedMission_emxFree_char_T(&curKey);
+                    ImmedMission_emxFree_char_T(&curSection);
+                    ImmedMission_emxFree_char_T(&data);
+                    f_b = ImmedMission_str2double(ret);
+                    localDW->SingletonInstance.FlightPathAngleLimit[0].re =
+                        0.017453292519943295 * f_b.re;
+                    localDW->SingletonInstance.FlightPathAngleLimit[0].im =
+                        0.017453292519943295 * f_b.im;
+                    localDW->SingletonInstance.FlightPathAngleLimit[1].re =
+                        0.017453292519943295 * e_b.re;
+                    localDW->SingletonInstance.FlightPathAngleLimit[1].im =
+                        0.017453292519943295 * e_b.im;
+                    ImmedMission_uavDubinsConnection_uavDubinsConnection
+                        (&localDW->SingletonInstance.DubinsConnector,
+                         localDW->SingletonInstance.AirSpeed.re,
+                         localDW->SingletonInstance.MaxRollAngle.re);
                     localDW->SingletonInstance_not_empty = true;
+                    ImmedMission_emxFree_char_T(&ret);
                 }
 
-                rtb_Abs1_k =
+                rtb_Sum_dq =
                     localDW->SingletonInstance.DubinsConnector.MinTurningRadius;
 
                 // '<S181>:1:8'
-                for (coffset = 0; coffset < 360; coffset++) {
-                    ForEach_itr_c = static_cast<int32_T>(coffset << 1);
-                    localDW->CirVec[ForEach_itr_c] = b_a[ForEach_itr_c] *
-                        rtb_Abs1_k;
+                for (i = 0; i < 360; i++) {
+                    ForEach_itr_c = static_cast<int32_T>(i << 1);
+                    localDW->CirVec[ForEach_itr_c] = a_0[ForEach_itr_c] *
+                        rtb_Sum_dq;
                     localDW->CirVec[static_cast<int32_T>(ForEach_itr_c + 1)] =
-                        b_a[static_cast<int32_T>(ForEach_itr_c + 1)] *
-                        rtb_Abs1_k;
+                        a_0[static_cast<int32_T>(ForEach_itr_c + 1)] *
+                        rtb_Sum_dq;
                 }
 
                 // '<S181>:1:11'
@@ -6354,120 +8662,95 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                 // '<S181>:1:26'
                 // '<S181>:1:27'
                 // '<S181>:1:31'
-                rtb_Switch_gh = static_cast<real_T>
+                rtb_Abs1_k = static_cast<real_T>(rtu_MissionInput->params.Param1)
+                    / 2.0;
+                rtb_Switch = -static_cast<real_T>
                     (rtu_MissionInput->params.Param1) / 2.0;
-                rtb_Abs1_k = -static_cast<real_T>
-                    (rtu_MissionInput->params.Param1) / 2.0;
-                for (coffset = 0; coffset < 91; coffset++) {
-                    rtb_Switch = WPQ1_tmp[coffset];
-                    ForEach_itr_c = static_cast<int32_T>(coffset << 1);
-                    localDW->a[static_cast<int32_T>(3 * coffset)] =
-                        localDW->CirVec[ForEach_itr_c] + rtb_Switch_gh;
-                    localDW->a[static_cast<int32_T>(static_cast<int32_T>(3 *
-                        coffset) + 1)] = localDW->CirVec[static_cast<int32_T>
-                        (ForEach_itr_c + 1)] + rtb_Switch_gh;
-                    localDW->a[static_cast<int32_T>(static_cast<int32_T>(3 *
-                        coffset) + 2)] = rtb_Switch;
+                for (i = 0; i < 91; i++) {
+                    stateNew_idx_0 = WPQ1_tmp[i];
+                    ForEach_itr_c = static_cast<int32_T>(i << 1);
+                    localDW->rtu_MissionInput[static_cast<int32_T>(3 * i)] =
+                        localDW->CirVec[ForEach_itr_c] + rtb_Abs1_k;
+                    localDW->rtu_MissionInput[static_cast<int32_T>
+                        (static_cast<int32_T>(3 * i) + 1)] = localDW->CirVec[
+                        static_cast<int32_T>(ForEach_itr_c + 1)] + rtb_Abs1_k;
+                    localDW->rtu_MissionInput[static_cast<int32_T>(static_cast<
+                        int32_T>(3 * i) + 2)] = stateNew_idx_0;
+                    ForEach_itr_c = static_cast<int32_T>(static_cast<int32_T>(i
+                        + 90) << 1);
+                    ForEach_itr = static_cast<int32_T>(static_cast<int32_T>(i +
+                        91) * 3);
+                    localDW->rtu_MissionInput[ForEach_itr] = localDW->
+                        CirVec[ForEach_itr_c] + rtb_Switch;
+                    localDW->rtu_MissionInput[static_cast<int32_T>(ForEach_itr +
+                        1)] = localDW->CirVec[static_cast<int32_T>(ForEach_itr_c
+                        + 1)] + rtb_Abs1_k;
+                    localDW->rtu_MissionInput[static_cast<int32_T>(ForEach_itr +
+                        2)] = stateNew_idx_0;
+                    ForEach_itr_c = static_cast<int32_T>(static_cast<int32_T>(i
+                        + 180) << 1);
+                    ForEach_itr = static_cast<int32_T>(static_cast<int32_T>(i +
+                        182) * 3);
+                    localDW->rtu_MissionInput[ForEach_itr] = localDW->
+                        CirVec[ForEach_itr_c] + rtb_Switch;
+                    localDW->rtu_MissionInput[static_cast<int32_T>(ForEach_itr +
+                        1)] = localDW->CirVec[static_cast<int32_T>(ForEach_itr_c
+                        + 1)] + rtb_Switch;
+                    localDW->rtu_MissionInput[static_cast<int32_T>(ForEach_itr +
+                        2)] = stateNew_idx_0;
                     ForEach_itr_c = static_cast<int32_T>(static_cast<int32_T>
-                        (coffset + 90) << 1);
-                    ForEach_itr = static_cast<int32_T>(static_cast<int32_T>
-                        (coffset + 91) * 3);
-                    localDW->a[ForEach_itr] = localDW->CirVec[ForEach_itr_c] +
-                        rtb_Abs1_k;
-                    localDW->a[static_cast<int32_T>(ForEach_itr + 1)] =
-                        localDW->CirVec[static_cast<int32_T>(ForEach_itr_c + 1)]
-                        + rtb_Switch_gh;
-                    localDW->a[static_cast<int32_T>(ForEach_itr + 2)] =
-                        rtb_Switch;
-                    ForEach_itr_c = static_cast<int32_T>(static_cast<int32_T>
-                        (coffset + 180) << 1);
-                    ForEach_itr = static_cast<int32_T>(static_cast<int32_T>
-                        (coffset + 182) * 3);
-                    localDW->a[ForEach_itr] = localDW->CirVec[ForEach_itr_c] +
-                        rtb_Abs1_k;
-                    localDW->a[static_cast<int32_T>(ForEach_itr + 1)] =
-                        localDW->CirVec[static_cast<int32_T>(ForEach_itr_c + 1)]
-                        + rtb_Abs1_k;
-                    localDW->a[static_cast<int32_T>(ForEach_itr + 2)] =
-                        rtb_Switch;
-                    ForEach_itr_c = static_cast<int32_T>(static_cast<int32_T>
-                        (d[coffset]) << 1);
-                    ForEach_itr = static_cast<int32_T>(static_cast<int32_T>
-                        (coffset + 273) * 3);
-                    localDW->a[ForEach_itr] = localDW->CirVec[ForEach_itr_c] +
-                        rtb_Switch_gh;
-                    localDW->a[static_cast<int32_T>(ForEach_itr + 1)] =
-                        localDW->CirVec[static_cast<int32_T>(ForEach_itr_c + 1)]
-                        + rtb_Abs1_k;
-                    localDW->a[static_cast<int32_T>(ForEach_itr + 2)] =
-                        rtb_Switch;
+                        (n[i]) << 1);
+                    ForEach_itr = static_cast<int32_T>(static_cast<int32_T>(i +
+                        273) * 3);
+                    localDW->rtu_MissionInput[ForEach_itr] = localDW->
+                        CirVec[ForEach_itr_c] + rtb_Abs1_k;
+                    localDW->rtu_MissionInput[static_cast<int32_T>(ForEach_itr +
+                        1)] = localDW->CirVec[static_cast<int32_T>(ForEach_itr_c
+                        + 1)] + rtb_Switch;
+                    localDW->rtu_MissionInput[static_cast<int32_T>(ForEach_itr +
+                        2)] = stateNew_idx_0;
                 }
 
-                ImmedMission_emxInit_real_T(&d_b, 2);
-                coffset = static_cast<int32_T>(d_b->size[0] * d_b->size[1]);
+                ImmedMission_emxInit_real_T(&tmp_1, 2);
 
                 // MATLAB Function: '<S135>/BaseWayPoint'
-                d_b->size[0] = 3;
-                d_b->size[1] = static_cast<int32_T>(364 * static_cast<int32_T>
-                    (rtb_Switch_m2));
-                ImmedMission_emxEnsureCapacity_real_T(d_b, coffset);
+                ImmedMission_repmat(localDW->rtu_MissionInput, rtb_Sum_n, tmp_1);
+                b_size_idx_0 = static_cast<int32_T>(q->size[0] * q->size[1]);
 
                 // MATLAB Function: '<S135>/BaseWayPoint'
-                for (colIdx = 0; colIdx <= static_cast<int32_T>
-                        (static_cast<int32_T>(rtb_Switch_m2) - 1); colIdx =
-                        static_cast<int32_T>(colIdx + 1)) {
-                    colToCopy = static_cast<int32_T>(static_cast<int32_T>(colIdx
-                        * 1092) - 1);
-                    for (ForEach_itr = 0; ForEach_itr < 364; ForEach_itr++) {
-                        ForEach_itr_c = static_cast<int32_T>(ForEach_itr * 3);
-                        coffset = static_cast<int32_T>(static_cast<int32_T>(
-                            static_cast<int32_T>(ForEach_itr * 3) + colToCopy) +
-                            1);
-                        d_b->data[coffset] = localDW->a[ForEach_itr_c];
-                        d_b->data[static_cast<int32_T>(coffset + 1)] =
-                            localDW->a[static_cast<int32_T>(ForEach_itr_c + 1)];
-                        d_b->data[static_cast<int32_T>(coffset + 2)] =
-                            localDW->a[static_cast<int32_T>(ForEach_itr_c + 2)];
+                q->size[0] = tmp_1->size[1];
+                q->size[1] = 3;
+                ImmedMission_emxEnsureCapacity_real_T(q, b_size_idx_0);
+
+                // MATLAB Function: '<S135>/BaseWayPoint'
+                loop_ub = tmp_1->size[1];
+                for (i = 0; i < 3; i++) {
+                    for (ForEach_itr = 0; ForEach_itr <= static_cast<int32_T>
+                            (loop_ub - 1); ForEach_itr++) {
+                        q->data[static_cast<int32_T>(ForEach_itr +
+                            static_cast<int32_T>(q->size[0] * i))] = tmp_1->
+                            data[static_cast<int32_T>(static_cast<int32_T>(3 *
+                            ForEach_itr) + i)];
                     }
                 }
 
-                coffset = static_cast<int32_T>(e->size[0] * e->size[1]);
-
-                // MATLAB Function: '<S135>/BaseWayPoint'
-                e->size[0] = d_b->size[1];
-                e->size[1] = 3;
-                ImmedMission_emxEnsureCapacity_real_T(e, coffset);
-
-                // MATLAB Function: '<S135>/BaseWayPoint'
-                ForEach_itr = d_b->size[1];
-                for (coffset = 0; coffset < 3; coffset++) {
-                    for (ForEach_itr_c = 0; ForEach_itr_c <= static_cast<int32_T>
-                            (ForEach_itr - 1); ForEach_itr_c++) {
-                        e->data[static_cast<int32_T>(ForEach_itr_c +
-                            static_cast<int32_T>(e->size[0] * coffset))] =
-                            d_b->data[static_cast<int32_T>(static_cast<int32_T>
-                            (3 * ForEach_itr_c) + coffset)];
-                    }
-                }
-
-                ImmedMission_emxFree_real_T(&d_b);
+                ImmedMission_emxFree_real_T(&tmp_1);
                 ImmedMission_emxInit_real_T(&WayPoint, 2);
 
                 // MATLAB Function: '<S135>/BaseWayPoint'
-                ImmedMission_circshift(e);
-                coffset = static_cast<int32_T>(WayPoint->size[0] *
+                ImmedMission_circshift(q);
+                b_size_idx_0 = static_cast<int32_T>(WayPoint->size[0] *
                     WayPoint->size[1]);
 
                 // MATLAB Function: '<S135>/BaseWayPoint'
-                WayPoint->size[0] = e->size[0];
+                WayPoint->size[0] = q->size[0];
                 WayPoint->size[1] = 3;
-                ImmedMission_emxEnsureCapacity_real_T(WayPoint, coffset);
+                ImmedMission_emxEnsureCapacity_real_T(WayPoint, b_size_idx_0);
 
                 // MATLAB Function: '<S135>/BaseWayPoint'
-                ForEach_itr = static_cast<int32_T>(e->size[0] * 3);
-                for (coffset = 0; coffset <= static_cast<int32_T>(ForEach_itr -
-                        1); coffset++) {
-                    WayPoint->data[coffset] = e->data[coffset];
+                loop_ub = static_cast<int32_T>(q->size[0] * 3);
+                for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+                    WayPoint->data[i] = q->data[i];
                 }
 
                 ImmedMission_emxInit_real_T(&y, 2);
@@ -6476,373 +8759,370 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                 //   DataTypeConversion: '<S129>/Param3'
 
                 // '<S181>:1:32'
-                rtb_Switch = 4.0 * rtb_Switch_m2 * static_cast<real_T>
+                rtb_Sum_n = 4.0 * rtb_Sum_n * static_cast<real_T>
                     (rtu_MissionInput->params.Param3);
                 if (std::isnan(static_cast<real_T>
                                (rtu_MissionInput->params.Param3))) {
-                    coffset = static_cast<int32_T>(y->size[0] * y->size[1]);
+                    b_size_idx_0 = static_cast<int32_T>(y->size[0] * y->size[1]);
                     y->size[0] = 1;
                     y->size[1] = 1;
-                    ImmedMission_emxEnsureCapacity_real_T(y, coffset);
+                    ImmedMission_emxEnsureCapacity_real_T(y, b_size_idx_0);
                     y->data[0] = (rtNaN);
-                } else if (std::isnan(rtb_Switch)) {
-                    coffset = static_cast<int32_T>(y->size[0] * y->size[1]);
+                } else if (std::isnan(rtb_Sum_n)) {
+                    b_size_idx_0 = static_cast<int32_T>(y->size[0] * y->size[1]);
                     y->size[0] = 1;
                     y->size[1] = 1;
-                    ImmedMission_emxEnsureCapacity_real_T(y, coffset);
+                    ImmedMission_emxEnsureCapacity_real_T(y, b_size_idx_0);
                     y->data[0] = (rtNaN);
                 } else if (static_cast<boolean_T>(static_cast<int32_T>(
                              static_cast<int32_T>(static_cast<boolean_T>(
                                static_cast<int32_T>(static_cast<int32_T>(
                                  static_cast<boolean_T>(static_cast<int32_T>
-                                  ((rtb_Switch > 0.0) &
+                                  ((rtb_Sum_n > 0.0) &
                                    (rtu_MissionInput->params.Param3 < 0.0F)))) |
                                 (rtu_MissionInput->params.Param3 == 0.0F)))) |
                              static_cast<int32_T>(static_cast<boolean_T>(
-                               static_cast<int32_T>((rtb_Switch < 0.0) &
+                               static_cast<int32_T>((rtb_Sum_n < 0.0) &
                                 (rtu_MissionInput->params.Param3 > 0.0F))))))) {
                     y->size[0] = 1;
                     y->size[1] = 0;
-                } else if (std::isinf(rtb_Switch) && std::isinf
+                } else if (std::isinf(rtb_Sum_n) && std::isinf
                            (static_cast<real_T>(rtu_MissionInput->params.Param3)))
                 {
-                    coffset = static_cast<int32_T>(y->size[0] * y->size[1]);
+                    b_size_idx_0 = static_cast<int32_T>(y->size[0] * y->size[1]);
                     y->size[0] = 1;
                     y->size[1] = 1;
-                    ImmedMission_emxEnsureCapacity_real_T(y, coffset);
+                    ImmedMission_emxEnsureCapacity_real_T(y, b_size_idx_0);
                     y->data[0] = (rtNaN);
                 } else if (std::isinf(static_cast<real_T>
                                       (rtu_MissionInput->params.Param3))) {
-                    coffset = static_cast<int32_T>(y->size[0] * y->size[1]);
+                    b_size_idx_0 = static_cast<int32_T>(y->size[0] * y->size[1]);
                     y->size[0] = 1;
                     y->size[1] = 1;
-                    ImmedMission_emxEnsureCapacity_real_T(y, coffset);
+                    ImmedMission_emxEnsureCapacity_real_T(y, b_size_idx_0);
                     y->data[0] = 0.0;
                 } else if (std::floor(static_cast<real_T>
                                       (rtu_MissionInput->params.Param3)) ==
                            static_cast<real_T>(rtu_MissionInput->params.Param3))
                 {
-                    coffset = static_cast<int32_T>(y->size[0] * y->size[1]);
+                    b_size_idx_0 = static_cast<int32_T>(y->size[0] * y->size[1]);
                     y->size[0] = 1;
-                    ForEach_itr = static_cast<int32_T>(rtb_Switch /
+                    loop_ub = static_cast<int32_T>(rtb_Sum_n /
                         static_cast<real_T>(rtu_MissionInput->params.Param3));
-                    y->size[1] = static_cast<int32_T>(ForEach_itr + 1);
-                    ImmedMission_emxEnsureCapacity_real_T(y, coffset);
-                    for (coffset = 0; coffset <= ForEach_itr; coffset++) {
-                        y->data[coffset] = static_cast<real_T>
-                            (rtu_MissionInput->params.Param3) *
-                            static_cast<real_T>(coffset);
+                    y->size[1] = static_cast<int32_T>(loop_ub + 1);
+                    ImmedMission_emxEnsureCapacity_real_T(y, b_size_idx_0);
+                    for (i = 0; i <= loop_ub; i++) {
+                        y->data[i] = static_cast<real_T>
+                            (rtu_MissionInput->params.Param3) * static_cast<
+                            real_T>(i);
                     }
                 } else {
-                    rtb_Switch_gh = std::floor(rtb_Switch / static_cast<real_T>
-                        (rtu_MissionInput->params.Param3) + 0.5);
-                    rtb_Abs1_k = rtb_Switch_gh * static_cast<real_T>
-                        (rtu_MissionInput->params.Param3);
-                    if (rtu_MissionInput->params.Param3 > 0.0F) {
-                        rtb_Switch_m2 = rtb_Abs1_k - rtb_Switch;
-                    } else {
-                        rtb_Switch_m2 = rtb_Switch - rtb_Abs1_k;
-                    }
-
-                    if (std::abs(rtb_Switch_m2) < 4.4408920985006262E-16 * std::
-                            fmax(0.0, std::abs(rtb_Switch))) {
-                        rtb_Switch_gh++;
-                        rtb_Abs1_k = rtb_Switch;
-                    } else if (rtb_Switch_m2 > 0.0) {
-                        rtb_Abs1_k = (rtb_Switch_gh - 1.0) * static_cast<real_T>
-                            (rtu_MissionInput->params.Param3);
-                    } else {
-                        rtb_Switch_gh++;
-                    }
-
-                    if (rtb_Switch_gh >= 0.0) {
-                        colToCopy = static_cast<int32_T>(static_cast<int32_T>
-                            (rtb_Switch_gh) - 1);
-                    } else {
-                        colToCopy = -1;
-                    }
-
-                    coffset = static_cast<int32_T>(y->size[0] * y->size[1]);
-                    y->size[0] = 1;
-                    y->size[1] = static_cast<int32_T>(colToCopy + 1);
-                    ImmedMission_emxEnsureCapacity_real_T(y, coffset);
-                    if (static_cast<int32_T>(colToCopy + 1) > 0) {
-                        y->data[0] = 0.0;
-                        if (static_cast<int32_T>(colToCopy + 1) > 1) {
-                            y->data[colToCopy] = rtb_Abs1_k;
-                            ForEach_itr_c = static_cast<int32_T>(colToCopy / 2);
-                            for (ForEach_itr = 1; static_cast<int32_T>
-                                    (ForEach_itr - 1) <= static_cast<int32_T>
-                                    (ForEach_itr_c - 2); ForEach_itr =
-                                    static_cast<int32_T>(ForEach_itr + 1)) {
-                                rtb_Switch = static_cast<real_T>(ForEach_itr) *
-                                    static_cast<real_T>
-                                    (rtu_MissionInput->params.Param3);
-                                y->data[ForEach_itr] = rtb_Switch;
-                                y->data[static_cast<int32_T>(colToCopy -
-                                    ForEach_itr)] = rtb_Abs1_k - rtb_Switch;
-                            }
-
-                            if (static_cast<int32_T>(ForEach_itr_c << 1) ==
-                                    colToCopy) {
-                                y->data[ForEach_itr_c] = rtb_Abs1_k / 2.0;
-                            } else {
-                                rtb_Switch = static_cast<real_T>(ForEach_itr_c) *
-                                    static_cast<real_T>
-                                    (rtu_MissionInput->params.Param3);
-                                y->data[ForEach_itr_c] = rtb_Switch;
-                                y->data[static_cast<int32_T>(ForEach_itr_c + 1)]
-                                    = rtb_Abs1_k - rtb_Switch;
-                            }
-                        }
-                    }
+                    ImmedMission_eml_float_colon(static_cast<real_T>
+                        (rtu_MissionInput->params.Param3), rtb_Sum_n, y);
                 }
 
                 ImmedMission_emxInit_real_T(&step, 2);
-                coffset = static_cast<int32_T>(step->size[0] * step->size[1]);
 
                 // MATLAB Function: '<S135>/BaseWayPoint'
-                step->size[0] = 1;
-                step->size[1] = static_cast<int32_T>(y->size[1] * 91);
-                ImmedMission_emxEnsureCapacity_real_T(step, coffset);
-
-                // MATLAB Function: '<S135>/BaseWayPoint'
-                if (static_cast<int32_T>(y->size[1] * 91) != 0) {
-                    colIdx = 0;
-                    for (ForEach_itr_c = 0; ForEach_itr_c <= static_cast<int32_T>
-                            (y->size[1] - 1); ForEach_itr_c =
-                            static_cast<int32_T>(ForEach_itr_c + 1)) {
-                        step->data[colIdx] = y->data[ForEach_itr_c];
-                        for (ForEach_itr = 0; ForEach_itr < 90; ForEach_itr++) {
-                            step->data[static_cast<int32_T>(static_cast<int32_T>
-                                (colIdx + ForEach_itr) + 1)] = step->data[colIdx];
-                        }
-
-                        colIdx = static_cast<int32_T>(colIdx + 91);
-                    }
-                }
-
+                ImmedMission_repelem(y, step);
                 ImmedMission_emxFree_real_T(&y);
 
                 // MATLAB Function: '<S135>/BaseWayPoint'
                 if (static_cast<int32_T>(step->size[1] - 46) < 46) {
                     ForEach_itr_c = 0;
-                    ForEach_itr = 0;
+                    i = 0;
                 } else {
                     ForEach_itr_c = 45;
-                    ForEach_itr = static_cast<int32_T>(step->size[1] - 46);
+                    i = static_cast<int32_T>(step->size[1] - 46);
                 }
 
                 // '<S181>:1:33'
-                if (static_cast<int32_T>(ForEach_itr - ForEach_itr_c) ==
-                        WayPoint->size[0]) {
+                if (static_cast<int32_T>(i - ForEach_itr_c) == WayPoint->size[0])
+                {
                     ImmedMission_emxInit_real_T(&WayPoint_0, 1);
-                    colIdx = static_cast<int32_T>(WayPoint->size[0] - 1);
-                    coffset = WayPoint_0->size[0];
+                    ForEach_itr = static_cast<int32_T>(WayPoint->size[0] - 1);
+                    b_size_idx_0 = WayPoint_0->size[0];
                     WayPoint_0->size[0] = WayPoint->size[0];
-                    ImmedMission_emxEnsureCapacity_real_T(WayPoint_0, coffset);
-                    for (coffset = 0; coffset <= colIdx; coffset++) {
-                        WayPoint_0->data[coffset] = WayPoint->data
-                            [static_cast<int32_T>(static_cast<int32_T>
-                            (WayPoint->size[0] << 1) + coffset)] + step->data[
-                            static_cast<int32_T>(ForEach_itr_c + coffset)];
+                    ImmedMission_emxEnsureCapacity_real_T(WayPoint_0,
+                        b_size_idx_0);
+                    for (i = 0; i <= ForEach_itr; i++) {
+                        WayPoint_0->data[i] = WayPoint->data[static_cast<int32_T>
+                            (static_cast<int32_T>(WayPoint->size[0] << 1) + i)]
+                            + step->data[static_cast<int32_T>(ForEach_itr_c + i)];
                     }
 
-                    ForEach_itr = WayPoint_0->size[0];
-                    for (coffset = 0; coffset <= static_cast<int32_T>
-                            (ForEach_itr - 1); coffset++) {
-                        WayPoint->data[static_cast<int32_T>(coffset +
+                    loop_ub = WayPoint_0->size[0];
+                    for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+                        WayPoint->data[static_cast<int32_T>(i +
                             static_cast<int32_T>(WayPoint->size[0] << 1))] =
-                            WayPoint_0->data[coffset];
+                            WayPoint_0->data[i];
                     }
 
                     ImmedMission_emxFree_real_T(&WayPoint_0);
                 } else {
                     ImmedMission_binary_expand_op_p(WayPoint, step,
-                        ForEach_itr_c, static_cast<int32_T>(ForEach_itr - 1));
+                        ForEach_itr_c, static_cast<int32_T>(i - 1));
                 }
 
                 ImmedMission_emxFree_real_T(&step);
                 ImmedMission_emxInit_real_T(&rotWayPoint, 2);
+                ImmedMission_emxInit_real_T(&tmp_3, 2);
 
                 // MATLAB Function: '<S135>/BaseWayPoint' incorporates:
+                //   MATLABSystem: '<S135>/RotateATMissionHdg'
                 //   Sum: '<S18>/Sum of Elements'
                 //   Sum: '<S249>/Sum of Elements'
 
                 // '<S181>:1:35'
-                ForEach_itr_c = WayPoint->size[0];
-                coffset = static_cast<int32_T>(rotWayPoint->size[0] *
-                    rotWayPoint->size[1]);
+                ImmedMission_mtimes(WayPoint, rtb_VectorConcatenate_a,
+                                    rotWayPoint);
 
-                // MATLAB Function: '<S135>/BaseWayPoint'
-                rotWayPoint->size[0] = WayPoint->size[0];
-                rotWayPoint->size[1] = 3;
-                ImmedMission_emxEnsureCapacity_real_T(rotWayPoint, coffset);
-
-                // MATLAB Function: '<S135>/BaseWayPoint' incorporates:
-                //   MATLABSystem: '<S135>/RotateATMissionHdg'
-
-                for (colIdx = 0; colIdx < 3; colIdx++) {
-                    coffset = static_cast<int32_T>(colIdx * ForEach_itr_c);
-                    colToCopy = static_cast<int32_T>(colIdx * 3);
-                    for (ForEach_itr = 0; ForEach_itr <= static_cast<int32_T>
-                            (ForEach_itr_c - 1); ForEach_itr =
-                            static_cast<int32_T>(ForEach_itr + 1)) {
-                        rotWayPoint->data[static_cast<int32_T>(coffset +
-                            ForEach_itr)] = (WayPoint->data[static_cast<int32_T>
-                                             (WayPoint->size[0] + ForEach_itr)] *
-                                             rtb_VectorConcatenate_a[
-                                             static_cast<int32_T>(colToCopy + 1)]
-                                             + WayPoint->data[ForEach_itr] *
-                                             rtb_VectorConcatenate_a[colToCopy])
-                            + WayPoint->data[static_cast<int32_T>
-                            (static_cast<int32_T>(WayPoint->size[0] << 1) +
-                             ForEach_itr)] * rtb_VectorConcatenate_a[
-                            static_cast<int32_T>(colToCopy + 2)];
-                    }
-                }
-
-                coffset = static_cast<int32_T>(WayPoint->size[0] *
-                    WayPoint->size[1]);
-
-                // MATLAB Function: '<S135>/BaseWayPoint'
-                WayPoint->size[0] = rotWayPoint->size[0];
-                WayPoint->size[1] = 3;
-                ImmedMission_emxEnsureCapacity_real_T(WayPoint, coffset);
-
-                // MATLAB Function: '<S135>/BaseWayPoint' incorporates:
-                //   Reshape: '<S135>/ReshapeRowVec'
-
-                ForEach_itr = rotWayPoint->size[0];
-                for (colToCopy = 0; colToCopy <= static_cast<int32_T>
-                        (ForEach_itr - 1); colToCopy = static_cast<int32_T>
-                        (colToCopy + 1)) {
-                    WayPoint->data[colToCopy] = rtb_VectorConcatenate[0];
-                }
-
-                for (colToCopy = 0; colToCopy <= static_cast<int32_T>
-                        (ForEach_itr - 1); colToCopy = static_cast<int32_T>
-                        (colToCopy + 1)) {
-                    WayPoint->data[static_cast<int32_T>(ForEach_itr + colToCopy)]
-                        = rtb_VectorConcatenate[1];
-                }
-
-                colIdx = static_cast<int32_T>(rotWayPoint->size[0] << 1);
-                for (colToCopy = 0; colToCopy <= static_cast<int32_T>
-                        (ForEach_itr - 1); colToCopy = static_cast<int32_T>
-                        (colToCopy + 1)) {
-                    WayPoint->data[static_cast<int32_T>(colIdx + colToCopy)] =
-                        rtb_VectorConcatenate[2];
-                }
+                // Sum: '<S138>/Sum2' incorporates:
+                //   Product: '<S138>/x*cos'
+                //   Product: '<S138>/y*sin'
 
                 // '<S181>:1:38'
+                rtb_Abs1_k = rtb_Switch_m2 * 0.0 + rtb_Switch_gh;
+
+                // MATLAB Function: '<S135>/BaseWayPoint' incorporates:
+                //   Sum: '<S138>/Sum2'
+
+                rtb_VectorConcatenate[0] = rtb_Abs1_k;
+
+                // Sum: '<S138>/Sum3' incorporates:
+                //   Product: '<S138>/x*sin'
+                //   Product: '<S138>/y*cos'
+
+                rtb_Switch = rtb_Switch_m2 - rtb_Switch_gh * 0.0;
+
+                // MATLAB Function: '<S135>/BaseWayPoint' incorporates:
+                //   Sum: '<S138>/Sum3'
+
+                rtb_VectorConcatenate[1] = rtb_Switch;
+
+                // UnaryMinus: '<S132>/Ze2height' incorporates:
+                //   DataStoreRead: '<S129>/AltitudeGCS'
+                //   Gain: '<S129>/inverse'
+                //   Sum: '<S132>/Sum'
+
+                rtb_Sum_n = -(rtu_MissionInput->MissionLocation.Alt +
+                              -AltitudeGCS);
+
+                // MATLAB Function: '<S135>/BaseWayPoint' incorporates:
+                //   UnaryMinus: '<S132>/Ze2height'
+
+                rtb_VectorConcatenate[2] = rtb_Sum_n;
+                ImmedMission_repmat_o(rtb_VectorConcatenate, static_cast<real_T>
+                                      (rotWayPoint->size[0]), tmp_3);
                 ImmedMission_emxInit_real_T(&tmp, 2);
-                if (rotWayPoint->size[0] == WayPoint->size[0]) {
+                if (rotWayPoint->size[0] == tmp_3->size[0]) {
                     ImmedMission_emxInit_real_T(&rotWayPoint_0, 2);
-                    ForEach_itr = rotWayPoint->size[0];
-                    colIdx = rotWayPoint->size[0];
+                    rtb_VectorConcatenate[0] = rtb_Abs1_k;
+                    rtb_VectorConcatenate[1] = rtb_Switch;
+                    rtb_VectorConcatenate[2] = rtb_Sum_n;
+                    ImmedMission_repmat_o(rtb_VectorConcatenate,
+                                          static_cast<real_T>(rotWayPoint->size
+                                           [0]), WayPoint);
+                    loop_ub = rotWayPoint->size[0];
                     ForEach_itr_c = rotWayPoint->size[0];
-                    coffset = static_cast<int32_T>(rotWayPoint_0->size[0] *
+                    ForEach_itr = rotWayPoint->size[0];
+                    b_size_idx_0 = static_cast<int32_T>(rotWayPoint_0->size[0] *
                         rotWayPoint_0->size[1]);
                     rotWayPoint_0->size[0] = rotWayPoint->size[0];
                     rotWayPoint_0->size[1] = 3;
-                    ImmedMission_emxEnsureCapacity_real_T(rotWayPoint_0, coffset);
-                    for (coffset = 0; coffset <= static_cast<int32_T>
-                            (ForEach_itr - 1); coffset++) {
-                        rotWayPoint_0->data[coffset] = rotWayPoint->data[
-                            static_cast<int32_T>(coffset + rotWayPoint->size[0])];
+                    ImmedMission_emxEnsureCapacity_real_T(rotWayPoint_0,
+                        b_size_idx_0);
+                    for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+                        rotWayPoint_0->data[i] = rotWayPoint->data[static_cast<
+                            int32_T>(i + rotWayPoint->size[0])];
                     }
 
-                    for (coffset = 0; coffset <= static_cast<int32_T>(colIdx - 1);
-                         coffset++) {
-                        rotWayPoint_0->data[static_cast<int32_T>(coffset +
-                            rotWayPoint_0->size[0])] = rotWayPoint->data[coffset];
+                    for (i = 0; i <= static_cast<int32_T>(ForEach_itr_c - 1); i
+                            ++) {
+                        rotWayPoint_0->data[static_cast<int32_T>(i +
+                            rotWayPoint_0->size[0])] = rotWayPoint->data[i];
                     }
 
-                    for (coffset = 0; coffset <= static_cast<int32_T>
-                            (ForEach_itr_c - 1); coffset++) {
-                        rotWayPoint_0->data[static_cast<int32_T>(coffset +
+                    for (i = 0; i <= static_cast<int32_T>(ForEach_itr - 1); i++)
+                    {
+                        rotWayPoint_0->data[static_cast<int32_T>(i +
                             static_cast<int32_T>(rotWayPoint_0->size[0] << 1))] =
                             rotWayPoint->data[static_cast<int32_T>
-                            (static_cast<int32_T>(rotWayPoint->size[0] << 1) +
-                             coffset)];
+                            (static_cast<int32_T>(rotWayPoint->size[0] << 1) + i)];
                     }
 
-                    coffset = static_cast<int32_T>(tmp->size[0] * tmp->size[1]);
+                    b_size_idx_0 = static_cast<int32_T>(tmp->size[0] * tmp->
+                        size[1]);
                     tmp->size[0] = rotWayPoint_0->size[0];
                     tmp->size[1] = 3;
-                    ImmedMission_emxEnsureCapacity_real_T(tmp, coffset);
-                    ForEach_itr = static_cast<int32_T>(rotWayPoint_0->size[0] *
-                        3);
-                    for (ForEach_itr_c = 0; ForEach_itr_c <= static_cast<int32_T>
-                            (ForEach_itr - 1); ForEach_itr_c++) {
-                        tmp->data[ForEach_itr_c] = rotWayPoint_0->
-                            data[ForEach_itr_c] + WayPoint->data[ForEach_itr_c];
+                    ImmedMission_emxEnsureCapacity_real_T(tmp, b_size_idx_0);
+                    loop_ub = static_cast<int32_T>(rotWayPoint_0->size[0] * 3);
+                    for (ForEach_itr = 0; ForEach_itr <= static_cast<int32_T>
+                            (loop_ub - 1); ForEach_itr++) {
+                        tmp->data[ForEach_itr] = rotWayPoint_0->data[ForEach_itr]
+                            + WayPoint->data[ForEach_itr];
                     }
 
                     ImmedMission_emxFree_real_T(&rotWayPoint_0);
                 } else {
-                    ImmedMission_binary_expand_op(tmp, rotWayPoint, WayPoint);
+                    ImmedMission_binary_expand_op(tmp, rotWayPoint,
+                        rtb_Switch_gh, 1.0, rtb_Switch_m2, 0.0, rtu_MissionInput,
+                        -1.0, AltitudeGCS);
                 }
 
+                ImmedMission_emxFree_real_T(&tmp_3);
                 ImmedMission_emxFree_real_T(&rotWayPoint);
                 ImmedMission_emxFree_real_T(&WayPoint);
 
-                // MATLAB Function: '<S135>/BaseWayPoint'
-                localDW->SFunction_DIMS2_l[0] = tmp->size[0];
-                localDW->SFunction_DIMS2_l[1] = tmp->size[1];
+                // MATLAB Function: '<S135>/BaseWayPoint' incorporates:
+                //   Abs: '<S140>/Abs1'
+                //   Abs: '<S146>/Abs1'
+                //   Abs: '<S163>/Abs1'
+                //   Abs: '<S169>/Abs1'
+                //   Abs: '<S261>/Abs1'
+                //   Abs: '<S267>/Abs1'
+                //   Abs: '<S46>/Abs1'
+                //   Abs: '<S52>/Abs1'
+                //   Abs: '<S79>/Abs1'
+                //   Abs: '<S85>/Abs1'
+                //   DataTypeConversion: '<S129>/Param4'
+                //   Gain: '<S129>/Down2Height'
+                //   Gain: '<S65>/Down2Up'
+                //   Product: '<S259>/dEast'
+                //   Product: '<S259>/dNorth'
+                //   Product: '<S44>/dEast'
+                //   Product: '<S77>/dEast'
+                //   Product: '<S77>/dNorth'
+                //   Sqrt: '<S36>/sqrt'
+                //   Sum: '<S137>/Sum'
+                //   Sum: '<S158>/Sum'
+                //   Sum: '<S160>/Sum'
+                //   Sum: '<S228>/Sum'
+                //   Sum: '<S43>/Sum'
+                //   Sum: '<S65>/Sum'
+                //   Sum: '<S75>/Sum'
+                //   Sum: '<S76>/Sum'
+                //   Sum: '<S77>/Sum2'
+                //   Sum: '<S77>/Sum3'
+                //   Switch: '<S143>/Switch'
+                //   Switch: '<S149>/Switch'
+                //   Switch: '<S166>/Switch'
+                //   Switch: '<S172>/Switch'
+                //   Switch: '<S234>/Switch'
+                //   Switch: '<S240>/Switch'
+                //   Switch: '<S270>/Switch'
+                //   Switch: '<S35>/Switch'
+                //   Switch: '<S49>/Switch'
+                //   Switch: '<S55>/Switch'
+                //   Switch: '<S82>/Switch'
+                //   Switch: '<S88>/Switch'
+                //   Trigonometry: '<S138>/SinCos'
+                //   Trigonometry: '<S259>/SinCos'
+                //   UnitConversion: '<S60>/Unit Conversion'
+                //   UnitConversion: '<S93>/Unit Conversion'
+
+                localDW->SFunction_DIMS2_b[0] = tmp->size[0];
+                localDW->SFunction_DIMS2_b[1] = tmp->size[1];
+                loop_ub = static_cast<int32_T>(tmp->size[0] * tmp->size[1]);
+                for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+                    localDW->nedWayPoint[i] = tmp->data[i];
+                }
+
+                ImmedMission_emxFree_real_T(&tmp);
 
                 // Concatenate: '<S135>/Matrix Concatenate' incorporates:
-                //   MATLAB Function: '<S135>/BaseWayPoint'
                 //   Reshape: '<S129>/ReshapeXe'
                 //   SignalConversion generated from: '<S135>/FlightMissionLoc'
 
                 localDW->MatrixConcatenate_DIMS1[0] = static_cast<int32_T>
-                    (localDW->SFunction_DIMS2_l[0] + 1);
+                    (localDW->SFunction_DIMS2_b[0] + 1);
                 localDW->MatrixConcatenate_DIMS1[1] = localDW->
-                    SFunction_DIMS2_l[1];
+                    SFunction_DIMS2_b[1];
                 localDW->MatrixConcatenate_d[0] = rtb_Sum_o[0];
                 localDW->MatrixConcatenate_d[localDW->MatrixConcatenate_DIMS1[0]]
                     = rtb_Sum_o[1];
                 localDW->MatrixConcatenate_d[static_cast<int32_T>
                     (localDW->MatrixConcatenate_DIMS1[0] << 1)] = rtb_Sum_o[2];
-                ForEach_itr = tmp->size[1];
-                for (coffset = 0; coffset <= static_cast<int32_T>(ForEach_itr -
-                        1); coffset++) {
-                    colIdx = tmp->size[0];
-                    for (ForEach_itr_c = 0; ForEach_itr_c <= static_cast<int32_T>
-                            (colIdx - 1); ForEach_itr_c++) {
+                loop_ub = localDW->SFunction_DIMS2_b[1];
+                for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+                    ForEach_itr_c = localDW->SFunction_DIMS2_b[0];
+                    for (ForEach_itr = 0; ForEach_itr <= static_cast<int32_T>
+                            (ForEach_itr_c - 1); ForEach_itr++) {
                         localDW->MatrixConcatenate_d[static_cast<int32_T>(
-                            static_cast<int32_T>(ForEach_itr_c +
-                            static_cast<int32_T>
-                            (localDW->MatrixConcatenate_DIMS1[0] * coffset)) + 1)]
-                            = tmp->data[static_cast<int32_T>(static_cast<int32_T>
-                            (tmp->size[0] * coffset) + ForEach_itr_c)];
+                            static_cast<int32_T>(ForEach_itr + static_cast<
+                            int32_T>(localDW->MatrixConcatenate_DIMS1[0] * i)) +
+                            1)] = localDW->nedWayPoint[static_cast<int32_T>(
+                            static_cast<int32_T>(localDW->SFunction_DIMS2_b[0] *
+                            i) + ForEach_itr)];
                     }
                 }
 
                 // End of Concatenate: '<S135>/Matrix Concatenate'
 
                 // Sum: '<S135>/Minus' incorporates:
-                //   MATLAB Function: '<S135>/BaseWayPoint'
                 //   Reshape: '<S129>/ReshapeXe'
                 //   Selector: '<S135>/Selector'
                 //   SignalConversion generated from: '<S135>/FlightMissionLoc'
 
-                localDW->Minus[0] = tmp->data[0] - rtb_Sum_o[0];
-                localDW->Minus[1] = tmp->data[tmp->size[0]] - rtb_Sum_o[1];
-                localDW->Minus[2] = tmp->data[static_cast<int32_T>(tmp->size[0] <<
-                    1)] - rtb_Sum_o[2];
-                ImmedMission_emxFree_real_T(&tmp);
+                localDW->Minus[0] = localDW->nedWayPoint[0] - rtb_Sum_o[0];
+                localDW->Minus[1] = localDW->nedWayPoint
+                    [localDW->SFunction_DIMS2_b[0]] - rtb_Sum_o[1];
+                localDW->Minus[2] = localDW->nedWayPoint[static_cast<int32_T>
+                    (localDW->SFunction_DIMS2_b[0] << 1)] - rtb_Sum_o[2];
             }
 
             // End of Outputs for SubSystem: '<S129>/WayPointGen'
 
             // SignalConversion generated from: '<S129>/Waypoint Follower' incorporates:
+            //   Abs: '<S140>/Abs1'
+            //   Abs: '<S146>/Abs1'
+            //   Abs: '<S163>/Abs1'
+            //   Abs: '<S169>/Abs1'
+            //   Abs: '<S261>/Abs1'
+            //   Abs: '<S267>/Abs1'
+            //   Abs: '<S46>/Abs1'
+            //   Abs: '<S52>/Abs1'
+            //   Abs: '<S79>/Abs1'
+            //   Abs: '<S85>/Abs1'
             //   Constant: '<S129>/InitTrigger'
+            //   DataTypeConversion: '<S129>/Param4'
+            //   Gain: '<S129>/Down2Height'
+            //   Gain: '<S65>/Down2Up'
             //   MATLAB Function: '<S135>/BaseWayPoint'
+            //   Product: '<S259>/dEast'
+            //   Product: '<S259>/dNorth'
+            //   Product: '<S44>/dEast'
+            //   Product: '<S77>/dEast'
+            //   Product: '<S77>/dNorth'
+            //   Sqrt: '<S36>/sqrt'
+            //   Sum: '<S137>/Sum'
+            //   Sum: '<S158>/Sum'
+            //   Sum: '<S160>/Sum'
             //   Sum: '<S18>/Sum of Elements'
+            //   Sum: '<S228>/Sum'
             //   Sum: '<S249>/Sum of Elements'
+            //   Sum: '<S43>/Sum'
+            //   Sum: '<S65>/Sum'
+            //   Sum: '<S75>/Sum'
+            //   Sum: '<S76>/Sum'
+            //   Sum: '<S77>/Sum2'
+            //   Sum: '<S77>/Sum3'
+            //   Switch: '<S143>/Switch'
+            //   Switch: '<S149>/Switch'
+            //   Switch: '<S166>/Switch'
+            //   Switch: '<S172>/Switch'
+            //   Switch: '<S234>/Switch'
+            //   Switch: '<S240>/Switch'
+            //   Switch: '<S270>/Switch'
+            //   Switch: '<S35>/Switch'
+            //   Switch: '<S49>/Switch'
+            //   Switch: '<S55>/Switch'
+            //   Switch: '<S82>/Switch'
+            //   Switch: '<S88>/Switch'
+            //   Trigonometry: '<S138>/SinCos'
+            //   Trigonometry: '<S259>/SinCos'
+            //   UnitConversion: '<S60>/Unit Conversion'
+            //   UnitConversion: '<S93>/Unit Conversion'
 
             rtb_TmpSignalConversionAtOrbitFollowerInport1[0] = rtb_North;
             rtb_TmpSignalConversionAtOrbitFollowerInport1[1] = rtb_East;
@@ -6854,63 +9134,59 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
                     (localDW->obj.CacheInputSizes) ^ 1))) {
                 localDW->obj.CacheInputSizes = true;
-                for (coffset = 0; coffset < 8; coffset++) {
-                    localDW->obj.inputVarSize[0].f1[coffset] = 1U;
+                for (i = 0; i < 8; i++) {
+                    localDW->obj.inputVarSize[0].f1[i] = 1U;
                 }
 
-                coffset = localDW->MatrixConcatenate_DIMS1[0];
+                i = localDW->MatrixConcatenate_DIMS1[0];
                 if (localDW->MatrixConcatenate_DIMS1[0] < 0) {
-                    coffset = 0;
+                    i = 0;
                 }
 
-                localDW->obj.inputVarSize[1].f1[0] = static_cast<uint32_T>
-                    (coffset);
-                coffset = localDW->MatrixConcatenate_DIMS1[1];
+                localDW->obj.inputVarSize[1].f1[0] = static_cast<uint32_T>(i);
+                i = localDW->MatrixConcatenate_DIMS1[1];
                 if (localDW->MatrixConcatenate_DIMS1[1] < 0) {
-                    coffset = 0;
+                    i = 0;
                 }
 
-                localDW->obj.inputVarSize[1].f1[1] = static_cast<uint32_T>
-                    (coffset);
-                for (coffset = 0; coffset < 6; coffset++) {
-                    localDW->obj.inputVarSize[1].f1[static_cast<int32_T>(coffset
-                        + 2)] = 1U;
+                localDW->obj.inputVarSize[1].f1[1] = static_cast<uint32_T>(i);
+                for (i = 0; i < 6; i++) {
+                    localDW->obj.inputVarSize[1].f1[static_cast<int32_T>(i + 2)]
+                        = 1U;
                 }
 
-                for (coffset = 0; coffset < 8; coffset++) {
-                    localDW->obj.inputVarSize[2].f1[coffset] = 1U;
+                for (i = 0; i < 8; i++) {
+                    localDW->obj.inputVarSize[2].f1[i] = 1U;
                 }
             }
 
-            coffset = localDW->MatrixConcatenate_DIMS1[0];
+            i = localDW->MatrixConcatenate_DIMS1[0];
             if (localDW->MatrixConcatenate_DIMS1[0] < 0) {
-                coffset = 0;
+                i = 0;
             }
 
-            inSize[0] = static_cast<uint32_T>(coffset);
-            coffset = localDW->MatrixConcatenate_DIMS1[1];
+            inSize[0] = static_cast<uint32_T>(i);
+            i = localDW->MatrixConcatenate_DIMS1[1];
             if (localDW->MatrixConcatenate_DIMS1[1] < 0) {
-                coffset = 0;
+                i = 0;
             }
 
-            inSize[1] = static_cast<uint32_T>(coffset);
-            for (coffset = 0; coffset < 6; coffset++) {
-                inSize[static_cast<int32_T>(coffset + 2)] = 1U;
+            inSize[1] = static_cast<uint32_T>(i);
+            for (i = 0; i < 6; i++) {
+                inSize[static_cast<int32_T>(i + 2)] = 1U;
             }
 
-            ForEach_itr = 0;
+            i = 0;
             exitg1 = false;
-            while ((!exitg1) && (ForEach_itr < 8)) {
-                if (localDW->obj.inputVarSize[1].f1[ForEach_itr] !=
-                        inSize[ForEach_itr]) {
-                    for (coffset = 0; coffset < 8; coffset++) {
-                        localDW->obj.inputVarSize[1].f1[coffset] =
-                            inSize[coffset];
+            while ((!exitg1) && (i < 8)) {
+                if (localDW->obj.inputVarSize[1].f1[i] != inSize[i]) {
+                    for (i = 0; i < 8; i++) {
+                        localDW->obj.inputVarSize[1].f1[i] = inSize[i];
                     }
 
                     exitg1 = true;
                 } else {
-                    ForEach_itr = static_cast<int32_T>(ForEach_itr + 1);
+                    i = static_cast<int32_T>(i + 1);
                 }
             }
 
@@ -6919,32 +9195,32 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             localDW->obj.InitialPose[1] = 0.0;
             localDW->obj.InitialPose[2] = 0.0;
             localDW->obj.InitialPose[3] = 0.0;
-            for (coffset = 0; coffset < 30723; coffset++) {
-                localDW->paddedWaypts[coffset] = (rtNaN);
+            for (i = 0; i < 30723; i++) {
+                localDW->paddedWaypts[i] = (rtNaN);
             }
 
-            ForEach_itr = localDW->MatrixConcatenate_DIMS1[0];
-            for (coffset = 0; coffset < 3; coffset++) {
-                for (ForEach_itr_c = 0; ForEach_itr_c <= static_cast<int32_T>
-                        (ForEach_itr - 1); ForEach_itr_c++) {
-                    localDW->paddedWaypts[static_cast<int32_T>(ForEach_itr_c +
-                        static_cast<int32_T>(10241 * coffset))] =
+            loop_ub = localDW->MatrixConcatenate_DIMS1[0];
+            for (i = 0; i < 3; i++) {
+                for (ForEach_itr = 0; ForEach_itr <= static_cast<int32_T>
+                        (loop_ub - 1); ForEach_itr++) {
+                    localDW->paddedWaypts[static_cast<int32_T>(ForEach_itr +
+                        static_cast<int32_T>(10241 * i))] =
                         localDW->MatrixConcatenate_d[static_cast<int32_T>(
                         static_cast<int32_T>(localDW->MatrixConcatenate_DIMS1[0]
-                        * coffset) + ForEach_itr_c)];
+                        * i) + ForEach_itr)];
                 }
             }
 
             rtb_Compare_lh = false;
             rtb_Ctrl = true;
-            ForEach_itr = 0;
+            i = 0;
             exitg1 = false;
-            while ((!exitg1) && (ForEach_itr < 30723)) {
-                if ((localDW->obj.WaypointsInternal[ForEach_itr] ==
-                        localDW->paddedWaypts[ForEach_itr]) || (std::isnan
-                        (localDW->obj.WaypointsInternal[ForEach_itr]) && std::
-                        isnan(localDW->paddedWaypts[ForEach_itr]))) {
-                    ForEach_itr = static_cast<int32_T>(ForEach_itr + 1);
+            while ((!exitg1) && (i < 30723)) {
+                if ((localDW->obj.WaypointsInternal[i] == localDW->
+                        paddedWaypts[i]) || (std::isnan
+                        (localDW->obj.WaypointsInternal[i]) && std::isnan
+                        (localDW->paddedWaypts[i]))) {
+                    i = static_cast<int32_T>(i + 1);
                 } else {
                     rtb_Ctrl = false;
                     exitg1 = true;
@@ -6991,7 +9267,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             localDW->obj.LookaheadDistance = 150.0;
 
             // End of Outputs for SubSystem: '<S1>/Mode131_SqCalibr'
-            ImmedMission_emxInit_real_T(&tmp_1, 2);
+            ImmedMission_emxInit_real_T(&tmp_2, 2);
 
             // Outputs for IfAction SubSystem: '<S1>/Mode131_SqCalibr' incorporates:
             //   ActionPort: '<S9>/Action Port'
@@ -7009,7 +9285,6 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
 
                 localDW->WaypointFollower_o5 = 1U;
             } else {
-                boolean_T guard1;
                 guard1 = false;
                 if (waypointsIn->size[0] == 1) {
                     if (localDW->obj.StartFlag) {
@@ -7037,28 +9312,29 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                         localDW->obj.NumWaypoints = 2.0;
                         waypointsIn_0[0] = 1;
                         waypointsIn_0[1] = 3;
-                        coffset = static_cast<int32_T>(tmp_1->size[0] *
-                            tmp_1->size[1]);
-                        tmp_1->size[0] = 2;
-                        tmp_1->size[1] = 3;
-                        ImmedMission_emxEnsureCapacity_real_T(tmp_1, coffset);
-                        for (coffset = 0; coffset < 3; coffset++) {
-                            tmp_1->data[static_cast<int32_T>(tmp_1->size[0] *
-                                coffset)] = localDW->obj.InitialPose[coffset];
-                            tmp_1->data[static_cast<int32_T>(1 +
-                                static_cast<int32_T>(tmp_1->size[0] * coffset))]
-                                = waypointsIn->data[static_cast<int32_T>(
-                                static_cast<int32_T>(waypointsIn_0[0]) * coffset)];
+                        b_size_idx_0 = static_cast<int32_T>(tmp_2->size[0] *
+                            tmp_2->size[1]);
+                        tmp_2->size[0] = 2;
+                        tmp_2->size[1] = 3;
+                        ImmedMission_emxEnsureCapacity_real_T(tmp_2,
+                            b_size_idx_0);
+                        for (i = 0; i < 3; i++) {
+                            tmp_2->data[static_cast<int32_T>(tmp_2->size[0] * i)]
+                                = localDW->obj.InitialPose[i];
+                            tmp_2->data[static_cast<int32_T>(1 +
+                                static_cast<int32_T>(tmp_2->size[0] * i))] =
+                                waypointsIn->data[static_cast<int32_T>(
+                                static_cast<int32_T>(waypointsIn_0[0]) * i)];
                         }
 
-                        coffset = static_cast<int32_T>(waypointsIn->size[0] *
-                            waypointsIn->size[1]);
+                        b_size_idx_0 = static_cast<int32_T>(waypointsIn->size[0]
+                            * waypointsIn->size[1]);
                         waypointsIn->size[0] = 2;
                         waypointsIn->size[1] = 3;
                         ImmedMission_emxEnsureCapacity_real_T(waypointsIn,
-                            coffset);
-                        for (coffset = 0; coffset < 6; coffset++) {
-                            waypointsIn->data[coffset] = tmp_1->data[coffset];
+                            b_size_idx_0);
+                        for (i = 0; i < 6; i++) {
+                            waypointsIn->data[i] = tmp_2->data[i];
                         }
 
                         guard1 = true;
@@ -7185,13 +9461,13 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                         rtb_VectorConcatenate[0];
                     rtb_Abs1_k = rtb_Sum_n - rtb_VectorConcatenate[1];
                     rtb_HeadingAngle = rtb_East - rtb_VectorConcatenate[1];
-                    rtb_Switch_tmp = rtb_Switch_gh - rtb_VectorConcatenate[2];
+                    stateNew_idx_0 = rtb_Switch_gh - rtb_VectorConcatenate[2];
                     rtb_Sum_dq = rtb_TmpSignalConversionAtOrbitFollowerInport1[2]
                         - rtb_VectorConcatenate[2];
                     rtb_Abs1 = ((rtb_HeadingAngle * rtb_Abs1_k +
                                  rtb_QuaternionInterpolation_idx_2 * t) +
-                                rtb_Sum_dq * rtb_Switch_tmp) / ((rtb_Abs1_k *
-                        rtb_Abs1_k + t * t) + rtb_Switch_tmp * rtb_Switch_tmp);
+                                rtb_Sum_dq * stateNew_idx_0) / ((rtb_Abs1_k *
+                        rtb_Abs1_k + t * t) + stateNew_idx_0 * stateNew_idx_0);
                     if (rtb_Abs1 < 0.0) {
                         rtb_Sum_o[0] = rtb_QuaternionInterpolation_idx_2;
                         rtb_Sum_o[1] = rtb_HeadingAngle;
@@ -7211,7 +9487,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                             rtb_VectorConcatenate[1]);
                         rtb_Sum_o[2] =
                             rtb_TmpSignalConversionAtOrbitFollowerInport1[2] -
-                            (rtb_Abs1 * rtb_Switch_tmp + rtb_VectorConcatenate[2]);
+                            (rtb_Abs1 * stateNew_idx_0 + rtb_VectorConcatenate[2]);
                         rtb_Abs1 = ImmedMission_norm_pv(rtb_Sum_o);
                     }
 
@@ -7232,7 +9508,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                             rtb_VectorConcatenate[1]);
                         rtb_Sum_o[2] =
                             rtb_TmpSignalConversionAtOrbitFollowerInport1[2] -
-                            (rtb_Abs1 * rtb_Switch_tmp + rtb_VectorConcatenate[2]);
+                            (rtb_Abs1 * stateNew_idx_0 + rtb_VectorConcatenate[2]);
                         rtb_Abs1 = ImmedMission_norm_pv(rtb_Sum_o);
                     }
 
@@ -7278,7 +9554,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                     rtb_Switch_m2 = rtb_VectorConcatenate[2] -
                         rtb_TmpSignalConversionAtOrbitFollowerInport1[2];
                     rtb_Abs1 = ((t * rtb_North + rtb_Abs1_k * rtb_East) +
-                                rtb_Switch_tmp * rtb_Switch_m2) * 2.0;
+                                stateNew_idx_0 * rtb_Switch_m2) * 2.0;
                     rtb_North = std::sqrt(rtb_Abs1 * rtb_Abs1 - (((rtb_North *
                         rtb_North + rtb_East * rtb_East) + rtb_Switch_m2 *
                                             rtb_Switch_m2) -
@@ -7316,7 +9592,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             }
 
             // End of Outputs for SubSystem: '<S1>/Mode131_SqCalibr'
-            ImmedMission_emxFree_real_T(&tmp_1);
+            ImmedMission_emxFree_real_T(&tmp_2);
             ImmedMission_emxFree_real_T(&waypointsIn);
 
             // Outputs for IfAction SubSystem: '<S1>/Mode131_SqCalibr' incorporates:
@@ -7494,15 +9770,15 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
 
                 // End of Signum: '<S191>/Sign1'
                 rtb_North *= -(rtb_East + -90.0) + 90.0;
-                coffset = 180;
+                i = 180;
             } else {
-                coffset = 0;
+                i = 0;
             }
 
             // End of Switch: '<S191>/Switch'
 
             // Sum: '<S187>/Sum'
-            rtb_East = static_cast<real_T>(coffset) + rtb_Sum1[1];
+            rtb_East = static_cast<real_T>(i) + rtb_Sum1[1];
 
             // Switch: '<S192>/Switch' incorporates:
             //   Abs: '<S192>/Abs'
@@ -7727,17 +10003,17 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             //   MATLABSystem: '<S217>/Coordinate Transformation Conversion'
             //   Reshape: '<S217>/Reshape'
 
-            for (coffset = 0; coffset < 3; coffset++) {
-                rtb_TmpSignalConversionAtOrbitFollowerInport2[coffset] =
+            for (i = 0; i < 3; i++) {
+                rtb_TmpSignalConversionAtOrbitFollowerInport2[i] =
                     (localDW->CoordinateTransformationConversion.CoordinateTransformationConversion
-                     [static_cast<int32_T>(static_cast<int32_T>(3 * coffset) + 1)]
-                     * rtu_MissionInput->StartPosition.Lon +
+                     [static_cast<int32_T>(static_cast<int32_T>(3 * i) + 1)] *
+                     rtu_MissionInput->StartPosition.Lon +
                      localDW->CoordinateTransformationConversion.CoordinateTransformationConversion
-                     [static_cast<int32_T>(3 * coffset)] *
+                     [static_cast<int32_T>(3 * i)] *
                      rtu_MissionInput->StartPosition.Lat) +
                     localDW->CoordinateTransformationConversion.CoordinateTransformationConversion
-                    [static_cast<int32_T>(static_cast<int32_T>(3 * coffset) + 2)]
-                    * rtu_MissionInput->StartPosition.Alt;
+                    [static_cast<int32_T>(static_cast<int32_T>(3 * i) + 2)] *
+                    rtu_MissionInput->StartPosition.Alt;
             }
 
             // End of Product: '<S217>/Product'
@@ -7889,222 +10165,218 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
         break;
 
       case 6:
-        {
-            FixedWingGuidanceStateBus rtb_BusAssignment;
+        // Outputs for IfAction SubSystem: '<S1>/Mode253_ShiftBodyXYZ' incorporates:
+        //   ActionPort: '<S11>/Action Port'
 
-            // Outputs for IfAction SubSystem: '<S1>/Mode253_ShiftBodyXYZ' incorporates:
-            //   ActionPort: '<S11>/Action Port'
+        // SignalConversion generated from: '<S210>/Coordinate Transformation Conversion' 
+        rtb_TmpSignalConversionAtCoordinateTransformationConversionInport1[0] =
+            rtu_SimUAVstate->HeadingAngle;
+        rtb_TmpSignalConversionAtCoordinateTransformationConversionInport1[1] =
+            rtu_SimUAVstate->FlightPathAngle;
+        rtb_TmpSignalConversionAtCoordinateTransformationConversionInport1[2] =
+            rtu_SimUAVstate->RollAngle;
+        ImmedMission_CoordinateTransformationConversion
+            (rtb_TmpSignalConversionAtCoordinateTransformationConversionInport1,
+             &localDW->CoordinateTransformationConversion_j);
 
-            // SignalConversion generated from: '<S210>/Coordinate Transformation Conversion' 
-            rtb_TmpSignalConversionAtCoordinateTransformationConversionInport1[0]
-                = rtu_SimUAVstate->HeadingAngle;
-            rtb_TmpSignalConversionAtCoordinateTransformationConversionInport1[1]
-                = rtu_SimUAVstate->FlightPathAngle;
-            rtb_TmpSignalConversionAtCoordinateTransformationConversionInport1[2]
-                = rtu_SimUAVstate->RollAngle;
-            ImmedMission_CoordinateTransformationConversion
-                (rtb_TmpSignalConversionAtCoordinateTransformationConversionInport1,
-                 &localDW->CoordinateTransformationConversion_j);
+        // Product: '<S210>/Matrix Multiply' incorporates:
+        //   MATLABSystem: '<S210>/Coordinate Transformation Conversion'
+        //   SignalConversion generated from: '<S210>/Matrix Multiply'
 
-            // Product: '<S210>/Matrix Multiply' incorporates:
-            //   MATLABSystem: '<S210>/Coordinate Transformation Conversion'
-            //   SignalConversion generated from: '<S210>/Matrix Multiply'
-
-            for (coffset = 0; coffset < 3; coffset++) {
-                rtb_Sum_o[coffset] =
-                    (localDW->CoordinateTransformationConversion_j.CoordinateTransformationConversion
-                     [static_cast<int32_T>(coffset + 3)] *
-                     rtu_MissionInput->StartPosition.Lon +
-                     localDW->CoordinateTransformationConversion_j.CoordinateTransformationConversion
-                     [coffset] * 0.0) +
-                    localDW->CoordinateTransformationConversion_j.CoordinateTransformationConversion
-                    [static_cast<int32_T>(coffset + 6)] *
-                    rtu_MissionInput->StartPosition.Alt;
-            }
-
-            // End of Product: '<S210>/Matrix Multiply'
-
-            // Sum: '<S210>/AddEast'
-            rtb_North = rtu_SimUAVstate->East + rtb_Sum_o[1];
-
-            // Sum: '<S210>/AddHeight'
-            rtb_East = rtu_SimUAVstate->Height + rtb_Sum_o[2];
-
-            // Sum: '<S210>/AddNorth'
-            rtb_HeadingAngle = rtu_SimUAVstate->North + rtb_Sum_o[0];
-
-            // BusAssignment: '<S210>/Bus Assignment'
-            rtb_BusAssignment = *rtu_SimUAVstate;
-            rtb_BusAssignment.North = rtb_HeadingAngle;
-            rtb_BusAssignment.East = rtb_North;
-            rtb_BusAssignment.Height = rtb_East;
-
-            // Trigonometry: '<S214>/sincos' incorporates:
-            //   SignalConversion generated from: '<S214>/sincos'
-
-            rtb_TmpSignalConversionAtOrbitFollowerInport2[0] = std::cos
-                (rtb_BusAssignment.HeadingAngle);
-            rtb_Sum_dq = std::sin(rtb_BusAssignment.HeadingAngle);
-            rtb_TmpSignalConversionAtOrbitFollowerInport2[1] = std::cos
-                (rtb_BusAssignment.FlightPathAngle);
-            rtb_Abs1 = std::sin(rtb_BusAssignment.FlightPathAngle);
-            rtb_TmpSignalConversionAtOrbitFollowerInport2[2] = std::cos
-                (rtb_BusAssignment.RollAngle);
-            rtb_Switch_gh = std::sin(rtb_BusAssignment.RollAngle);
-
-            // Fcn: '<S214>/Fcn11'
-            rtb_VectorConcatenate_a[0] =
-                rtb_TmpSignalConversionAtOrbitFollowerInport2[0] *
-                rtb_TmpSignalConversionAtOrbitFollowerInport2[1];
-
-            // Fcn: '<S214>/Fcn21' incorporates:
-            //   Fcn: '<S214>/Fcn22'
-
-            rtb_Product2 = rtb_Abs1 * rtb_Switch_gh;
-            rtb_VectorConcatenate_a[1] = rtb_Product2 *
-                rtb_TmpSignalConversionAtOrbitFollowerInport2[0] - rtb_Sum_dq *
-                rtb_TmpSignalConversionAtOrbitFollowerInport2[2];
-
-            // Fcn: '<S214>/Fcn31' incorporates:
-            //   Fcn: '<S214>/Fcn32'
-
-            t = rtb_Abs1 * rtb_TmpSignalConversionAtOrbitFollowerInport2[2];
-            rtb_VectorConcatenate_a[2] = t *
-                rtb_TmpSignalConversionAtOrbitFollowerInport2[0] + rtb_Sum_dq *
-                rtb_Switch_gh;
-
-            // Fcn: '<S214>/Fcn12'
-            rtb_VectorConcatenate_a[3] = rtb_Sum_dq *
-                rtb_TmpSignalConversionAtOrbitFollowerInport2[1];
-
-            // Fcn: '<S214>/Fcn22'
-            rtb_VectorConcatenate_a[4] = rtb_Product2 * rtb_Sum_dq +
-                rtb_TmpSignalConversionAtOrbitFollowerInport2[0] *
-                rtb_TmpSignalConversionAtOrbitFollowerInport2[2];
-
-            // Fcn: '<S214>/Fcn32'
-            rtb_VectorConcatenate_a[5] = t * rtb_Sum_dq -
-                rtb_TmpSignalConversionAtOrbitFollowerInport2[0] * rtb_Switch_gh;
-
-            // Fcn: '<S214>/Fcn13'
-            rtb_VectorConcatenate_a[6] = -rtb_Abs1;
-
-            // Fcn: '<S214>/Fcn23'
-            rtb_VectorConcatenate_a[7] =
-                rtb_TmpSignalConversionAtOrbitFollowerInport2[1] * rtb_Switch_gh;
-
-            // Fcn: '<S214>/Fcn33'
-            rtb_VectorConcatenate_a[8] =
-                rtb_TmpSignalConversionAtOrbitFollowerInport2[1] *
-                rtb_TmpSignalConversionAtOrbitFollowerInport2[2];
-
-            // Product: '<S210>/Product' incorporates:
-            //   Concatenate: '<S215>/Vector Concatenate'
-            //   Reshape: '<S210>/Reshape'
-
-            for (coffset = 0; coffset < 3; coffset++) {
-                rtb_Sum_o[coffset] = (rtb_VectorConcatenate_a
-                                      [static_cast<int32_T>(static_cast<int32_T>
-                                       (3 * coffset) + 1)] * 0.0 +
-                                      rtb_VectorConcatenate_a
-                                      [static_cast<int32_T>(3 * coffset)] *
-                                      rtb_BusAssignment.AirSpeed) +
-                    rtb_VectorConcatenate_a[static_cast<int32_T>
-                    (static_cast<int32_T>(3 * coffset) + 2)] * 0.0;
-            }
-
-            // End of Product: '<S210>/Product'
-
-            // Outputs for Enabled SubSystem: '<S210>/DivisionByZeroProtection'
-            ImmedMission_DivisionByZeroProtection(rtb_BusAssignment.AirSpeed *
-                std::cos(rtb_BusAssignment.FlightPathAngle), 9.81 * std::tan
-                (rtb_BusAssignment.RollAngle), &localDW->Omega_g);
-
-            // End of Outputs for SubSystem: '<S210>/DivisionByZeroProtection'
-
-            // Product: '<S210>/Divide' incorporates:
-            //   Gain: '<S210>/Gravity'
-            //   Product: '<S210>/HorizSpd'
-            //   Trigonometry: '<S210>/Cos'
-            //   Trigonometry: '<S210>/Tan'
-
-            rtb_Abs1 = rtu_MissionInput->StartPosition.Lat /
-                rtu_SimUAVstate->AirSpeed;
-
-            // MATLAB Function: '<S210>/ConstTurnPred' incorporates:
-            //   BusAssignment: '<S210>/Bus Assignment'
-            //   Gain: '<S210>/Inverse'
-            //   Gain: '<S213>/Gain'
-
-            // MATLAB Function 'ImmedMissionGuidance/Mode253_ShiftBodyXYZ/Mode253_Variant/Mode253/ConstTurnPred': '<S211>:1' 
-            // '<S211>:1:2'
-            rtb_Switch_gh = rtb_HeadingAngle;
-            rtb_Switch_m2 = rtb_North;
-            rtb_HeadingAngle = 57.295779513082323 * localDW->Omega_g;
-            rtb_Switch = -rtb_East;
-
-            // '<S211>:1:4'
-            rtb_North = std::fmax(std::abs(0.017453292519943295 *
-                                   rtb_HeadingAngle), 2.2204460492503131E-16);
-            rtb_BiasNumUAV = 0;
-            if (rtb_HeadingAngle < 0.0) {
-                rtb_BiasNumUAV = 1;
-            }
-
-            if (static_cast<int32_T>(rtb_BiasNumUAV - 1) >= 0) {
-                rtb_QuaternionInterpolation_idx_0 = -rtb_North;
-            }
-
-            if (rtb_HeadingAngle < 0.0) {
-                rtb_North = rtb_QuaternionInterpolation_idx_0;
-            }
-
-            rtb_East = rtb_North * rtb_Abs1;
-            rtb_HeadingAngle = std::sin(rtb_East) / rtb_North;
-            rtb_Abs1_k = (1.0 - std::cos(rtb_East)) / rtb_North;
-
-            // Merge: '<S1>/MergeCollAvoidSimUAV' incorporates:
-            //   BusAssignment: '<S210>/FinalStateBus'
-
-            // '<S211>:1:5'
-            localDW->MergeCollAvoidSimUAV = rtb_BusAssignment;
-
-            // MATLAB Function: '<S210>/ConstTurnPred'
-            rtb_East = rtb_Abs1 * rtb_Abs1 * 0.5 * 0.0;
-
-            // BusAssignment: '<S210>/FinalStateBus' incorporates:
-            //   Gain: '<S210>/Down2Up'
-            //   MATLAB Function: '<S210>/ConstTurnPred'
-            //   Product: '<S210>/Product'
-
-            localDW->MergeCollAvoidSimUAV.North = ((rtb_HeadingAngle *
-                rtb_Sum_o[0] + rtb_Switch_gh) - rtb_Abs1_k * rtb_Sum_o[1]) +
-                rtb_East;
-            localDW->MergeCollAvoidSimUAV.East = ((rtb_Abs1_k * rtb_Sum_o[0] +
-                rtb_Switch_m2) + rtb_HeadingAngle * rtb_Sum_o[1]) + rtb_East;
-            localDW->MergeCollAvoidSimUAV.Height = -((rtb_Sum_o[2] * rtb_Abs1 +
-                rtb_Switch) + rtb_East);
-            rty_ControlSwitch[0] = false;
-            rty_ControlSwitch[1] = false;
-
-            // SignalConversion generated from: '<S11>/ShiftSimUAVswitch' incorporates:
-            //   Constant: '<S210>/Constant'
-            //   Constant: '<S210>/ControlHdg'
-            //   Constant: '<S210>/ControlSpd'
-
-            rtb_Compare_lh = true;
-
-            // SignalConversion generated from: '<S11>/thisTaskStatus'
-            *rty_TaskStatus = 0.0;
-
-            // End of Outputs for SubSystem: '<S1>/Mode253_ShiftBodyXYZ'
+        for (i = 0; i < 3; i++) {
+            rtb_Sum_o[i] =
+                (localDW->CoordinateTransformationConversion_j.CoordinateTransformationConversion
+                 [static_cast<int32_T>(i + 3)] *
+                 rtu_MissionInput->StartPosition.Lon +
+                 localDW->CoordinateTransformationConversion_j.CoordinateTransformationConversion
+                 [i] * 0.0) +
+                localDW->CoordinateTransformationConversion_j.CoordinateTransformationConversion
+                [static_cast<int32_T>(i + 6)] *
+                rtu_MissionInput->StartPosition.Alt;
         }
+
+        // End of Product: '<S210>/Matrix Multiply'
+
+        // Sum: '<S210>/AddEast'
+        rtb_North = rtu_SimUAVstate->East + rtb_Sum_o[1];
+
+        // Sum: '<S210>/AddHeight'
+        rtb_East = rtu_SimUAVstate->Height + rtb_Sum_o[2];
+
+        // Sum: '<S210>/AddNorth'
+        rtb_HeadingAngle = rtu_SimUAVstate->North + rtb_Sum_o[0];
+
+        // BusAssignment: '<S210>/Bus Assignment'
+        rtb_Switch_gh = rtu_SimUAVstate->AirSpeed;
+        rtb_Switch_m2 = rtu_SimUAVstate->HeadingAngle;
+        rtb_Switch = rtu_SimUAVstate->FlightPathAngle;
+        rtb_Sum_n = rtu_SimUAVstate->RollAngle;
+
+        // Merge: '<S1>/MergeCollAvoidSimUAV' incorporates:
+        //   BusAssignment: '<S210>/Bus Assignment'
+
+        localDW->MergeCollAvoidSimUAV.RollAngleRate =
+            rtu_SimUAVstate->RollAngleRate;
+
+        // Trigonometry: '<S214>/sincos' incorporates:
+        //   SignalConversion generated from: '<S214>/sincos'
+
+        rtb_TmpSignalConversionAtOrbitFollowerInport2[0] = std::cos
+            (rtb_Switch_m2);
+        rtb_Sum_dq = std::sin(rtb_Switch_m2);
+        rtb_TmpSignalConversionAtOrbitFollowerInport2[1] = std::cos(rtb_Switch);
+        rtb_Abs1 = std::sin(rtb_Switch);
+        rtb_TmpSignalConversionAtOrbitFollowerInport2[2] = std::cos(rtb_Sum_n);
+        rtb_Abs1_k = std::sin(rtb_Sum_n);
+
+        // Fcn: '<S214>/Fcn11'
+        rtb_VectorConcatenate_a[0] =
+            rtb_TmpSignalConversionAtOrbitFollowerInport2[0] *
+            rtb_TmpSignalConversionAtOrbitFollowerInport2[1];
+
+        // Fcn: '<S214>/Fcn21' incorporates:
+        //   Fcn: '<S214>/Fcn22'
+
+        rtb_Product2 = rtb_Abs1 * rtb_Abs1_k;
+        rtb_VectorConcatenate_a[1] = rtb_Product2 *
+            rtb_TmpSignalConversionAtOrbitFollowerInport2[0] - rtb_Sum_dq *
+            rtb_TmpSignalConversionAtOrbitFollowerInport2[2];
+
+        // Fcn: '<S214>/Fcn31' incorporates:
+        //   Fcn: '<S214>/Fcn32'
+
+        t = rtb_Abs1 * rtb_TmpSignalConversionAtOrbitFollowerInport2[2];
+        rtb_VectorConcatenate_a[2] = t *
+            rtb_TmpSignalConversionAtOrbitFollowerInport2[0] + rtb_Sum_dq *
+            rtb_Abs1_k;
+
+        // Fcn: '<S214>/Fcn12'
+        rtb_VectorConcatenate_a[3] = rtb_Sum_dq *
+            rtb_TmpSignalConversionAtOrbitFollowerInport2[1];
+
+        // Fcn: '<S214>/Fcn22'
+        rtb_VectorConcatenate_a[4] = rtb_Product2 * rtb_Sum_dq +
+            rtb_TmpSignalConversionAtOrbitFollowerInport2[0] *
+            rtb_TmpSignalConversionAtOrbitFollowerInport2[2];
+
+        // Fcn: '<S214>/Fcn32'
+        rtb_VectorConcatenate_a[5] = t * rtb_Sum_dq -
+            rtb_TmpSignalConversionAtOrbitFollowerInport2[0] * rtb_Abs1_k;
+
+        // Fcn: '<S214>/Fcn13'
+        rtb_VectorConcatenate_a[6] = -rtb_Abs1;
+
+        // Fcn: '<S214>/Fcn23'
+        rtb_VectorConcatenate_a[7] =
+            rtb_TmpSignalConversionAtOrbitFollowerInport2[1] * rtb_Abs1_k;
+
+        // Fcn: '<S214>/Fcn33'
+        rtb_VectorConcatenate_a[8] =
+            rtb_TmpSignalConversionAtOrbitFollowerInport2[1] *
+            rtb_TmpSignalConversionAtOrbitFollowerInport2[2];
+
+        // Product: '<S210>/Product' incorporates:
+        //   Concatenate: '<S215>/Vector Concatenate'
+        //   Reshape: '<S210>/Reshape'
+
+        for (i = 0; i < 3; i++) {
+            rtb_Sum_o[i] = (rtb_VectorConcatenate_a[static_cast<int32_T>(
+                             static_cast<int32_T>(3 * i) + 1)] * 0.0 +
+                            rtb_VectorConcatenate_a[static_cast<int32_T>(3 * i)]
+                            * rtb_Switch_gh) + rtb_VectorConcatenate_a[
+                static_cast<int32_T>(static_cast<int32_T>(3 * i) + 2)] * 0.0;
+        }
+
+        // End of Product: '<S210>/Product'
+
+        // Outputs for Enabled SubSystem: '<S210>/DivisionByZeroProtection'
+        ImmedMission_DivisionByZeroProtection(rtb_Switch_gh * std::cos
+            (rtb_Switch), 9.81 * std::tan(rtb_Sum_n), &localDW->Omega_g);
+
+        // End of Outputs for SubSystem: '<S210>/DivisionByZeroProtection'
+
+        // Product: '<S210>/Divide' incorporates:
+        //   Gain: '<S210>/Gravity'
+        //   Product: '<S210>/HorizSpd'
+        //   Trigonometry: '<S210>/Cos'
+        //   Trigonometry: '<S210>/Tan'
+
+        rtb_Abs1 = rtu_MissionInput->StartPosition.Lat /
+            rtu_SimUAVstate->AirSpeed;
+
+        // MATLAB Function: '<S210>/ConstTurnPred' incorporates:
+        //   BusAssignment: '<S210>/Bus Assignment'
+        //   Gain: '<S210>/Inverse'
+        //   Gain: '<S213>/Gain'
+
+        // MATLAB Function 'ImmedMissionGuidance/Mode253_ShiftBodyXYZ/Mode253_Variant/Mode253/ConstTurnPred': '<S211>:1' 
+        // '<S211>:1:2'
+        stateNew_idx_0 = rtb_HeadingAngle;
+        rtb_Product2 = rtb_North;
+        rtb_HeadingAngle = 57.295779513082323 * localDW->Omega_g;
+        rtb_Sum_dq = -rtb_East;
+
+        // '<S211>:1:4'
+        rtb_North = std::fmax(std::abs(0.017453292519943295 * rtb_HeadingAngle),
+                              2.2204460492503131E-16);
+        rtb_BiasNumUAV = 0;
+        if (rtb_HeadingAngle < 0.0) {
+            rtb_BiasNumUAV = 1;
+        }
+
+        if (static_cast<int32_T>(rtb_BiasNumUAV - 1) >= 0) {
+            rtb_QuaternionInterpolation_idx_0 = -rtb_North;
+        }
+
+        if (rtb_HeadingAngle < 0.0) {
+            rtb_North = rtb_QuaternionInterpolation_idx_0;
+        }
+
+        rtb_East = rtb_North * rtb_Abs1;
+        rtb_HeadingAngle = std::sin(rtb_East) / rtb_North;
+        rtb_Abs1_k = (1.0 - std::cos(rtb_East)) / rtb_North;
+
+        // Merge: '<S1>/MergeCollAvoidSimUAV' incorporates:
+        //   BusAssignment: '<S210>/FinalStateBus'
+
+        // '<S211>:1:5'
+        localDW->MergeCollAvoidSimUAV.AirSpeed = rtb_Switch_gh;
+        localDW->MergeCollAvoidSimUAV.HeadingAngle = rtb_Switch_m2;
+        localDW->MergeCollAvoidSimUAV.FlightPathAngle = rtb_Switch;
+        localDW->MergeCollAvoidSimUAV.RollAngle = rtb_Sum_n;
+
+        // MATLAB Function: '<S210>/ConstTurnPred'
+        rtb_East = rtb_Abs1 * rtb_Abs1 * 0.5 * 0.0;
+
+        // BusAssignment: '<S210>/FinalStateBus' incorporates:
+        //   Gain: '<S210>/Down2Up'
+        //   MATLAB Function: '<S210>/ConstTurnPred'
+        //   Product: '<S210>/Product'
+
+        localDW->MergeCollAvoidSimUAV.North = ((rtb_HeadingAngle * rtb_Sum_o[0]
+            + stateNew_idx_0) - rtb_Abs1_k * rtb_Sum_o[1]) + rtb_East;
+        localDW->MergeCollAvoidSimUAV.East = ((rtb_Abs1_k * rtb_Sum_o[0] +
+            rtb_Product2) + rtb_HeadingAngle * rtb_Sum_o[1]) + rtb_East;
+        localDW->MergeCollAvoidSimUAV.Height = -((rtb_Sum_o[2] * rtb_Abs1 +
+            rtb_Sum_dq) + rtb_East);
+        rty_ControlSwitch[0] = false;
+        rty_ControlSwitch[1] = false;
+
+        // SignalConversion generated from: '<S11>/ShiftSimUAVswitch' incorporates:
+        //   Constant: '<S210>/Constant'
+        //   Constant: '<S210>/ControlHdg'
+        //   Constant: '<S210>/ControlSpd'
+
+        rtb_Compare_lh = true;
+
+        // SignalConversion generated from: '<S11>/thisTaskStatus'
+        *rty_TaskStatus = 0.0;
+
+        // End of Outputs for SubSystem: '<S1>/Mode253_ShiftBodyXYZ'
         break;
 
       default:
         {
-            int32_T colToCopy;
-
             // Outputs for IfAction SubSystem: '<S1>/AvoidInterPlaneCollision' incorporates:
             //   ActionPort: '<S5>/Action Port'
 
@@ -8128,7 +10400,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             for (ForEach_itr_c = 0; ForEach_itr_c < 128; ForEach_itr_c++) {
                 // Sum: '<S18>/Sum of Elements'
                 tmp_0 = 0U;
-                for (coffset = 0; coffset < 7; coffset++) {
+                for (i = 0; i < 7; i++) {
                     // Sum: '<S18>/Sum of Elements' incorporates:
                     //   ForEachSliceAssignment generated from: '<S249>/OtherUAVNED'
                     //   ForEachSliceSelector generated from: '<S18>/StateNow'
@@ -8137,8 +10409,8 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                     tmp_0 = static_cast<uint32_T>(static_cast<uint32_T>(std::
                         isnan
                         (localDW->ImpAsg_InsertedFor_OtherUAVNED_at_inport_0[
-                         static_cast<int32_T>(static_cast<int32_T>(coffset << 7)
-                        + ForEach_itr_c)])) + tmp_0);
+                         static_cast<int32_T>(static_cast<int32_T>(i << 7) +
+                        ForEach_itr_c)])) + tmp_0);
                 }
 
                 // Logic: '<S18>/NOT' incorporates:
@@ -8270,14 +10542,13 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                     rtb_Abs1 =
                         localDW->ImpAsg_InsertedFor_OtherUAVNED_at_inport_0[
                         static_cast<int32_T>(ForEach_itr_c + 384)];
-                    for (coffset = 0; coffset < 3; coffset++) {
-                        rtb_VectorConcatenate[coffset] =
-                            (rtb_VectorConcatenate_a[static_cast<int32_T>(
-                              static_cast<int32_T>(3 * coffset) + 1)] * 0.0 +
-                             rtb_VectorConcatenate_a[static_cast<int32_T>(3 *
-                              coffset)] * rtb_Abs1) + rtb_VectorConcatenate_a[
-                            static_cast<int32_T>(static_cast<int32_T>(3 *
-                            coffset) + 2)] * 0.0;
+                    for (i = 0; i < 3; i++) {
+                        rtb_VectorConcatenate[i] = (rtb_VectorConcatenate_a[
+                            static_cast<int32_T>(static_cast<int32_T>(3 * i) + 1)]
+                            * 0.0 + rtb_VectorConcatenate_a[static_cast<int32_T>
+                            (3 * i)] * rtb_Abs1) + rtb_VectorConcatenate_a[
+                            static_cast<int32_T>(static_cast<int32_T>(3 * i) + 2)]
+                            * 0.0;
                     }
 
                     // End of Product: '<S28>/Product'
@@ -8380,43 +10651,44 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
 
             // MATLAB Function 'ImmedMissionGuidance/AvoidInterPlaneCollision/DynamicCollisionAvoidance/AllUAVstateMAT': '<S15>:1' 
             // '<S15>:1:2'
-            for (coffset = 0; coffset < 384; coffset++) {
-                x_data[coffset] = std::isnan
-                    (rtb_ImpAsg_InsertedFor_StatePred_at_inport_0[coffset]);
+            for (i = 0; i < 384; i++) {
+                x_data[i] = std::isnan
+                    (rtb_ImpAsg_InsertedFor_StatePred_at_inport_0[i]);
             }
 
             rtb_BiasOldIdx = 0;
-            ForEach_itr = 256;
-            colToCopy = 0;
-            for (ForEach_itr_c = 0; ForEach_itr_c < 128; ForEach_itr_c++) {
-                int32_T colIdx;
+            ForEach_itr_c = 256;
+            for (i = 0; i < 128; i++) {
                 boolean_T exitg1;
-                idx_data[ForEach_itr_c] = false;
+                idx_data[i] = false;
                 rtb_BiasOldIdx = static_cast<int32_T>(rtb_BiasOldIdx + 1);
-                ForEach_itr = static_cast<int32_T>(ForEach_itr + 1);
-                colIdx = rtb_BiasOldIdx;
+                ForEach_itr_c = static_cast<int32_T>(ForEach_itr_c + 1);
+                ForEach_itr = rtb_BiasOldIdx;
                 exitg1 = false;
-                while ((!exitg1) && (colIdx <= ForEach_itr)) {
-                    if (x_data[static_cast<int32_T>(colIdx - 1)]) {
-                        idx_data[ForEach_itr_c] = true;
+                while ((!exitg1) && (ForEach_itr <= ForEach_itr_c)) {
+                    if (x_data[static_cast<int32_T>(ForEach_itr - 1)]) {
+                        idx_data[i] = true;
                         exitg1 = true;
                     } else {
-                        colIdx = static_cast<int32_T>(colIdx + 128);
+                        ForEach_itr = static_cast<int32_T>(ForEach_itr + 128);
                     }
                 }
+            }
 
-                colToCopy = static_cast<int32_T>(colToCopy + static_cast<int32_T>
-                    (idx_data[ForEach_itr_c]));
+            rtb_BiasOldIdx = 0;
+            for (i = 0; i < 128; i++) {
+                rtb_BiasOldIdx = static_cast<int32_T>(rtb_BiasOldIdx +
+                    static_cast<int32_T>(idx_data[i]));
             }
 
             // '<S15>:1:3'
-            if (static_cast<int32_T>(128 - colToCopy) < 1) {
-                coffset = -1;
+            if (static_cast<int32_T>(128 - rtb_BiasOldIdx) < 1) {
+                i = -1;
             } else {
-                coffset = static_cast<int32_T>(127 - colToCopy);
+                i = static_cast<int32_T>(127 - rtb_BiasOldIdx);
             }
 
-            localDW->SFunction_DIMS2_m[0] = static_cast<int32_T>(coffset + 1);
+            localDW->SFunction_DIMS2_m[0] = static_cast<int32_T>(i + 1);
             localDW->SFunction_DIMS2_m[1] = 3;
 
             // End of MATLAB Function: '<S14>/AllUAVstateMAT'
@@ -8473,7 +10745,7 @@ void ImmedMission(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
     }
 
     // End of Switch: '<Root>/SwitchShiftSimUAV'
-    ImmedMission_emxFree_real_T(&e);
+    ImmedMission_emxFree_real_T(&q);
 }
 
 // Update for referenced model: 'ImmedMission'

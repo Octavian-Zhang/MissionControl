@@ -5,7 +5,7 @@
 //
 // Model version                  : 3.146
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Mon May  2 19:21:02 2022
+// C/C++ source code generated on : Sun May  8 08:31:13 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -22,6 +22,23 @@
 #include "DatalinkInterface.h"
 
 // Model Code Variants
+#ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceStateBus_
+#define DEFINED_TYPEDEF_FOR_FixedWingGuidanceStateBus_
+
+struct FixedWingGuidanceStateBus
+{
+    real_T North;
+    real_T East;
+    real_T Height;
+    real_T AirSpeed;
+    real_T HeadingAngle;
+    real_T FlightPathAngle;
+    real_T RollAngle;
+    real_T RollAngleRate;
+};
+
+#endif
+
 #ifndef DEFINED_TYPEDEF_FOR_RealUAVStateBus_
 #define DEFINED_TYPEDEF_FOR_RealUAVStateBus_
 
@@ -59,23 +76,6 @@ struct StateFCU
     real_T GndSpd_mps;
     real_T Altitude;
     VectorSpeed VecSpd;
-};
-
-#endif
-
-#ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceStateBus_
-#define DEFINED_TYPEDEF_FOR_FixedWingGuidanceStateBus_
-
-struct FixedWingGuidanceStateBus
-{
-    real_T North;
-    real_T East;
-    real_T Height;
-    real_T AirSpeed;
-    real_T HeadingAngle;
-    real_T FlightPathAngle;
-    real_T RollAngle;
-    real_T RollAngleRate;
 };
 
 #endif
@@ -182,6 +182,20 @@ struct FlightLogging
 #endif
 
 // Custom Type definition for MATLAB Function: '<Root>/Get Nominal Flight Speed' 
+#include <stdio.h>
+
+// Custom Type definition for MATLAB Function: '<Root>/TimeNow'
+#ifndef struct_coder_internal_IsSimulinkString_Real2SimGuidance_T
+#define struct_coder_internal_IsSimulinkString_Real2SimGuidance_T
+
+struct coder_internal_IsSimulinkString_Real2SimGuidance_T
+{
+    int32_T __dummy;
+};
+
+#endif             // struct_coder_internal_IsSimulinkString_Real2SimGuidance_T
+
+// Custom Type definition for MATLAB Function: '<Root>/Get Nominal Flight Speed' 
 #ifndef struct_uavDubinsConnection_Real2SimGuidance_T
 #define struct_uavDubinsConnection_Real2SimGuidance_T
 
@@ -193,18 +207,21 @@ struct uavDubinsConnection_Real2SimGuidance_T
 
 #endif                         // struct_uavDubinsConnection_Real2SimGuidance_T
 
-#ifndef struct_DubinsObjSingleton_Real2SimGuidance_T
-#define struct_DubinsObjSingleton_Real2SimGuidance_T
-
-struct DubinsObjSingleton_Real2SimGuidance_T
-{
-    uavDubinsConnection_Real2SimGuidance_T DubinsConnector;
-};
-
-#endif                          // struct_DubinsObjSingleton_Real2SimGuidance_T
-
 // Custom Type definition for MATLAB Function: '<Root>/TimeNow'
 #include "coder_posix_time.h"
+
+// Custom Type definition for MATLAB Function: '<Root>/Get Nominal Flight Speed' 
+#ifndef struct_rtString_Real2SimGuidance_T
+#define struct_rtString_Real2SimGuidance_T
+
+struct rtString_Real2SimGuidance_T
+{
+    char_T Value[10];
+    coder_internal_IsSimulinkString_Real2SimGuidance_T ___isSimulinkString;
+};
+
+#endif                                 // struct_rtString_Real2SimGuidance_T
+
 #ifndef struct_cell_wrap_Real2SimGuidance_T
 #define struct_cell_wrap_Real2SimGuidance_T
 
@@ -235,6 +252,35 @@ struct uav_sluav_internal_system_WaypointFollower_Real2SimGuidance_T
 };
 
 #endif  // struct_uav_sluav_internal_system_WaypointFollower_Real2SimGuidance_T
+
+// Custom Type definition for MATLAB Function: '<Root>/Get Nominal Flight Speed' 
+#ifndef struct_DubinsObjSingleton_Real2SimGuidance_T
+#define struct_DubinsObjSingleton_Real2SimGuidance_T
+
+struct DubinsObjSingleton_Real2SimGuidance_T
+{
+    creal_T AirSpeed;
+    creal_T MaxRollAngle;
+    creal_T FlightPathAngleLimit[2];
+    rtString_Real2SimGuidance_T config;
+    uavDubinsConnection_Real2SimGuidance_T DubinsConnector;
+};
+
+#endif                          // struct_DubinsObjSingleton_Real2SimGuidance_T
+
+#ifndef struct_emxArray_char_T_Real2SimGuidance_T
+#define struct_emxArray_char_T_Real2SimGuidance_T
+
+struct emxArray_char_T_Real2SimGuidance_T
+{
+    char_T *data;
+    int32_T *size;
+    int32_T allocatedSize;
+    int32_T numDimensions;
+    boolean_T canFreeData;
+};
+
+#endif                             // struct_emxArray_char_T_Real2SimGuidance_T
 
 #ifndef struct_emxArray_real_T_Real2SimGuidance_T
 #define struct_emxArray_real_T_Real2SimGuidance_T
