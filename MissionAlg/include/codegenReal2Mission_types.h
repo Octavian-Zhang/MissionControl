@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 4.58
+// Model version                  : 4.61
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Wed May 11 11:55:48 2022
+// C/C++ source code generated on : Thu May 12 08:07:11 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -24,19 +24,6 @@
 #include "rtw_linux.h"
 
 // Model Code Variants
-#ifndef DEFINED_TYPEDEF_FOR_FCUCMD_
-#define DEFINED_TYPEDEF_FOR_FCUCMD_
-
-struct FCUCMD
-{
-    real_T Latitude_deg;
-    real_T Longitude_deg;
-    real_T Height_meter;
-    real_T RefAirSpd_mps;
-};
-
-#endif
-
 #ifndef DEFINED_TYPEDEF_FOR_RealUAVStateBus_
 #define DEFINED_TYPEDEF_FOR_RealUAVStateBus_
 
@@ -49,6 +36,44 @@ struct RealUAVStateBus
     real_T HeadingAngle_deg;
     real_T FlightPathAngle_deg;
     real_T RollAngle_deg;
+};
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_VectorSpeed_
+#define DEFINED_TYPEDEF_FOR_VectorSpeed_
+
+struct VectorSpeed
+{
+    real_T eastSpeed;
+    real_T northSpeed;
+    real_T skySpeed;
+};
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_StateFCU_
+#define DEFINED_TYPEDEF_FOR_StateFCU_
+
+struct StateFCU
+{
+    RealUAVStateBus RealUAVState;
+    real_T GndSpd_mps;
+    real_T Altitude;
+    VectorSpeed VecSpd;
+};
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_FCUCMD_
+#define DEFINED_TYPEDEF_FOR_FCUCMD_
+
+struct FCUCMD
+{
+    real_T Latitude_deg;
+    real_T Longitude_deg;
+    real_T Height_meter;
+    real_T RefAirSpd_mps;
 };
 
 #endif
@@ -100,18 +125,6 @@ struct MiscellaneousFlightStatus
 
 #endif
 
-#ifndef DEFINED_TYPEDEF_FOR_VectorSpeed_
-#define DEFINED_TYPEDEF_FOR_VectorSpeed_
-
-struct VectorSpeed
-{
-    real_T eastSpeed;
-    real_T northSpeed;
-    real_T skySpeed;
-};
-
-#endif
-
 #ifndef DEFINED_TYPEDEF_FOR_ADRC_
 #define DEFINED_TYPEDEF_FOR_ADRC_
 
@@ -138,19 +151,6 @@ struct FlightLogging
     VectorSpeed VectorSpd;
     Time TimeNow;
     ADRC ADRC_Log;
-};
-
-#endif
-
-#ifndef DEFINED_TYPEDEF_FOR_StateFCU_
-#define DEFINED_TYPEDEF_FOR_StateFCU_
-
-struct StateFCU
-{
-    RealUAVStateBus RealUAVState;
-    real_T GndSpd_mps;
-    real_T Altitude;
-    VectorSpeed VecSpd;
 };
 
 #endif

@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 4.58
+// Model version                  : 4.61
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Wed May 11 11:55:48 2022
+// C/C++ source code generated on : Thu May 12 08:07:11 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -322,9 +322,6 @@ int main(int argc, const char *argv[])
     ret = pthread_attr_getschedpolicy(&attr, &policy);
     CHECK_STATUS(ret, "pthread_attr_getschedpolicy");
 
-    // Initialize model
-    codegenReal2Mission_Obj.initialize();
-
     // Open POSIX message queue
     msgQueue mqSndCMD("/PosixMQ_SndCMD", O_CREAT | O_WRONLY | O_NONBLOCK, 1, sizeof(IndividualUAVCmd));
     msgQueue mqRcvCMD("/PosixMQ_RcvCMD", O_CREAT | O_RDONLY | O_NONBLOCK, 1, sizeof(IndividualUAVCmd));
@@ -337,6 +334,9 @@ int main(int argc, const char *argv[])
     bool startflag{}; printf("Waiting for OS Clock Calibration\n");
     printf((mq_receive(mqStart.getMQ(), (char *)&startflag, sizeof(bool), nullptr) > 0) 
         ? "OS Clock Calibrated: %c\n" : "MQ_Receive Error %c", startflag);
+
+    // Initialize model
+    codegenReal2Mission_Obj.initialize();
 
     {
         // Connect and enable the signal handler for timers notification

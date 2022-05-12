@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 4.58
+// Model version                  : 4.61
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Wed May 11 11:55:48 2022
+// C/C++ source code generated on : Thu May 12 08:07:11 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -29,6 +29,7 @@
 #include "rt_modd_snf.h"
 #include "isPalindrome_KPAwztvD.h"
 #include "rtw_linux.h"
+#include <cstring>
 #include "validate_print_arguments_sA7pOmrf.h"
 #include "validate_print_arguments_Ogsds6Vg.h"
 #include "coder_posix_time.h"
@@ -36,7 +37,6 @@
 #include "floor_LKLalLcG.h"
 #include <stddef.h>
 #include <cstdlib>
-#include <cstring>
 #include "zero_crossing_types.h"
 #include "div_s32.h"
 #include "codegenReal2Mission_private.h"
@@ -2758,7 +2758,7 @@ int8_T codegenReal2MissionModelClass::codegenReal2Mission_cfopen_g(const char_T 
     int8_T fileid;
     int8_T j;
     fileid = -1;
-    j = codegenReal2Mission_filedata_k(eml_openfiles_g);
+    j = codegenReal2Mission_filedata_k((const FILE**)eml_openfiles_g);
     if (static_cast<int32_T>(j) >= 1) {
         FILE* filestar;
         filestar = fopen(cfilename, cpermission);
@@ -5444,18 +5444,13 @@ void codegenReal2MissionModelClass::step()
              (Receive_o1)))) | static_cast<int32_T>
             (codegenReal2Mission_DW.Memory_PreviousInput_e)));
 
-        // Outputs for Triggered SubSystem: '<S31>/ReadOne' incorporates:
-        //   TriggerPort: '<S38>/Trigger'
+        // Outputs for Enabled SubSystem: '<S31>/ReadOne' incorporates:
+        //   EnablePort: '<S38>/Enable'
 
-        if (static_cast<boolean_T>(static_cast<int32_T>
-                                   ((codegenReal2Mission_PrevZCX.ReadOne_Trig_ZCE
-               != POS_ZCSIG) & static_cast<int32_T>(rtb_Compare_l)))) {
+        if (rtb_Compare_l) {
             // Receive: '<S38>/Receive'
             codegenReal2Mission_Queue_RecvData(&codegenReal2Mission_DW.Receive);
         }
-
-        codegenReal2Mission_PrevZCX.ReadOne_Trig_ZCE = static_cast<ZCSigState>
-            (rtb_Compare_l);
 
         // End of Outputs for SubSystem: '<S31>/ReadOne'
 
@@ -6058,15 +6053,9 @@ void codegenReal2MissionModelClass::step()
             codegenReal2Mission_MessageMerge_In1_SendData(&rtb_FeedbackCMD);
         }
 
-        // Outputs for Atomic SubSystem: '<S7>/QueueCMD'
-        // Outputs for Triggered SubSystem: '<S31>/ReadOne' incorporates:
-        //   TriggerPort: '<S38>/Trigger'
-
         codegenReal2Mission_PrevZCX.TriggerMissionDispatch_Trig_ZCE =
             static_cast<ZCSigState>(rtb_Compare_l);
 
-        // End of Outputs for SubSystem: '<S31>/ReadOne'
-        // End of Outputs for SubSystem: '<S7>/QueueCMD'
         // End of Outputs for SubSystem: '<S30>/TriggerMissionDispatch'
 
         // MATLAB Function: '<S30>/getCurrentTime'
@@ -6641,6 +6630,8 @@ void codegenReal2MissionModelClass::step()
             if (static_cast<boolean_T>(static_cast<int32_T>
                                        ((codegenReal2Mission_PrevZCX.TriggerCurrentMisisonFeedback_Trig_ZCE
                    != POS_ZCSIG) & static_cast<int32_T>(rtb_Compare_d)))) {
+                int8_T fileid;
+
                 // MATLAB Function: '<S9>/TimeConverter'
                 // MATLAB Function 'MissionLogic/FeedbackCurrentMission/TriggerCurrentMisisonFeedback/TimeConverter': '<S11>:1' 
                 // '<S11>:1:3'
@@ -6798,34 +6789,11 @@ void codegenReal2MissionModelClass::step()
 
                 // MATLAB Function: '<S9>/PrintOnboardLog'
                 // MATLAB Function 'MissionLogic/FeedbackCurrentMission/TriggerCurrentMisisonFeedback/PrintOnboardLog': '<S10>:1' 
-                if (static_cast<boolean_T>(static_cast<int32_T>
-                                           (static_cast<int32_T>
-                                            (codegenReal2Mission_DW.NewRun_not_empty)
-                      ^ 1))) {
-                    int8_T fileid;
+                // '<S10>:1:3'
+                fileid = codegenReal2Mission_cfopen("OnboardMissionCMD.log",
+                    "ab");
 
-                    // '<S10>:1:5'
-                    // '<S10>:1:7'
-                    fileid = codegenReal2Mission_cfopen("OnboardMissionCMD.log",
-                        "wb");
-                    wholeSecsFromMillis = static_cast<int32_T>(fileid);
-
-                    // '<S10>:1:7'
-                    codegenReal2Mission_DW.NewRun = 1.0;
-                    codegenReal2Mission_DW.NewRun_not_empty = true;
-                } else {
-                    int8_T fileid;
-
-                    // '<S10>:1:9'
-                    fileid = codegenReal2Mission_cfopen("OnboardMissionCMD.log",
-                        "ab");
-                    wholeSecsFromMillis = static_cast<int32_T>(fileid);
-
-                    // '<S10>:1:9'
-                    codegenReal2Mission_DW.NewRun++;
-                }
-
-                // '<S10>:1:13'
+                // '<S10>:1:4'
                 codegenReal2Mission_printIndivMissionCMD
                     (codegenReal2Mission_DW.IndivCMD.SequenceID,
                      codegenReal2Mission_DW.IndivCMD.MissionMode,
@@ -6844,13 +6812,10 @@ void codegenReal2MissionModelClass::step()
                      codegenReal2Mission_DW.IndivCMD.numUAV,
                      codegenReal2Mission_DW.IndivCMD.FormationPos,
                      codegenReal2Mission_DW.IndivCMD.StartTime,
-                     static_cast<real_T>(wholeSecsFromMillis));
+                     static_cast<real_T>(fileid));
 
-                // '<S10>:1:16'
-                codegenReal2Mission_cfclose(static_cast<real_T>
-                    (wholeSecsFromMillis));
-
-                // End of MATLAB Function: '<S9>/PrintOnboardLog'
+                // '<S10>:1:5'
+                codegenReal2Mission_cfclose(static_cast<real_T>(fileid));
 
                 // Send: '<S9>/Send'
                 CurrentMissionSendData.SendData(&codegenReal2Mission_DW.IndivCMD,
@@ -7281,7 +7246,6 @@ void codegenReal2MissionModelClass::initialize()
         codegenReal2Mission_PrevZCX.FeedbackMissionCMD_Trig_ZCE = POS_ZCSIG;
         codegenReal2Mission_PrevZCX.TriggerBroadcastAtMissionTime_Trig_ZCE =
             POS_ZCSIG;
-        codegenReal2Mission_PrevZCX.ReadOne_Trig_ZCE = POS_ZCSIG;
 
         // InitializeConditions for DataStoreMemory generated from: '<S6>/DSAltitudeGCS' 
         rtw_pthread_mutex_init(&AltitudeGCS_m0);
@@ -7302,7 +7266,12 @@ void codegenReal2MissionModelClass::initialize()
 
         // End of SystemInitialize for SubSystem: '<S7>/QueueCMD'
         // End of SystemInitialize for SubSystem: '<S1>/PreProcessMissionCMD'
+        // End of SystemInitialize for SubSystem: '<Root>/MissionLogic'
 
+        // Start for Receive: '<S38>/Receive'
+        std::memset(&codegenReal2Mission_DW.Receive, 0, sizeof(IndividualUAVCmd));
+
+        // SystemInitialize for Atomic SubSystem: '<Root>/MissionLogic'
         // SystemInitialize for Atomic SubSystem: '<S13>/FlightMission'
         // SystemInitialize for ModelReference: '<S14>/PreemptableMissionModeSelector' 
         FlightMissionMode_Init

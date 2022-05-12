@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 4.58
+// Model version                  : 4.61
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Wed May 11 11:55:48 2022
+// C/C++ source code generated on : Thu May 12 08:07:11 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -166,7 +166,6 @@ class codegenReal2MissionModelClass final
         real_T FlightPathAngle;        // '<S23>/MissionUavModel'
         real_T RollAngle;              // '<S23>/MissionUavModel'
         real_T RollAngleRate;          // '<S23>/MissionUavModel'
-        real_T NewRun;                 // '<S9>/PrintOnboardLog'
         IndividualUAVCmd* slMsgMgr_freeList_IndividualUAVCmd[17];// synthesized block 
         missionCmd* slMsgMgr_freeList_missionCmd[9];// synthesized block
         int32_T Reset;                 // '<S14>/Cast To int32'
@@ -190,7 +189,6 @@ class codegenReal2MissionModelClass final
         boolean_T DelayInput1_DSTATE;  // '<S32>/Delay Input1'
         boolean_T InitMemory_PreviousInput;// '<S31>/InitMemory'
         boolean_T Memory_PreviousInput_e;// '<S31>/Memory'
-        boolean_T NewRun_not_empty;    // '<S9>/PrintOnboardLog'
         boolean_T MissionSimUAV_MODE;  // '<S14>/MissionSimUAV'
     };
 
@@ -214,7 +212,6 @@ class codegenReal2MissionModelClass final
 
     // Zero-crossing (trigger) state
     struct PrevZCX_codegenReal2Mission_T {
-        ZCSigState ReadOne_Trig_ZCE;   // '<S31>/ReadOne'
         ZCSigState TriggerMissionDispatch_Trig_ZCE;// '<S30>/TriggerMissionDispatch' 
         ZCSigState TriggerBroadcastAtMissionTime_Trig_ZCE;// '<S13>/TriggerBroadcastAtMissionTime' 
         ZCSigState FeedbackMissionCMD_Trig_ZCE;// '<S14>/FeedbackMissionCMD'
