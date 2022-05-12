@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 4.22
+// Model version                  : 4.58
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Sun May  8 08:51:09 2022
+// C/C++ source code generated on : Wed May 11 11:55:48 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -24,48 +24,15 @@
 #include "rtw_linux.h"
 
 // Model Code Variants
-#ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
-#define DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
+#ifndef DEFINED_TYPEDEF_FOR_FCUCMD_
+#define DEFINED_TYPEDEF_FOR_FCUCMD_
 
-struct FixedWingGuidanceBus
+struct FCUCMD
 {
-    real_T Height;
-    real_T AirSpeed;
-    real_T HeadingAngle;
-};
-
-#endif
-
-#ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceStateBus_
-#define DEFINED_TYPEDEF_FOR_FixedWingGuidanceStateBus_
-
-struct FixedWingGuidanceStateBus
-{
-    real_T North;
-    real_T East;
-    real_T Height;
-    real_T AirSpeed;
-    real_T HeadingAngle;
-    real_T FlightPathAngle;
-    real_T RollAngle;
-    real_T RollAngleRate;
-};
-
-#endif
-
-#ifndef DEFINED_TYPEDEF_FOR_missionCmd_
-#define DEFINED_TYPEDEF_FOR_missionCmd_
-
-struct missionCmd
-{
-    int32_T SequenceID;
-    MissionModes MissionMode;
-    Location MissionLocation;
-    Parameters params;
-    Location StartPosition;
-    int32_T numUAV;
-    int32_T FormationPos;
-    real_T StartTime;
+    real_T Latitude_deg;
+    real_T Longitude_deg;
+    real_T Height_meter;
+    real_T RefAirSpd_mps;
 };
 
 #endif
@@ -86,15 +53,19 @@ struct RealUAVStateBus
 
 #endif
 
-#ifndef DEFINED_TYPEDEF_FOR_FCUCMD_
-#define DEFINED_TYPEDEF_FOR_FCUCMD_
+#ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceStateBus_
+#define DEFINED_TYPEDEF_FOR_FixedWingGuidanceStateBus_
 
-struct FCUCMD
+struct FixedWingGuidanceStateBus
 {
-    real_T Latitude_deg;
-    real_T Longitude_deg;
-    real_T Height_meter;
-    real_T RefAirSpd_mps;
+    real_T North;
+    real_T East;
+    real_T Height;
+    real_T AirSpeed;
+    real_T HeadingAngle;
+    real_T FlightPathAngle;
+    real_T RollAngle;
+    real_T RollAngleRate;
 };
 
 #endif
@@ -184,6 +155,18 @@ struct StateFCU
 
 #endif
 
+#ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
+#define DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
+
+struct FixedWingGuidanceBus
+{
+    real_T Height;
+    real_T AirSpeed;
+    real_T HeadingAngle;
+};
+
+#endif
+
 #ifndef DEFINED_TYPEDEF_FOR_ParamADRC_
 #define DEFINED_TYPEDEF_FOR_ParamADRC_
 
@@ -191,11 +174,28 @@ struct ParamADRC
 {
     real_T hat_b;
     real_T omega_o;
-    real_T omega_b;
+    real_T omega_c;
     real_T P;
     real_T I;
     real_T D;
     boolean_T useADRC;
+};
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_missionCmd_
+#define DEFINED_TYPEDEF_FOR_missionCmd_
+
+struct missionCmd
+{
+    int32_T SequenceID;
+    MissionModes MissionMode;
+    Location MissionLocation;
+    Parameters params;
+    Location StartPosition;
+    int32_T numUAV;
+    int32_T FormationPos;
+    real_T StartTime;
 };
 
 #endif
@@ -225,41 +225,6 @@ enum class QueuePolicy_T
     MSG_FIFO_QUEUE,
     MSG_LIFO_QUEUE,
     MSG_PRIORITY_QUEUE
-};
-
-#endif
-
-#ifndef DEFINED_TYPEDEF_FOR_Msg_missionCmd_
-#define DEFINED_TYPEDEF_FOR_Msg_missionCmd_
-
-struct Msg_missionCmd
-{
-    missionCmd *fData;
-};
-
-#endif
-
-#ifndef DEFINED_TYPEDEF_FOR_Buffer_missionCmd_
-#define DEFINED_TYPEDEF_FOR_Buffer_missionCmd_
-
-struct Buffer_missionCmd
-{
-    boolean_T fOccupied;
-    Msg_missionCmd fMsg;
-};
-
-#endif
-
-#ifndef DEFINED_TYPEDEF_FOR_MemPool_missionCmd_
-#define DEFINED_TYPEDEF_FOR_MemPool_missionCmd_
-
-struct MemPool_missionCmd
-{
-    missionCmd *fMemArray;
-    int32_T fNumUsed;
-    missionCmd **fFreeList;
-    int32_T fNumFree;
-    int32_T fSize;
 };
 
 #endif
@@ -302,6 +267,41 @@ struct MemPool_IndividualUAVCmd
 
 #endif
 
+#ifndef DEFINED_TYPEDEF_FOR_Msg_missionCmd_
+#define DEFINED_TYPEDEF_FOR_Msg_missionCmd_
+
+struct Msg_missionCmd
+{
+    missionCmd *fData;
+};
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_Buffer_missionCmd_
+#define DEFINED_TYPEDEF_FOR_Buffer_missionCmd_
+
+struct Buffer_missionCmd
+{
+    boolean_T fOccupied;
+    Msg_missionCmd fMsg;
+};
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_MemPool_missionCmd_
+#define DEFINED_TYPEDEF_FOR_MemPool_missionCmd_
+
+struct MemPool_missionCmd
+{
+    missionCmd *fMemArray;
+    int32_T fNumUsed;
+    missionCmd **fFreeList;
+    int32_T fNumFree;
+    int32_T fSize;
+};
+
+#endif
+
 #ifndef DEFINED_TYPEDEF_FOR_SendData_FlightLoggingT_
 #define DEFINED_TYPEDEF_FOR_SendData_FlightLoggingT_
 
@@ -317,10 +317,10 @@ class SendData_FlightLoggingT
 
 #endif
 
-// Custom Type definition for MATLAB Function: '<S34>/CommandCheck'
+// Custom Type definition for MATLAB Function: '<S33>/CommandCheck'
 #include <stdio.h>
 
-// Custom Type definition for MATLAB Function: '<S32>/getCurrentTime'
+// Custom Type definition for MATLAB Function: '<S31>/getCurrentTime'
 #include "coder_posix_time.h"
 #ifndef struct_robotics_slcore_internal_block_CoordinateTransformationConversion_codegenReal2Mission_T
 #define struct_robotics_slcore_internal_block_CoordinateTransformationConversion_codegenReal2Mission_T
@@ -394,11 +394,11 @@ struct cell_wrap_1_codegenReal2Mission_T
 #endif                              // struct_cell_wrap_1_codegenReal2Mission_T
 
 #ifndef SS_UINT64
-#define SS_UINT64                      55
+#define SS_UINT64                      53
 #endif
 
 #ifndef SS_INT64
-#define SS_INT64                       56
+#define SS_INT64                       54
 #endif
 #endif                               // RTW_HEADER_codegenReal2Mission_types_h_
 

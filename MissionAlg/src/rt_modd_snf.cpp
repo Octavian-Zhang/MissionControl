@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'Real2SimGuidance'.
 //
-// Model version                  : 3.146
+// Model version                  : 4.0
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Mon May  2 19:21:02 2022
+// C/C++ source code generated on : Wed May 11 11:35:01 2022
 //
 #include "rtwtypes.h"
 #include "rt_modd_snf.h"
@@ -14,17 +14,10 @@
 
 extern "C" {
 
-#include "rtGetNaN.h"
-
-}
-    extern "C"
-{
-
 #include "rt_nonfinite.h"
 
 }
-
-real_T rt_modd_snf(real_T u0, real_T u1)
+    real_T rt_modd_snf(real_T u0, real_T u1)
 {
     real_T y;
     y = u0;

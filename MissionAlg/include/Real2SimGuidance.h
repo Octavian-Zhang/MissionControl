@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'Real2SimGuidance'.
 //
-// Model version                  : 3.146
+// Model version                  : 4.0
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Sun May  8 08:31:13 2022
+// C/C++ source code generated on : Wed May 11 11:35:01 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -204,7 +204,7 @@ extern void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const
     rtu_ControlSwitch[2], const FixedWingGuidanceStateBus *rtu_SimUAVState,
     const FixedWingGuidanceBus *rtu_ImmedGuidanceCMD, const real_T
     *rtu_BiasRatio, const real_T *rtu_ParamADRC_hat_b, const real_T
-    *rtu_ParamADRC_omega_o, const real_T *rtu_ParamADRC_omega_b, const real_T
+    *rtu_ParamADRC_omega_o, const real_T *rtu_ParamADRC_omega_c, const real_T
     *rtu_ParamADRC_P, const real_T *rtu_ParamADRC_I, const real_T
     *rtu_ParamADRC_D, const boolean_T *rtu_ParamADRC_useADRC, FCUCMD *rty_FCUCMD,
     uint8_T *rty_EngagedFlag, FlightLogging *rty_FlightLogging,

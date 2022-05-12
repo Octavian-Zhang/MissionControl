@@ -5,7 +5,7 @@
 //
 // Model version                  : 2.117
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Sun May  8 08:47:00 2022
+// C/C++ source code generated on : Wed May 11 11:51:03 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -129,27 +129,6 @@ struct uav_sluav_internal_system_WaypointFollower_FlightMissionMode_f_T
 
 // Custom Type definition for MATLAB Function: '<S96>/StartPointGenerator'
 #include <stdio.h>
-#ifndef struct_coder_internal_IsSimulinkString_FlightMissionMode_T
-#define struct_coder_internal_IsSimulinkString_FlightMissionMode_T
-
-struct coder_internal_IsSimulinkString_FlightMissionMode_T
-{
-    int32_T __dummy;
-};
-
-#endif            // struct_coder_internal_IsSimulinkString_FlightMissionMode_T
-
-#ifndef struct_rtString_FlightMissionMode_T
-#define struct_rtString_FlightMissionMode_T
-
-struct rtString_FlightMissionMode_T
-{
-    char_T Value[10];
-    coder_internal_IsSimulinkString_FlightMissionMode_T ___isSimulinkString;
-};
-
-#endif                                 // struct_rtString_FlightMissionMode_T
-
 #ifndef struct_emxArray_char_T_1x2_FlightMissionMode_T
 #define struct_emxArray_char_T_1x2_FlightMissionMode_T
 
@@ -262,10 +241,9 @@ struct uavDubinsConnection_FlightMissionMode_T
 
 struct DubinsObjSingleton_FlightMissionMode_T
 {
-    creal_T AirSpeed;
-    creal_T MaxRollAngle;
-    creal_T FlightPathAngleLimit[2];
-    rtString_FlightMissionMode_T config;
+    real_T AirSpeed;
+    real_T MaxRollAngle;
+    real_T FlightPathAngleLimit[2];
     uavDubinsConnection_FlightMissionMode_T DubinsConnector;
 };
 
@@ -301,10 +279,9 @@ struct uavDubinsConnection_FlightMissionMode_c_T
 
 struct DubinsObjSingleton_FlightMissionMode_b_T
 {
-    creal_T AirSpeed;
-    creal_T MaxRollAngle;
-    creal_T FlightPathAngleLimit[2];
-    rtString_FlightMissionMode_T config;
+    real_T AirSpeed;
+    real_T MaxRollAngle;
+    real_T FlightPathAngleLimit[2];
     uavDubinsConnection_FlightMissionMode_c_T DubinsConnector;
 };
 
@@ -423,6 +400,19 @@ struct uavDubinsConnection_FlightMissionMode_m_T
 
 #endif                      // struct_uavDubinsConnection_FlightMissionMode_m_T
 
+#ifndef struct_DubinsObjSingleton_FlightMissionMode_bw_T
+#define struct_DubinsObjSingleton_FlightMissionMode_bw_T
+
+struct DubinsObjSingleton_FlightMissionMode_bw_T
+{
+    real_T AirSpeed;
+    real_T MaxRollAngle;
+    real_T FlightPathAngleLimit[2];
+    uavDubinsConnection_FlightMissionMode_m_T DubinsConnector;
+};
+
+#endif                      // struct_DubinsObjSingleton_FlightMissionMode_bw_T
+
 #ifndef struct_uav_sluav_internal_system_WaypointFollower_FlightMissionMode_c_T
 #define struct_uav_sluav_internal_system_WaypointFollower_FlightMissionMode_c_T
 
@@ -446,20 +436,6 @@ struct uav_sluav_internal_system_WaypointFollower_FlightMissionMode_c_T
      // struct_uav_sluav_internal_system_WaypointFollower_FlightMissionMode_c_T
 
 // Custom Type definition for MATLAB Function: '<S209>/WayPointGenerator'
-#ifndef struct_DubinsObjSingleton_FlightMissionMode_bw_T
-#define struct_DubinsObjSingleton_FlightMissionMode_bw_T
-
-struct DubinsObjSingleton_FlightMissionMode_bw_T
-{
-    creal_T AirSpeed;
-    creal_T MaxRollAngle;
-    creal_T FlightPathAngleLimit[2];
-    rtString_FlightMissionMode_T config;
-    uavDubinsConnection_FlightMissionMode_m_T DubinsConnector;
-};
-
-#endif                      // struct_DubinsObjSingleton_FlightMissionMode_bw_T
-
 #ifndef struct_cell_wrap_1_FlightMissionMode_T
 #define struct_cell_wrap_1_FlightMissionMode_T
 

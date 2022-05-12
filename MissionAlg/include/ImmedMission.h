@@ -5,7 +5,7 @@
 //
 // Model version                  : 2.149
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Sun May  8 08:32:01 2022
+// C/C++ source code generated on : Wed May 11 11:35:48 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -88,9 +88,9 @@ struct DW_ImmedMission_f_T {
     uav_sluav_internal_system_WaypointFollower_ImmedMission_cc_T obj;// '<S129>/Waypoint Follower' 
     FixedWingGuidanceStateBus ImpAsg_InsertedFor_CollAvoidSimUAV_at_inport_0[361];// '<S71>/AssignmentHeight' 
     uav_sluav_internal_system_WaypointFollower_ImmedMission_c_T obj_j;// '<S68>/TrackSimPath' 
-    DubinsObjSingleton_ImmedMission_T SingletonInstance;// '<S135>/BaseWayPoint' 
     uav_sluav_internal_system_OrbitFollower_ImmedMission_T obj_c;// '<S35>/Orbit Follower' 
     FixedWingGuidanceStateBus MergeCollAvoidSimUAV;// '<S1>/MergeCollAvoidSimUAV' 
+    DubinsObjSingleton_ImmedMission_T SingletonInstance;// '<S135>/BaseWayPoint' 
     robotics_slcore_internal_block_CoordinateTransformationConversion_ImmedMission_T
         obj_n;                         // '<S135>/RotateATMissionHdg'
     real_T ImpAsg_InsertedFor_OtherUAVNED_at_inport_0[896];// '<S249>/Reshape'
@@ -111,10 +111,10 @@ struct DW_ImmedMission_f_T {
     real_T RollRateSeq_X[360];         // '<S72>/RollRateSeq'
     real_T paddedWaypts[30723];
     real_T CirVec[720];
+    real_T a[1092];
     real_T MatrixConcatenateState[2888];// '<S72>/Matrix Concatenate State'
     real_T ImpAsg_InsertedFor_hisTrack_at_inport_0[1083];// '<S71>/Matrix Concatenate' 
     real_T Track[2700];                // '<S65>/Long Track'
-    real_T rtu_MissionInput[1092];
     real_T paddedWaypts_m[2700];
     real_T waypoints_data[2703];
     real_T virtualWaypoint_data[2703];

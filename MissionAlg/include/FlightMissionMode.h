@@ -5,7 +5,7 @@
 //
 // Model version                  : 2.117
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Sun May  8 08:47:00 2022
+// C/C++ source code generated on : Wed May 11 11:51:03 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -135,9 +135,9 @@ struct DW_FlightMissionMode_f_T {
     emxArray_uavDubinsPathSegment_1_FlightMissionMode_T pathSegment0;
     cell_wrap_2_FlightMissionMode_T motionType1List[500];
     cell_wrap_2_FlightMissionMode_T motionType2List[500];
+    uav_sluav_internal_system_OrbitFollower_FlightMissionMode_T obj_f;// '<S10>/Orbit Follower' 
     DubinsObjSingleton_FlightMissionMode_T SingletonInstance;// '<S39>/WayPointGenerator' 
     DubinsObjSingleton_FlightMissionMode_bw_T SingletonInstance_j;// '<S209>/WayPointGenerator' 
-    uav_sluav_internal_system_OrbitFollower_FlightMissionMode_T obj_f;// '<S10>/Orbit Follower' 
     real_T nedWayPoint[3];             // '<S209>/biasNEDstartpose'
     real_T startPose[5];               // '<S209>/WayPointGenerator'
     real_T nedWayPoint_c[30720];       // '<S232>/biasNED'

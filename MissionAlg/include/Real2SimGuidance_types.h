@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'Real2SimGuidance'.
 //
-// Model version                  : 3.146
+// Model version                  : 4.0
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Sun May  8 08:31:13 2022
+// C/C++ source code generated on : Wed May 11 11:35:01 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -99,7 +99,7 @@ struct ParamADRC
 {
     real_T hat_b;
     real_T omega_o;
-    real_T omega_b;
+    real_T omega_c;
     real_T P;
     real_T I;
     real_T D;
@@ -183,19 +183,6 @@ struct FlightLogging
 
 // Custom Type definition for MATLAB Function: '<Root>/Get Nominal Flight Speed' 
 #include <stdio.h>
-
-// Custom Type definition for MATLAB Function: '<Root>/TimeNow'
-#ifndef struct_coder_internal_IsSimulinkString_Real2SimGuidance_T
-#define struct_coder_internal_IsSimulinkString_Real2SimGuidance_T
-
-struct coder_internal_IsSimulinkString_Real2SimGuidance_T
-{
-    int32_T __dummy;
-};
-
-#endif             // struct_coder_internal_IsSimulinkString_Real2SimGuidance_T
-
-// Custom Type definition for MATLAB Function: '<Root>/Get Nominal Flight Speed' 
 #ifndef struct_uavDubinsConnection_Real2SimGuidance_T
 #define struct_uavDubinsConnection_Real2SimGuidance_T
 
@@ -211,16 +198,18 @@ struct uavDubinsConnection_Real2SimGuidance_T
 #include "coder_posix_time.h"
 
 // Custom Type definition for MATLAB Function: '<Root>/Get Nominal Flight Speed' 
-#ifndef struct_rtString_Real2SimGuidance_T
-#define struct_rtString_Real2SimGuidance_T
+#ifndef struct_DubinsObjSingleton_Real2SimGuidance_T
+#define struct_DubinsObjSingleton_Real2SimGuidance_T
 
-struct rtString_Real2SimGuidance_T
+struct DubinsObjSingleton_Real2SimGuidance_T
 {
-    char_T Value[10];
-    coder_internal_IsSimulinkString_Real2SimGuidance_T ___isSimulinkString;
+    real_T AirSpeed;
+    real_T MaxRollAngle;
+    real_T FlightPathAngleLimit[2];
+    uavDubinsConnection_Real2SimGuidance_T DubinsConnector;
 };
 
-#endif                                 // struct_rtString_Real2SimGuidance_T
+#endif                          // struct_DubinsObjSingleton_Real2SimGuidance_T
 
 #ifndef struct_cell_wrap_Real2SimGuidance_T
 #define struct_cell_wrap_Real2SimGuidance_T
@@ -252,21 +241,6 @@ struct uav_sluav_internal_system_WaypointFollower_Real2SimGuidance_T
 };
 
 #endif  // struct_uav_sluav_internal_system_WaypointFollower_Real2SimGuidance_T
-
-// Custom Type definition for MATLAB Function: '<Root>/Get Nominal Flight Speed' 
-#ifndef struct_DubinsObjSingleton_Real2SimGuidance_T
-#define struct_DubinsObjSingleton_Real2SimGuidance_T
-
-struct DubinsObjSingleton_Real2SimGuidance_T
-{
-    creal_T AirSpeed;
-    creal_T MaxRollAngle;
-    creal_T FlightPathAngleLimit[2];
-    rtString_Real2SimGuidance_T config;
-    uavDubinsConnection_Real2SimGuidance_T DubinsConnector;
-};
-
-#endif                          // struct_DubinsObjSingleton_Real2SimGuidance_T
 
 #ifndef struct_emxArray_char_T_Real2SimGuidance_T
 #define struct_emxArray_char_T_Real2SimGuidance_T

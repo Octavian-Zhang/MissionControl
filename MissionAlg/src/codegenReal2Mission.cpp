@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 4.22
+// Model version                  : 4.58
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Sun May  8 08:51:09 2022
+// C/C++ source code generated on : Wed May 11 11:55:48 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -29,12 +29,12 @@
 #include "rt_modd_snf.h"
 #include "isPalindrome_KPAwztvD.h"
 #include "rtw_linux.h"
-#include <stddef.h>
 #include "validate_print_arguments_sA7pOmrf.h"
 #include "validate_print_arguments_Ogsds6Vg.h"
 #include "coder_posix_time.h"
 #include "split_uvVAOGsE.h"
 #include "floor_LKLalLcG.h"
+#include <stddef.h>
 #include <cstdlib>
 #include <cstring>
 #include "zero_crossing_types.h"
@@ -238,8 +238,8 @@ creal_T codegenReal2MissionModelClass::codegenReal2Mission_plus(const creal_T a,
 }
 
 IndividualUAVCmd *codegenReal2MissionModelClass::
-    codegenReal2Mission_allocMemPool_f(MemPool_IndividualUAVCmd *memPool,
-    int32_T width)
+    codegenReal2Mission_allocMemPool(MemPool_IndividualUAVCmd *memPool, int32_T
+    width)
 {
     IndividualUAVCmd *dataPtr;
 
@@ -259,12 +259,12 @@ IndividualUAVCmd *codegenReal2MissionModelClass::
 }
 
 Msg_IndividualUAVCmd codegenReal2MissionModelClass::
-    codegenReal2Mission_createMsg_p(const IndividualUAVCmd *data)
+    codegenReal2Mission_createMsg(const IndividualUAVCmd *data)
 {
     Msg_IndividualUAVCmd msg;
 
     // DiscreteEventSubgraph generated from: '<S1>/FeedbackCurrentMission'
-    msg.fData = codegenReal2Mission_allocMemPool_f
+    msg.fData = codegenReal2Mission_allocMemPool
         (&codegenReal2Mission_DW.slMsgMgr_MemPool_IndividualUAVCmd, 1);
     if (msg.fData != nullptr) {
         *msg.fData = *data;
@@ -274,7 +274,7 @@ Msg_IndividualUAVCmd codegenReal2MissionModelClass::
     return msg;
 }
 
-void codegenReal2MissionModelClass::codegenReal2Mission_freeMemPool_i
+void codegenReal2MissionModelClass::codegenReal2Mission_freeMemPool
     (MemPool_IndividualUAVCmd *memPool, IndividualUAVCmd *dataPtr)
 {
     // DiscreteEventSubgraph generated from: '<S1>/FeedbackCurrentMission'
@@ -282,23 +282,23 @@ void codegenReal2MissionModelClass::codegenReal2Mission_freeMemPool_i
     memPool->fNumFree = static_cast<int32_T>(memPool->fNumFree + 1);
 }
 
-void codegenReal2MissionModelClass::codegenReal2Mission_destroyMsg_m
+void codegenReal2MissionModelClass::codegenReal2Mission_destroyMsg
     (Msg_IndividualUAVCmd *msg)
 {
     // DiscreteEventSubgraph generated from: '<S1>/FeedbackCurrentMission'
-    codegenReal2Mission_freeMemPool_i
+    codegenReal2Mission_freeMemPool
         (&codegenReal2Mission_DW.slMsgMgr_MemPool_IndividualUAVCmd, msg->fData);
 }
 
-boolean_T codegenReal2MissionModelClass::codegenReal2Mission_push_i
+boolean_T codegenReal2MissionModelClass::codegenReal2Mission_push
     (Queue_IndividualUAVCmd *q, Msg_IndividualUAVCmd *element)
 {
     boolean_T isPush;
 
-    // Queue: '<S32>/Queue'
+    // Queue: '<S31>/Queue'
     q->fTail = static_cast<int32_T>(q->fTail + 1) % q->fCapacity;
     if (q->fTail == q->fHead) {
-        codegenReal2Mission_destroyMsg_m(&q->fArray[q->fHead]);
+        codegenReal2Mission_destroyMsg(&q->fArray[q->fHead]);
         q->fHead = static_cast<int32_T>(q->fHead + 1) % q->fCapacity;
     } else if (q->fHead == -1) {
         q->fHead = q->fTail;
@@ -307,7 +307,7 @@ boolean_T codegenReal2MissionModelClass::codegenReal2Mission_push_i
     q->fArray[q->fTail] = *element;
     isPush = true;
 
-    // End of Queue: '<S32>/Queue'
+    // End of Queue: '<S31>/Queue'
     return isPush;
 }
 
@@ -318,29 +318,29 @@ int32_T codegenReal2MissionModelClass::codegenReal2Mission_Queue_SendData(const
     int32_T status{ 1 };
 
     // DiscreteEventSubgraph generated from: '<S1>/FeedbackCurrentMission' incorporates:
-    //   Send: '<S32>/Send'
+    //   Send: '<S31>/Send'
 
-    msg = codegenReal2Mission_createMsg_p(data);
+    msg = codegenReal2Mission_createMsg(data);
 
-    // Queue: '<S32>/Queue' incorporates:
+    // Queue: '<S31>/Queue' incorporates:
     //   DiscreteEventSubgraph generated from: '<S1>/FeedbackCurrentMission'
 
-    if (codegenReal2Mission_push_i(&codegenReal2Mission_DW.Queue_Queue, &msg)) {
+    if (codegenReal2Mission_push(&codegenReal2Mission_DW.Queue_Queue, &msg)) {
         status = 0;
     } else {
-        codegenReal2Mission_destroyMsg_m(&msg);
+        codegenReal2Mission_destroyMsg(&msg);
     }
 
-    // End of Queue: '<S32>/Queue'
+    // End of Queue: '<S31>/Queue'
     return status;
 }
 
-boolean_T codegenReal2MissionModelClass::codegenReal2Mission_pop_c
+boolean_T codegenReal2MissionModelClass::codegenReal2Mission_pop
     (Queue_IndividualUAVCmd *q, Msg_IndividualUAVCmd *elementOut)
 {
     boolean_T isPop;
 
-    // Queue: '<S32>/Queue'
+    // Queue: '<S31>/Queue'
     if (q->fHead == -1) {
         isPop = false;
     } else {
@@ -354,7 +354,7 @@ boolean_T codegenReal2MissionModelClass::codegenReal2Mission_pop_c
         }
     }
 
-    // End of Queue: '<S32>/Queue'
+    // End of Queue: '<S31>/Queue'
     return isPop;
 }
 
@@ -364,17 +364,17 @@ int32_T codegenReal2MissionModelClass::codegenReal2Mission_Queue_RecvData
     Msg_IndividualUAVCmd msg;
     int32_T status{ 1 };
 
-    // Queue: '<S32>/Queue' incorporates:
+    // Queue: '<S31>/Queue' incorporates:
     //   DiscreteEventSubgraph generated from: '<S1>/FeedbackCurrentMission'
-    //   Receive: '<S39>/Receive'
+    //   Receive: '<S38>/Receive'
 
-    if (codegenReal2Mission_pop_c(&codegenReal2Mission_DW.Queue_Queue, &msg)) {
+    if (codegenReal2Mission_pop(&codegenReal2Mission_DW.Queue_Queue, &msg)) {
         status = 0;
         *data = *msg.fData;
-        codegenReal2Mission_destroyMsg_m(&msg);
+        codegenReal2Mission_destroyMsg(&msg);
     }
 
-    // End of Queue: '<S32>/Queue'
+    // End of Queue: '<S31>/Queue'
     return status;
 }
 
@@ -429,7 +429,7 @@ creal_T codegenReal2MissionModelClass::codegenReal2Mission_times(const creal_T a
     return c;
 }
 
-// Function for MATLAB Function: '<S34>/CommandCheck'
+// Function for MATLAB Function: '<S33>/CommandCheck'
 creal_T codegenReal2MissionModelClass::codegenReal2Mission_createFromDateVec(
     const real_T inData[7])
 {
@@ -484,7 +484,7 @@ creal_T codegenReal2MissionModelClass::codegenReal2Mission_createFromDateVec(
     return t;
 }
 
-// Function for MATLAB Function: '<S34>/CommandCheck'
+// Function for MATLAB Function: '<S33>/CommandCheck'
 boolean_T codegenReal2MissionModelClass::codegenReal2Mission_isequaln_n
     (MissionModes varargin_1, MissionModes varargin_2)
 {
@@ -497,7 +497,7 @@ boolean_T codegenReal2MissionModelClass::codegenReal2Mission_isequaln_n
     return p;
 }
 
-// Function for MATLAB Function: '<S34>/CommandCheck'
+// Function for MATLAB Function: '<S33>/CommandCheck'
 boolean_T codegenReal2MissionModelClass::codegenReal2Mission_isequaln(int32_T
     varargin_1_SequenceID, MissionModes varargin_1_MissionMode, real_T
     varargin_1_MissionLocation_Lat, real_T varargin_1_MissionLocation_Lon,
@@ -722,7 +722,7 @@ boolean_T codegenReal2MissionModelClass::codegenReal2Mission_isequaln(int32_T
     return p;
 }
 
-// Function for MATLAB Function: '<S34>/CommandCheck'
+// Function for MATLAB Function: '<S33>/CommandCheck'
 MissionModes codegenReal2MissionModelClass::
     codegenReal2Mission_convert_to_enum_MissionModes(int32_T input)
 {
@@ -781,7 +781,7 @@ creal_T codegenReal2MissionModelClass::codegenReal2Mission_two_diff(real_T a,
     return c;
 }
 
-// Function for MATLAB Function: '<S34>/CommandCheck'
+// Function for MATLAB Function: '<S33>/CommandCheck'
 creal_T codegenReal2MissionModelClass::codegenReal2Mission_divide(const creal_T
     a)
 {
@@ -869,7 +869,7 @@ creal_T codegenReal2MissionModelClass::codegenReal2Mission_minus(const creal_T a
     return cout;
 }
 
-// Function for MATLAB Function: '<S34>/CommandCheck'
+// Function for MATLAB Function: '<S33>/CommandCheck'
 void codegenReal2MissionModelClass::codegenReal2Mission_days2ymd(real_T days,
     real_T *y, real_T *m, real_T *d)
 {
@@ -958,7 +958,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_days2ymd(real_T days,
     }
 }
 
-// Function for MATLAB Function: '<S34>/CommandCheck'
+// Function for MATLAB Function: '<S33>/CommandCheck'
 void codegenReal2MissionModelClass::codegenReal2Mission_secs2hms(real_T secs,
     real_T *h, real_T *m, real_T *s)
 {
@@ -980,7 +980,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_secs2hms(real_T secs,
     }
 }
 
-// Function for MATLAB Function: '<S34>/CommandCheck'
+// Function for MATLAB Function: '<S33>/CommandCheck'
 void codegenReal2MissionModelClass::codegenReal2Mission_getDateVec_o(real_T dd,
     real_T *y, real_T *mo, real_T *d, real_T *h, real_T *m, real_T *s)
 {
@@ -1056,7 +1056,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_getDateVec_o(real_T dd,
     }
 }
 
-// Function for MATLAB Function: '<S34>/CommandCheck'
+// Function for MATLAB Function: '<S33>/CommandCheck'
 void codegenReal2MissionModelClass::codegenReal2Mission_getDateVec_oe(const
     creal_T dd, real_T *y, real_T *mo, real_T *d, real_T *h, real_T *m, real_T
     *s)
@@ -1113,7 +1113,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_getDateVec_oe(const
     }
 }
 
-missionCmd *codegenReal2MissionModelClass::codegenReal2Mission_allocMemPool
+missionCmd *codegenReal2MissionModelClass::codegenReal2Mission_allocMemPool_c
     (MemPool_missionCmd *memPool, int32_T width)
 {
     missionCmd *dataPtr;
@@ -1133,13 +1133,13 @@ missionCmd *codegenReal2MissionModelClass::codegenReal2Mission_allocMemPool
     return dataPtr;
 }
 
-Msg_missionCmd codegenReal2MissionModelClass::codegenReal2Mission_createMsg(
+Msg_missionCmd codegenReal2MissionModelClass::codegenReal2Mission_createMsg_f(
     const missionCmd *data)
 {
     Msg_missionCmd msg;
 
     // DiscreteEventSubgraph generated from: '<S1>/FeedbackCurrentMission'
-    msg.fData = codegenReal2Mission_allocMemPool
+    msg.fData = codegenReal2Mission_allocMemPool_c
         (&codegenReal2Mission_DW.slMsgMgr_MemPool_missionCmd, 1);
     if (msg.fData != nullptr) {
         *msg.fData = *data;
@@ -1149,7 +1149,7 @@ Msg_missionCmd codegenReal2MissionModelClass::codegenReal2Mission_createMsg(
     return msg;
 }
 
-void codegenReal2MissionModelClass::codegenReal2Mission_freeMemPool
+void codegenReal2MissionModelClass::codegenReal2Mission_freeMemPool_h
     (MemPool_missionCmd *memPool, missionCmd *dataPtr)
 {
     // DiscreteEventSubgraph generated from: '<S1>/FeedbackCurrentMission'
@@ -1157,22 +1157,22 @@ void codegenReal2MissionModelClass::codegenReal2Mission_freeMemPool
     memPool->fNumFree = static_cast<int32_T>(memPool->fNumFree + 1);
 }
 
-void codegenReal2MissionModelClass::codegenReal2Mission_destroyMsg
+void codegenReal2MissionModelClass::codegenReal2Mission_destroyMsg_g
     (Msg_missionCmd *msg)
 {
     // DiscreteEventSubgraph generated from: '<S1>/FeedbackCurrentMission'
-    codegenReal2Mission_freeMemPool
+    codegenReal2Mission_freeMemPool_h
         (&codegenReal2Mission_DW.slMsgMgr_MemPool_missionCmd, msg->fData);
 }
 
-boolean_T codegenReal2MissionModelClass::codegenReal2Mission_push
+boolean_T codegenReal2MissionModelClass::codegenReal2Mission_push_i
     (Buffer_missionCmd *q, Msg_missionCmd *element)
 {
     boolean_T isPush;
 
     // Queue generated from: '<S1>/RcvNextMission'
     if (q->fOccupied) {
-        codegenReal2Mission_destroyMsg(&q->fMsg);
+        codegenReal2Mission_destroyMsg_g(&q->fMsg);
     }
 
     q->fMsg = *element;
@@ -1190,19 +1190,19 @@ int32_T codegenReal2MissionModelClass::
     int32_T status{ 1 };
 
     // DiscreteEventSubgraph generated from: '<S1>/FeedbackCurrentMission' incorporates:
-    //   Send: '<S34>/PushCMD'
+    //   Send: '<S33>/PushCMD'
 
-    msg = codegenReal2Mission_createMsg(data);
+    msg = codegenReal2Mission_createMsg_f(data);
 
     // Queue generated from: '<S1>/RcvNextMission' incorporates:
     //   DiscreteEventSubgraph generated from: '<S1>/FeedbackCurrentMission'
 
-    if (codegenReal2Mission_push
+    if (codegenReal2Mission_push_i
             (&codegenReal2Mission_DW.Queue_InsertedFor_RcvNextMission_at_inport_0_Queue,
              &msg)) {
         status = 0;
     } else {
-        codegenReal2Mission_destroyMsg(&msg);
+        codegenReal2Mission_destroyMsg_g(&msg);
     }
 
     // End of Queue generated from: '<S1>/RcvNextMission'
@@ -1218,17 +1218,17 @@ int32_T codegenReal2MissionModelClass::
     // DiscreteEventSubgraph generated from: '<S1>/FeedbackCurrentMission' incorporates:
     //   Send: '<S22>/Send'
 
-    msg = codegenReal2Mission_createMsg(data);
+    msg = codegenReal2Mission_createMsg_f(data);
 
     // Queue generated from: '<S1>/FeedbackCurrentMission' incorporates:
     //   DiscreteEventSubgraph generated from: '<S1>/FeedbackCurrentMission'
 
-    if (codegenReal2Mission_push
+    if (codegenReal2Mission_push_i
             (&codegenReal2Mission_DW.Queue_InsertedFor_FeedbackCurrentMission_at_inport_5_Queue,
              &msg)) {
         status = 0;
     } else {
-        codegenReal2Mission_destroyMsg(&msg);
+        codegenReal2Mission_destroyMsg_g(&msg);
     }
 
     // End of Queue generated from: '<S1>/FeedbackCurrentMission'
@@ -1242,26 +1242,26 @@ int32_T codegenReal2MissionModelClass::codegenReal2Mission_RcvImmedCMD_SendData(
     int32_T status{ 1 };
 
     // DiscreteEventSubgraph generated from: '<S1>/FeedbackCurrentMission' incorporates:
-    //   Send: '<S31>/SndImmedCMD'
+    //   Send: '<S30>/SndImmedCMD'
 
-    msg = codegenReal2Mission_createMsg(data);
+    msg = codegenReal2Mission_createMsg_f(data);
 
     // Queue generated from: '<S1>/RcvImmedCMD' incorporates:
     //   DiscreteEventSubgraph generated from: '<S1>/FeedbackCurrentMission'
 
-    if (codegenReal2Mission_push
+    if (codegenReal2Mission_push_i
             (&codegenReal2Mission_DW.Queue_InsertedFor_RcvImmedCMD_at_inport_0_Queue,
              &msg)) {
         status = 0;
     } else {
-        codegenReal2Mission_destroyMsg(&msg);
+        codegenReal2Mission_destroyMsg_g(&msg);
     }
 
     // End of Queue generated from: '<S1>/RcvImmedCMD'
     return status;
 }
 
-boolean_T codegenReal2MissionModelClass::codegenReal2Mission_pop
+boolean_T codegenReal2MissionModelClass::codegenReal2Mission_pop_h
     (Buffer_missionCmd *q, Msg_missionCmd *elementOut)
 {
     boolean_T isPop;
@@ -1289,12 +1289,12 @@ int32_T codegenReal2MissionModelClass::
     // Queue generated from: '<S1>/RcvNextMission' incorporates:
     //   DiscreteEventSubgraph generated from: '<S1>/FeedbackCurrentMission'
 
-    if (codegenReal2Mission_pop
+    if (codegenReal2Mission_pop_h
             (&codegenReal2Mission_DW.Queue_InsertedFor_RcvNextMission_at_inport_0_Queue,
              &msg)) {
         status = 0;
         *data = *msg.fData;
-        codegenReal2Mission_destroyMsg(&msg);
+        codegenReal2Mission_destroyMsg_g(&msg);
     }
 
     // End of Queue generated from: '<S1>/RcvNextMission'
@@ -1310,17 +1310,17 @@ int32_T codegenReal2MissionModelClass::
     // DiscreteEventSubgraph generated from: '<S1>/FeedbackCurrentMission' incorporates:
     //   Send: '<S18>/SendMission'
 
-    msg = codegenReal2Mission_createMsg(data);
+    msg = codegenReal2Mission_createMsg_f(data);
 
     // Queue generated from: '<S13>/FlightMission' incorporates:
     //   DiscreteEventSubgraph generated from: '<S1>/FeedbackCurrentMission'
 
-    if (codegenReal2Mission_push
+    if (codegenReal2Mission_push_i
             (&codegenReal2Mission_DW.Queue_InsertedFor_FlightMission_at_inport_0_Queue,
              &msg)) {
         status = 0;
     } else {
-        codegenReal2Mission_destroyMsg(&msg);
+        codegenReal2Mission_destroyMsg_g(&msg);
     }
 
     // End of Queue generated from: '<S13>/FlightMission'
@@ -1337,12 +1337,12 @@ int32_T codegenReal2MissionModelClass::
     //   DiscreteEventSubgraph generated from: '<S1>/FeedbackCurrentMission'
     //   Receive: '<S14>/ReceiveCurrentMission'
 
-    if (codegenReal2Mission_pop
+    if (codegenReal2Mission_pop_h
             (&codegenReal2Mission_DW.Queue_InsertedFor_FlightMission_at_inport_0_Queue,
              &msg)) {
         status = 0;
         *data = *msg.fData;
-        codegenReal2Mission_destroyMsg(&msg);
+        codegenReal2Mission_destroyMsg_g(&msg);
     }
 
     // End of Queue generated from: '<S13>/FlightMission'
@@ -1358,12 +1358,12 @@ int32_T codegenReal2MissionModelClass::codegenReal2Mission_RcvImmedCMD_RecvData
     // Queue generated from: '<S1>/RcvImmedCMD' incorporates:
     //   DiscreteEventSubgraph generated from: '<S1>/FeedbackCurrentMission'
 
-    if (codegenReal2Mission_pop
+    if (codegenReal2Mission_pop_h
             (&codegenReal2Mission_DW.Queue_InsertedFor_RcvImmedCMD_at_inport_0_Queue,
              &msg)) {
         status = 0;
         *data = *msg.fData;
-        codegenReal2Mission_destroyMsg(&msg);
+        codegenReal2Mission_destroyMsg_g(&msg);
     }
 
     // End of Queue generated from: '<S1>/RcvImmedCMD'
@@ -1379,12 +1379,12 @@ int32_T codegenReal2MissionModelClass::
     // Queue generated from: '<S1>/FeedbackCurrentMission' incorporates:
     //   DiscreteEventSubgraph generated from: '<S1>/FeedbackCurrentMission'
 
-    if (codegenReal2Mission_pop
+    if (codegenReal2Mission_pop_h
             (&codegenReal2Mission_DW.Queue_InsertedFor_FeedbackCurrentMission_at_inport_5_Queue,
              &msg)) {
         status = 0;
         *data = *msg.fData;
-        codegenReal2Mission_destroyMsg(&msg);
+        codegenReal2Mission_destroyMsg_g(&msg);
     }
 
     // End of Queue generated from: '<S1>/FeedbackCurrentMission'
@@ -2675,8 +2675,8 @@ int32_T codegenReal2MissionModelClass::codegenReal2Mission_cfclose(real_T fid)
 }
 
 void codegenReal2MissionModelClass::codegenReal2Mission_initMemPool
-    (MemPool_missionCmd *memPool, missionCmd *memArray, missionCmd **freeList,
-     int32_T size)
+    (MemPool_IndividualUAVCmd *memPool, IndividualUAVCmd *memArray,
+     IndividualUAVCmd **freeList, int32_T size)
 {
     // Start for slMsgMgr: '<Root>/slMsgMgr'
     memPool->fMemArray = memArray;
@@ -2686,9 +2686,9 @@ void codegenReal2MissionModelClass::codegenReal2Mission_initMemPool
     memPool->fSize = size;
 }
 
-void codegenReal2MissionModelClass::codegenReal2Mission_initMemPool_n
-    (MemPool_IndividualUAVCmd *memPool, IndividualUAVCmd *memArray,
-     IndividualUAVCmd **freeList, int32_T size)
+void codegenReal2MissionModelClass::codegenReal2Mission_initMemPool_o
+    (MemPool_missionCmd *memPool, missionCmd *memArray, missionCmd **freeList,
+     int32_T size)
 {
     // Start for slMsgMgr: '<Root>/slMsgMgr'
     memPool->fMemArray = memArray;
@@ -2702,7 +2702,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_initQueue
     (Queue_IndividualUAVCmd *q, QueuePolicy_T policy, int32_T capacity,
      Msg_IndividualUAVCmd *qPool)
 {
-    // Start for Queue: '<S32>/Queue'
+    // Start for Queue: '<S31>/Queue'
     q->fPolicy = policy;
     q->fCapacity = capacity;
     q->fHead = -1;
@@ -2728,8 +2728,9 @@ void codegenReal2MissionModelClass::codegenReal2Mission_emxInit_char_T
     }
 }
 
-// Function for MATLAB Function: '<S6>/ReadHomeAlt'
-int8_T codegenReal2MissionModelClass::codegenReal2Mission_filedata_k(void) const
+// Function for MATLAB Function: '<S6>/ReadHomePoint'
+int8_T codegenReal2MissionModelClass::codegenReal2Mission_filedata_k(const FILE*
+    eml_openfiles_g[20])
 {
     int32_T k;
     int8_T f;
@@ -2738,8 +2739,8 @@ int8_T codegenReal2MissionModelClass::codegenReal2Mission_filedata_k(void) const
     k = 1;
     exitg1 = false;
     while ((!exitg1) && (static_cast<int32_T>(k - 1) < 20)) {
-        if (codegenReal2Mission_DW.eml_openfiles_g[static_cast<int32_T>(
-                static_cast<int32_T>(static_cast<int8_T>(k)) - 1)] == NULL) {
+        if (eml_openfiles_g[static_cast<int32_T>(static_cast<int32_T>(
+                static_cast<int8_T>(k)) - 1)] == NULL) {
             f = static_cast<int8_T>(k);
             exitg1 = true;
         } else {
@@ -2750,21 +2751,21 @@ int8_T codegenReal2MissionModelClass::codegenReal2Mission_filedata_k(void) const
     return f;
 }
 
-// Function for MATLAB Function: '<S6>/ReadHomeAlt'
+// Function for MATLAB Function: '<S6>/ReadHomePoint'
 int8_T codegenReal2MissionModelClass::codegenReal2Mission_cfopen_g(const char_T *
-    cfilename, const char_T *cpermission)
+    cfilename, const char_T *cpermission, FILE* eml_openfiles_g[20])
 {
     int8_T fileid;
     int8_T j;
     fileid = -1;
-    j = codegenReal2Mission_filedata_k();
+    j = codegenReal2Mission_filedata_k(eml_openfiles_g);
     if (static_cast<int32_T>(j) >= 1) {
         FILE* filestar;
         filestar = fopen(cfilename, cpermission);
         if (filestar != NULL) {
             int32_T tmp;
-            codegenReal2Mission_DW.eml_openfiles_g[static_cast<int32_T>(
-                static_cast<int32_T>(j) - 1)] = filestar;
+            eml_openfiles_g[static_cast<int32_T>(static_cast<int32_T>(j) - 1)] =
+                filestar;
             tmp = static_cast<int32_T>(static_cast<int32_T>(j) + 2);
             if (static_cast<int32_T>(static_cast<int32_T>(j) + 2) > 127) {
                 tmp = 127;
@@ -2821,8 +2822,96 @@ void codegenReal2MissionModelClass::codegenReal2Mission_emxEnsureCapacity_char_T
     }
 }
 
-// Function for MATLAB Function: '<S6>/ReadHomeAlt'
-int32_T codegenReal2MissionModelClass::codegenReal2Mission_cfclose_e(real_T fid)
+// Function for MATLAB Function: '<S6>/ReadHomePoint'
+void codegenReal2MissionModelClass::codegenReal2Mission_fread(real_T fileID,
+    FILE* eml_openfiles_g[20], emxArray_char_T_codegenReal2Mission_T *A)
+{
+    FILE* filestar;
+    size_t nBytes;
+    char_T tbuf[1024];
+    int8_T fileid;
+    nBytes = sizeof(char_T);
+    fileid = static_cast<int8_T>(std::round(fileID));
+    if (fileID != static_cast<real_T>(fileid)) {
+        fileid = -1;
+    }
+
+    if (static_cast<int32_T>(fileid) >= 3) {
+        filestar = eml_openfiles_g[static_cast<int32_T>(static_cast<int32_T>
+            (fileid) - 3)];
+    } else {
+        switch (static_cast<int32_T>(fileid)) {
+          case 0:
+            filestar = stdin;
+            break;
+
+          case 1:
+            filestar = stdout;
+            break;
+
+          case 2:
+            filestar = stderr;
+            break;
+
+          default:
+            filestar = NULL;
+            break;
+        }
+    }
+
+    if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(
+            static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(
+              static_cast<boolean_T>(static_cast<int32_T>((fileID != 0.0) ^ 1)))
+             | static_cast<int32_T>(static_cast<boolean_T>(static_cast<int32_T>
+               ((fileID != 1.0) ^ 1)))))) | static_cast<int32_T>
+            (static_cast<boolean_T>(static_cast<int32_T>((fileID != 2.0) ^ 1))))))
+    {
+        filestar = NULL;
+    }
+
+    A->size[0] = 0;
+    if (static_cast<boolean_T>(static_cast<int32_T>((filestar == NULL) ^ 1))) {
+        int32_T c;
+        c = 1;
+        while (c > 0) {
+            int32_T c_0;
+            int32_T loop_ub;
+            int32_T numRead;
+            int32_T tmp;
+            c = 0;
+            numRead = 1;
+            while (static_cast<boolean_T>(static_cast<int32_T>((c < 1024) &
+                     (numRead > 0)))) {
+                size_t numReadSizeT;
+                numReadSizeT = fread(&tbuf[c], nBytes, (size_t)(1024 - c),
+                                     filestar);
+                numRead = (int32_T)numReadSizeT;
+                c = static_cast<int32_T>(c + (int32_T)numReadSizeT);
+            }
+
+            numRead = A->size[0];
+            if (c < 1) {
+                c_0 = -1;
+                loop_ub = -1;
+            } else {
+                c_0 = static_cast<int32_T>(c - 1);
+                loop_ub = static_cast<int32_T>(c - 1);
+            }
+
+            tmp = A->size[0];
+            A->size[0] = static_cast<int32_T>(static_cast<int32_T>(c_0 + A->
+                size[0]) + 1);
+            codegenReal2Mission_emxEnsureCapacity_char_T(A, tmp);
+            for (c_0 = 0; c_0 <= loop_ub; c_0++) {
+                A->data[static_cast<int32_T>(numRead + c_0)] = tbuf[c_0];
+            }
+        }
+    }
+}
+
+// Function for MATLAB Function: '<S6>/ReadHomePoint'
+int32_T codegenReal2MissionModelClass::codegenReal2Mission_cfclose_e(real_T fid,
+    FILE* eml_openfiles_g[20])
 {
     FILE* filestar;
     int32_T st;
@@ -2840,8 +2929,8 @@ int32_T codegenReal2MissionModelClass::codegenReal2Mission_cfclose_e(real_T fid)
     }
 
     if (static_cast<int32_T>(b_fileid) >= 3) {
-        filestar = codegenReal2Mission_DW.eml_openfiles_g[static_cast<int32_T>(
-            static_cast<int32_T>(b_fileid) - 3)];
+        filestar = eml_openfiles_g[static_cast<int32_T>(static_cast<int32_T>
+            (b_fileid) - 3)];
     } else {
         switch (static_cast<int32_T>(b_fileid)) {
           case 0:
@@ -2868,15 +2957,108 @@ int32_T codegenReal2MissionModelClass::codegenReal2Mission_cfclose_e(real_T fid)
         cst = fclose(filestar);
         if (cst == 0) {
             st = 0;
-            codegenReal2Mission_DW.eml_openfiles_g[static_cast<int32_T>(
-                static_cast<int32_T>(fileid) - 3)] = NULL;
+            eml_openfiles_g[static_cast<int32_T>(static_cast<int32_T>(fileid) -
+                3)] = NULL;
         }
     }
 
     return st;
 }
 
-// Function for MATLAB Function: '<S6>/ReadHomeAlt'
+// Function for MATLAB Function: '<S6>/ReadHomePoint'
+void codegenReal2MissionModelClass::codegenReal2Mission_strtok(const
+    emxArray_char_T_codegenReal2Mission_T *x,
+    emxArray_char_T_codegenReal2Mission_T *token,
+    emxArray_char_T_codegenReal2Mission_T *remain)
+{
+    int32_T b;
+    int32_T i;
+    int32_T itoken;
+    int32_T k;
+    int32_T n;
+    n = x->size[1];
+    k = 0;
+    while ((static_cast<int32_T>(k + 1) <= n) && (x->data[k] == '\x0a')) {
+        k = static_cast<int32_T>(k + 1);
+    }
+
+    itoken = static_cast<int32_T>(k + 1);
+    while ((static_cast<int32_T>(k + 1) <= n) && (x->data[k] != '\x0a')) {
+        k = static_cast<int32_T>(k + 1);
+    }
+
+    if (static_cast<int32_T>(k + 1) > x->size[1]) {
+        n = 0;
+        b = 0;
+    } else {
+        n = k;
+        b = x->size[1];
+    }
+
+    i = static_cast<int32_T>(remain->size[0] * remain->size[1]);
+    remain->size[0] = 1;
+    b = static_cast<int32_T>(b - n);
+    remain->size[1] = b;
+    codegenReal2Mission_emxEnsureCapacity_char_T(remain, i);
+    for (i = 0; i <= static_cast<int32_T>(b - 1); i++) {
+        remain->data[i] = x->data[static_cast<int32_T>(n + i)];
+    }
+
+    if (itoken > k) {
+        itoken = 0;
+        k = 0;
+    } else {
+        itoken = static_cast<int32_T>(itoken - 1);
+    }
+
+    i = static_cast<int32_T>(token->size[0] * token->size[1]);
+    token->size[0] = 1;
+    b = static_cast<int32_T>(k - itoken);
+    token->size[1] = b;
+    codegenReal2Mission_emxEnsureCapacity_char_T(token, i);
+    for (i = 0; i <= static_cast<int32_T>(b - 1); i++) {
+        token->data[i] = x->data[static_cast<int32_T>(itoken + i)];
+    }
+}
+
+// Function for MATLAB Function: '<S6>/ReadHomePoint'
+void codegenReal2MissionModelClass::codegenReal2Mission_strtok_p(const
+    emxArray_char_T_codegenReal2Mission_T *x,
+    emxArray_char_T_codegenReal2Mission_T *token)
+{
+    int32_T itoken;
+    int32_T k;
+    int32_T n;
+    n = x->size[1];
+    k = 1;
+    while ((k <= n) && (x->data[static_cast<int32_T>(k - 1)] == ';')) {
+        k = static_cast<int32_T>(k + 1);
+    }
+
+    itoken = k;
+    while ((k <= n) && (x->data[static_cast<int32_T>(k - 1)] != ';')) {
+        k = static_cast<int32_T>(k + 1);
+    }
+
+    if (itoken > static_cast<int32_T>(k - 1)) {
+        n = 0;
+        k = 0;
+    } else {
+        n = static_cast<int32_T>(itoken - 1);
+        k = static_cast<int32_T>(k - 1);
+    }
+
+    itoken = static_cast<int32_T>(token->size[0] * token->size[1]);
+    token->size[0] = 1;
+    k = static_cast<int32_T>(k - n);
+    token->size[1] = k;
+    codegenReal2Mission_emxEnsureCapacity_char_T(token, itoken);
+    for (itoken = 0; itoken <= static_cast<int32_T>(k - 1); itoken++) {
+        token->data[itoken] = x->data[static_cast<int32_T>(n + itoken)];
+    }
+}
+
+// Function for MATLAB Function: '<S6>/ReadHomePoint'
 void codegenReal2MissionModelClass::codegenReal2Mission_strtrim(const
     emxArray_char_T_codegenReal2Mission_T *x,
     emxArray_char_T_codegenReal2Mission_T *y)
@@ -2929,7 +3111,31 @@ void codegenReal2MissionModelClass::codegenReal2Mission_strtrim(const
     }
 }
 
-// Function for MATLAB Function: '<S6>/ReadHomeAlt'
+// Function for MATLAB Function: '<S6>/ReadHomePoint'
+boolean_T codegenReal2MissionModelClass::codegenReal2Mission_contains(const
+    emxArray_char_T_codegenReal2Mission_T *str)
+{
+    int32_T matchPos;
+    matchPos = 0;
+    int32_T exitg1;
+    do {
+        exitg1 = 0;
+        if (matchPos <= static_cast<int32_T>(str->size[1] - 1)) {
+            if (str->data[matchPos] == '=') {
+                exitg1 = 1;
+            } else {
+                matchPos = static_cast<int32_T>(matchPos + 1);
+            }
+        } else {
+            matchPos = -1;
+            exitg1 = 1;
+        }
+    } while (exitg1 == 0);
+
+    return static_cast<int32_T>(matchPos + 1) > 0;
+}
+
+// Function for MATLAB Function: '<S6>/ReadHomePoint'
 void codegenReal2MissionModelClass::codegenReal2Mission_find_token(const
     emxArray_char_T_codegenReal2Mission_T *x, int32_T *itoken, int32_T *iremain)
 {
@@ -2948,7 +3154,197 @@ void codegenReal2MissionModelClass::codegenReal2Mission_find_token(const
     }
 }
 
-// Function for MATLAB Function: '<S6>/ReadHomeAlt'
+// Function for MATLAB Function: '<S6>/ReadHomePoint'
+void codegenReal2MissionModelClass::codegenReal2Mission_strtok_ph(const
+    emxArray_char_T_codegenReal2Mission_T *x,
+    emxArray_char_T_codegenReal2Mission_T *token,
+    emxArray_char_T_codegenReal2Mission_T *remain)
+{
+    int32_T b;
+    int32_T c;
+    int32_T i;
+    int32_T iremain;
+    int32_T itoken;
+    codegenReal2Mission_find_token(x, &itoken, &iremain);
+    if (iremain > x->size[1]) {
+        c = 0;
+        b = 0;
+    } else {
+        c = static_cast<int32_T>(iremain - 1);
+        b = x->size[1];
+    }
+
+    i = static_cast<int32_T>(remain->size[0] * remain->size[1]);
+    remain->size[0] = 1;
+    b = static_cast<int32_T>(b - c);
+    remain->size[1] = b;
+    codegenReal2Mission_emxEnsureCapacity_char_T(remain, i);
+    for (i = 0; i <= static_cast<int32_T>(b - 1); i++) {
+        remain->data[i] = x->data[static_cast<int32_T>(c + i)];
+    }
+
+    if (itoken > static_cast<int32_T>(iremain - 1)) {
+        itoken = 0;
+        iremain = 0;
+    } else {
+        itoken = static_cast<int32_T>(itoken - 1);
+        iremain = static_cast<int32_T>(iremain - 1);
+    }
+
+    i = static_cast<int32_T>(token->size[0] * token->size[1]);
+    token->size[0] = 1;
+    b = static_cast<int32_T>(iremain - itoken);
+    token->size[1] = b;
+    codegenReal2Mission_emxEnsureCapacity_char_T(token, i);
+    for (i = 0; i <= static_cast<int32_T>(b - 1); i++) {
+        token->data[i] = x->data[static_cast<int32_T>(itoken + i)];
+    }
+}
+
+void codegenReal2MissionModelClass::codegenReal2Mission_emxFree_char_T
+    (emxArray_char_T_codegenReal2Mission_T **pEmxArray)
+{
+    if (*pEmxArray != static_cast<emxArray_char_T_codegenReal2Mission_T *>
+            (nullptr)) {
+        if (((*pEmxArray)->data != static_cast<char_T *>(nullptr)) &&
+                (*pEmxArray)->canFreeData) {
+            std::free((*pEmxArray)->data);
+        }
+
+        std::free((*pEmxArray)->size);
+        std::free(*pEmxArray);
+        *pEmxArray = static_cast<emxArray_char_T_codegenReal2Mission_T *>
+            (nullptr);
+    }
+}
+
+// Function for MATLAB Function: '<S6>/ReadHomePoint'
+boolean_T codegenReal2MissionModelClass::codegenReal2Mission_strcmp(const
+    emxArray_char_T_codegenReal2Mission_T *a)
+{
+    static const char_T c[128]{ '\x00', '\x01', '\x02', '\x03', '\x04', '\x05',
+        '\x06', '\x07', '\x08', '\x09', '\x0a', '\x0b', '\x0c', '\x0d', '\x0e',
+        '\x0f', '\x10', '\x11', '\x12', '\x13', '\x14', '\x15', '\x16', '\x17',
+        '\x18', '\x19', '\x1a', '\x1b', '\x1c', '\x1d', '\x1e', '\x1f', ' ', '!',
+        '\"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/',
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=',
+        '>', '?', '@', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
+        'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
+        'z', '[', '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g',
+        'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
+        'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~', '\x7f' };
+
+    static const char_T d[9]{ 'H', 'o', 'm', 'e', 'P', 'o', 'i', 'n', 't' };
+
+    emxArray_char_T_codegenReal2Mission_T *aTmp;
+    int32_T loop_ub;
+    boolean_T b_bool;
+    codegenReal2Mission_emxInit_char_T(&aTmp, 2);
+    if (a->size[1] == 0) {
+        aTmp->size[0] = 1;
+        aTmp->size[1] = 0;
+    } else {
+        int32_T i;
+        i = static_cast<int32_T>(aTmp->size[0] * aTmp->size[1]);
+        aTmp->size[0] = 1;
+        aTmp->size[1] = a->size[1];
+        codegenReal2Mission_emxEnsureCapacity_char_T(aTmp, i);
+        loop_ub = static_cast<int32_T>(a->size[1] - 1);
+        for (i = 0; i <= loop_ub; i++) {
+            aTmp->data[i] = a->data[i];
+        }
+    }
+
+    b_bool = false;
+    if (aTmp->size[1] == 9) {
+        loop_ub = 0;
+        int32_T exitg1;
+        do {
+            exitg1 = 0;
+            if (loop_ub < 9) {
+                if (c[static_cast<int32_T>(static_cast<int32_T>
+                                           (static_cast<uint8_T>(aTmp->
+                        data[loop_ub])) & 127)] != c[static_cast<int32_T>
+                        (d[loop_ub])]) {
+                    exitg1 = 1;
+                } else {
+                    loop_ub = static_cast<int32_T>(loop_ub + 1);
+                }
+            } else {
+                b_bool = true;
+                exitg1 = 1;
+            }
+        } while (exitg1 == 0);
+    }
+
+    codegenReal2Mission_emxFree_char_T(&aTmp);
+    return b_bool;
+}
+
+// Function for MATLAB Function: '<S6>/ReadHomePoint'
+boolean_T codegenReal2MissionModelClass::codegenReal2Mission_strcmp_i(const
+    emxArray_char_T_codegenReal2Mission_T *a)
+{
+    static const char_T c[128]{ '\x00', '\x01', '\x02', '\x03', '\x04', '\x05',
+        '\x06', '\x07', '\x08', '\x09', '\x0a', '\x0b', '\x0c', '\x0d', '\x0e',
+        '\x0f', '\x10', '\x11', '\x12', '\x13', '\x14', '\x15', '\x16', '\x17',
+        '\x18', '\x19', '\x1a', '\x1b', '\x1c', '\x1d', '\x1e', '\x1f', ' ', '!',
+        '\"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/',
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=',
+        '>', '?', '@', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
+        'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
+        'z', '[', '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g',
+        'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
+        'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~', '\x7f' };
+
+    static const char_T d[3]{ 'L', 'a', 't' };
+
+    emxArray_char_T_codegenReal2Mission_T *aTmp;
+    int32_T loop_ub;
+    boolean_T b_bool;
+    codegenReal2Mission_emxInit_char_T(&aTmp, 2);
+    if (a->size[1] == 0) {
+        aTmp->size[0] = 1;
+        aTmp->size[1] = 0;
+    } else {
+        int32_T i;
+        i = static_cast<int32_T>(aTmp->size[0] * aTmp->size[1]);
+        aTmp->size[0] = 1;
+        aTmp->size[1] = a->size[1];
+        codegenReal2Mission_emxEnsureCapacity_char_T(aTmp, i);
+        loop_ub = static_cast<int32_T>(a->size[1] - 1);
+        for (i = 0; i <= loop_ub; i++) {
+            aTmp->data[i] = a->data[i];
+        }
+    }
+
+    b_bool = false;
+    if (aTmp->size[1] == 3) {
+        loop_ub = 0;
+        int32_T exitg1;
+        do {
+            exitg1 = 0;
+            if (loop_ub < 3) {
+                if (c[static_cast<int32_T>(static_cast<int32_T>
+                                           (static_cast<uint8_T>(aTmp->
+                        data[loop_ub])) & 127)] != c[static_cast<int32_T>
+                        (d[loop_ub])]) {
+                    exitg1 = 1;
+                } else {
+                    loop_ub = static_cast<int32_T>(loop_ub + 1);
+                }
+            } else {
+                b_bool = true;
+                exitg1 = 1;
+            }
+        } while (exitg1 == 0);
+    }
+
+    codegenReal2Mission_emxFree_char_T(&aTmp);
+    return b_bool;
+}
+
+// Function for MATLAB Function: '<S6>/ReadHomePoint'
 boolean_T codegenReal2MissionModelClass::codegenReal2Mission_copydigits
     (emxArray_char_T_codegenReal2Mission_T *s1, int32_T *idx, const
      emxArray_char_T_codegenReal2Mission_T *s, int32_T *k, int32_T n, boolean_T
@@ -2990,24 +3386,7 @@ boolean_T codegenReal2MissionModelClass::codegenReal2Mission_copydigits
     return success;
 }
 
-void codegenReal2MissionModelClass::codegenReal2Mission_emxFree_char_T
-    (emxArray_char_T_codegenReal2Mission_T **pEmxArray)
-{
-    if (*pEmxArray != static_cast<emxArray_char_T_codegenReal2Mission_T *>
-            (nullptr)) {
-        if (((*pEmxArray)->data != static_cast<char_T *>(nullptr)) &&
-                (*pEmxArray)->canFreeData) {
-            std::free((*pEmxArray)->data);
-        }
-
-        std::free((*pEmxArray)->size);
-        std::free(*pEmxArray);
-        *pEmxArray = static_cast<emxArray_char_T_codegenReal2Mission_T *>
-            (nullptr);
-    }
-}
-
-// Function for MATLAB Function: '<S6>/ReadHomeAlt'
+// Function for MATLAB Function: '<S6>/ReadHomePoint'
 void codegenReal2MissionModelClass::codegenReal2Mission_readfloat
     (emxArray_char_T_codegenReal2Mission_T *s1, int32_T *idx, const
      emxArray_char_T_codegenReal2Mission_T *s, int32_T *k, int32_T n, boolean_T
@@ -3360,7 +3739,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_readfloat
     codegenReal2Mission_emxFree_char_T(&d);
 }
 
-// Function for MATLAB Function: '<S6>/ReadHomeAlt'
+// Function for MATLAB Function: '<S6>/ReadHomePoint'
 creal_T codegenReal2MissionModelClass::codegenReal2Mission_str2double(const
     emxArray_char_T_codegenReal2Mission_T *s)
 {
@@ -3527,8 +3906,134 @@ creal_T codegenReal2MissionModelClass::codegenReal2Mission_str2double(const
     return x;
 }
 
-// Function for MATLAB Function: '<S6>/ReadHomeLat'
-int8_T codegenReal2MissionModelClass::codegenReal2Mission_filedata_d(void) const
+// Function for MATLAB Function: '<S6>/ReadHomePoint'
+boolean_T codegenReal2MissionModelClass::codegenReal2Mission_strcmp_i1(const
+    emxArray_char_T_codegenReal2Mission_T *a)
+{
+    static const char_T c[128]{ '\x00', '\x01', '\x02', '\x03', '\x04', '\x05',
+        '\x06', '\x07', '\x08', '\x09', '\x0a', '\x0b', '\x0c', '\x0d', '\x0e',
+        '\x0f', '\x10', '\x11', '\x12', '\x13', '\x14', '\x15', '\x16', '\x17',
+        '\x18', '\x19', '\x1a', '\x1b', '\x1c', '\x1d', '\x1e', '\x1f', ' ', '!',
+        '\"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/',
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=',
+        '>', '?', '@', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
+        'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
+        'z', '[', '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g',
+        'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
+        'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~', '\x7f' };
+
+    static const char_T d[3]{ 'L', 'o', 'n' };
+
+    emxArray_char_T_codegenReal2Mission_T *aTmp;
+    int32_T loop_ub;
+    boolean_T b_bool;
+    codegenReal2Mission_emxInit_char_T(&aTmp, 2);
+    if (a->size[1] == 0) {
+        aTmp->size[0] = 1;
+        aTmp->size[1] = 0;
+    } else {
+        int32_T i;
+        i = static_cast<int32_T>(aTmp->size[0] * aTmp->size[1]);
+        aTmp->size[0] = 1;
+        aTmp->size[1] = a->size[1];
+        codegenReal2Mission_emxEnsureCapacity_char_T(aTmp, i);
+        loop_ub = static_cast<int32_T>(a->size[1] - 1);
+        for (i = 0; i <= loop_ub; i++) {
+            aTmp->data[i] = a->data[i];
+        }
+    }
+
+    b_bool = false;
+    if (aTmp->size[1] == 3) {
+        loop_ub = 0;
+        int32_T exitg1;
+        do {
+            exitg1 = 0;
+            if (loop_ub < 3) {
+                if (c[static_cast<int32_T>(static_cast<int32_T>
+                                           (static_cast<uint8_T>(aTmp->
+                        data[loop_ub])) & 127)] != c[static_cast<int32_T>
+                        (d[loop_ub])]) {
+                    exitg1 = 1;
+                } else {
+                    loop_ub = static_cast<int32_T>(loop_ub + 1);
+                }
+            } else {
+                b_bool = true;
+                exitg1 = 1;
+            }
+        } while (exitg1 == 0);
+    }
+
+    codegenReal2Mission_emxFree_char_T(&aTmp);
+    return b_bool;
+}
+
+// Function for MATLAB Function: '<S6>/ReadHomePoint'
+boolean_T codegenReal2MissionModelClass::codegenReal2Mission_strcmp_i15(const
+    emxArray_char_T_codegenReal2Mission_T *a)
+{
+    static const char_T c[128]{ '\x00', '\x01', '\x02', '\x03', '\x04', '\x05',
+        '\x06', '\x07', '\x08', '\x09', '\x0a', '\x0b', '\x0c', '\x0d', '\x0e',
+        '\x0f', '\x10', '\x11', '\x12', '\x13', '\x14', '\x15', '\x16', '\x17',
+        '\x18', '\x19', '\x1a', '\x1b', '\x1c', '\x1d', '\x1e', '\x1f', ' ', '!',
+        '\"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/',
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=',
+        '>', '?', '@', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
+        'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
+        'z', '[', '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g',
+        'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
+        'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~', '\x7f' };
+
+    static const char_T d[3]{ 'A', 'l', 't' };
+
+    emxArray_char_T_codegenReal2Mission_T *aTmp;
+    int32_T loop_ub;
+    boolean_T b_bool;
+    codegenReal2Mission_emxInit_char_T(&aTmp, 2);
+    if (a->size[1] == 0) {
+        aTmp->size[0] = 1;
+        aTmp->size[1] = 0;
+    } else {
+        int32_T i;
+        i = static_cast<int32_T>(aTmp->size[0] * aTmp->size[1]);
+        aTmp->size[0] = 1;
+        aTmp->size[1] = a->size[1];
+        codegenReal2Mission_emxEnsureCapacity_char_T(aTmp, i);
+        loop_ub = static_cast<int32_T>(a->size[1] - 1);
+        for (i = 0; i <= loop_ub; i++) {
+            aTmp->data[i] = a->data[i];
+        }
+    }
+
+    b_bool = false;
+    if (aTmp->size[1] == 3) {
+        loop_ub = 0;
+        int32_T exitg1;
+        do {
+            exitg1 = 0;
+            if (loop_ub < 3) {
+                if (c[static_cast<int32_T>(static_cast<int32_T>
+                                           (static_cast<uint8_T>(aTmp->
+                        data[loop_ub])) & 127)] != c[static_cast<int32_T>
+                        (d[loop_ub])]) {
+                    exitg1 = 1;
+                } else {
+                    loop_ub = static_cast<int32_T>(loop_ub + 1);
+                }
+            } else {
+                b_bool = true;
+                exitg1 = 1;
+            }
+        } while (exitg1 == 0);
+    }
+
+    codegenReal2Mission_emxFree_char_T(&aTmp);
+    return b_bool;
+}
+
+// Function for MATLAB Function: '<S6>/ReadParADRC'
+int8_T codegenReal2MissionModelClass::codegenReal2Mission_filedata_e(void) const
 {
     int32_T k;
     int8_T f;
@@ -3537,7 +4042,7 @@ int8_T codegenReal2MissionModelClass::codegenReal2Mission_filedata_d(void) const
     k = 1;
     exitg1 = false;
     while ((!exitg1) && (static_cast<int32_T>(k - 1) < 20)) {
-        if (codegenReal2Mission_DW.eml_openfiles_c[static_cast<int32_T>(
+        if (codegenReal2Mission_DW.eml_openfiles_b[static_cast<int32_T>(
                 static_cast<int32_T>(static_cast<int8_T>(k)) - 1)] == NULL) {
             f = static_cast<int8_T>(k);
             exitg1 = true;
@@ -3549,20 +4054,20 @@ int8_T codegenReal2MissionModelClass::codegenReal2Mission_filedata_d(void) const
     return f;
 }
 
-// Function for MATLAB Function: '<S6>/ReadHomeLat'
+// Function for MATLAB Function: '<S6>/ReadParADRC'
 int8_T codegenReal2MissionModelClass::codegenReal2Mission_cfopen_j(const char_T *
     cfilename, const char_T *cpermission)
 {
     int8_T fileid;
     int8_T j;
     fileid = -1;
-    j = codegenReal2Mission_filedata_d();
+    j = codegenReal2Mission_filedata_e();
     if (static_cast<int32_T>(j) >= 1) {
         FILE* filestar;
         filestar = fopen(cfilename, cpermission);
         if (filestar != NULL) {
             int32_T tmp;
-            codegenReal2Mission_DW.eml_openfiles_c[static_cast<int32_T>(
+            codegenReal2Mission_DW.eml_openfiles_b[static_cast<int32_T>(
                 static_cast<int32_T>(j) - 1)] = filestar;
             tmp = static_cast<int32_T>(static_cast<int32_T>(j) + 2);
             if (static_cast<int32_T>(static_cast<int32_T>(j) + 2) > 127) {
@@ -3576,8 +4081,106 @@ int8_T codegenReal2MissionModelClass::codegenReal2Mission_cfopen_j(const char_T 
     return fileid;
 }
 
-// Function for MATLAB Function: '<S6>/ReadHomeLat'
-int32_T codegenReal2MissionModelClass::codegenReal2Mission_cfclose_m(real_T fid)
+// Function for MATLAB Function: '<S6>/ReadParADRC'
+real_T codegenReal2MissionModelClass::codegenReal2Mission_fileManager_p(void)
+{
+    int8_T fileid;
+    fileid = codegenReal2Mission_cfopen_j("config.ini", "rb");
+    return static_cast<real_T>(fileid);
+}
+
+// Function for MATLAB Function: '<S6>/ReadParADRC'
+void codegenReal2MissionModelClass::codegenReal2Mission_fread_n(real_T fileID,
+    emxArray_char_T_codegenReal2Mission_T *A)
+{
+    FILE* filestar;
+    size_t nBytes;
+    char_T tbuf[1024];
+    int8_T fileid;
+    nBytes = sizeof(char_T);
+    fileid = static_cast<int8_T>(std::round(fileID));
+    if (fileID != static_cast<real_T>(fileid)) {
+        fileid = -1;
+    }
+
+    if (static_cast<int32_T>(fileid) >= 3) {
+        filestar = codegenReal2Mission_DW.eml_openfiles_b[static_cast<int32_T>(
+            static_cast<int32_T>(fileid) - 3)];
+    } else {
+        switch (static_cast<int32_T>(fileid)) {
+          case 0:
+            filestar = stdin;
+            break;
+
+          case 1:
+            filestar = stdout;
+            break;
+
+          case 2:
+            filestar = stderr;
+            break;
+
+          default:
+            filestar = NULL;
+            break;
+        }
+    }
+
+    if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(
+            static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(
+              static_cast<boolean_T>(static_cast<int32_T>((fileID != 0.0) ^ 1)))
+             | static_cast<int32_T>(static_cast<boolean_T>(static_cast<int32_T>
+               ((fileID != 1.0) ^ 1)))))) | static_cast<int32_T>
+            (static_cast<boolean_T>(static_cast<int32_T>((fileID != 2.0) ^ 1))))))
+    {
+        filestar = NULL;
+    }
+
+    A->size[0] = 0;
+    if (static_cast<boolean_T>(static_cast<int32_T>((filestar == NULL) ^ 1))) {
+        int32_T c;
+        c = 1;
+        while (c > 0) {
+            int32_T c_0;
+            int32_T i;
+            int32_T numRead;
+            c = 0;
+            numRead = 1;
+            while (static_cast<boolean_T>(static_cast<int32_T>((c < 1024) &
+                     (numRead > 0)))) {
+                size_t numReadSizeT;
+                numReadSizeT = fread(&tbuf[c], nBytes, (size_t)(1024 - c),
+                                     filestar);
+                numRead = (int32_T)numReadSizeT;
+                c = static_cast<int32_T>(c + (int32_T)numReadSizeT);
+            }
+
+            numRead = A->size[0];
+            if (c < 1) {
+                c_0 = -1;
+            } else {
+                c_0 = static_cast<int32_T>(c - 1);
+            }
+
+            i = A->size[0];
+            A->size[0] = static_cast<int32_T>(static_cast<int32_T>(c_0 + A->
+                size[0]) + 1);
+            codegenReal2Mission_emxEnsureCapacity_char_T(A, i);
+            if (c < 1) {
+                c_0 = -1;
+            } else {
+                c_0 = static_cast<int32_T>(c - 1);
+            }
+
+            for (i = 0; i <= c_0; i++) {
+                A->data[static_cast<int32_T>(numRead + i)] = tbuf[i];
+            }
+        }
+    }
+}
+
+// Function for MATLAB Function: '<S6>/ReadParADRC'
+int32_T codegenReal2MissionModelClass::codegenReal2Mission_cfclose_g(real_T fid)
 {
     FILE* filestar;
     int32_T st;
@@ -3595,7 +4198,7 @@ int32_T codegenReal2MissionModelClass::codegenReal2Mission_cfclose_m(real_T fid)
     }
 
     if (static_cast<int32_T>(b_fileid) >= 3) {
-        filestar = codegenReal2Mission_DW.eml_openfiles_c[static_cast<int32_T>(
+        filestar = codegenReal2Mission_DW.eml_openfiles_b[static_cast<int32_T>(
             static_cast<int32_T>(b_fileid) - 3)];
     } else {
         switch (static_cast<int32_T>(b_fileid)) {
@@ -3623,7 +4226,7 @@ int32_T codegenReal2MissionModelClass::codegenReal2Mission_cfclose_m(real_T fid)
         cst = fclose(filestar);
         if (cst == 0) {
             st = 0;
-            codegenReal2Mission_DW.eml_openfiles_c[static_cast<int32_T>(
+            codegenReal2Mission_DW.eml_openfiles_b[static_cast<int32_T>(
                 static_cast<int32_T>(fileid) - 3)] = NULL;
         }
     }
@@ -3631,108 +4234,1059 @@ int32_T codegenReal2MissionModelClass::codegenReal2Mission_cfclose_m(real_T fid)
     return st;
 }
 
-// Function for MATLAB Function: '<S6>/ReadHomeLon'
-int8_T codegenReal2MissionModelClass::codegenReal2Mission_filedata_m(void) const
+// Function for MATLAB Function: '<S6>/ReadParADRC'
+void codegenReal2MissionModelClass::codegenReal2Mission_strtok_e2sz(const
+    emxArray_char_T_codegenReal2Mission_T *x,
+    emxArray_char_T_codegenReal2Mission_T *token)
 {
-    int32_T k;
-    int8_T f;
-    boolean_T exitg1;
-    f = 0;
-    k = 1;
-    exitg1 = false;
-    while ((!exitg1) && (static_cast<int32_T>(k - 1) < 20)) {
-        if (codegenReal2Mission_DW.eml_openfiles_p[static_cast<int32_T>(
-                static_cast<int32_T>(static_cast<int8_T>(k)) - 1)] == NULL) {
-            f = static_cast<int8_T>(k);
-            exitg1 = true;
-        } else {
-            k = static_cast<int32_T>(k + 1);
-        }
-    }
-
-    return f;
-}
-
-// Function for MATLAB Function: '<S6>/ReadHomeLon'
-int8_T codegenReal2MissionModelClass::codegenReal2Mission_cfopen_h(const char_T *
-    cfilename, const char_T *cpermission)
-{
-    int8_T fileid;
-    int8_T j;
-    fileid = -1;
-    j = codegenReal2Mission_filedata_m();
-    if (static_cast<int32_T>(j) >= 1) {
-        FILE* filestar;
-        filestar = fopen(cfilename, cpermission);
-        if (filestar != NULL) {
-            int32_T tmp;
-            codegenReal2Mission_DW.eml_openfiles_p[static_cast<int32_T>(
-                static_cast<int32_T>(j) - 1)] = filestar;
-            tmp = static_cast<int32_T>(static_cast<int32_T>(j) + 2);
-            if (static_cast<int32_T>(static_cast<int32_T>(j) + 2) > 127) {
-                tmp = 127;
-            }
-
-            fileid = static_cast<int8_T>(tmp);
-        }
-    }
-
-    return fileid;
-}
-
-// Function for MATLAB Function: '<S6>/ReadHomeLon'
-int32_T codegenReal2MissionModelClass::codegenReal2Mission_cfclose_b(real_T fid)
-{
-    FILE* filestar;
-    int32_T st;
-    int8_T b_fileid;
-    int8_T fileid;
-    st = -1;
-    fileid = static_cast<int8_T>(std::round(fid));
-    if (fid != static_cast<real_T>(fileid)) {
-        fileid = -1;
-    }
-
-    b_fileid = fileid;
-    if (static_cast<int32_T>(fileid) < 0) {
-        b_fileid = -1;
-    }
-
-    if (static_cast<int32_T>(b_fileid) >= 3) {
-        filestar = codegenReal2Mission_DW.eml_openfiles_p[static_cast<int32_T>(
-            static_cast<int32_T>(b_fileid) - 3)];
+    int32_T i;
+    int32_T iremain;
+    int32_T itoken;
+    codegenReal2Mission_find_token(x, &itoken, &iremain);
+    if (itoken > static_cast<int32_T>(iremain - 1)) {
+        itoken = 0;
+        iremain = 0;
     } else {
-        switch (static_cast<int32_T>(b_fileid)) {
-          case 0:
-            filestar = stdin;
-            break;
+        itoken = static_cast<int32_T>(itoken - 1);
+        iremain = static_cast<int32_T>(iremain - 1);
+    }
 
-          case 1:
-            filestar = stdout;
-            break;
+    i = static_cast<int32_T>(token->size[0] * token->size[1]);
+    token->size[0] = 1;
+    iremain = static_cast<int32_T>(iremain - itoken);
+    token->size[1] = iremain;
+    codegenReal2Mission_emxEnsureCapacity_char_T(token, i);
+    for (i = 0; i <= static_cast<int32_T>(iremain - 1); i++) {
+        token->data[i] = x->data[static_cast<int32_T>(itoken + i)];
+    }
+}
 
-          case 2:
-            filestar = stderr;
-            break;
+// Function for MATLAB Function: '<S6>/ReadParADRC'
+boolean_T codegenReal2MissionModelClass::codegenReal2Mission_strcmp_b(const
+    emxArray_char_T_codegenReal2Mission_T *a)
+{
+    static const char_T c[128]{ '\x00', '\x01', '\x02', '\x03', '\x04', '\x05',
+        '\x06', '\x07', '\x08', '\x09', '\x0a', '\x0b', '\x0c', '\x0d', '\x0e',
+        '\x0f', '\x10', '\x11', '\x12', '\x13', '\x14', '\x15', '\x16', '\x17',
+        '\x18', '\x19', '\x1a', '\x1b', '\x1c', '\x1d', '\x1e', '\x1f', ' ', '!',
+        '\"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/',
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=',
+        '>', '?', '@', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
+        'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
+        'z', '[', '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g',
+        'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
+        'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~', '\x7f' };
 
-          default:
-            filestar = NULL;
-            break;
+    static const char_T d[4]{ 'A', 'D', 'R', 'C' };
+
+    emxArray_char_T_codegenReal2Mission_T *aTmp;
+    int32_T loop_ub;
+    boolean_T b_bool;
+    codegenReal2Mission_emxInit_char_T(&aTmp, 2);
+    if (a->size[1] == 0) {
+        aTmp->size[0] = 1;
+        aTmp->size[1] = 0;
+    } else {
+        int32_T i;
+        i = static_cast<int32_T>(aTmp->size[0] * aTmp->size[1]);
+        aTmp->size[0] = 1;
+        aTmp->size[1] = a->size[1];
+        codegenReal2Mission_emxEnsureCapacity_char_T(aTmp, i);
+        loop_ub = static_cast<int32_T>(a->size[1] - 1);
+        for (i = 0; i <= loop_ub; i++) {
+            aTmp->data[i] = a->data[i];
         }
     }
 
-    if (static_cast<boolean_T>(static_cast<int32_T>((filestar != NULL) & (
-            static_cast<int32_T>(fileid) >= 3)))) {
-        int32_T cst;
-        cst = fclose(filestar);
-        if (cst == 0) {
-            st = 0;
-            codegenReal2Mission_DW.eml_openfiles_p[static_cast<int32_T>(
-                static_cast<int32_T>(fileid) - 3)] = NULL;
+    b_bool = false;
+    if (aTmp->size[1] == 4) {
+        loop_ub = 0;
+        int32_T exitg1;
+        do {
+            exitg1 = 0;
+            if (loop_ub < 4) {
+                if (c[static_cast<int32_T>(static_cast<int32_T>
+                                           (static_cast<uint8_T>(aTmp->
+                        data[loop_ub])) & 127)] != c[static_cast<int32_T>
+                        (d[loop_ub])]) {
+                    exitg1 = 1;
+                } else {
+                    loop_ub = static_cast<int32_T>(loop_ub + 1);
+                }
+            } else {
+                b_bool = true;
+                exitg1 = 1;
+            }
+        } while (exitg1 == 0);
+    }
+
+    codegenReal2Mission_emxFree_char_T(&aTmp);
+    return b_bool;
+}
+
+// Function for MATLAB Function: '<S6>/ReadParADRC'
+boolean_T codegenReal2MissionModelClass::codegenReal2Mission_strcmp_by(const
+    emxArray_char_T_codegenReal2Mission_T *a)
+{
+    static const char_T c[128]{ '\x00', '\x01', '\x02', '\x03', '\x04', '\x05',
+        '\x06', '\x07', '\x08', '\x09', '\x0a', '\x0b', '\x0c', '\x0d', '\x0e',
+        '\x0f', '\x10', '\x11', '\x12', '\x13', '\x14', '\x15', '\x16', '\x17',
+        '\x18', '\x19', '\x1a', '\x1b', '\x1c', '\x1d', '\x1e', '\x1f', ' ', '!',
+        '\"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/',
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=',
+        '>', '?', '@', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
+        'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
+        'z', '[', '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g',
+        'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
+        'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~', '\x7f' };
+
+    static const char_T d[5]{ 'h', 'a', 't', '_', 'b' };
+
+    emxArray_char_T_codegenReal2Mission_T *aTmp;
+    int32_T loop_ub;
+    boolean_T b_bool;
+    codegenReal2Mission_emxInit_char_T(&aTmp, 2);
+    if (a->size[1] == 0) {
+        aTmp->size[0] = 1;
+        aTmp->size[1] = 0;
+    } else {
+        int32_T i;
+        i = static_cast<int32_T>(aTmp->size[0] * aTmp->size[1]);
+        aTmp->size[0] = 1;
+        aTmp->size[1] = a->size[1];
+        codegenReal2Mission_emxEnsureCapacity_char_T(aTmp, i);
+        loop_ub = static_cast<int32_T>(a->size[1] - 1);
+        for (i = 0; i <= loop_ub; i++) {
+            aTmp->data[i] = a->data[i];
         }
     }
 
-    return st;
+    b_bool = false;
+    if (aTmp->size[1] == 5) {
+        loop_ub = 0;
+        int32_T exitg1;
+        do {
+            exitg1 = 0;
+            if (loop_ub < 5) {
+                if (c[static_cast<int32_T>(static_cast<int32_T>
+                                           (static_cast<uint8_T>(aTmp->
+                        data[loop_ub])) & 127)] != c[static_cast<int32_T>
+                        (d[loop_ub])]) {
+                    exitg1 = 1;
+                } else {
+                    loop_ub = static_cast<int32_T>(loop_ub + 1);
+                }
+            } else {
+                b_bool = true;
+                exitg1 = 1;
+            }
+        } while (exitg1 == 0);
+    }
+
+    codegenReal2Mission_emxFree_char_T(&aTmp);
+    return b_bool;
+}
+
+// Function for MATLAB Function: '<S6>/ReadParADRC'
+boolean_T codegenReal2MissionModelClass::codegenReal2Mission_strcmp_byv(const
+    emxArray_char_T_codegenReal2Mission_T *a)
+{
+    static const char_T c[128]{ '\x00', '\x01', '\x02', '\x03', '\x04', '\x05',
+        '\x06', '\x07', '\x08', '\x09', '\x0a', '\x0b', '\x0c', '\x0d', '\x0e',
+        '\x0f', '\x10', '\x11', '\x12', '\x13', '\x14', '\x15', '\x16', '\x17',
+        '\x18', '\x19', '\x1a', '\x1b', '\x1c', '\x1d', '\x1e', '\x1f', ' ', '!',
+        '\"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/',
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=',
+        '>', '?', '@', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
+        'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
+        'z', '[', '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g',
+        'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
+        'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~', '\x7f' };
+
+    static const char_T d[7]{ 'o', 'm', 'e', 'g', 'a', '_', 'o' };
+
+    emxArray_char_T_codegenReal2Mission_T *aTmp;
+    int32_T loop_ub;
+    boolean_T b_bool;
+    codegenReal2Mission_emxInit_char_T(&aTmp, 2);
+    if (a->size[1] == 0) {
+        aTmp->size[0] = 1;
+        aTmp->size[1] = 0;
+    } else {
+        int32_T i;
+        i = static_cast<int32_T>(aTmp->size[0] * aTmp->size[1]);
+        aTmp->size[0] = 1;
+        aTmp->size[1] = a->size[1];
+        codegenReal2Mission_emxEnsureCapacity_char_T(aTmp, i);
+        loop_ub = static_cast<int32_T>(a->size[1] - 1);
+        for (i = 0; i <= loop_ub; i++) {
+            aTmp->data[i] = a->data[i];
+        }
+    }
+
+    b_bool = false;
+    if (aTmp->size[1] == 7) {
+        loop_ub = 0;
+        int32_T exitg1;
+        do {
+            exitg1 = 0;
+            if (loop_ub < 7) {
+                if (c[static_cast<int32_T>(static_cast<int32_T>
+                                           (static_cast<uint8_T>(aTmp->
+                        data[loop_ub])) & 127)] != c[static_cast<int32_T>
+                        (d[loop_ub])]) {
+                    exitg1 = 1;
+                } else {
+                    loop_ub = static_cast<int32_T>(loop_ub + 1);
+                }
+            } else {
+                b_bool = true;
+                exitg1 = 1;
+            }
+        } while (exitg1 == 0);
+    }
+
+    codegenReal2Mission_emxFree_char_T(&aTmp);
+    return b_bool;
+}
+
+// Function for MATLAB Function: '<S6>/ReadParADRC'
+boolean_T codegenReal2MissionModelClass::codegenReal2Mission_strcmp_byvm(const
+    emxArray_char_T_codegenReal2Mission_T *a)
+{
+    static const char_T c[128]{ '\x00', '\x01', '\x02', '\x03', '\x04', '\x05',
+        '\x06', '\x07', '\x08', '\x09', '\x0a', '\x0b', '\x0c', '\x0d', '\x0e',
+        '\x0f', '\x10', '\x11', '\x12', '\x13', '\x14', '\x15', '\x16', '\x17',
+        '\x18', '\x19', '\x1a', '\x1b', '\x1c', '\x1d', '\x1e', '\x1f', ' ', '!',
+        '\"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/',
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=',
+        '>', '?', '@', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
+        'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
+        'z', '[', '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g',
+        'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
+        'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~', '\x7f' };
+
+    static const char_T d[7]{ 'o', 'm', 'e', 'g', 'a', '_', 'c' };
+
+    emxArray_char_T_codegenReal2Mission_T *aTmp;
+    int32_T loop_ub;
+    boolean_T b_bool;
+    codegenReal2Mission_emxInit_char_T(&aTmp, 2);
+    if (a->size[1] == 0) {
+        aTmp->size[0] = 1;
+        aTmp->size[1] = 0;
+    } else {
+        int32_T i;
+        i = static_cast<int32_T>(aTmp->size[0] * aTmp->size[1]);
+        aTmp->size[0] = 1;
+        aTmp->size[1] = a->size[1];
+        codegenReal2Mission_emxEnsureCapacity_char_T(aTmp, i);
+        loop_ub = static_cast<int32_T>(a->size[1] - 1);
+        for (i = 0; i <= loop_ub; i++) {
+            aTmp->data[i] = a->data[i];
+        }
+    }
+
+    b_bool = false;
+    if (aTmp->size[1] == 7) {
+        loop_ub = 0;
+        int32_T exitg1;
+        do {
+            exitg1 = 0;
+            if (loop_ub < 7) {
+                if (c[static_cast<int32_T>(static_cast<int32_T>
+                                           (static_cast<uint8_T>(aTmp->
+                        data[loop_ub])) & 127)] != c[static_cast<int32_T>
+                        (d[loop_ub])]) {
+                    exitg1 = 1;
+                } else {
+                    loop_ub = static_cast<int32_T>(loop_ub + 1);
+                }
+            } else {
+                b_bool = true;
+                exitg1 = 1;
+            }
+        } while (exitg1 == 0);
+    }
+
+    codegenReal2Mission_emxFree_char_T(&aTmp);
+    return b_bool;
+}
+
+// Function for MATLAB Function: '<S6>/ReadParADRC'
+boolean_T codegenReal2MissionModelClass::codegenReal2Mission_strcmp_byvm0(const
+    emxArray_char_T_codegenReal2Mission_T *a)
+{
+    static const char_T c[128]{ '\x00', '\x01', '\x02', '\x03', '\x04', '\x05',
+        '\x06', '\x07', '\x08', '\x09', '\x0a', '\x0b', '\x0c', '\x0d', '\x0e',
+        '\x0f', '\x10', '\x11', '\x12', '\x13', '\x14', '\x15', '\x16', '\x17',
+        '\x18', '\x19', '\x1a', '\x1b', '\x1c', '\x1d', '\x1e', '\x1f', ' ', '!',
+        '\"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/',
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=',
+        '>', '?', '@', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
+        'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
+        'z', '[', '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g',
+        'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
+        'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~', '\x7f' };
+
+    emxArray_char_T_codegenReal2Mission_T *aTmp;
+    boolean_T b_bool;
+    codegenReal2Mission_emxInit_char_T(&aTmp, 2);
+    if (a->size[1] == 0) {
+        aTmp->size[0] = 1;
+        aTmp->size[1] = 0;
+    } else {
+        int32_T i;
+        int32_T loop_ub;
+        i = static_cast<int32_T>(aTmp->size[0] * aTmp->size[1]);
+        aTmp->size[0] = 1;
+        aTmp->size[1] = a->size[1];
+        codegenReal2Mission_emxEnsureCapacity_char_T(aTmp, i);
+        loop_ub = static_cast<int32_T>(a->size[1] - 1);
+        for (i = 0; i <= loop_ub; i++) {
+            aTmp->data[i] = a->data[i];
+        }
+    }
+
+    b_bool = false;
+    if ((aTmp->size[1] == 1) && (c[static_cast<int32_T>(static_cast<int32_T>(
+            static_cast<uint8_T>(aTmp->data[0])) & 127)] == 'p')) {
+        b_bool = true;
+    }
+
+    codegenReal2Mission_emxFree_char_T(&aTmp);
+    return b_bool;
+}
+
+// Function for MATLAB Function: '<S6>/ReadParADRC'
+void codegenReal2MissionModelClass::codegenReal2Mission_readINI
+    (emxArray_char_T_codegenReal2Mission_T *ret)
+{
+    static const char_T h[128]{ '\x00', '\x01', '\x02', '\x03', '\x04', '\x05',
+        '\x06', '\x07', '\x08', '\x09', '\x0a', '\x0b', '\x0c', '\x0d', '\x0e',
+        '\x0f', '\x10', '\x11', '\x12', '\x13', '\x14', '\x15', '\x16', '\x17',
+        '\x18', '\x19', '\x1a', '\x1b', '\x1c', '\x1d', '\x1e', '\x1f', ' ', '!',
+        '\"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/',
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=',
+        '>', '?', '@', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
+        'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
+        'z', '[', '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g',
+        'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
+        'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~', '\x7f' };
+
+    emxArray_char_T_codegenReal2Mission_T *aTmp;
+    emxArray_char_T_codegenReal2Mission_T *curKey;
+    emxArray_char_T_codegenReal2Mission_T *curLine;
+    emxArray_char_T_codegenReal2Mission_T *curSection;
+    emxArray_char_T_codegenReal2Mission_T *curVal;
+    emxArray_char_T_codegenReal2Mission_T *data;
+    emxArray_char_T_codegenReal2Mission_T *data_0;
+    emxArray_char_T_codegenReal2Mission_T *i;
+    emxArray_char_T_codegenReal2Mission_T *tmp;
+    int32_T iremain;
+    int32_T itoken;
+    int8_T fileid;
+    ret->size[0] = 1;
+    ret->size[1] = 0;
+    fileid = codegenReal2Mission_cfopen_j("config.ini", "rb");
+    if (static_cast<int32_T>(fileid) < 0) {
+        printf("INI-file \"%s\" was not found or could not be read.\n",
+               "config.ini");
+        fflush(stdout);
+    } else {
+        int32_T itoken_0;
+        int32_T loop_ub;
+        codegenReal2Mission_emxInit_char_T(&data, 2);
+        codegenReal2Mission_emxInit_char_T(&i, 1);
+        codegenReal2Mission_fread_n(static_cast<real_T>(fileid), i);
+        itoken_0 = static_cast<int32_T>(data->size[0] * data->size[1]);
+        data->size[0] = 1;
+        data->size[1] = i->size[0];
+        codegenReal2Mission_emxEnsureCapacity_char_T(data, itoken_0);
+        loop_ub = i->size[0];
+        for (itoken_0 = 0; itoken_0 <= static_cast<int32_T>(loop_ub - 1);
+                itoken_0++) {
+            data->data[itoken_0] = i->data[itoken_0];
+        }
+
+        codegenReal2Mission_emxFree_char_T(&i);
+        codegenReal2Mission_emxInit_char_T(&curSection, 2);
+        codegenReal2Mission_emxInit_char_T(&curKey, 2);
+        codegenReal2Mission_emxInit_char_T(&curVal, 2);
+        codegenReal2Mission_cfclose_g(static_cast<real_T>(fileid));
+        curSection->size[0] = 1;
+        curSection->size[1] = 0;
+        curKey->size[0] = 1;
+        curKey->size[1] = 0;
+        curVal->size[0] = 1;
+        curVal->size[1] = 0;
+        codegenReal2Mission_emxInit_char_T(&curLine, 2);
+        codegenReal2Mission_emxInit_char_T(&aTmp, 2);
+        codegenReal2Mission_emxInit_char_T(&tmp, 2);
+        codegenReal2Mission_emxInit_char_T(&data_0, 2);
+        int32_T exitg1;
+        do {
+            exitg1 = 0;
+            if (data->size[1] != 0) {
+                boolean_T b_bool;
+                itoken_0 = static_cast<int32_T>(data_0->size[0] * data_0->size[1]);
+                data_0->size[0] = 1;
+                data_0->size[1] = data->size[1];
+                codegenReal2Mission_emxEnsureCapacity_char_T(data_0, itoken_0);
+                loop_ub = static_cast<int32_T>(static_cast<int32_T>(data->size[0]
+                    * data->size[1]) - 1);
+                for (itoken_0 = 0; itoken_0 <= loop_ub; itoken_0++) {
+                    itoken = itoken_0;
+                    data_0->data[itoken_0] = data->data[itoken_0];
+                }
+
+                codegenReal2Mission_strtok(data_0, curLine, data);
+                codegenReal2Mission_strtok_p(curLine, tmp);
+                codegenReal2Mission_strtrim(tmp, curLine);
+                if (curLine->size[1] >= 2) {
+                    boolean_T guard1{ false };
+
+                    b_bool = false;
+                    if (curLine->data[0] == '[') {
+                        b_bool = true;
+                    }
+
+                    guard1 = false;
+                    if (b_bool) {
+                        b_bool = false;
+                        if (curLine->data[static_cast<int32_T>(curLine->size[1]
+                                - 1)] == ']') {
+                            b_bool = true;
+                        }
+
+                        if (b_bool) {
+                            if (static_cast<int32_T>(curLine->size[1] - 1) < 2)
+                            {
+                                iremain = 0;
+                                itoken = 0;
+                            } else {
+                                iremain = 1;
+                                itoken = static_cast<int32_T>(curLine->size[1] -
+                                    1);
+                            }
+
+                            itoken_0 = static_cast<int32_T>(curSection->size[0] *
+                                curSection->size[1]);
+                            curSection->size[0] = 1;
+                            loop_ub = static_cast<int32_T>(itoken - iremain);
+                            curSection->size[1] = loop_ub;
+                            codegenReal2Mission_emxEnsureCapacity_char_T
+                                (curSection, itoken_0);
+                            for (itoken_0 = 0; itoken_0 <= static_cast<int32_T>
+                                    (loop_ub - 1); itoken_0++) {
+                                curSection->data[itoken_0] = curLine->data[
+                                    static_cast<int32_T>(iremain + itoken_0)];
+                            }
+
+                            curKey->size[0] = 1;
+                            curKey->size[1] = 0;
+                        } else {
+                            guard1 = true;
+                        }
+                    } else {
+                        guard1 = true;
+                    }
+
+                    if (guard1) {
+                        if (curLine->data[0] == ';') {
+                            b_bool = true;
+                        }
+
+                        if ((static_cast<boolean_T>(static_cast<int32_T>(
+                                static_cast<int32_T>(b_bool) ^ 1))) &&
+                                codegenReal2Mission_contains(curLine)) {
+                            codegenReal2Mission_strtok_ph(curLine, aTmp, curVal);
+                            codegenReal2Mission_find_token(curVal, &itoken,
+                                &iremain);
+                            if (itoken > static_cast<int32_T>(iremain - 1)) {
+                                itoken = 0;
+                                iremain = 0;
+                            } else {
+                                itoken = static_cast<int32_T>(itoken - 1);
+                                iremain = static_cast<int32_T>(iremain - 1);
+                            }
+
+                            codegenReal2Mission_strtrim(aTmp, curKey);
+                            itoken_0 = static_cast<int32_T>(curLine->size[0] *
+                                curLine->size[1]);
+                            curLine->size[0] = 1;
+                            loop_ub = static_cast<int32_T>(iremain - itoken);
+                            curLine->size[1] = loop_ub;
+                            codegenReal2Mission_emxEnsureCapacity_char_T(curLine,
+                                itoken_0);
+                            for (itoken_0 = 0; itoken_0 <= static_cast<int32_T>
+                                    (loop_ub - 1); itoken_0++) {
+                                curLine->data[itoken_0] = curVal->data[
+                                    static_cast<int32_T>(itoken + itoken_0)];
+                            }
+
+                            codegenReal2Mission_strtrim(curLine, curVal);
+                        }
+                    }
+                }
+
+                if (codegenReal2Mission_strcmp_b(curSection)) {
+                    if (curKey->size[1] == 0) {
+                        aTmp->size[0] = 1;
+                        aTmp->size[1] = 0;
+                    } else {
+                        itoken_0 = static_cast<int32_T>(aTmp->size[0] *
+                            aTmp->size[1]);
+                        aTmp->size[0] = 1;
+                        aTmp->size[1] = curKey->size[1];
+                        codegenReal2Mission_emxEnsureCapacity_char_T(aTmp,
+                            itoken_0);
+                        loop_ub = static_cast<int32_T>(curKey->size[1] - 1);
+                        for (itoken_0 = 0; itoken_0 <= loop_ub; itoken_0++) {
+                            itoken = itoken_0;
+                            aTmp->data[itoken_0] = curKey->data[itoken_0];
+                        }
+                    }
+
+                    b_bool = false;
+                    if ((aTmp->size[1] == 1) && (h[static_cast<int32_T>(
+                            static_cast<int32_T>(static_cast<uint8_T>(aTmp->
+                            data[0])) & 127)] == 'i')) {
+                        b_bool = true;
+                    }
+
+                    if (b_bool) {
+                        itoken_0 = static_cast<int32_T>(ret->size[0] * ret->
+                            size[1]);
+                        ret->size[0] = 1;
+                        ret->size[1] = curVal->size[1];
+                        codegenReal2Mission_emxEnsureCapacity_char_T(ret,
+                            itoken_0);
+                        loop_ub = static_cast<int32_T>(curVal->size[1] - 1);
+                        for (itoken_0 = 0; itoken_0 <= loop_ub; itoken_0++) {
+                            ret->data[itoken_0] = curVal->data[itoken_0];
+                        }
+
+                        exitg1 = 1;
+                    }
+                }
+            } else {
+                exitg1 = 1;
+            }
+        } while (exitg1 == 0);
+
+        codegenReal2Mission_emxFree_char_T(&data_0);
+        codegenReal2Mission_emxFree_char_T(&tmp);
+        codegenReal2Mission_emxFree_char_T(&aTmp);
+        codegenReal2Mission_emxFree_char_T(&curLine);
+        codegenReal2Mission_emxFree_char_T(&curVal);
+        codegenReal2Mission_emxFree_char_T(&curKey);
+        codegenReal2Mission_emxFree_char_T(&curSection);
+        codegenReal2Mission_emxFree_char_T(&data);
+    }
+}
+
+// Function for MATLAB Function: '<S6>/ReadParADRC'
+void codegenReal2MissionModelClass::codegenReal2Mission_readINI_g
+    (emxArray_char_T_codegenReal2Mission_T *ret)
+{
+    static const char_T h[128]{ '\x00', '\x01', '\x02', '\x03', '\x04', '\x05',
+        '\x06', '\x07', '\x08', '\x09', '\x0a', '\x0b', '\x0c', '\x0d', '\x0e',
+        '\x0f', '\x10', '\x11', '\x12', '\x13', '\x14', '\x15', '\x16', '\x17',
+        '\x18', '\x19', '\x1a', '\x1b', '\x1c', '\x1d', '\x1e', '\x1f', ' ', '!',
+        '\"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/',
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=',
+        '>', '?', '@', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
+        'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
+        'z', '[', '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g',
+        'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
+        'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~', '\x7f' };
+
+    emxArray_char_T_codegenReal2Mission_T *aTmp;
+    emxArray_char_T_codegenReal2Mission_T *curKey;
+    emxArray_char_T_codegenReal2Mission_T *curLine;
+    emxArray_char_T_codegenReal2Mission_T *curSection;
+    emxArray_char_T_codegenReal2Mission_T *curVal;
+    emxArray_char_T_codegenReal2Mission_T *data;
+    emxArray_char_T_codegenReal2Mission_T *data_0;
+    emxArray_char_T_codegenReal2Mission_T *i;
+    emxArray_char_T_codegenReal2Mission_T *tmp;
+    int32_T iremain;
+    int32_T itoken;
+    int8_T fileid;
+    ret->size[0] = 1;
+    ret->size[1] = 0;
+    fileid = codegenReal2Mission_cfopen_j("config.ini", "rb");
+    if (static_cast<int32_T>(fileid) < 0) {
+        printf("INI-file \"%s\" was not found or could not be read.\n",
+               "config.ini");
+        fflush(stdout);
+    } else {
+        int32_T itoken_0;
+        int32_T loop_ub;
+        codegenReal2Mission_emxInit_char_T(&data, 2);
+        codegenReal2Mission_emxInit_char_T(&i, 1);
+        codegenReal2Mission_fread_n(static_cast<real_T>(fileid), i);
+        itoken_0 = static_cast<int32_T>(data->size[0] * data->size[1]);
+        data->size[0] = 1;
+        data->size[1] = i->size[0];
+        codegenReal2Mission_emxEnsureCapacity_char_T(data, itoken_0);
+        loop_ub = i->size[0];
+        for (itoken_0 = 0; itoken_0 <= static_cast<int32_T>(loop_ub - 1);
+                itoken_0++) {
+            data->data[itoken_0] = i->data[itoken_0];
+        }
+
+        codegenReal2Mission_emxFree_char_T(&i);
+        codegenReal2Mission_emxInit_char_T(&curSection, 2);
+        codegenReal2Mission_emxInit_char_T(&curKey, 2);
+        codegenReal2Mission_emxInit_char_T(&curVal, 2);
+        codegenReal2Mission_cfclose_g(static_cast<real_T>(fileid));
+        curSection->size[0] = 1;
+        curSection->size[1] = 0;
+        curKey->size[0] = 1;
+        curKey->size[1] = 0;
+        curVal->size[0] = 1;
+        curVal->size[1] = 0;
+        codegenReal2Mission_emxInit_char_T(&curLine, 2);
+        codegenReal2Mission_emxInit_char_T(&aTmp, 2);
+        codegenReal2Mission_emxInit_char_T(&tmp, 2);
+        codegenReal2Mission_emxInit_char_T(&data_0, 2);
+        int32_T exitg1;
+        do {
+            exitg1 = 0;
+            if (data->size[1] != 0) {
+                boolean_T b_bool;
+                itoken_0 = static_cast<int32_T>(data_0->size[0] * data_0->size[1]);
+                data_0->size[0] = 1;
+                data_0->size[1] = data->size[1];
+                codegenReal2Mission_emxEnsureCapacity_char_T(data_0, itoken_0);
+                loop_ub = static_cast<int32_T>(static_cast<int32_T>(data->size[0]
+                    * data->size[1]) - 1);
+                for (itoken_0 = 0; itoken_0 <= loop_ub; itoken_0++) {
+                    itoken = itoken_0;
+                    data_0->data[itoken_0] = data->data[itoken_0];
+                }
+
+                codegenReal2Mission_strtok(data_0, curLine, data);
+                codegenReal2Mission_strtok_p(curLine, tmp);
+                codegenReal2Mission_strtrim(tmp, curLine);
+                if (curLine->size[1] >= 2) {
+                    boolean_T guard1{ false };
+
+                    b_bool = false;
+                    if (curLine->data[0] == '[') {
+                        b_bool = true;
+                    }
+
+                    guard1 = false;
+                    if (b_bool) {
+                        b_bool = false;
+                        if (curLine->data[static_cast<int32_T>(curLine->size[1]
+                                - 1)] == ']') {
+                            b_bool = true;
+                        }
+
+                        if (b_bool) {
+                            if (static_cast<int32_T>(curLine->size[1] - 1) < 2)
+                            {
+                                iremain = 0;
+                                itoken = 0;
+                            } else {
+                                iremain = 1;
+                                itoken = static_cast<int32_T>(curLine->size[1] -
+                                    1);
+                            }
+
+                            itoken_0 = static_cast<int32_T>(curSection->size[0] *
+                                curSection->size[1]);
+                            curSection->size[0] = 1;
+                            loop_ub = static_cast<int32_T>(itoken - iremain);
+                            curSection->size[1] = loop_ub;
+                            codegenReal2Mission_emxEnsureCapacity_char_T
+                                (curSection, itoken_0);
+                            for (itoken_0 = 0; itoken_0 <= static_cast<int32_T>
+                                    (loop_ub - 1); itoken_0++) {
+                                curSection->data[itoken_0] = curLine->data[
+                                    static_cast<int32_T>(iremain + itoken_0)];
+                            }
+
+                            curKey->size[0] = 1;
+                            curKey->size[1] = 0;
+                        } else {
+                            guard1 = true;
+                        }
+                    } else {
+                        guard1 = true;
+                    }
+
+                    if (guard1) {
+                        if (curLine->data[0] == ';') {
+                            b_bool = true;
+                        }
+
+                        if ((static_cast<boolean_T>(static_cast<int32_T>(
+                                static_cast<int32_T>(b_bool) ^ 1))) &&
+                                codegenReal2Mission_contains(curLine)) {
+                            codegenReal2Mission_strtok_ph(curLine, aTmp, curVal);
+                            codegenReal2Mission_find_token(curVal, &itoken,
+                                &iremain);
+                            if (itoken > static_cast<int32_T>(iremain - 1)) {
+                                itoken = 0;
+                                iremain = 0;
+                            } else {
+                                itoken = static_cast<int32_T>(itoken - 1);
+                                iremain = static_cast<int32_T>(iremain - 1);
+                            }
+
+                            codegenReal2Mission_strtrim(aTmp, curKey);
+                            itoken_0 = static_cast<int32_T>(curLine->size[0] *
+                                curLine->size[1]);
+                            curLine->size[0] = 1;
+                            loop_ub = static_cast<int32_T>(iremain - itoken);
+                            curLine->size[1] = loop_ub;
+                            codegenReal2Mission_emxEnsureCapacity_char_T(curLine,
+                                itoken_0);
+                            for (itoken_0 = 0; itoken_0 <= static_cast<int32_T>
+                                    (loop_ub - 1); itoken_0++) {
+                                curLine->data[itoken_0] = curVal->data[
+                                    static_cast<int32_T>(itoken + itoken_0)];
+                            }
+
+                            codegenReal2Mission_strtrim(curLine, curVal);
+                        }
+                    }
+                }
+
+                if (codegenReal2Mission_strcmp_b(curSection)) {
+                    if (curKey->size[1] == 0) {
+                        aTmp->size[0] = 1;
+                        aTmp->size[1] = 0;
+                    } else {
+                        itoken_0 = static_cast<int32_T>(aTmp->size[0] *
+                            aTmp->size[1]);
+                        aTmp->size[0] = 1;
+                        aTmp->size[1] = curKey->size[1];
+                        codegenReal2Mission_emxEnsureCapacity_char_T(aTmp,
+                            itoken_0);
+                        loop_ub = static_cast<int32_T>(curKey->size[1] - 1);
+                        for (itoken_0 = 0; itoken_0 <= loop_ub; itoken_0++) {
+                            itoken = itoken_0;
+                            aTmp->data[itoken_0] = curKey->data[itoken_0];
+                        }
+                    }
+
+                    b_bool = false;
+                    if ((aTmp->size[1] == 1) && (h[static_cast<int32_T>(
+                            static_cast<int32_T>(static_cast<uint8_T>(aTmp->
+                            data[0])) & 127)] == 'd')) {
+                        b_bool = true;
+                    }
+
+                    if (b_bool) {
+                        itoken_0 = static_cast<int32_T>(ret->size[0] * ret->
+                            size[1]);
+                        ret->size[0] = 1;
+                        ret->size[1] = curVal->size[1];
+                        codegenReal2Mission_emxEnsureCapacity_char_T(ret,
+                            itoken_0);
+                        loop_ub = static_cast<int32_T>(curVal->size[1] - 1);
+                        for (itoken_0 = 0; itoken_0 <= loop_ub; itoken_0++) {
+                            ret->data[itoken_0] = curVal->data[itoken_0];
+                        }
+
+                        exitg1 = 1;
+                    }
+                }
+            } else {
+                exitg1 = 1;
+            }
+        } while (exitg1 == 0);
+
+        codegenReal2Mission_emxFree_char_T(&data_0);
+        codegenReal2Mission_emxFree_char_T(&tmp);
+        codegenReal2Mission_emxFree_char_T(&aTmp);
+        codegenReal2Mission_emxFree_char_T(&curLine);
+        codegenReal2Mission_emxFree_char_T(&curVal);
+        codegenReal2Mission_emxFree_char_T(&curKey);
+        codegenReal2Mission_emxFree_char_T(&curSection);
+        codegenReal2Mission_emxFree_char_T(&data);
+    }
+}
+
+// Function for MATLAB Function: '<S6>/ReadParADRC'
+void codegenReal2MissionModelClass::codegenReal2Mission_readINI_gx
+    (emxArray_char_T_codegenReal2Mission_T *ret)
+{
+    static const char_T h[128]{ '\x00', '\x01', '\x02', '\x03', '\x04', '\x05',
+        '\x06', '\x07', '\x08', '\x09', '\x0a', '\x0b', '\x0c', '\x0d', '\x0e',
+        '\x0f', '\x10', '\x11', '\x12', '\x13', '\x14', '\x15', '\x16', '\x17',
+        '\x18', '\x19', '\x1a', '\x1b', '\x1c', '\x1d', '\x1e', '\x1f', ' ', '!',
+        '\"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/',
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=',
+        '>', '?', '@', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
+        'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
+        'z', '[', '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g',
+        'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
+        'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~', '\x7f' };
+
+    static const char_T i[7]{ 'u', 's', 'e', 'A', 'D', 'R', 'C' };
+
+    emxArray_char_T_codegenReal2Mission_T *aTmp;
+    emxArray_char_T_codegenReal2Mission_T *curKey;
+    emxArray_char_T_codegenReal2Mission_T *curLine;
+    emxArray_char_T_codegenReal2Mission_T *curSection;
+    emxArray_char_T_codegenReal2Mission_T *curVal;
+    emxArray_char_T_codegenReal2Mission_T *data;
+    emxArray_char_T_codegenReal2Mission_T *data_0;
+    emxArray_char_T_codegenReal2Mission_T *j;
+    emxArray_char_T_codegenReal2Mission_T *tmp;
+    int32_T iremain;
+    int32_T itoken;
+    int8_T fileid;
+    ret->size[0] = 1;
+    ret->size[1] = 0;
+    fileid = codegenReal2Mission_cfopen_j("config.ini", "rb");
+    if (static_cast<int32_T>(fileid) < 0) {
+        printf("INI-file \"%s\" was not found or could not be read.\n",
+               "config.ini");
+        fflush(stdout);
+    } else {
+        int32_T itoken_0;
+        int32_T loop_ub;
+        codegenReal2Mission_emxInit_char_T(&data, 2);
+        codegenReal2Mission_emxInit_char_T(&j, 1);
+        codegenReal2Mission_fread_n(static_cast<real_T>(fileid), j);
+        itoken_0 = static_cast<int32_T>(data->size[0] * data->size[1]);
+        data->size[0] = 1;
+        data->size[1] = j->size[0];
+        codegenReal2Mission_emxEnsureCapacity_char_T(data, itoken_0);
+        loop_ub = j->size[0];
+        for (itoken_0 = 0; itoken_0 <= static_cast<int32_T>(loop_ub - 1);
+                itoken_0++) {
+            data->data[itoken_0] = j->data[itoken_0];
+        }
+
+        codegenReal2Mission_emxFree_char_T(&j);
+        codegenReal2Mission_emxInit_char_T(&curSection, 2);
+        codegenReal2Mission_emxInit_char_T(&curKey, 2);
+        codegenReal2Mission_emxInit_char_T(&curVal, 2);
+        codegenReal2Mission_cfclose_g(static_cast<real_T>(fileid));
+        curSection->size[0] = 1;
+        curSection->size[1] = 0;
+        curKey->size[0] = 1;
+        curKey->size[1] = 0;
+        curVal->size[0] = 1;
+        curVal->size[1] = 0;
+        codegenReal2Mission_emxInit_char_T(&curLine, 2);
+        codegenReal2Mission_emxInit_char_T(&aTmp, 2);
+        codegenReal2Mission_emxInit_char_T(&tmp, 2);
+        codegenReal2Mission_emxInit_char_T(&data_0, 2);
+        int32_T exitg1;
+        do {
+            exitg1 = 0;
+            if (data->size[1] != 0) {
+                boolean_T b_bool;
+                itoken_0 = static_cast<int32_T>(data_0->size[0] * data_0->size[1]);
+                data_0->size[0] = 1;
+                data_0->size[1] = data->size[1];
+                codegenReal2Mission_emxEnsureCapacity_char_T(data_0, itoken_0);
+                loop_ub = static_cast<int32_T>(static_cast<int32_T>(data->size[0]
+                    * data->size[1]) - 1);
+                for (itoken_0 = 0; itoken_0 <= loop_ub; itoken_0++) {
+                    itoken = itoken_0;
+                    data_0->data[itoken_0] = data->data[itoken_0];
+                }
+
+                codegenReal2Mission_strtok(data_0, curLine, data);
+                codegenReal2Mission_strtok_p(curLine, tmp);
+                codegenReal2Mission_strtrim(tmp, curLine);
+                if (curLine->size[1] >= 2) {
+                    boolean_T guard1{ false };
+
+                    b_bool = false;
+                    if (curLine->data[0] == '[') {
+                        b_bool = true;
+                    }
+
+                    guard1 = false;
+                    if (b_bool) {
+                        b_bool = false;
+                        if (curLine->data[static_cast<int32_T>(curLine->size[1]
+                                - 1)] == ']') {
+                            b_bool = true;
+                        }
+
+                        if (b_bool) {
+                            if (static_cast<int32_T>(curLine->size[1] - 1) < 2)
+                            {
+                                iremain = 0;
+                                itoken = 0;
+                            } else {
+                                iremain = 1;
+                                itoken = static_cast<int32_T>(curLine->size[1] -
+                                    1);
+                            }
+
+                            itoken_0 = static_cast<int32_T>(curSection->size[0] *
+                                curSection->size[1]);
+                            curSection->size[0] = 1;
+                            loop_ub = static_cast<int32_T>(itoken - iremain);
+                            curSection->size[1] = loop_ub;
+                            codegenReal2Mission_emxEnsureCapacity_char_T
+                                (curSection, itoken_0);
+                            for (itoken_0 = 0; itoken_0 <= static_cast<int32_T>
+                                    (loop_ub - 1); itoken_0++) {
+                                curSection->data[itoken_0] = curLine->data[
+                                    static_cast<int32_T>(iremain + itoken_0)];
+                            }
+
+                            curKey->size[0] = 1;
+                            curKey->size[1] = 0;
+                        } else {
+                            guard1 = true;
+                        }
+                    } else {
+                        guard1 = true;
+                    }
+
+                    if (guard1) {
+                        if (curLine->data[0] == ';') {
+                            b_bool = true;
+                        }
+
+                        if ((static_cast<boolean_T>(static_cast<int32_T>(
+                                static_cast<int32_T>(b_bool) ^ 1))) &&
+                                codegenReal2Mission_contains(curLine)) {
+                            codegenReal2Mission_strtok_ph(curLine, aTmp, curVal);
+                            codegenReal2Mission_find_token(curVal, &itoken,
+                                &iremain);
+                            if (itoken > static_cast<int32_T>(iremain - 1)) {
+                                itoken = 0;
+                                iremain = 0;
+                            } else {
+                                itoken = static_cast<int32_T>(itoken - 1);
+                                iremain = static_cast<int32_T>(iremain - 1);
+                            }
+
+                            codegenReal2Mission_strtrim(aTmp, curKey);
+                            itoken_0 = static_cast<int32_T>(curLine->size[0] *
+                                curLine->size[1]);
+                            curLine->size[0] = 1;
+                            loop_ub = static_cast<int32_T>(iremain - itoken);
+                            curLine->size[1] = loop_ub;
+                            codegenReal2Mission_emxEnsureCapacity_char_T(curLine,
+                                itoken_0);
+                            for (itoken_0 = 0; itoken_0 <= static_cast<int32_T>
+                                    (loop_ub - 1); itoken_0++) {
+                                curLine->data[itoken_0] = curVal->data[
+                                    static_cast<int32_T>(itoken + itoken_0)];
+                            }
+
+                            codegenReal2Mission_strtrim(curLine, curVal);
+                        }
+                    }
+                }
+
+                if (codegenReal2Mission_strcmp_b(curSection)) {
+                    if (curKey->size[1] == 0) {
+                        aTmp->size[0] = 1;
+                        aTmp->size[1] = 0;
+                    } else {
+                        itoken_0 = static_cast<int32_T>(aTmp->size[0] *
+                            aTmp->size[1]);
+                        aTmp->size[0] = 1;
+                        aTmp->size[1] = curKey->size[1];
+                        codegenReal2Mission_emxEnsureCapacity_char_T(aTmp,
+                            itoken_0);
+                        loop_ub = static_cast<int32_T>(curKey->size[1] - 1);
+                        for (itoken_0 = 0; itoken_0 <= loop_ub; itoken_0++) {
+                            itoken = itoken_0;
+                            aTmp->data[itoken_0] = curKey->data[itoken_0];
+                        }
+                    }
+
+                    b_bool = false;
+                    if (aTmp->size[1] == 7) {
+                        iremain = 0;
+                        int32_T exitg2;
+                        do {
+                            exitg2 = 0;
+                            if (iremain < 7) {
+                                if (h[static_cast<int32_T>(static_cast<int32_T>(
+                                        static_cast<uint8_T>(aTmp->data[iremain]))
+                                     & 127)] != h[static_cast<int32_T>(i[iremain])])
+                                {
+                                    exitg2 = 1;
+                                } else {
+                                    iremain = static_cast<int32_T>(iremain + 1);
+                                }
+                            } else {
+                                b_bool = true;
+                                exitg2 = 1;
+                            }
+                        } while (exitg2 == 0);
+                    }
+
+                    if (b_bool) {
+                        itoken_0 = static_cast<int32_T>(ret->size[0] * ret->
+                            size[1]);
+                        ret->size[0] = 1;
+                        ret->size[1] = curVal->size[1];
+                        codegenReal2Mission_emxEnsureCapacity_char_T(ret,
+                            itoken_0);
+                        loop_ub = static_cast<int32_T>(curVal->size[1] - 1);
+                        for (itoken_0 = 0; itoken_0 <= loop_ub; itoken_0++) {
+                            ret->data[itoken_0] = curVal->data[itoken_0];
+                        }
+
+                        exitg1 = 1;
+                    }
+                }
+            } else {
+                exitg1 = 1;
+            }
+        } while (exitg1 == 0);
+
+        codegenReal2Mission_emxFree_char_T(&data_0);
+        codegenReal2Mission_emxFree_char_T(&tmp);
+        codegenReal2Mission_emxFree_char_T(&aTmp);
+        codegenReal2Mission_emxFree_char_T(&curLine);
+        codegenReal2Mission_emxFree_char_T(&curVal);
+        codegenReal2Mission_emxFree_char_T(&curKey);
+        codegenReal2Mission_emxFree_char_T(&curSection);
+        codegenReal2Mission_emxFree_char_T(&data);
+    }
+}
+
+// Function for MATLAB Function: '<S6>/ReadParADRC'
+boolean_T codegenReal2MissionModelClass::codegenReal2Mission_strcmp_byvm0m(const
+    emxArray_char_T_codegenReal2Mission_T *a)
+{
+    static const char_T b[5]{ 'f', 'a', 'l', 's', 'e' };
+
+    boolean_T b_bool;
+    b_bool = false;
+    if (a->size[1] == 5) {
+        int32_T kstr;
+        kstr = 0;
+        int32_T exitg1;
+        do {
+            exitg1 = 0;
+            if (kstr < 5) {
+                if (a->data[kstr] != b[kstr]) {
+                    exitg1 = 1;
+                } else {
+                    kstr = static_cast<int32_T>(kstr + 1);
+                }
+            } else {
+                b_bool = true;
+                exitg1 = 1;
+            }
+        } while (exitg1 == 0);
+    }
+
+    return b_bool;
 }
 
 // Model step function
@@ -3802,20 +5356,20 @@ void codegenReal2MissionModelClass::step()
     if (rtmIsMajorTimeStep((&codegenReal2Mission_M))) {
         // Outputs for Atomic SubSystem: '<S1>/PreProcessMissionCMD'
         // Outputs for Atomic SubSystem: '<S7>/QueueCMD'
-        // Memory: '<S32>/InitMemory'
+        // Memory: '<S31>/InitMemory'
         rtb_Compare_l = codegenReal2Mission_DW.InitMemory_PreviousInput;
 
-        // Receive: '<S32>/Receive'
+        // Receive: '<S31>/Receive'
         wholeSecsFromMillis = 1;
         MissionCMDRecvData.RecvData(&codegenReal2Mission_DW.Receive_o2, sizeof
             (IndividualUAVCmd), &wholeSecsFromMillis);
 
-        // Receive: '<S32>/Receive'
+        // Receive: '<S31>/Receive'
         Receive_o1 = (wholeSecsFromMillis != 1);
 
-        // MATLAB Function: '<S32>/getCurrentTime'
-        // MATLAB Function 'getCurrentTime': '<S40>:1'
-        // '<S40>:1:3'
+        // MATLAB Function: '<S31>/getCurrentTime'
+        // MATLAB Function 'getCurrentTime': '<S39>:1'
+        // '<S39>:1:3'
         codegenReal2Mission_getLocalTime(&check, &fracSecs, &temp, &tmp,
             &c_tm_mday, &c_tm_mon, &c_tm_year, &rtb_Compare_d);
         processedInData[4] = temp;
@@ -3872,62 +5426,62 @@ void codegenReal2MissionModelClass::step()
             b_this_data.re = check;
         }
 
-        // Send: '<S32>/Send'
+        // Send: '<S31>/Send'
         if (Receive_o1) {
             codegenReal2Mission_Queue_SendData
                 (&codegenReal2Mission_DW.Receive_o2);
         }
 
-        // End of Send: '<S32>/Send'
+        // End of Send: '<S31>/Send'
 
-        // Outputs for Enabled SubSystem: '<S32>/ReadOne' incorporates:
-        //   EnablePort: '<S39>/Enable'
+        // Logic: '<S31>/OR' incorporates:
+        //   Logic: '<S31>/AND'
+        //   Memory: '<S31>/Memory'
 
-        // Logic: '<S32>/OR' incorporates:
-        //   Logic: '<S32>/AND'
-        //   Memory: '<S32>/Memory'
+        rtb_Compare_l = static_cast<boolean_T>(static_cast<int32_T>(static_cast<
+            int32_T>(static_cast<boolean_T>(static_cast<int32_T>
+            (static_cast<int32_T>(rtb_Compare_l) & static_cast<int32_T>
+             (Receive_o1)))) | static_cast<int32_T>
+            (codegenReal2Mission_DW.Memory_PreviousInput_e)));
 
-        if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(
-                static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
-                 (rtb_Compare_l) & static_cast<int32_T>(Receive_o1)))) |
-                static_cast<int32_T>
-                (codegenReal2Mission_DW.Memory_PreviousInput_e)))) {
-            // Receive: '<S39>/Receive'
-            wholeSecsFromMillis = codegenReal2Mission_Queue_RecvData
-                (&codegenReal2Mission_DW.Receive_o2_g);
+        // Outputs for Triggered SubSystem: '<S31>/ReadOne' incorporates:
+        //   TriggerPort: '<S38>/Trigger'
 
-            // Receive: '<S39>/Receive'
-            codegenReal2Mission_DW.Receive_o1_p = (wholeSecsFromMillis != 1);
+        if (static_cast<boolean_T>(static_cast<int32_T>
+                                   ((codegenReal2Mission_PrevZCX.ReadOne_Trig_ZCE
+               != POS_ZCSIG) & static_cast<int32_T>(rtb_Compare_l)))) {
+            // Receive: '<S38>/Receive'
+            codegenReal2Mission_Queue_RecvData(&codegenReal2Mission_DW.Receive);
         }
 
-        // End of Logic: '<S32>/OR'
-        // End of Outputs for SubSystem: '<S32>/ReadOne'
+        codegenReal2Mission_PrevZCX.ReadOne_Trig_ZCE = static_cast<ZCSigState>
+            (rtb_Compare_l);
 
-        // MATLAB Function: '<S32>/MATLAB Function'
-        // MATLAB Function 'MissionLogic/PreProcessMissionCMD/QueueCMD/MATLAB Function': '<S38>:1' 
-        // '<S38>:1:3'
+        // End of Outputs for SubSystem: '<S31>/ReadOne'
+
+        // MATLAB Function: '<S31>/MATLAB Function'
+        // MATLAB Function 'MissionLogic/PreProcessMissionCMD/QueueCMD/MATLAB Function': '<S37>:1' 
+        // '<S37>:1:3'
         check = static_cast<real_T>
-            (codegenReal2Mission_DW.Receive_o2_g.StartTime.year);
+            (codegenReal2Mission_DW.Receive.StartTime.year);
         temp = static_cast<real_T>
-            (codegenReal2Mission_DW.Receive_o2_g.StartTime.month);
+            (codegenReal2Mission_DW.Receive.StartTime.month);
         second = static_cast<real_T>
-            (codegenReal2Mission_DW.Receive_o2_g.StartTime.second);
+            (codegenReal2Mission_DW.Receive.StartTime.second);
         fracSecs = static_cast<real_T>
-            (codegenReal2Mission_DW.Receive_o2_g.StartTime.millisecond);
+            (codegenReal2Mission_DW.Receive.StartTime.millisecond);
         if (static_cast<boolean_T>(static_cast<int32_T>
-                                   ((codegenReal2Mission_DW.Receive_o2_g.StartTime.month
-               < 1) | (codegenReal2Mission_DW.Receive_o2_g.StartTime.month > 12))))
-        {
+                                   ((codegenReal2Mission_DW.Receive.StartTime.month
+               < 1) | (codegenReal2Mission_DW.Receive.StartTime.month > 12)))) {
             wholeSecsFromMillis = static_cast<int32_T>(std::floor
                 ((static_cast<real_T>
-                  (codegenReal2Mission_DW.Receive_o2_g.StartTime.month) - 1.0) /
-                 12.0));
+                  (codegenReal2Mission_DW.Receive.StartTime.month) - 1.0) / 12.0));
             check = static_cast<real_T>
-                (codegenReal2Mission_DW.Receive_o2_g.StartTime.year) +
+                (codegenReal2Mission_DW.Receive.StartTime.year) +
                 static_cast<real_T>(wholeSecsFromMillis);
             temp = ((static_cast<real_T>
-                     (codegenReal2Mission_DW.Receive_o2_g.StartTime.month) - 1.0)
-                    - static_cast<real_T>(wholeSecsFromMillis) * 12.0) + 1.0;
+                     (codegenReal2Mission_DW.Receive.StartTime.month) - 1.0) -
+                    static_cast<real_T>(wholeSecsFromMillis) * 12.0) + 1.0;
         }
 
         if (temp < 3.0) {
@@ -3940,24 +5494,23 @@ void codegenReal2MissionModelClass::step()
         da_im = ((((((365.0 * check + std::floor(check / 4.0)) - std::floor
                      (check / 100.0)) + std::floor(check / 400.0)) + std::floor
                    ((153.0 * temp + 2.0) / 5.0)) + static_cast<real_T>
-                  (codegenReal2Mission_DW.Receive_o2_g.StartTime.day)) + 60.0) -
+                  (codegenReal2Mission_DW.Receive.StartTime.day)) + 60.0) -
             719529.0;
         temp = 1.34217729E+8 * da_im;
         temp -= temp - da_im;
         check = da_im * 8.64E+7;
         if (static_cast<boolean_T>(static_cast<int32_T>
-                                   ((codegenReal2Mission_DW.Receive_o2_g.StartTime.millisecond
-               < 0) | (codegenReal2Mission_DW.Receive_o2_g.StartTime.millisecond
-                       >= 1000)))) {
+                                   ((codegenReal2Mission_DW.Receive.StartTime.millisecond
+               < 0) | (codegenReal2Mission_DW.Receive.StartTime.millisecond >=
+                       1000)))) {
             wholeSecsFromMillis = static_cast<int32_T>(std::floor
                 (static_cast<real_T>
-                 (codegenReal2Mission_DW.Receive_o2_g.StartTime.millisecond) /
-                 1000.0));
+                 (codegenReal2Mission_DW.Receive.StartTime.millisecond) / 1000.0));
             second = static_cast<real_T>
-                (codegenReal2Mission_DW.Receive_o2_g.StartTime.second) +
-                static_cast<real_T>(wholeSecsFromMillis);
+                (codegenReal2Mission_DW.Receive.StartTime.second) + static_cast<
+                real_T>(wholeSecsFromMillis);
             fracSecs = static_cast<real_T>
-                (codegenReal2Mission_DW.Receive_o2_g.StartTime.millisecond) -
+                (codegenReal2Mission_DW.Receive.StartTime.millisecond) -
                 static_cast<real_T>(wholeSecsFromMillis) * 1000.0;
         }
 
@@ -3965,71 +5518,75 @@ void codegenReal2MissionModelClass::step()
         temp_0.im = (da_im - temp) * 8.64E+7 + (temp * 8.64E+7 - check);
         second = (plus_WAUOGGgr(plus_WAUOGGgr(plus_WAUOGGgr(temp_0, (60.0 *
                       static_cast<real_T>
-                      (codegenReal2Mission_DW.Receive_o2_g.StartTime.hour) +
+                      (codegenReal2Mission_DW.Receive.StartTime.hour) +
                       static_cast<real_T>
-                      (codegenReal2Mission_DW.Receive_o2_g.StartTime.minute)) *
+                      (codegenReal2Mission_DW.Receive.StartTime.minute)) *
                      60000.0), second * 1000.0), fracSecs)).re / 1000.0;
 
-        // Update for Memory: '<S32>/InitMemory' incorporates:
-        //   Constant: '<S42>/Constant'
-        //   RelationalOperator: '<S42>/Compare'
+        // Update for Memory: '<S31>/InitMemory' incorporates:
+        //   Constant: '<S41>/Constant'
+        //   RelationalOperator: '<S41>/Compare'
 
         codegenReal2Mission_DW.InitMemory_PreviousInput = (second < 0.0);
 
-        // Update for Memory: '<S32>/Memory' incorporates:
-        //   Bias: '<S32>/Bias'
-        //   Constant: '<S41>/Constant'
-        //   Logic: '<S32>/SndAND'
-        //   MATLAB Function: '<S32>/getCurrentTime'
-        //   RelationalOperator: '<S32>/GreaterThanOrEqual'
-        //   RelationalOperator: '<S41>/Compare'
+        // Update for Memory: '<S31>/Memory' incorporates:
+        //   Bias: '<S31>/Bias'
+        //   Constant: '<S40>/Constant'
+        //   Logic: '<S31>/SndAND'
+        //   MATLAB Function: '<S31>/getCurrentTime'
+        //   RelationalOperator: '<S31>/GreaterThanOrEqual'
+        //   RelationalOperator: '<S40>/Compare'
 
         codegenReal2Mission_DW.Memory_PreviousInput_e = static_cast<boolean_T>(
-            static_cast<int32_T>((second <= b_this_data.re / 1000.0 + 10.0) &
+            static_cast<int32_T>((second <= b_this_data.re / 1000.0 + -1.0) &
             (second >= 0.0)));
 
         // End of Outputs for SubSystem: '<S7>/QueueCMD'
 
         // Outputs for Atomic SubSystem: '<S7>/MissionValidation'
-        // Outputs for Enabled SubSystem: '<S31>/TriggerMissionDispatch' incorporates:
-        //   EnablePort: '<S34>/Enable'
+        // Outputs for Triggered SubSystem: '<S30>/TriggerMissionDispatch' incorporates:
+        //   TriggerPort: '<S33>/Trigger'
 
-        if (codegenReal2Mission_DW.Receive_o1_p) {
+        if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(
+                static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
+                 (rtb_Compare_l) ^ 1))) &
+                (codegenReal2Mission_PrevZCX.TriggerMissionDispatch_Trig_ZCE !=
+                 ZERO_ZCSIG)))) {
             int32_T reactor_FeedbackCMD_FormationPos;
             int32_T reactor_FeedbackCMD_numUAV;
             MissionModes reactor_FeedbackCMD_MissionMode;
 
             // Outputs for Atomic SubSystem: '<S7>/QueueCMD'
-            // MATLAB Function: '<S34>/CommandCheck' incorporates:
-            //   DataStoreRead: '<S34>/Data Store Read'
-            //   DataStoreRead: '<S34>/ReadPreviousCMD'
-            //   MATLAB Function: '<S32>/MATLAB Function'
+            // MATLAB Function: '<S33>/CommandCheck' incorporates:
+            //   DataStoreRead: '<S33>/Data Store Read'
+            //   DataStoreRead: '<S33>/ReadPreviousCMD'
+            //   MATLAB Function: '<S31>/MATLAB Function'
 
-            // MATLAB Function 'MissionLogic/PreProcessMissionCMD/MissionValidation/TriggerMissionDispatch/CommandCheck': '<S37>:1' 
-            // '<S37>:1:6'
+            // MATLAB Function 'MissionLogic/PreProcessMissionCMD/MissionValidation/TriggerMissionDispatch/CommandCheck': '<S36>:1' 
+            // '<S36>:1:6'
             processedInData[0] = static_cast<real_T>
-                (codegenReal2Mission_DW.Receive_o2_g.StartTime.year);
+                (codegenReal2Mission_DW.Receive.StartTime.year);
             processedInData[1] = static_cast<real_T>
-                (codegenReal2Mission_DW.Receive_o2_g.StartTime.month);
+                (codegenReal2Mission_DW.Receive.StartTime.month);
 
             // End of Outputs for SubSystem: '<S7>/QueueCMD'
             processedInData[2] = static_cast<real_T>
-                (codegenReal2Mission_DW.Receive_o2_g.StartTime.day);
+                (codegenReal2Mission_DW.Receive.StartTime.day);
             processedInData[3] = static_cast<real_T>
-                (codegenReal2Mission_DW.Receive_o2_g.StartTime.hour);
+                (codegenReal2Mission_DW.Receive.StartTime.hour);
             processedInData[4] = static_cast<real_T>
-                (codegenReal2Mission_DW.Receive_o2_g.StartTime.minute);
+                (codegenReal2Mission_DW.Receive.StartTime.minute);
 
             // Outputs for Atomic SubSystem: '<S7>/QueueCMD'
             processedInData[5] = static_cast<real_T>
-                (codegenReal2Mission_DW.Receive_o2_g.StartTime.second);
+                (codegenReal2Mission_DW.Receive.StartTime.second);
             processedInData[6] = static_cast<real_T>
-                (codegenReal2Mission_DW.Receive_o2_g.StartTime.millisecond);
+                (codegenReal2Mission_DW.Receive.StartTime.millisecond);
 
             // End of Outputs for SubSystem: '<S7>/QueueCMD'
             second = (codegenReal2Mission_createFromDateVec(processedInData)).re
                 / 1000.0;
-            rtb_Compare_l = false;
+            Receive_o1 = false;
             rtb_FlightCMD.SequenceID = 0;
             rtb_FlightCMD.MissionMode = MissionModes::None;
             rtb_FlightCMD.MissionLocation.Lat = 0.0;
@@ -4071,22 +5628,21 @@ void codegenReal2MissionModelClass::step()
             codegenReal2Mission_DW.ImmedCMD.numUAV = 0;
             codegenReal2Mission_DW.ImmedCMD.FormationPos = 0;
             codegenReal2Mission_DW.ImmedCMD.StartTime = 0.0;
-            wholeSecsFromMillis = codegenReal2Mission_DW.Receive_o2_g.SequenceID;
+            wholeSecsFromMillis = codegenReal2Mission_DW.Receive.SequenceID;
             reactor_FeedbackCMD_MissionMode =
-                codegenReal2Mission_DW.Receive_o2_g.MissionMode;
+                codegenReal2Mission_DW.Receive.MissionMode;
             rtb_FeedbackCMD.MissionLocation =
-                codegenReal2Mission_DW.Receive_o2_g.MissionLocation;
-            rtb_FeedbackCMD.params = codegenReal2Mission_DW.Receive_o2_g.params;
+                codegenReal2Mission_DW.Receive.MissionLocation;
+            rtb_FeedbackCMD.params = codegenReal2Mission_DW.Receive.params;
             rtb_FeedbackCMD.StartPosition =
-                codegenReal2Mission_DW.Receive_o2_g.StartPosition;
-            reactor_FeedbackCMD_numUAV =
-                codegenReal2Mission_DW.Receive_o2_g.numUAV;
+                codegenReal2Mission_DW.Receive.StartPosition;
+            reactor_FeedbackCMD_numUAV = codegenReal2Mission_DW.Receive.numUAV;
             reactor_FeedbackCMD_FormationPos =
-                codegenReal2Mission_DW.Receive_o2_g.FormationPos;
-            if (codegenReal2Mission_DW.Receive_o2_g.MissionMode != MissionModes::
+                codegenReal2Mission_DW.Receive.FormationPos;
+            if (codegenReal2Mission_DW.Receive.MissionMode != MissionModes::
                     TuneADRC) {
-                // '<S37>:1:8'
-                // '<S37>:1:9'
+                // '<S36>:1:8'
+                // '<S36>:1:9'
                 if (static_cast<boolean_T>(static_cast<int32_T>
                                            (static_cast<int32_T>
                                             (codegenReal2Mission_isequaln
@@ -4107,23 +5663,23 @@ void codegenReal2MissionModelClass::step()
                          codegenReal2Mission_DW.MissionCMD.numUAV,
                          codegenReal2Mission_DW.MissionCMD.FormationPos,
                          codegenReal2Mission_DW.MissionCMD.StartTime,
-                         codegenReal2Mission_DW.Receive_o2_g.SequenceID,
-                         codegenReal2Mission_DW.Receive_o2_g.MissionMode,
-                         codegenReal2Mission_DW.Receive_o2_g.MissionLocation,
-                         codegenReal2Mission_DW.Receive_o2_g.params,
-                         codegenReal2Mission_DW.Receive_o2_g.StartPosition,
-                         codegenReal2Mission_DW.Receive_o2_g.numUAV,
-                         codegenReal2Mission_DW.Receive_o2_g.FormationPos,
-                         second)) ^ 1))) {
+                         codegenReal2Mission_DW.Receive.SequenceID,
+                         codegenReal2Mission_DW.Receive.MissionMode,
+                         codegenReal2Mission_DW.Receive.MissionLocation,
+                         codegenReal2Mission_DW.Receive.params,
+                         codegenReal2Mission_DW.Receive.StartPosition,
+                         codegenReal2Mission_DW.Receive.numUAV,
+                         codegenReal2Mission_DW.Receive.FormationPos, second)) ^
+                      1))) {
                     if (codegenReal2Mission_DW.MissionCMD.SequenceID ==
-                            codegenReal2Mission_DW.Receive_o2_g.SequenceID) {
+                            codegenReal2Mission_DW.Receive.SequenceID) {
                         printf("Use a new Sequence ID for each new mission!\n");
                         fflush(stdout);
                         printf("PrevCMD SequenceID: %d\n",
                                codegenReal2Mission_DW.MissionCMD.SequenceID);
                         fflush(stdout);
                         printf("NewCMD SequenceID: %d\n",
-                               codegenReal2Mission_DW.Receive_o2_g.SequenceID);
+                               codegenReal2Mission_DW.Receive.SequenceID);
                         fflush(stdout);
                     } else {
                         int32_T tmp_0;
@@ -4134,14 +5690,14 @@ void codegenReal2MissionModelClass::step()
                         int32_T tmp_5;
                         int32_T tmp_6;
                         if ((static_cast<int32_T>
-                                (codegenReal2Mission_DW.Receive_o2_g.MissionMode)
-                             > 127) && (static_cast<boolean_T>
-                                        (static_cast<int32_T>
+                                (codegenReal2Mission_DW.Receive.MissionMode) >
+                                127) && (static_cast<boolean_T>
                                          (static_cast<int32_T>
-                                          (isPalindrome_KPAwztvD
-                                           (static_cast<real_T>
-                                            (codegenReal2Mission_DW.Receive_o2_g.MissionMode)))
-                                          ^ 1)))) {
+                                          (static_cast<int32_T>
+                                           (isPalindrome_KPAwztvD
+                                            (static_cast<real_T>
+                                             (codegenReal2Mission_DW.Receive.MissionMode)))
+                                           ^ 1)))) {
                             codegenReal2Mission_getLocalTime(&check,
                                 &c_tm_year_0[5], &c_tm_year_0[4], &c_tm_year_0[3],
                                 &c_tm_year_0[2], &c_tm_year_0[1], &c_tm_year_0[0],
@@ -4151,57 +5707,56 @@ void codegenReal2MissionModelClass::step()
                                 (codegenReal2Mission_createFromDateVec
                                  (c_tm_year_0)).re / 1000.0 + 1.0;
                             codegenReal2Mission_DW.ImmedCMD.SequenceID =
-                                codegenReal2Mission_DW.Receive_o2_g.SequenceID;
+                                codegenReal2Mission_DW.Receive.SequenceID;
                             codegenReal2Mission_DW.ImmedCMD.MissionMode =
-                                codegenReal2Mission_DW.Receive_o2_g.MissionMode;
+                                codegenReal2Mission_DW.Receive.MissionMode;
                             codegenReal2Mission_DW.ImmedCMD.MissionLocation =
-                                codegenReal2Mission_DW.Receive_o2_g.MissionLocation;
+                                codegenReal2Mission_DW.Receive.MissionLocation;
                             codegenReal2Mission_DW.ImmedCMD.params =
-                                codegenReal2Mission_DW.Receive_o2_g.params;
+                                codegenReal2Mission_DW.Receive.params;
                             codegenReal2Mission_DW.ImmedCMD.StartPosition =
-                                codegenReal2Mission_DW.Receive_o2_g.StartPosition;
+                                codegenReal2Mission_DW.Receive.StartPosition;
                             codegenReal2Mission_DW.ImmedCMD.numUAV =
-                                codegenReal2Mission_DW.Receive_o2_g.numUAV;
+                                codegenReal2Mission_DW.Receive.numUAV;
                             codegenReal2Mission_DW.ImmedCMD.FormationPos =
-                                codegenReal2Mission_DW.Receive_o2_g.FormationPos;
+                                codegenReal2Mission_DW.Receive.FormationPos;
                             codegenReal2Mission_DW.ImmedCMD.StartTime = second;
-                        } else if
-                                (codegenReal2Mission_DW.Receive_o2_g.params.Param7
-                                 == 1.0F) {
+                        } else if (codegenReal2Mission_DW.Receive.params.Param7 ==
+                                   1.0F) {
                             if (static_cast<boolean_T>(static_cast<int32_T>
-                                                       ((codegenReal2Mission_DW.Receive_o2_g.MissionMode
+                                                       ((codegenReal2Mission_DW.Receive.MissionMode
                                    == MissionModes::None) |
-                                                        (codegenReal2Mission_DW.Receive_o2_g.MissionMode
+                                                        (codegenReal2Mission_DW.Receive.MissionMode
                                    ==
                                     codegenReal2Mission_DW.CurrentFlightMission.MissionMode))))
                             {
                                 printf("Reset flight mission, cancel immediate mission!\n");
                                 fflush(stdout);
                                 wholeSecsFromMillis =
-                                    codegenReal2Mission_DW.Receive_o2_g.SequenceID;
+                                    codegenReal2Mission_DW.Receive.SequenceID;
                                 reactor_FeedbackCMD_MissionMode =
                                     codegenReal2Mission_DW.CurrentFlightMission.MissionMode;
                                 rtb_FeedbackCMD.MissionLocation =
-                                    codegenReal2Mission_DW.Receive_o2_g.MissionLocation;
+                                    codegenReal2Mission_DW.Receive.MissionLocation;
                                 rtb_FeedbackCMD.params =
-                                    codegenReal2Mission_DW.Receive_o2_g.params;
+                                    codegenReal2Mission_DW.Receive.params;
                                 rtb_FeedbackCMD.StartPosition =
-                                    codegenReal2Mission_DW.Receive_o2_g.StartPosition;
+                                    codegenReal2Mission_DW.Receive.StartPosition;
                                 reactor_FeedbackCMD_numUAV =
                                     codegenReal2Mission_DW.CurrentFlightMission.numUAV;
                                 reactor_FeedbackCMD_FormationPos =
                                     codegenReal2Mission_DW.CurrentFlightMission.FormationPos;
-                                rtb_Compare_l = true;
+                                Receive_o1 = true;
                                 rtb_FlightCMD.SequenceID =
-                                    codegenReal2Mission_DW.Receive_o2_g.SequenceID;
+                                    codegenReal2Mission_DW.Receive.SequenceID;
                                 rtb_FlightCMD.MissionMode =
                                     codegenReal2Mission_DW.CurrentFlightMission.MissionMode;
                                 rtb_FlightCMD.MissionLocation =
-                                    codegenReal2Mission_DW.Receive_o2_g.MissionLocation;
+                                    codegenReal2Mission_DW.Receive.MissionLocation;
                                 rtb_FlightCMD.params =
-                                    codegenReal2Mission_DW.Receive_o2_g.params;
+                                    codegenReal2Mission_DW.Receive.params;
                                 rtb_FlightCMD.StartPosition =
-                                    codegenReal2Mission_DW.Receive_o2_g.StartPosition;
+                                    codegenReal2Mission_DW.Receive.StartPosition;
                                 rtb_FlightCMD.numUAV =
                                     codegenReal2Mission_DW.CurrentFlightMission.numUAV;
                                 rtb_FlightCMD.FormationPos =
@@ -4211,13 +5766,13 @@ void codegenReal2MissionModelClass::step()
                                     &fracSecs, &temp, &tmp, &c_tm_mday,
                                     &c_tm_mon, &c_tm_year, &rtb_Compare_d);
                                 codegenReal2Mission_DW.ImmedCMD.SequenceID =
-                                    codegenReal2Mission_DW.Receive_o2_g.SequenceID;
+                                    codegenReal2Mission_DW.Receive.SequenceID;
                                 codegenReal2Mission_DW.ImmedCMD.MissionLocation =
-                                    codegenReal2Mission_DW.Receive_o2_g.MissionLocation;
+                                    codegenReal2Mission_DW.Receive.MissionLocation;
                                 codegenReal2Mission_DW.ImmedCMD.params =
-                                    codegenReal2Mission_DW.Receive_o2_g.params;
+                                    codegenReal2Mission_DW.Receive.params;
                                 codegenReal2Mission_DW.ImmedCMD.StartPosition =
-                                    codegenReal2Mission_DW.Receive_o2_g.StartPosition;
+                                    codegenReal2Mission_DW.Receive.StartPosition;
                                 codegenReal2Mission_DW.ImmedCMD.numUAV =
                                     codegenReal2Mission_DW.CurrentFlightMission.numUAV;
                                 codegenReal2Mission_DW.ImmedCMD.FormationPos =
@@ -4227,7 +5782,7 @@ void codegenReal2MissionModelClass::step()
                                 codegenReal2Mission_DW.ImmedCMD.MissionMode =
                                     codegenReal2Mission_convert_to_enum_MissionModes
                                     (static_cast<int32_T>
-                                     (codegenReal2Mission_DW.Receive_o2_g.params.Param6));
+                                     (codegenReal2Mission_DW.Receive.params.Param6));
                                 codegenReal2Mission_getLocalTime(&check,
                                     &c_tm_year_0[5], &c_tm_year_0[4],
                                     &c_tm_year_0[3], &c_tm_year_0[2],
@@ -4250,68 +5805,68 @@ void codegenReal2MissionModelClass::step()
                             if ((codegenReal2Mission_createFromDateVec
                                     (c_tm_year_0)).re / 1000.0 <= second) {
                                 if ((static_cast<int32_T>
-                                        (codegenReal2Mission_DW.Receive_o2_g.MissionMode)
+                                        (codegenReal2Mission_DW.Receive.MissionMode)
                                      > 10) && isPalindrome_KPAwztvD(static_cast<
                                         real_T>
-                                        (codegenReal2Mission_DW.Receive_o2_g.MissionMode)))
+                                        (codegenReal2Mission_DW.Receive.MissionMode)))
                                 {
-                                    rtb_Compare_l = true;
+                                    Receive_o1 = true;
                                     rtb_FlightCMD.SequenceID =
-                                        codegenReal2Mission_DW.Receive_o2_g.SequenceID;
+                                        codegenReal2Mission_DW.Receive.SequenceID;
                                     rtb_FlightCMD.MissionMode =
-                                        codegenReal2Mission_DW.Receive_o2_g.MissionMode;
+                                        codegenReal2Mission_DW.Receive.MissionMode;
                                     rtb_FlightCMD.MissionLocation =
-                                        codegenReal2Mission_DW.Receive_o2_g.MissionLocation;
+                                        codegenReal2Mission_DW.Receive.MissionLocation;
                                     rtb_FlightCMD.params =
-                                        codegenReal2Mission_DW.Receive_o2_g.params;
+                                        codegenReal2Mission_DW.Receive.params;
                                     rtb_FlightCMD.StartPosition =
-                                        codegenReal2Mission_DW.Receive_o2_g.StartPosition;
+                                        codegenReal2Mission_DW.Receive.StartPosition;
                                     rtb_FlightCMD.numUAV =
-                                        codegenReal2Mission_DW.Receive_o2_g.numUAV;
+                                        codegenReal2Mission_DW.Receive.numUAV;
                                     rtb_FlightCMD.FormationPos =
-                                        codegenReal2Mission_DW.Receive_o2_g.FormationPos;
+                                        codegenReal2Mission_DW.Receive.FormationPos;
                                     rtb_FlightCMD.StartTime = second;
                                     codegenReal2Mission_getLocalTime(&check,
                                         &fracSecs, &temp, &tmp, &c_tm_mday,
                                         &c_tm_mon, &c_tm_year, &rtb_Compare_d);
                                     codegenReal2Mission_DW.ImmedCMD.SequenceID =
-                                        codegenReal2Mission_DW.Receive_o2_g.SequenceID;
+                                        codegenReal2Mission_DW.Receive.SequenceID;
                                     codegenReal2Mission_DW.ImmedCMD.MissionLocation
                                         =
-                                        codegenReal2Mission_DW.Receive_o2_g.MissionLocation;
+                                        codegenReal2Mission_DW.Receive.MissionLocation;
                                     codegenReal2Mission_DW.ImmedCMD.params =
-                                        codegenReal2Mission_DW.Receive_o2_g.params;
+                                        codegenReal2Mission_DW.Receive.params;
                                     codegenReal2Mission_DW.ImmedCMD.StartPosition
                                         =
-                                        codegenReal2Mission_DW.Receive_o2_g.StartPosition;
+                                        codegenReal2Mission_DW.Receive.StartPosition;
                                     codegenReal2Mission_DW.ImmedCMD.numUAV =
-                                        codegenReal2Mission_DW.Receive_o2_g.numUAV;
+                                        codegenReal2Mission_DW.Receive.numUAV;
                                     codegenReal2Mission_DW.ImmedCMD.FormationPos
                                         =
-                                        codegenReal2Mission_DW.Receive_o2_g.FormationPos;
+                                        codegenReal2Mission_DW.Receive.FormationPos;
                                     codegenReal2Mission_DW.ImmedCMD.StartTime =
                                         second;
                                     codegenReal2Mission_DW.PushImmed = second;
                                     codegenReal2Mission_DW.ImmedCMD.MissionMode =
                                         codegenReal2Mission_convert_to_enum_MissionModes
                                         (static_cast<int32_T>
-                                         (codegenReal2Mission_DW.Receive_o2_g.params.Param6));
+                                         (codegenReal2Mission_DW.Receive.params.Param6));
                                 } else {
-                                    rtb_Compare_l = true;
+                                    Receive_o1 = true;
                                     rtb_FlightCMD.SequenceID =
-                                        codegenReal2Mission_DW.Receive_o2_g.SequenceID;
+                                        codegenReal2Mission_DW.Receive.SequenceID;
                                     rtb_FlightCMD.MissionMode =
-                                        codegenReal2Mission_DW.Receive_o2_g.MissionMode;
+                                        codegenReal2Mission_DW.Receive.MissionMode;
                                     rtb_FlightCMD.MissionLocation =
-                                        codegenReal2Mission_DW.Receive_o2_g.MissionLocation;
+                                        codegenReal2Mission_DW.Receive.MissionLocation;
                                     rtb_FlightCMD.params =
-                                        codegenReal2Mission_DW.Receive_o2_g.params;
+                                        codegenReal2Mission_DW.Receive.params;
                                     rtb_FlightCMD.StartPosition =
-                                        codegenReal2Mission_DW.Receive_o2_g.StartPosition;
+                                        codegenReal2Mission_DW.Receive.StartPosition;
                                     rtb_FlightCMD.numUAV =
-                                        codegenReal2Mission_DW.Receive_o2_g.numUAV;
+                                        codegenReal2Mission_DW.Receive.numUAV;
                                     rtb_FlightCMD.FormationPos =
-                                        codegenReal2Mission_DW.Receive_o2_g.FormationPos;
+                                        codegenReal2Mission_DW.Receive.FormationPos;
                                     rtb_FlightCMD.StartTime = second;
                                 }
                             } else {
@@ -4446,70 +6001,77 @@ void codegenReal2MissionModelClass::step()
                     }
                 }
 
-                // '<S37>:1:10'
+                // '<S36>:1:10'
                 rtb_FeedbackCMD.SequenceID = wholeSecsFromMillis;
                 rtb_FeedbackCMD.MissionMode = reactor_FeedbackCMD_MissionMode;
                 rtb_FeedbackCMD.numUAV = reactor_FeedbackCMD_numUAV;
                 rtb_FeedbackCMD.FormationPos = reactor_FeedbackCMD_FormationPos;
                 rtb_FeedbackCMD.StartTime = second;
             } else {
-                // '<S37>:1:12'
+                // '<S36>:1:12'
                 rtb_FeedbackCMD.SequenceID =
-                    codegenReal2Mission_DW.Receive_o2_g.SequenceID;
+                    codegenReal2Mission_DW.Receive.SequenceID;
                 rtb_FeedbackCMD.MissionMode =
-                    codegenReal2Mission_DW.Receive_o2_g.MissionMode;
+                    codegenReal2Mission_DW.Receive.MissionMode;
                 rtb_FeedbackCMD.MissionLocation =
-                    codegenReal2Mission_DW.Receive_o2_g.MissionLocation;
-                rtb_FeedbackCMD.params =
-                    codegenReal2Mission_DW.Receive_o2_g.params;
+                    codegenReal2Mission_DW.Receive.MissionLocation;
+                rtb_FeedbackCMD.params = codegenReal2Mission_DW.Receive.params;
                 rtb_FeedbackCMD.StartPosition =
-                    codegenReal2Mission_DW.Receive_o2_g.StartPosition;
-                rtb_FeedbackCMD.numUAV =
-                    codegenReal2Mission_DW.Receive_o2_g.numUAV;
+                    codegenReal2Mission_DW.Receive.StartPosition;
+                rtb_FeedbackCMD.numUAV = codegenReal2Mission_DW.Receive.numUAV;
                 rtb_FeedbackCMD.FormationPos =
-                    codegenReal2Mission_DW.Receive_o2_g.FormationPos;
+                    codegenReal2Mission_DW.Receive.FormationPos;
                 rtb_FeedbackCMD.StartTime = second;
                 codegenReal2Mission_DW.ParamADRC_e.hat_b = static_cast<real_T>
-                    (codegenReal2Mission_DW.Receive_o2_g.params.Param1 / 100.0F);
+                    (codegenReal2Mission_DW.Receive.params.Param1 / 100.0F);
                 codegenReal2Mission_DW.ParamADRC_e.omega_o = static_cast<real_T>
-                    (codegenReal2Mission_DW.Receive_o2_g.params.Param2 / 100.0F);
-                codegenReal2Mission_DW.ParamADRC_e.omega_b = static_cast<real_T>
-                    (codegenReal2Mission_DW.Receive_o2_g.params.Param3 / 100.0F);
+                    (codegenReal2Mission_DW.Receive.params.Param2 / 100.0F);
+                codegenReal2Mission_DW.ParamADRC_e.omega_c = static_cast<real_T>
+                    (codegenReal2Mission_DW.Receive.params.Param3 / 100.0F);
                 codegenReal2Mission_DW.ParamADRC_e.P = static_cast<real_T>
-                    (codegenReal2Mission_DW.Receive_o2_g.params.Param4 / 100.0F);
+                    (codegenReal2Mission_DW.Receive.params.Param4 / 100.0F);
                 codegenReal2Mission_DW.ParamADRC_e.I = static_cast<real_T>
-                    (codegenReal2Mission_DW.Receive_o2_g.params.Param5 / 100.0F);
+                    (codegenReal2Mission_DW.Receive.params.Param5 / 100.0F);
                 codegenReal2Mission_DW.ParamADRC_e.D = static_cast<real_T>
-                    (codegenReal2Mission_DW.Receive_o2_g.params.Param6 / 100.0F);
+                    (codegenReal2Mission_DW.Receive.params.Param6 / 100.0F);
                 codegenReal2Mission_DW.ParamADRC_e.useADRC =
-                    (codegenReal2Mission_DW.Receive_o2_g.params.Param7 != 0.0F);
+                    (codegenReal2Mission_DW.Receive.params.Param7 != 0.0F);
 
-                // '<S37>:1:14'
+                // '<S36>:1:14'
             }
 
-            // DataStoreWrite: '<S34>/WriteCurrentCMD'
-            // '<S37>:1:27'
-            // '<S37>:1:28'
+            // DataStoreWrite: '<S33>/WriteCurrentCMD'
+            // '<S36>:1:27'
+            // '<S36>:1:28'
             codegenReal2Mission_DW.MissionCMD = rtb_FeedbackCMD;
 
-            // Send: '<S34>/PushCMD' incorporates:
-            //   MATLAB Function: '<S34>/CommandCheck'
+            // Send: '<S33>/PushCMD' incorporates:
+            //   MATLAB Function: '<S33>/CommandCheck'
 
-            if (rtb_Compare_l) {
+            if (Receive_o1) {
                 codegenReal2Mission_RcvNextMission_SendData(&rtb_FlightCMD);
             }
 
-            // End of Send: '<S34>/PushCMD'
+            // End of Send: '<S33>/PushCMD'
 
-            // Send: '<S34>/SendFeedbackMissionCMD'
+            // Send: '<S33>/SendFeedbackMissionCMD'
             codegenReal2Mission_MessageMerge_In1_SendData(&rtb_FeedbackCMD);
         }
 
-        // End of Outputs for SubSystem: '<S31>/TriggerMissionDispatch'
+        // Outputs for Atomic SubSystem: '<S7>/QueueCMD'
+        // Outputs for Triggered SubSystem: '<S31>/ReadOne' incorporates:
+        //   TriggerPort: '<S38>/Trigger'
 
-        // MATLAB Function: '<S31>/getCurrentTime'
-        // MATLAB Function 'getCurrentTime': '<S35>:1'
-        // '<S35>:1:3'
+        codegenReal2Mission_PrevZCX.TriggerMissionDispatch_Trig_ZCE =
+            static_cast<ZCSigState>(rtb_Compare_l);
+
+        // End of Outputs for SubSystem: '<S31>/ReadOne'
+        // End of Outputs for SubSystem: '<S7>/QueueCMD'
+        // End of Outputs for SubSystem: '<S30>/TriggerMissionDispatch'
+
+        // MATLAB Function: '<S30>/getCurrentTime'
+        // MATLAB Function 'getCurrentTime': '<S34>:1'
+        // '<S34>:1:3'
         codegenReal2Mission_getLocalTime(&check, &fracSecs, &temp, &tmp,
             &c_tm_mday, &c_tm_mon, &c_tm_year, &rtb_Compare_d);
         processedInData[4] = temp;
@@ -4566,21 +6128,21 @@ void codegenReal2MissionModelClass::step()
             b_this_data.re = check;
         }
 
-        // RelationalOperator: '<S36>/Compare' incorporates:
-        //   Constant: '<S36>/Constant'
-        //   Logic: '<S31>/AND'
-        //   MATLAB Function: '<S31>/getCurrentTime'
-        //   RelationalOperator: '<S31>/Relational Operator'
+        // RelationalOperator: '<S35>/Compare' incorporates:
+        //   Constant: '<S35>/Constant'
+        //   Logic: '<S30>/AND'
+        //   MATLAB Function: '<S30>/getCurrentTime'
+        //   RelationalOperator: '<S30>/Relational Operator'
 
         rtb_Compare_d = static_cast<boolean_T>(static_cast<int32_T>
             ((codegenReal2Mission_DW.PushImmed < b_this_data.re / 1000.0) &
              (codegenReal2Mission_DW.PushImmed != 0.0)));
 
-        // Send: '<S31>/SndImmedCMD' incorporates:
-        //   RelationalOperator: '<S33>/FixPt Relational Operator'
-        //   UnitDelay: '<S33>/Delay Input1'
+        // Send: '<S30>/SndImmedCMD' incorporates:
+        //   RelationalOperator: '<S32>/FixPt Relational Operator'
+        //   UnitDelay: '<S32>/Delay Input1'
         //
-        //  Block description for '<S33>/Delay Input1':
+        //  Block description for '<S32>/Delay Input1':
         //
         //   Store in Global RAM
 
@@ -4590,11 +6152,11 @@ void codegenReal2MissionModelClass::step()
                 (&codegenReal2Mission_DW.ImmedCMD);
         }
 
-        // End of Send: '<S31>/SndImmedCMD'
+        // End of Send: '<S30>/SndImmedCMD'
 
-        // Update for UnitDelay: '<S33>/Delay Input1'
+        // Update for UnitDelay: '<S32>/Delay Input1'
         //
-        //  Block description for '<S33>/Delay Input1':
+        //  Block description for '<S32>/Delay Input1':
         //
         //   Store in Global RAM
 
@@ -5367,7 +6929,7 @@ void codegenReal2MissionModelClass::step()
     // End of Outputs for SubSystem: '<S13>/FlightMission'
     // End of Outputs for SubSystem: '<Root>/MissionLogic'
 
-    // ModelReference generated from: '<S44>/Real2SimGuidance' incorporates:
+    // ModelReference generated from: '<S43>/Real2SimGuidance' incorporates:
     //   DataStoreRead: '<S1>/Data Store Read'
     //   Inport: '<Root>/FlightMode'
     //   Inport: '<Root>/FlightState'
@@ -5383,7 +6945,7 @@ void codegenReal2MissionModelClass::step()
                      &codegenReal2Mission_DW.DivideThree,
                      &codegenReal2Mission_DW.ParamADRC_e.hat_b,
                      &codegenReal2Mission_DW.ParamADRC_e.omega_o,
-                     &codegenReal2Mission_DW.ParamADRC_e.omega_b,
+                     &codegenReal2Mission_DW.ParamADRC_e.omega_c,
                      &codegenReal2Mission_DW.ParamADRC_e.P,
                      &codegenReal2Mission_DW.ParamADRC_e.I,
                      &codegenReal2Mission_DW.ParamADRC_e.D,
@@ -5455,11 +7017,25 @@ void codegenReal2MissionModelClass::step()
 
         // End of Update for SubSystem: '<Root>/MissionLogic'
 
-        // Update for ModelReference generated from: '<S44>/Real2SimGuidance'
+        // Update for ModelReference generated from: '<S43>/Real2SimGuidance'
         Real2SimGuidance_Update
             (&(codegenReal2Mission_DW.Real2SimGuidance_InstanceData.rtm),
              &codegenReal2Mission_DW.OR, &codegenReal2Mission_DW.ImmedMission_o2,
              &(codegenReal2Mission_DW.Real2SimGuidance_InstanceData.rtdw));
+
+        // ContTimeOutputInconsistentWithStateAtMajorOutputFlag is set, need to run a minor output 
+        if (rtmIsMajorTimeStep((&codegenReal2Mission_M))) {
+            if (rtsiGetContTimeOutputInconsistentWithStateAtMajorStep
+                    (&(&codegenReal2Mission_M)->solverInfo)) {
+                rtsiSetSimTimeStep(&(&codegenReal2Mission_M)->solverInfo,
+                                   MINOR_TIME_STEP);
+                rtsiSetContTimeOutputInconsistentWithStateAtMajorStep
+                    (&(&codegenReal2Mission_M)->solverInfo, false);
+                codegenReal2MissionModelClass::step();
+                rtsiSetSimTimeStep(&(&codegenReal2Mission_M)->solverInfo,
+                                   MAJOR_TIME_STEP);
+            }
+        }
     }                                  // end MajorTimeStep
 
     if (rtmIsMajorTimeStep((&codegenReal2Mission_M))) {
@@ -5529,7 +7105,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_derivatives()
     // End of Derivatives for SubSystem: '<S13>/FlightMission'
     // End of Derivatives for SubSystem: '<Root>/MissionLogic'
 
-    // Derivatives for ModelReference generated from: '<S44>/Real2SimGuidance'
+    // Derivatives for ModelReference generated from: '<S43>/Real2SimGuidance'
     Real2SimGuidance_Deriv
         (&(codegenReal2Mission_DW.Real2SimGuidance_InstanceData.rtdw),
          &(((XDot_codegenReal2Mission_T *) (&codegenReal2Mission_M)->derivs)
@@ -5636,7 +7212,7 @@ void codegenReal2MissionModelClass::initialize()
     ImmedMission_initialize(rtmGetErrorStatusPointer((&codegenReal2Mission_M)),
                             &(codegenReal2Mission_DW.ImmedMission_InstanceData.rtm));
 
-    // Model Initialize function for ModelReference Block: '<S44>/Real2SimGuidance' 
+    // Model Initialize function for ModelReference Block: '<S43>/Real2SimGuidance' 
     Real2SimGuidance_initialize(rtmGetErrorStatusPointer((&codegenReal2Mission_M)),
         rtmGetStopRequestedPtr((&codegenReal2Mission_M)),
         &((&codegenReal2Mission_M)->solverInfo), &(&codegenReal2Mission_M)
@@ -5644,69 +7220,68 @@ void codegenReal2MissionModelClass::initialize()
         &(codegenReal2Mission_DW.Real2SimGuidance_InstanceData.rtm));
 
     {
-        static const char_T v[128]{ '\x00', '\x01', '\x02', '\x03', '\x04',
-            '\x05', '\x06', '\x07', '\x08', '\x09', '\x0a', '\x0b', '\x0c',
-            '\x0d', '\x0e', '\x0f', '\x10', '\x11', '\x12', '\x13', '\x14',
-            '\x15', '\x16', '\x17', '\x18', '\x19', '\x1a', '\x1b', '\x1c',
-            '\x1d', '\x1e', '\x1f', ' ', '!', '\"', '#', '$', '%', '&', '\'',
-            '(', ')', '*', '+', ',', '-', '.', '/', '0', '1', '2', '3', '4', '5',
-            '6', '7', '8', '9', ':', ';', '<', '=', '>', '?', '@', 'a', 'b', 'c',
-            'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q',
-            'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '[', '\\', ']', '^',
-            '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
-            'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-            '{', '|', '}', '~', '\x7f' };
-
-        static const char_T w[9]{ 'H', 'o', 'm', 'e', 'P', 'o', 'i', 'n', 't' };
-
-        static const char_T x[3]{ 'A', 'l', 't' };
-
-        static const char_T x_0[3]{ 'L', 'a', 't' };
-
-        static const char_T x_1[3]{ 'L', 'o', 'n' };
-
+        FILE* eml_openfiles_g[20];
         FILE* a;
-        size_t nBytes;
-        size_t numReadSizeT;
-        emxArray_char_T_codegenReal2Mission_T *At;
-        emxArray_char_T_codegenReal2Mission_T *aTmp;
-        emxArray_char_T_codegenReal2Mission_T *aTmp_0;
+        emxArray_char_T_codegenReal2Mission_T *b_curKey;
         emxArray_char_T_codegenReal2Mission_T *curKey;
+        emxArray_char_T_codegenReal2Mission_T *curLine;
         emxArray_char_T_codegenReal2Mission_T *curSection;
         emxArray_char_T_codegenReal2Mission_T *curVal;
         emxArray_char_T_codegenReal2Mission_T *data;
+        emxArray_char_T_codegenReal2Mission_T *data_0;
+        emxArray_char_T_codegenReal2Mission_T *data_1;
+        emxArray_char_T_codegenReal2Mission_T *data_2;
+        emxArray_char_T_codegenReal2Mission_T *data_3;
+        emxArray_char_T_codegenReal2Mission_T *data_4;
+        emxArray_char_T_codegenReal2Mission_T *data_5;
+        emxArray_char_T_codegenReal2Mission_T *data_6;
+        emxArray_char_T_codegenReal2Mission_T *q;
         emxArray_char_T_codegenReal2Mission_T *ret;
+        emxArray_char_T_codegenReal2Mission_T *tmp_5;
+        emxArray_char_T_codegenReal2Mission_T *tmp_6;
+        emxArray_char_T_codegenReal2Mission_T *tmp_7;
+        emxArray_char_T_codegenReal2Mission_T *tmp_8;
+        emxArray_char_T_codegenReal2Mission_T *tmp_9;
+        emxArray_char_T_codegenReal2Mission_T *tmp_a;
+        emxArray_char_T_codegenReal2Mission_T *tmp_b;
+        emxArray_char_T_codegenReal2Mission_T *tmp_c;
+        emxArray_char_T_codegenReal2Mission_T *tmp_d;
+        emxArray_char_T_codegenReal2Mission_T *tmp_e;
+        emxArray_char_T_codegenReal2Mission_T *tmp_f;
         creal_T tmp;
-        real_T Alt;
-        int32_T b_c;
-        int32_T b_itoken;
-        int32_T b_n;
-        int32_T d_itoken;
-        int32_T exitg1;
-        int32_T exitg2;
+        creal_T tmp_0;
+        creal_T tmp_1;
+        creal_T tmp_2;
+        creal_T tmp_3;
+        creal_T tmp_4;
+        real_T LLA0_idx_0;
+        real_T LLA0_idx_1;
+        real_T LLA0_idx_2;
         int32_T i;
-        int32_T n;
-        int32_T numRead;
-        int32_T tmp_0;
-        char_T tbuf[1024];
+        int32_T iremain;
+        int32_T itoken;
+        int32_T loop_ub;
         int8_T fileid;
+        boolean_T b_x[3];
         boolean_T b_bool;
+        boolean_T exitg1;
         boolean_T guard1{ false };
 
         // Start for slMsgMgr: '<Root>/slMsgMgr'
         codegenReal2Mission_initMemPool
-            (&codegenReal2Mission_DW.slMsgMgr_MemPool_missionCmd,
-             &codegenReal2Mission_DW.slMsgMgr_memArray_missionCmd[0],
-             &codegenReal2Mission_DW.slMsgMgr_freeList_missionCmd[0], 9);
-        codegenReal2Mission_initMemPool_n
             (&codegenReal2Mission_DW.slMsgMgr_MemPool_IndividualUAVCmd,
              &codegenReal2Mission_DW.slMsgMgr_memArray_IndividualUAVCmd[0],
              &codegenReal2Mission_DW.slMsgMgr_freeList_IndividualUAVCmd[0], 17);
+        codegenReal2Mission_initMemPool_o
+            (&codegenReal2Mission_DW.slMsgMgr_MemPool_missionCmd,
+             &codegenReal2Mission_DW.slMsgMgr_memArray_missionCmd[0],
+             &codegenReal2Mission_DW.slMsgMgr_freeList_missionCmd[0], 9);
         codegenReal2Mission_PrevZCX.TriggerCurrentMisisonFeedback_Trig_ZCE =
             POS_ZCSIG;
         codegenReal2Mission_PrevZCX.FeedbackMissionCMD_Trig_ZCE = POS_ZCSIG;
         codegenReal2Mission_PrevZCX.TriggerBroadcastAtMissionTime_Trig_ZCE =
             POS_ZCSIG;
+        codegenReal2Mission_PrevZCX.ReadOne_Trig_ZCE = POS_ZCSIG;
 
         // InitializeConditions for DataStoreMemory generated from: '<S6>/DSAltitudeGCS' 
         rtw_pthread_mutex_init(&AltitudeGCS_m0);
@@ -5718,13 +7293,9 @@ void codegenReal2MissionModelClass::initialize()
         rtw_pthread_mutex_init(&LongitudeGCS_m0);
 
         // SystemInitialize for Atomic SubSystem: '<Root>/MissionLogic'
-        // Start for DataStoreMemory: '<S1>/Data Store Memory'
-        codegenReal2Mission_DW.ParamADRC_e =
-            codegenReal2Mission_ConstP.DataStoreMemory_InitialValue;
-
         // SystemInitialize for Atomic SubSystem: '<S1>/PreProcessMissionCMD'
         // SystemInitialize for Atomic SubSystem: '<S7>/QueueCMD'
-        // Start for Queue: '<S32>/Queue'
+        // Start for Queue: '<S31>/Queue'
         codegenReal2Mission_initQueue(&codegenReal2Mission_DW.Queue_Queue,
             QueuePolicy_T::MSG_FIFO_QUEUE, 16,
             &codegenReal2Mission_DW.Queue_Msg[0]);
@@ -5766,263 +7337,125 @@ void codegenReal2MissionModelClass::initialize()
         // End of SystemInitialize for SubSystem: '<S3>/TriggerCurrentMisisonFeedback' 
 
         // SystemInitialize for Atomic SubSystem: '<S1>/InitializeSimLocation'
-        // SystemInitialize for MATLAB Function: '<S6>/ReadHomeAlt'
+        // SystemInitialize for MATLAB Function: '<S6>/ReadHomePoint'
         a = NULL;
         for (i = 0; i < 20; i++) {
-            codegenReal2Mission_DW.eml_openfiles_g[i] = a;
+            eml_openfiles_g[i] = a;
         }
 
-        // End of SystemInitialize for MATLAB Function: '<S6>/ReadHomeAlt'
+        // End of SystemInitialize for MATLAB Function: '<S6>/ReadHomePoint'
 
-        // SystemInitialize for MATLAB Function: '<S6>/ReadHomeLat'
+        // SystemInitialize for MATLAB Function: '<S6>/ReadParADRC'
         a = NULL;
         for (i = 0; i < 20; i++) {
-            codegenReal2Mission_DW.eml_openfiles_c[i] = a;
+            codegenReal2Mission_DW.eml_openfiles_b[i] = a;
         }
 
-        // End of SystemInitialize for MATLAB Function: '<S6>/ReadHomeLat'
-
-        // SystemInitialize for MATLAB Function: '<S6>/ReadHomeLon'
-        a = NULL;
-        for (i = 0; i < 20; i++) {
-            codegenReal2Mission_DW.eml_openfiles_p[i] = a;
-        }
-
-        // End of SystemInitialize for MATLAB Function: '<S6>/ReadHomeLon'
+        // End of SystemInitialize for MATLAB Function: '<S6>/ReadParADRC'
         // End of SystemInitialize for SubSystem: '<S1>/InitializeSimLocation'
         // End of SystemInitialize for SubSystem: '<Root>/MissionLogic'
         codegenReal2Mission_emxInit_char_T(&ret, 2);
 
         // SystemInitialize for Atomic SubSystem: '<Root>/MissionLogic'
         // Outputs for Atomic SubSystem: '<S1>/InitializeSimLocation'
-        // MATLAB Function: '<S6>/ReadHomeAlt'
-        // MATLAB Function 'MissionLogic/InitializeSimLocation/ReadHomeAlt': '<S28>:1' 
+        // MATLAB Function: '<S6>/ReadHomePoint'
+        // MATLAB Function 'MissionLogic/InitializeSimLocation/ReadHomePoint': '<S28>:1' 
         // '<S28>:1:3'
         ret->size[0] = 1;
         ret->size[1] = 0;
-        fileid = codegenReal2Mission_cfopen_g("config.ini", "rb");
-        nBytes = sizeof(char_T);
-        if (static_cast<int32_T>(fileid) >= 3) {
-            a = codegenReal2Mission_DW.eml_openfiles_g[static_cast<int32_T>(
-                static_cast<int32_T>(fileid) - 3)];
-        } else {
-            switch (static_cast<int32_T>(fileid)) {
-              case 0:
-                a = stdin;
-                break;
-
-              case 1:
-                a = stdout;
-                break;
-
-              case 2:
-                a = stderr;
-                break;
-
-              default:
-                a = NULL;
-                break;
-            }
-        }
-
-        if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(
-                static_cast<boolean_T>(static_cast<int32_T>((static_cast<int32_T>
-                  (fileid) == 0) | (static_cast<int32_T>(fileid) == 1)))) | (
-                static_cast<int32_T>(fileid) == 2)))) {
-            a = NULL;
-        }
-
-        // End of Outputs for SubSystem: '<S1>/InitializeSimLocation'
-        // End of SystemInitialize for SubSystem: '<Root>/MissionLogic'
-        codegenReal2Mission_emxInit_char_T(&At, 1);
-
-        // SystemInitialize for Atomic SubSystem: '<Root>/MissionLogic'
-        // Outputs for Atomic SubSystem: '<S1>/InitializeSimLocation'
-        // MATLAB Function: '<S6>/ReadHomeAlt'
-        At->size[0] = 0;
-        if (static_cast<boolean_T>(static_cast<int32_T>((a == NULL) ^ 1))) {
-            i = 1;
-            while (i > 0) {
-                i = 0;
-                numRead = 1;
-                while (static_cast<boolean_T>(static_cast<int32_T>((i < 1024) &
-                         (numRead > 0)))) {
-                    numReadSizeT = fread(&tbuf[i], nBytes, (size_t)(1024 - i), a);
-                    numRead = (int32_T)numReadSizeT;
-                    i = static_cast<int32_T>(i + (int32_T)numReadSizeT);
-                }
-
-                n = At->size[0];
-                if (i < 1) {
-                    b_c = -1;
-                    numRead = -1;
-                } else {
-                    b_c = static_cast<int32_T>(i - 1);
-                    numRead = static_cast<int32_T>(i - 1);
-                }
-
-                tmp_0 = At->size[0];
-                At->size[0] = static_cast<int32_T>(static_cast<int32_T>(b_c +
-                    At->size[0]) + 1);
-                codegenReal2Mission_emxEnsureCapacity_char_T(At, tmp_0);
-                for (b_c = 0; b_c <= numRead; b_c++) {
-                    At->data[static_cast<int32_T>(n + b_c)] = tbuf[b_c];
-                }
-            }
-        }
+        fileid = codegenReal2Mission_cfopen_g("config.ini", "rb",
+            eml_openfiles_g);
 
         // End of Outputs for SubSystem: '<S1>/InitializeSimLocation'
         // End of SystemInitialize for SubSystem: '<Root>/MissionLogic'
         codegenReal2Mission_emxInit_char_T(&data, 2);
-
-        // SystemInitialize for Atomic SubSystem: '<Root>/MissionLogic'
-        // Outputs for Atomic SubSystem: '<S1>/InitializeSimLocation'
-        // MATLAB Function: '<S6>/ReadHomeAlt'
-        tmp_0 = static_cast<int32_T>(data->size[0] * data->size[1]);
-        data->size[0] = 1;
-        data->size[1] = At->size[0];
-        codegenReal2Mission_emxEnsureCapacity_char_T(data, tmp_0);
-        numRead = At->size[0];
-        for (b_c = 0; b_c <= static_cast<int32_T>(numRead - 1); b_c++) {
-            data->data[b_c] = At->data[b_c];
-        }
-
-        // End of Outputs for SubSystem: '<S1>/InitializeSimLocation'
-        // End of SystemInitialize for SubSystem: '<Root>/MissionLogic'
         codegenReal2Mission_emxInit_char_T(&curSection, 2);
         codegenReal2Mission_emxInit_char_T(&curKey, 2);
         codegenReal2Mission_emxInit_char_T(&curVal, 2);
+        codegenReal2Mission_emxInit_char_T(&curLine, 2);
+        codegenReal2Mission_emxInit_char_T(&b_curKey, 2);
+        codegenReal2Mission_emxInit_char_T(&q, 1);
 
         // SystemInitialize for Atomic SubSystem: '<Root>/MissionLogic'
         // Outputs for Atomic SubSystem: '<S1>/InitializeSimLocation'
-        // MATLAB Function: '<S6>/ReadHomeAlt'
-        codegenReal2Mission_cfclose_e(static_cast<real_T>(fileid));
-        curSection->size[0] = 1;
-        curSection->size[1] = 0;
-        curKey->size[0] = 1;
-        curKey->size[1] = 0;
-        curVal->size[0] = 1;
-        curVal->size[1] = 0;
+        // MATLAB Function: '<S6>/ReadHomePoint'
+        if (static_cast<int32_T>(fileid) < 0) {
+            printf("INI-file \"%s\" was not found or could not be read.\n",
+                   "config.ini");
+            fflush(stdout);
+        } else {
+            codegenReal2Mission_fread(static_cast<real_T>(fileid),
+                eml_openfiles_g, q);
+            i = static_cast<int32_T>(data->size[0] * data->size[1]);
+            data->size[0] = 1;
+            data->size[1] = q->size[0];
+            codegenReal2Mission_emxEnsureCapacity_char_T(data, i);
+            loop_ub = q->size[0];
+            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+                data->data[i] = q->data[i];
+            }
 
-        // End of Outputs for SubSystem: '<S1>/InitializeSimLocation'
-        // End of SystemInitialize for SubSystem: '<Root>/MissionLogic'
-        codegenReal2Mission_emxInit_char_T(&aTmp, 2);
-        codegenReal2Mission_emxInit_char_T(&aTmp_0, 2);
-        do {
-            exitg1 = 0;
-            if (data->size[1] != 0) {
-                tmp_0 = static_cast<int32_T>(aTmp->size[0] * aTmp->size[1]);
-                aTmp->size[0] = 1;
-                aTmp->size[1] = data->size[1];
-                codegenReal2Mission_emxEnsureCapacity_char_T(aTmp, tmp_0);
-                numRead = static_cast<int32_T>(data->size[1] - 1);
-                for (b_c = 0; b_c <= numRead; b_c++) {
-                    aTmp->data[b_c] = data->data[b_c];
+            codegenReal2Mission_cfclose_e(static_cast<real_T>(fileid),
+                eml_openfiles_g);
+            curSection->size[0] = 1;
+            curSection->size[1] = 0;
+            curKey->size[0] = 1;
+            curKey->size[1] = 0;
+            curVal->size[0] = 1;
+            curVal->size[1] = 0;
+            codegenReal2Mission_emxInit_char_T(&tmp_f, 2);
+            codegenReal2Mission_emxInit_char_T(&data_6, 2);
+            exitg1 = false;
+            while ((!exitg1) && (data->size[1] != 0)) {
+                i = static_cast<int32_T>(data_6->size[0] * data_6->size[1]);
+                data_6->size[0] = 1;
+                data_6->size[1] = data->size[1];
+                codegenReal2Mission_emxEnsureCapacity_char_T(data_6, i);
+                loop_ub = static_cast<int32_T>(static_cast<int32_T>(data->size[0]
+                    * data->size[1]) - 1);
+                for (i = 0; i <= loop_ub; i++) {
+                    data_6->data[i] = data->data[i];
                 }
 
-                n = data->size[1];
-                numRead = 0;
-                while ((static_cast<int32_T>(numRead + 1) <= n) && (data->
-                        data[numRead] == '\x0a')) {
-                    numRead = static_cast<int32_T>(numRead + 1);
-                }
-
-                i = static_cast<int32_T>(numRead + 1);
-                while ((static_cast<int32_T>(numRead + 1) <= n) && (data->
-                        data[numRead] != '\x0a')) {
-                    numRead = static_cast<int32_T>(numRead + 1);
-                }
-
-                if (static_cast<int32_T>(numRead + 1) > data->size[1]) {
-                    n = 0;
-                    b_n = 0;
-                } else {
-                    n = numRead;
-                    b_n = data->size[1];
-                }
-
-                b_n = static_cast<int32_T>(b_n - n);
-                for (b_c = 0; b_c <= static_cast<int32_T>(b_n - 1); b_c++) {
-                    data->data[b_c] = data->data[static_cast<int32_T>(n + b_c)];
-                }
-
-                tmp_0 = static_cast<int32_T>(data->size[0] * data->size[1]);
-                data->size[0] = 1;
-                data->size[1] = b_n;
-                codegenReal2Mission_emxEnsureCapacity_char_T(data, tmp_0);
-                if (i > numRead) {
-                    i = 0;
-                    numRead = 0;
-                } else {
-                    i = static_cast<int32_T>(i - 1);
-                }
-
-                b_n = static_cast<int32_T>(numRead - i);
-                n = 1;
-                while ((n <= b_n) && (aTmp->data[static_cast<int32_T>(
-                         static_cast<int32_T>(i + n) - 1)] == ';')) {
-                    n = static_cast<int32_T>(n + 1);
-                }
-
-                b_itoken = n;
-                while ((n <= b_n) && (aTmp->data[static_cast<int32_T>(
-                         static_cast<int32_T>(i + n) - 1)] != ';')) {
-                    n = static_cast<int32_T>(n + 1);
-                }
-
-                if (b_itoken > static_cast<int32_T>(n - 1)) {
-                    b_n = 0;
-                    n = 0;
-                } else {
-                    b_n = static_cast<int32_T>(b_itoken - 1);
-                    n = static_cast<int32_T>(n - 1);
-                }
-
-                tmp_0 = static_cast<int32_T>(aTmp_0->size[0] * aTmp_0->size[1]);
-                aTmp_0->size[0] = 1;
-                numRead = static_cast<int32_T>(n - b_n);
-                aTmp_0->size[1] = numRead;
-                codegenReal2Mission_emxEnsureCapacity_char_T(aTmp_0, tmp_0);
-                for (b_c = 0; b_c <= static_cast<int32_T>(numRead - 1); b_c++) {
-                    aTmp_0->data[b_c] = aTmp->data[static_cast<int32_T>(
-                        static_cast<int32_T>(i + b_n) + b_c)];
-                }
-
-                codegenReal2Mission_strtrim(aTmp_0, aTmp);
-                if (aTmp->size[1] >= 2) {
+                codegenReal2Mission_strtok(data_6, curLine, data);
+                codegenReal2Mission_strtok_p(curLine, tmp_f);
+                codegenReal2Mission_strtrim(tmp_f, curLine);
+                if (curLine->size[1] >= 2) {
                     b_bool = false;
-                    if (aTmp->data[0] == '[') {
+                    if (curLine->data[0] == '[') {
                         b_bool = true;
                     }
 
                     guard1 = false;
                     if (b_bool) {
                         b_bool = false;
-                        if (aTmp->data[static_cast<int32_T>(aTmp->size[1] - 1)] ==
-                            ']') {
+                        if (curLine->data[static_cast<int32_T>(curLine->size[1]
+                                - 1)] == ']') {
                             b_bool = true;
                         }
 
                         if (b_bool) {
-                            if (static_cast<int32_T>(aTmp->size[1] - 1) < 2) {
-                                i = 0;
-                                numRead = 0;
+                            if (static_cast<int32_T>(curLine->size[1] - 1) < 2)
+                            {
+                                iremain = 0;
+                                itoken = 0;
                             } else {
-                                i = 1;
-                                numRead = static_cast<int32_T>(aTmp->size[1] - 1);
+                                iremain = 1;
+                                itoken = static_cast<int32_T>(curLine->size[1] -
+                                    1);
                             }
 
-                            tmp_0 = static_cast<int32_T>(curSection->size[0] *
+                            i = static_cast<int32_T>(curSection->size[0] *
                                 curSection->size[1]);
                             curSection->size[0] = 1;
-                            numRead = static_cast<int32_T>(numRead - i);
-                            curSection->size[1] = numRead;
+                            loop_ub = static_cast<int32_T>(itoken - iremain);
+                            curSection->size[1] = loop_ub;
                             codegenReal2Mission_emxEnsureCapacity_char_T
-                                (curSection, tmp_0);
-                            for (b_c = 0; b_c <= static_cast<int32_T>(numRead -
-                                    1); b_c++) {
-                                curSection->data[b_c] = aTmp->data
-                                    [static_cast<int32_T>(i + b_c)];
+                                (curSection, i);
+                            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1);
+                                    i++) {
+                                curSection->data[i] = curLine->data
+                                    [static_cast<int32_T>(iremain + i)];
                             }
 
                             curKey->size[0] = 1;
@@ -6035,824 +7468,495 @@ void codegenReal2MissionModelClass::initialize()
                     }
 
                     if (guard1) {
-                        if (aTmp->data[0] == ';') {
+                        if (curLine->data[0] == ';') {
                             b_bool = true;
                         }
 
-                        if (static_cast<boolean_T>(static_cast<int32_T>(
-                                static_cast<int32_T>(b_bool) ^ 1))) {
-                            i = 0;
-                            do {
-                                exitg2 = 0;
-                                if (i <= static_cast<int32_T>(aTmp->size[1] - 1))
-                                {
-                                    if (aTmp->data[i] == '=') {
-                                        exitg2 = 1;
-                                    } else {
-                                        i = static_cast<int32_T>(i + 1);
-                                    }
-                                } else {
-                                    i = -1;
-                                    exitg2 = 1;
-                                }
-                            } while (exitg2 == 0);
-
-                            if (static_cast<int32_T>(i + 1) > 0) {
-                                codegenReal2Mission_find_token(aTmp, &n, &b_n);
-                                if (b_n > aTmp->size[1]) {
-                                    i = 0;
-                                    numRead = 0;
-                                } else {
-                                    i = static_cast<int32_T>(b_n - 1);
-                                    numRead = aTmp->size[1];
-                                }
-
-                                if (n > static_cast<int32_T>(b_n - 1)) {
-                                    n = 0;
-                                    b_n = 0;
-                                } else {
-                                    n = static_cast<int32_T>(n - 1);
-                                    b_n = static_cast<int32_T>(b_n - 1);
-                                }
-
-                                tmp_0 = static_cast<int32_T>(aTmp_0->size[0] *
-                                    aTmp_0->size[1]);
-                                aTmp_0->size[0] = 1;
-                                numRead = static_cast<int32_T>(numRead - i);
-                                aTmp_0->size[1] = numRead;
-                                codegenReal2Mission_emxEnsureCapacity_char_T
-                                    (aTmp_0, tmp_0);
-                                for (b_c = 0; b_c <= static_cast<int32_T>
-                                        (numRead - 1); b_c++) {
-                                    aTmp_0->data[b_c] = aTmp->data
-                                        [static_cast<int32_T>(i + b_c)];
-                                }
-
-                                codegenReal2Mission_find_token(aTmp_0, &d_itoken,
-                                    &b_itoken);
-                                if (d_itoken > static_cast<int32_T>(b_itoken - 1))
-                                {
-                                    d_itoken = 0;
-                                    b_itoken = 0;
-                                } else {
-                                    d_itoken = static_cast<int32_T>(d_itoken - 1);
-                                    b_itoken = static_cast<int32_T>(b_itoken - 1);
-                                }
-
-                                tmp_0 = static_cast<int32_T>(aTmp_0->size[0] *
-                                    aTmp_0->size[1]);
-                                aTmp_0->size[0] = 1;
-                                numRead = static_cast<int32_T>(b_n - n);
-                                aTmp_0->size[1] = numRead;
-                                codegenReal2Mission_emxEnsureCapacity_char_T
-                                    (aTmp_0, tmp_0);
-                                for (b_c = 0; b_c <= static_cast<int32_T>
-                                        (numRead - 1); b_c++) {
-                                    aTmp_0->data[b_c] = aTmp->data
-                                        [static_cast<int32_T>(n + b_c)];
-                                }
-
-                                codegenReal2Mission_strtrim(aTmp_0, curKey);
-                                tmp_0 = static_cast<int32_T>(aTmp_0->size[0] *
-                                    aTmp_0->size[1]);
-                                aTmp_0->size[0] = 1;
-                                numRead = static_cast<int32_T>(b_itoken -
-                                    d_itoken);
-                                aTmp_0->size[1] = numRead;
-                                codegenReal2Mission_emxEnsureCapacity_char_T
-                                    (aTmp_0, tmp_0);
-                                for (b_c = 0; b_c <= static_cast<int32_T>
-                                        (numRead - 1); b_c++) {
-                                    aTmp_0->data[b_c] = aTmp->data
-                                        [static_cast<int32_T>
-                                        (static_cast<int32_T>(i + d_itoken) +
-                                         b_c)];
-                                }
-
-                                codegenReal2Mission_strtrim(aTmp_0, curVal);
-                            }
-                        }
-                    }
-                }
-
-                if (curSection->size[1] == 0) {
-                    aTmp->size[0] = 1;
-                    aTmp->size[1] = 0;
-                } else {
-                    tmp_0 = static_cast<int32_T>(aTmp->size[0] * aTmp->size[1]);
-                    aTmp->size[0] = 1;
-                    aTmp->size[1] = curSection->size[1];
-                    codegenReal2Mission_emxEnsureCapacity_char_T(aTmp, tmp_0);
-                    numRead = static_cast<int32_T>(curSection->size[1] - 1);
-                    for (b_c = 0; b_c <= numRead; b_c++) {
-                        aTmp->data[b_c] = curSection->data[b_c];
-                    }
-                }
-
-                b_bool = false;
-                if (aTmp->size[1] == 9) {
-                    i = 0;
-                    do {
-                        exitg2 = 0;
-                        if (i < 9) {
-                            if (v[static_cast<int32_T>(static_cast<int32_T>(
-                                    static_cast<uint8_T>(aTmp->data[i])) & 127)]
-                                != v[static_cast<int32_T>(w[i])]) {
-                                exitg2 = 1;
+                        if ((static_cast<boolean_T>(static_cast<int32_T>(
+                                static_cast<int32_T>(b_bool) ^ 1))) &&
+                                codegenReal2Mission_contains(curLine)) {
+                            codegenReal2Mission_strtok_ph(curLine, b_curKey,
+                                curVal);
+                            codegenReal2Mission_find_token(curVal, &itoken,
+                                &iremain);
+                            if (itoken > static_cast<int32_T>(iremain - 1)) {
+                                itoken = 0;
+                                iremain = 0;
                             } else {
-                                i = static_cast<int32_T>(i + 1);
+                                itoken = static_cast<int32_T>(itoken - 1);
+                                iremain = static_cast<int32_T>(iremain - 1);
                             }
-                        } else {
-                            b_bool = true;
-                            exitg2 = 1;
+
+                            codegenReal2Mission_strtrim(b_curKey, curKey);
+                            i = static_cast<int32_T>(curLine->size[0] *
+                                curLine->size[1]);
+                            curLine->size[0] = 1;
+                            loop_ub = static_cast<int32_T>(iremain - itoken);
+                            curLine->size[1] = loop_ub;
+                            codegenReal2Mission_emxEnsureCapacity_char_T(curLine,
+                                i);
+                            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1);
+                                    i++) {
+                                curLine->data[i] = curVal->data
+                                    [static_cast<int32_T>(itoken + i)];
+                            }
+
+                            codegenReal2Mission_strtrim(curLine, curVal);
                         }
-                    } while (exitg2 == 0);
+                    }
                 }
 
-                if (b_bool) {
-                    if (curKey->size[1] == 0) {
-                        aTmp->size[0] = 1;
-                        aTmp->size[1] = 0;
-                    } else {
-                        tmp_0 = static_cast<int32_T>(aTmp->size[0] * aTmp->size
-                            [1]);
-                        aTmp->size[0] = 1;
-                        aTmp->size[1] = curKey->size[1];
-                        codegenReal2Mission_emxEnsureCapacity_char_T(aTmp, tmp_0);
-                        numRead = static_cast<int32_T>(curKey->size[1] - 1);
-                        for (b_c = 0; b_c <= numRead; b_c++) {
-                            aTmp->data[b_c] = curKey->data[b_c];
-                        }
+                if (codegenReal2Mission_strcmp(curSection) &&
+                        codegenReal2Mission_strcmp_i(curKey)) {
+                    i = static_cast<int32_T>(ret->size[0] * ret->size[1]);
+                    ret->size[0] = 1;
+                    ret->size[1] = curVal->size[1];
+                    codegenReal2Mission_emxEnsureCapacity_char_T(ret, i);
+                    loop_ub = static_cast<int32_T>(curVal->size[1] - 1);
+                    for (i = 0; i <= loop_ub; i++) {
+                        ret->data[i] = curVal->data[i];
                     }
 
-                    b_bool = false;
-                    if (aTmp->size[1] == 3) {
-                        i = 0;
-                        do {
-                            exitg2 = 0;
-                            if (i < 3) {
-                                if (v[static_cast<int32_T>(static_cast<int32_T>(
-                                        static_cast<uint8_T>(aTmp->data[i])) &
-                                                           127)] != v[
-                                        static_cast<int32_T>(x[i])]) {
-                                    exitg2 = 1;
-                                } else {
-                                    i = static_cast<int32_T>(i + 1);
-                                }
-                            } else {
-                                b_bool = true;
-                                exitg2 = 1;
-                            }
-                        } while (exitg2 == 0);
-                    }
-
-                    if (b_bool) {
-                        tmp_0 = static_cast<int32_T>(ret->size[0] * ret->size[1]);
-                        ret->size[0] = 1;
-                        ret->size[1] = curVal->size[1];
-                        codegenReal2Mission_emxEnsureCapacity_char_T(ret, tmp_0);
-                        numRead = static_cast<int32_T>(curVal->size[1] - 1);
-                        for (b_c = 0; b_c <= numRead; b_c++) {
-                            ret->data[b_c] = curVal->data[b_c];
-                        }
-
-                        exitg1 = 1;
-                    }
+                    exitg1 = true;
                 }
-            } else {
-                exitg1 = 1;
             }
-        } while (exitg1 == 0);
 
-        // SystemInitialize for Atomic SubSystem: '<Root>/MissionLogic'
-        // Outputs for Atomic SubSystem: '<S1>/InitializeSimLocation'
-        // MATLAB Function: '<S6>/ReadHomeAlt'
+            codegenReal2Mission_emxFree_char_T(&data_6);
+            codegenReal2Mission_emxFree_char_T(&tmp_f);
+        }
+
         tmp = codegenReal2Mission_str2double(ret);
-        Alt = tmp.re;
+        printf("Set Home Point Latitude:\t%f\n", tmp.re);
+        fflush(stdout);
+        ret->size[0] = 1;
+        ret->size[1] = 0;
+        fileid = codegenReal2Mission_cfopen_g("config.ini", "rb",
+            eml_openfiles_g);
+        if (static_cast<int32_T>(fileid) < 0) {
+            printf("INI-file \"%s\" was not found or could not be read.\n",
+                   "config.ini");
+            fflush(stdout);
+        } else {
+            codegenReal2Mission_fread(static_cast<real_T>(fileid),
+                eml_openfiles_g, q);
+            i = static_cast<int32_T>(data->size[0] * data->size[1]);
+            data->size[0] = 1;
+            data->size[1] = q->size[0];
+            codegenReal2Mission_emxEnsureCapacity_char_T(data, i);
+            loop_ub = q->size[0];
+            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+                data->data[i] = q->data[i];
+            }
+
+            codegenReal2Mission_cfclose_e(static_cast<real_T>(fileid),
+                eml_openfiles_g);
+            curSection->size[0] = 1;
+            curSection->size[1] = 0;
+            curKey->size[0] = 1;
+            curKey->size[1] = 0;
+            curVal->size[0] = 1;
+            curVal->size[1] = 0;
+            codegenReal2Mission_emxInit_char_T(&tmp_e, 2);
+            codegenReal2Mission_emxInit_char_T(&data_5, 2);
+            exitg1 = false;
+            while ((!exitg1) && (data->size[1] != 0)) {
+                i = static_cast<int32_T>(data_5->size[0] * data_5->size[1]);
+                data_5->size[0] = 1;
+                data_5->size[1] = data->size[1];
+                codegenReal2Mission_emxEnsureCapacity_char_T(data_5, i);
+                loop_ub = static_cast<int32_T>(static_cast<int32_T>(data->size[0]
+                    * data->size[1]) - 1);
+                for (i = 0; i <= loop_ub; i++) {
+                    data_5->data[i] = data->data[i];
+                }
+
+                codegenReal2Mission_strtok(data_5, curLine, data);
+                codegenReal2Mission_strtok_p(curLine, tmp_e);
+                codegenReal2Mission_strtrim(tmp_e, curLine);
+                if (curLine->size[1] >= 2) {
+                    b_bool = false;
+                    if (curLine->data[0] == '[') {
+                        b_bool = true;
+                    }
+
+                    guard1 = false;
+                    if (b_bool) {
+                        b_bool = false;
+                        if (curLine->data[static_cast<int32_T>(curLine->size[1]
+                                - 1)] == ']') {
+                            b_bool = true;
+                        }
+
+                        if (b_bool) {
+                            if (static_cast<int32_T>(curLine->size[1] - 1) < 2)
+                            {
+                                iremain = 0;
+                                itoken = 0;
+                            } else {
+                                iremain = 1;
+                                itoken = static_cast<int32_T>(curLine->size[1] -
+                                    1);
+                            }
+
+                            i = static_cast<int32_T>(curSection->size[0] *
+                                curSection->size[1]);
+                            curSection->size[0] = 1;
+                            loop_ub = static_cast<int32_T>(itoken - iremain);
+                            curSection->size[1] = loop_ub;
+                            codegenReal2Mission_emxEnsureCapacity_char_T
+                                (curSection, i);
+                            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1);
+                                    i++) {
+                                curSection->data[i] = curLine->data
+                                    [static_cast<int32_T>(iremain + i)];
+                            }
+
+                            curKey->size[0] = 1;
+                            curKey->size[1] = 0;
+                        } else {
+                            guard1 = true;
+                        }
+                    } else {
+                        guard1 = true;
+                    }
+
+                    if (guard1) {
+                        if (curLine->data[0] == ';') {
+                            b_bool = true;
+                        }
+
+                        if ((static_cast<boolean_T>(static_cast<int32_T>(
+                                static_cast<int32_T>(b_bool) ^ 1))) &&
+                                codegenReal2Mission_contains(curLine)) {
+                            codegenReal2Mission_strtok_ph(curLine, b_curKey,
+                                curVal);
+                            codegenReal2Mission_find_token(curVal, &itoken,
+                                &iremain);
+                            if (itoken > static_cast<int32_T>(iremain - 1)) {
+                                itoken = 0;
+                                iremain = 0;
+                            } else {
+                                itoken = static_cast<int32_T>(itoken - 1);
+                                iremain = static_cast<int32_T>(iremain - 1);
+                            }
+
+                            codegenReal2Mission_strtrim(b_curKey, curKey);
+                            i = static_cast<int32_T>(curLine->size[0] *
+                                curLine->size[1]);
+                            curLine->size[0] = 1;
+                            loop_ub = static_cast<int32_T>(iremain - itoken);
+                            curLine->size[1] = loop_ub;
+                            codegenReal2Mission_emxEnsureCapacity_char_T(curLine,
+                                i);
+                            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1);
+                                    i++) {
+                                curLine->data[i] = curVal->data
+                                    [static_cast<int32_T>(itoken + i)];
+                            }
+
+                            codegenReal2Mission_strtrim(curLine, curVal);
+                        }
+                    }
+                }
+
+                if (codegenReal2Mission_strcmp(curSection) &&
+                        codegenReal2Mission_strcmp_i1(curKey)) {
+                    i = static_cast<int32_T>(ret->size[0] * ret->size[1]);
+                    ret->size[0] = 1;
+                    ret->size[1] = curVal->size[1];
+                    codegenReal2Mission_emxEnsureCapacity_char_T(ret, i);
+                    loop_ub = static_cast<int32_T>(curVal->size[1] - 1);
+                    for (i = 0; i <= loop_ub; i++) {
+                        ret->data[i] = curVal->data[i];
+                    }
+
+                    exitg1 = true;
+                }
+            }
+
+            codegenReal2Mission_emxFree_char_T(&data_5);
+            codegenReal2Mission_emxFree_char_T(&tmp_e);
+        }
+
+        tmp_0 = codegenReal2Mission_str2double(ret);
+        printf("Set Home Point Longitude:\t%f\n", tmp_0.re);
+        fflush(stdout);
+        ret->size[0] = 1;
+        ret->size[1] = 0;
+        fileid = codegenReal2Mission_cfopen_g("config.ini", "rb",
+            eml_openfiles_g);
+        if (static_cast<int32_T>(fileid) < 0) {
+            printf("INI-file \"%s\" was not found or could not be read.\n",
+                   "config.ini");
+            fflush(stdout);
+        } else {
+            codegenReal2Mission_fread(static_cast<real_T>(fileid),
+                eml_openfiles_g, q);
+            i = static_cast<int32_T>(data->size[0] * data->size[1]);
+            data->size[0] = 1;
+            data->size[1] = q->size[0];
+            codegenReal2Mission_emxEnsureCapacity_char_T(data, i);
+            loop_ub = q->size[0];
+            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+                data->data[i] = q->data[i];
+            }
+
+            codegenReal2Mission_cfclose_e(static_cast<real_T>(fileid),
+                eml_openfiles_g);
+            curSection->size[0] = 1;
+            curSection->size[1] = 0;
+            curKey->size[0] = 1;
+            curKey->size[1] = 0;
+            curVal->size[0] = 1;
+            curVal->size[1] = 0;
+            codegenReal2Mission_emxInit_char_T(&tmp_d, 2);
+            codegenReal2Mission_emxInit_char_T(&data_4, 2);
+            exitg1 = false;
+            while ((!exitg1) && (data->size[1] != 0)) {
+                i = static_cast<int32_T>(data_4->size[0] * data_4->size[1]);
+                data_4->size[0] = 1;
+                data_4->size[1] = data->size[1];
+                codegenReal2Mission_emxEnsureCapacity_char_T(data_4, i);
+                loop_ub = static_cast<int32_T>(static_cast<int32_T>(data->size[0]
+                    * data->size[1]) - 1);
+                for (i = 0; i <= loop_ub; i++) {
+                    data_4->data[i] = data->data[i];
+                }
+
+                codegenReal2Mission_strtok(data_4, curLine, data);
+                codegenReal2Mission_strtok_p(curLine, tmp_d);
+                codegenReal2Mission_strtrim(tmp_d, curLine);
+                if (curLine->size[1] >= 2) {
+                    b_bool = false;
+                    if (curLine->data[0] == '[') {
+                        b_bool = true;
+                    }
+
+                    guard1 = false;
+                    if (b_bool) {
+                        b_bool = false;
+                        if (curLine->data[static_cast<int32_T>(curLine->size[1]
+                                - 1)] == ']') {
+                            b_bool = true;
+                        }
+
+                        if (b_bool) {
+                            if (static_cast<int32_T>(curLine->size[1] - 1) < 2)
+                            {
+                                iremain = 0;
+                                itoken = 0;
+                            } else {
+                                iremain = 1;
+                                itoken = static_cast<int32_T>(curLine->size[1] -
+                                    1);
+                            }
+
+                            i = static_cast<int32_T>(curSection->size[0] *
+                                curSection->size[1]);
+                            curSection->size[0] = 1;
+                            loop_ub = static_cast<int32_T>(itoken - iremain);
+                            curSection->size[1] = loop_ub;
+                            codegenReal2Mission_emxEnsureCapacity_char_T
+                                (curSection, i);
+                            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1);
+                                    i++) {
+                                curSection->data[i] = curLine->data
+                                    [static_cast<int32_T>(iremain + i)];
+                            }
+
+                            curKey->size[0] = 1;
+                            curKey->size[1] = 0;
+                        } else {
+                            guard1 = true;
+                        }
+                    } else {
+                        guard1 = true;
+                    }
+
+                    if (guard1) {
+                        if (curLine->data[0] == ';') {
+                            b_bool = true;
+                        }
+
+                        if ((static_cast<boolean_T>(static_cast<int32_T>(
+                                static_cast<int32_T>(b_bool) ^ 1))) &&
+                                codegenReal2Mission_contains(curLine)) {
+                            codegenReal2Mission_strtok_ph(curLine, b_curKey,
+                                curVal);
+                            codegenReal2Mission_find_token(curVal, &itoken,
+                                &iremain);
+                            if (itoken > static_cast<int32_T>(iremain - 1)) {
+                                itoken = 0;
+                                iremain = 0;
+                            } else {
+                                itoken = static_cast<int32_T>(itoken - 1);
+                                iremain = static_cast<int32_T>(iremain - 1);
+                            }
+
+                            codegenReal2Mission_strtrim(b_curKey, curKey);
+                            i = static_cast<int32_T>(curLine->size[0] *
+                                curLine->size[1]);
+                            curLine->size[0] = 1;
+                            loop_ub = static_cast<int32_T>(iremain - itoken);
+                            curLine->size[1] = loop_ub;
+                            codegenReal2Mission_emxEnsureCapacity_char_T(curLine,
+                                i);
+                            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1);
+                                    i++) {
+                                curLine->data[i] = curVal->data
+                                    [static_cast<int32_T>(itoken + i)];
+                            }
+
+                            codegenReal2Mission_strtrim(curLine, curVal);
+                        }
+                    }
+                }
+
+                if (codegenReal2Mission_strcmp(curSection) &&
+                        codegenReal2Mission_strcmp_i15(curKey)) {
+                    i = static_cast<int32_T>(ret->size[0] * ret->size[1]);
+                    ret->size[0] = 1;
+                    ret->size[1] = curVal->size[1];
+                    codegenReal2Mission_emxEnsureCapacity_char_T(ret, i);
+                    loop_ub = static_cast<int32_T>(curVal->size[1] - 1);
+                    for (i = 0; i <= loop_ub; i++) {
+                        ret->data[i] = curVal->data[i];
+                    }
+
+                    exitg1 = true;
+                }
+            }
+
+            codegenReal2Mission_emxFree_char_T(&data_4);
+            codegenReal2Mission_emxFree_char_T(&tmp_d);
+        }
+
+        tmp_1 = codegenReal2Mission_str2double(ret);
+        printf("Set Home Point Altitude:\t%f\n", tmp_1.re);
+        fflush(stdout);
+        LLA0_idx_0 = tmp.re;
+        LLA0_idx_1 = tmp_0.re;
+        LLA0_idx_2 = tmp_1.re;
+        b_x[0] = std::isnan(tmp.re);
+        b_x[1] = std::isnan(tmp_0.re);
+        b_x[2] = std::isnan(tmp_1.re);
+        b_bool = false;
+        iremain = 0;
+        exitg1 = false;
+        while ((!exitg1) && (iremain < 3)) {
+            if (b_x[iremain]) {
+                b_bool = true;
+                exitg1 = true;
+            } else {
+                iremain = static_cast<int32_T>(iremain + 1);
+            }
+        }
+
+        if (b_bool) {
+            // '<S28>:1:5'
+            // '<S28>:1:6'
+            LLA0_idx_0 = 39.9042;
+            LLA0_idx_1 = 116.4074;
+            LLA0_idx_2 = 0.0;
+        }
 
         // DataStoreWrite: '<S6>/DSAltitudeGCS'
         rtw_pthread_mutex_lock(AltitudeGCS_m0);
-        AltitudeGCS = Alt;
+        AltitudeGCS = LLA0_idx_2;
         rtw_pthread_mutex_unlock(AltitudeGCS_m0);
-
-        // MATLAB Function: '<S6>/ReadHomeLat'
-        // MATLAB Function 'MissionLogic/InitializeSimLocation/ReadHomeLat': '<S29>:1' 
-        // '<S29>:1:3'
-        ret->size[0] = 1;
-        ret->size[1] = 0;
-        fileid = codegenReal2Mission_cfopen_j("config.ini", "rb");
-        nBytes = sizeof(char_T);
-        if (static_cast<int32_T>(fileid) >= 3) {
-            a = codegenReal2Mission_DW.eml_openfiles_c[static_cast<int32_T>(
-                static_cast<int32_T>(fileid) - 3)];
-        } else {
-            switch (static_cast<int32_T>(fileid)) {
-              case 0:
-                a = stdin;
-                break;
-
-              case 1:
-                a = stdout;
-                break;
-
-              case 2:
-                a = stderr;
-                break;
-
-              default:
-                a = NULL;
-                break;
-            }
-        }
-
-        if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(
-                static_cast<boolean_T>(static_cast<int32_T>((static_cast<int32_T>
-                  (fileid) == 0) | (static_cast<int32_T>(fileid) == 1)))) | (
-                static_cast<int32_T>(fileid) == 2)))) {
-            a = NULL;
-        }
-
-        At->size[0] = 0;
-        if (static_cast<boolean_T>(static_cast<int32_T>((a == NULL) ^ 1))) {
-            i = 1;
-            while (i > 0) {
-                i = 0;
-                numRead = 1;
-                while (static_cast<boolean_T>(static_cast<int32_T>((i < 1024) &
-                         (numRead > 0)))) {
-                    numReadSizeT = fread(&tbuf[i], nBytes, (size_t)(1024 - i), a);
-                    numRead = (int32_T)numReadSizeT;
-                    i = static_cast<int32_T>(i + (int32_T)numReadSizeT);
-                }
-
-                n = At->size[0];
-                if (i < 1) {
-                    b_c = -1;
-                    numRead = -1;
-                } else {
-                    b_c = static_cast<int32_T>(i - 1);
-                    numRead = static_cast<int32_T>(i - 1);
-                }
-
-                tmp_0 = At->size[0];
-                At->size[0] = static_cast<int32_T>(static_cast<int32_T>(b_c +
-                    At->size[0]) + 1);
-                codegenReal2Mission_emxEnsureCapacity_char_T(At, tmp_0);
-                for (b_c = 0; b_c <= numRead; b_c++) {
-                    At->data[static_cast<int32_T>(n + b_c)] = tbuf[b_c];
-                }
-            }
-        }
-
-        tmp_0 = static_cast<int32_T>(data->size[0] * data->size[1]);
-        data->size[0] = 1;
-        data->size[1] = At->size[0];
-        codegenReal2Mission_emxEnsureCapacity_char_T(data, tmp_0);
-        numRead = At->size[0];
-        for (b_c = 0; b_c <= static_cast<int32_T>(numRead - 1); b_c++) {
-            data->data[b_c] = At->data[b_c];
-        }
-
-        codegenReal2Mission_cfclose_m(static_cast<real_T>(fileid));
-        curSection->size[0] = 1;
-        curSection->size[1] = 0;
-        curKey->size[0] = 1;
-        curKey->size[1] = 0;
-        curVal->size[0] = 1;
-        curVal->size[1] = 0;
-        do {
-            exitg1 = 0;
-            if (data->size[1] != 0) {
-                tmp_0 = static_cast<int32_T>(aTmp->size[0] * aTmp->size[1]);
-                aTmp->size[0] = 1;
-                aTmp->size[1] = data->size[1];
-                codegenReal2Mission_emxEnsureCapacity_char_T(aTmp, tmp_0);
-                numRead = static_cast<int32_T>(data->size[1] - 1);
-                for (b_c = 0; b_c <= numRead; b_c++) {
-                    aTmp->data[b_c] = data->data[b_c];
-                }
-
-                n = data->size[1];
-                numRead = 0;
-                while ((static_cast<int32_T>(numRead + 1) <= n) && (data->
-                        data[numRead] == '\x0a')) {
-                    numRead = static_cast<int32_T>(numRead + 1);
-                }
-
-                i = static_cast<int32_T>(numRead + 1);
-                while ((static_cast<int32_T>(numRead + 1) <= n) && (data->
-                        data[numRead] != '\x0a')) {
-                    numRead = static_cast<int32_T>(numRead + 1);
-                }
-
-                if (static_cast<int32_T>(numRead + 1) > data->size[1]) {
-                    n = 0;
-                    b_n = 0;
-                } else {
-                    n = numRead;
-                    b_n = data->size[1];
-                }
-
-                b_n = static_cast<int32_T>(b_n - n);
-                for (b_c = 0; b_c <= static_cast<int32_T>(b_n - 1); b_c++) {
-                    data->data[b_c] = data->data[static_cast<int32_T>(n + b_c)];
-                }
-
-                tmp_0 = static_cast<int32_T>(data->size[0] * data->size[1]);
-                data->size[0] = 1;
-                data->size[1] = b_n;
-                codegenReal2Mission_emxEnsureCapacity_char_T(data, tmp_0);
-                if (i > numRead) {
-                    i = 0;
-                    numRead = 0;
-                } else {
-                    i = static_cast<int32_T>(i - 1);
-                }
-
-                b_n = static_cast<int32_T>(numRead - i);
-                n = 1;
-                while ((n <= b_n) && (aTmp->data[static_cast<int32_T>(
-                         static_cast<int32_T>(i + n) - 1)] == ';')) {
-                    n = static_cast<int32_T>(n + 1);
-                }
-
-                b_itoken = n;
-                while ((n <= b_n) && (aTmp->data[static_cast<int32_T>(
-                         static_cast<int32_T>(i + n) - 1)] != ';')) {
-                    n = static_cast<int32_T>(n + 1);
-                }
-
-                if (b_itoken > static_cast<int32_T>(n - 1)) {
-                    b_n = 0;
-                    n = 0;
-                } else {
-                    b_n = static_cast<int32_T>(b_itoken - 1);
-                    n = static_cast<int32_T>(n - 1);
-                }
-
-                tmp_0 = static_cast<int32_T>(aTmp_0->size[0] * aTmp_0->size[1]);
-                aTmp_0->size[0] = 1;
-                numRead = static_cast<int32_T>(n - b_n);
-                aTmp_0->size[1] = numRead;
-                codegenReal2Mission_emxEnsureCapacity_char_T(aTmp_0, tmp_0);
-                for (b_c = 0; b_c <= static_cast<int32_T>(numRead - 1); b_c++) {
-                    aTmp_0->data[b_c] = aTmp->data[static_cast<int32_T>(
-                        static_cast<int32_T>(i + b_n) + b_c)];
-                }
-
-                codegenReal2Mission_strtrim(aTmp_0, aTmp);
-                if (aTmp->size[1] >= 2) {
-                    b_bool = false;
-                    if (aTmp->data[0] == '[') {
-                        b_bool = true;
-                    }
-
-                    guard1 = false;
-                    if (b_bool) {
-                        b_bool = false;
-                        if (aTmp->data[static_cast<int32_T>(aTmp->size[1] - 1)] ==
-                            ']') {
-                            b_bool = true;
-                        }
-
-                        if (b_bool) {
-                            if (static_cast<int32_T>(aTmp->size[1] - 1) < 2) {
-                                i = 0;
-                                numRead = 0;
-                            } else {
-                                i = 1;
-                                numRead = static_cast<int32_T>(aTmp->size[1] - 1);
-                            }
-
-                            tmp_0 = static_cast<int32_T>(curSection->size[0] *
-                                curSection->size[1]);
-                            curSection->size[0] = 1;
-                            numRead = static_cast<int32_T>(numRead - i);
-                            curSection->size[1] = numRead;
-                            codegenReal2Mission_emxEnsureCapacity_char_T
-                                (curSection, tmp_0);
-                            for (b_c = 0; b_c <= static_cast<int32_T>(numRead -
-                                    1); b_c++) {
-                                curSection->data[b_c] = aTmp->data
-                                    [static_cast<int32_T>(i + b_c)];
-                            }
-
-                            curKey->size[0] = 1;
-                            curKey->size[1] = 0;
-                        } else {
-                            guard1 = true;
-                        }
-                    } else {
-                        guard1 = true;
-                    }
-
-                    if (guard1) {
-                        if (aTmp->data[0] == ';') {
-                            b_bool = true;
-                        }
-
-                        if (static_cast<boolean_T>(static_cast<int32_T>(
-                                static_cast<int32_T>(b_bool) ^ 1))) {
-                            i = 0;
-                            do {
-                                exitg2 = 0;
-                                if (i <= static_cast<int32_T>(aTmp->size[1] - 1))
-                                {
-                                    if (aTmp->data[i] == '=') {
-                                        exitg2 = 1;
-                                    } else {
-                                        i = static_cast<int32_T>(i + 1);
-                                    }
-                                } else {
-                                    i = -1;
-                                    exitg2 = 1;
-                                }
-                            } while (exitg2 == 0);
-
-                            if (static_cast<int32_T>(i + 1) > 0) {
-                                codegenReal2Mission_find_token(aTmp, &n, &b_n);
-                                if (b_n > aTmp->size[1]) {
-                                    i = 0;
-                                    numRead = 0;
-                                } else {
-                                    i = static_cast<int32_T>(b_n - 1);
-                                    numRead = aTmp->size[1];
-                                }
-
-                                if (n > static_cast<int32_T>(b_n - 1)) {
-                                    n = 0;
-                                    b_n = 0;
-                                } else {
-                                    n = static_cast<int32_T>(n - 1);
-                                    b_n = static_cast<int32_T>(b_n - 1);
-                                }
-
-                                tmp_0 = static_cast<int32_T>(aTmp_0->size[0] *
-                                    aTmp_0->size[1]);
-                                aTmp_0->size[0] = 1;
-                                numRead = static_cast<int32_T>(numRead - i);
-                                aTmp_0->size[1] = numRead;
-                                codegenReal2Mission_emxEnsureCapacity_char_T
-                                    (aTmp_0, tmp_0);
-                                for (b_c = 0; b_c <= static_cast<int32_T>
-                                        (numRead - 1); b_c++) {
-                                    aTmp_0->data[b_c] = aTmp->data
-                                        [static_cast<int32_T>(i + b_c)];
-                                }
-
-                                codegenReal2Mission_find_token(aTmp_0, &d_itoken,
-                                    &b_itoken);
-                                if (d_itoken > static_cast<int32_T>(b_itoken - 1))
-                                {
-                                    d_itoken = 0;
-                                    b_itoken = 0;
-                                } else {
-                                    d_itoken = static_cast<int32_T>(d_itoken - 1);
-                                    b_itoken = static_cast<int32_T>(b_itoken - 1);
-                                }
-
-                                tmp_0 = static_cast<int32_T>(aTmp_0->size[0] *
-                                    aTmp_0->size[1]);
-                                aTmp_0->size[0] = 1;
-                                numRead = static_cast<int32_T>(b_n - n);
-                                aTmp_0->size[1] = numRead;
-                                codegenReal2Mission_emxEnsureCapacity_char_T
-                                    (aTmp_0, tmp_0);
-                                for (b_c = 0; b_c <= static_cast<int32_T>
-                                        (numRead - 1); b_c++) {
-                                    aTmp_0->data[b_c] = aTmp->data
-                                        [static_cast<int32_T>(n + b_c)];
-                                }
-
-                                codegenReal2Mission_strtrim(aTmp_0, curKey);
-                                tmp_0 = static_cast<int32_T>(aTmp_0->size[0] *
-                                    aTmp_0->size[1]);
-                                aTmp_0->size[0] = 1;
-                                numRead = static_cast<int32_T>(b_itoken -
-                                    d_itoken);
-                                aTmp_0->size[1] = numRead;
-                                codegenReal2Mission_emxEnsureCapacity_char_T
-                                    (aTmp_0, tmp_0);
-                                for (b_c = 0; b_c <= static_cast<int32_T>
-                                        (numRead - 1); b_c++) {
-                                    aTmp_0->data[b_c] = aTmp->data
-                                        [static_cast<int32_T>
-                                        (static_cast<int32_T>(i + d_itoken) +
-                                         b_c)];
-                                }
-
-                                codegenReal2Mission_strtrim(aTmp_0, curVal);
-                            }
-                        }
-                    }
-                }
-
-                if (curSection->size[1] == 0) {
-                    aTmp->size[0] = 1;
-                    aTmp->size[1] = 0;
-                } else {
-                    tmp_0 = static_cast<int32_T>(aTmp->size[0] * aTmp->size[1]);
-                    aTmp->size[0] = 1;
-                    aTmp->size[1] = curSection->size[1];
-                    codegenReal2Mission_emxEnsureCapacity_char_T(aTmp, tmp_0);
-                    numRead = static_cast<int32_T>(curSection->size[1] - 1);
-                    for (b_c = 0; b_c <= numRead; b_c++) {
-                        aTmp->data[b_c] = curSection->data[b_c];
-                    }
-                }
-
-                b_bool = false;
-                if (aTmp->size[1] == 9) {
-                    i = 0;
-                    do {
-                        exitg2 = 0;
-                        if (i < 9) {
-                            if (v[static_cast<int32_T>(static_cast<int32_T>(
-                                    static_cast<uint8_T>(aTmp->data[i])) & 127)]
-                                != v[static_cast<int32_T>(w[i])]) {
-                                exitg2 = 1;
-                            } else {
-                                i = static_cast<int32_T>(i + 1);
-                            }
-                        } else {
-                            b_bool = true;
-                            exitg2 = 1;
-                        }
-                    } while (exitg2 == 0);
-                }
-
-                if (b_bool) {
-                    if (curKey->size[1] == 0) {
-                        aTmp->size[0] = 1;
-                        aTmp->size[1] = 0;
-                    } else {
-                        tmp_0 = static_cast<int32_T>(aTmp->size[0] * aTmp->size
-                            [1]);
-                        aTmp->size[0] = 1;
-                        aTmp->size[1] = curKey->size[1];
-                        codegenReal2Mission_emxEnsureCapacity_char_T(aTmp, tmp_0);
-                        numRead = static_cast<int32_T>(curKey->size[1] - 1);
-                        for (b_c = 0; b_c <= numRead; b_c++) {
-                            aTmp->data[b_c] = curKey->data[b_c];
-                        }
-                    }
-
-                    b_bool = false;
-                    if (aTmp->size[1] == 3) {
-                        i = 0;
-                        do {
-                            exitg2 = 0;
-                            if (i < 3) {
-                                if (v[static_cast<int32_T>(static_cast<int32_T>(
-                                        static_cast<uint8_T>(aTmp->data[i])) &
-                                                           127)] != v[
-                                        static_cast<int32_T>(x_0[i])]) {
-                                    exitg2 = 1;
-                                } else {
-                                    i = static_cast<int32_T>(i + 1);
-                                }
-                            } else {
-                                b_bool = true;
-                                exitg2 = 1;
-                            }
-                        } while (exitg2 == 0);
-                    }
-
-                    if (b_bool) {
-                        tmp_0 = static_cast<int32_T>(ret->size[0] * ret->size[1]);
-                        ret->size[0] = 1;
-                        ret->size[1] = curVal->size[1];
-                        codegenReal2Mission_emxEnsureCapacity_char_T(ret, tmp_0);
-                        numRead = static_cast<int32_T>(curVal->size[1] - 1);
-                        for (b_c = 0; b_c <= numRead; b_c++) {
-                            ret->data[b_c] = curVal->data[b_c];
-                        }
-
-                        exitg1 = 1;
-                    }
-                }
-            } else {
-                exitg1 = 1;
-            }
-        } while (exitg1 == 0);
-
-        tmp = codegenReal2Mission_str2double(ret);
-        Alt = tmp.re;
-
-        // End of MATLAB Function: '<S6>/ReadHomeLat'
 
         // DataStoreWrite: '<S6>/DSLatitudeGCS'
         rtw_pthread_mutex_lock(LatitudeGCS_m0);
-        LatitudeGCS = Alt;
+        LatitudeGCS = LLA0_idx_0;
         rtw_pthread_mutex_unlock(LatitudeGCS_m0);
 
-        // MATLAB Function: '<S6>/ReadHomeLon'
-        // MATLAB Function 'MissionLogic/InitializeSimLocation/ReadHomeLon': '<S30>:1' 
-        // '<S30>:1:3'
+        // DataStoreWrite: '<S6>/DSLongitudeGCS'
+        rtw_pthread_mutex_lock(LongitudeGCS_m0);
+        LongitudeGCS = LLA0_idx_1;
+        rtw_pthread_mutex_unlock(LongitudeGCS_m0);
+
+        // MATLAB Function: '<S6>/ReadParADRC'
+        // MATLAB Function 'MissionLogic/InitializeSimLocation/ReadParADRC': '<S29>:1' 
+        // '<S29>:1:3'
         ret->size[0] = 1;
         ret->size[1] = 0;
-        fileid = codegenReal2Mission_cfopen_h("config.ini", "rb");
-        nBytes = sizeof(char_T);
-        if (static_cast<int32_T>(fileid) >= 3) {
-            a = codegenReal2Mission_DW.eml_openfiles_p[static_cast<int32_T>(
-                static_cast<int32_T>(fileid) - 3)];
+        LLA0_idx_0 = codegenReal2Mission_fileManager_p();
+        if (LLA0_idx_0 < 0.0) {
+            printf("INI-file \"%s\" was not found or could not be read.\n",
+                   "config.ini");
+            fflush(stdout);
         } else {
-            switch (static_cast<int32_T>(fileid)) {
-              case 0:
-                a = stdin;
-                break;
-
-              case 1:
-                a = stdout;
-                break;
-
-              case 2:
-                a = stderr;
-                break;
-
-              default:
-                a = NULL;
-                break;
+            codegenReal2Mission_fread_n(LLA0_idx_0, q);
+            i = static_cast<int32_T>(data->size[0] * data->size[1]);
+            data->size[0] = 1;
+            data->size[1] = q->size[0];
+            codegenReal2Mission_emxEnsureCapacity_char_T(data, i);
+            loop_ub = q->size[0];
+            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+                data->data[i] = q->data[i];
             }
-        }
 
-        if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(
-                static_cast<boolean_T>(static_cast<int32_T>((static_cast<int32_T>
-                  (fileid) == 0) | (static_cast<int32_T>(fileid) == 1)))) | (
-                static_cast<int32_T>(fileid) == 2)))) {
-            a = NULL;
-        }
-
-        At->size[0] = 0;
-        if (static_cast<boolean_T>(static_cast<int32_T>((a == NULL) ^ 1))) {
-            i = 1;
-            while (i > 0) {
-                i = 0;
-                numRead = 1;
-                while (static_cast<boolean_T>(static_cast<int32_T>((i < 1024) &
-                         (numRead > 0)))) {
-                    numReadSizeT = fread(&tbuf[i], nBytes, (size_t)(1024 - i), a);
-                    numRead = (int32_T)numReadSizeT;
-                    i = static_cast<int32_T>(i + (int32_T)numReadSizeT);
+            codegenReal2Mission_cfclose_g(LLA0_idx_0);
+            curSection->size[0] = 1;
+            curSection->size[1] = 0;
+            curKey->size[0] = 1;
+            curKey->size[1] = 0;
+            curVal->size[0] = 1;
+            curVal->size[1] = 0;
+            codegenReal2Mission_emxInit_char_T(&tmp_b, 2);
+            codegenReal2Mission_emxInit_char_T(&tmp_c, 2);
+            codegenReal2Mission_emxInit_char_T(&data_3, 2);
+            exitg1 = false;
+            while ((!exitg1) && (data->size[1] != 0)) {
+                i = static_cast<int32_T>(data_3->size[0] * data_3->size[1]);
+                data_3->size[0] = 1;
+                data_3->size[1] = data->size[1];
+                codegenReal2Mission_emxEnsureCapacity_char_T(data_3, i);
+                loop_ub = static_cast<int32_T>(static_cast<int32_T>(data->size[0]
+                    * data->size[1]) - 1);
+                for (i = 0; i <= loop_ub; i++) {
+                    data_3->data[i] = data->data[i];
                 }
 
-                n = At->size[0];
-                if (i < 1) {
-                    b_c = -1;
-                    numRead = -1;
-                } else {
-                    b_c = static_cast<int32_T>(i - 1);
-                    numRead = static_cast<int32_T>(i - 1);
-                }
-
-                tmp_0 = At->size[0];
-                At->size[0] = static_cast<int32_T>(static_cast<int32_T>(b_c +
-                    At->size[0]) + 1);
-                codegenReal2Mission_emxEnsureCapacity_char_T(At, tmp_0);
-                for (b_c = 0; b_c <= numRead; b_c++) {
-                    At->data[static_cast<int32_T>(n + b_c)] = tbuf[b_c];
-                }
-            }
-        }
-
-        tmp_0 = static_cast<int32_T>(data->size[0] * data->size[1]);
-        data->size[0] = 1;
-        data->size[1] = At->size[0];
-        codegenReal2Mission_emxEnsureCapacity_char_T(data, tmp_0);
-        numRead = At->size[0];
-        for (b_c = 0; b_c <= static_cast<int32_T>(numRead - 1); b_c++) {
-            data->data[b_c] = At->data[b_c];
-        }
-
-        // End of Outputs for SubSystem: '<S1>/InitializeSimLocation'
-        // End of SystemInitialize for SubSystem: '<Root>/MissionLogic'
-        codegenReal2Mission_emxFree_char_T(&At);
-
-        // SystemInitialize for Atomic SubSystem: '<Root>/MissionLogic'
-        // Outputs for Atomic SubSystem: '<S1>/InitializeSimLocation'
-        // MATLAB Function: '<S6>/ReadHomeLon'
-        codegenReal2Mission_cfclose_b(static_cast<real_T>(fileid));
-        curSection->size[0] = 1;
-        curSection->size[1] = 0;
-        curKey->size[0] = 1;
-        curKey->size[1] = 0;
-        curVal->size[0] = 1;
-        curVal->size[1] = 0;
-        do {
-            exitg1 = 0;
-            if (data->size[1] != 0) {
-                tmp_0 = static_cast<int32_T>(aTmp->size[0] * aTmp->size[1]);
-                aTmp->size[0] = 1;
-                aTmp->size[1] = data->size[1];
-                codegenReal2Mission_emxEnsureCapacity_char_T(aTmp, tmp_0);
-                numRead = static_cast<int32_T>(data->size[1] - 1);
-                for (b_c = 0; b_c <= numRead; b_c++) {
-                    aTmp->data[b_c] = data->data[b_c];
-                }
-
-                n = data->size[1];
-                numRead = 0;
-                while ((static_cast<int32_T>(numRead + 1) <= n) && (data->
-                        data[numRead] == '\x0a')) {
-                    numRead = static_cast<int32_T>(numRead + 1);
-                }
-
-                i = static_cast<int32_T>(numRead + 1);
-                while ((static_cast<int32_T>(numRead + 1) <= n) && (data->
-                        data[numRead] != '\x0a')) {
-                    numRead = static_cast<int32_T>(numRead + 1);
-                }
-
-                if (static_cast<int32_T>(numRead + 1) > data->size[1]) {
-                    n = 0;
-                    b_n = 0;
-                } else {
-                    n = numRead;
-                    b_n = data->size[1];
-                }
-
-                b_n = static_cast<int32_T>(b_n - n);
-                for (b_c = 0; b_c <= static_cast<int32_T>(b_n - 1); b_c++) {
-                    data->data[b_c] = data->data[static_cast<int32_T>(n + b_c)];
-                }
-
-                tmp_0 = static_cast<int32_T>(data->size[0] * data->size[1]);
-                data->size[0] = 1;
-                data->size[1] = b_n;
-                codegenReal2Mission_emxEnsureCapacity_char_T(data, tmp_0);
-                if (i > numRead) {
-                    i = 0;
-                    numRead = 0;
-                } else {
-                    i = static_cast<int32_T>(i - 1);
-                }
-
-                b_n = static_cast<int32_T>(numRead - i);
-                n = 1;
-                while ((n <= b_n) && (aTmp->data[static_cast<int32_T>(
-                         static_cast<int32_T>(i + n) - 1)] == ';')) {
-                    n = static_cast<int32_T>(n + 1);
-                }
-
-                b_itoken = n;
-                while ((n <= b_n) && (aTmp->data[static_cast<int32_T>(
-                         static_cast<int32_T>(i + n) - 1)] != ';')) {
-                    n = static_cast<int32_T>(n + 1);
-                }
-
-                if (b_itoken > static_cast<int32_T>(n - 1)) {
-                    b_n = 0;
-                    n = 0;
-                } else {
-                    b_n = static_cast<int32_T>(b_itoken - 1);
-                    n = static_cast<int32_T>(n - 1);
-                }
-
-                tmp_0 = static_cast<int32_T>(aTmp_0->size[0] * aTmp_0->size[1]);
-                aTmp_0->size[0] = 1;
-                numRead = static_cast<int32_T>(n - b_n);
-                aTmp_0->size[1] = numRead;
-                codegenReal2Mission_emxEnsureCapacity_char_T(aTmp_0, tmp_0);
-                for (b_c = 0; b_c <= static_cast<int32_T>(numRead - 1); b_c++) {
-                    aTmp_0->data[b_c] = aTmp->data[static_cast<int32_T>(
-                        static_cast<int32_T>(i + b_n) + b_c)];
-                }
-
-                codegenReal2Mission_strtrim(aTmp_0, aTmp);
-                if (aTmp->size[1] >= 2) {
+                codegenReal2Mission_strtok(data_3, curLine, data);
+                codegenReal2Mission_strtok_p(curLine, tmp_c);
+                codegenReal2Mission_strtrim(tmp_c, curLine);
+                if (curLine->size[1] >= 2) {
                     b_bool = false;
-                    if (aTmp->data[0] == '[') {
+                    if (curLine->data[0] == '[') {
                         b_bool = true;
                     }
 
                     guard1 = false;
                     if (b_bool) {
                         b_bool = false;
-                        if (aTmp->data[static_cast<int32_T>(aTmp->size[1] - 1)] ==
-                            ']') {
+                        if (curLine->data[static_cast<int32_T>(curLine->size[1]
+                                - 1)] == ']') {
                             b_bool = true;
                         }
 
                         if (b_bool) {
-                            if (static_cast<int32_T>(aTmp->size[1] - 1) < 2) {
-                                i = 0;
-                                numRead = 0;
+                            if (static_cast<int32_T>(curLine->size[1] - 1) < 2)
+                            {
+                                iremain = 0;
+                                itoken = 0;
                             } else {
-                                i = 1;
-                                numRead = static_cast<int32_T>(aTmp->size[1] - 1);
+                                iremain = 1;
+                                itoken = static_cast<int32_T>(curLine->size[1] -
+                                    1);
                             }
 
-                            tmp_0 = static_cast<int32_T>(curSection->size[0] *
+                            i = static_cast<int32_T>(curSection->size[0] *
                                 curSection->size[1]);
                             curSection->size[0] = 1;
-                            numRead = static_cast<int32_T>(numRead - i);
-                            curSection->size[1] = numRead;
+                            loop_ub = static_cast<int32_T>(itoken - iremain);
+                            curSection->size[1] = loop_ub;
                             codegenReal2Mission_emxEnsureCapacity_char_T
-                                (curSection, tmp_0);
-                            for (b_c = 0; b_c <= static_cast<int32_T>(numRead -
-                                    1); b_c++) {
-                                curSection->data[b_c] = aTmp->data
-                                    [static_cast<int32_T>(i + b_c)];
+                                (curSection, i);
+                            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1);
+                                    i++) {
+                                curSection->data[i] = curLine->data
+                                    [static_cast<int32_T>(iremain + i)];
                             }
 
                             curKey->size[0] = 1;
@@ -6865,223 +7969,509 @@ void codegenReal2MissionModelClass::initialize()
                     }
 
                     if (guard1) {
-                        if (aTmp->data[0] == ';') {
+                        if (curLine->data[0] == ';') {
                             b_bool = true;
                         }
 
-                        if (static_cast<boolean_T>(static_cast<int32_T>(
-                                static_cast<int32_T>(b_bool) ^ 1))) {
-                            i = 0;
-                            do {
-                                exitg2 = 0;
-                                if (i <= static_cast<int32_T>(aTmp->size[1] - 1))
-                                {
-                                    if (aTmp->data[i] == '=') {
-                                        exitg2 = 1;
-                                    } else {
-                                        i = static_cast<int32_T>(i + 1);
-                                    }
-                                } else {
-                                    i = -1;
-                                    exitg2 = 1;
-                                }
-                            } while (exitg2 == 0);
-
-                            if (static_cast<int32_T>(i + 1) > 0) {
-                                codegenReal2Mission_find_token(aTmp, &n, &b_n);
-                                if (b_n > aTmp->size[1]) {
-                                    i = 0;
-                                    numRead = 0;
-                                } else {
-                                    i = static_cast<int32_T>(b_n - 1);
-                                    numRead = aTmp->size[1];
-                                }
-
-                                if (n > static_cast<int32_T>(b_n - 1)) {
-                                    n = 0;
-                                    b_n = 0;
-                                } else {
-                                    n = static_cast<int32_T>(n - 1);
-                                    b_n = static_cast<int32_T>(b_n - 1);
-                                }
-
-                                tmp_0 = static_cast<int32_T>(aTmp_0->size[0] *
-                                    aTmp_0->size[1]);
-                                aTmp_0->size[0] = 1;
-                                numRead = static_cast<int32_T>(numRead - i);
-                                aTmp_0->size[1] = numRead;
-                                codegenReal2Mission_emxEnsureCapacity_char_T
-                                    (aTmp_0, tmp_0);
-                                for (b_c = 0; b_c <= static_cast<int32_T>
-                                        (numRead - 1); b_c++) {
-                                    aTmp_0->data[b_c] = aTmp->data
-                                        [static_cast<int32_T>(i + b_c)];
-                                }
-
-                                codegenReal2Mission_find_token(aTmp_0, &d_itoken,
-                                    &b_itoken);
-                                if (d_itoken > static_cast<int32_T>(b_itoken - 1))
-                                {
-                                    d_itoken = 0;
-                                    b_itoken = 0;
-                                } else {
-                                    d_itoken = static_cast<int32_T>(d_itoken - 1);
-                                    b_itoken = static_cast<int32_T>(b_itoken - 1);
-                                }
-
-                                tmp_0 = static_cast<int32_T>(aTmp_0->size[0] *
-                                    aTmp_0->size[1]);
-                                aTmp_0->size[0] = 1;
-                                numRead = static_cast<int32_T>(b_n - n);
-                                aTmp_0->size[1] = numRead;
-                                codegenReal2Mission_emxEnsureCapacity_char_T
-                                    (aTmp_0, tmp_0);
-                                for (b_c = 0; b_c <= static_cast<int32_T>
-                                        (numRead - 1); b_c++) {
-                                    aTmp_0->data[b_c] = aTmp->data
-                                        [static_cast<int32_T>(n + b_c)];
-                                }
-
-                                codegenReal2Mission_strtrim(aTmp_0, curKey);
-                                tmp_0 = static_cast<int32_T>(aTmp_0->size[0] *
-                                    aTmp_0->size[1]);
-                                aTmp_0->size[0] = 1;
-                                numRead = static_cast<int32_T>(b_itoken -
-                                    d_itoken);
-                                aTmp_0->size[1] = numRead;
-                                codegenReal2Mission_emxEnsureCapacity_char_T
-                                    (aTmp_0, tmp_0);
-                                for (b_c = 0; b_c <= static_cast<int32_T>
-                                        (numRead - 1); b_c++) {
-                                    aTmp_0->data[b_c] = aTmp->data
-                                        [static_cast<int32_T>
-                                        (static_cast<int32_T>(i + d_itoken) +
-                                         b_c)];
-                                }
-
-                                codegenReal2Mission_strtrim(aTmp_0, curVal);
-                            }
+                        if ((static_cast<boolean_T>(static_cast<int32_T>(
+                                static_cast<int32_T>(b_bool) ^ 1))) &&
+                                codegenReal2Mission_contains(curLine)) {
+                            codegenReal2Mission_strtok_ph(curLine, b_curKey,
+                                curVal);
+                            codegenReal2Mission_strtrim(b_curKey, curKey);
+                            codegenReal2Mission_strtok_e2sz(curVal, tmp_b);
+                            codegenReal2Mission_strtrim(tmp_b, curVal);
                         }
                     }
                 }
 
-                if (curSection->size[1] == 0) {
-                    aTmp->size[0] = 1;
-                    aTmp->size[1] = 0;
-                } else {
-                    tmp_0 = static_cast<int32_T>(aTmp->size[0] * aTmp->size[1]);
-                    aTmp->size[0] = 1;
-                    aTmp->size[1] = curSection->size[1];
-                    codegenReal2Mission_emxEnsureCapacity_char_T(aTmp, tmp_0);
-                    numRead = static_cast<int32_T>(curSection->size[1] - 1);
-                    for (b_c = 0; b_c <= numRead; b_c++) {
-                        aTmp->data[b_c] = curSection->data[b_c];
+                if (codegenReal2Mission_strcmp_b(curSection) &&
+                        codegenReal2Mission_strcmp_by(curKey)) {
+                    i = static_cast<int32_T>(ret->size[0] * ret->size[1]);
+                    ret->size[0] = 1;
+                    ret->size[1] = curVal->size[1];
+                    codegenReal2Mission_emxEnsureCapacity_char_T(ret, i);
+                    loop_ub = static_cast<int32_T>(curVal->size[1] - 1);
+                    for (i = 0; i <= loop_ub; i++) {
+                        ret->data[i] = curVal->data[i];
                     }
+
+                    exitg1 = true;
                 }
-
-                b_bool = false;
-                if (aTmp->size[1] == 9) {
-                    i = 0;
-                    do {
-                        exitg2 = 0;
-                        if (i < 9) {
-                            if (v[static_cast<int32_T>(static_cast<int32_T>(
-                                    static_cast<uint8_T>(aTmp->data[i])) & 127)]
-                                != v[static_cast<int32_T>(w[i])]) {
-                                exitg2 = 1;
-                            } else {
-                                i = static_cast<int32_T>(i + 1);
-                            }
-                        } else {
-                            b_bool = true;
-                            exitg2 = 1;
-                        }
-                    } while (exitg2 == 0);
-                }
-
-                if (b_bool) {
-                    if (curKey->size[1] == 0) {
-                        aTmp->size[0] = 1;
-                        aTmp->size[1] = 0;
-                    } else {
-                        tmp_0 = static_cast<int32_T>(aTmp->size[0] * aTmp->size
-                            [1]);
-                        aTmp->size[0] = 1;
-                        aTmp->size[1] = curKey->size[1];
-                        codegenReal2Mission_emxEnsureCapacity_char_T(aTmp, tmp_0);
-                        numRead = static_cast<int32_T>(curKey->size[1] - 1);
-                        for (b_c = 0; b_c <= numRead; b_c++) {
-                            aTmp->data[b_c] = curKey->data[b_c];
-                        }
-                    }
-
-                    b_bool = false;
-                    if (aTmp->size[1] == 3) {
-                        i = 0;
-                        do {
-                            exitg2 = 0;
-                            if (i < 3) {
-                                if (v[static_cast<int32_T>(static_cast<int32_T>(
-                                        static_cast<uint8_T>(aTmp->data[i])) &
-                                                           127)] != v[
-                                        static_cast<int32_T>(x_1[i])]) {
-                                    exitg2 = 1;
-                                } else {
-                                    i = static_cast<int32_T>(i + 1);
-                                }
-                            } else {
-                                b_bool = true;
-                                exitg2 = 1;
-                            }
-                        } while (exitg2 == 0);
-                    }
-
-                    if (b_bool) {
-                        tmp_0 = static_cast<int32_T>(ret->size[0] * ret->size[1]);
-                        ret->size[0] = 1;
-                        ret->size[1] = curVal->size[1];
-                        codegenReal2Mission_emxEnsureCapacity_char_T(ret, tmp_0);
-                        numRead = static_cast<int32_T>(curVal->size[1] - 1);
-                        for (b_c = 0; b_c <= numRead; b_c++) {
-                            ret->data[b_c] = curVal->data[b_c];
-                        }
-
-                        exitg1 = 1;
-                    }
-                }
-            } else {
-                exitg1 = 1;
             }
-        } while (exitg1 == 0);
+
+            codegenReal2Mission_emxFree_char_T(&data_3);
+            codegenReal2Mission_emxFree_char_T(&tmp_c);
+            codegenReal2Mission_emxFree_char_T(&tmp_b);
+        }
+
+        tmp = codegenReal2Mission_str2double(ret);
+        printf("ADRC input gain:\t\t%f\n", tmp.re);
+        fflush(stdout);
+        ret->size[0] = 1;
+        ret->size[1] = 0;
+        LLA0_idx_0 = codegenReal2Mission_fileManager_p();
+        if (LLA0_idx_0 < 0.0) {
+            printf("INI-file \"%s\" was not found or could not be read.\n",
+                   "config.ini");
+            fflush(stdout);
+        } else {
+            codegenReal2Mission_fread_n(LLA0_idx_0, q);
+            i = static_cast<int32_T>(data->size[0] * data->size[1]);
+            data->size[0] = 1;
+            data->size[1] = q->size[0];
+            codegenReal2Mission_emxEnsureCapacity_char_T(data, i);
+            loop_ub = q->size[0];
+            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+                data->data[i] = q->data[i];
+            }
+
+            codegenReal2Mission_cfclose_g(LLA0_idx_0);
+            curSection->size[0] = 1;
+            curSection->size[1] = 0;
+            curKey->size[0] = 1;
+            curKey->size[1] = 0;
+            curVal->size[0] = 1;
+            curVal->size[1] = 0;
+            codegenReal2Mission_emxInit_char_T(&tmp_9, 2);
+            codegenReal2Mission_emxInit_char_T(&tmp_a, 2);
+            codegenReal2Mission_emxInit_char_T(&data_2, 2);
+            exitg1 = false;
+            while ((!exitg1) && (data->size[1] != 0)) {
+                i = static_cast<int32_T>(data_2->size[0] * data_2->size[1]);
+                data_2->size[0] = 1;
+                data_2->size[1] = data->size[1];
+                codegenReal2Mission_emxEnsureCapacity_char_T(data_2, i);
+                loop_ub = static_cast<int32_T>(static_cast<int32_T>(data->size[0]
+                    * data->size[1]) - 1);
+                for (i = 0; i <= loop_ub; i++) {
+                    data_2->data[i] = data->data[i];
+                }
+
+                codegenReal2Mission_strtok(data_2, curLine, data);
+                codegenReal2Mission_strtok_p(curLine, tmp_a);
+                codegenReal2Mission_strtrim(tmp_a, curLine);
+                if (curLine->size[1] >= 2) {
+                    b_bool = false;
+                    if (curLine->data[0] == '[') {
+                        b_bool = true;
+                    }
+
+                    guard1 = false;
+                    if (b_bool) {
+                        b_bool = false;
+                        if (curLine->data[static_cast<int32_T>(curLine->size[1]
+                                - 1)] == ']') {
+                            b_bool = true;
+                        }
+
+                        if (b_bool) {
+                            if (static_cast<int32_T>(curLine->size[1] - 1) < 2)
+                            {
+                                iremain = 0;
+                                itoken = 0;
+                            } else {
+                                iremain = 1;
+                                itoken = static_cast<int32_T>(curLine->size[1] -
+                                    1);
+                            }
+
+                            i = static_cast<int32_T>(curSection->size[0] *
+                                curSection->size[1]);
+                            curSection->size[0] = 1;
+                            loop_ub = static_cast<int32_T>(itoken - iremain);
+                            curSection->size[1] = loop_ub;
+                            codegenReal2Mission_emxEnsureCapacity_char_T
+                                (curSection, i);
+                            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1);
+                                    i++) {
+                                curSection->data[i] = curLine->data
+                                    [static_cast<int32_T>(iremain + i)];
+                            }
+
+                            curKey->size[0] = 1;
+                            curKey->size[1] = 0;
+                        } else {
+                            guard1 = true;
+                        }
+                    } else {
+                        guard1 = true;
+                    }
+
+                    if (guard1) {
+                        if (curLine->data[0] == ';') {
+                            b_bool = true;
+                        }
+
+                        if ((static_cast<boolean_T>(static_cast<int32_T>(
+                                static_cast<int32_T>(b_bool) ^ 1))) &&
+                                codegenReal2Mission_contains(curLine)) {
+                            codegenReal2Mission_strtok_ph(curLine, b_curKey,
+                                curVal);
+                            codegenReal2Mission_strtrim(b_curKey, curKey);
+                            codegenReal2Mission_strtok_e2sz(curVal, tmp_9);
+                            codegenReal2Mission_strtrim(tmp_9, curVal);
+                        }
+                    }
+                }
+
+                if (codegenReal2Mission_strcmp_b(curSection) &&
+                        codegenReal2Mission_strcmp_byv(curKey)) {
+                    i = static_cast<int32_T>(ret->size[0] * ret->size[1]);
+                    ret->size[0] = 1;
+                    ret->size[1] = curVal->size[1];
+                    codegenReal2Mission_emxEnsureCapacity_char_T(ret, i);
+                    loop_ub = static_cast<int32_T>(curVal->size[1] - 1);
+                    for (i = 0; i <= loop_ub; i++) {
+                        ret->data[i] = curVal->data[i];
+                    }
+
+                    exitg1 = true;
+                }
+            }
+
+            codegenReal2Mission_emxFree_char_T(&data_2);
+            codegenReal2Mission_emxFree_char_T(&tmp_a);
+            codegenReal2Mission_emxFree_char_T(&tmp_9);
+        }
+
+        tmp_0 = codegenReal2Mission_str2double(ret);
+        printf("ADRC observer bandwidth:\t%f\n", tmp_0.re);
+        fflush(stdout);
+        ret->size[0] = 1;
+        ret->size[1] = 0;
+        LLA0_idx_0 = codegenReal2Mission_fileManager_p();
+        if (LLA0_idx_0 < 0.0) {
+            printf("INI-file \"%s\" was not found or could not be read.\n",
+                   "config.ini");
+            fflush(stdout);
+        } else {
+            codegenReal2Mission_fread_n(LLA0_idx_0, q);
+            i = static_cast<int32_T>(data->size[0] * data->size[1]);
+            data->size[0] = 1;
+            data->size[1] = q->size[0];
+            codegenReal2Mission_emxEnsureCapacity_char_T(data, i);
+            loop_ub = q->size[0];
+            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+                data->data[i] = q->data[i];
+            }
+
+            codegenReal2Mission_cfclose_g(LLA0_idx_0);
+            curSection->size[0] = 1;
+            curSection->size[1] = 0;
+            curKey->size[0] = 1;
+            curKey->size[1] = 0;
+            curVal->size[0] = 1;
+            curVal->size[1] = 0;
+            codegenReal2Mission_emxInit_char_T(&tmp_7, 2);
+            codegenReal2Mission_emxInit_char_T(&tmp_8, 2);
+            codegenReal2Mission_emxInit_char_T(&data_1, 2);
+            exitg1 = false;
+            while ((!exitg1) && (data->size[1] != 0)) {
+                i = static_cast<int32_T>(data_1->size[0] * data_1->size[1]);
+                data_1->size[0] = 1;
+                data_1->size[1] = data->size[1];
+                codegenReal2Mission_emxEnsureCapacity_char_T(data_1, i);
+                loop_ub = static_cast<int32_T>(static_cast<int32_T>(data->size[0]
+                    * data->size[1]) - 1);
+                for (i = 0; i <= loop_ub; i++) {
+                    data_1->data[i] = data->data[i];
+                }
+
+                codegenReal2Mission_strtok(data_1, curLine, data);
+                codegenReal2Mission_strtok_p(curLine, tmp_8);
+                codegenReal2Mission_strtrim(tmp_8, curLine);
+                if (curLine->size[1] >= 2) {
+                    b_bool = false;
+                    if (curLine->data[0] == '[') {
+                        b_bool = true;
+                    }
+
+                    guard1 = false;
+                    if (b_bool) {
+                        b_bool = false;
+                        if (curLine->data[static_cast<int32_T>(curLine->size[1]
+                                - 1)] == ']') {
+                            b_bool = true;
+                        }
+
+                        if (b_bool) {
+                            if (static_cast<int32_T>(curLine->size[1] - 1) < 2)
+                            {
+                                iremain = 0;
+                                itoken = 0;
+                            } else {
+                                iremain = 1;
+                                itoken = static_cast<int32_T>(curLine->size[1] -
+                                    1);
+                            }
+
+                            i = static_cast<int32_T>(curSection->size[0] *
+                                curSection->size[1]);
+                            curSection->size[0] = 1;
+                            loop_ub = static_cast<int32_T>(itoken - iremain);
+                            curSection->size[1] = loop_ub;
+                            codegenReal2Mission_emxEnsureCapacity_char_T
+                                (curSection, i);
+                            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1);
+                                    i++) {
+                                curSection->data[i] = curLine->data
+                                    [static_cast<int32_T>(iremain + i)];
+                            }
+
+                            curKey->size[0] = 1;
+                            curKey->size[1] = 0;
+                        } else {
+                            guard1 = true;
+                        }
+                    } else {
+                        guard1 = true;
+                    }
+
+                    if (guard1) {
+                        if (curLine->data[0] == ';') {
+                            b_bool = true;
+                        }
+
+                        if ((static_cast<boolean_T>(static_cast<int32_T>(
+                                static_cast<int32_T>(b_bool) ^ 1))) &&
+                                codegenReal2Mission_contains(curLine)) {
+                            codegenReal2Mission_strtok_ph(curLine, b_curKey,
+                                curVal);
+                            codegenReal2Mission_strtrim(b_curKey, curKey);
+                            codegenReal2Mission_strtok_e2sz(curVal, tmp_7);
+                            codegenReal2Mission_strtrim(tmp_7, curVal);
+                        }
+                    }
+                }
+
+                if (codegenReal2Mission_strcmp_b(curSection) &&
+                        codegenReal2Mission_strcmp_byvm(curKey)) {
+                    i = static_cast<int32_T>(ret->size[0] * ret->size[1]);
+                    ret->size[0] = 1;
+                    ret->size[1] = curVal->size[1];
+                    codegenReal2Mission_emxEnsureCapacity_char_T(ret, i);
+                    loop_ub = static_cast<int32_T>(curVal->size[1] - 1);
+                    for (i = 0; i <= loop_ub; i++) {
+                        ret->data[i] = curVal->data[i];
+                    }
+
+                    exitg1 = true;
+                }
+            }
+
+            codegenReal2Mission_emxFree_char_T(&data_1);
+            codegenReal2Mission_emxFree_char_T(&tmp_8);
+            codegenReal2Mission_emxFree_char_T(&tmp_7);
+        }
+
+        tmp_1 = codegenReal2Mission_str2double(ret);
+        printf("ADRC controller bandwidth:\t%f\n", tmp_1.re);
+        fflush(stdout);
+        ret->size[0] = 1;
+        ret->size[1] = 0;
+        LLA0_idx_0 = codegenReal2Mission_fileManager_p();
+        if (LLA0_idx_0 < 0.0) {
+            printf("INI-file \"%s\" was not found or could not be read.\n",
+                   "config.ini");
+            fflush(stdout);
+        } else {
+            codegenReal2Mission_fread_n(LLA0_idx_0, q);
+            i = static_cast<int32_T>(data->size[0] * data->size[1]);
+            data->size[0] = 1;
+            data->size[1] = q->size[0];
+            codegenReal2Mission_emxEnsureCapacity_char_T(data, i);
+            loop_ub = q->size[0];
+            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+                data->data[i] = q->data[i];
+            }
+
+            codegenReal2Mission_cfclose_g(LLA0_idx_0);
+            curSection->size[0] = 1;
+            curSection->size[1] = 0;
+            curKey->size[0] = 1;
+            curKey->size[1] = 0;
+            curVal->size[0] = 1;
+            curVal->size[1] = 0;
+            codegenReal2Mission_emxInit_char_T(&tmp_5, 2);
+            codegenReal2Mission_emxInit_char_T(&tmp_6, 2);
+            codegenReal2Mission_emxInit_char_T(&data_0, 2);
+            exitg1 = false;
+            while ((!exitg1) && (data->size[1] != 0)) {
+                i = static_cast<int32_T>(data_0->size[0] * data_0->size[1]);
+                data_0->size[0] = 1;
+                data_0->size[1] = data->size[1];
+                codegenReal2Mission_emxEnsureCapacity_char_T(data_0, i);
+                loop_ub = static_cast<int32_T>(static_cast<int32_T>(data->size[0]
+                    * data->size[1]) - 1);
+                for (i = 0; i <= loop_ub; i++) {
+                    data_0->data[i] = data->data[i];
+                }
+
+                codegenReal2Mission_strtok(data_0, curLine, data);
+                codegenReal2Mission_strtok_p(curLine, tmp_6);
+                codegenReal2Mission_strtrim(tmp_6, curLine);
+                if (curLine->size[1] >= 2) {
+                    b_bool = false;
+                    if (curLine->data[0] == '[') {
+                        b_bool = true;
+                    }
+
+                    guard1 = false;
+                    if (b_bool) {
+                        b_bool = false;
+                        if (curLine->data[static_cast<int32_T>(curLine->size[1]
+                                - 1)] == ']') {
+                            b_bool = true;
+                        }
+
+                        if (b_bool) {
+                            if (static_cast<int32_T>(curLine->size[1] - 1) < 2)
+                            {
+                                itoken = 0;
+                                iremain = 0;
+                            } else {
+                                itoken = 1;
+                                iremain = static_cast<int32_T>(curLine->size[1]
+                                    - 1);
+                            }
+
+                            i = static_cast<int32_T>(curSection->size[0] *
+                                curSection->size[1]);
+                            curSection->size[0] = 1;
+                            loop_ub = static_cast<int32_T>(iremain - itoken);
+                            curSection->size[1] = loop_ub;
+                            codegenReal2Mission_emxEnsureCapacity_char_T
+                                (curSection, i);
+                            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1);
+                                    i++) {
+                                curSection->data[i] = curLine->data[static_cast<
+                                    int32_T>(itoken + i)];
+                            }
+
+                            curKey->size[0] = 1;
+                            curKey->size[1] = 0;
+                        } else {
+                            guard1 = true;
+                        }
+                    } else {
+                        guard1 = true;
+                    }
+
+                    if (guard1) {
+                        if (curLine->data[0] == ';') {
+                            b_bool = true;
+                        }
+
+                        if ((static_cast<boolean_T>(static_cast<int32_T>(
+                                static_cast<int32_T>(b_bool) ^ 1))) &&
+                                codegenReal2Mission_contains(curLine)) {
+                            codegenReal2Mission_strtok_ph(curLine, b_curKey,
+                                curVal);
+                            codegenReal2Mission_strtrim(b_curKey, curKey);
+                            codegenReal2Mission_strtok_e2sz(curVal, tmp_5);
+                            codegenReal2Mission_strtrim(tmp_5, curVal);
+                        }
+                    }
+                }
+
+                if (codegenReal2Mission_strcmp_b(curSection) &&
+                        codegenReal2Mission_strcmp_byvm0(curKey)) {
+                    i = static_cast<int32_T>(ret->size[0] * ret->size[1]);
+                    ret->size[0] = 1;
+                    ret->size[1] = curVal->size[1];
+                    codegenReal2Mission_emxEnsureCapacity_char_T(ret, i);
+                    loop_ub = static_cast<int32_T>(curVal->size[1] - 1);
+                    for (i = 0; i <= loop_ub; i++) {
+                        ret->data[i] = curVal->data[i];
+                    }
+
+                    exitg1 = true;
+                }
+            }
+
+            codegenReal2Mission_emxFree_char_T(&data_0);
+            codegenReal2Mission_emxFree_char_T(&tmp_6);
+            codegenReal2Mission_emxFree_char_T(&tmp_5);
+        }
 
         // End of Outputs for SubSystem: '<S1>/InitializeSimLocation'
         // End of SystemInitialize for SubSystem: '<Root>/MissionLogic'
-        codegenReal2Mission_emxFree_char_T(&aTmp_0);
-        codegenReal2Mission_emxFree_char_T(&aTmp);
-        codegenReal2Mission_emxFree_char_T(&curVal);
+        codegenReal2Mission_emxFree_char_T(&q);
+        codegenReal2Mission_emxFree_char_T(&curLine);
         codegenReal2Mission_emxFree_char_T(&curKey);
         codegenReal2Mission_emxFree_char_T(&curSection);
         codegenReal2Mission_emxFree_char_T(&data);
 
         // SystemInitialize for Atomic SubSystem: '<Root>/MissionLogic'
         // Outputs for Atomic SubSystem: '<S1>/InitializeSimLocation'
-        // MATLAB Function: '<S6>/ReadHomeLon'
-        tmp = codegenReal2Mission_str2double(ret);
-        Alt = tmp.re;
+        // MATLAB Function: '<S6>/ReadParADRC'
+        tmp_2 = codegenReal2Mission_str2double(ret);
+        printf("PID proportional gain:\t\t%f\n", tmp_2.re);
+        fflush(stdout);
+        codegenReal2Mission_readINI(b_curKey);
+        tmp_3 = codegenReal2Mission_str2double(b_curKey);
+        printf("PID integral gain:\t\t%f\n", tmp_3.re);
+        fflush(stdout);
+        codegenReal2Mission_readINI_g(b_curKey);
+        tmp_4 = codegenReal2Mission_str2double(b_curKey);
+        printf("PID differential gain:\t\t%f\n", tmp_4.re);
+        fflush(stdout);
+        codegenReal2Mission_readINI_gx(curVal);
+        loop_ub = curVal->size[1];
+        i = static_cast<int32_T>(b_curKey->size[0] * b_curKey->size[1]);
+        b_curKey->size[0] = 1;
+        b_curKey->size[1] = static_cast<int32_T>(curVal->size[1] + 1);
+        codegenReal2Mission_emxEnsureCapacity_char_T(b_curKey, i);
 
-        // DataStoreWrite: '<S6>/DSLongitudeGCS'
-        rtw_pthread_mutex_lock(LongitudeGCS_m0);
-        LongitudeGCS = Alt;
-        rtw_pthread_mutex_unlock(LongitudeGCS_m0);
+        // End of Outputs for SubSystem: '<S1>/InitializeSimLocation'
+        // End of SystemInitialize for SubSystem: '<Root>/MissionLogic'
+        codegenReal2Mission_emxFree_char_T(&ret);
+
+        // SystemInitialize for Atomic SubSystem: '<Root>/MissionLogic'
+        // Outputs for Atomic SubSystem: '<S1>/InitializeSimLocation'
+        // MATLAB Function: '<S6>/ReadParADRC' incorporates:
+        //   DataStoreWrite: '<S6>/Data Store Write'
+
+        for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+            b_curKey->data[i] = curVal->data[i];
+        }
+
+        b_curKey->data[curVal->size[1]] = '\x00';
+        printf("useADRC:\t\t\t%s\n", &b_curKey->data[0]);
+        fflush(stdout);
+        codegenReal2Mission_DW.ParamADRC_e.hat_b = tmp.re;
+        codegenReal2Mission_DW.ParamADRC_e.omega_o = tmp_0.re;
+        codegenReal2Mission_DW.ParamADRC_e.omega_c = tmp_1.re;
+        codegenReal2Mission_DW.ParamADRC_e.P = tmp_2.re;
+        codegenReal2Mission_DW.ParamADRC_e.I = tmp_3.re;
+        codegenReal2Mission_DW.ParamADRC_e.D = tmp_4.re;
+        codegenReal2Mission_DW.ParamADRC_e.useADRC = static_cast<boolean_T>(
+            static_cast<int32_T>(static_cast<int32_T>
+            (codegenReal2Mission_strcmp_byvm0m(curVal)) ^ 1));
+
+        // End of Outputs for SubSystem: '<S1>/InitializeSimLocation'
+        // End of SystemInitialize for SubSystem: '<Root>/MissionLogic'
+        codegenReal2Mission_emxFree_char_T(&b_curKey);
+        codegenReal2Mission_emxFree_char_T(&curVal);
+
+        // SystemInitialize for Atomic SubSystem: '<Root>/MissionLogic'
+        // Outputs for Atomic SubSystem: '<S1>/InitializeSimLocation'
+        // DataStoreWrite: '<S6>/Data Store Write'
+        if (rtmIsMajorTimeStep((&codegenReal2Mission_M))) {
+            rtsiSetBlockStateForSolverChangedAtMajorStep
+                (&(&codegenReal2Mission_M)->solverInfo, true);
+            rtsiSetContTimeOutputInconsistentWithStateAtMajorStep
+                (&(&codegenReal2Mission_M)->solverInfo, true);
+        }
 
         // End of Outputs for SubSystem: '<S1>/InitializeSimLocation'
         // End of SystemInitialize for SubSystem: '<Root>/MissionLogic'
 
-        // SystemInitialize for ModelReference generated from: '<S44>/Real2SimGuidance' 
+        // SystemInitialize for ModelReference generated from: '<S43>/Real2SimGuidance' 
         Real2SimGuidance_Init
             (&(codegenReal2Mission_DW.Real2SimGuidance_InstanceData.rtdw),
              &(codegenReal2Mission_X.Real2SimGuidance_CSTATE));
-        codegenReal2Mission_emxFree_char_T(&ret);
     }
 
     // set "at time zero" to false

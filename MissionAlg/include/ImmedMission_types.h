@@ -5,7 +5,7 @@
 //
 // Model version                  : 2.149
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Sun May  8 08:32:01 2022
+// C/C++ source code generated on : Wed May 11 11:35:48 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -150,19 +150,6 @@ struct uav_sluav_internal_system_OrbitFollower_ImmedMission_T
 
 // Custom Type definition for MATLAB Function: '<S135>/BaseWayPoint'
 #include <stdio.h>
-
-// Custom Type definition for MATLAB Function: '<S14>/pdist2'
-#ifndef struct_coder_internal_IsSimulinkString_ImmedMission_T
-#define struct_coder_internal_IsSimulinkString_ImmedMission_T
-
-struct coder_internal_IsSimulinkString_ImmedMission_T
-{
-    int32_T __dummy;
-};
-
-#endif                 // struct_coder_internal_IsSimulinkString_ImmedMission_T
-
-// Custom Type definition for MATLAB Function: '<S135>/BaseWayPoint'
 #ifndef struct_uavDubinsConnection_ImmedMission_T
 #define struct_uavDubinsConnection_ImmedMission_T
 
@@ -175,26 +162,14 @@ struct uavDubinsConnection_ImmedMission_T
 
 #endif                             // struct_uavDubinsConnection_ImmedMission_T
 
-#ifndef struct_rtString_ImmedMission_T
-#define struct_rtString_ImmedMission_T
-
-struct rtString_ImmedMission_T
-{
-    char_T Value[10];
-    coder_internal_IsSimulinkString_ImmedMission_T ___isSimulinkString;
-};
-
-#endif                                 // struct_rtString_ImmedMission_T
-
 #ifndef struct_DubinsObjSingleton_ImmedMission_T
 #define struct_DubinsObjSingleton_ImmedMission_T
 
 struct DubinsObjSingleton_ImmedMission_T
 {
-    creal_T AirSpeed;
-    creal_T MaxRollAngle;
-    creal_T FlightPathAngleLimit[2];
-    rtString_ImmedMission_T config;
+    real_T AirSpeed;
+    real_T MaxRollAngle;
+    real_T FlightPathAngleLimit[2];
     uavDubinsConnection_ImmedMission_T DubinsConnector;
 };
 
