@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'ImmedMission'.
 //
-// Model version                  : 2.149
+// Model version                  : 3.3
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Wed May 11 11:35:48 2022
+// C/C++ source code generated on : Sun May 22 08:38:12 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -23,18 +23,6 @@
 #include "DatalinkInterface.h"
 
 // Model Code Variants
-#ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
-#define DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
-
-struct FixedWingGuidanceBus
-{
-    real_T Height;
-    real_T AirSpeed;
-    real_T HeadingAngle;
-};
-
-#endif
-
 #ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceStateBus_
 #define DEFINED_TYPEDEF_FOR_FixedWingGuidanceStateBus_
 
@@ -48,6 +36,18 @@ struct FixedWingGuidanceStateBus
     real_T FlightPathAngle;
     real_T RollAngle;
     real_T RollAngleRate;
+};
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
+#define DEFINED_TYPEDEF_FOR_FixedWingGuidanceBus_
+
+struct FixedWingGuidanceBus
+{
+    real_T Height;
+    real_T AirSpeed;
+    real_T HeadingAngle;
 };
 
 #endif
@@ -170,7 +170,7 @@ struct DubinsObjSingleton_ImmedMission_T
     real_T AirSpeed;
     real_T MaxRollAngle;
     real_T FlightPathAngleLimit[2];
-    uavDubinsConnection_ImmedMission_T DubinsConnector;
+    uavDubinsConnection_ImmedMission_T Connector;
 };
 
 #endif                              // struct_DubinsObjSingleton_ImmedMission_T

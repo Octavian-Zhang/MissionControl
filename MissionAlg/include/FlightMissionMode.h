@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'FlightMissionMode'.
 //
-// Model version                  : 2.117
+// Model version                  : 3.19
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Wed May 11 11:51:03 2022
+// C/C++ source code generated on : Sun May 22 08:43:45 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -48,27 +48,9 @@ struct DW_RotateATMissionHdg_FlightMissionMode_T {
     boolean_T objisempty;              // '<S39>/RotateATMissionHdg'
 };
 
-// Block signals and states (default storage) for system '<S39>/biasNED'
-struct DW_biasNED_FlightMissionMode_T {
-    real_T b[30720];
-};
-
-// Block signals and states (default storage) for system '<S35>/Waypoint Follower' 
-struct DW_WaypointFollower_FlightMissionMode_T {
-    uav_sluav_internal_system_WaypointFollower_FlightMissionMode_T obj;// '<S35>/Waypoint Follower' 
-    real_T WaypointFollower_o1[3];     // '<S35>/Waypoint Follower'
-    real_T paddedWaypts[30720];
-    real_T WaypointFollower_o2;        // '<S35>/Waypoint Follower'
-    int16_T c_data[10240];
-    uint8_T WaypointFollower_o5;       // '<S35>/Waypoint Follower'
-    boolean_T b[10240];
-    boolean_T x[30720];
-    boolean_T objisempty;              // '<S35>/Waypoint Follower'
-};
-
 // Block signals and states (default storage) for system '<S122>/Waypoint Follower' 
-struct DW_WaypointFollower_FlightMissionMode_l_T {
-    uav_sluav_internal_system_WaypointFollower_FlightMissionMode_f_T obj;// '<S122>/Waypoint Follower' 
+struct DW_WaypointFollower_FlightMissionMode_T {
+    uav_sluav_internal_system_WaypointFollower_FlightMissionMode_T obj;// '<S122>/Waypoint Follower' 
     real_T WaypointFollower_o1[3];     // '<S122>/Waypoint Follower'
     real_T WaypointFollower_o2;        // '<S122>/Waypoint Follower'
     real_T WaypointFollower_o3;        // '<S122>/Waypoint Follower'
@@ -79,11 +61,11 @@ struct DW_WaypointFollower_FlightMissionMode_l_T {
 
 // Block signals and states (default storage) for system '<S92>/SegmentSwitch'
 struct DW_SegmentSwitch_FlightMissionMode_T {
-    DW_WaypointFollower_FlightMissionMode_l_T WaypointFollower_e;// '<S122>/Waypoint Follower' 
-    DW_WaypointFollower_FlightMissionMode_l_T WaypointFollower_i;// '<S122>/Waypoint Follower' 
-    DW_WaypointFollower_FlightMissionMode_l_T WaypointFollower_n;// '<S122>/Waypoint Follower' 
-    DW_WaypointFollower_FlightMissionMode_l_T WaypointFollower_k;// '<S122>/Waypoint Follower' 
-    DW_WaypointFollower_FlightMissionMode_l_T WaypointFollower;// '<S122>/Waypoint Follower' 
+    DW_WaypointFollower_FlightMissionMode_T WaypointFollower_e;// '<S122>/Waypoint Follower' 
+    DW_WaypointFollower_FlightMissionMode_T WaypointFollower_i;// '<S122>/Waypoint Follower' 
+    DW_WaypointFollower_FlightMissionMode_T WaypointFollower_n;// '<S122>/Waypoint Follower' 
+    DW_WaypointFollower_FlightMissionMode_T WaypointFollower_k;// '<S122>/Waypoint Follower' 
+    DW_WaypointFollower_FlightMissionMode_T WaypointFollower;// '<S122>/Waypoint Follower' 
     real_T MergeStatus;                // '<S95>/MergeStatus'
     real_T Memory_PreviousInput;       // '<S95>/Memory'
     int8_T SwitchCase_ActiveSubsystem; // '<S95>/Switch Case'
@@ -109,10 +91,6 @@ struct DW_WayPointGenerator_FlightMissionMode_T {
 
 // Block signals and states (default storage) for model 'FlightMissionMode'
 struct DW_FlightMissionMode_f_T {
-    DW_WaypointFollower_FlightMissionMode_T WaypointFollower_d;// '<S35>/Waypoint Follower' 
-    DW_biasNED_FlightMissionMode_T sf_biasNED_i;// '<S232>/biasNED'
-    DW_RotateATMissionHdg_FlightMissionMode_T RotateUpward_d;// '<S39>/RotateATMissionHdg' 
-    DW_RotateATMissionHdg_FlightMissionMode_T RotateATMissionHdg_d;// '<S39>/RotateATMissionHdg' 
     DW_WayPointGenerator_FlightMissionMode_T sf_WayPointGenerator_f;// '<S138>/WayPointGenerator' 
     DW_StartPointGenerator_FlightMissionMode_T sf_StartPointGenerator_k;// '<S138>/StartPointGenerator' 
     DW_RotateATMissionHdg_FlightMissionMode_T RotateATRunWayHdg_k;// '<S39>/RotateATMissionHdg' 
@@ -124,27 +102,18 @@ struct DW_FlightMissionMode_f_T {
     DW_RotateATMissionHdg_FlightMissionMode_T RotateATRunWayHdg;// '<S39>/RotateATMissionHdg' 
     DW_RotateATMissionHdg_FlightMissionMode_T RotateATMissionHdg_m;// '<S39>/RotateATMissionHdg' 
     DW_SegmentSwitch_FlightMissionMode_T SegmentSwitch;// '<S92>/SegmentSwitch'
-    DW_WaypointFollower_FlightMissionMode_T WaypointFollower;// '<S35>/Waypoint Follower' 
-    DW_biasNED_FlightMissionMode_T sf_biasNED;// '<S39>/biasNED'
     DW_RotateATMissionHdg_FlightMissionMode_T RotateATMissionHdg;// '<S39>/RotateATMissionHdg' 
     FILE* eml_openfiles[20];           // '<S39>/WayPointGenerator'
-    FILE* eml_openfiles_f[20];         // '<S209>/WayPointGenerator'
     FILE* eml_openfiles_n[20];         // '<S181>/WayPointGenerator'
-    uav_sluav_internal_system_WaypointFollower_FlightMissionMode_c_T obj_j;// '<S179>/Waypoint Follower' 
-    uav_sluav_internal_system_WaypointFollower_FlightMissionMode_T obj;// '<S180>/Waypoint Follower' 
-    emxArray_uavDubinsPathSegment_1_FlightMissionMode_T pathSegment0;
-    cell_wrap_2_FlightMissionMode_T motionType1List[500];
-    cell_wrap_2_FlightMissionMode_T motionType2List[500];
+    uav_sluav_internal_system_WaypointFollower_FlightMissionMode_cc_T obj;// '<S179>/Waypoint Follower' 
+    uav_sluav_internal_system_WaypointFollower_FlightMissionMode_ccd_T obj_p;// '<S180>/Waypoint Follower' 
+    uav_sluav_internal_system_WaypointFollower_FlightMissionMode_c_T obj_k;// '<S35>/Waypoint Follower' 
     uav_sluav_internal_system_OrbitFollower_FlightMissionMode_T obj_f;// '<S10>/Orbit Follower' 
     DubinsObjSingleton_FlightMissionMode_T SingletonInstance;// '<S39>/WayPointGenerator' 
-    DubinsObjSingleton_FlightMissionMode_bw_T SingletonInstance_j;// '<S209>/WayPointGenerator' 
-    real_T nedWayPoint[3];             // '<S209>/biasNEDstartpose'
-    real_T startPose[5];               // '<S209>/WayPointGenerator'
-    real_T nedWayPoint_c[30720];       // '<S232>/biasNED'
-    real_T WayPoint_l[30720];          // '<S181>/WayPointGenerator'
+    real_T WayPoint[30720];            // '<S181>/WayPointGenerator'
     real_T ProductFlipStartPose[5];    // '<S138>/ProductFlipStartPose'
     real_T MatrixConcatenateWayPoint[1500];// '<S138>/Matrix Concatenate WayPoint' 
-    real_T nedWayPoint_h[3];           // '<S138>/biasNEDstartpose1'
+    real_T nedWayPoint[3];             // '<S138>/biasNEDstartpose1'
     real_T ImpAsg_InsertedFor_nedWayPoint_at_inport_0[1500];// '<S170>/biasNED'
     real_T MergeLookAheadP[3];         // '<S137>/MergeLookAheadP'
     real_T MatrixConcatenateWayPoint_g[1500];// '<S96>/Matrix Concatenate WayPoint' 
@@ -152,15 +121,16 @@ struct DW_FlightMissionMode_f_T {
     real_T ImpAsg_InsertedFor_nedWayPoint_at_inport_0_c[1500];// '<S127>/biasNED' 
     real_T startPose_c[5];             // '<S96>/StartPointGenerator'
     real_T MergeLookAheadP_j[3];       // '<S95>/MergeLookAheadP'
-    real_T nedWayPoint_o[30720];       // '<S39>/biasNED'
+    real_T nedWayPoint_o[24576];       // '<S39>/biasNED'
     real_T RotateRelPrevPos_DWORK4[9]; // '<S39>/RotateRelPrevPos'
     real_T NED_WP_data[3072];
     real_T MAT[4096];
     real_T o_data[3072];
     real_T q_data[3072];
-    real_T WayPoint0[61440];
-    real_T WayPoint_p[30720];
-    real_T WayPoint_p_m[30720];
+    real_T paddedWaypts[30720];
+    real_T RotateIndivWayPoint_g[24576];// '<S39>/RotateIndivWayPoint'
+    real_T WayPoint_p[24576];
+    real_T WayPoint_p_m[24576];
     real_T llatmp_data[3072];
     real_T lla0tmp_data[3072];
     real_T cosphi_data[1024];
@@ -182,32 +152,33 @@ struct DW_FlightMissionMode_f_T {
     real_T in2_data_b[1024];
     real_T in5_data_p[1024];
     real_T in2_data_cv[1024];
-    real_T Sum;                        // '<S209>/Sum'
-    real_T Sum_e;                      // '<S138>/Sum'
+    real_T Sum;                        // '<S138>/Sum'
     real_T MergeDesiredCourse;         // '<S137>/MergeDesiredCourse'
     real_T Sum_i;                      // '<S96>/Sum'
     real_T MergeDesiredCourse_p;       // '<S95>/MergeDesiredCourse'
     MissionModes FlightMission;      // '<Root>/PreemptableMissionModeSelector'
     RunWayLineSegment RunWayLineMode;  // '<S137>/Chart'
     RunWayLineSegment RunWayLineMode_k;// '<S95>/Chart'
-    int16_T c_data_f[10240];
+    int16_T c_data_f[8192];
     int16_T c_data_g[10240];
+    int16_T c_data_g1[10240];
     int8_T SwitchCase_ActiveSubsystem; // '<Root>/Switch Case'
     int8_T SwitchCase_ActiveSubsystem_c;// '<S176>/Switch Case'
     uint8_T is_active_c2_FlightMissionMode;
                                      // '<Root>/PreemptableMissionModeSelector'
     uint8_T is_c2_FlightMissionMode; // '<Root>/PreemptableMissionModeSelector'
-    boolean_T b[10240];
-    boolean_T x[30720];
-    boolean_T b_g[10240];
-    boolean_T x_m[30720];
-    boolean_T SingletonInstance_not_empty;// '<S209>/WayPointGenerator'
+    boolean_T b[8192];
+    boolean_T x[24576];
+    boolean_T b_m[10240];
+    boolean_T x_n[30720];
+    boolean_T b_p[10240];
+    boolean_T x_l[30720];
     boolean_T objisempty;              // '<S180>/Waypoint Follower'
     boolean_T objisempty_e;            // '<S179>/Waypoint Follower'
-    boolean_T SingletonInstance_not_empty_m;// '<S39>/WayPointGenerator'
+    boolean_T objisempty_n;            // '<S35>/Waypoint Follower'
+    boolean_T SingletonInstance_not_empty;// '<S39>/WayPointGenerator'
     boolean_T objisempty_b;            // '<S10>/Orbit Follower'
-    boolean_T WayPointGenerator_MODE;  // '<S206>/WayPointGenerator'
-    boolean_T WayPointGenerator_MODE_e;// '<S176>/WayPointGenerator'
+    boolean_T WayPointGenerator_MODE;  // '<S176>/WayPointGenerator'
     boolean_T WayPointGenerator_MODE_m;// '<S133>/WayPointGenerator'
     boolean_T WayPointGenerator_MODE_k;// '<S92>/WayPointGenerator'
     boolean_T WayPointGenerator_MODE_h;// '<S35>/WayPointGenerator'
@@ -242,22 +213,12 @@ extern void FlightMissionMode_RotateATMissionHdg_Init
     (DW_RotateATMissionHdg_FlightMissionMode_T *localDW);
 extern void FlightMissionMode_RotateATMissionHdg(const real_T rtu_0[3],
     DW_RotateATMissionHdg_FlightMissionMode_T *localDW);
-extern void FlightMissionMode_biasNED(const real_T rtu_MissionNED[3], const
-    real_T rtu_IndivRotWP[30720], real_T rty_nedWayPoint[30720],
-    DW_biasNED_FlightMissionMode_T *localDW);
 extern void FlightMissionMode_WaypointFollower_Init
     (DW_WaypointFollower_FlightMissionMode_T *localDW);
 extern void FlightMissionMode_WaypointFollower_Reset
     (DW_WaypointFollower_FlightMissionMode_T *localDW);
 extern void FlightMissionMode_WaypointFollower(const real_T rtu_0[4], const
-    real_T rtu_1[30720], real_T rtu_2, DW_WaypointFollower_FlightMissionMode_T
-    *localDW);
-extern void FlightMissionMode_WaypointFollower_m_Init
-    (DW_WaypointFollower_FlightMissionMode_l_T *localDW);
-extern void FlightMissionMode_WaypointFollower_j_Reset
-    (DW_WaypointFollower_FlightMissionMode_l_T *localDW);
-extern void FlightMissionMode_WaypointFollower_e(const real_T rtu_0[4], const
-    real_T rtu_1[300], real_T rtu_2, DW_WaypointFollower_FlightMissionMode_l_T
+    real_T rtu_1[300], real_T rtu_2, DW_WaypointFollower_FlightMissionMode_T
     *localDW);
 extern void FlightMissionMode_SegmentSwitch_Init(real_T rty_LookAheadPoint[3],
     real_T *rty_DesiredCourse, RunWayLineSegment *rty_Status,
@@ -282,7 +243,7 @@ extern void FlightMissionMode_StartPointGenerator(real_T rtu_Length, real_T
     rty_startPose[5], DW_StartPointGenerator_FlightMissionMode_T *localDW);
 extern void FlightMissionMode_minus(const real_T rtu_uP[300], const real_T
     rtu_uN[3], real_T rty_y[300]);
-extern void FlightMissionMode_biasNED_j(const real_T rtu_MissionNED[3], const
+extern void FlightMissionMode_biasNED(const real_T rtu_MissionNED[3], const
     real_T rtu_IndivRotWP[300], real_T rty_nedWayPoint[300]);
 extern void FlightMissionMode_WayPointGenerator_Init
     (DW_WayPointGenerator_FlightMissionMode_T *localDW);
@@ -317,7 +278,6 @@ extern const FixedWingGuidanceBus FlightMissionMode_rtZFixedWingGuidanceBus;// F
 //  Block '<S94>/Data Type Duplicate' : Unused code path elimination
 //  Block '<S135>/Data Type Duplicate' : Unused code path elimination
 //  Block '<S178>/Data Type Duplicate' : Unused code path elimination
-//  Block '<S208>/Data Type Duplicate' : Unused code path elimination
 //  Block '<S10>/MissionAirspeed35' : Eliminate redundant signal conversion block
 //  Block '<S10>/Rasius' : Eliminate redundant signal conversion block
 //  Block '<S10>/TurnDirection' : Eliminate redundant signal conversion block
@@ -341,11 +301,6 @@ extern const FixedWingGuidanceBus FlightMissionMode_rtZFixedWingGuidanceBus;// F
 //  Block '<S176>/MissionAirspeed' : Eliminate redundant signal conversion block
 //  Block '<S176>/PathIDX' : Eliminate redundant signal conversion block
 //  Block '<S176>/ShiftWP' : Eliminate redundant signal conversion block
-//  Block '<S206>/AngleStep' : Eliminate redundant signal conversion block
-//  Block '<S206>/Length' : Eliminate redundant signal conversion block
-//  Block '<S206>/MissionAirspeed' : Eliminate redundant signal conversion block
-//  Block '<S206>/Radius' : Eliminate redundant signal conversion block
-//  Block '<S209>/DoubleAngleStep' : Eliminate redundant data type conversion
 
 
 //-
@@ -568,37 +523,7 @@ extern const FixedWingGuidanceBus FlightMissionMode_rtZFixedWingGuidanceBus;// F
 //  '<S203>' : 'FlightMissionMode/Mode55_FrmnWayPoint/Mode55_Variant/Mode55/LLA to Flat Earth/Subsystem/Find Radian//Distance/e^4'
 //  '<S204>' : 'FlightMissionMode/Mode55_FrmnWayPoint/Mode55_Variant/Mode55/WayPointGenerator/WayPointGenerator'
 //  '<S205>' : 'FlightMissionMode/Mode6_NewRunWay/Mode5_Variant'
-//  '<S206>' : 'FlightMissionMode/Mode6_NewRunWay/Mode5_Variant/Mode6'
-//  '<S207>' : 'FlightMissionMode/Mode6_NewRunWay/Mode5_Variant/Mode6/Degrees to Radians'
-//  '<S208>' : 'FlightMissionMode/Mode6_NewRunWay/Mode5_Variant/Mode6/LLA to Flat Earth'
-//  '<S209>' : 'FlightMissionMode/Mode6_NewRunWay/Mode5_Variant/Mode6/WayPointGenerator'
-//  '<S210>' : 'FlightMissionMode/Mode6_NewRunWay/Mode5_Variant/Mode6/LLA to Flat Earth/LatLong wrap'
-//  '<S211>' : 'FlightMissionMode/Mode6_NewRunWay/Mode5_Variant/Mode6/LLA to Flat Earth/LatLong wrap LL0'
-//  '<S212>' : 'FlightMissionMode/Mode6_NewRunWay/Mode5_Variant/Mode6/LLA to Flat Earth/Subsystem'
-//  '<S213>' : 'FlightMissionMode/Mode6_NewRunWay/Mode5_Variant/Mode6/LLA to Flat Earth/pos_rad'
-//  '<S214>' : 'FlightMissionMode/Mode6_NewRunWay/Mode5_Variant/Mode6/LLA to Flat Earth/LatLong wrap/Latitude Wrap 90'
-//  '<S215>' : 'FlightMissionMode/Mode6_NewRunWay/Mode5_Variant/Mode6/LLA to Flat Earth/LatLong wrap/Wrap Longitude'
-//  '<S216>' : 'FlightMissionMode/Mode6_NewRunWay/Mode5_Variant/Mode6/LLA to Flat Earth/LatLong wrap/Latitude Wrap 90/Compare To Constant'
-//  '<S217>' : 'FlightMissionMode/Mode6_NewRunWay/Mode5_Variant/Mode6/LLA to Flat Earth/LatLong wrap/Latitude Wrap 90/Wrap Angle 180'
-//  '<S218>' : 'FlightMissionMode/Mode6_NewRunWay/Mode5_Variant/Mode6/LLA to Flat Earth/LatLong wrap/Latitude Wrap 90/Wrap Angle 180/Compare To Constant'
-//  '<S219>' : 'FlightMissionMode/Mode6_NewRunWay/Mode5_Variant/Mode6/LLA to Flat Earth/LatLong wrap/Wrap Longitude/Compare To Constant'
-//  '<S220>' : 'FlightMissionMode/Mode6_NewRunWay/Mode5_Variant/Mode6/LLA to Flat Earth/LatLong wrap LL0/Latitude Wrap 90'
-//  '<S221>' : 'FlightMissionMode/Mode6_NewRunWay/Mode5_Variant/Mode6/LLA to Flat Earth/LatLong wrap LL0/Wrap Longitude'
-//  '<S222>' : 'FlightMissionMode/Mode6_NewRunWay/Mode5_Variant/Mode6/LLA to Flat Earth/LatLong wrap LL0/Latitude Wrap 90/Compare To Constant'
-//  '<S223>' : 'FlightMissionMode/Mode6_NewRunWay/Mode5_Variant/Mode6/LLA to Flat Earth/LatLong wrap LL0/Latitude Wrap 90/Wrap Angle 180'
-//  '<S224>' : 'FlightMissionMode/Mode6_NewRunWay/Mode5_Variant/Mode6/LLA to Flat Earth/LatLong wrap LL0/Latitude Wrap 90/Wrap Angle 180/Compare To Constant'
-//  '<S225>' : 'FlightMissionMode/Mode6_NewRunWay/Mode5_Variant/Mode6/LLA to Flat Earth/LatLong wrap LL0/Wrap Longitude/Compare To Constant'
-//  '<S226>' : 'FlightMissionMode/Mode6_NewRunWay/Mode5_Variant/Mode6/LLA to Flat Earth/Subsystem/Angle Conversion2'
-//  '<S227>' : 'FlightMissionMode/Mode6_NewRunWay/Mode5_Variant/Mode6/LLA to Flat Earth/Subsystem/Find Radian//Distance'
-//  '<S228>' : 'FlightMissionMode/Mode6_NewRunWay/Mode5_Variant/Mode6/LLA to Flat Earth/Subsystem/Find Radian//Distance/Angle Conversion2'
-//  '<S229>' : 'FlightMissionMode/Mode6_NewRunWay/Mode5_Variant/Mode6/LLA to Flat Earth/Subsystem/Find Radian//Distance/denom'
-//  '<S230>' : 'FlightMissionMode/Mode6_NewRunWay/Mode5_Variant/Mode6/LLA to Flat Earth/Subsystem/Find Radian//Distance/e'
-//  '<S231>' : 'FlightMissionMode/Mode6_NewRunWay/Mode5_Variant/Mode6/LLA to Flat Earth/Subsystem/Find Radian//Distance/e^4'
-//  '<S232>' : 'FlightMissionMode/Mode6_NewRunWay/Mode5_Variant/Mode6/WayPointGenerator/TransformWayPoint'
-//  '<S233>' : 'FlightMissionMode/Mode6_NewRunWay/Mode5_Variant/Mode6/WayPointGenerator/WayPointGenerator'
-//  '<S234>' : 'FlightMissionMode/Mode6_NewRunWay/Mode5_Variant/Mode6/WayPointGenerator/biasNEDstartpose'
-//  '<S235>' : 'FlightMissionMode/Mode6_NewRunWay/Mode5_Variant/Mode6/WayPointGenerator/TransformWayPoint/biasNED'
-//  '<S236>' : 'FlightMissionMode/Mode6_NewRunWay/Mode5_Variant/Mode6/WayPointGenerator/TransformWayPoint/minus'
+//  '<S206>' : 'FlightMissionMode/Mode6_NewRunWay/Mode5_Variant/ModeNull'
 
 #endif                                 // RTW_HEADER_FlightMissionMode_h_
 

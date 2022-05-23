@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'Real2SimGuidance'.
 //
-// Model version                  : 4.0
+// Model version                  : 4.127
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Wed May 11 11:35:01 2022
+// C/C++ source code generated on : Sun May 22 08:38:50 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -99,6 +99,20 @@
 #ifndef rtmGetT
 #define rtmGetT(rtm)                   (*((rtm)->timingBridge->taskTime[0]))
 #endif
+
+extern const real_T rtCP_pooled_ipsVxvhx7TJb[2];
+extern const real_T rtCP_pooled_FzuKA0IPQ4y2[2];
+extern const real_T rtCP_pooled_d18snt51mEJQ[2];
+
+#define rtCP_Cartesian2Polar_RngLmt    rtCP_pooled_ipsVxvhx7TJb  // Expression: RngLmt
+                                                                 //  Referenced by: '<S14>/Cartesian2Polar'
+
+#define rtCP_VectorFieldHistogram_DistanceLimits rtCP_pooled_FzuKA0IPQ4y2// Expression: RngLmt
+                                                                      //  Referenced by: '<S1>/Vector Field Histogram'
+
+#define rtCP_VectorFieldHistogram_HistogramThresholds rtCP_pooled_d18snt51mEJQ// Expression: HistThrshld
+                                                                      //  Referenced by: '<S1>/Vector Field Histogram'
+
 #endif                                // RTW_HEADER_Real2SimGuidance_private_h_
 
 //

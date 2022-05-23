@@ -1,5 +1,5 @@
 //
-// File: floor_LKLalLcG.h
+// File: rt_hypotd_snf.h
 //
 // Code generated for Simulink model 'Real2SimGuidance'.
 //
@@ -7,13 +7,13 @@
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
 // C/C++ source code generated on : Sun May 22 08:38:50 2022
 //
-#ifndef RTW_HEADER_floor_LKLalLcG_h_
-#define RTW_HEADER_floor_LKLalLcG_h_
+#ifndef RTW_HEADER_rt_hypotd_snf_h_
+#define RTW_HEADER_rt_hypotd_snf_h_
 #include "rtwtypes.h"
 
-extern creal_T floor_LKLalLcG(const creal_T a);
+extern real_T rt_hypotd_snf(real_T u0, real_T u1);
 
-#endif                                 // RTW_HEADER_floor_LKLalLcG_h_
+#endif                                 // RTW_HEADER_rt_hypotd_snf_h_
 
 //
 // File trailer for generated code.
