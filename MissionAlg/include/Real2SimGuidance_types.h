@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'Real2SimGuidance'.
 //
-// Model version                  : 4.127
+// Model version                  : 4.142
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Sun May 22 08:38:50 2022
+// C/C++ source code generated on : Mon May 23 22:37:25 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -246,13 +246,13 @@ struct nav_slalgs_internal_VectorFieldHistogram_Real2SimGuidance_T
     real_T CurrentDirectionWeight;
     real_T PreviousDirectionWeight;
     real_T HistogramThresholds[2];
-    real_T PolarObstacleDensity[360];
-    boolean_T BinaryHistogram[360];
-    boolean_T MaskedHistogram[360];
+    real_T PolarObstacleDensity[180];
+    boolean_T BinaryHistogram[180];
+    boolean_T MaskedHistogram[180];
     real_T PreviousDirection;
-    real_T AngularSectorMidPoints[360];
+    real_T AngularSectorMidPoints[180];
     real_T AngularDifference;
-    real_T AngularSectorStartPoints[360];
+    real_T AngularSectorStartPoints[180];
     real_T AngularLimits[2];
 };
 
@@ -360,6 +360,20 @@ struct emxArray_boolean_T_Real2SimGuidance_T
 };
 
 #endif                          // struct_emxArray_boolean_T_Real2SimGuidance_T
+
+#ifndef struct_emxArray_int32_T_Real2SimGuidance_T
+#define struct_emxArray_int32_T_Real2SimGuidance_T
+
+struct emxArray_int32_T_Real2SimGuidance_T
+{
+    int32_T *data;
+    int32_T *size;
+    int32_T allocatedSize;
+    int32_T numDimensions;
+    boolean_T canFreeData;
+};
+
+#endif                            // struct_emxArray_int32_T_Real2SimGuidance_T
 
 // Forward declaration for rtModel
 typedef struct tag_RTM_Real2SimGuidance_T RT_MODEL_Real2SimGuidance_T;

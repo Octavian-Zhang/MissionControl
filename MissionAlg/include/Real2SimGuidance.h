@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'Real2SimGuidance'.
 //
-// Model version                  : 4.127
+// Model version                  : 4.142
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Sun May 22 08:38:50 2022
+// C/C++ source code generated on : Mon May 23 22:37:25 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -47,8 +47,8 @@ extern "C" {
 struct DW_Real2SimGuidance_f_T {
     FILE* eml_openfiles[20];           // '<Root>/Get Nominal Flight Speed'
     FILE* eml_openfiles_f[20];         // '<S91>/getSpeedLimit'
-    nav_slalgs_internal_VectorFieldHistogram_Real2SimGuidance_T obj;// '<S1>/Vector Field Histogram' 
-    uav_sluav_internal_system_WaypointFollower_Real2SimGuidance_T obj_j;// '<S89>/TrackSimPath' 
+    uav_sluav_internal_system_WaypointFollower_Real2SimGuidance_T obj;// '<S89>/TrackSimPath' 
+    nav_slalgs_internal_VectorFieldHistogram_Real2SimGuidance_T obj_d;// '<S1>/Vector Field Histogram' 
     DubinsObjSingleton_Real2SimGuidance_h_T SingletonInstance;// '<S91>/getSpeedLimit' 
     DubinsObjSingleton_Real2SimGuidance_T SingletonInstance_e;// '<Root>/Get Nominal Flight Speed' 
     robotics_slcore_internal_block_CoordinateTransformationConversion_Real2SimGuidance_T
@@ -68,21 +68,9 @@ struct DW_Real2SimGuidance_f_T {
     real_T SelectEast[1048576];        // '<S14>/SelectEast'
     real_T theta[1048576];             // '<S14>/Cartesian2Polar'
     real_T rho[1048576];               // '<S14>/Cartesian2Polar'
-    real_T kalpha[1080];
-    real_T candidateDirs_data[543];
-    real_T candidateDirections_data[543];
-    real_T cDiff_data[543];
-    real_T tmp_data[543];
-    real_T y_data[543];
-    real_T theta_data[543];
-    real_T delta_data[543];
-    real_T targetDir_data[543];
-    real_T prevDir_data[543];
+    real_T kalpha[540];
     real_T waypoints_data[651];
     real_T b_waypointsIn_data[651];
-    real_T in2_data[543];
-    real_T in2_data_m[543];
-    real_T tmp_data_c[543];
     real_T BiasHSwitch;                // '<S9>/BiasHSwitch'
     real_T dotAltTD;                   // '<S94>/dotAltTD'
     real_T fh;                         // '<S94>/fhan_Alt'
@@ -144,15 +132,16 @@ struct DW_Real2SimGuidance_f_T {
     uint8_T temporalCounter_i2_f;      // '<Root>/EngagementDebouncer'
     boolean_T validRangeLimitIndices_data[40000];
     boolean_T validAngleLimitIndices_data[40000];
-    boolean_T tmp_data_k[40000];
-    boolean_T tmp_data_cx[40000];
-    boolean_T tmp_data_b[40000];
+    boolean_T tmp_data[40000];
+    boolean_T tmp_data_m[40000];
+    boolean_T tmp_data_c[40000];
     boolean_T validIndices_data[40000];
     boolean_T blockedR_data[40000];
     boolean_T blockedL_data[40000];
+    boolean_T nearIdx_data[49140];
     boolean_T c_data[40000];
-    boolean_T y_data_p[40000];
-    boolean_T in2_data_c[40000];
+    boolean_T y_data[40000];
+    boolean_T in2_data[40000];
     boolean_T Compare;                 // '<S86>/Compare'
     boolean_T PID_U;                   // '<S109>/ControlLogic'
     boolean_T EnableADRC;              // '<S109>/ControlLogic'

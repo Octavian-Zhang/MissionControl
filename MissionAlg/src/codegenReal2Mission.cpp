@@ -5,7 +5,7 @@
 //
 // Model version                  : 4.142
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Sun May 22 08:47:08 2022
+// C/C++ source code generated on : Mon May 23 22:45:15 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -4058,7 +4058,7 @@ int8_T codegenReal2MissionModelClass::codegenReal2Mission_cfopen_g(const char_T 
     int8_T fileid;
     int8_T j;
     fileid = -1;
-    j = codegenReal2Mission_filedata_k(const_cast<const FILE**>(eml_openfiles_g));
+    j = codegenReal2Mission_filedata_k(eml_openfiles_g);
     if (static_cast<int32_T>(j) >= 1) {
         FILE* filestar;
         filestar = fopen(cfilename, cpermission);
