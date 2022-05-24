@@ -299,7 +299,7 @@ int main(int argc, const char *argv[])
     // Unused arguments
     (void)(argc);
     (void)(argv);
-    priority[0] = 38;
+    priority[0] = sched_get_priority_max(SCHED_RR);
     periodicTriggerRate[0] = 0.1;
     printf("**starting the model**\n");
     fflush(stdout);
