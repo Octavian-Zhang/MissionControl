@@ -331,9 +331,9 @@ int main(int argc, const char *argv[])
 
     // Waiting for OS clock calibration
     msgQueue mqStart("/ptrPosixMQ_Start", O_CREAT | O_RDONLY, 1, sizeof(bool));
-    bool startflag{}; printf("Waiting for OS Clock Calibration\n");
+    bool startflag{}; printf("Waiting for OS Clock Calibration: %i\n", static_cast<int>(startflag));
     printf((mq_receive(mqStart.getMQ(), (char *)&startflag, sizeof(bool), nullptr) > 0) 
-        ? "OS Clock Calibrated: %c\n" : "MQ_Receive Error %c", startflag);
+        ? "OS Clock Calibrated: %i\n" : "MQ_Receive Error %i", static_cast<int>(startflag));
 
     // Initialize model
     codegenReal2Mission_Obj.initialize();
