@@ -5,7 +5,7 @@
 //
 // Model version                  : 4.142
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Mon May 23 22:45:15 2022
+// C/C++ source code generated on : Fri May 27 23:18:34 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -169,8 +169,8 @@ class codegenReal2MissionModelClass final
         real_T FlightPathAngle;        // '<S51>/MissionUavModel'
         real_T RollAngle;              // '<S51>/MissionUavModel'
         real_T RollAngleRate;          // '<S51>/MissionUavModel'
-        missionCmd* slMsgMgr_freeList_missionCmd[9];// synthesized block
         IndividualUAVCmd* slMsgMgr_freeList_IndividualUAVCmd[19];// synthesized block 
+        missionCmd* slMsgMgr_freeList_missionCmd[9];// synthesized block
         int32_T SelectNorthEastRadius_DIMS1[2];// '<S10>/SelectNorthEastRadius'
         int32_T SFunction_DIMS2[2];    // '<S10>/sizeconversion'
         int32_T SFunction_DIMS2_j[2];  // '<S10>/getDangerList'
@@ -396,17 +396,17 @@ class codegenReal2MissionModelClass final
         IndivMissionCMD_FormationPos, const Time IndivMissionCMD_StartTime,
         real_T fileID);
     int32_T codegenReal2Mission_cfclose_l(real_T fid);
-    IndividualUAVCmd *codegenReal2Mission_allocMemPool_f
-        (MemPool_IndividualUAVCmd *memPool, int32_T width);
-    Msg_IndividualUAVCmd codegenReal2Mission_createMsg_p(const IndividualUAVCmd *
-        data);
-    void codegenReal2Mission_freeMemPool_i(MemPool_IndividualUAVCmd *memPool,
+    IndividualUAVCmd *codegenReal2Mission_allocMemPool(MemPool_IndividualUAVCmd *
+        memPool, int32_T width);
+    Msg_IndividualUAVCmd codegenReal2Mission_createMsg(const IndividualUAVCmd
+        *data);
+    void codegenReal2Mission_freeMemPool(MemPool_IndividualUAVCmd *memPool,
         IndividualUAVCmd *dataPtr);
-    void codegenReal2Mission_destroyMsg_m(Msg_IndividualUAVCmd *msg);
-    boolean_T codegenReal2Mission_push_i(Queue_IndividualUAVCmd *q,
+    void codegenReal2Mission_destroyMsg(Msg_IndividualUAVCmd *msg);
+    boolean_T codegenReal2Mission_push(Queue_IndividualUAVCmd *q,
         Msg_IndividualUAVCmd *element);
     int32_T codegenReal2Mission_Queue_SendData(const IndividualUAVCmd *data);
-    boolean_T codegenReal2Mission_pop_c(Queue_IndividualUAVCmd *q,
+    boolean_T codegenReal2Mission_pop(Queue_IndividualUAVCmd *q,
         Msg_IndividualUAVCmd *elementOut);
     int32_T codegenReal2Mission_Queue_RecvData(IndividualUAVCmd *data);
     boolean_T codegenReal2Mission_push_b(Buffer_IndividualUAVCmd *q,
@@ -439,18 +439,18 @@ class codegenReal2MissionModelClass final
         real_T *d, real_T *h, real_T *m, real_T *s);
     void codegenReal2Mission_getDateVec_oe(const creal_T dd, real_T *y, real_T
         *mo, real_T *d, real_T *h, real_T *m, real_T *s);
-    missionCmd *codegenReal2Mission_allocMemPool(MemPool_missionCmd *memPool,
+    missionCmd *codegenReal2Mission_allocMemPool_c(MemPool_missionCmd *memPool,
         int32_T width);
-    Msg_missionCmd codegenReal2Mission_createMsg(const missionCmd *data);
-    void codegenReal2Mission_freeMemPool(MemPool_missionCmd *memPool, missionCmd
-        *dataPtr);
-    void codegenReal2Mission_destroyMsg(Msg_missionCmd *msg);
-    boolean_T codegenReal2Mission_push(Buffer_missionCmd *q, Msg_missionCmd
+    Msg_missionCmd codegenReal2Mission_createMsg_f(const missionCmd *data);
+    void codegenReal2Mission_freeMemPool_h(MemPool_missionCmd *memPool,
+        missionCmd *dataPtr);
+    void codegenReal2Mission_destroyMsg_g(Msg_missionCmd *msg);
+    boolean_T codegenReal2Mission_push_i(Buffer_missionCmd *q, Msg_missionCmd
         *element);
     int32_T codegenReal2Mission_RcvNextMission_SendData(const missionCmd *data);
     int32_T codegenReal2Mission_MessageMerge_In1_SendData(const missionCmd *data);
     int32_T codegenReal2Mission_RcvImmedCMD_SendData(const missionCmd *data);
-    boolean_T codegenReal2Mission_pop(Buffer_missionCmd *q, Msg_missionCmd
+    boolean_T codegenReal2Mission_pop_h(Buffer_missionCmd *q, Msg_missionCmd
         *elementOut);
     int32_T codegenReal2Mission_RcvNextMission_RecvData(missionCmd *data);
     int32_T codegenReal2Mission_ReceiveCurrentMission_SendData(const missionCmd *
@@ -513,10 +513,10 @@ class codegenReal2MissionModelClass final
     int32_T codegenReal2Mission_cfclose(real_T fid);
     void codegenReal2Mission_emxFreeStruct_DangerArray
         (DangerArray_codegenReal2Mission_T *pStruct);
-    void codegenReal2Mission_initMemPool(MemPool_missionCmd *memPool, missionCmd
-        *memArray, missionCmd **freeList, int32_T size);
-    void codegenReal2Mission_initMemPool_n(MemPool_IndividualUAVCmd *memPool,
+    void codegenReal2Mission_initMemPool(MemPool_IndividualUAVCmd *memPool,
         IndividualUAVCmd *memArray, IndividualUAVCmd **freeList, int32_T size);
+    void codegenReal2Mission_initMemPool_o(MemPool_missionCmd *memPool,
+        missionCmd *memArray, missionCmd **freeList, int32_T size);
     void codegenReal2Mission_initQueue(Queue_IndividualUAVCmd *q, QueuePolicy_T
         policy, int32_T capacity, Msg_IndividualUAVCmd *qPool);
     void codegenReal2Mission_emxInitStruct_DangerArray

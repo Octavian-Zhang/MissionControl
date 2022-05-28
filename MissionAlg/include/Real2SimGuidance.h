@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'Real2SimGuidance'.
 //
-// Model version                  : 4.142
+// Model version                  : 4.157
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Mon May 23 22:37:25 2022
+// C/C++ source code generated on : Fri May 27 22:56:41 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -48,11 +48,11 @@ struct DW_Real2SimGuidance_f_T {
     FILE* eml_openfiles[20];           // '<Root>/Get Nominal Flight Speed'
     FILE* eml_openfiles_f[20];         // '<S91>/getSpeedLimit'
     uav_sluav_internal_system_WaypointFollower_Real2SimGuidance_T obj;// '<S89>/TrackSimPath' 
-    nav_slalgs_internal_VectorFieldHistogram_Real2SimGuidance_T obj_d;// '<S1>/Vector Field Histogram' 
+    nav_slalgs_internal_VectorFieldHistogram_Real2SimGuidance_T obj_p;// '<S1>/Vector Field Histogram' 
     DubinsObjSingleton_Real2SimGuidance_h_T SingletonInstance;// '<S91>/getSpeedLimit' 
     DubinsObjSingleton_Real2SimGuidance_T SingletonInstance_e;// '<Root>/Get Nominal Flight Speed' 
     robotics_slcore_internal_block_CoordinateTransformationConversion_Real2SimGuidance_T
-        obj_m;                  // '<S14>/Coordinate Transformation Conversion'
+        obj_h;                  // '<S14>/Coordinate Transformation Conversion'
     real_T VectorConcatenate[4];       // '<S109>/Vector Concatenate'
     real_T estimatedExtendedStateDerivative[3];
                                      // '<S114>/Linear extended state observer'
@@ -98,7 +98,7 @@ struct DW_Real2SimGuidance_f_T {
     int32_T SelectNorth_DIMS1[2];      // '<S14>/SelectNorth'
     int32_T SelectEast_DIMS1[2];       // '<S14>/SelectEast'
     int32_T SFunction_DIMS2[2];        // '<S14>/minus'
-    int32_T SFunction_DIMS2_k[2];      // '<S14>/MatrixProduct'
+    int32_T SFunction_DIMS2_c[2];      // '<S14>/MatrixProduct'
     int32_T durationCounter_1;         // '<Root>/TASgreaterthan15for1Sec'
     int32_T SFunction_DIMS3;           // '<S14>/Cartesian2Polar'
     int32_T SFunction_DIMS4;           // '<S14>/Cartesian2Polar'
@@ -146,20 +146,20 @@ struct DW_Real2SimGuidance_f_T {
     boolean_T PID_U;                   // '<S109>/ControlLogic'
     boolean_T EnableADRC;              // '<S109>/ControlLogic'
     boolean_T EnablePID;               // '<S109>/ControlLogic'
-    boolean_T Compare_l;               // '<S24>/Compare'
-    boolean_T Compare_n;               // '<S25>/Compare'
-    boolean_T Compare_nw;              // '<S26>/Compare'
+    boolean_T Compare_o;               // '<S24>/Compare'
+    boolean_T Compare_l;               // '<S25>/Compare'
+    boolean_T Compare_k;               // '<S26>/Compare'
     boolean_T DelayInput1_DSTATE;      // '<S17>/Delay Input1'
-    boolean_T DelayInput1_DSTATE_b;    // '<S19>/Delay Input1'
-    boolean_T DelayInput1_DSTATE_m;    // '<S20>/Delay Input1'
+    boolean_T DelayInput1_DSTATE_o;    // '<S19>/Delay Input1'
+    boolean_T DelayInput1_DSTATE_p;    // '<S20>/Delay Input1'
     boolean_T AvoidDanger;             // '<Root>/Data Store Memory'
     boolean_T HdgStatus_Log;           // '<Root>/Status_Log'
     boolean_T MemoryNotInBrake_PreviousInput;// '<S9>/MemoryNotInBrake'
     boolean_T SingletonInstance_not_empty;// '<S91>/getSpeedLimit'
     boolean_T objisempty;              // '<S89>/TrackSimPath'
     boolean_T SingletonInstance_not_empty_a;// '<Root>/Get Nominal Flight Speed' 
-    boolean_T objisempty_l;            // '<S1>/Vector Field Histogram'
-    boolean_T objisempty_m;     // '<S14>/Coordinate Transformation Conversion'
+    boolean_T objisempty_f;            // '<S1>/Vector Field Histogram'
+    boolean_T objisempty_k;     // '<S14>/Coordinate Transformation Conversion'
     boolean_T SpdFBControl_MODE;       // '<S93>/SpdFBControl'
     boolean_T PID_MODE;                // '<S109>/PID'
     boolean_T ADRC_MODE;               // '<S109>/ADRC'

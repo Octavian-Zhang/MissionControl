@@ -5,7 +5,7 @@
 //
 // Model version                  : 4.142
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Mon May 23 22:45:15 2022
+// C/C++ source code generated on : Fri May 27 23:18:34 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -43,7 +43,7 @@ class codegenReal2MissionModelClassSendData_IndividualUAVCmdT : public
     void SendData(const IndividualUAVCmd* data, int32_T length, int32_T* status)
     {
         // Add send data logic here
-        unsigned int priority = 1; // Mission feedback -> Lowest priority
+        unsigned int priority = 0; // Mission feedback -> Lowest priority
         *status = -mq_send(msgQueue, (char*)data, length, priority);
         if (*status == 0) // Not failed, successfully received
         {
@@ -78,7 +78,7 @@ class codegenReal2MissionModelClassRecvData_IndividualUAVCmdT : public
     void RecvData(IndividualUAVCmd* data, int32_T length, int32_T* status)
     {
         // Add receive data logic here
-        unsigned int priority = 16384; // Mission upload -> Highest priority
+        unsigned int priority = sysconf(_SC_MQ_PRIO_MAX) - 1; // Mission upload -> Highest priority
         *status = -mq_receive(msgQueue, (char *)data, length, &priority);
         if (*status < 0) // Not failed, successfully received
         {
@@ -207,7 +207,7 @@ void* periodicTask(void *arg)
     while (1) {
         MW_sem_wait(&periodicTaskStartSem[taskId]);
 
-        unsigned int priority = 8192;
+        unsigned int priority = sysconf(_SC_MQ_PRIO_MAX) - 1; 
 
         // Set model inputs here
         codegenReal2MissionModelClass::ExtU_codegenReal2Mission_T ExtU{};
@@ -378,7 +378,7 @@ int main(int argc, const char *argv[])
 
     // Create periodic trigger threads
     if (policy == SCHED_FIFO || policy == SCHED_RR) {
-        sp.sched_priority = 40;
+        sp.sched_priority = sched_get_priority_max(SCHED_RR);
         ret = pthread_attr_setschedparam(&attr, &sp);
         CHECK_STATUS(ret, "pthread_attr_setschedparam");
     }

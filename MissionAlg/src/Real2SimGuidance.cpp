@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'Real2SimGuidance'.
 //
-// Model version                  : 4.142
+// Model version                  : 4.157
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Mon May 23 22:37:25 2022
+// C/C++ source code generated on : Fri May 27 22:56:41 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -8200,61 +8200,61 @@ void Real2SimGuidance_Init(DW_Real2SimGuidance_f_T *localDW,
     // SystemInitialize for Atomic SubSystem: '<Root>/AvoidDanger'
     // SystemInitialize for Atomic SubSystem: '<S1>/ProcessCloudPoint'
     // Start for MATLABSystem: '<S14>/Coordinate Transformation Conversion'
-    localDW->objisempty_m = true;
-    localDW->obj_m.isInitialized = 1;
+    localDW->objisempty_k = true;
+    localDW->obj_h.isInitialized = 1;
 
     // End of SystemInitialize for SubSystem: '<S1>/ProcessCloudPoint'
 
     // Start for MATLABSystem: '<S1>/Vector Field Histogram'
-    localDW->obj_d.NarrowOpeningThreshold = 0.8;
-    localDW->obj_d.AngularLimits[0] = -3.1415926535897931;
-    localDW->obj_d.AngularLimits[1] = 3.1415926535897931;
-    localDW->obj_d.CacheInputSizes = false;
-    localDW->objisempty_l = true;
-    localDW->obj_d.DistanceLimits[0] = Real2SimGuidance_minimum
+    localDW->obj_p.NarrowOpeningThreshold = 0.8;
+    localDW->obj_p.AngularLimits[0] = -3.1415926535897931;
+    localDW->obj_p.AngularLimits[1] = 3.1415926535897931;
+    localDW->obj_p.CacheInputSizes = false;
+    localDW->objisempty_f = true;
+    localDW->obj_p.DistanceLimits[0] = Real2SimGuidance_minimum
         (rtCP_VectorFieldHistogram_DistanceLimits);
-    localDW->obj_d.DistanceLimits[1] = 686.86935486365564;
-    localDW->obj_d.HistogramThresholds[0] = Real2SimGuidance_minimum
+    localDW->obj_p.DistanceLimits[1] = 686.86935486365564;
+    localDW->obj_p.HistogramThresholds[0] = Real2SimGuidance_minimum
         (rtCP_VectorFieldHistogram_HistogramThresholds);
-    localDW->obj_d.HistogramThresholds[1] = 2747.4774194546226;
-    localDW->obj_d.RobotRadius = 3.5;
-    localDW->obj_d.SafetyDistance = 17.5;
-    localDW->obj_d.MinTurningRadius = 171.71733871591391;
-    localDW->obj_d.TargetDirectionWeight = 5.0;
-    localDW->obj_d.CurrentDirectionWeight = 3.0;
-    localDW->obj_d.PreviousDirectionWeight = 1.0;
-    localDW->obj_d.isInitialized = 1;
+    localDW->obj_p.HistogramThresholds[1] = 274.74774194546228;
+    localDW->obj_p.RobotRadius = 3.5;
+    localDW->obj_p.SafetyDistance = 17.5;
+    localDW->obj_p.MinTurningRadius = 171.71733871591391;
+    localDW->obj_p.TargetDirectionWeight = 5.0;
+    localDW->obj_p.CurrentDirectionWeight = 2.0;
+    localDW->obj_p.PreviousDirectionWeight = 2.0;
+    localDW->obj_p.isInitialized = 1;
     i = localDW->SFunction_DIMS3;
     if (localDW->SFunction_DIMS3 < 0) {
         i = 0;
     }
 
-    localDW->obj_d.inputVarSize[0].f1[0] = static_cast<uint32_T>(i);
-    localDW->obj_d.inputVarSize[0].f1[1] = 1U;
+    localDW->obj_p.inputVarSize[0].f1[0] = static_cast<uint32_T>(i);
+    localDW->obj_p.inputVarSize[0].f1[1] = 1U;
     i = localDW->SFunction_DIMS4;
     if (localDW->SFunction_DIMS4 < 0) {
         i = 0;
     }
 
-    localDW->obj_d.inputVarSize[1].f1[0] = static_cast<uint32_T>(i);
-    localDW->obj_d.inputVarSize[1].f1[1] = 1U;
+    localDW->obj_p.inputVarSize[1].f1[0] = static_cast<uint32_T>(i);
+    localDW->obj_p.inputVarSize[1].f1[1] = 1U;
     for (i = 0; i < 6; i++) {
-        localDW->obj_d.inputVarSize[0].f1[static_cast<int32_T>(i + 2)] = 1U;
-        localDW->obj_d.inputVarSize[1].f1[static_cast<int32_T>(i + 2)] = 1U;
+        localDW->obj_p.inputVarSize[0].f1[static_cast<int32_T>(i + 2)] = 1U;
+        localDW->obj_p.inputVarSize[1].f1[static_cast<int32_T>(i + 2)] = 1U;
     }
 
     for (i = 0; i < 8; i++) {
-        localDW->obj_d.inputVarSize[2].f1[i] = 1U;
+        localDW->obj_p.inputVarSize[2].f1[i] = 1U;
     }
 
-    Real2SimGuidance_VectorFieldHistogramBase_setupImpl(&localDW->obj_d);
+    Real2SimGuidance_VectorFieldHistogramBase_setupImpl(&localDW->obj_p);
 
     // End of Start for MATLABSystem: '<S1>/Vector Field Histogram'
 
     // InitializeConditions for MATLABSystem: '<S1>/Vector Field Histogram'
-    std::memset(&localDW->obj_d.BinaryHistogram[0], 0, static_cast<uint32_T>
+    std::memset(&localDW->obj_p.BinaryHistogram[0], 0, static_cast<uint32_T>
                 (180U * sizeof(boolean_T)));
-    localDW->obj_d.PreviousDirection *= 0.0;
+    localDW->obj_p.PreviousDirection *= 0.0;
 
     // End of SystemInitialize for SubSystem: '<Root>/AvoidDanger'
 
@@ -8371,9 +8371,9 @@ void Real2SimGuidance_Reset(DW_Real2SimGuidance_f_T *localDW,
 
     // SystemReset for Atomic SubSystem: '<Root>/AvoidDanger'
     // InitializeConditions for MATLABSystem: '<S1>/Vector Field Histogram'
-    std::memset(&localDW->obj_d.BinaryHistogram[0], 0, static_cast<uint32_T>
+    std::memset(&localDW->obj_p.BinaryHistogram[0], 0, static_cast<uint32_T>
                 (180U * sizeof(boolean_T)));
-    localDW->obj_d.PreviousDirection *= 0.0;
+    localDW->obj_p.PreviousDirection *= 0.0;
 
     // SystemReset for Atomic SubSystem: '<S1>/Hdg2LAP'
     // InitializeConditions for UnitDelay: '<S17>/Delay Input1'
@@ -8390,7 +8390,7 @@ void Real2SimGuidance_Reset(DW_Real2SimGuidance_f_T *localDW,
     //
     //   Store in Global RAM
 
-    localDW->DelayInput1_DSTATE_b = false;
+    localDW->DelayInput1_DSTATE_o = false;
 
     // InitializeConditions for UnitDelay: '<S20>/Delay Input1'
     //
@@ -8398,7 +8398,7 @@ void Real2SimGuidance_Reset(DW_Real2SimGuidance_f_T *localDW,
     //
     //   Store in Global RAM
 
-    localDW->DelayInput1_DSTATE_m = false;
+    localDW->DelayInput1_DSTATE_p = false;
 
     // End of SystemReset for SubSystem: '<S1>/Hdg2LAP'
     // End of SystemReset for SubSystem: '<Root>/AvoidDanger'
@@ -11155,15 +11155,15 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         }
 
         // '<S31>:1:3'
-        localDW->SFunction_DIMS2_k[0] = NewPC->size[0];
-        localDW->SFunction_DIMS2_k[1] = 2;
+        localDW->SFunction_DIMS2_c[0] = NewPC->size[0];
+        localDW->SFunction_DIMS2_c[1] = 2;
 
         // Selector: '<S14>/SelectNorth' incorporates:
         //   MATLAB Function: '<S14>/MatrixProduct'
 
-        localDW->SelectNorth_DIMS1[0] = localDW->SFunction_DIMS2_k[0];
+        localDW->SelectNorth_DIMS1[0] = localDW->SFunction_DIMS2_c[0];
         localDW->SelectNorth_DIMS1[1] = 1;
-        k_0 = localDW->SFunction_DIMS2_k[0];
+        k_0 = localDW->SFunction_DIMS2_c[0];
         for (i = 0; i <= static_cast<int32_T>(k_0 - 1); i++) {
             localDW->SelectNorth[i] = NewPC->data[i];
         }
@@ -11173,9 +11173,9 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         // Selector: '<S14>/SelectEast' incorporates:
         //   MATLAB Function: '<S14>/MatrixProduct'
 
-        localDW->SelectEast_DIMS1[0] = localDW->SFunction_DIMS2_k[0];
+        localDW->SelectEast_DIMS1[0] = localDW->SFunction_DIMS2_c[0];
         localDW->SelectEast_DIMS1[1] = 1;
-        k_0 = localDW->SFunction_DIMS2_k[0];
+        k_0 = localDW->SFunction_DIMS2_c[0];
         for (i = 0; i <= static_cast<int32_T>(k_0 - 1); i++) {
             localDW->SelectEast[i] = NewPC->data[static_cast<int32_T>(i +
                 NewPC->size[0])];
@@ -11517,7 +11517,7 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         exitg1 = false;
         while ((!exitg1) && (nx < 2)) {
             if (static_cast<boolean_T>(static_cast<int32_T>
-                                       ((localDW->obj_d.DistanceLimits[nx] ==
+                                       ((localDW->obj_p.DistanceLimits[nx] ==
                     rtCP_VectorFieldHistogram_DistanceLimits[nx]) ^ 1))) {
                 rEQ0 = false;
                 exitg1 = true;
@@ -11532,9 +11532,9 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
 
         if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
                 (rtb_Compare_i) ^ 1))) {
-            localDW->obj_d.DistanceLimits[0] = Real2SimGuidance_minimum
+            localDW->obj_p.DistanceLimits[0] = Real2SimGuidance_minimum
                 (rtCP_VectorFieldHistogram_DistanceLimits);
-            localDW->obj_d.DistanceLimits[1] = 686.86935486365564;
+            localDW->obj_p.DistanceLimits[1] = 686.86935486365564;
         }
 
         rtb_Compare_i = false;
@@ -11543,7 +11543,7 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         exitg1 = false;
         while ((!exitg1) && (nx < 2)) {
             if (static_cast<boolean_T>(static_cast<int32_T>
-                                       ((localDW->obj_d.HistogramThresholds[nx] ==
+                                       ((localDW->obj_p.HistogramThresholds[nx] ==
                    rtCP_VectorFieldHistogram_HistogramThresholds[nx]) ^ 1))) {
                 rEQ0 = false;
                 exitg1 = true;
@@ -11558,33 +11558,33 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
 
         if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
                 (rtb_Compare_i) ^ 1))) {
-            localDW->obj_d.HistogramThresholds[0] = Real2SimGuidance_minimum
+            localDW->obj_p.HistogramThresholds[0] = Real2SimGuidance_minimum
                 (rtCP_VectorFieldHistogram_HistogramThresholds);
-            localDW->obj_d.HistogramThresholds[1] = 2747.4774194546226;
+            localDW->obj_p.HistogramThresholds[1] = 274.74774194546228;
         }
 
-        if (localDW->obj_d.RobotRadius != 3.5) {
-            localDW->obj_d.RobotRadius = 3.5;
+        if (localDW->obj_p.RobotRadius != 3.5) {
+            localDW->obj_p.RobotRadius = 3.5;
         }
 
-        if (localDW->obj_d.SafetyDistance != 17.5) {
-            localDW->obj_d.SafetyDistance = 17.5;
+        if (localDW->obj_p.SafetyDistance != 17.5) {
+            localDW->obj_p.SafetyDistance = 17.5;
         }
 
-        if (localDW->obj_d.MinTurningRadius != 171.71733871591391) {
-            localDW->obj_d.MinTurningRadius = 171.71733871591391;
+        if (localDW->obj_p.MinTurningRadius != 171.71733871591391) {
+            localDW->obj_p.MinTurningRadius = 171.71733871591391;
         }
 
-        if (localDW->obj_d.TargetDirectionWeight != 5.0) {
-            localDW->obj_d.TargetDirectionWeight = 5.0;
+        if (localDW->obj_p.TargetDirectionWeight != 5.0) {
+            localDW->obj_p.TargetDirectionWeight = 5.0;
         }
 
-        if (localDW->obj_d.CurrentDirectionWeight != 3.0) {
-            localDW->obj_d.CurrentDirectionWeight = 3.0;
+        if (localDW->obj_p.CurrentDirectionWeight != 2.0) {
+            localDW->obj_p.CurrentDirectionWeight = 2.0;
         }
 
-        if (localDW->obj_d.PreviousDirectionWeight != 1.0) {
-            localDW->obj_d.PreviousDirectionWeight = 1.0;
+        if (localDW->obj_p.PreviousDirectionWeight != 2.0) {
+            localDW->obj_p.PreviousDirectionWeight = 2.0;
         }
 
         rtb_rho_2.data = &localDW->rho[0];
@@ -11611,7 +11611,7 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
 
         // Outputs for Atomic SubSystem: '<Root>/AvoidDanger'
         // MATLABSystem: '<S1>/Vector Field Histogram'
-        rtb_Switch = Real2SimGuidance_SystemCore_step(&localDW->obj_d,
+        rtb_Switch = Real2SimGuidance_SystemCore_step(&localDW->obj_p,
             &rtb_rho_2, &rtb_theta_0, rtb_Switch, localDW);
 
         // Outputs for Atomic SubSystem: '<S1>/Hdg2LAP'
@@ -11624,7 +11624,7 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         rtb_Compare_i = std::isnan(rtb_Switch);
 
         // RelationalOperator: '<S24>/Compare'
-        localDW->Compare_l = rtb_Compare_i;
+        localDW->Compare_o = rtb_Compare_i;
 
         // Outputs for Enabled SubSystem: '<S13>/FailDangerAvoidance' incorporates:
         //   EnablePort: '<S21>/Enable'
@@ -11636,7 +11636,7 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         //
         //   Store in Global RAM
 
-        if (static_cast<int32_T>(localDW->Compare_l) > static_cast<int32_T>
+        if (static_cast<int32_T>(localDW->Compare_o) > static_cast<int32_T>
                 (localDW->DelayInput1_DSTATE)) {
             // MATLAB Function: '<S21>/printFail'
             // MATLAB Function 'AvoidDanger/Hdg2LAP/FailDangerAvoidance/printFail': '<S27>:1' 
@@ -11699,7 +11699,7 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         // RelationalOperator: '<S25>/Compare' incorporates:
         //   Constant: '<S25>/Constant'
 
-        localDW->Compare_n = static_cast<boolean_T>(static_cast<int32_T>(
+        localDW->Compare_l = static_cast<boolean_T>(static_cast<int32_T>(
             static_cast<int32_T>(rEQ0) ^ 1));
 
         // Outputs for Enabled SubSystem: '<S13>/FinishDangerAvoidance' incorporates:
@@ -11712,8 +11712,8 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         //
         //   Store in Global RAM
 
-        if (static_cast<int32_T>(localDW->Compare_n) > static_cast<int32_T>
-                (localDW->DelayInput1_DSTATE_b)) {
+        if (static_cast<int32_T>(localDW->Compare_l) > static_cast<int32_T>
+                (localDW->DelayInput1_DSTATE_o)) {
             // MATLAB Function: '<S22>/printFinish'
             // MATLAB Function 'AvoidDanger/Hdg2LAP/FinishDangerAvoidance/printFinish': '<S28>:1' 
             // '<S28>:1:3'
@@ -11725,7 +11725,7 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         // End of Outputs for SubSystem: '<S13>/FinishDangerAvoidance'
 
         // RelationalOperator: '<S26>/Compare'
-        localDW->Compare_nw = rEQ0;
+        localDW->Compare_k = rEQ0;
 
         // Outputs for Enabled SubSystem: '<S13>/StartDangerAvoidance' incorporates:
         //   EnablePort: '<S23>/Enable'
@@ -11737,8 +11737,8 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
         //
         //   Store in Global RAM
 
-        if (static_cast<int32_T>(localDW->Compare_nw) > static_cast<int32_T>
-                (localDW->DelayInput1_DSTATE_m)) {
+        if (static_cast<int32_T>(localDW->Compare_k) > static_cast<int32_T>
+                (localDW->DelayInput1_DSTATE_p)) {
             // MATLAB Function: '<S23>/printStart'
             // MATLAB Function 'AvoidDanger/Hdg2LAP/StartDangerAvoidance/printStart': '<S29>:1' 
             // '<S29>:1:3'
@@ -12935,7 +12935,7 @@ void Real2SimGuidance_Update(RT_MODEL_Real2SimGuidance_T * const
         //
         //   Store in Global RAM
 
-        localDW->DelayInput1_DSTATE = localDW->Compare_l;
+        localDW->DelayInput1_DSTATE = localDW->Compare_o;
 
         // Update for UnitDelay: '<S19>/Delay Input1'
         //
@@ -12943,7 +12943,7 @@ void Real2SimGuidance_Update(RT_MODEL_Real2SimGuidance_T * const
         //
         //   Store in Global RAM
 
-        localDW->DelayInput1_DSTATE_b = localDW->Compare_n;
+        localDW->DelayInput1_DSTATE_o = localDW->Compare_l;
 
         // Update for UnitDelay: '<S20>/Delay Input1'
         //
@@ -12951,7 +12951,7 @@ void Real2SimGuidance_Update(RT_MODEL_Real2SimGuidance_T * const
         //
         //   Store in Global RAM
 
-        localDW->DelayInput1_DSTATE_m = localDW->Compare_nw;
+        localDW->DelayInput1_DSTATE_p = localDW->Compare_k;
 
         // End of Update for SubSystem: '<S1>/Hdg2LAP'
         // End of Update for SubSystem: '<Root>/AvoidDanger'

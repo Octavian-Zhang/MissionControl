@@ -5,7 +5,7 @@
 //
 // Model version                  : 4.142
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Mon May 23 22:45:15 2022
+// C/C++ source code generated on : Fri May 27 23:18:34 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -1404,8 +1404,8 @@ int32_T codegenReal2MissionModelClass::codegenReal2Mission_cfclose_l(real_T fid)
 }
 
 IndividualUAVCmd *codegenReal2MissionModelClass::
-    codegenReal2Mission_allocMemPool_f(MemPool_IndividualUAVCmd *memPool,
-    int32_T width)
+    codegenReal2Mission_allocMemPool(MemPool_IndividualUAVCmd *memPool, int32_T
+    width)
 {
     IndividualUAVCmd *dataPtr;
 
@@ -1425,12 +1425,12 @@ IndividualUAVCmd *codegenReal2MissionModelClass::
 }
 
 Msg_IndividualUAVCmd codegenReal2MissionModelClass::
-    codegenReal2Mission_createMsg_p(const IndividualUAVCmd *data)
+    codegenReal2Mission_createMsg(const IndividualUAVCmd *data)
 {
     Msg_IndividualUAVCmd msg;
 
     // DiscreteEventSubgraph generated from: '<S1>/DangerLidarScanPoints'
-    msg.fData = codegenReal2Mission_allocMemPool_f
+    msg.fData = codegenReal2Mission_allocMemPool
         (&codegenReal2Mission_DW.slMsgMgr_MemPool_IndividualUAVCmd, 1);
     if (msg.fData != nullptr) {
         *msg.fData = *data;
@@ -1440,7 +1440,7 @@ Msg_IndividualUAVCmd codegenReal2MissionModelClass::
     return msg;
 }
 
-void codegenReal2MissionModelClass::codegenReal2Mission_freeMemPool_i
+void codegenReal2MissionModelClass::codegenReal2Mission_freeMemPool
     (MemPool_IndividualUAVCmd *memPool, IndividualUAVCmd *dataPtr)
 {
     // DiscreteEventSubgraph generated from: '<S1>/DangerLidarScanPoints'
@@ -1448,15 +1448,15 @@ void codegenReal2MissionModelClass::codegenReal2Mission_freeMemPool_i
     memPool->fNumFree = static_cast<int32_T>(memPool->fNumFree + 1);
 }
 
-void codegenReal2MissionModelClass::codegenReal2Mission_destroyMsg_m
+void codegenReal2MissionModelClass::codegenReal2Mission_destroyMsg
     (Msg_IndividualUAVCmd *msg)
 {
     // DiscreteEventSubgraph generated from: '<S1>/DangerLidarScanPoints'
-    codegenReal2Mission_freeMemPool_i
+    codegenReal2Mission_freeMemPool
         (&codegenReal2Mission_DW.slMsgMgr_MemPool_IndividualUAVCmd, msg->fData);
 }
 
-boolean_T codegenReal2MissionModelClass::codegenReal2Mission_push_i
+boolean_T codegenReal2MissionModelClass::codegenReal2Mission_push
     (Queue_IndividualUAVCmd *q, Msg_IndividualUAVCmd *element)
 {
     boolean_T isPush;
@@ -1464,7 +1464,7 @@ boolean_T codegenReal2MissionModelClass::codegenReal2Mission_push_i
     // Queue: '<S59>/Queue'
     q->fTail = static_cast<int32_T>(q->fTail + 1) % q->fCapacity;
     if (q->fTail == q->fHead) {
-        codegenReal2Mission_destroyMsg_m(&q->fArray[q->fHead]);
+        codegenReal2Mission_destroyMsg(&q->fArray[q->fHead]);
         q->fHead = static_cast<int32_T>(q->fHead + 1) % q->fCapacity;
     } else if (q->fHead == -1) {
         q->fHead = q->fTail;
@@ -1486,22 +1486,22 @@ int32_T codegenReal2MissionModelClass::codegenReal2Mission_Queue_SendData(const
     // DiscreteEventSubgraph generated from: '<S1>/DangerLidarScanPoints' incorporates:
     //   Send: '<S59>/Send'
 
-    msg = codegenReal2Mission_createMsg_p(data);
+    msg = codegenReal2Mission_createMsg(data);
 
     // Queue: '<S59>/Queue' incorporates:
     //   DiscreteEventSubgraph generated from: '<S1>/DangerLidarScanPoints'
 
-    if (codegenReal2Mission_push_i(&codegenReal2Mission_DW.Queue_Queue, &msg)) {
+    if (codegenReal2Mission_push(&codegenReal2Mission_DW.Queue_Queue, &msg)) {
         status = 0;
     } else {
-        codegenReal2Mission_destroyMsg_m(&msg);
+        codegenReal2Mission_destroyMsg(&msg);
     }
 
     // End of Queue: '<S59>/Queue'
     return status;
 }
 
-boolean_T codegenReal2MissionModelClass::codegenReal2Mission_pop_c
+boolean_T codegenReal2MissionModelClass::codegenReal2Mission_pop
     (Queue_IndividualUAVCmd *q, Msg_IndividualUAVCmd *elementOut)
 {
     boolean_T isPop;
@@ -1534,10 +1534,10 @@ int32_T codegenReal2MissionModelClass::codegenReal2Mission_Queue_RecvData
     //   DiscreteEventSubgraph generated from: '<S1>/DangerLidarScanPoints'
     //   Receive: '<S68>/Receive'
 
-    if (codegenReal2Mission_pop_c(&codegenReal2Mission_DW.Queue_Queue, &msg)) {
+    if (codegenReal2Mission_pop(&codegenReal2Mission_DW.Queue_Queue, &msg)) {
         status = 0;
         *data = *msg.fData;
-        codegenReal2Mission_destroyMsg_m(&msg);
+        codegenReal2Mission_destroyMsg(&msg);
     }
 
     // End of Queue: '<S59>/Queue'
@@ -1551,7 +1551,7 @@ boolean_T codegenReal2MissionModelClass::codegenReal2Mission_push_b
 
     // Queue generated from: '<S1>/DangerLidarScanPoints'
     if (q->fOccupied) {
-        codegenReal2Mission_destroyMsg_m(&q->fMsg);
+        codegenReal2Mission_destroyMsg(&q->fMsg);
     }
 
     q->fMsg = *element;
@@ -1571,7 +1571,7 @@ int32_T codegenReal2MissionModelClass::codegenReal2Mission_Receive_SendData(
     // DiscreteEventSubgraph generated from: '<S1>/DangerLidarScanPoints' incorporates:
     //   Send: '<S59>/SendDanger'
 
-    msg = codegenReal2Mission_createMsg_p(data);
+    msg = codegenReal2Mission_createMsg(data);
 
     // Queue generated from: '<S1>/DangerLidarScanPoints' incorporates:
     //   DiscreteEventSubgraph generated from: '<S1>/DangerLidarScanPoints'
@@ -1581,7 +1581,7 @@ int32_T codegenReal2MissionModelClass::codegenReal2Mission_Receive_SendData(
              &msg)) {
         status = 0;
     } else {
-        codegenReal2Mission_destroyMsg_m(&msg);
+        codegenReal2Mission_destroyMsg(&msg);
     }
 
     // End of Queue generated from: '<S1>/DangerLidarScanPoints'
@@ -2208,7 +2208,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_getDateVec_oe(const
     }
 }
 
-missionCmd *codegenReal2MissionModelClass::codegenReal2Mission_allocMemPool
+missionCmd *codegenReal2MissionModelClass::codegenReal2Mission_allocMemPool_c
     (MemPool_missionCmd *memPool, int32_T width)
 {
     missionCmd *dataPtr;
@@ -2228,13 +2228,13 @@ missionCmd *codegenReal2MissionModelClass::codegenReal2Mission_allocMemPool
     return dataPtr;
 }
 
-Msg_missionCmd codegenReal2MissionModelClass::codegenReal2Mission_createMsg(
+Msg_missionCmd codegenReal2MissionModelClass::codegenReal2Mission_createMsg_f(
     const missionCmd *data)
 {
     Msg_missionCmd msg;
 
     // DiscreteEventSubgraph generated from: '<S1>/DangerLidarScanPoints'
-    msg.fData = codegenReal2Mission_allocMemPool
+    msg.fData = codegenReal2Mission_allocMemPool_c
         (&codegenReal2Mission_DW.slMsgMgr_MemPool_missionCmd, 1);
     if (msg.fData != nullptr) {
         *msg.fData = *data;
@@ -2244,7 +2244,7 @@ Msg_missionCmd codegenReal2MissionModelClass::codegenReal2Mission_createMsg(
     return msg;
 }
 
-void codegenReal2MissionModelClass::codegenReal2Mission_freeMemPool
+void codegenReal2MissionModelClass::codegenReal2Mission_freeMemPool_h
     (MemPool_missionCmd *memPool, missionCmd *dataPtr)
 {
     // DiscreteEventSubgraph generated from: '<S1>/DangerLidarScanPoints'
@@ -2252,22 +2252,22 @@ void codegenReal2MissionModelClass::codegenReal2Mission_freeMemPool
     memPool->fNumFree = static_cast<int32_T>(memPool->fNumFree + 1);
 }
 
-void codegenReal2MissionModelClass::codegenReal2Mission_destroyMsg
+void codegenReal2MissionModelClass::codegenReal2Mission_destroyMsg_g
     (Msg_missionCmd *msg)
 {
     // DiscreteEventSubgraph generated from: '<S1>/DangerLidarScanPoints'
-    codegenReal2Mission_freeMemPool
+    codegenReal2Mission_freeMemPool_h
         (&codegenReal2Mission_DW.slMsgMgr_MemPool_missionCmd, msg->fData);
 }
 
-boolean_T codegenReal2MissionModelClass::codegenReal2Mission_push
+boolean_T codegenReal2MissionModelClass::codegenReal2Mission_push_i
     (Buffer_missionCmd *q, Msg_missionCmd *element)
 {
     boolean_T isPush;
 
     // Queue generated from: '<S1>/RcvNextMission'
     if (q->fOccupied) {
-        codegenReal2Mission_destroyMsg(&q->fMsg);
+        codegenReal2Mission_destroyMsg_g(&q->fMsg);
     }
 
     q->fMsg = *element;
@@ -2287,17 +2287,17 @@ int32_T codegenReal2MissionModelClass::
     // DiscreteEventSubgraph generated from: '<S1>/DangerLidarScanPoints' incorporates:
     //   Send: '<S61>/PushCMD'
 
-    msg = codegenReal2Mission_createMsg(data);
+    msg = codegenReal2Mission_createMsg_f(data);
 
     // Queue generated from: '<S1>/RcvNextMission' incorporates:
     //   DiscreteEventSubgraph generated from: '<S1>/DangerLidarScanPoints'
 
-    if (codegenReal2Mission_push
+    if (codegenReal2Mission_push_i
             (&codegenReal2Mission_DW.Queue_InsertedFor_RcvNextMission_at_inport_0_Queue,
              &msg)) {
         status = 0;
     } else {
-        codegenReal2Mission_destroyMsg(&msg);
+        codegenReal2Mission_destroyMsg_g(&msg);
     }
 
     // End of Queue generated from: '<S1>/RcvNextMission'
@@ -2313,17 +2313,17 @@ int32_T codegenReal2MissionModelClass::
     // DiscreteEventSubgraph generated from: '<S1>/DangerLidarScanPoints' incorporates:
     //   Send: '<S50>/Send'
 
-    msg = codegenReal2Mission_createMsg(data);
+    msg = codegenReal2Mission_createMsg_f(data);
 
     // Queue generated from: '<S1>/FeedbackCurrentMission' incorporates:
     //   DiscreteEventSubgraph generated from: '<S1>/DangerLidarScanPoints'
 
-    if (codegenReal2Mission_push
+    if (codegenReal2Mission_push_i
             (&codegenReal2Mission_DW.Queue_InsertedFor_FeedbackCurrentMission_at_inport_5_Queue,
              &msg)) {
         status = 0;
     } else {
-        codegenReal2Mission_destroyMsg(&msg);
+        codegenReal2Mission_destroyMsg_g(&msg);
     }
 
     // End of Queue generated from: '<S1>/FeedbackCurrentMission'
@@ -2339,24 +2339,24 @@ int32_T codegenReal2MissionModelClass::codegenReal2Mission_RcvImmedCMD_SendData(
     // DiscreteEventSubgraph generated from: '<S1>/DangerLidarScanPoints' incorporates:
     //   Send: '<S58>/SndImmedCMD'
 
-    msg = codegenReal2Mission_createMsg(data);
+    msg = codegenReal2Mission_createMsg_f(data);
 
     // Queue generated from: '<S1>/RcvImmedCMD' incorporates:
     //   DiscreteEventSubgraph generated from: '<S1>/DangerLidarScanPoints'
 
-    if (codegenReal2Mission_push
+    if (codegenReal2Mission_push_i
             (&codegenReal2Mission_DW.Queue_InsertedFor_RcvImmedCMD_at_inport_0_Queue,
              &msg)) {
         status = 0;
     } else {
-        codegenReal2Mission_destroyMsg(&msg);
+        codegenReal2Mission_destroyMsg_g(&msg);
     }
 
     // End of Queue generated from: '<S1>/RcvImmedCMD'
     return status;
 }
 
-boolean_T codegenReal2MissionModelClass::codegenReal2Mission_pop
+boolean_T codegenReal2MissionModelClass::codegenReal2Mission_pop_h
     (Buffer_missionCmd *q, Msg_missionCmd *elementOut)
 {
     boolean_T isPop;
@@ -2384,12 +2384,12 @@ int32_T codegenReal2MissionModelClass::
     // Queue generated from: '<S1>/RcvNextMission' incorporates:
     //   DiscreteEventSubgraph generated from: '<S1>/DangerLidarScanPoints'
 
-    if (codegenReal2Mission_pop
+    if (codegenReal2Mission_pop_h
             (&codegenReal2Mission_DW.Queue_InsertedFor_RcvNextMission_at_inport_0_Queue,
              &msg)) {
         status = 0;
         *data = *msg.fData;
-        codegenReal2Mission_destroyMsg(&msg);
+        codegenReal2Mission_destroyMsg_g(&msg);
     }
 
     // End of Queue generated from: '<S1>/RcvNextMission'
@@ -2405,17 +2405,17 @@ int32_T codegenReal2MissionModelClass::
     // DiscreteEventSubgraph generated from: '<S1>/DangerLidarScanPoints' incorporates:
     //   Send: '<S46>/SendMission'
 
-    msg = codegenReal2Mission_createMsg(data);
+    msg = codegenReal2Mission_createMsg_f(data);
 
     // Queue generated from: '<S41>/FlightMission' incorporates:
     //   DiscreteEventSubgraph generated from: '<S1>/DangerLidarScanPoints'
 
-    if (codegenReal2Mission_push
+    if (codegenReal2Mission_push_i
             (&codegenReal2Mission_DW.Queue_InsertedFor_FlightMission_at_inport_0_Queue,
              &msg)) {
         status = 0;
     } else {
-        codegenReal2Mission_destroyMsg(&msg);
+        codegenReal2Mission_destroyMsg_g(&msg);
     }
 
     // End of Queue generated from: '<S41>/FlightMission'
@@ -2432,12 +2432,12 @@ int32_T codegenReal2MissionModelClass::
     //   DiscreteEventSubgraph generated from: '<S1>/DangerLidarScanPoints'
     //   Receive: '<S42>/ReceiveCurrentMission'
 
-    if (codegenReal2Mission_pop
+    if (codegenReal2Mission_pop_h
             (&codegenReal2Mission_DW.Queue_InsertedFor_FlightMission_at_inport_0_Queue,
              &msg)) {
         status = 0;
         *data = *msg.fData;
-        codegenReal2Mission_destroyMsg(&msg);
+        codegenReal2Mission_destroyMsg_g(&msg);
     }
 
     // End of Queue generated from: '<S41>/FlightMission'
@@ -2453,12 +2453,12 @@ int32_T codegenReal2MissionModelClass::codegenReal2Mission_RcvImmedCMD_RecvData
     // Queue generated from: '<S1>/RcvImmedCMD' incorporates:
     //   DiscreteEventSubgraph generated from: '<S1>/DangerLidarScanPoints'
 
-    if (codegenReal2Mission_pop
+    if (codegenReal2Mission_pop_h
             (&codegenReal2Mission_DW.Queue_InsertedFor_RcvImmedCMD_at_inport_0_Queue,
              &msg)) {
         status = 0;
         *data = *msg.fData;
-        codegenReal2Mission_destroyMsg(&msg);
+        codegenReal2Mission_destroyMsg_g(&msg);
     }
 
     // End of Queue generated from: '<S1>/RcvImmedCMD'
@@ -2498,7 +2498,7 @@ int32_T codegenReal2MissionModelClass::codegenReal2Mission_Receive_RecvData
              &msg)) {
         status = 0;
         *data = *msg.fData;
-        codegenReal2Mission_destroyMsg_m(&msg);
+        codegenReal2Mission_destroyMsg(&msg);
     }
 
     // End of Queue generated from: '<S1>/DangerLidarScanPoints'
@@ -3195,12 +3195,12 @@ int32_T codegenReal2MissionModelClass::
     // Queue generated from: '<S1>/FeedbackCurrentMission' incorporates:
     //   DiscreteEventSubgraph generated from: '<S1>/DangerLidarScanPoints'
 
-    if (codegenReal2Mission_pop
+    if (codegenReal2Mission_pop_h
             (&codegenReal2Mission_DW.Queue_InsertedFor_FeedbackCurrentMission_at_inport_5_Queue,
              &msg)) {
         status = 0;
         *data = *msg.fData;
-        codegenReal2Mission_destroyMsg(&msg);
+        codegenReal2Mission_destroyMsg_g(&msg);
     }
 
     // End of Queue generated from: '<S1>/FeedbackCurrentMission'
@@ -3968,8 +3968,8 @@ void codegenReal2MissionModelClass::
 }
 
 void codegenReal2MissionModelClass::codegenReal2Mission_initMemPool
-    (MemPool_missionCmd *memPool, missionCmd *memArray, missionCmd **freeList,
-     int32_T size)
+    (MemPool_IndividualUAVCmd *memPool, IndividualUAVCmd *memArray,
+     IndividualUAVCmd **freeList, int32_T size)
 {
     // Start for slMsgMgr: '<Root>/slMsgMgr'
     memPool->fMemArray = memArray;
@@ -3979,9 +3979,9 @@ void codegenReal2MissionModelClass::codegenReal2Mission_initMemPool
     memPool->fSize = size;
 }
 
-void codegenReal2MissionModelClass::codegenReal2Mission_initMemPool_n
-    (MemPool_IndividualUAVCmd *memPool, IndividualUAVCmd *memArray,
-     IndividualUAVCmd **freeList, int32_T size)
+void codegenReal2MissionModelClass::codegenReal2Mission_initMemPool_o
+    (MemPool_missionCmd *memPool, missionCmd *memArray, missionCmd **freeList,
+     int32_T size)
 {
     // Start for slMsgMgr: '<Root>/slMsgMgr'
     memPool->fMemArray = memArray;
@@ -4058,7 +4058,7 @@ int8_T codegenReal2MissionModelClass::codegenReal2Mission_cfopen_g(const char_T 
     int8_T fileid;
     int8_T j;
     fileid = -1;
-    j = codegenReal2Mission_filedata_k(const_cast<const FILE **>(eml_openfiles_g));
+    j = codegenReal2Mission_filedata_k(eml_openfiles_g);
     if (static_cast<int32_T>(j) >= 1) {
         FILE* filestar;
         filestar = fopen(cfilename, cpermission);
@@ -9560,13 +9560,13 @@ void codegenReal2MissionModelClass::initialize()
 
         // Start for slMsgMgr: '<Root>/slMsgMgr'
         codegenReal2Mission_initMemPool
-            (&codegenReal2Mission_DW.slMsgMgr_MemPool_missionCmd,
-             &codegenReal2Mission_DW.slMsgMgr_memArray_missionCmd[0],
-             &codegenReal2Mission_DW.slMsgMgr_freeList_missionCmd[0], 9);
-        codegenReal2Mission_initMemPool_n
             (&codegenReal2Mission_DW.slMsgMgr_MemPool_IndividualUAVCmd,
              &codegenReal2Mission_DW.slMsgMgr_memArray_IndividualUAVCmd[0],
              &codegenReal2Mission_DW.slMsgMgr_freeList_IndividualUAVCmd[0], 19);
+        codegenReal2Mission_initMemPool_o
+            (&codegenReal2Mission_DW.slMsgMgr_MemPool_missionCmd,
+             &codegenReal2Mission_DW.slMsgMgr_memArray_missionCmd[0],
+             &codegenReal2Mission_DW.slMsgMgr_freeList_missionCmd[0], 9);
         codegenReal2Mission_PrevZCX.TriggerCurrentMisisonFeedback_Trig_ZCE =
             POS_ZCSIG;
         codegenReal2Mission_PrevZCX.FeedbackMissionCMD_Trig_ZCE = POS_ZCSIG;
