@@ -4058,7 +4058,7 @@ int8_T codegenReal2MissionModelClass::codegenReal2Mission_cfopen_g(const char_T 
     int8_T fileid;
     int8_T j;
     fileid = -1;
-    j = codegenReal2Mission_filedata_k(eml_openfiles_g);
+    j = codegenReal2Mission_filedata_k(const_cast<const FILE**>(eml_openfiles_g));
     if (static_cast<int32_T>(j) >= 1) {
         FILE* filestar;
         filestar = fopen(cfilename, cpermission);
