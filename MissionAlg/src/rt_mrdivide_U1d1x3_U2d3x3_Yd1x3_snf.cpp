@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'FlightMissionMode'.
 //
-// Model version                  : 3.19
+// Model version                  : 3.24
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Fri May 27 23:15:08 2022
+// C/C++ source code generated on : Wed Jun  1 23:11:04 2022
 //
 #include "rtwtypes.h"
 #include "rt_mrdivide_U1d1x3_U2d3x3_Yd1x3_snf.h"

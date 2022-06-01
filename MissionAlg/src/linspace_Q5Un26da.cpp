@@ -3,15 +3,15 @@
 //
 // Code generated for Simulink model 'ImmedMission'.
 //
-// Model version                  : 3.3
+// Model version                  : 3.19
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Fri May 27 22:55:54 2022
+// C/C++ source code generated on : Wed Jun  1 23:05:15 2022
 //
 #include "rtwtypes.h"
 #include "linspace_Q5Un26da.h"
 #include <cmath>
 
-// Function for MATLAB Function: '<S135>/BaseWayPoint'
+// Function for MATLAB Function: '<S63>/BaseWayPoint'
 void linspace_Q5Un26da(real_T d2, real_T y[91])
 {
     y[90] = d2;

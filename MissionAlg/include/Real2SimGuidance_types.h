@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'Real2SimGuidance'.
 //
-// Model version                  : 4.157
+// Model version                  : 4.143
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Fri May 27 22:56:41 2022
+// C/C++ source code generated on : Thu Jun  2 01:58:45 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -27,10 +27,13 @@
 
 struct RealUAVStateBus
 {
+    int32_T UAV_ID;
     real_T Latitude_deg;
     real_T Longitude_deg;
     real_T Height_meter;
+    real_T Altitude_meter;
     real_T AirSpeed_mps;
+    real_T GndSpd_mps;
     real_T HeadingAngle_deg;
     real_T FlightPathAngle_deg;
     real_T RollAngle_deg;
@@ -56,8 +59,6 @@ struct VectorSpeed
 struct StateFCU
 {
     RealUAVStateBus RealUAVState;
-    real_T GndSpd_mps;
-    real_T Altitude;
     VectorSpeed VecSpd;
 };
 
@@ -129,6 +130,7 @@ struct FCUCMD
     real_T Latitude_deg;
     real_T Longitude_deg;
     real_T Height_meter;
+    real_T RefHdg_deg;
     real_T RefAirSpd_mps;
 };
 
@@ -147,19 +149,8 @@ struct InternalStatus
     real_T HeadingDiff;
     real_T biasH;
     boolean_T HdgStatus;
-};
-
-#endif
-
-#ifndef DEFINED_TYPEDEF_FOR_MiscellaneousFlightStatus_
-#define DEFINED_TYPEDEF_FOR_MiscellaneousFlightStatus_
-
-struct MiscellaneousFlightStatus
-{
-    real_T GroundSpeed;
     uint8_T FlightMode;
-    real_T Altitude;
-    real_T FlightPath;
+    boolean_T AvoidDanger;
 };
 
 #endif
@@ -173,7 +164,6 @@ struct FlightLogging
     FixedWingGuidanceStateBus SimUAVState;
     FCUCMD FlightCMD;
     InternalStatus InnerState;
-    MiscellaneousFlightStatus MiscStatus;
     VectorSpeed VectorSpd;
     Time TimeNow;
     ADRC ADRC_Log;
@@ -181,7 +171,7 @@ struct FlightLogging
 
 #endif
 
-// Custom Type definition for MATLAB Function: '<S91>/getSpeedLimit'
+// Custom Type definition for MATLAB Function: '<S94>/getSpeedLimit'
 #include <stdio.h>
 #ifndef struct_robotics_slcore_internal_block_CoordinateTransformationConversion_Real2SimGuidance_T
 #define struct_robotics_slcore_internal_block_CoordinateTransformationConversion_Real2SimGuidance_T
@@ -195,7 +185,7 @@ struct
 #endif
 // struct_robotics_slcore_internal_block_CoordinateTransformationConversion_Real2SimGuidance_T 
 
-// Custom Type definition for MATLAB Function: '<S91>/getSpeedLimit'
+// Custom Type definition for MATLAB Function: '<S94>/getSpeedLimit'
 #ifndef struct_uavDubinsConnection_Real2SimGuidance_T
 #define struct_uavDubinsConnection_Real2SimGuidance_T
 
@@ -304,11 +294,11 @@ struct uav_sluav_internal_system_WaypointFollower_Real2SimGuidance_T
 
 #endif  // struct_uav_sluav_internal_system_WaypointFollower_Real2SimGuidance_T
 
-// Custom Type definition for MATLAB Function: '<S91>/getSpeedLimit'
-#ifndef struct_DubinsObjSingleton_Real2SimGuidance_h_T
-#define struct_DubinsObjSingleton_Real2SimGuidance_h_T
+// Custom Type definition for MATLAB Function: '<S94>/getSpeedLimit'
+#ifndef struct_DubinsObjSingleton_Real2SimGuidance_d_T
+#define struct_DubinsObjSingleton_Real2SimGuidance_d_T
 
-struct DubinsObjSingleton_Real2SimGuidance_h_T
+struct DubinsObjSingleton_Real2SimGuidance_d_T
 {
     real_T AirSpeed;
     real_T MaxRollAngle;
@@ -317,7 +307,7 @@ struct DubinsObjSingleton_Real2SimGuidance_h_T
     uavDubinsConnection_Real2SimGuidance_T Connector;
 };
 
-#endif                        // struct_DubinsObjSingleton_Real2SimGuidance_h_T
+#endif                        // struct_DubinsObjSingleton_Real2SimGuidance_d_T
 
 #ifndef struct_emxArray_real_T_Real2SimGuidance_T
 #define struct_emxArray_real_T_Real2SimGuidance_T

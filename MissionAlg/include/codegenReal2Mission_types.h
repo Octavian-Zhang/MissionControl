@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 4.142
+// Model version                  : 4.219
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Fri May 27 23:18:34 2022
+// C/C++ source code generated on : Thu Jun  2 02:00:58 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -29,10 +29,13 @@
 
 struct RealUAVStateBus
 {
+    int32_T UAV_ID;
     real_T Latitude_deg;
     real_T Longitude_deg;
     real_T Height_meter;
+    real_T Altitude_meter;
     real_T AirSpeed_mps;
+    real_T GndSpd_mps;
     real_T HeadingAngle_deg;
     real_T FlightPathAngle_deg;
     real_T RollAngle_deg;
@@ -58,8 +61,6 @@ struct VectorSpeed
 struct StateFCU
 {
     RealUAVStateBus RealUAVState;
-    real_T GndSpd_mps;
-    real_T Altitude;
     VectorSpeed VecSpd;
 };
 
@@ -119,6 +120,7 @@ struct FCUCMD
     real_T Latitude_deg;
     real_T Longitude_deg;
     real_T Height_meter;
+    real_T RefHdg_deg;
     real_T RefAirSpd_mps;
 };
 
@@ -137,19 +139,8 @@ struct InternalStatus
     real_T HeadingDiff;
     real_T biasH;
     boolean_T HdgStatus;
-};
-
-#endif
-
-#ifndef DEFINED_TYPEDEF_FOR_MiscellaneousFlightStatus_
-#define DEFINED_TYPEDEF_FOR_MiscellaneousFlightStatus_
-
-struct MiscellaneousFlightStatus
-{
-    real_T GroundSpeed;
     uint8_T FlightMode;
-    real_T Altitude;
-    real_T FlightPath;
+    boolean_T AvoidDanger;
 };
 
 #endif
@@ -176,7 +167,6 @@ struct FlightLogging
     FixedWingGuidanceStateBus SimUAVState;
     FCUCMD FlightCMD;
     InternalStatus InnerState;
-    MiscellaneousFlightStatus MiscStatus;
     VectorSpeed VectorSpd;
     Time TimeNow;
     ADRC ADRC_Log;
@@ -313,6 +303,21 @@ struct MemPool_missionCmd
 
 #endif
 
+#ifndef DEFINED_TYPEDEF_FOR_RecvData_RealUAVStateBusT_
+#define DEFINED_TYPEDEF_FOR_RecvData_RealUAVStateBusT_
+
+class RecvData_RealUAVStateBusT
+{
+  public:
+    virtual void RecvData(RealUAVStateBus *data, int32_T length, int32_T *status)
+        = 0;
+    virtual ~RecvData_RealUAVStateBusT()
+    {
+    }
+};
+
+#endif
+
 #ifndef DEFINED_TYPEDEF_FOR_SendData_FlightLoggingT_
 #define DEFINED_TYPEDEF_FOR_SendData_FlightLoggingT_
 
@@ -328,10 +333,10 @@ class SendData_FlightLoggingT
 
 #endif
 
-// Custom Type definition for MATLAB Function: '<S71>/PrintOnboardLog'
+// Custom Type definition for MATLAB Function: '<S110>/PrintOnboardLog'
 #include <stdio.h>
 
-// Custom Type definition for MATLAB Function: '<S59>/getCurrentTime'
+// Custom Type definition for MATLAB Function: '<S98>/getCurrentTime'
 #include "coder_posix_time.h"
 #ifndef struct_robotics_slcore_internal_block_CoordinateTransformationConversion_codegenReal2Mission_T
 #define struct_robotics_slcore_internal_block_CoordinateTransformationConversion_codegenReal2Mission_T
@@ -393,7 +398,7 @@ struct emxArray_real_T_codegenReal2Mission_T
 
 #endif                          // struct_emxArray_real_T_codegenReal2Mission_T
 
-// Custom Type definition for MATLAB Function: '<S10>/getDangerList'
+// Custom Type definition for MATLAB Function: '<S49>/getDangerList'
 #ifndef struct_DangerArray_codegenReal2Mission_T
 #define struct_DangerArray_codegenReal2Mission_T
 
@@ -468,7 +473,7 @@ struct emxArray_char_T_1x16_codegenReal2Mission_T
 
 #endif                     // struct_emxArray_char_T_1x16_codegenReal2Mission_T
 
-// Custom Type definition for MATLAB Function: '<S71>/PrintOnboardLog'
+// Custom Type definition for MATLAB Function: '<S110>/PrintOnboardLog'
 #ifndef struct_cell_wrap_1_codegenReal2Mission_T
 #define struct_cell_wrap_1_codegenReal2Mission_T
 

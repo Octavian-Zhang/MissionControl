@@ -6,10 +6,13 @@
 
 #define initStorage(path) make_storage(path,                                                                    \
                         make_table<RealUAVStateBus>("RealUAVState",                                             \
+                                make_column("UAV_ID", &RealUAVStateBus::UAV_ID),                                \
                                 make_column("Latitude_deg", &RealUAVStateBus::Latitude_deg),                    \
                                 make_column("Longitude_deg", &RealUAVStateBus::Longitude_deg),                  \
                                 make_column("Height_meter", &RealUAVStateBus::Height_meter),                    \
+                                make_column("Altitude_meter", &RealUAVStateBus::Altitude_meter),                \
                                 make_column("AirSpeed_mps", &RealUAVStateBus::AirSpeed_mps),                    \
+                                make_column("GndSpd_mps", &RealUAVStateBus::GndSpd_mps),                        \
                                 make_column("HeadingAngle_deg", &RealUAVStateBus::HeadingAngle_deg),            \
                                 make_column("FlightPathAngle_deg", &RealUAVStateBus::FlightPathAngle_deg),      \
                                 make_column("RollAngle_deg", &RealUAVStateBus::RollAngle_deg)),                 \
@@ -26,6 +29,7 @@
                                 make_column("Latitude_deg", &FCUCMD::Latitude_deg),                             \
                                 make_column("Longitude_deg", &FCUCMD::Longitude_deg),                           \
                                 make_column("Height_meter", &FCUCMD::Height_meter),                             \
+                                make_column("RefHdg_deg", &FCUCMD::RefHdg_deg),                                 \
                                 make_column("RefAirSpd_mps", &FCUCMD::RefAirSpd_mps)),                          \
                         make_table<InternalStatus>("InnerState",                                                \
                                 make_column("LagDistance", &InternalStatus::LagDistance),                       \
@@ -35,12 +39,9 @@
                                 make_column("TargetHeading", &InternalStatus::TargetHeading),                   \
                                 make_column("HeadingDiff", &InternalStatus::HeadingDiff),                       \
                                 make_column("biasH", &InternalStatus::biasH),                                   \
-                                make_column("HdgStatus", &InternalStatus::HdgStatus)),                          \
-                        make_table<MiscellaneousFlightStatus>("MiscStatus",                                     \
-                                make_column("GroundSpeed", &MiscellaneousFlightStatus::GroundSpeed),            \
-                                make_column("FlightMode", &MiscellaneousFlightStatus::FlightMode),              \
-                                make_column("Altitude", &MiscellaneousFlightStatus::Altitude),                  \
-                                make_column("FlightPath", &MiscellaneousFlightStatus::FlightPath)),             \
+                                make_column("HdgStatus", &InternalStatus::HdgStatus),                          \
+                                make_column("FlightMode", &InternalStatus::FlightMode),                        \
+                                make_column("AvoidDanger", &InternalStatus::AvoidDanger)),                      \
                         make_table<VectorSpeed>("VectorSpd",                                                    \
                                 make_column("eastSpeed", &VectorSpeed::eastSpeed),                              \
                                 make_column("northSpeed", &VectorSpeed::northSpeed),                            \

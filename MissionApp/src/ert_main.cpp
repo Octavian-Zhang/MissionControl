@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 4.142
+// Model version                  : 4.219
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Fri May 27 23:18:34 2022
+// C/C++ source code generated on : Thu Jun  2 02:00:58 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -94,8 +94,20 @@ class codegenReal2MissionModelClassRecvData_IndividualUAVCmdT : public
 
 static codegenReal2MissionModelClassRecvData_IndividualUAVCmdT
     MissionCMDRecvData_arg;
+    class codegenReal2MissionModelClassRecvData_RealUAVStateBusT : public
+    RecvData_RealUAVStateBusT{
+  public:
+    void RecvData(RealUAVStateBus* data, int32_T length, int32_T* status)
+    {
+        // Add receive data logic here
+    }
+};
+
+static codegenReal2MissionModelClassRecvData_RealUAVStateBusT
+    NbrUAVstateRecvData_arg;
 static codegenReal2MissionModelClass codegenReal2Mission_Obj{
-    CurrentMissionSendData_arg, FlightLogSendData_arg, MissionCMDRecvData_arg };// Instance of model class 
+    CurrentMissionSendData_arg, FlightLogSendData_arg, MissionCMDRecvData_arg,
+    NbrUAVstateRecvData_arg };         // Instance of model class
 
 #define CHECK_STATUS(status, fcn)      if (status != 0) {fprintf(stderr, "Call to %s returned error status (%d).\n", fcn, status); perror(fcn); fflush(stderr); exit(EXIT_FAILURE);}
 

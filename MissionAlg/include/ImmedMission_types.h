@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'ImmedMission'.
 //
-// Model version                  : 3.3
+// Model version                  : 3.19
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Fri May 27 22:55:54 2022
+// C/C++ source code generated on : Wed Jun  1 23:05:15 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -62,10 +62,13 @@ struct missionCmd
 
 struct RealUAVStateBus
 {
+    int32_T UAV_ID;
     real_T Latitude_deg;
     real_T Longitude_deg;
     real_T Height_meter;
+    real_T Altitude_meter;
     real_T AirSpeed_mps;
+    real_T GndSpd_mps;
     real_T HeadingAngle_deg;
     real_T FlightPathAngle_deg;
     real_T RollAngle_deg;
@@ -148,7 +151,7 @@ struct uav_sluav_internal_system_OrbitFollower_ImmedMission_T
 
 #endif         // struct_uav_sluav_internal_system_OrbitFollower_ImmedMission_T
 
-// Custom Type definition for MATLAB Function: '<S135>/BaseWayPoint'
+// Custom Type definition for MATLAB Function: '<S63>/BaseWayPoint'
 #include <stdio.h>
 #ifndef struct_uavDubinsConnection_ImmedMission_T
 #define struct_uavDubinsConnection_ImmedMission_T
@@ -214,28 +217,6 @@ struct uav_sluav_internal_system_WaypointFollower_ImmedMission_c_T
     real_T LookaheadDistance;
     real_T WaypointIndex;
     real_T NumWaypoints;
-    real_T WaypointsInternal[2700];
-    boolean_T LastWaypointFlag;
-    boolean_T StartFlag;
-    real_T InitialPose[4];
-    real_T LookaheadFactor;
-    boolean_T SearchFlag;
-    uint8_T LookaheadDistFlag;
-};
-
-#endif    // struct_uav_sluav_internal_system_WaypointFollower_ImmedMission_c_T
-
-#ifndef struct_uav_sluav_internal_system_WaypointFollower_ImmedMission_cc_T
-#define struct_uav_sluav_internal_system_WaypointFollower_ImmedMission_cc_T
-
-struct uav_sluav_internal_system_WaypointFollower_ImmedMission_cc_T
-{
-    int32_T isInitialized;
-    cell_wrap_ImmedMission_T inputVarSize[3];
-    boolean_T CacheInputSizes;
-    real_T LookaheadDistance;
-    real_T WaypointIndex;
-    real_T NumWaypoints;
     real_T WaypointsInternal[30723];
     boolean_T LastWaypointFlag;
     boolean_T StartFlag;
@@ -244,7 +225,7 @@ struct uav_sluav_internal_system_WaypointFollower_ImmedMission_cc_T
     uint8_T LookaheadDistFlag;
 };
 
-#endif   // struct_uav_sluav_internal_system_WaypointFollower_ImmedMission_cc_T
+#endif    // struct_uav_sluav_internal_system_WaypointFollower_ImmedMission_c_T
 
 // Forward declaration for rtModel
 typedef struct tag_RTM_ImmedMission_T RT_MODEL_ImmedMission_T;

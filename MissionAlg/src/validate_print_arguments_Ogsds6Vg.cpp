@@ -3,14 +3,14 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 4.142
+// Model version                  : 4.216
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Fri May 27 23:18:34 2022
+// C/C++ source code generated on : Wed Jun  1 23:14:28 2022
 //
 #include "rtwtypes.h"
 #include "validate_print_arguments_Ogsds6Vg.h"
 
-// Function for MATLAB Function: '<S37>/PrintOnboardLog'
+// Function for MATLAB Function: '<S76>/PrintOnboardLog'
 void validate_print_arguments_Ogsds6Vg(real_T varargin_1, real_T varargin_2,
     real_T varargin_3, real_T varargin_4, real_T varargin_5, real_T varargin_6,
     real_T varargin_7, real_T validatedArguments[7])

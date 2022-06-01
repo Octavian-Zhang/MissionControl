@@ -15,7 +15,6 @@ void DataLogging::wrtieLog(const FlightLogging* data)
                                                                 {
                 instance.storage_.insert(data->FlightCMD);
                 instance.storage_.insert(data->InnerState);
-                instance.storage_.insert(data->MiscStatus);
                 instance.storage_.insert(data->RealUAVState);
                 instance.storage_.insert(data->SimUAVState);
                 instance.storage_.insert(data->VectorSpd);
