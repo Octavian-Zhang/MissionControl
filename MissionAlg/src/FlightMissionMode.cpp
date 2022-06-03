@@ -5,7 +5,7 @@
 //
 // Model version                  : 3.24
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Wed Jun  1 23:11:04 2022
+// C/C++ source code generated on : Fri Jun  3 15:20:01 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -24818,10 +24818,10 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
     real_T u[3];
     real_T distToCenter_tmp[2];
     real_T rtu_Pose_0[2];
-    real_T rtb_ClockwiseRotation;
     real_T rtb_Down2Up_c;
-    real_T rtb_Map2Radian;
-    real_T rtb_Sum_ip;
+    real_T rtb_Sum1_k_idx_0;
+    real_T rtb_Sum_id;
+    real_T rtb_Sum_k5;
     real_T rtb_Switch_n;
     int32_T NED_WP_size[2];
     int32_T i_size[2];
@@ -24841,9 +24841,9 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
     uint8_T status;
     boolean_T c_success;
     boolean_T foundsign;
-    boolean_T rtb_Compare_c4;
-    boolean_T rtb_Compare_ce;
     boolean_T rtb_Compare_em;
+    boolean_T rtb_Compare_lx;
+    boolean_T rtb_Compare_ni;
     boolean_T success;
     FlightMissionMode_emxInit_char_T_e(&r, 2);
 
@@ -25095,12 +25095,12 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             rtb_Bias_f = *rtu_MissionUAV;
 
             // DataTypeConversion: '<S9>/CastToDouble'
-            rtb_ClockwiseRotation = static_cast<real_T>(*rtu_FormationIDX);
+            rtb_Switch_p = static_cast<real_T>(*rtu_FormationIDX);
 
             // Product: '<S9>/Divide' incorporates:
             //   Constant: '<S9>/two_pi'
 
-            rtb_Map2Radian = 6.2831853071795862 / static_cast<real_T>
+            rtb_Sum_id = 6.2831853071795862 / static_cast<real_T>
                 (*rtu_MissionUAV);
 
             // Product: '<S9>/Map2Radian' incorporates:
@@ -25108,8 +25108,8 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             //   Gain: '<S9>/HalveMissionUAV'
             //   Sum: '<S9>/Minus'
 
-            rtb_Map2Radian *= rtb_ClockwiseRotation - static_cast<real_T>(
-                static_cast<int32_T>(rtb_Bias_f + 1)) * 0.5;
+            rtb_Sum_id *= rtb_Switch_p - static_cast<real_T>(static_cast<int32_T>
+                (rtb_Bias_f + 1)) * 0.5;
 
             // Sum: '<S10>/Sum1' incorporates:
             //   DataStoreRead: '<S9>/LatitudeGCS'
@@ -25117,7 +25117,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             //   Sum: '<S12>/Sum'
             //   Switch: '<S24>/Switch'
 
-            rtb_ClockwiseRotation = rtu_Location->Lat - LatitudeGCS;
+            rtb_Sum1_k_idx_0 = rtu_Location->Lat - LatitudeGCS;
             rtb_Sum1_k_idx_1 = rtu_Location->Lon - LongitudeGCS;
 
             // Switch: '<S18>/Switch' incorporates:
@@ -25129,17 +25129,17 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             //   Math: '<S18>/Math Function1'
             //   RelationalOperator: '<S19>/Compare'
 
-            if (std::abs(rtb_ClockwiseRotation) > 180.0) {
-                rtb_Switch_n = rt_modd_snf(rtb_ClockwiseRotation + 180.0, 360.0)
-                    + -180.0;
+            if (std::abs(rtb_Sum1_k_idx_0) > 180.0) {
+                rtb_Switch_n = rt_modd_snf(rtb_Sum1_k_idx_0 + 180.0, 360.0) +
+                    -180.0;
             } else {
-                rtb_Switch_n = rtb_ClockwiseRotation;
+                rtb_Switch_n = rtb_Sum1_k_idx_0;
             }
 
             // End of Switch: '<S18>/Switch'
 
             // Abs: '<S15>/Abs1'
-            rtb_ClockwiseRotation = std::abs(rtb_Switch_n);
+            rtb_Sum1_k_idx_0 = std::abs(rtb_Switch_n);
 
             // Switch: '<S15>/Switch' incorporates:
             //   Bias: '<S15>/Bias'
@@ -25152,7 +25152,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             //   RelationalOperator: '<S17>/Compare'
             //   Switch: '<S11>/Switch1'
 
-            if (rtb_ClockwiseRotation > 90.0) {
+            if (rtb_Sum1_k_idx_0 > 90.0) {
                 // Signum: '<S15>/Sign1'
                 if (static_cast<boolean_T>(static_cast<int32_T>
                                            (static_cast<int32_T>(std::isnan
@@ -25165,7 +25165,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 }
 
                 // End of Signum: '<S15>/Sign1'
-                rtb_Switch_n *= -(rtb_ClockwiseRotation + -90.0) + 90.0;
+                rtb_Switch_n *= -(rtb_Sum1_k_idx_0 + -90.0) + 90.0;
                 i = 180;
             } else {
                 i = 0;
@@ -25174,7 +25174,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             // End of Switch: '<S15>/Switch'
 
             // Sum: '<S11>/Sum'
-            rtb_Sum_ip = static_cast<real_T>(i) + rtb_Sum1_k_idx_1;
+            rtb_Sum_k5 = static_cast<real_T>(i) + rtb_Sum1_k_idx_1;
 
             // Switch: '<S16>/Switch' incorporates:
             //   Abs: '<S16>/Abs'
@@ -25185,8 +25185,8 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             //   Math: '<S16>/Math Function1'
             //   RelationalOperator: '<S20>/Compare'
 
-            if (std::abs(rtb_Sum_ip) > 180.0) {
-                rtb_Sum_ip = rt_modd_snf(rtb_Sum_ip + 180.0, 360.0) + -180.0;
+            if (std::abs(rtb_Sum_k5) > 180.0) {
+                rtb_Sum_k5 = rt_modd_snf(rtb_Sum_k5 + 180.0, 360.0) + -180.0;
             }
 
             // End of Switch: '<S16>/Switch'
@@ -25194,8 +25194,8 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             // UnitConversion: '<S14>/Unit Conversion'
             // Unit Conversion - from: deg to: rad
             // Expression: output = (0.0174533*input) + (0)
-            rtb_ClockwiseRotation = 0.017453292519943295 * rtb_Switch_n;
-            rtb_Sum1_k_idx_1 = 0.017453292519943295 * rtb_Sum_ip;
+            rtb_Sum1_k_idx_0 = 0.017453292519943295 * rtb_Switch_n;
+            rtb_Sum1_k_idx_1 = 0.017453292519943295 * rtb_Sum_k5;
 
             // UnitConversion: '<S29>/Unit Conversion' incorporates:
             //   DataStoreRead: '<S9>/LatitudeGCS'
@@ -25206,27 +25206,27 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             rtb_Switch_p = 0.017453292519943295 * LatitudeGCS;
 
             // Trigonometry: '<S30>/Trigonometric Function1'
-            rtb_Sum_ip = std::sin(rtb_Switch_p);
+            rtb_Sum_k5 = std::sin(rtb_Switch_p);
 
             // Sum: '<S30>/Sum1' incorporates:
             //   Constant: '<S30>/Constant'
             //   Product: '<S30>/Product1'
 
-            rtb_Sum_ip = 1.0 - 0.0066943799901413295 * rtb_Sum_ip * rtb_Sum_ip;
+            rtb_Sum_k5 = 1.0 - 0.0066943799901413295 * rtb_Sum_k5 * rtb_Sum_k5;
 
             // Product: '<S28>/Product1' incorporates:
             //   Constant: '<S28>/Constant1'
             //   Sqrt: '<S28>/sqrt'
 
-            rtb_Switch_n = 6.378137E+6 / std::sqrt(rtb_Sum_ip);
+            rtb_Switch_n = 6.378137E+6 / std::sqrt(rtb_Sum_k5);
 
             // Product: '<S13>/dNorth' incorporates:
             //   Constant: '<S28>/Constant2'
             //   Product: '<S28>/Product3'
             //   Trigonometry: '<S28>/Trigonometric Function1'
 
-            rtb_Sum_ip = rtb_ClockwiseRotation / rt_atan2d_snf(1.0, rtb_Switch_n
-                * 0.99330562000985867 / rtb_Sum_ip);
+            rtb_Sum_k5 = rtb_Sum1_k_idx_0 / rt_atan2d_snf(1.0, rtb_Switch_n *
+                0.99330562000985867 / rtb_Sum_k5);
 
             // Product: '<S13>/dEast' incorporates:
             //   Constant: '<S28>/Constant3'
@@ -25243,13 +25243,13 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             //   Product: '<S13>/x*cos'
             //   Product: '<S13>/y*sin'
 
-            rtb_Switch_p = rtb_Switch_n * 0.0 + rtb_Sum_ip;
+            rtb_Switch_p = rtb_Switch_n * 0.0 + rtb_Sum_k5;
 
             // Sum: '<S13>/Sum3' incorporates:
             //   Product: '<S13>/x*sin'
             //   Product: '<S13>/y*cos'
 
-            rtb_ClockwiseRotation = rtb_Switch_n - rtb_Sum_ip * 0.0;
+            rtb_Sum1_k_idx_0 = rtb_Switch_n - rtb_Sum_k5 * 0.0;
 
             // Sum: '<S10>/Sum' incorporates:
             //   DataStoreRead: '<S9>/AltitudeGCS'
@@ -25261,8 +25261,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             //   UnaryMinus: '<S10>/Ze2height'
 
             rtb_TmpSignalConversionAtOrbitFollowerInport2[0] = rtb_Switch_p;
-            rtb_TmpSignalConversionAtOrbitFollowerInport2[1] =
-                rtb_ClockwiseRotation;
+            rtb_TmpSignalConversionAtOrbitFollowerInport2[1] = rtb_Sum1_k_idx_0;
             rtb_TmpSignalConversionAtOrbitFollowerInport2[2] = -rtb_Down2Up_c;
 
             // MATLABSystem: '<S9>/Orbit Follower' incorporates:
@@ -25280,7 +25279,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
 
             localDW->obj_f.LookaheadDistFlag = 1U;
             rtu_Pose_0[0] = rtu_Pose[0] - rtb_Switch_p;
-            rtu_Pose_0[1] = rtu_Pose[1] - rtb_ClockwiseRotation;
+            rtu_Pose_0[1] = rtu_Pose[1] - rtb_Sum1_k_idx_0;
             if (FlightMissionMode_norm_p(rtu_Pose_0) < 2.47032822920623E-323) {
                 u[2] = -rtb_Down2Up_c;
                 a_0 = rtu_Pose[3];
@@ -25294,7 +25293,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 boolean_T guard1{ false };
 
                 rtb_Compare_em = false;
-                rtb_Compare_c4 = true;
+                rtb_Compare_ni = true;
                 rtb_Bias_f = 0;
                 exitg1 = false;
                 while ((!exitg1) && (rtb_Bias_f < 3)) {
@@ -25307,12 +25306,12 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                     {
                         rtb_Bias_f = static_cast<int32_T>(rtb_Bias_f + 1);
                     } else {
-                        rtb_Compare_c4 = false;
+                        rtb_Compare_ni = false;
                         exitg1 = true;
                     }
                 }
 
-                if (rtb_Compare_c4) {
+                if (rtb_Compare_ni) {
                     rtb_Compare_em = true;
                 }
 
@@ -25324,8 +25323,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                         (rtb_Switch_n))))) {
                     localDW->obj_f.NumCircles = 0.0;
                     localDW->obj_f.OrbitCenterInternal[0] = rtb_Switch_p;
-                    localDW->obj_f.OrbitCenterInternal[1] =
-                        rtb_ClockwiseRotation;
+                    localDW->obj_f.OrbitCenterInternal[1] = rtb_Sum1_k_idx_0;
                     localDW->obj_f.OrbitCenterInternal[2] = -rtb_Down2Up_c;
                     localDW->obj_f.OrbitRadiusInternal = rtb_Switch_n;
                     localDW->obj_f.SelectTurnDirectionFlag = true;
@@ -25339,20 +25337,18 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
 
                 distToCenter_tmp_tmp = rtu_Pose[0] - rtb_Switch_p;
                 distToCenter_tmp[0] = distToCenter_tmp_tmp;
-                distToCenter_tmp_tmp_0 = rtu_Pose[1] - rtb_ClockwiseRotation;
+                distToCenter_tmp_tmp_0 = rtu_Pose[1] - rtb_Sum1_k_idx_0;
                 distToCenter_tmp[1] = distToCenter_tmp_tmp_0;
-                rtb_Sum_ip = std::sqrt(distToCenter_tmp_tmp_0 *
+                rtb_Sum_k5 = std::sqrt(distToCenter_tmp_tmp_0 *
                                        distToCenter_tmp_tmp_0 +
                                        distToCenter_tmp_tmp *
                                        distToCenter_tmp_tmp);
                 absx = rtb_Switch_n + localDW->obj_f.LookaheadDistance;
                 rtb_Down2Height = std::abs(absx);
-                if (static_cast<boolean_T>(static_cast<int32_T>
-                                           (static_cast<int32_T>
-                                            (static_cast<boolean_T>(static_cast<
-                        int32_T>(static_cast<int32_T>(std::isinf(rtb_Down2Height))
-                                 ^ 1))) & static_cast<int32_T>
-                                            (static_cast<boolean_T>(static_cast<
+                if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<
+                        int32_T>(static_cast<boolean_T>(static_cast<int32_T>(
+                         static_cast<int32_T>(std::isinf(rtb_Down2Height)) ^ 1)))
+                      & static_cast<int32_T>(static_cast<boolean_T>(static_cast<
                         int32_T>(static_cast<int32_T>(std::isnan(rtb_Down2Height))
                                  ^ 1)))))) {
                     if (rtb_Down2Height <= 2.2250738585072014E-308) {
@@ -25367,7 +25363,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 }
 
                 guard1 = false;
-                if (rtb_Sum_ip >= absx - 5.0 * a_0) {
+                if (rtb_Sum_k5 >= absx - 5.0 * a_0) {
                     guard1 = true;
                 } else {
                     if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<
@@ -25387,7 +25383,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                         a_0 = (rtNaN);
                     }
 
-                    if (rtb_Sum_ip <= (rtb_Switch_n -
+                    if (rtb_Sum_k5 <= (rtb_Switch_n -
                                        localDW->obj_f.LookaheadDistance) + 5.0 *
                         a_0) {
                         guard1 = true;
@@ -25402,28 +25398,28 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                         }
 
                         rtu_Pose_0[0] = distToCenter_tmp_tmp;
-                        rtb_Sum1_k_tmp = rtu_Pose[1] - rtb_ClockwiseRotation;
+                        rtb_Sum1_k_tmp = rtu_Pose[1] - rtb_Sum1_k_idx_0;
                         rtu_Pose_0[1] = rtb_Sum1_k_tmp;
-                        rtb_Sum_ip = FlightMissionMode_norm_p(rtu_Pose_0);
+                        rtb_Sum_k5 = FlightMissionMode_norm_p(rtu_Pose_0);
                         ScanWidth = localDW->obj_f.LookaheadDistance *
                             localDW->obj_f.LookaheadDistance;
                         a_0 = ((ScanWidth - rtb_Switch_n * rtb_Switch_n) +
-                               rtb_Sum_ip * rtb_Sum_ip) / (2.0 * rtb_Sum_ip);
+                               rtb_Sum_k5 * rtb_Sum_k5) / (2.0 * rtb_Sum_k5);
                         rtb_Down2Height = rtb_Switch_p - rtu_Pose[0];
-                        rtb_Switch_n = rtb_Down2Height * a_0 / rtb_Sum_ip +
+                        rtb_Switch_n = rtb_Down2Height * a_0 / rtb_Sum_k5 +
                             rtu_Pose[0];
-                        absx_tmp = rtb_ClockwiseRotation - rtu_Pose[1];
-                        absx = absx_tmp * a_0 / rtb_Sum_ip + rtu_Pose[1];
+                        absx_tmp = rtb_Sum1_k_idx_0 - rtu_Pose[1];
+                        absx = absx_tmp * a_0 / rtb_Sum_k5 + rtu_Pose[1];
                         rtb_Sum1_k_idx_1 = std::sqrt(ScanWidth - a_0 * a_0);
                         distToCenter_tmp_tmp_0 = absx_tmp * rtb_Sum1_k_idx_1 /
-                            rtb_Sum_ip;
+                            rtb_Sum_k5;
                         distToCenter_tmp[0] = rtb_Switch_n -
                             distToCenter_tmp_tmp_0;
                         distToCenter_tmp[1] = distToCenter_tmp_tmp_0 +
                             rtb_Switch_n;
                         rtb_Switch_n = rtb_Down2Height * rtb_Sum1_k_idx_1 /
-                            rtb_Sum_ip;
-                        rtb_Sum_ip = rtb_Switch_n + absx;
+                            rtb_Sum_k5;
+                        rtb_Sum_k5 = rtb_Switch_n + absx;
                         absx -= rtb_Switch_n;
                         if ((rtu_Parameters->Param2 == 0.0F) &&
                                 (static_cast<boolean_T>(static_cast<int32_T>(
@@ -25439,7 +25435,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                         turnVector[0] = localDW->obj_f.PrevPosition[0] -
                             rtb_Switch_p;
                         turnVector[1] = localDW->obj_f.PrevPosition[1] -
-                            rtb_ClockwiseRotation;
+                            rtb_Sum1_k_idx_0;
                         u[0] = turnVector[0];
                         u[1] = turnVector[1];
                         u[2] = 0.0;
@@ -25488,10 +25484,10 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                         switch (static_cast<int32_T>(rtb_Switch_n)) {
                           case 1:
                             if ((distToCenter_tmp[0] - rtu_Pose[0]) * absx_tmp -
-                                (rtb_Sum_ip - rtu_Pose[1]) * rtb_Down2Height >
+                                (rtb_Sum_k5 - rtu_Pose[1]) * rtb_Down2Height >
                                     0.0) {
                                 rtb_Sum1_k_idx_1 = distToCenter_tmp[0];
-                                absx = rtb_Sum_ip;
+                                absx = rtb_Sum_k5;
                             } else {
                                 rtb_Sum1_k_idx_1 = distToCenter_tmp[1];
                             }
@@ -25499,10 +25495,10 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
 
                           case -1:
                             if ((distToCenter_tmp[0] - rtu_Pose[0]) * absx_tmp -
-                                (rtb_Sum_ip - rtu_Pose[1]) * rtb_Down2Height <
+                                (rtb_Sum_k5 - rtu_Pose[1]) * rtb_Down2Height <
                                     0.0) {
                                 rtb_Sum1_k_idx_1 = distToCenter_tmp[0];
-                                absx = rtb_Sum_ip;
+                                absx = rtb_Sum_k5;
                             } else {
                                 rtb_Sum1_k_idx_1 = distToCenter_tmp[1];
                             }
@@ -25510,13 +25506,13 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
 
                           default:
                             if (std::abs(FlightMissionMode_angdiff(rt_atan2d_snf
-                                    (rtb_Sum_ip - rtu_Pose[1], distToCenter_tmp
+                                    (rtb_Sum_k5 - rtu_Pose[1], distToCenter_tmp
                                      [0] - rtu_Pose[0]), rtu_Pose[3])) < std::
                                     abs(FlightMissionMode_angdiff(rt_atan2d_snf
                                     (absx - rtu_Pose[1], distToCenter_tmp[1] -
                                      rtu_Pose[0]), rtu_Pose[3]))) {
                                 rtb_Sum1_k_idx_1 = distToCenter_tmp[0];
-                                absx = rtb_Sum_ip;
+                                absx = rtb_Sum_k5;
                             } else {
                                 rtb_Sum1_k_idx_1 = distToCenter_tmp[1];
                             }
@@ -25540,7 +25536,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                     rtb_Sum1_k_idx_1 = distToCenter_tmp_tmp / a_0 * rtb_Switch_n
                         + rtb_Switch_p;
                     absx = distToCenter_tmp_tmp_0 / a_0 * rtb_Switch_n +
-                        rtb_ClockwiseRotation;
+                        rtb_Sum1_k_idx_0;
                     *rty_thisTaskStatus = localDW->obj_f.NumCircles;
                 }
 
@@ -25560,27 +25556,31 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             rty_GuidanceCmds->HeadingAngle = a_0;
 
             // Reshape: '<S9>/Reshape' incorporates:
-            //   Bias: '<S9>/ClockwiseRotation'
             //   Constant: '<S9>/InitialFlightPathAngle'
             //   Constant: '<S9>/InitialRollAngle'
             //   Constant: '<S9>/InitialRollAngleRate'
+            //   Constant: '<S9>/halfPi'
             //   DataTypeConversion: '<S9>/Param1'
+            //   DataTypeConversion: '<S9>/Param2'
             //   DataTypeConversion: '<S9>/Param3'
             //   Product: '<S9>/EastDis'
             //   Product: '<S9>/NorthDis'
+            //   Product: '<S9>/Product'
+            //   Sum: '<S9>/Sum'
             //   Sum: '<S9>/SumInitEast'
             //   Sum: '<S9>/SumInitNorth'
             //   Trigonometry: '<S9>/Cos'
             //   Trigonometry: '<S9>/Sin'
             //   UnaryMinus: '<S10>/Ze2height'
 
-            rty_InitialState[0] = std::cos(rtb_Map2Radian) * static_cast<real_T>
+            rty_InitialState[0] = std::cos(rtb_Sum_id) * static_cast<real_T>
                 (rtu_Parameters->Param1) + rtb_Switch_p;
             rty_InitialState[1] = static_cast<real_T>(rtu_Parameters->Param1) *
-                std::sin(rtb_Map2Radian) + rtb_ClockwiseRotation;
+                std::sin(rtb_Sum_id) + rtb_Sum1_k_idx_0;
             rty_InitialState[2] = rtb_Down2Up_c;
             rty_InitialState[3] = static_cast<real_T>(rtu_Parameters->Param4);
-            rty_InitialState[4] = rtb_Map2Radian + 1.5707963267948966;
+            rty_InitialState[4] = static_cast<real_T>(rtu_Parameters->Param2) *
+                1.5707963267948966 + rtb_Sum_id;
             rty_InitialState[5] = 0.0;
             rty_InitialState[6] = 0.0;
             rty_InitialState[7] = 0.0;
@@ -25627,7 +25627,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             //   DataStoreRead: '<S34>/AltitudeGCS'
             //   Gain: '<S34>/inverse'
 
-            rtb_ClockwiseRotation = rtu_Location->Alt + -AltitudeGCS;
+            rtb_Sum1_k_idx_0 = rtu_Location->Alt + -AltitudeGCS;
 
             // DataTypeConversion: '<S34>/CastToDouble'
             absx = static_cast<real_T>(*rtu_FormationIDX);
@@ -25641,33 +25641,33 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             //   Constant: '<S34>/Three'
             //   Math: '<S34>/ModRunWayLayer'
 
-            rtb_Map2Radian = 15.0 * rt_modd_snf(absx, 3.0);
+            rtb_Sum_id = 15.0 * rt_modd_snf(absx, 3.0);
 
             // Sum: '<S34>/BiasMissionAlt' incorporates:
             //   UnaryMinus: '<S36>/Ze2height'
 
-            rtb_Switch_p = -rtb_ClockwiseRotation - rtb_Map2Radian;
+            rtb_Switch_p = -rtb_Sum1_k_idx_0 - rtb_Sum_id;
 
             // Sum: '<S64>/Sum' incorporates:
             //   DataStoreRead: '<S37>/PrevAltitudeGCS'
             //   Gain: '<S37>/PrevInverse'
 
-            rtb_ClockwiseRotation = rtu_PrevLocation->Alt + -AltitudeGCS;
+            rtb_Sum1_k_idx_0 = rtu_PrevLocation->Alt + -AltitudeGCS;
 
             // Sum: '<S34>/BiasPrevAlt' incorporates:
             //   UnaryMinus: '<S64>/Ze2height'
 
-            rtb_Map2Radian = -rtb_ClockwiseRotation - rtb_Map2Radian;
+            rtb_Sum_id = -rtb_Sum1_k_idx_0 - rtb_Sum_id;
 
             // RelationalOperator: '<S62>/Compare' incorporates:
             //   Constant: '<S62>/Constant'
 
-            rtb_Compare_ce = (rtu_PrevLocation->Lat == 0.0);
+            rtb_Compare_lx = (rtu_PrevLocation->Lat == 0.0);
 
             // RelationalOperator: '<S63>/Compare' incorporates:
             //   Constant: '<S63>/Constant'
 
-            rtb_Compare_c4 = (rtu_PrevLocation->Lon == 0.0);
+            rtb_Compare_ni = (rtu_PrevLocation->Lon == 0.0);
 
             // RelationalOperator: '<S61>/Compare' incorporates:
             //   Constant: '<S61>/Constant'
@@ -25675,10 +25675,10 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             rtb_Compare_em = (rtu_PrevLocation->Alt == 0.0);
 
             // Logic: '<S37>/AND'
-            rtb_Compare_ce = static_cast<boolean_T>(static_cast<int32_T>(
+            rtb_Compare_lx = static_cast<boolean_T>(static_cast<int32_T>(
                 static_cast<int32_T>(static_cast<boolean_T>(static_cast<int32_T>
-                (static_cast<int32_T>(rtb_Compare_ce) & static_cast<int32_T>
-                 (rtb_Compare_c4)))) & static_cast<int32_T>(rtb_Compare_em)));
+                (static_cast<int32_T>(rtb_Compare_lx) & static_cast<int32_T>
+                 (rtb_Compare_ni)))) & static_cast<int32_T>(rtb_Compare_em)));
 
             // Sum: '<S64>/Sum1' incorporates:
             //   DataStoreRead: '<S37>/PrevLatitudeGCS'
@@ -25686,7 +25686,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             //   Sum: '<S66>/Sum'
             //   Switch: '<S78>/Switch'
 
-            rtb_ClockwiseRotation = rtu_PrevLocation->Lat - LatitudeGCS;
+            rtb_Sum1_k_idx_0 = rtu_PrevLocation->Lat - LatitudeGCS;
             rtb_Sum1_k_idx_1 = rtu_PrevLocation->Lon - LongitudeGCS;
 
             // Switch: '<S72>/Switch' incorporates:
@@ -25698,17 +25698,17 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             //   Math: '<S72>/Math Function1'
             //   RelationalOperator: '<S73>/Compare'
 
-            if (std::abs(rtb_ClockwiseRotation) > 180.0) {
-                rtb_Sum_ip = rt_modd_snf(rtb_ClockwiseRotation + 180.0, 360.0) +
+            if (std::abs(rtb_Sum1_k_idx_0) > 180.0) {
+                rtb_Sum_k5 = rt_modd_snf(rtb_Sum1_k_idx_0 + 180.0, 360.0) +
                     -180.0;
             } else {
-                rtb_Sum_ip = rtb_ClockwiseRotation;
+                rtb_Sum_k5 = rtb_Sum1_k_idx_0;
             }
 
             // End of Switch: '<S72>/Switch'
 
             // Abs: '<S69>/Abs1'
-            rtb_ClockwiseRotation = std::abs(rtb_Sum_ip);
+            rtb_Sum1_k_idx_0 = std::abs(rtb_Sum_k5);
 
             // Switch: '<S69>/Switch' incorporates:
             //   Bias: '<S69>/Bias'
@@ -25721,20 +25721,20 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             //   RelationalOperator: '<S71>/Compare'
             //   Switch: '<S65>/Switch1'
 
-            if (rtb_ClockwiseRotation > 90.0) {
+            if (rtb_Sum1_k_idx_0 > 90.0) {
                 // Signum: '<S69>/Sign1'
                 if (static_cast<boolean_T>(static_cast<int32_T>
                                            (static_cast<int32_T>(std::isnan
-                        (rtb_Sum_ip)) ^ 1))) {
-                    if (rtb_Sum_ip < 0.0) {
-                        rtb_Sum_ip = -1.0;
+                        (rtb_Sum_k5)) ^ 1))) {
+                    if (rtb_Sum_k5 < 0.0) {
+                        rtb_Sum_k5 = -1.0;
                     } else {
-                        rtb_Sum_ip = static_cast<real_T>(rtb_Sum_ip > 0.0);
+                        rtb_Sum_k5 = static_cast<real_T>(rtb_Sum_k5 > 0.0);
                     }
                 }
 
                 // End of Signum: '<S69>/Sign1'
-                rtb_Sum_ip *= -(rtb_ClockwiseRotation + -90.0) + 90.0;
+                rtb_Sum_k5 *= -(rtb_Sum1_k_idx_0 + -90.0) + 90.0;
                 i = 180;
             } else {
                 i = 0;
@@ -25763,7 +25763,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             // UnitConversion: '<S68>/Unit Conversion'
             // Unit Conversion - from: deg to: rad
             // Expression: output = (0.0174533*input) + (0)
-            rtb_ClockwiseRotation = 0.017453292519943295 * rtb_Sum_ip;
+            rtb_Sum1_k_idx_0 = 0.017453292519943295 * rtb_Sum_k5;
             rtb_Sum1_k_idx_1 = 0.017453292519943295 * a_0;
 
             // UnitConversion: '<S83>/Unit Conversion' incorporates:
@@ -25793,14 +25793,14 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             //   Constant: '<S82>/Constant1'
             //   Sqrt: '<S82>/sqrt'
 
-            rtb_Sum_ip = 6.378137E+6 / std::sqrt(a_0);
+            rtb_Sum_k5 = 6.378137E+6 / std::sqrt(a_0);
 
             // Product: '<S67>/dNorth' incorporates:
             //   Constant: '<S82>/Constant2'
             //   Product: '<S82>/Product3'
             //   Trigonometry: '<S82>/Trigonometric Function1'
 
-            a_0 = rtb_ClockwiseRotation / rt_atan2d_snf(1.0, rtb_Sum_ip *
+            a_0 = rtb_Sum1_k_idx_0 / rt_atan2d_snf(1.0, rtb_Sum_k5 *
                 0.99330562000985867 / a_0);
 
             // Product: '<S67>/dEast' incorporates:
@@ -25812,20 +25812,20 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
 
             // Unit Conversion - from: deg to: rad
             // Expression: output = (0.0174533*input) + (0)
-            rtb_Sum_ip = 1.0 / rt_atan2d_snf(1.0, rtb_Sum_ip * std::cos
+            rtb_Sum_k5 = 1.0 / rt_atan2d_snf(1.0, rtb_Sum_k5 * std::cos
                 (distToCenter_tmp_tmp)) * rtb_Sum1_k_idx_1;
 
             // Sum: '<S67>/Sum2' incorporates:
             //   Product: '<S67>/x*cos'
             //   Product: '<S67>/y*sin'
 
-            rtb_Down2Up_c = rtb_Sum_ip * 0.0 + a_0;
+            rtb_Down2Up_c = rtb_Sum_k5 * 0.0 + a_0;
 
             // Sum: '<S67>/Sum3' incorporates:
             //   Product: '<S67>/x*sin'
             //   Product: '<S67>/y*cos'
 
-            rtb_Switch_n = rtb_Sum_ip - a_0 * 0.0;
+            rtb_Switch_n = rtb_Sum_k5 - a_0 * 0.0;
 
             // Sum: '<S36>/Sum1' incorporates:
             //   DataStoreRead: '<S34>/LatitudeGCS'
@@ -25833,7 +25833,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             //   Sum: '<S40>/Sum'
             //   Switch: '<S52>/Switch'
 
-            rtb_ClockwiseRotation = rtu_Location->Lat - LatitudeGCS;
+            rtb_Sum1_k_idx_0 = rtu_Location->Lat - LatitudeGCS;
             rtb_Sum1_k_idx_1 = rtu_Location->Lon - LongitudeGCS;
 
             // Switch: '<S46>/Switch' incorporates:
@@ -25845,16 +25845,16 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             //   Math: '<S46>/Math Function1'
             //   RelationalOperator: '<S47>/Compare'
 
-            if (std::abs(rtb_ClockwiseRotation) > 180.0) {
-                a_0 = rt_modd_snf(rtb_ClockwiseRotation + 180.0, 360.0) + -180.0;
+            if (std::abs(rtb_Sum1_k_idx_0) > 180.0) {
+                a_0 = rt_modd_snf(rtb_Sum1_k_idx_0 + 180.0, 360.0) + -180.0;
             } else {
-                a_0 = rtb_ClockwiseRotation;
+                a_0 = rtb_Sum1_k_idx_0;
             }
 
             // End of Switch: '<S46>/Switch'
 
             // Abs: '<S43>/Abs1'
-            rtb_ClockwiseRotation = std::abs(a_0);
+            rtb_Sum1_k_idx_0 = std::abs(a_0);
 
             // Switch: '<S43>/Switch' incorporates:
             //   Bias: '<S43>/Bias'
@@ -25867,7 +25867,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             //   RelationalOperator: '<S45>/Compare'
             //   Switch: '<S39>/Switch1'
 
-            if (rtb_ClockwiseRotation > 90.0) {
+            if (rtb_Sum1_k_idx_0 > 90.0) {
                 // Signum: '<S43>/Sign1'
                 if (static_cast<boolean_T>(static_cast<int32_T>
                                            (static_cast<int32_T>(std::isnan(a_0))
@@ -25880,7 +25880,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 }
 
                 // End of Signum: '<S43>/Sign1'
-                a_0 *= -(rtb_ClockwiseRotation + -90.0) + 90.0;
+                a_0 *= -(rtb_Sum1_k_idx_0 + -90.0) + 90.0;
                 i = 180;
             } else {
                 i = 0;
@@ -25889,7 +25889,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             // End of Switch: '<S43>/Switch'
 
             // Sum: '<S39>/Sum'
-            rtb_Sum_ip = static_cast<real_T>(i) + rtb_Sum1_k_idx_1;
+            rtb_Sum_k5 = static_cast<real_T>(i) + rtb_Sum1_k_idx_1;
 
             // Switch: '<S44>/Switch' incorporates:
             //   Abs: '<S44>/Abs'
@@ -25900,8 +25900,8 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             //   Math: '<S44>/Math Function1'
             //   RelationalOperator: '<S48>/Compare'
 
-            if (std::abs(rtb_Sum_ip) > 180.0) {
-                rtb_Sum_ip = rt_modd_snf(rtb_Sum_ip + 180.0, 360.0) + -180.0;
+            if (std::abs(rtb_Sum_k5) > 180.0) {
+                rtb_Sum_k5 = rt_modd_snf(rtb_Sum_k5 + 180.0, 360.0) + -180.0;
             }
 
             // End of Switch: '<S44>/Switch'
@@ -25909,8 +25909,8 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             // UnitConversion: '<S42>/Unit Conversion'
             // Unit Conversion - from: deg to: rad
             // Expression: output = (0.0174533*input) + (0)
-            rtb_ClockwiseRotation = 0.017453292519943295 * a_0;
-            rtb_Sum1_k_idx_1 = 0.017453292519943295 * rtb_Sum_ip;
+            rtb_Sum1_k_idx_0 = 0.017453292519943295 * a_0;
+            rtb_Sum1_k_idx_1 = 0.017453292519943295 * rtb_Sum_k5;
 
             // Sum: '<S58>/Sum1' incorporates:
             //   Constant: '<S58>/Constant'
@@ -25925,14 +25925,14 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             //   Constant: '<S56>/Constant1'
             //   Sqrt: '<S56>/sqrt'
 
-            rtb_Sum_ip = 6.378137E+6 / std::sqrt(a_0);
+            rtb_Sum_k5 = 6.378137E+6 / std::sqrt(a_0);
 
             // Product: '<S41>/dNorth' incorporates:
             //   Constant: '<S56>/Constant2'
             //   Product: '<S56>/Product3'
             //   Trigonometry: '<S56>/Trigonometric Function1'
 
-            a_0 = rtb_ClockwiseRotation / rt_atan2d_snf(1.0, rtb_Sum_ip *
+            a_0 = rtb_Sum1_k_idx_0 / rt_atan2d_snf(1.0, rtb_Sum_k5 *
                 0.99330562000985867 / a_0);
 
             // Product: '<S41>/dEast' incorporates:
@@ -25943,26 +25943,26 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
 
             // Unit Conversion - from: deg to: rad
             // Expression: output = (0.0174533*input) + (0)
-            rtb_Sum1_k_idx_1 *= 1.0 / rt_atan2d_snf(1.0, rtb_Sum_ip * std::cos
+            rtb_Sum1_k_idx_1 *= 1.0 / rt_atan2d_snf(1.0, rtb_Sum_k5 * std::cos
                 (distToCenter_tmp_tmp));
 
             // Sum: '<S41>/Sum2' incorporates:
             //   Product: '<S41>/x*cos'
             //   Product: '<S41>/y*sin'
 
-            rtb_Sum_ip = rtb_Sum1_k_idx_1 * 0.0 + a_0;
+            rtb_Sum_k5 = rtb_Sum1_k_idx_1 * 0.0 + a_0;
 
             // Sum: '<S41>/Sum3' incorporates:
             //   Product: '<S41>/x*sin'
             //   Product: '<S41>/y*cos'
 
-            rtb_ClockwiseRotation = rtb_Sum1_k_idx_1 - a_0 * 0.0;
+            rtb_Sum1_k_idx_0 = rtb_Sum1_k_idx_1 - a_0 * 0.0;
 
             // Switch: '<S34>/Switch' incorporates:
             //   Bias: '<S34>/Bias'
             //   Constant: '<S34>/Zero'
 
-            if (rtb_Compare_ce) {
+            if (rtb_Compare_lx) {
                 rtb_Down2Height = 0.0;
             } else {
                 // DataTypeConversion: '<S34>/Cast To Double Mission UAV'
@@ -26006,16 +26006,16 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 rtb_Down2Height = static_cast<real_T>(*rtu_MissionUAV);
 
                 // Reshape: '<S38>/ReshapeRowVec'
-                rtb_TmpSignalConversionAtOrbitFollowerInport2[0] = rtb_Sum_ip;
+                rtb_TmpSignalConversionAtOrbitFollowerInport2[0] = rtb_Sum_k5;
                 rtb_TmpSignalConversionAtOrbitFollowerInport2[1] =
-                    rtb_ClockwiseRotation;
+                    rtb_Sum1_k_idx_0;
                 rtb_TmpSignalConversionAtOrbitFollowerInport2[2] = rtb_Switch_p;
 
                 // Switch: '<S38>/Switch' incorporates:
                 //   Bias: '<S38>/Bias'
                 //   Constant: '<S38>/Zero'
 
-                if (rtb_Compare_ce) {
+                if (rtb_Compare_lx) {
                     a_0 = 0.0;
                 } else {
                     a_0 = rtb_Down2Height + -1.0;
@@ -26045,9 +26045,9 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 //   Sum: '<S34>/RelPrevPos'
 
                 rtb_ReshapeRowVecStartpose_d[0] = rtb_Switch_n -
-                    rtb_ClockwiseRotation;
-                rtb_ReshapeRowVecStartpose_d[1] = rtb_Down2Up_c - rtb_Sum_ip;
-                rtb_ReshapeRowVecStartpose_d[2] = rtb_Map2Radian - rtb_Switch_p;
+                    rtb_Sum1_k_idx_0;
+                rtb_ReshapeRowVecStartpose_d[1] = rtb_Down2Up_c - rtb_Sum_k5;
+                rtb_ReshapeRowVecStartpose_d[2] = rtb_Sum_id - rtb_Switch_p;
 
                 // Product: '<S38>/RotateRelPrevPos' incorporates:
                 //   MATLABSystem: '<S38>/RotateATMissionHdg'
@@ -26445,7 +26445,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 }
 
                 if (static_cast<boolean_T>(static_cast<int32_T>
-                                           (static_cast<int32_T>(rtb_Compare_ce)
+                                           (static_cast<int32_T>(rtb_Compare_lx)
                       ^ 1))) {
                     // '<S87>:1:40'
                     rtb_Compare_em = false;
@@ -26645,7 +26645,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             }
 
             rtb_Compare_em = false;
-            rtb_Compare_c4 = true;
+            rtb_Compare_ni = true;
             rtb_Bias_f = 0;
             exitg1 = false;
             while ((!exitg1) && (rtb_Bias_f < 24576)) {
@@ -26656,12 +26656,12 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 {
                     rtb_Bias_f = static_cast<int32_T>(rtb_Bias_f + 1);
                 } else {
-                    rtb_Compare_c4 = false;
+                    rtb_Compare_ni = false;
                     exitg1 = true;
                 }
             }
 
-            if (rtb_Compare_c4) {
+            if (rtb_Compare_ni) {
                 rtb_Compare_em = true;
             }
 
@@ -27157,9 +27157,9 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             // Switch: '<S34>/SwitchNorth' incorporates:
             //   Switch: '<S34>/SwitchEast'
 
-            if (rtb_Compare_ce) {
-                rtb_Down2Up_c = rtb_Sum_ip;
-                rtb_Switch_n = rtb_ClockwiseRotation;
+            if (rtb_Compare_lx) {
+                rtb_Down2Up_c = rtb_Sum_k5;
+                rtb_Switch_n = rtb_Sum1_k_idx_0;
             }
 
             // End of Switch: '<S34>/SwitchNorth'
@@ -27179,7 +27179,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 * absx + rtb_Switch_n;
 
             // Switch: '<S34>/SwitchAlt'
-            if (rtb_Compare_ce) {
+            if (rtb_Compare_lx) {
                 // Reshape: '<S34>/Reshape' incorporates:
                 //   Gain: '<S34>/Down2Up'
 
@@ -27188,7 +27188,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 // Reshape: '<S34>/Reshape' incorporates:
                 //   Gain: '<S34>/Down2Up'
 
-                rty_InitialState[2] = -rtb_Map2Radian;
+                rty_InitialState[2] = -rtb_Sum_id;
             }
 
             // End of Switch: '<S34>/SwitchAlt'
@@ -27237,7 +27237,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             //   Sum: '<S97>/Sum'
             //   Switch: '<S109>/Switch'
 
-            rtb_ClockwiseRotation = rtu_Location->Lat - LatitudeGCS;
+            rtb_Sum1_k_idx_0 = rtu_Location->Lat - LatitudeGCS;
             rtb_Sum1_k_idx_1 = rtu_Location->Lon - LongitudeGCS;
 
             // Switch: '<S103>/Switch' incorporates:
@@ -27249,17 +27249,17 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             //   Math: '<S103>/Math Function1'
             //   RelationalOperator: '<S104>/Compare'
 
-            if (std::abs(rtb_ClockwiseRotation) > 180.0) {
-                rtb_Map2Radian = rt_modd_snf(rtb_ClockwiseRotation + 180.0,
-                    360.0) + -180.0;
+            if (std::abs(rtb_Sum1_k_idx_0) > 180.0) {
+                rtb_Sum_id = rt_modd_snf(rtb_Sum1_k_idx_0 + 180.0, 360.0) +
+                    -180.0;
             } else {
-                rtb_Map2Radian = rtb_ClockwiseRotation;
+                rtb_Sum_id = rtb_Sum1_k_idx_0;
             }
 
             // End of Switch: '<S103>/Switch'
 
             // Abs: '<S100>/Abs1'
-            rtb_ClockwiseRotation = std::abs(rtb_Map2Radian);
+            rtb_Sum1_k_idx_0 = std::abs(rtb_Sum_id);
 
             // Switch: '<S100>/Switch' incorporates:
             //   Bias: '<S100>/Bias'
@@ -27272,21 +27272,20 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             //   RelationalOperator: '<S102>/Compare'
             //   Switch: '<S96>/Switch1'
 
-            if (rtb_ClockwiseRotation > 90.0) {
+            if (rtb_Sum1_k_idx_0 > 90.0) {
                 // Signum: '<S100>/Sign1'
                 if (static_cast<boolean_T>(static_cast<int32_T>
                                            (static_cast<int32_T>(std::isnan
-                        (rtb_Map2Radian)) ^ 1))) {
-                    if (rtb_Map2Radian < 0.0) {
-                        rtb_Map2Radian = -1.0;
+                        (rtb_Sum_id)) ^ 1))) {
+                    if (rtb_Sum_id < 0.0) {
+                        rtb_Sum_id = -1.0;
                     } else {
-                        rtb_Map2Radian = static_cast<real_T>(rtb_Map2Radian >
-                            0.0);
+                        rtb_Sum_id = static_cast<real_T>(rtb_Sum_id > 0.0);
                     }
                 }
 
                 // End of Signum: '<S100>/Sign1'
-                rtb_Map2Radian *= -(rtb_ClockwiseRotation + -90.0) + 90.0;
+                rtb_Sum_id *= -(rtb_Sum1_k_idx_0 + -90.0) + 90.0;
                 i = 180;
             } else {
                 i = 0;
@@ -27315,7 +27314,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             // UnitConversion: '<S99>/Unit Conversion'
             // Unit Conversion - from: deg to: rad
             // Expression: output = (0.0174533*input) + (0)
-            rtb_ClockwiseRotation = 0.017453292519943295 * rtb_Map2Radian;
+            rtb_Sum1_k_idx_0 = 0.017453292519943295 * rtb_Sum_id;
             rtb_Sum1_k_idx_1 = 0.017453292519943295 * rtb_Switch_p;
 
             // UnitConversion: '<S114>/Unit Conversion' incorporates:
@@ -27340,15 +27339,15 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             //   Constant: '<S113>/Constant1'
             //   Sqrt: '<S113>/sqrt'
 
-            rtb_Map2Radian = 6.378137E+6 / std::sqrt(rtb_Switch_p);
+            rtb_Sum_id = 6.378137E+6 / std::sqrt(rtb_Switch_p);
 
             // Product: '<S98>/dNorth' incorporates:
             //   Constant: '<S113>/Constant2'
             //   Product: '<S113>/Product3'
             //   Trigonometry: '<S113>/Trigonometric Function1'
 
-            rtb_Switch_p = rtb_ClockwiseRotation / rt_atan2d_snf(1.0,
-                rtb_Map2Radian * 0.99330562000985867 / rtb_Switch_p);
+            rtb_Switch_p = rtb_Sum1_k_idx_0 / rt_atan2d_snf(1.0, rtb_Sum_id *
+                0.99330562000985867 / rtb_Switch_p);
 
             // Product: '<S98>/dEast' incorporates:
             //   Constant: '<S113>/Constant3'
@@ -27358,7 +27357,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
 
             // Unit Conversion - from: deg to: rad
             // Expression: output = (0.0174533*input) + (0)
-            rtb_Map2Radian = 1.0 / rt_atan2d_snf(1.0, rtb_Map2Radian * std::cos
+            rtb_Sum_id = 1.0 / rt_atan2d_snf(1.0, rtb_Sum_id * std::cos
                 (rtb_Switch_n)) * rtb_Sum1_k_idx_1;
 
             // Sum: '<S93>/Sum' incorporates:
@@ -27368,7 +27367,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             rtb_Switch_n = rtu_Location->Alt + -AltitudeGCS;
 
             // Gain: '<S92>/Gain1'
-            rtb_Sum_ip = 0.017453292519943295 * rtu_Location->degHDG;
+            rtb_Sum_k5 = 0.017453292519943295 * rtu_Location->degHDG;
 
             // Outputs for Enabled SubSystem: '<S91>/WayPointGenerator' incorporates:
             //   EnablePort: '<S95>/Enable'
@@ -27462,7 +27461,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 //   Constant: '<S95>/Zero'
 
                 rtb_TmpSignalConversionAtRotateATMissionHdgInport1_p[0] =
-                    rtb_Sum_ip;
+                    rtb_Sum_k5;
                 rtb_TmpSignalConversionAtRotateATMissionHdgInport1_p[1] = 0.0;
                 rtb_TmpSignalConversionAtRotateATMissionHdgInport1_p[2] = 0.0;
                 FlightMissionMode_RotateATMissionHdg
@@ -27527,8 +27526,8 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 //   DataTypeConversion: '<S91>/Param1'
 
                 rtb_Down2Up_c = localDW->startPose_c[0];
-                rtb_ClockwiseRotation = localDW->startPose_c[1] -
-                    static_cast<real_T>(rtu_Parameters->Param1);
+                rtb_Sum1_k_idx_0 = localDW->startPose_c[1] - static_cast<real_T>
+                    (rtu_Parameters->Param1);
                 distToCenter_tmp_tmp = localDW->startPose_c[2] - absx;
 
                 // Product: '<S95>/MatrixProduct'
@@ -27539,7 +27538,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                         rtb_MatrixConcatenate[i] * rtb_Down2Up_c;
                     rtb_TmpSignalConversionAtOrbitFollowerInport2[i2] +=
                         rtb_MatrixConcatenate[static_cast<int32_T>(i + 1)] *
-                        rtb_ClockwiseRotation;
+                        rtb_Sum1_k_idx_0;
                     rtb_TmpSignalConversionAtOrbitFollowerInport2[i2] +=
                         rtb_MatrixConcatenate[static_cast<int32_T>(i + 2)] *
                         distToCenter_tmp_tmp;
@@ -27563,9 +27562,9 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 //   Sum: '<S98>/Sum3'
                 //   UnaryMinus: '<S93>/Ze2height'
 
-                rtb_ReshapeRowVecStartpose_d[0] = rtb_Map2Radian * 0.0 +
+                rtb_ReshapeRowVecStartpose_d[0] = rtb_Sum_id * 0.0 +
                     rtb_Switch_p;
-                rtb_ReshapeRowVecStartpose_d[1] = rtb_Map2Radian - rtb_Switch_p *
+                rtb_ReshapeRowVecStartpose_d[1] = rtb_Sum_id - rtb_Switch_p *
                     0.0;
                 rtb_ReshapeRowVecStartpose_d[2] = -rtb_Switch_n;
 
@@ -27573,7 +27572,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 //   Bias: '<S95>/Bias'
                 //   Gain: '<S95>/Invert'
 
-                localDW->Sum_i = (rtb_Sum_ip + rtb_Sum1_k_idx_1) +
+                localDW->Sum_i = (rtb_Sum_k5 + rtb_Sum1_k_idx_1) +
                     -(localDW->startPose_c[3] + -1.5707963267948966);
 
                 // Outputs for Iterator SubSystem: '<S95>/TransformWayPoint' incorporates:
@@ -27717,7 +27716,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             //   Sum: '<S139>/Sum'
             //   Switch: '<S151>/Switch'
 
-            rtb_ClockwiseRotation = rtu_Location->Lat - LatitudeGCS;
+            rtb_Sum1_k_idx_0 = rtu_Location->Lat - LatitudeGCS;
             rtb_Sum1_k_idx_1 = rtu_Location->Lon - LongitudeGCS;
 
             // Switch: '<S145>/Switch' incorporates:
@@ -27729,17 +27728,17 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             //   Math: '<S145>/Math Function1'
             //   RelationalOperator: '<S146>/Compare'
 
-            if (std::abs(rtb_ClockwiseRotation) > 180.0) {
-                rtb_Map2Radian = rt_modd_snf(rtb_ClockwiseRotation + 180.0,
-                    360.0) + -180.0;
+            if (std::abs(rtb_Sum1_k_idx_0) > 180.0) {
+                rtb_Sum_id = rt_modd_snf(rtb_Sum1_k_idx_0 + 180.0, 360.0) +
+                    -180.0;
             } else {
-                rtb_Map2Radian = rtb_ClockwiseRotation;
+                rtb_Sum_id = rtb_Sum1_k_idx_0;
             }
 
             // End of Switch: '<S145>/Switch'
 
             // Abs: '<S142>/Abs1'
-            rtb_ClockwiseRotation = std::abs(rtb_Map2Radian);
+            rtb_Sum1_k_idx_0 = std::abs(rtb_Sum_id);
 
             // Switch: '<S142>/Switch' incorporates:
             //   Bias: '<S142>/Bias'
@@ -27752,21 +27751,20 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             //   RelationalOperator: '<S144>/Compare'
             //   Switch: '<S138>/Switch1'
 
-            if (rtb_ClockwiseRotation > 90.0) {
+            if (rtb_Sum1_k_idx_0 > 90.0) {
                 // Signum: '<S142>/Sign1'
                 if (static_cast<boolean_T>(static_cast<int32_T>
                                            (static_cast<int32_T>(std::isnan
-                        (rtb_Map2Radian)) ^ 1))) {
-                    if (rtb_Map2Radian < 0.0) {
-                        rtb_Map2Radian = -1.0;
+                        (rtb_Sum_id)) ^ 1))) {
+                    if (rtb_Sum_id < 0.0) {
+                        rtb_Sum_id = -1.0;
                     } else {
-                        rtb_Map2Radian = static_cast<real_T>(rtb_Map2Radian >
-                            0.0);
+                        rtb_Sum_id = static_cast<real_T>(rtb_Sum_id > 0.0);
                     }
                 }
 
                 // End of Signum: '<S142>/Sign1'
-                rtb_Map2Radian *= -(rtb_ClockwiseRotation + -90.0) + 90.0;
+                rtb_Sum_id *= -(rtb_Sum1_k_idx_0 + -90.0) + 90.0;
                 i = 180;
             } else {
                 i = 0;
@@ -27795,7 +27793,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             // UnitConversion: '<S141>/Unit Conversion'
             // Unit Conversion - from: deg to: rad
             // Expression: output = (0.0174533*input) + (0)
-            rtb_ClockwiseRotation = 0.017453292519943295 * rtb_Map2Radian;
+            rtb_Sum1_k_idx_0 = 0.017453292519943295 * rtb_Sum_id;
             rtb_Sum1_k_idx_1 = 0.017453292519943295 * rtb_Switch_p;
 
             // UnitConversion: '<S156>/Unit Conversion' incorporates:
@@ -27820,15 +27818,15 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             //   Constant: '<S155>/Constant1'
             //   Sqrt: '<S155>/sqrt'
 
-            rtb_Map2Radian = 6.378137E+6 / std::sqrt(rtb_Switch_p);
+            rtb_Sum_id = 6.378137E+6 / std::sqrt(rtb_Switch_p);
 
             // Product: '<S140>/dNorth' incorporates:
             //   Constant: '<S155>/Constant2'
             //   Product: '<S155>/Product3'
             //   Trigonometry: '<S155>/Trigonometric Function1'
 
-            rtb_Switch_p = rtb_ClockwiseRotation / rt_atan2d_snf(1.0,
-                rtb_Map2Radian * 0.99330562000985867 / rtb_Switch_p);
+            rtb_Switch_p = rtb_Sum1_k_idx_0 / rt_atan2d_snf(1.0, rtb_Sum_id *
+                0.99330562000985867 / rtb_Switch_p);
 
             // Product: '<S140>/dEast' incorporates:
             //   Constant: '<S155>/Constant3'
@@ -27838,7 +27836,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
 
             // Unit Conversion - from: deg to: rad
             // Expression: output = (0.0174533*input) + (0)
-            rtb_Map2Radian = 1.0 / rt_atan2d_snf(1.0, rtb_Map2Radian * std::cos
+            rtb_Sum_id = 1.0 / rt_atan2d_snf(1.0, rtb_Sum_id * std::cos
                 (rtb_Switch_n)) * rtb_Sum1_k_idx_1;
 
             // Sum: '<S134>/Sum' incorporates:
@@ -27848,7 +27846,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             rtb_Switch_n = rtu_Location->Alt + -AltitudeGCS;
 
             // Gain: '<S133>/Gain1'
-            rtb_Sum_ip = 0.017453292519943295 * rtu_Location->degHDG;
+            rtb_Sum_k5 = 0.017453292519943295 * rtu_Location->degHDG;
 
             // Outputs for Atomic SubSystem: '<S132>/OneSidePercentage'
             // Gain: '<S135>/Gain' incorporates:
@@ -28021,15 +28019,15 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 //   Sum: '<S140>/Sum3'
                 //   UnaryMinus: '<S134>/Ze2height'
 
-                u[0] = rtb_Map2Radian * 0.0 + rtb_Switch_p;
-                u[1] = rtb_Map2Radian - rtb_Switch_p * 0.0;
+                u[0] = rtb_Sum_id * 0.0 + rtb_Switch_p;
+                u[1] = rtb_Sum_id - rtb_Switch_p * 0.0;
                 u[2] = -rtb_Switch_n;
 
                 // SignalConversion generated from: '<S137>/RotateATMissionHdg' incorporates:
                 //   Constant: '<S137>/Zero'
 
                 rtb_TmpSignalConversionAtRotateATMissionHdgInport1[0] =
-                    rtb_Sum_ip;
+                    rtb_Sum_k5;
                 rtb_TmpSignalConversionAtRotateATMissionHdgInport1[1] = 0.0;
                 rtb_TmpSignalConversionAtRotateATMissionHdgInport1[2] = 0.0;
                 FlightMissionMode_RotateATMissionHdg
@@ -28061,7 +28059,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 // Sum: '<S137>/BiasStartPose'
                 rtb_Down2Up_c = rtb_ReshapeRowVecStartpose_d[0] -
                     rtb_Down2Height;
-                rtb_ClockwiseRotation = rtb_ReshapeRowVecStartpose_d[1];
+                rtb_Sum1_k_idx_0 = rtb_ReshapeRowVecStartpose_d[1];
                 distToCenter_tmp_tmp = rtb_ReshapeRowVecStartpose_d[2];
 
                 // Product: '<S137>/RotateIndivWayPointStartpose' incorporates:
@@ -28075,7 +28073,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                         rtb_Down2Up_c;
                     rtb_ReshapeRowVecStartpose_d[i2] +=
                         localDW->RotateATMissionHdg_k.RotateATMissionHdg[
-                        static_cast<int32_T>(i + 1)] * rtb_ClockwiseRotation;
+                        static_cast<int32_T>(i + 1)] * rtb_Sum1_k_idx_0;
                     rtb_ReshapeRowVecStartpose_d[i2] +=
                         localDW->RotateATMissionHdg_k.RotateATMissionHdg[
                         static_cast<int32_T>(i + 2)] * distToCenter_tmp_tmp;
@@ -28089,7 +28087,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 //   Product: '<S137>/ProductFlipStartHeading'
 
                 localDW->Sum = (localDW->ProductFlipStartPose[3] +
-                                -1.5707963267948966) * absx + (rtb_Sum_ip + a_0);
+                                -1.5707963267948966) * absx + (rtb_Sum_k5 + a_0);
 
                 // Outputs for Iterator SubSystem: '<S137>/TransformWayPoint' incorporates:
                 //   ForEach: '<S169>/For Each'
@@ -28345,7 +28343,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                     FlightMissionMode_emxInit_char_T_e(&tline, 2);
                     FlightMissionMode_fgetl(static_cast<real_T>(rtPrevAction),
                                             tline, localDW);
-                    rtb_Map2Radian = 0.0;
+                    rtb_Sum_id = 0.0;
                     a = NULL;
                     FlightMissionMode_emxInit_char_T_e(&aTmp, 2);
                     FlightMissionMode_emxInit_char_T_e(&s1, 2);
@@ -28354,7 +28352,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                         FILE* filestar;
                         exitg2 = 0;
                         if (tline->size[1] != 0) {
-                            rtb_Map2Radian++;
+                            rtb_Sum_id++;
                             rtb_Switch_p = 0.0;
                             int32_T exitg3;
                             do {
@@ -28446,7 +28444,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                           (static_cast<int32_T>
                                            (static_cast<int32_T>(rtb_Switch_p) -
                                             1) << 10) + static_cast<int32_T>
-                                          (rtb_Map2Radian)) - 1);
+                                          (rtb_Sum_id)) - 1);
                                     localDW->MAT[MAT_tmp] = (rtNaN);
                                     ibcol = static_cast<int32_T>(rtb_Bias_f -
                                         nrowx);
@@ -28501,8 +28499,8 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                         FlightMissionMode_readfloat_i(r, &i2, s1,
                                             &ntilerows, static_cast<int32_T>
                                             (rtb_Bias_f - nrowx), true,
-                                            &rtb_Compare_ce, &rtb_Compare_em,
-                                            &rtb_Down2Up_c, &rtb_Compare_c4,
+                                            &rtb_Compare_lx, &rtb_Compare_em,
+                                            &rtb_Down2Up_c, &rtb_Compare_ni,
                                             &success);
                                         loop_ub = static_cast<int32_T>(s1->size
                                             [0] * s1->size[1]);
@@ -28556,7 +28554,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                             FlightMissionMode_readfloat_i(r, &i2,
                                                 s1, &ntilerows,
                                                 static_cast<int32_T>(rtb_Bias_f
-                                                - nrowx), true, &rtb_Compare_c4,
+                                                - nrowx), true, &rtb_Compare_ni,
                                                 &success, &rtb_Switch_n,
                                                 &foundsign, &c_success);
                                             loop_ub = static_cast<int32_T>
@@ -28590,9 +28588,9 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                                 static_cast<boolean_T>(
                                                 static_cast<int32_T>(
                                                 static_cast<int32_T>
-                                                (rtb_Compare_ce) ^
+                                                (rtb_Compare_lx) ^
                                                 static_cast<int32_T>
-                                                (rtb_Compare_c4))))))) &
+                                                (rtb_Compare_ni))))))) &
                                                 static_cast<int32_T>(foundsign)));
                                         } else {
                                             rtb_Switch_n = 0.0;
@@ -28616,23 +28614,23 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                               case 1:
                                                 rtb_Bias_f = sscanf(&s1->data[0],
                                                                     "%lf",
-                                                                    &rtb_Sum_ip);
+                                                                    &rtb_Sum_k5);
                                                 if (rtb_Compare_em) {
                                                     if (rtb_Bias_f == 1) {
                                                         rtb_Down2Up_c =
-                                                            rtb_Sum_ip;
+                                                            rtb_Sum_k5;
                                                     } else {
                                                         rtb_Down2Up_c = (rtNaN);
                                                     }
                                                 } else if (rtb_Bias_f == 1) {
-                                                    rtb_Switch_n = rtb_Sum_ip;
+                                                    rtb_Switch_n = rtb_Sum_k5;
                                                 } else {
                                                     rtb_Switch_n = (rtNaN);
                                                 }
                                                 break;
                                             }
 
-                                            if (rtb_Compare_ce) {
+                                            if (rtb_Compare_lx) {
                                                 localDW->MAT[MAT_tmp] =
                                                     rtb_Switch_n;
                                             } else {
@@ -28667,11 +28665,11 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                     FlightMissionMode_emxFree_char_T_o(&s1);
                     FlightMissionMode_emxFree_char_T_o(&aTmp);
                     FlightMissionMode_emxFree_char_T_o(&tline);
-                    if (rtb_Map2Radian < 1.0) {
+                    if (rtb_Sum_id < 1.0) {
                         rtb_Bias_f = -1;
                     } else {
                         rtb_Bias_f = static_cast<int32_T>(static_cast<int32_T>
-                            (rtb_Map2Radian) - 1);
+                            (rtb_Sum_id) - 1);
                     }
 
                     FlightMissionMode_cfclose_m(static_cast<real_T>(rtPrevAction),
@@ -28848,8 +28846,8 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
 
                 FlightMissionMode_WaypointFollower_stepImpl(&localDW->obj_j,
                     rtu_Pose, localDW->WayPoint, 200.0, turnVector,
-                    &rtb_ClockwiseRotation, &rtb_Map2Radian, &status,
-                    &rtb_MergeStatus, localDW);
+                    &rtb_Sum1_k_idx_0, &rtb_Sum_id, &status, &rtb_MergeStatus,
+                    localDW);
 
                 // End of Outputs for SubSystem: '<S175>/StartFromClosest'
             } else {
@@ -28890,7 +28888,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 }
 
                 rtb_Compare_em = false;
-                rtb_Compare_c4 = true;
+                rtb_Compare_ni = true;
                 rtb_Bias_f = 0;
                 exitg1 = false;
                 while ((!exitg1) && (rtb_Bias_f < 24576)) {
@@ -28901,12 +28899,12 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                     {
                         rtb_Bias_f = static_cast<int32_T>(rtb_Bias_f + 1);
                     } else {
-                        rtb_Compare_c4 = false;
+                        rtb_Compare_ni = false;
                         exitg1 = true;
                     }
                 }
 
-                if (rtb_Compare_c4) {
+                if (rtb_Compare_ni) {
                     rtb_Compare_em = true;
                 }
 
@@ -28999,7 +28997,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                     turnVector[2] = rtu_Pose[2];
 
                     // SignalConversion generated from: '<S179>/Waypoint Follower' 
-                    rtb_ClockwiseRotation = rtu_Pose[3];
+                    rtb_Sum1_k_idx_0 = rtu_Pose[3];
 
                     // SignalConversion generated from: '<S179>/Waypoint Follower' 
                     rtb_MergeStatus = 1U;
@@ -29029,7 +29027,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                             turnVector[2] = rtu_Pose[2];
 
                             // SignalConversion generated from: '<S179>/Waypoint Follower' 
-                            rtb_ClockwiseRotation = rtu_Pose[3];
+                            rtb_Sum1_k_idx_0 = rtu_Pose[3];
 
                             // SignalConversion generated from: '<S179>/Waypoint Follower' 
                             rtb_MergeStatus = 1U;
@@ -29394,7 +29392,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                             a_0 * turnVector[2];
 
                         // SignalConversion generated from: '<S179>/Waypoint Follower' 
-                        rtb_ClockwiseRotation = rt_atan2d_snf(((1.0 - a_0) *
+                        rtb_Sum1_k_idx_0 = rt_atan2d_snf(((1.0 - a_0) *
                             rtb_TmpSignalConversionAtOrbitFollowerInport2[1] +
                             a_0 * turnVector[1]) - rtu_Pose[1], ((1.0 - a_0) *
                             rtb_TmpSignalConversionAtOrbitFollowerInport2[0] +
@@ -29425,7 +29423,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             *rty_thisTaskStatus = static_cast<real_T>(rtb_MergeStatus);
 
             // Gain: '<S176>/Gain1'
-            rtb_Map2Radian = 0.017453292519943295 * rtu_Location->degHDG;
+            rtb_Sum_id = 0.017453292519943295 * rtu_Location->degHDG;
 
             // Sum: '<S177>/Sum' incorporates:
             //   DataStoreRead: '<S175>/AltitudeGCS'
@@ -29440,7 +29438,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             rty_GuidanceCmds->Height = -turnVector[2];
             rty_GuidanceCmds->AirSpeed = static_cast<real_T>
                 (rtu_Parameters->Param4);
-            rty_GuidanceCmds->HeadingAngle = rtb_ClockwiseRotation;
+            rty_GuidanceCmds->HeadingAngle = rtb_Sum1_k_idx_0;
 
             // Sum: '<S177>/Sum1' incorporates:
             //   DataStoreRead: '<S175>/LatitudeGCS'
@@ -29448,7 +29446,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             //   Sum: '<S182>/Sum'
             //   Switch: '<S194>/Switch'
 
-            rtb_ClockwiseRotation = rtu_Location->Lat - LatitudeGCS;
+            rtb_Sum1_k_idx_0 = rtu_Location->Lat - LatitudeGCS;
             rtb_Sum1_k_idx_1 = rtu_Location->Lon - LongitudeGCS;
 
             // Switch: '<S188>/Switch' incorporates:
@@ -29460,11 +29458,11 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             //   Math: '<S188>/Math Function1'
             //   RelationalOperator: '<S189>/Compare'
 
-            if (std::abs(rtb_ClockwiseRotation) > 180.0) {
-                rtb_Down2Up_c = rt_modd_snf(rtb_ClockwiseRotation + 180.0, 360.0)
-                    + -180.0;
+            if (std::abs(rtb_Sum1_k_idx_0) > 180.0) {
+                rtb_Down2Up_c = rt_modd_snf(rtb_Sum1_k_idx_0 + 180.0, 360.0) +
+                    -180.0;
             } else {
-                rtb_Down2Up_c = rtb_ClockwiseRotation;
+                rtb_Down2Up_c = rtb_Sum1_k_idx_0;
             }
 
             // End of Switch: '<S188>/Switch'
@@ -29528,10 +29526,10 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
 
             // Unit Conversion - from: deg to: rad
             // Expression: output = (0.0174533*input) + (0)
-            rtb_ClockwiseRotation = 0.017453292519943295 * LatitudeGCS;
+            rtb_Sum1_k_idx_0 = 0.017453292519943295 * LatitudeGCS;
 
             // Trigonometry: '<S200>/Trigonometric Function1'
-            absx = std::sin(rtb_ClockwiseRotation);
+            absx = std::sin(rtb_Sum1_k_idx_0);
 
             // Sum: '<S200>/Sum1' incorporates:
             //   Constant: '<S200>/Constant'
@@ -29548,7 +29546,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             // Product: '<S198>/Product4' incorporates:
             //   Trigonometry: '<S198>/Trigonometric Function'
 
-            a_0 = rtb_Sum1_k_idx_1 * std::cos(rtb_ClockwiseRotation);
+            a_0 = rtb_Sum1_k_idx_1 * std::cos(rtb_Sum1_k_idx_0);
 
             // Product: '<S183>/dNorth' incorporates:
             //   Constant: '<S198>/Constant2'
@@ -29586,7 +29584,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             rty_InitialState[1] = absx - rtb_Sum1_k_idx_1 * 0.0;
             rty_InitialState[2] = rtb_Switch_p;
             rty_InitialState[3] = static_cast<real_T>(rtu_Parameters->Param4);
-            rty_InitialState[4] = rtb_Map2Radian;
+            rty_InitialState[4] = rtb_Sum_id;
             rty_InitialState[5] = 0.0;
             rty_InitialState[6] = 0.0;
             rty_InitialState[7] = 0.0;

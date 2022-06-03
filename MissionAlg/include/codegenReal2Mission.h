@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 4.219
+// Model version                  : 4.222
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Thu Jun  2 02:00:58 2022
+// C/C++ source code generated on : Fri Jun  3 15:23:42 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -201,8 +201,8 @@ class codegenReal2MissionModelClass final
         uint8_T is_c14_codegenReal2Mission;// '<S80>/NewMission'
         uint8_T is_active_c12_codegenReal2Mission;// '<S80>/MisisonCMDTemporalLogic' 
         uint8_T is_c12_codegenReal2Mission;// '<S80>/MisisonCMDTemporalLogic'
-        uint8_T is_active_c5_codegenReal2Mission;// '<S81>/TriggerStartSim'
-        uint8_T is_c5_codegenReal2Mission;// '<S81>/TriggerStartSim'
+        uint8_T is_active_c4_codegenReal2Mission;// '<S81>/TriggerStartSim'
+        uint8_T is_c4_codegenReal2Mission;// '<S81>/TriggerStartSim'
         boolean_T ImmedMission_o3[2];  // '<S44>/ImmedMission'
         boolean_T eml_autoflush[20];   // '<S110>/PrintOnboardLog'
         boolean_T eml_autoflush_m[20]; // '<S76>/PrintOnboardLog'

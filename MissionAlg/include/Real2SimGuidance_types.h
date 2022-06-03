@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'Real2SimGuidance'.
 //
-// Model version                  : 4.143
+// Model version                  : 4.148
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Thu Jun  2 01:58:45 2022
+// C/C++ source code generated on : Fri Jun  3 15:15:59 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -171,8 +171,21 @@ struct FlightLogging
 
 #endif
 
-// Custom Type definition for MATLAB Function: '<S94>/getSpeedLimit'
+// Custom Type definition for MATLAB Function: '<S95>/getSpeedLimit'
 #include <stdio.h>
+
+// Custom Type definition for MATLAB Function: '<S14>/getLAPGainBias'
+#ifndef struct_s88w9UDFTziuJLEYZbYNZfH_Real2SimGuidance_T
+#define struct_s88w9UDFTziuJLEYZbYNZfH_Real2SimGuidance_T
+
+struct s88w9UDFTziuJLEYZbYNZfH_Real2SimGuidance_T
+{
+    real_T Gain;
+    real_T Bias;
+};
+
+#endif                     // struct_s88w9UDFTziuJLEYZbYNZfH_Real2SimGuidance_T
+
 #ifndef struct_robotics_slcore_internal_block_CoordinateTransformationConversion_Real2SimGuidance_T
 #define struct_robotics_slcore_internal_block_CoordinateTransformationConversion_Real2SimGuidance_T
 
@@ -185,7 +198,7 @@ struct
 #endif
 // struct_robotics_slcore_internal_block_CoordinateTransformationConversion_Real2SimGuidance_T 
 
-// Custom Type definition for MATLAB Function: '<S94>/getSpeedLimit'
+// Custom Type definition for MATLAB Function: '<S95>/getSpeedLimit'
 #ifndef struct_uavDubinsConnection_Real2SimGuidance_T
 #define struct_uavDubinsConnection_Real2SimGuidance_T
 
@@ -294,7 +307,7 @@ struct uav_sluav_internal_system_WaypointFollower_Real2SimGuidance_T
 
 #endif  // struct_uav_sluav_internal_system_WaypointFollower_Real2SimGuidance_T
 
-// Custom Type definition for MATLAB Function: '<S94>/getSpeedLimit'
+// Custom Type definition for MATLAB Function: '<S95>/getSpeedLimit'
 #ifndef struct_DubinsObjSingleton_Real2SimGuidance_d_T
 #define struct_DubinsObjSingleton_Real2SimGuidance_d_T
 

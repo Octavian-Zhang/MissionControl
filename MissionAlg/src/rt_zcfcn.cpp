@@ -5,7 +5,7 @@
 //
 // Model version                  : 3.19
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Wed Jun  1 23:05:15 2022
+// C/C++ source code generated on : Fri Jun  3 15:14:08 2022
 //
 #include "rtwtypes.h"
 #include "zero_crossing_types.h"

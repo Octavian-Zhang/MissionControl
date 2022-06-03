@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 4.219
+// Model version                  : 4.222
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Thu Jun  2 02:00:58 2022
+// C/C++ source code generated on : Fri Jun  3 15:23:42 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -7838,19 +7838,19 @@ void codegenReal2MissionModelClass::step()
         // Gateway: MissionLogic/FlightMission_Variant/VariantScheduler/SingleUAV/FlightMission/TriggerStartSim 
         // During: MissionLogic/FlightMission_Variant/VariantScheduler/SingleUAV/FlightMission/TriggerStartSim 
         if (static_cast<uint32_T>
-                (codegenReal2Mission_DW.is_active_c5_codegenReal2Mission) == 0U)
+                (codegenReal2Mission_DW.is_active_c4_codegenReal2Mission) == 0U)
         {
             // Entry: MissionLogic/FlightMission_Variant/VariantScheduler/SingleUAV/FlightMission/TriggerStartSim 
-            codegenReal2Mission_DW.is_active_c5_codegenReal2Mission = 1U;
+            codegenReal2Mission_DW.is_active_c4_codegenReal2Mission = 1U;
 
             // Entry Internal: MissionLogic/FlightMission_Variant/VariantScheduler/SingleUAV/FlightMission/TriggerStartSim 
             // Transition: '<S93>:4'
-            codegenReal2Mission_DW.is_c5_codegenReal2Mission =
+            codegenReal2Mission_DW.is_c4_codegenReal2Mission =
                 codegenReal2Mission_IN_Pending;
 
             // Entry 'Pending': '<S93>:3'
             codegenReal2Mission_DW.StartSim = false;
-        } else if (codegenReal2Mission_DW.is_c5_codegenReal2Mission ==
+        } else if (codegenReal2Mission_DW.is_c4_codegenReal2Mission ==
                    codegenReal2Mission_IN_Pending) {
             // During 'Pending': '<S93>:3'
             if (static_cast<boolean_T>(static_cast<int32_T>
@@ -7859,7 +7859,7 @@ void codegenReal2MissionModelClass::step()
                                         (codegenReal2Mission_DW.ReceiveCurrentMission_o2.SequenceID
                    > 0)))) {
                 // Transition: '<S93>:6'
-                codegenReal2Mission_DW.is_c5_codegenReal2Mission =
+                codegenReal2Mission_DW.is_c4_codegenReal2Mission =
                     codegenReal2Mission_IN_Running;
 
                 // Entry 'Running': '<S93>:5'
