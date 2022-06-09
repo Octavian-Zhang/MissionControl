@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 4.219
+// Model version                  : 4.222
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Thu Jun  2 02:00:58 2022
+// C/C++ source code generated on : Fri Jun  3 15:23:42 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -78,7 +78,7 @@ class codegenReal2MissionModelClassRecvData_IndividualUAVCmdT : public
     void RecvData(IndividualUAVCmd* data, int32_T length, int32_T* status)
     {
         // Add receive data logic here
-        unsigned int priority = sysconf(_SC_MQ_PRIO_MAX) - 1; // Mission upload -> Highest priority
+        unsigned int priority = 16384; // Mission upload -> Highest priority
         *status = -mq_receive(msgQueue, (char *)data, length, &priority);
         if (*status < 0) // Not failed, successfully received
         {
@@ -219,7 +219,7 @@ void* periodicTask(void *arg)
     while (1) {
         MW_sem_wait(&periodicTaskStartSem[taskId]);
 
-        unsigned int priority = sysconf(_SC_MQ_PRIO_MAX) - 1; 
+        unsigned int priority = 8192; 
 
         // Set model inputs here
         codegenReal2MissionModelClass::ExtU_codegenReal2Mission_T ExtU{};
