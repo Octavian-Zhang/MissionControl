@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 4.222
+// Model version                  : 4.243
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Fri Jun  3 15:23:42 2022
+// C/C++ source code generated on : Thu Jun 16 22:45:21 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -6583,9 +6583,7 @@ boolean_T codegenReal2MissionModelClass::codegenReal2Mission_strcmp_byvm0m(const
 void codegenReal2MissionModelClass::step()
 {
     // local block i/o variables
-    real_T
-        rtb_TmpSignalConversionAtBufferToMakeInportVirtual_InsertedFor_Pose_at_inport_0Inport1
-        [4];
+    real_T rtb_BufferToMakeInportVirtual_InsertedFor_Pose_at_inport_0[4];
     int32_T rtb_intFlightStatus;
     int32_T rtb_intImmedStatus;
     FixedWingGuidanceStateBus
@@ -8004,14 +8002,14 @@ void codegenReal2MissionModelClass::step()
         // SignalConversion generated from: '<S92>/Pose' incorporates:
         //   Gain: '<S92>/Gain2'
 
-        rtb_TmpSignalConversionAtBufferToMakeInportVirtual_InsertedFor_Pose_at_inport_0Inport1
-            [0] = codegenReal2Mission_DW.North;
-        rtb_TmpSignalConversionAtBufferToMakeInportVirtual_InsertedFor_Pose_at_inport_0Inport1
-            [1] = codegenReal2Mission_DW.East;
-        rtb_TmpSignalConversionAtBufferToMakeInportVirtual_InsertedFor_Pose_at_inport_0Inport1
-            [2] = -codegenReal2Mission_DW.Height;
-        rtb_TmpSignalConversionAtBufferToMakeInportVirtual_InsertedFor_Pose_at_inport_0Inport1
-            [3] = codegenReal2Mission_DW.HeadingAngle;
+        rtb_BufferToMakeInportVirtual_InsertedFor_Pose_at_inport_0[0] =
+            codegenReal2Mission_DW.North;
+        rtb_BufferToMakeInportVirtual_InsertedFor_Pose_at_inport_0[1] =
+            codegenReal2Mission_DW.East;
+        rtb_BufferToMakeInportVirtual_InsertedFor_Pose_at_inport_0[2] =
+            -codegenReal2Mission_DW.Height;
+        rtb_BufferToMakeInportVirtual_InsertedFor_Pose_at_inport_0[3] =
+            codegenReal2Mission_DW.HeadingAngle;
 
         // End of Outputs for SubSystem: '<S81>/SimState2Pose'
 
@@ -9373,17 +9371,13 @@ void codegenReal2MissionModelClass::step()
         // Update for Atomic SubSystem: '<S80>/FlightMission'
         // Update for Memory: '<S81>/MemoryPose'
         codegenReal2Mission_DW.MemoryPose_PreviousInput[0] =
-            rtb_TmpSignalConversionAtBufferToMakeInportVirtual_InsertedFor_Pose_at_inport_0Inport1
-            [0];
+            rtb_BufferToMakeInportVirtual_InsertedFor_Pose_at_inport_0[0];
         codegenReal2Mission_DW.MemoryPose_PreviousInput[1] =
-            rtb_TmpSignalConversionAtBufferToMakeInportVirtual_InsertedFor_Pose_at_inport_0Inport1
-            [1];
+            rtb_BufferToMakeInportVirtual_InsertedFor_Pose_at_inport_0[1];
         codegenReal2Mission_DW.MemoryPose_PreviousInput[2] =
-            rtb_TmpSignalConversionAtBufferToMakeInportVirtual_InsertedFor_Pose_at_inport_0Inport1
-            [2];
+            rtb_BufferToMakeInportVirtual_InsertedFor_Pose_at_inport_0[2];
         codegenReal2Mission_DW.MemoryPose_PreviousInput[3] =
-            rtb_TmpSignalConversionAtBufferToMakeInportVirtual_InsertedFor_Pose_at_inport_0Inport1
-            [3];
+            rtb_BufferToMakeInportVirtual_InsertedFor_Pose_at_inport_0[3];
 
         // Update for ModelReference: '<S81>/PreemptableMissionModeSelector'
         FlightMissionMode_Update
@@ -9772,7 +9766,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_PushNbrUAV() // Explicit
         rtb_Reshape[3] = -(-rtb_Down2Up + rtb_sincos_o1[2]);
 
         // MATLAB Function 'Function-Call Subsystem/While Iterator Serializer/ConcatenateUAVPos': '<S6>:1' 
-        // '<S6>:1:22'
+        // '<S6>:1:18'
         if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
                 (x_not_empty) ^ 1))) {
             // '<S6>:1:4'
@@ -10051,16 +10045,15 @@ void codegenReal2MissionModelClass::codegenReal2Mission_PushNbrUAV() // Explicit
             codegenReal2Mission_DW.x->data[i_0] = tmp_1->data[i_0];
         }
 
-        // '<S6>:1:19'
         codegenReal2Mission_flipud(codegenReal2Mission_DW.x);
         x_not_empty = (codegenReal2Mission_DW.x->size[0] != 0);
 
-        // '<S6>:1:21'
+        // '<S6>:1:20'
         for (i = 0; i < 4096; i++) {
             codegenReal2Mission_DW.output_m[i] = (rtNaN);
         }
 
-        // '<S6>:1:22'
+        // '<S6>:1:21'
         i = 0;
         for (i_0 = 0; i_0 < 4; i_0++) {
             e_k = codegenReal2Mission_DW.x->size[0];

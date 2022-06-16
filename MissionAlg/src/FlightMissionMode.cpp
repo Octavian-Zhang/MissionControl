@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'FlightMissionMode'.
 //
-// Model version                  : 3.24
+// Model version                  : 3.25
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Fri Jun  3 15:20:01 2022
+// C/C++ source code generated on : Thu Jun 16 22:43:06 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -25388,8 +25388,8 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                         a_0) {
                         guard1 = true;
                     } else {
-                        real_T ScanWidth;
                         real_T absx_tmp;
+                        real_T rtb_CastToDouble;
                         real_T rtb_Sum1_k_tmp;
                         if (localDW->obj_f.StartFlag) {
                             localDW->obj_f.PrevPosition[0] = rtu_Pose[0];
@@ -25401,16 +25401,17 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                         rtb_Sum1_k_tmp = rtu_Pose[1] - rtb_Sum1_k_idx_0;
                         rtu_Pose_0[1] = rtb_Sum1_k_tmp;
                         rtb_Sum_k5 = FlightMissionMode_norm_p(rtu_Pose_0);
-                        ScanWidth = localDW->obj_f.LookaheadDistance *
+                        rtb_CastToDouble = localDW->obj_f.LookaheadDistance *
                             localDW->obj_f.LookaheadDistance;
-                        a_0 = ((ScanWidth - rtb_Switch_n * rtb_Switch_n) +
-                               rtb_Sum_k5 * rtb_Sum_k5) / (2.0 * rtb_Sum_k5);
+                        a_0 = ((rtb_CastToDouble - rtb_Switch_n * rtb_Switch_n)
+                               + rtb_Sum_k5 * rtb_Sum_k5) / (2.0 * rtb_Sum_k5);
                         rtb_Down2Height = rtb_Switch_p - rtu_Pose[0];
                         rtb_Switch_n = rtb_Down2Height * a_0 / rtb_Sum_k5 +
                             rtu_Pose[0];
                         absx_tmp = rtb_Sum1_k_idx_0 - rtu_Pose[1];
                         absx = absx_tmp * a_0 / rtb_Sum_k5 + rtu_Pose[1];
-                        rtb_Sum1_k_idx_1 = std::sqrt(ScanWidth - a_0 * a_0);
+                        rtb_Sum1_k_idx_1 = std::sqrt(rtb_CastToDouble - a_0 *
+                            a_0);
                         distToCenter_tmp_tmp_0 = absx_tmp * rtb_Sum1_k_idx_1 /
                             rtb_Sum_k5;
                         distToCenter_tmp[0] = rtb_Switch_n -
@@ -25457,7 +25458,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                         rtb_Sum1_k_idx_1 = u[0] / a_0;
                         rtb_Sum1_k_tmp = rtb_ReshapeRowVecStartpose_d[0] /
                             distToCenter_tmp_tmp_0;
-                        ScanWidth = u[1] / a_0;
+                        rtb_CastToDouble = u[1] / a_0;
                         distToCenter_tmp_tmp = rtb_ReshapeRowVecStartpose_d[1] /
                             distToCenter_tmp_tmp_0;
                         localDW->obj_f.PrevPosition[0] = rtu_Pose[0];
@@ -25465,10 +25466,11 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                         localDW->obj_f.PrevPosition[2] = rtu_Pose[2];
                         localDW->obj_f.NumCircles += rt_atan2d_snf
                             (rtb_Sum1_k_idx_1 * distToCenter_tmp_tmp -
-                             rtb_Sum1_k_tmp * ScanWidth, (rtb_Sum1_k_idx_1 *
-                              rtb_Sum1_k_tmp + ScanWidth * distToCenter_tmp_tmp)
-                             + 0.0 / a_0 * (0.0 / distToCenter_tmp_tmp_0)) / 2.0
-                            / 3.1415926535897931;
+                             rtb_Sum1_k_tmp * rtb_CastToDouble,
+                             (rtb_Sum1_k_idx_1 * rtb_Sum1_k_tmp +
+                              rtb_CastToDouble * distToCenter_tmp_tmp) + 0.0 /
+                             a_0 * (0.0 / distToCenter_tmp_tmp_0)) / 2.0 /
+                            3.1415926535897931;
                         *rty_thisTaskStatus = localDW->obj_f.NumCircles;
                         if (static_cast<boolean_T>(static_cast<int32_T>(
                                 static_cast<int32_T>(std::isnan(rtb_Switch_n)) ^
@@ -25591,10 +25593,10 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
 
       case 1:
         {
-            real_T ScanWidth;
             real_T a_0;
             real_T absx;
             real_T distToCenter_tmp_tmp;
+            real_T rtb_CastToDouble;
             real_T rtb_Down2Height;
             real_T rtb_Sum1_k_idx_1;
             real_T rtb_Switch_p;
@@ -25958,6 +25960,17 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
 
             rtb_Sum1_k_idx_0 = rtb_Sum1_k_idx_1 - a_0 * 0.0;
 
+            // Saturate: '<S34>/Saturation' incorporates:
+            //   DataTypeConversion: '<S34>/Param3'
+
+            if (rtu_Parameters->Param3 <= 1.0F) {
+                a_0 = 1.0;
+            } else {
+                a_0 = static_cast<real_T>(rtu_Parameters->Param3);
+            }
+
+            // End of Saturate: '<S34>/Saturation'
+
             // Switch: '<S34>/Switch' incorporates:
             //   Bias: '<S34>/Bias'
             //   Constant: '<S34>/Zero'
@@ -25973,12 +25986,10 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             // End of Switch: '<S34>/Switch'
 
             // Product: '<S34>/Map2Radian' incorporates:
-            //   DataTypeConversion: '<S34>/Param3'
             //   Gain: '<S34>/Half'
             //   Sum: '<S34>/MinusNumUAV'
 
-            absx = (absx - 0.5 * rtb_Down2Height) * static_cast<real_T>
-                (rtu_Parameters->Param3);
+            absx = (absx - 0.5 * rtb_Down2Height) * a_0;
 
             // Gain: '<S35>/Gain1'
             rtb_Sum1_k_idx_1 = 0.017453292519943295 * rtu_Location->degHDG;
@@ -26003,7 +26014,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 }
 
                 // DataTypeConversion: '<S38>/Cast To Double'
-                rtb_Down2Height = static_cast<real_T>(*rtu_MissionUAV);
+                rtb_CastToDouble = static_cast<real_T>(*rtu_MissionUAV);
 
                 // Reshape: '<S38>/ReshapeRowVec'
                 rtb_TmpSignalConversionAtOrbitFollowerInport2[0] = rtb_Sum_k5;
@@ -26016,19 +26027,18 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 //   Constant: '<S38>/Zero'
 
                 if (rtb_Compare_lx) {
-                    a_0 = 0.0;
+                    distToCenter_tmp_tmp = 0.0;
                 } else {
-                    a_0 = rtb_Down2Height + -1.0;
+                    distToCenter_tmp_tmp = rtb_CastToDouble + -1.0;
                 }
 
                 // End of Switch: '<S38>/Switch'
                 FlightMissionMode_emxInit_real_T_h(&CheckPoints, 2);
 
                 // Product: '<S38>/ReverseBias' incorporates:
-                //   DataTypeConversion: '<S34>/Param3'
                 //   Gain: '<S38>/Half'
 
-                a_0 = 0.5 * a_0 * static_cast<real_T>(rtu_Parameters->Param3);
+                rtb_Down2Height = 0.5 * distToCenter_tmp_tmp * a_0;
 
                 // SignalConversion generated from: '<S38>/RotateATMissionHdg' incorporates:
                 //   Constant: '<S38>/Zero'
@@ -26057,22 +26067,20 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
 
                 // MATLAB Function: '<S38>/WayPointGenerator' incorporates:
                 //   DataTypeConversion: '<S34>/Param2'
-                //   DataTypeConversion: '<S34>/Param3'
                 //   Product: '<S38>/ProductScanWidth'
 
                 // MATLAB Function 'Mode2_HorzScanNav/Mode2_Variant/Mode2/WayPointGenerator/WayPointGenerator': '<S87>:1' 
                 // '<S87>:1:28'
                 // '<S87>:1:4'
-                rtb_Down2Height = std::ceil(static_cast<real_T>
-                    (rtu_Parameters->Param2) / (static_cast<real_T>
-                    (rtu_Parameters->Param3) * rtb_Down2Height));
+                a_0 = std::ceil(static_cast<real_T>(rtu_Parameters->Param2) /
+                                (a_0 * rtb_CastToDouble));
 
                 // '<S87>:1:5'
-                ScanWidth = static_cast<real_T>(rtu_Parameters->Param2) /
-                    rtb_Down2Height;
+                rtb_CastToDouble = static_cast<real_T>(rtu_Parameters->Param2) /
+                    a_0;
 
                 // '<S87>:1:8'
-                i = static_cast<int32_T>(rtb_Down2Height * 2.0);
+                i = static_cast<int32_T>(a_0 * 2.0);
                 loop_ub = static_cast<int32_T>(CheckPoints->size[0] *
                     CheckPoints->size[1]);
 
@@ -26092,8 +26100,8 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
 
                 // '<S87>:1:9'
                 for (rtb_Bias_f = 0; rtb_Bias_f <= static_cast<int32_T>(
-                        static_cast<int32_T>(rtb_Down2Height) - 1); rtb_Bias_f =
-                     static_cast<int32_T>(rtb_Bias_f + 1)) {
+                        static_cast<int32_T>(a_0) - 1); rtb_Bias_f =
+                        static_cast<int32_T>(rtb_Bias_f + 1)) {
                     // '<S87>:1:9'
                     if (rt_remd_snf(static_cast<real_T>(rtb_Bias_f) + 1.0, 2.0) ==
                         1.0) {
@@ -26102,7 +26110,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                         i = static_cast<int32_T>(static_cast<int32_T>(
                             static_cast<int32_T>(rtb_Bias_f + 1) << 1) - 2);
                         CheckPoints->data[i] = ((static_cast<real_T>(rtb_Bias_f)
-                            + 1.0) - 1.0) * ScanWidth;
+                            + 1.0) - 1.0) * rtb_CastToDouble;
                         CheckPoints->data[static_cast<int32_T>(i +
                             CheckPoints->size[0])] = 0.0;
                         CheckPoints->data[static_cast<int32_T>(i +
@@ -26116,7 +26124,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                         i = static_cast<int32_T>(static_cast<int32_T>(
                             static_cast<int32_T>(rtb_Bias_f + 1) << 1) - 1);
                         CheckPoints->data[i] = ((static_cast<real_T>(rtb_Bias_f)
-                            + 1.0) - 1.0) * ScanWidth;
+                            + 1.0) - 1.0) * rtb_CastToDouble;
                         CheckPoints->data[static_cast<int32_T>(i +
                             CheckPoints->size[0])] = static_cast<real_T>
                             (rtu_Parameters->Param1);
@@ -26132,7 +26140,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                             + 1) << 1);
                         CheckPoints->data[static_cast<int32_T>(i - 2)] = ((
                             static_cast<real_T>(rtb_Bias_f) + 1.0) - 1.0) *
-                            ScanWidth;
+                            rtb_CastToDouble;
                         CheckPoints->data[static_cast<int32_T>
                             (static_cast<int32_T>(i + CheckPoints->size[0]) - 2)]
                             = static_cast<real_T>(rtu_Parameters->Param1);
@@ -26147,7 +26155,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                         // '<S87>:1:18'
                         CheckPoints->data[static_cast<int32_T>(i - 1)] = ((
                             static_cast<real_T>(rtb_Bias_f) + 1.0) - 1.0) *
-                            ScanWidth;
+                            rtb_CastToDouble;
                         CheckPoints->data[static_cast<int32_T>
                             (static_cast<int32_T>(i + CheckPoints->size[0]) - 1)]
                             = 0.0;
@@ -26380,15 +26388,14 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                     i = nrowx;
                 }
 
-                rtb_Down2Height = std::ceil(10240.0 / static_cast<real_T>(
-                    static_cast<int32_T>(i + 1)));
+                a_0 = std::ceil(10240.0 / static_cast<real_T>
+                                (static_cast<int32_T>(i + 1)));
                 loop_ub = static_cast<int32_T>(dummyWayPoint->size[0] *
                     dummyWayPoint->size[1]);
 
                 // MATLAB Function: '<S38>/WayPointGenerator'
                 dummyWayPoint->size[0] = static_cast<int32_T>
-                    (static_cast<int32_T>(nrowx + 1) * static_cast<int32_T>
-                     (rtb_Down2Height));
+                    (static_cast<int32_T>(nrowx + 1) * static_cast<int32_T>(a_0));
                 dummyWayPoint->size[1] = 3;
                 FlightMissionMode_emxEnsureCapacity_real_T_c(dummyWayPoint,
                     loop_ub);
@@ -26398,7 +26405,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
 
                 nrows = segWayPoints->size[0];
                 for (nrowx = 0; nrowx <= static_cast<int32_T>
-                        (static_cast<int32_T>(rtb_Down2Height) - 1); nrowx =
+                        (static_cast<int32_T>(a_0) - 1); nrowx =
                         static_cast<int32_T>(nrowx + 1)) {
                     ibcol = static_cast<int32_T>(static_cast<int32_T>(nrowx *
                         nrows) + -1);
@@ -26411,9 +26418,9 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 }
 
                 i = static_cast<int32_T>(static_cast<int32_T>(segWayPoints->
-                    size[0] * static_cast<int32_T>(rtb_Down2Height)) - 1);
+                    size[0] * static_cast<int32_T>(a_0)) - 1);
                 for (nrowx = 0; nrowx <= static_cast<int32_T>
-                        (static_cast<int32_T>(rtb_Down2Height) - 1); nrowx =
+                        (static_cast<int32_T>(a_0) - 1); nrowx =
                         static_cast<int32_T>(nrowx + 1)) {
                     ibcol = static_cast<int32_T>(static_cast<int32_T>(nrowx *
                         nrows) + i);
@@ -26429,9 +26436,9 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 rtb_Bias_f = static_cast<int32_T>(segWayPoints->size[0] << 1);
                 i = static_cast<int32_T>(static_cast<int32_T>
                     (static_cast<int32_T>(segWayPoints->size[0] *
-                    static_cast<int32_T>(rtb_Down2Height)) << 1) - 1);
+                    static_cast<int32_T>(a_0)) << 1) - 1);
                 for (nrowx = 0; nrowx <= static_cast<int32_T>
-                        (static_cast<int32_T>(rtb_Down2Height) - 1); nrowx =
+                        (static_cast<int32_T>(a_0) - 1); nrowx =
                         static_cast<int32_T>(nrowx + 1)) {
                     ibcol = static_cast<int32_T>(static_cast<int32_T>(nrowx *
                         nrows) + i);
@@ -26468,7 +26475,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                     if (rtb_Compare_em) {
                         // '<S87>:1:40'
                         // '<S87>:1:42'
-                        CheckPoints_1[0] = u[0] + -a_0;
+                        CheckPoints_1[0] = u[0] + -rtb_Down2Height;
                         CheckPoints_1[1] = u[1];
                         CheckPoints_1[2] = u[2];
                         CheckPoints_1[3] = 1.5707963267948966;
@@ -26546,7 +26553,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 }
 
                 // Sum: '<S38>/Sum'
-                a_0 += absx;
+                a_0 = rtb_Down2Height + absx;
 
                 // MATLAB Function: '<S38>/biasWayPoint'
                 // MATLAB Function 'biasWayPoint': '<S89>:1'
@@ -26892,7 +26899,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                             static_cast<int32_T>(static_cast<int32_T>
                             (localDW->obj_k.WaypointIndex) + waypoints->size[0])
                             - 1)];
-                        ScanWidth = waypoints->data[static_cast<int32_T>(
+                        rtb_CastToDouble = waypoints->data[static_cast<int32_T>(
                             static_cast<int32_T>(static_cast<int32_T>
                             (localDW->obj_k.WaypointIndex + 1.0) +
                             waypoints->size[0]) - 1)];
@@ -26906,7 +26913,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                             int32_T>(waypoints->size[0] << 1)) - 1)];
                         a_0 = ((rtb_Down2Height - distToCenter_tmp_tmp) / a_0 *
                                (rtb_TmpSignalConversionAtOrbitFollowerInport2[0]
-                                / distToCenter_tmp_tmp_0) + (ScanWidth -
+                                / distToCenter_tmp_tmp_0) + (rtb_CastToDouble -
                                 absx_tmp) / a_0 *
                                (rtb_TmpSignalConversionAtOrbitFollowerInport2[1]
                                 / distToCenter_tmp_tmp_0)) + (waypoints_tmp -
@@ -26930,7 +26937,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                             turnVector[0] = rtb_Down2Height;
                             rtb_TmpSignalConversionAtOrbitFollowerInport2[1] =
                                 absx_tmp;
-                            turnVector[1] = ScanWidth;
+                            turnVector[1] = rtb_CastToDouble;
                             rtb_TmpSignalConversionAtOrbitFollowerInport2[2] =
                                 rtb_Sum1_k_tmp;
                             turnVector[2] = waypoints_tmp;
@@ -26987,23 +26994,23 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                         rtb_TmpSignalConversionAtOrbitFollowerInport2[1];
                     distToCenter_tmp_tmp_0 = turnVector[2] -
                         rtb_TmpSignalConversionAtOrbitFollowerInport2[2];
-                    ScanWidth = rtu_Pose[2] -
+                    rtb_CastToDouble = rtu_Pose[2] -
                         rtb_TmpSignalConversionAtOrbitFollowerInport2[2];
                     a_0 = ((rtb_Sum1_k_tmp * absx_tmp + rtb_Down2Height *
-                            distToCenter_tmp_tmp) + ScanWidth *
+                            distToCenter_tmp_tmp) + rtb_CastToDouble *
                            distToCenter_tmp_tmp_0) / ((absx_tmp * absx_tmp +
                         distToCenter_tmp_tmp * distToCenter_tmp_tmp) +
                         distToCenter_tmp_tmp_0 * distToCenter_tmp_tmp_0);
                     if (a_0 < 0.0) {
                         u[0] = rtb_Down2Height;
                         u[1] = rtb_Sum1_k_tmp;
-                        u[2] = ScanWidth;
-                        ScanWidth = FlightMissionMode_norm_pv(u);
+                        u[2] = rtb_CastToDouble;
+                        rtb_CastToDouble = FlightMissionMode_norm_pv(u);
                     } else if (a_0 > 1.0) {
                         u[0] = rtu_Pose[0] - turnVector[0];
                         u[1] = rtu_Pose[1] - turnVector[1];
                         u[2] = rtu_Pose[2] - turnVector[2];
-                        ScanWidth = FlightMissionMode_norm_pv(u);
+                        rtb_CastToDouble = FlightMissionMode_norm_pv(u);
                     } else {
                         u[0] = rtu_Pose[0] - (a_0 * distToCenter_tmp_tmp +
                                               rtb_TmpSignalConversionAtOrbitFollowerInport2
@@ -27014,7 +27021,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                         u[2] = rtu_Pose[2] - (a_0 * distToCenter_tmp_tmp_0 +
                                               rtb_TmpSignalConversionAtOrbitFollowerInport2
                                               [2]);
-                        ScanWidth = FlightMissionMode_norm_pv(u);
+                        rtb_CastToDouble = FlightMissionMode_norm_pv(u);
                     }
 
                     if (localDW->obj_k.LastWaypointFlag) {
@@ -27051,10 +27058,10 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                         u[2] = rtu_Pose[2] - (a_0 * distToCenter_tmp_tmp_0 +
                                               rtb_TmpSignalConversionAtOrbitFollowerInport2
                                               [2]);
-                        ScanWidth = FlightMissionMode_norm_pv(u);
+                        rtb_CastToDouble = FlightMissionMode_norm_pv(u);
                     }
 
-                    rtb_Down2Height = std::abs(ScanWidth);
+                    rtb_Down2Height = std::abs(rtb_CastToDouble);
                     if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<
                             int32_T>(static_cast<boolean_T>(static_cast<int32_T>
                             (static_cast<int32_T>(std::isinf(rtb_Down2Height)) ^
@@ -27078,13 +27085,14 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                     }
 
                     if (localDW->obj_k.LookaheadDistance <= std::fmax(std::sqrt
-                            (a_0), 5.0 * rtb_Down2Height) + ScanWidth) {
+                            (a_0), 5.0 * rtb_Down2Height) + rtb_CastToDouble) {
                         localDW->obj_k.LookaheadDistance =
-                            localDW->obj_k.LookaheadFactor * ScanWidth;
+                            localDW->obj_k.LookaheadFactor * rtb_CastToDouble;
                     }
 
-                    ScanWidth = rtb_TmpSignalConversionAtOrbitFollowerInport2[0]
-                        - rtu_Pose[0];
+                    rtb_CastToDouble =
+                        rtb_TmpSignalConversionAtOrbitFollowerInport2[0] -
+                        rtu_Pose[0];
                     rtb_Sum1_k_tmp =
                         rtb_TmpSignalConversionAtOrbitFollowerInport2[1] -
                         rtu_Pose[1];
@@ -27103,19 +27111,20 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                     waypoints_tmp =
                         rtb_TmpSignalConversionAtOrbitFollowerInport2[2] -
                         rtu_Pose[2];
-                    rtb_Down2Height = ((distToCenter_tmp_tmp * ScanWidth +
-                                        absx_tmp * rtb_Sum1_k_tmp) +
+                    rtb_Down2Height = ((distToCenter_tmp_tmp * rtb_CastToDouble
+                                        + absx_tmp * rtb_Sum1_k_tmp) +
                                        distToCenter_tmp_tmp_0 * waypoints_tmp) *
                         2.0;
-                    ScanWidth = std::sqrt(rtb_Down2Height * rtb_Down2Height -
-                                          (((ScanWidth * ScanWidth +
-                        rtb_Sum1_k_tmp * rtb_Sum1_k_tmp) + waypoints_tmp *
+                    rtb_CastToDouble = std::sqrt(rtb_Down2Height *
+                        rtb_Down2Height - (((rtb_CastToDouble * rtb_CastToDouble
+                        + rtb_Sum1_k_tmp * rtb_Sum1_k_tmp) + waypoints_tmp *
                                             waypoints_tmp) -
                                            localDW->obj_k.LookaheadDistance *
                                            localDW->obj_k.LookaheadDistance) *
-                                          (4.0 * a_0));
-                    a_0 = std::fmax((-rtb_Down2Height + ScanWidth) / 2.0 / a_0,
-                                    (-rtb_Down2Height - ScanWidth) / 2.0 / a_0);
+                        (4.0 * a_0));
+                    a_0 = std::fmax((-rtb_Down2Height + rtb_CastToDouble) / 2.0 /
+                                    a_0, (-rtb_Down2Height - rtb_CastToDouble) /
+                                    2.0 / a_0);
                     turnVector[2] = (1.0 - a_0) *
                         rtb_TmpSignalConversionAtOrbitFollowerInport2[2] + a_0 *
                         turnVector[2];
@@ -28258,7 +28267,6 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
         {
             real_T a_0;
             real_T absx;
-            real_T rtb_Down2Height;
             real_T rtb_Sum1_k_idx_1;
             real_T rtb_Switch_p;
             int32_T i;
@@ -28719,14 +28727,13 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 }
 
                 // '<S203>:1:20'
-                rtb_Down2Height = std::ceil(8192.0 / static_cast<real_T>
-                    (NED_WP_size[0]));
+                a_0 = std::ceil(8192.0 / static_cast<real_T>(NED_WP_size[0]));
                 loop_ub = static_cast<int32_T>(dummyWayPoint->size[0] *
                     dummyWayPoint->size[1]);
 
                 // MATLAB Function: '<S180>/WayPointGenerator'
                 dummyWayPoint->size[0] = static_cast<int32_T>(NED_WP_size[0] *
-                    static_cast<int32_T>(rtb_Down2Height));
+                    static_cast<int32_T>(a_0));
                 dummyWayPoint->size[1] = 3;
                 FlightMissionMode_emxEnsureCapacity_real_T_c(dummyWayPoint,
                     loop_ub);
@@ -28734,7 +28741,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 // MATLAB Function: '<S180>/WayPointGenerator'
                 nrows = NED_WP_size[0];
                 for (nrowx = 0; nrowx <= static_cast<int32_T>
-                        (static_cast<int32_T>(rtb_Down2Height) - 1); nrowx =
+                        (static_cast<int32_T>(a_0) - 1); nrowx =
                         static_cast<int32_T>(nrowx + 1)) {
                     ibcol = static_cast<int32_T>(static_cast<int32_T>(nrowx *
                         nrows) + -1);
@@ -28746,16 +28753,16 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                     }
                 }
 
-                i = static_cast<int32_T>(NED_WP_size[0] * static_cast<int32_T>
-                    (rtb_Down2Height));
+                i = static_cast<int32_T>(static_cast<int32_T>(NED_WP_size[0] *
+                    static_cast<int32_T>(a_0)) - 1);
                 for (nrowx = 0; nrowx <= static_cast<int32_T>
-                        (static_cast<int32_T>(rtb_Down2Height) - 1); nrowx =
+                        (static_cast<int32_T>(a_0) - 1); nrowx =
                         static_cast<int32_T>(nrowx + 1)) {
-                    ibcol = static_cast<int32_T>(static_cast<int32_T>(
-                        static_cast<int32_T>(nrowx * nrows) + i) - 1);
-                    for (i2 = 1; static_cast<int32_T>(i2 - 1) <= static_cast<
-                            int32_T>(nrows - 1); i2 = static_cast<int32_T>(i2 +
-                            1)) {
+                    ibcol = static_cast<int32_T>(static_cast<int32_T>(nrowx *
+                        nrows) + i);
+                    for (i2 = 1; static_cast<int32_T>(i2 - 1) <=
+                            static_cast<int32_T>(nrows - 1); i2 =
+                            static_cast<int32_T>(i2 + 1)) {
                         dummyWayPoint->data[static_cast<int32_T>(ibcol + i2)] =
                             localDW->NED_WP_data[static_cast<int32_T>(
                             static_cast<int32_T>(nrows + i2) - 1)];
@@ -28763,9 +28770,11 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 }
 
                 rtb_Bias_f = static_cast<int32_T>(NED_WP_size[0] << 1);
-                i = static_cast<int32_T>(static_cast<int32_T>(i << 1) - 1);
+                i = static_cast<int32_T>(static_cast<int32_T>
+                    (static_cast<int32_T>(NED_WP_size[0] * static_cast<int32_T>
+                    (a_0)) << 1) - 1);
                 for (nrowx = 0; nrowx <= static_cast<int32_T>
-                        (static_cast<int32_T>(rtb_Down2Height) - 1); nrowx =
+                        (static_cast<int32_T>(a_0) - 1); nrowx =
                         static_cast<int32_T>(nrowx + 1)) {
                     ibcol = static_cast<int32_T>(static_cast<int32_T>(nrowx *
                         nrows) + i);
@@ -29076,10 +29085,11 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                     }
 
                     if (guard1) {
-                        real_T ScanWidth;
                         real_T absx_tmp;
                         real_T distToCenter_tmp_tmp;
                         real_T distToCenter_tmp_tmp_0;
+                        real_T rtb_CastToDouble;
+                        real_T rtb_Down2Height;
                         real_T rtb_Sum1_k_tmp;
                         real_T waypoints_tmp;
                         boolean_T guard2;
@@ -29154,10 +29164,10 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                 static_cast<int32_T>(static_cast<int32_T>
                                 (localDW->obj.WaypointIndex) + waypoints->size[0])
                                 - 1)];
-                            ScanWidth = waypoints->data[static_cast<int32_T>(
-                                static_cast<int32_T>(static_cast<int32_T>
-                                (localDW->obj.WaypointIndex + 1.0) +
-                                waypoints->size[0]) - 1)];
+                            rtb_CastToDouble = waypoints->data
+                                [static_cast<int32_T>(static_cast<int32_T>(
+                                static_cast<int32_T>(localDW->obj.WaypointIndex
+                                + 1.0) + waypoints->size[0]) - 1)];
                             rtb_Sum1_k_tmp = waypoints->data[static_cast<int32_T>
                                 (static_cast<int32_T>(static_cast<int32_T>
                                   (waypoints->size[0] << 1) +
@@ -29171,8 +29181,8 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                             a_0 = ((rtb_Down2Height - distToCenter_tmp_tmp) /
                                    a_0 *
                                    (rtb_TmpSignalConversionAtOrbitFollowerInport2
-                                    [0] / distToCenter_tmp_tmp_0) + (ScanWidth -
-                                    absx_tmp) / a_0 *
+                                    [0] / distToCenter_tmp_tmp_0) +
+                                   (rtb_CastToDouble - absx_tmp) / a_0 *
                                    (rtb_TmpSignalConversionAtOrbitFollowerInport2
                                     [1] / distToCenter_tmp_tmp_0)) +
                                 (waypoints_tmp - rtb_Sum1_k_tmp) / a_0 *
@@ -29196,7 +29206,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                 turnVector[0] = rtb_Down2Height;
                                 rtb_TmpSignalConversionAtOrbitFollowerInport2[1]
                                     = absx_tmp;
-                                turnVector[1] = ScanWidth;
+                                turnVector[1] = rtb_CastToDouble;
                                 rtb_TmpSignalConversionAtOrbitFollowerInport2[2]
                                     = rtb_Sum1_k_tmp;
                                 turnVector[2] = waypoints_tmp;
@@ -29254,23 +29264,23 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                             rtb_TmpSignalConversionAtOrbitFollowerInport2[1];
                         distToCenter_tmp_tmp_0 = turnVector[2] -
                             rtb_TmpSignalConversionAtOrbitFollowerInport2[2];
-                        ScanWidth = rtu_Pose[2] -
+                        rtb_CastToDouble = rtu_Pose[2] -
                             rtb_TmpSignalConversionAtOrbitFollowerInport2[2];
                         a_0 = ((rtb_Sum1_k_tmp * absx_tmp + rtb_Down2Height *
-                                distToCenter_tmp_tmp) + ScanWidth *
+                                distToCenter_tmp_tmp) + rtb_CastToDouble *
                                distToCenter_tmp_tmp_0) / ((absx_tmp * absx_tmp +
                             distToCenter_tmp_tmp * distToCenter_tmp_tmp) +
                             distToCenter_tmp_tmp_0 * distToCenter_tmp_tmp_0);
                         if (a_0 < 0.0) {
                             u[0] = rtb_Down2Height;
                             u[1] = rtb_Sum1_k_tmp;
-                            u[2] = ScanWidth;
-                            ScanWidth = FlightMissionMode_norm_pv(u);
+                            u[2] = rtb_CastToDouble;
+                            rtb_CastToDouble = FlightMissionMode_norm_pv(u);
                         } else if (a_0 > 1.0) {
                             u[0] = rtu_Pose[0] - turnVector[0];
                             u[1] = rtu_Pose[1] - turnVector[1];
                             u[2] = rtu_Pose[2] - turnVector[2];
-                            ScanWidth = FlightMissionMode_norm_pv(u);
+                            rtb_CastToDouble = FlightMissionMode_norm_pv(u);
                         } else {
                             u[0] = rtu_Pose[0] - (a_0 * distToCenter_tmp_tmp +
                                                   rtb_TmpSignalConversionAtOrbitFollowerInport2
@@ -29281,7 +29291,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                             u[2] = rtu_Pose[2] - (a_0 * distToCenter_tmp_tmp_0 +
                                                   rtb_TmpSignalConversionAtOrbitFollowerInport2
                                                   [2]);
-                            ScanWidth = FlightMissionMode_norm_pv(u);
+                            rtb_CastToDouble = FlightMissionMode_norm_pv(u);
                         }
 
                         if (localDW->obj.LastWaypointFlag) {
@@ -29319,10 +29329,10 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                             u[2] = rtu_Pose[2] - (a_0 * distToCenter_tmp_tmp_0 +
                                                   rtb_TmpSignalConversionAtOrbitFollowerInport2
                                                   [2]);
-                            ScanWidth = FlightMissionMode_norm_pv(u);
+                            rtb_CastToDouble = FlightMissionMode_norm_pv(u);
                         }
 
-                        rtb_Down2Height = std::abs(ScanWidth);
+                        rtb_Down2Height = std::abs(rtb_CastToDouble);
                         if (static_cast<boolean_T>(static_cast<int32_T>(
                                 static_cast<int32_T>(static_cast<boolean_T>(
                                 static_cast<int32_T>(static_cast<int32_T>(std::
@@ -29347,12 +29357,13 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                         }
 
                         if (localDW->obj.LookaheadDistance <= std::fmax(std::
-                                sqrt(a_0), 5.0 * rtb_Down2Height) + ScanWidth) {
+                                sqrt(a_0), 5.0 * rtb_Down2Height) +
+                                rtb_CastToDouble) {
                             localDW->obj.LookaheadDistance =
-                                localDW->obj.LookaheadFactor * ScanWidth;
+                                localDW->obj.LookaheadFactor * rtb_CastToDouble;
                         }
 
-                        ScanWidth =
+                        rtb_CastToDouble =
                             rtb_TmpSignalConversionAtOrbitFollowerInport2[0] -
                             rtu_Pose[0];
                         rtb_Sum1_k_tmp =
@@ -29373,20 +29384,21 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                         waypoints_tmp =
                             rtb_TmpSignalConversionAtOrbitFollowerInport2[2] -
                             rtu_Pose[2];
-                        rtb_Down2Height = ((distToCenter_tmp_tmp * ScanWidth +
-                                            absx_tmp * rtb_Sum1_k_tmp) +
+                        rtb_Down2Height = ((distToCenter_tmp_tmp *
+                                            rtb_CastToDouble + absx_tmp *
+                                            rtb_Sum1_k_tmp) +
                                            distToCenter_tmp_tmp_0 *
                                            waypoints_tmp) * 2.0;
-                        ScanWidth = std::sqrt(rtb_Down2Height * rtb_Down2Height
-                                              - (((ScanWidth * ScanWidth +
-                            rtb_Sum1_k_tmp * rtb_Sum1_k_tmp) + waypoints_tmp *
-                                                waypoints_tmp) -
-                                               localDW->obj.LookaheadDistance *
+                        rtb_CastToDouble = std::sqrt(rtb_Down2Height *
+                            rtb_Down2Height - (((rtb_CastToDouble *
+                            rtb_CastToDouble + rtb_Sum1_k_tmp * rtb_Sum1_k_tmp)
+                                                + waypoints_tmp * waypoints_tmp)
+                                               - localDW->obj.LookaheadDistance *
                                                localDW->obj.LookaheadDistance) *
-                                              (4.0 * a_0));
-                        a_0 = std::fmax((-rtb_Down2Height + ScanWidth) / 2.0 /
-                                        a_0, (-rtb_Down2Height - ScanWidth) /
-                                        2.0 / a_0);
+                            (4.0 * a_0));
+                        a_0 = std::fmax((-rtb_Down2Height + rtb_CastToDouble) /
+                                        2.0 / a_0, (-rtb_Down2Height -
+                                         rtb_CastToDouble) / 2.0 / a_0);
                         turnVector[2] = (1.0 - a_0) *
                             rtb_TmpSignalConversionAtOrbitFollowerInport2[2] +
                             a_0 * turnVector[2];

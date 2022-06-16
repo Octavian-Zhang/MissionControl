@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'MissionUAV'.
 //
-// Model version                  : 3.0
+// Model version                  : 3.8
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Fri Jun  3 15:12:52 2022
+// C/C++ source code generated on : Thu Jun 16 22:37:10 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -89,6 +89,19 @@ struct struct_pAzQu3LPpISTV2tr3rS1KE
 
 #endif
 
+// Custom Type definition for MATLAB Function: '<S1>/Get Speed Limit'
+#include <stdio.h>
+#ifndef struct_uavDubinsConnection_MissionUAV_T
+#define struct_uavDubinsConnection_MissionUAV_T
+
+struct uavDubinsConnection_MissionUAV_T
+{
+    real_T AirSpeed;
+    real_T MaxRollAngle;
+};
+
+#endif                               // struct_uavDubinsConnection_MissionUAV_T
+
 #ifndef struct_b_uav_internal_impl_fixedwing_State_MissionUAV_T
 #define struct_b_uav_internal_impl_fixedwing_State_MissionUAV_T
 
@@ -117,6 +130,35 @@ struct robotics_core_internal_system_navigation_StateVector2Struct_MissionUAV_T
 
 #endif
 // struct_robotics_core_internal_system_navigation_StateVector2Struct_MissionUAV_T 
+
+// Custom Type definition for MATLAB Function: '<S1>/Get Max Bank'
+#ifndef struct_DubinsObjSingleton_MissionUAV_T
+#define struct_DubinsObjSingleton_MissionUAV_T
+
+struct DubinsObjSingleton_MissionUAV_T
+{
+    real_T AirSpeed;
+    real_T MaxRollAngle;
+    real_T FlightPathAngleLimit[2];
+    uavDubinsConnection_MissionUAV_T Connector;
+};
+
+#endif                                // struct_DubinsObjSingleton_MissionUAV_T
+
+// Custom Type definition for MATLAB Function: '<S1>/Get Speed Limit'
+#ifndef struct_DubinsObjSingleton_MissionUAV_b_T
+#define struct_DubinsObjSingleton_MissionUAV_b_T
+
+struct DubinsObjSingleton_MissionUAV_b_T
+{
+    real_T AirSpeed;
+    real_T MaxRollAngle;
+    real_T FlightPathAngleLimit[2];
+    real_T SpdLmt[2];
+    uavDubinsConnection_MissionUAV_T Connector;
+};
+
+#endif                              // struct_DubinsObjSingleton_MissionUAV_b_T
 
 #ifndef struct_d_uav_internal_impl_fixedwing_Configuration_MissionUAV_T
 #define struct_d_uav_internal_impl_fixedwing_Configuration_MissionUAV_T
@@ -152,6 +194,20 @@ struct robotics_core_internal_system_navigation_Model_MissionUAV_T
 };
 
 #endif    // struct_robotics_core_internal_system_navigation_Model_MissionUAV_T
+
+#ifndef struct_emxArray_char_T_MissionUAV_T
+#define struct_emxArray_char_T_MissionUAV_T
+
+struct emxArray_char_T_MissionUAV_T
+{
+    char_T *data;
+    int32_T *size;
+    int32_T allocatedSize;
+    int32_T numDimensions;
+    boolean_T canFreeData;
+};
+
+#endif                                 // struct_emxArray_char_T_MissionUAV_T
 
 // Forward declaration for rtModel
 typedef struct tag_RTM_MissionUAV_T RT_MODEL_MissionUAV_T;
