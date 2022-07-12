@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'Real2SimGuidance'.
 //
-// Model version                  : 4.148
+// Model version                  : 4.175
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Fri Jun  3 15:15:59 2022
+// C/C++ source code generated on : Fri Jul  1 17:54:29 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -132,6 +132,7 @@ struct FCUCMD
     real_T Height_meter;
     real_T RefHdg_deg;
     real_T RefAirSpd_mps;
+    real_T RefGndSpd_mps;
 };
 
 #endif
@@ -171,10 +172,10 @@ struct FlightLogging
 
 #endif
 
-// Custom Type definition for MATLAB Function: '<S95>/getSpeedLimit'
+// Custom Type definition for MATLAB Function: '<S98>/getSpeedLimit'
 #include <stdio.h>
 
-// Custom Type definition for MATLAB Function: '<S14>/getLAPGainBias'
+// Custom Type definition for MATLAB Function: '<S15>/getLAPGainBias'
 #ifndef struct_s88w9UDFTziuJLEYZbYNZfH_Real2SimGuidance_T
 #define struct_s88w9UDFTziuJLEYZbYNZfH_Real2SimGuidance_T
 
@@ -198,7 +199,7 @@ struct
 #endif
 // struct_robotics_slcore_internal_block_CoordinateTransformationConversion_Real2SimGuidance_T 
 
-// Custom Type definition for MATLAB Function: '<S95>/getSpeedLimit'
+// Custom Type definition for MATLAB Function: '<S98>/getSpeedLimit'
 #ifndef struct_uavDubinsConnection_Real2SimGuidance_T
 #define struct_uavDubinsConnection_Real2SimGuidance_T
 
@@ -307,7 +308,7 @@ struct uav_sluav_internal_system_WaypointFollower_Real2SimGuidance_T
 
 #endif  // struct_uav_sluav_internal_system_WaypointFollower_Real2SimGuidance_T
 
-// Custom Type definition for MATLAB Function: '<S95>/getSpeedLimit'
+// Custom Type definition for MATLAB Function: '<S98>/getSpeedLimit'
 #ifndef struct_DubinsObjSingleton_Real2SimGuidance_d_T
 #define struct_DubinsObjSingleton_Real2SimGuidance_d_T
 

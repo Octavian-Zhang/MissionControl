@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'Real2SimGuidance'.
 //
-// Model version                  : 4.148
+// Model version                  : 4.175
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Fri Jun  3 15:15:59 2022
+// C/C++ source code generated on : Fri Jul  1 17:54:29 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -101,17 +101,25 @@
 #endif
 
 extern const real_T rtCP_pooled_ipsVxvhx7TJb[2];
-extern const real_T rtCP_pooled_FzuKA0IPQ4y2[2];
-extern const real_T rtCP_pooled_d18snt51mEJQ[2];
+extern const real_T rtCP_pooled_3GEHLKxQAnae[2];
+extern const real_T rtCP_pooled_ibeJeFBArgtC[2];
+extern const real_T rtCP_pooled_DIpj1z6HREP5[2];
+extern const real_T rtCP_pooled_f3N7kzzFdIss[2];
 
 #define rtCP_Cartesian2Polar_RngLmt    rtCP_pooled_ipsVxvhx7TJb  // Expression: RngLmt
-                                                                 //  Referenced by: '<S15>/Cartesian2Polar'
+                                                                 //  Referenced by: '<S16>/Cartesian2Polar'
 
-#define rtCP_VectorFieldHistogram_DistanceLimits rtCP_pooled_FzuKA0IPQ4y2// Expression: RngLmt
-                                                                      //  Referenced by: '<S1>/Vector Field Histogram'
+#define rtCP_VectorFieldHistogram10_DistanceLimits rtCP_pooled_3GEHLKxQAnae// Expression: RngLmt
+                                                                      //  Referenced by: '<S39>/VectorFieldHistogram10'
 
-#define rtCP_VectorFieldHistogram_HistogramThresholds rtCP_pooled_d18snt51mEJQ// Expression: HistThrshld
-                                                                      //  Referenced by: '<S1>/Vector Field Histogram'
+#define rtCP_VectorFieldHistogram10_HistogramThresholds rtCP_pooled_ibeJeFBArgtC// Expression: HistThrshld*10
+                                                                      //  Referenced by: '<S39>/VectorFieldHistogram10'
+
+#define rtCP_VectorFieldHistogram_DistanceLimits rtCP_pooled_DIpj1z6HREP5// Expression: RngLmt
+                                                                      //  Referenced by: '<S17>/Vector Field Histogram'
+
+#define rtCP_VectorFieldHistogram_HistogramThresholds rtCP_pooled_f3N7kzzFdIss// Expression: HistThrshld
+                                                                      //  Referenced by: '<S17>/Vector Field Histogram'
 
 #endif                                // RTW_HEADER_Real2SimGuidance_private_h_
 

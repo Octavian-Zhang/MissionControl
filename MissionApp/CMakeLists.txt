@@ -2,6 +2,7 @@
 # project specific logic here.
 #
 cmake_minimum_required(VERSION 3.5.0)
+configure_file(version.h.config version.h)
 
 # add compiler option to use C++ 17 features
 set(CMAKE_CXX_STANDARD 17)
@@ -16,7 +17,10 @@ find_package(Threads REQUIRED)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/runtime)
 
 # include the mission application include directory
-include_directories (${CMAKE_CURRENT_SOURCE_DIR}/include)
+include_directories (
+    ${CMAKE_CURRENT_SOURCE_DIR}/include 
+    ${CMAKE_CURRENT_BINARY_DIR}
+)
 
 # add the mission algorithm library
 list (APPEND EXTRA_LIBS MissionAlg)

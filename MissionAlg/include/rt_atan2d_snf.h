@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'MissionUAV'.
 //
-// Model version                  : 3.0
+// Model version                  : 3.8
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Fri Jun  3 15:12:52 2022
+// C/C++ source code generated on : Fri Jul  1 17:51:14 2022
 //
 #ifndef RTW_HEADER_rt_atan2d_snf_h_
 #define RTW_HEADER_rt_atan2d_snf_h_

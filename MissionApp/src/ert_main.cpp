@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 4.243
+// Model version                  : 4.288
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Thu Jun 16 22:45:21 2022
+// C/C++ source code generated on : Fri Jul  1 18:01:36 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -29,12 +29,17 @@
 #include <stdio.h>              // This example main program uses printf/fflush
 #include "codegenReal2Mission.h"       // Model header file
 
+#include <future>
+#include <iostream>
 #include "msgQueue.hpp"
 #include "DataLogging.hpp"
+#include "version.h"
 
 /* Simulink Model IO */
-static msgQueue MQ_ExtU("/PosixMQ_ExtU", O_CREAT | O_RDONLY | O_NONBLOCK, 1, sizeof(codegenReal2MissionModelClass::ExtU_codegenReal2Mission_T));
-static msgQueue MQ_ExtY("/PosixMQ_ExtY", O_CREAT | O_WRONLY | O_NONBLOCK, 1, sizeof(codegenReal2MissionModelClass::ExtY_codegenReal2Mission_T));
+static msgQueue MQ_ExtU("/PosixMQ_ExtU", O_CREAT | O_RDONLY | O_NONBLOCK, 1, 
+    sizeof(codegenReal2MissionModelClass::ExtU_codegenReal2Mission_T));
+static msgQueue MQ_ExtY("/PosixMQ_ExtY", O_CREAT | O_WRONLY | O_NONBLOCK, 1, 
+    sizeof(codegenReal2MissionModelClass::ExtY_codegenReal2Mission_T));
 
 class codegenReal2MissionModelClassSendData_IndividualUAVCmdT : public
     SendData_IndividualUAVCmdT{
@@ -94,12 +99,33 @@ class codegenReal2MissionModelClassRecvData_IndividualUAVCmdT : public
 
 static codegenReal2MissionModelClassRecvData_IndividualUAVCmdT
     MissionCMDRecvData_arg;
-    class codegenReal2MissionModelClassRecvData_RealUAVStateBusT : public
+class codegenReal2MissionModelClassRecvData_RealUAVStateBusT : public
     RecvData_RealUAVStateBusT{
+    mqd_t msgQueue;
   public:
     void RecvData(RealUAVStateBus* data, int32_T length, int32_T* status)
     {
         // Add receive data logic here
+        timespec timeout; unsigned int priority = 8192; // Neighbour UAV State -> IO priority
+        if (!clock_gettime(CLOCK_REALTIME, &timeout))
+        {
+            timeout.tv_sec = timeout.tv_sec + (timeout.tv_nsec + 
+                static_cast<decltype(timespec::tv_nsec)>(1e8)) / 
+                static_cast<decltype(timespec::tv_nsec)>(1e9);
+            timeout.tv_nsec = (timeout.tv_nsec + 
+                static_cast<decltype(timespec::tv_nsec)>(1e8)) % 
+                static_cast<decltype(timespec::tv_nsec)>(1e9);
+            *status = -mq_timedreceive(msgQueue, (char *)data, length, &priority, &timeout);
+            if (*status < 0) // Not failed, successfully received
+            {
+                printf("UAV");
+                fflush(stdout);
+            }
+        }
+    }
+    void SetMQ(mqd_t mq)
+    {
+        msgQueue = mq;
     }
 };
 
@@ -311,6 +337,7 @@ int main(int argc, const char *argv[])
     // Unused arguments
     (void)(argc);
     (void)(argv);
+    std::cout << argv[0] << "\tVersion\t" << VERSION_MAJOR << "." << VERSION_MINOR << "\n";
     priority[0] = sched_get_priority_max(SCHED_RR)-1;
     periodicTriggerRate[0] = 0.1;
     printf("**starting the model**\n");
@@ -337,9 +364,11 @@ int main(int argc, const char *argv[])
     // Open POSIX message queue
     msgQueue mqSndCMD("/PosixMQ_SndCMD", O_CREAT | O_WRONLY | O_NONBLOCK, 1, sizeof(IndividualUAVCmd));
     msgQueue mqRcvCMD("/PosixMQ_RcvCMD", O_CREAT | O_RDONLY | O_NONBLOCK, 1, sizeof(IndividualUAVCmd));
+    msgQueue mqNbrState("/PosixMQ_NbrState", O_CREAT | O_RDONLY, 1, sizeof(RealUAVStateBus));
 
     CurrentMissionSendData_arg.SetMQ(mqSndCMD.getMQ());
     MissionCMDRecvData_arg.SetMQ(mqRcvCMD.getMQ());
+    NbrUAVstateRecvData_arg.SetMQ(mqNbrState.getMQ());
 
     // Waiting for OS clock calibration
     msgQueue mqStart("/ptrPosixMQ_Start", O_CREAT | O_RDONLY, 1, sizeof(bool));
@@ -404,6 +433,13 @@ int main(int argc, const char *argv[])
     for (i = 0; i < 1; i++) {
         MW_setTaskPeriod(periodicTriggerRate[i], SIGRTMIN, i);
     }
+
+    auto PushNbrUAVFuture = std::async(std::launch::async, [&]()
+                                       {while (true)
+    {
+        codegenReal2Mission_Obj.codegenReal2Mission_PushNbrUAV();
+        printf("*"); fflush(stdout);
+    } });
 
     // Wait for a stopping condition.
     for (i = 0; i < 1; i++) {

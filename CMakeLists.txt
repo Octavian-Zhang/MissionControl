@@ -4,7 +4,7 @@
 cmake_minimum_required(VERSION 3.5.0)
 
 # declare project name and version number
-project(MissionControl)
+project(MissionControl VERSION 4.288)
 
 # compile static executable
 set(CMAKE_FIND_LIBRARY_SUFFIXES ".a")

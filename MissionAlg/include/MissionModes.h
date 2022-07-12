@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 4.243
+// Model version                  : 4.288
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Thu Jun 16 22:45:21 2022
+// C/C++ source code generated on : Fri Jul  1 18:01:36 2022
 //
 
 #ifndef RTW_HEADER_MissionModes_h_

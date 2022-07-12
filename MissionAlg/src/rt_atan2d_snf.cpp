@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'MissionUAV'.
 //
-// Model version                  : 3.0
+// Model version                  : 3.8
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Fri Jun  3 15:12:52 2022
+// C/C++ source code generated on : Fri Jul  1 17:51:14 2022
 //
 #include "rtwtypes.h"
 #include "rt_atan2d_snf.h"
@@ -14,17 +14,10 @@
 
 extern "C" {
 
-#include "rtGetNaN.h"
-
-}
-    extern "C"
-{
-
 #include "rt_nonfinite.h"
 
 }
-
-real_T rt_atan2d_snf(real_T u0, real_T u1)
+    real_T rt_atan2d_snf(real_T u0, real_T u1)
 {
     real_T y;
     if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(std::

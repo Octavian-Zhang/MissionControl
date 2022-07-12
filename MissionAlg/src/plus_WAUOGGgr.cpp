@@ -3,14 +3,14 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 4.222
+// Model version                  : 4.288
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Fri Jun  3 15:23:42 2022
+// C/C++ source code generated on : Fri Jul  1 18:01:36 2022
 //
 #include "rtwtypes.h"
 #include "plus_WAUOGGgr.h"
 
-// Function for MATLAB Function: '<S98>/Struct2PosixCurr'
+// Function for MATLAB Function: '<S103>/Struct2PosixCurr'
 creal_T plus_WAUOGGgr(const creal_T a, real_T b)
 {
     creal_T c;

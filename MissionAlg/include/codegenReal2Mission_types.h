@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 4.243
+// Model version                  : 4.288
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Thu Jun 16 22:45:21 2022
+// C/C++ source code generated on : Fri Jul  1 18:01:36 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -122,6 +122,7 @@ struct FCUCMD
     real_T Height_meter;
     real_T RefHdg_deg;
     real_T RefAirSpd_mps;
+    real_T RefGndSpd_mps;
 };
 
 #endif
@@ -206,6 +207,18 @@ struct TaskStatus
 
 #endif
 
+#ifndef DEFINED_TYPEDEF_FOR_DangerInfo_
+#define DEFINED_TYPEDEF_FOR_DangerInfo_
+
+struct DangerInfo
+{
+    int32_T DangerID;
+    real_T Radius;
+    Location DangerLoc;
+};
+
+#endif
+
 #ifndef DEFINED_TYPEDEF_FOR_QueuePolicy_T_
 #define DEFINED_TYPEDEF_FOR_QueuePolicy_T_
 
@@ -239,17 +252,6 @@ struct Queue_IndividualUAVCmd
     int32_T fTail;
     int32_T fCapacity;
     Msg_IndividualUAVCmd *fArray;
-};
-
-#endif
-
-#ifndef DEFINED_TYPEDEF_FOR_Buffer_IndividualUAVCmd_
-#define DEFINED_TYPEDEF_FOR_Buffer_IndividualUAVCmd_
-
-struct Buffer_IndividualUAVCmd
-{
-    boolean_T fOccupied;
-    Msg_IndividualUAVCmd fMsg;
 };
 
 #endif
@@ -303,6 +305,41 @@ struct MemPool_missionCmd
 
 #endif
 
+#ifndef DEFINED_TYPEDEF_FOR_Msg_DangerInfo_
+#define DEFINED_TYPEDEF_FOR_Msg_DangerInfo_
+
+struct Msg_DangerInfo
+{
+    DangerInfo *fData;
+};
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_Buffer_DangerInfo_
+#define DEFINED_TYPEDEF_FOR_Buffer_DangerInfo_
+
+struct Buffer_DangerInfo
+{
+    boolean_T fOccupied;
+    Msg_DangerInfo fMsg;
+};
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_MemPool_DangerInfo_
+#define DEFINED_TYPEDEF_FOR_MemPool_DangerInfo_
+
+struct MemPool_DangerInfo
+{
+    DangerInfo *fMemArray;
+    int32_T fNumUsed;
+    DangerInfo **fFreeList;
+    int32_T fNumFree;
+    int32_T fSize;
+};
+
+#endif
+
 #ifndef DEFINED_TYPEDEF_FOR_RecvData_RealUAVStateBusT_
 #define DEFINED_TYPEDEF_FOR_RecvData_RealUAVStateBusT_
 
@@ -333,10 +370,10 @@ class SendData_FlightLoggingT
 
 #endif
 
-// Custom Type definition for MATLAB Function: '<S110>/PrintOnboardLog'
+// Custom Type definition for MATLAB Function: '<S12>/PrintNbrID'
 #include <stdio.h>
 
-// Custom Type definition for MATLAB Function: '<S98>/getCurrentTime'
+// Custom Type definition for MATLAB Function: '<S103>/getCurrentTime'
 #include "coder_posix_time.h"
 #ifndef struct_robotics_slcore_internal_block_CoordinateTransformationConversion_codegenReal2Mission_T
 #define struct_robotics_slcore_internal_block_CoordinateTransformationConversion_codegenReal2Mission_T
@@ -398,7 +435,7 @@ struct emxArray_real_T_codegenReal2Mission_T
 
 #endif                          // struct_emxArray_real_T_codegenReal2Mission_T
 
-// Custom Type definition for MATLAB Function: '<S49>/getDangerList'
+// Custom Type definition for MATLAB Function: '<S54>/getDangerList'
 #ifndef struct_DangerArray_codegenReal2Mission_T
 #define struct_DangerArray_codegenReal2Mission_T
 
@@ -473,7 +510,7 @@ struct emxArray_char_T_1x16_codegenReal2Mission_T
 
 #endif                     // struct_emxArray_char_T_1x16_codegenReal2Mission_T
 
-// Custom Type definition for MATLAB Function: '<S110>/PrintOnboardLog'
+// Custom Type definition for MATLAB Function: '<S116>/PrintOnboardLog'
 #ifndef struct_cell_wrap_1_codegenReal2Mission_T
 #define struct_cell_wrap_1_codegenReal2Mission_T
 
@@ -485,11 +522,11 @@ struct cell_wrap_1_codegenReal2Mission_T
 #endif                              // struct_cell_wrap_1_codegenReal2Mission_T
 
 #ifndef SS_UINT64
-#define SS_UINT64                      56
+#define SS_UINT64                      59
 #endif
 
 #ifndef SS_INT64
-#define SS_INT64                       57
+#define SS_INT64                       60
 #endif
 #endif                               // RTW_HEADER_codegenReal2Mission_types_h_
 
