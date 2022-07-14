@@ -5,7 +5,7 @@
 //
 // Model version                  : 4.175
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Fri Jul  1 17:54:29 2022
+// C/C++ source code generated on : Thu Jul 14 15:00:22 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -9280,13 +9280,13 @@ void Real2SimGuidance_Init(DW_Real2SimGuidance_f_T *localDW,
     localDW->objisempty_f4 = true;
     localDW->obj_n.DistanceLimits[0] = Real2SimGuidance_minimum
         (rtCP_VectorFieldHistogram10_DistanceLimits);
-    localDW->obj_n.DistanceLimits[1] = 2931.9647140708535;
+    localDW->obj_n.DistanceLimits[1] = 1623.8550613183404;
     localDW->obj_n.HistogramThresholds[0] = Real2SimGuidance_minimum
         (rtCP_VectorFieldHistogram10_HistogramThresholds);
-    localDW->obj_n.HistogramThresholds[1] = 11727.858856283416;
+    localDW->obj_n.HistogramThresholds[1] = 6495.4202452733625;
     localDW->obj_n.RobotRadius = 4.2;
     localDW->obj_n.SafetyDistance = 21.0;
-    localDW->obj_n.MinTurningRadius = 732.99117851771337;
+    localDW->obj_n.MinTurningRadius = 405.9637653295851;
     localDW->obj_n.TargetDirectionWeight = 5.0;
     localDW->obj_n.CurrentDirectionWeight = 2.0;
     localDW->obj_n.PreviousDirectionWeight = 2.0;
@@ -9333,13 +9333,13 @@ void Real2SimGuidance_Init(DW_Real2SimGuidance_f_T *localDW,
     localDW->objisempty_f = true;
     localDW->obj_p.DistanceLimits[0] = Real2SimGuidance_minimum
         (rtCP_VectorFieldHistogram_DistanceLimits);
-    localDW->obj_p.DistanceLimits[1] = 2931.9647140708535;
+    localDW->obj_p.DistanceLimits[1] = 1623.8550613183404;
     localDW->obj_p.HistogramThresholds[0] = Real2SimGuidance_minimum
         (rtCP_VectorFieldHistogram_HistogramThresholds);
-    localDW->obj_p.HistogramThresholds[1] = 1172.7858856283415;
+    localDW->obj_p.HistogramThresholds[1] = 649.54202452733625;
     localDW->obj_p.RobotRadius = 4.2;
     localDW->obj_p.SafetyDistance = 21.0;
-    localDW->obj_p.MinTurningRadius = 732.99117851771337;
+    localDW->obj_p.MinTurningRadius = 405.9637653295851;
     localDW->obj_p.TargetDirectionWeight = 5.0;
     localDW->obj_p.CurrentDirectionWeight = 2.0;
     localDW->obj_p.PreviousDirectionWeight = 2.0;
@@ -13297,7 +13297,7 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
                 front->data[i] = static_cast<boolean_T>(static_cast<int32_T>(
                     static_cast<int32_T>(static_cast<boolean_T>
                     (static_cast<int32_T>((rtb_SumBiasH_idx_2 <
-                    2931.9647140708535) & (rtb_SumBiasH_idx_2 > 2.1)))) &
+                    1623.8550613183404) & (rtb_SumBiasH_idx_2 > 2.1)))) &
                     (rtb_rho_0->data[i] <= 2.0943951023931953)));
             }
         } else {
@@ -13629,7 +13629,7 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
                     (rtb_Compare_i) ^ 1))) {
                 localDW->obj_p.DistanceLimits[0] = Real2SimGuidance_minimum
                     (rtCP_VectorFieldHistogram_DistanceLimits);
-                localDW->obj_p.DistanceLimits[1] = 2931.9647140708535;
+                localDW->obj_p.DistanceLimits[1] = 1623.8550613183404;
             }
 
             rtb_Compare_i = false;
@@ -13657,7 +13657,7 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
                     (rtb_Compare_i) ^ 1))) {
                 localDW->obj_p.HistogramThresholds[0] = Real2SimGuidance_minimum
                     (rtCP_VectorFieldHistogram_HistogramThresholds);
-                localDW->obj_p.HistogramThresholds[1] = 1172.7858856283415;
+                localDW->obj_p.HistogramThresholds[1] = 649.54202452733625;
             }
 
             if (localDW->obj_p.RobotRadius != 4.2) {
@@ -13668,8 +13668,8 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
                 localDW->obj_p.SafetyDistance = 21.0;
             }
 
-            if (localDW->obj_p.MinTurningRadius != 732.99117851771337) {
-                localDW->obj_p.MinTurningRadius = 732.99117851771337;
+            if (localDW->obj_p.MinTurningRadius != 405.9637653295851) {
+                localDW->obj_p.MinTurningRadius = 405.9637653295851;
             }
 
             if (localDW->obj_p.TargetDirectionWeight != 5.0) {
@@ -13750,7 +13750,7 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
                       1))) {
                     localDW->obj_n.DistanceLimits[0] = Real2SimGuidance_minimum
                         (rtCP_VectorFieldHistogram10_DistanceLimits);
-                    localDW->obj_n.DistanceLimits[1] = 2931.9647140708535;
+                    localDW->obj_n.DistanceLimits[1] = 1623.8550613183404;
                 }
 
                 rtb_Compare_i = false;
@@ -13780,7 +13780,7 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
                     localDW->obj_n.HistogramThresholds[0] =
                         Real2SimGuidance_minimum
                         (rtCP_VectorFieldHistogram10_HistogramThresholds);
-                    localDW->obj_n.HistogramThresholds[1] = 11727.858856283416;
+                    localDW->obj_n.HistogramThresholds[1] = 6495.4202452733625;
                 }
 
                 if (localDW->obj_n.RobotRadius != 4.2) {
@@ -13791,8 +13791,8 @@ void Real2SimGuidance(RT_MODEL_Real2SimGuidance_T * const Real2SimGuidance_M,
                     localDW->obj_n.SafetyDistance = 21.0;
                 }
 
-                if (localDW->obj_n.MinTurningRadius != 732.99117851771337) {
-                    localDW->obj_n.MinTurningRadius = 732.99117851771337;
+                if (localDW->obj_n.MinTurningRadius != 405.9637653295851) {
+                    localDW->obj_n.MinTurningRadius = 405.9637653295851;
                 }
 
                 if (localDW->obj_n.TargetDirectionWeight != 5.0) {

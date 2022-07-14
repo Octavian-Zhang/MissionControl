@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 4.288
+// Model version                  : 4.332
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Fri Jul  1 18:01:36 2022
+// C/C++ source code generated on : Thu Jul 14 15:07:38 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -111,16 +111,11 @@ class codegenReal2MissionModelClassRecvData_RealUAVStateBusT : public
         {
             timeout.tv_sec = timeout.tv_sec + (timeout.tv_nsec + 
                 static_cast<decltype(timespec::tv_nsec)>(1e8)) / 
-                static_cast<decltype(timespec::tv_nsec)>(1e9);
+                static_cast<decltype(timespec::tv_nsec)>(1e9);  // (timenow + 0.1sec) / 1sec
             timeout.tv_nsec = (timeout.tv_nsec + 
                 static_cast<decltype(timespec::tv_nsec)>(1e8)) % 
-                static_cast<decltype(timespec::tv_nsec)>(1e9);
+                static_cast<decltype(timespec::tv_nsec)>(1e9);  // (timenow + 0.1sec) % 1sec
             *status = -mq_timedreceive(msgQueue, (char *)data, length, &priority, &timeout);
-            if (*status < 0) // Not failed, successfully received
-            {
-                printf("UAV");
-                fflush(stdout);
-            }
         }
     }
     void SetMQ(mqd_t mq)
