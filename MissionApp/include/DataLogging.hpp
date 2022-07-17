@@ -30,7 +30,8 @@
                                 make_column("Longitude_deg", &FCUCMD::Longitude_deg),                           \
                                 make_column("Height_meter", &FCUCMD::Height_meter),                             \
                                 make_column("RefHdg_deg", &FCUCMD::RefHdg_deg),                                 \
-                                make_column("RefAirSpd_mps", &FCUCMD::RefAirSpd_mps)),                          \
+                                make_column("RefAirSpd_mps", &FCUCMD::RefAirSpd_mps),                           \
+                                make_column("RefGndSpd_mps", &FCUCMD::RefGndSpd_mps)),                          \
                         make_table<InternalStatus>("InnerState",                                                \
                                 make_column("LagDistance", &InternalStatus::LagDistance),                       \
                                 make_column("CrossTrackError", &InternalStatus::CrossTrackError),               \
@@ -39,8 +40,8 @@
                                 make_column("TargetHeading", &InternalStatus::TargetHeading),                   \
                                 make_column("HeadingDiff", &InternalStatus::HeadingDiff),                       \
                                 make_column("biasH", &InternalStatus::biasH),                                   \
-                                make_column("HdgStatus", &InternalStatus::HdgStatus),                          \
-                                make_column("FlightMode", &InternalStatus::FlightMode),                        \
+                                make_column("HdgStatus", &InternalStatus::HdgStatus),                           \
+                                make_column("FlightMode", &InternalStatus::FlightMode),                         \
                                 make_column("AvoidDanger", &InternalStatus::AvoidDanger)),                      \
                         make_table<VectorSpeed>("VectorSpd",                                                    \
                                 make_column("eastSpeed", &VectorSpeed::eastSpeed),                              \
