@@ -359,7 +359,7 @@ int main(int argc, const char *argv[])
     // Open POSIX message queue
     msgQueue mqSndCMD("/PosixMQ_SndCMD", O_CREAT | O_WRONLY | O_NONBLOCK, 1, sizeof(IndividualUAVCmd));
     msgQueue mqRcvCMD("/PosixMQ_RcvCMD", O_CREAT | O_RDONLY | O_NONBLOCK, 1, sizeof(IndividualUAVCmd));
-    msgQueue mqNbrState("/PosixMQ_NbrState", O_CREAT | O_RDONLY, 1, sizeof(RealUAVStateBus));
+    msgQueue mqNbrState("/PosixMQ_NbrState", O_CREAT | O_RDONLY, 10, sizeof(RealUAVStateBus));
 
     CurrentMissionSendData_arg.SetMQ(mqSndCMD.getMQ());
     MissionCMDRecvData_arg.SetMQ(mqRcvCMD.getMQ());
