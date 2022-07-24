@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 4.142
+// Model version                  : 4.143
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Fri May 27 23:18:34 2022
+// C/C++ source code generated on : Mon Jul 25 00:08:05 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -154,6 +154,7 @@ class codegenReal2MissionModelClass final
         real_T PreemptableMissionModeSelector_o3[8];
                                       // '<S42>/PreemptableMissionModeSelector'
         real_T PointCloud[2097152];    // '<S10>/InterpCircle'
+        real_T Delay_DSTATE[60];       // '<S41>/Delay'
         real_T MemoryPose_PreviousInput[4];// '<S42>/MemoryPose'
         real_T thisTaskStatus;         // '<S6>/ImmedMission'
         real_T PushImmed;              // '<S61>/CommandCheck'

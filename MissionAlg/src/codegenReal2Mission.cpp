@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 4.142
+// Model version                  : 4.143
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Fri May 27 23:18:34 2022
+// C/C++ source code generated on : Mon Jul 25 00:08:05 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -9142,8 +9142,10 @@ void codegenReal2MissionModelClass::step()
 
         // End of Outputs for SubSystem: '<S4>/TriggerCurrentMisisonFeedback'
 
-        // DataTypeConversion: '<S4>/intFlightStatus'
-        second = std::floor(codegenReal2Mission_DW.thisTaskStatus_g);
+        // DataTypeConversion: '<S4>/intFlightStatus' incorporates:
+        //   Delay: '<S41>/Delay'
+
+        second = std::floor(codegenReal2Mission_DW.Delay_DSTATE[0]);
         if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(std::
                 isnan(second)) | static_cast<int32_T>(std::isinf(second))))) {
             second = 0.0;
@@ -9297,6 +9299,22 @@ void codegenReal2MissionModelClass::step()
             (&codegenReal2Mission_DW.BusConversion_InsertedFor_ImmedMission_at_inport_0_BusCreator1,
              &codegenReal2Mission_DW.Memory,
              &(codegenReal2Mission_DW.ImmedMission_InstanceData.rtdw));
+
+        // Update for Delay: '<S41>/Delay'
+        for (status_0 = 0; status_0 < 59; status_0 = static_cast<int_T>(status_0
+              + 1)) {
+            for (status = 0; status < 1; status = static_cast<int_T>(status + 1))
+            {
+                codegenReal2Mission_DW.Delay_DSTATE[static_cast<int_T>(status_0
+                    + status)] = codegenReal2Mission_DW.Delay_DSTATE[
+                    static_cast<int_T>(static_cast<int_T>(status_0 + status) + 1)];
+            }
+        }
+
+        codegenReal2Mission_DW.Delay_DSTATE[59] =
+            codegenReal2Mission_DW.thisTaskStatus_g;
+
+        // End of Update for Delay: '<S41>/Delay'
     }
 
     // End of Update for SubSystem: '<Root>/MissionLogic'
