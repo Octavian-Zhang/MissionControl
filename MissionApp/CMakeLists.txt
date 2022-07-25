@@ -15,6 +15,7 @@ find_package(Threads REQUIRED)
 
 # define runtime output path
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/runtime)
+configure_file(Z164.config ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/config.ini COPYONLY)
 
 # include the mission application include directory
 include_directories (
