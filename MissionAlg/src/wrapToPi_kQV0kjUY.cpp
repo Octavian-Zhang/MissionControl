@@ -3,16 +3,16 @@
 //
 // Code generated for Simulink model 'FlightMissionMode'.
 //
-// Model version                  : 3.25
+// Model version                  : 3.29
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Thu Jul 14 15:03:49 2022
+// C/C++ source code generated on : Mon Jul 25 10:10:49 2022
 //
 #include "rtwtypes.h"
 #include "wrapToPi_kQV0kjUY.h"
 #include <cmath>
 #include "mod_d42kHWKw.h"
 
-// Function for MATLAB Function: '<S95>/StartPointGenerator'
+// Function for MATLAB Function: '<S96>/StartPointGenerator'
 void wrapToPi_kQV0kjUY(real_T *theta)
 {
     if (std::abs(*theta) > 3.1415926535897931) {

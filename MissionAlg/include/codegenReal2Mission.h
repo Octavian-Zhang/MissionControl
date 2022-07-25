@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 4.332
+// Model version                  : 4.337
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Thu Jul 14 15:07:38 2022
+// C/C++ source code generated on : Mon Jul 25 10:14:43 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -161,6 +161,7 @@ class codegenReal2MissionModelClass final
                                       // '<S93>/PreemptableMissionModeSelector'
         real_T SelectNorthEastRadius[192];// '<S61>/SelectNorthEastRadius'
         real_T PointCloud[2097152];    // '<S61>/InterpCircle'
+        real_T Delay_DSTATE[60];       // '<S92>/Delay'
         real_T RateTransition_Buf0[4096];// '<Root>/Rate Transition'
         real_T RateTransition_Buf1[4096];// '<Root>/Rate Transition'
         real_T RateTransition_Buf2[4096];// '<Root>/Rate Transition'
@@ -493,7 +494,7 @@ class codegenReal2MissionModelClass final
     int32_T codegenReal2Mission_RcvImmedCMD_RecvData(missionCmd *data);
     boolean_T codegenReal2Mission_pop_j(Buffer_DangerInfo *q, Msg_DangerInfo
         *elementOut);
-    int32_T codegenReal2Mission_Receive_h_RecvData(DangerInfo *data);
+    int32_T codegenReal2Mission_Receive_RecvData(DangerInfo *data);
     void codegenReal2Mission_int2str(real_T xin, char_T s_data[], int32_T
         s_size[2]);
     void codegenReal2Mission_emxEnsureCapacity_real_T
@@ -550,7 +551,7 @@ class codegenReal2MissionModelClass final
         *element);
     int32_T codegenReal2Mission_Receive_c_SendData(const real_T *data);
     boolean_T codegenReal2Mission_pop(Buffer_real_T *q, Msg_real_T *elementOut);
-    int32_T codegenReal2Mission_Receive_RecvData(real_T *data);
+    int32_T codegenReal2Mission_Receive_l_RecvData(real_T *data);
     void codegenReal2Mission_emxFreeStruct_DangerArray
         (DangerArray_codegenReal2Mission_T *pStruct);
     void codegenReal2Mission_initMemPool(MemPool_IndividualUAVCmd *memPool,

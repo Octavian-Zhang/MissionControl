@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'FlightMissionMode'.
 //
-// Model version                  : 3.25
+// Model version                  : 3.29
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Thu Jul 14 15:03:49 2022
+// C/C++ source code generated on : Mon Jul 25 10:10:49 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -92,7 +92,7 @@ struct uav_sluav_internal_system_WaypointFollower_FlightMissionMode_T
 
 #endif // struct_uav_sluav_internal_system_WaypointFollower_FlightMissionMode_T
 
-// Custom Type definition for MATLAB Function: '<S95>/StartPointGenerator'
+// Custom Type definition for MATLAB Function: '<S96>/StartPointGenerator'
 #include <stdio.h>
 #ifndef struct_emxArray_char_T_1x2_FlightMissionMode_T
 #define struct_emxArray_char_T_1x2_FlightMissionMode_T
@@ -105,7 +105,7 @@ struct emxArray_char_T_1x2_FlightMissionMode_T
 
 #endif                        // struct_emxArray_char_T_1x2_FlightMissionMode_T
 
-// Custom Type definition for MATLAB Function: '<S95>/StartPointGenerator'
+// Custom Type definition for MATLAB Function: '<S96>/StartPointGenerator'
 #ifndef struct_cell_wrap_0_FlightMissionMode_T
 #define struct_cell_wrap_0_FlightMissionMode_T
 
@@ -162,7 +162,7 @@ struct emxArray_char_T_FlightMissionMode_T
 
 #endif                            // struct_emxArray_char_T_FlightMissionMode_T
 
-// Custom Type definition for MATLAB Function: '<S95>/StartPointGenerator'
+// Custom Type definition for MATLAB Function: '<S96>/StartPointGenerator'
 #ifndef struct_cell_wrap_22_FlightMissionMode_T
 #define struct_cell_wrap_22_FlightMissionMode_T
 
@@ -201,7 +201,7 @@ struct emxArray_int32_T_FlightMissionMode_T
 
 #endif                           // struct_emxArray_int32_T_FlightMissionMode_T
 
-// Custom Type definition for MATLAB Function: '<S95>/StartPointGenerator'
+// Custom Type definition for MATLAB Function: '<S96>/StartPointGenerator'
 #ifndef struct_uavDubinsConnection_FlightMissionMode_T
 #define struct_uavDubinsConnection_FlightMissionMode_T
 
@@ -239,7 +239,7 @@ struct emxArray_int32_T_28_FlightMissionMode_T
 
 #endif                        // struct_emxArray_int32_T_28_FlightMissionMode_T
 
-// Custom Type definition for MATLAB Function: '<S95>/WayPointGenerator'
+// Custom Type definition for MATLAB Function: '<S96>/WayPointGenerator'
 #ifndef struct_uavDubinsConnection_FlightMissionMode_c_T
 #define struct_uavDubinsConnection_FlightMissionMode_c_T
 
@@ -325,7 +325,7 @@ struct uav_sluav_internal_system_OrbitFollower_FlightMissionMode_T
 
 #endif    // struct_uav_sluav_internal_system_OrbitFollower_FlightMissionMode_T
 
-// Custom Type definition for MATLAB Function: '<S180>/WayPointGenerator'
+// Custom Type definition for MATLAB Function: '<S181>/WayPointGenerator'
 #include <stdio.h>
 #ifndef struct_uav_sluav_internal_system_WaypointFollower_FlightMissionMode_c_T
 #define struct_uav_sluav_internal_system_WaypointFollower_FlightMissionMode_c_T
