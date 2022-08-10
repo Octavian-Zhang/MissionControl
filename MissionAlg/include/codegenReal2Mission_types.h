@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 4.337
+// Model version                  : 4.364
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Mon Jul 25 10:14:43 2022
+// C/C++ source code generated on : Wed Aug 10 14:09:29 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -232,27 +232,6 @@ enum class QueuePolicy_T
 
 #endif
 
-#ifndef DEFINED_TYPEDEF_FOR_Msg_real_T_
-#define DEFINED_TYPEDEF_FOR_Msg_real_T_
-
-struct Msg_real_T
-{
-    real_T fData;
-};
-
-#endif
-
-#ifndef DEFINED_TYPEDEF_FOR_Buffer_real_T_
-#define DEFINED_TYPEDEF_FOR_Buffer_real_T_
-
-struct Buffer_real_T
-{
-    boolean_T fOccupied;
-    Msg_real_T fMsg;
-};
-
-#endif
-
 #ifndef DEFINED_TYPEDEF_FOR_Msg_IndividualUAVCmd_
 #define DEFINED_TYPEDEF_FOR_Msg_IndividualUAVCmd_
 
@@ -361,21 +340,6 @@ struct MemPool_DangerInfo
 
 #endif
 
-#ifndef DEFINED_TYPEDEF_FOR_RecvData_RealUAVStateBusT_
-#define DEFINED_TYPEDEF_FOR_RecvData_RealUAVStateBusT_
-
-class RecvData_RealUAVStateBusT
-{
-  public:
-    virtual void RecvData(RealUAVStateBus *data, int32_T length, int32_T *status)
-        = 0;
-    virtual ~RecvData_RealUAVStateBusT()
-    {
-    }
-};
-
-#endif
-
 #ifndef DEFINED_TYPEDEF_FOR_SendData_FlightLoggingT_
 #define DEFINED_TYPEDEF_FOR_SendData_FlightLoggingT_
 
@@ -391,10 +355,10 @@ class SendData_FlightLoggingT
 
 #endif
 
-// Custom Type definition for MATLAB Function: '<S17>/PrintNbrID'
+// Custom Type definition for MATLAB Function: '<S74>/PrintOnboardLog'
 #include <stdio.h>
 
-// Custom Type definition for MATLAB Function: '<S110>/getCurrentTime'
+// Custom Type definition for MATLAB Function: '<S61>/getCurrentTime'
 #include "coder_posix_time.h"
 #ifndef struct_robotics_slcore_internal_block_CoordinateTransformationConversion_codegenReal2Mission_T
 #define struct_robotics_slcore_internal_block_CoordinateTransformationConversion_codegenReal2Mission_T
@@ -456,45 +420,6 @@ struct emxArray_real_T_codegenReal2Mission_T
 
 #endif                          // struct_emxArray_real_T_codegenReal2Mission_T
 
-// Custom Type definition for MATLAB Function: '<S61>/getDangerList'
-#ifndef struct_DangerArray_codegenReal2Mission_T
-#define struct_DangerArray_codegenReal2Mission_T
-
-struct DangerArray_codegenReal2Mission_T
-{
-    emxArray_real_T_codegenReal2Mission_T *DangerList;
-};
-
-#endif                              // struct_DangerArray_codegenReal2Mission_T
-
-#ifndef struct_emxArray_boolean_T_codegenReal2Mission_T
-#define struct_emxArray_boolean_T_codegenReal2Mission_T
-
-struct emxArray_boolean_T_codegenReal2Mission_T
-{
-    boolean_T *data;
-    int32_T *size;
-    int32_T allocatedSize;
-    int32_T numDimensions;
-    boolean_T canFreeData;
-};
-
-#endif                       // struct_emxArray_boolean_T_codegenReal2Mission_T
-
-#ifndef struct_emxArray_int32_T_codegenReal2Mission_T
-#define struct_emxArray_int32_T_codegenReal2Mission_T
-
-struct emxArray_int32_T_codegenReal2Mission_T
-{
-    int32_T *data;
-    int32_T *size;
-    int32_T allocatedSize;
-    int32_T numDimensions;
-    boolean_T canFreeData;
-};
-
-#endif                         // struct_emxArray_int32_T_codegenReal2Mission_T
-
 #ifndef struct_emxArray_char_T_codegenReal2Mission_T
 #define struct_emxArray_char_T_codegenReal2Mission_T
 
@@ -509,17 +434,6 @@ struct emxArray_char_T_codegenReal2Mission_T
 
 #endif                          // struct_emxArray_char_T_codegenReal2Mission_T
 
-#ifndef struct_emxArray_char_T_1x10_codegenReal2Mission_T
-#define struct_emxArray_char_T_1x10_codegenReal2Mission_T
-
-struct emxArray_char_T_1x10_codegenReal2Mission_T
-{
-    char_T data[10];
-    int32_T size[2];
-};
-
-#endif                     // struct_emxArray_char_T_1x10_codegenReal2Mission_T
-
 #ifndef struct_emxArray_char_T_1x16_codegenReal2Mission_T
 #define struct_emxArray_char_T_1x16_codegenReal2Mission_T
 
@@ -531,7 +445,7 @@ struct emxArray_char_T_1x16_codegenReal2Mission_T
 
 #endif                     // struct_emxArray_char_T_1x16_codegenReal2Mission_T
 
-// Custom Type definition for MATLAB Function: '<S123>/PrintOnboardLog'
+// Custom Type definition for MATLAB Function: '<S74>/PrintOnboardLog'
 #ifndef struct_cell_wrap_1_codegenReal2Mission_T
 #define struct_cell_wrap_1_codegenReal2Mission_T
 
@@ -543,11 +457,11 @@ struct cell_wrap_1_codegenReal2Mission_T
 #endif                              // struct_cell_wrap_1_codegenReal2Mission_T
 
 #ifndef SS_UINT64
-#define SS_UINT64                      62
+#define SS_UINT64                      60
 #endif
 
 #ifndef SS_INT64
-#define SS_INT64                       63
+#define SS_INT64                       61
 #endif
 #endif                               // RTW_HEADER_codegenReal2Mission_types_h_
 

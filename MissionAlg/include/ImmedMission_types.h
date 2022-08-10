@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'ImmedMission'.
 //
-// Model version                  : 3.19
+// Model version                  : 3.28
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Mon Jul 25 10:04:08 2022
+// C/C++ source code generated on : Wed Aug 10 13:59:36 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -151,7 +151,7 @@ struct uav_sluav_internal_system_OrbitFollower_ImmedMission_T
 
 #endif         // struct_uav_sluav_internal_system_OrbitFollower_ImmedMission_T
 
-// Custom Type definition for MATLAB Function: '<S63>/BaseWayPoint'
+// Custom Type definition for MATLAB Function: '<S64>/BaseWayPoint'
 #include <stdio.h>
 #ifndef struct_uavDubinsConnection_ImmedMission_T
 #define struct_uavDubinsConnection_ImmedMission_T
@@ -226,10 +226,6 @@ struct uav_sluav_internal_system_WaypointFollower_ImmedMission_c_T
 };
 
 #endif    // struct_uav_sluav_internal_system_WaypointFollower_ImmedMission_c_T
-
-// Forward declaration for rtModel
-typedef struct tag_RTM_ImmedMission_T RT_MODEL_ImmedMission_T;
-
 #endif                                 // RTW_HEADER_ImmedMission_types_h_
 
 //

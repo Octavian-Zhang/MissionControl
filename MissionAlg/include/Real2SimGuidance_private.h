@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'Real2SimGuidance'.
 //
-// Model version                  : 4.175
+// Model version                  : 4.188
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Mon Jul 25 10:07:06 2022
+// C/C++ source code generated on : Wed Aug 10 14:01:28 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -101,25 +101,23 @@
 #endif
 
 extern const real_T rtCP_pooled_ipsVxvhx7TJb[2];
-extern const real_T rtCP_pooled_3GEHLKxQAnae[2];
-extern const real_T rtCP_pooled_ibeJeFBArgtC[2];
 extern const real_T rtCP_pooled_DIpj1z6HREP5[2];
 extern const real_T rtCP_pooled_f3N7kzzFdIss[2];
 
 #define rtCP_Cartesian2Polar_RngLmt    rtCP_pooled_ipsVxvhx7TJb  // Expression: RngLmt
                                                                  //  Referenced by: '<S16>/Cartesian2Polar'
 
-#define rtCP_VectorFieldHistogram10_DistanceLimits rtCP_pooled_3GEHLKxQAnae// Expression: RngLmt
-                                                                      //  Referenced by: '<S39>/VectorFieldHistogram10'
-
-#define rtCP_VectorFieldHistogram10_HistogramThresholds rtCP_pooled_ibeJeFBArgtC// Expression: HistThrshld*10
-                                                                      //  Referenced by: '<S39>/VectorFieldHistogram10'
-
 #define rtCP_VectorFieldHistogram_DistanceLimits rtCP_pooled_DIpj1z6HREP5// Expression: RngLmt
                                                                       //  Referenced by: '<S17>/Vector Field Histogram'
 
 #define rtCP_VectorFieldHistogram_HistogramThresholds rtCP_pooled_f3N7kzzFdIss// Expression: HistThrshld
                                                                       //  Referenced by: '<S17>/Vector Field Histogram'
+
+
+// Imported (extern) states
+extern void* AltitudeGCS_m0;           // synthesized block
+extern void* LatitudeGCS_m0;           // synthesized block
+extern void* LongitudeGCS_m0;          // synthesized block
 
 #endif                                // RTW_HEADER_Real2SimGuidance_private_h_
 

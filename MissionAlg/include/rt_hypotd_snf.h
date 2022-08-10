@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'Real2SimGuidance'.
 //
-// Model version                  : 4.175
+// Model version                  : 4.188
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Mon Jul 25 10:07:06 2022
+// C/C++ source code generated on : Wed Aug 10 14:01:28 2022
 //
 #ifndef RTW_HEADER_rt_hypotd_snf_h_
 #define RTW_HEADER_rt_hypotd_snf_h_

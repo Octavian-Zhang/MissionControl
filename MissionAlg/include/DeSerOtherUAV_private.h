@@ -1,11 +1,11 @@
 //
-// File: ImmedMission_private.h
+// File: DeSerOtherUAV_private.h
 //
-// Code generated for Simulink model 'ImmedMission'.
+// Code generated for Simulink model 'DeSerOtherUAV'.
 //
-// Model version                  : 3.28
+// Model version                  : 4.339
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Wed Aug 10 13:59:36 2022
+// C/C++ source code generated on : Wed Aug 10 13:58:08 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -16,10 +16,10 @@
 //    4. ROM efficiency
 // Validation result: Not run
 //
-#ifndef RTW_HEADER_ImmedMission_private_h_
-#define RTW_HEADER_ImmedMission_private_h_
+#ifndef RTW_HEADER_DeSerOtherUAV_private_h_
+#define RTW_HEADER_DeSerOtherUAV_private_h_
 #include "rtwtypes.h"
-#include "zero_crossing_types.h"
+#include "builtin_typeid_types.h"
 
 // Macros for accessing real-time model data structure
 #ifndef rtmGetErrorStatus
@@ -37,13 +37,7 @@
 #ifndef rtmSetErrorStatusPointer
 #define rtmSetErrorStatusPointer(rtm, val) ((rtm)->errorStatus = (val))
 #endif
-
-// Imported (extern) states
-extern void* AltitudeGCS_m0;           // synthesized block
-extern void* LatitudeGCS_m0;           // synthesized block
-extern void* LongitudeGCS_m0;          // synthesized block
-
-#endif                                 // RTW_HEADER_ImmedMission_private_h_
+#endif                                 // RTW_HEADER_DeSerOtherUAV_private_h_
 
 //
 // File trailer for generated code.

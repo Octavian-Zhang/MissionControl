@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 4.337
+// Model version                  : 4.364
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Mon Jul 25 10:14:43 2022
+// C/C++ source code generated on : Wed Aug 10 14:09:29 2022
 //
 #include "rtwtypes.h"
 #include "isPalindrome_KPAwztvD.h"
@@ -16,7 +16,7 @@ extern "C" {
 #include "rt_nonfinite.h"
 
 }
-// Function for MATLAB Function: '<S112>/CommandCheck'
+// Function for MATLAB Function: '<S63>/CommandCheck'
     boolean_T isPalindrome_KPAwztvD(real_T inputNum)
 {
     real_T divisor;

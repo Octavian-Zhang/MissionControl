@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'MissionUAV'.
 //
-// Model version                  : 3.8
+// Model version                  : 3.15
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Mon Jul 25 10:03:28 2022
+// C/C++ source code generated on : Wed Aug 10 13:59:40 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -2713,7 +2713,7 @@ void MissionUAV_Init(RT_MODEL_MissionUAV_T * const MissionUAV_M,
 {
     FILE* a;
 
-    // InitializeConditions for Integrator: '<S4>/Integrator'
+    // InitializeConditions for Integrator: '<S5>/Integrator'
     if (rtmIsFirstInitCond(MissionUAV_M)) {
         std::memset(&localX->Integrator_CSTATE[0], 0, static_cast<uint32_T>
                     (sizeof(real_T) << 3U));
@@ -2721,7 +2721,7 @@ void MissionUAV_Init(RT_MODEL_MissionUAV_T * const MissionUAV_M,
 
     localDW->Integrator_IWORK = 1;
 
-    // End of InitializeConditions for Integrator: '<S4>/Integrator'
+    // End of InitializeConditions for Integrator: '<S5>/Integrator'
 
     // InitializeConditions for Integrator: '<S8>/TD_Bank'
     localX->TD_Bank_CSTATE = 0.0;
@@ -2745,73 +2745,19 @@ void MissionUAV_Init(RT_MODEL_MissionUAV_T * const MissionUAV_M,
 
     // End of SystemInitialize for MATLAB Function: '<S1>/Get Max Bank'
 
-    // Start for MATLABSystem: '<S4>/ComputeDerivative'
+    // Start for MATLABSystem: '<S5>/ComputeDerivative'
     localDW->objisempty_a = true;
     localDW->obj_j.isInitialized = 1;
     MissionUAV_Model_resetImpl(&localDW->obj_j);
 
-    // InitializeConditions for MATLABSystem: '<S4>/ComputeDerivative'
+    // InitializeConditions for MATLABSystem: '<S5>/ComputeDerivative'
     MissionUAV_Model_resetImpl(&localDW->obj_j);
 
-    // Start for MATLABSystem: '<S4>/StateVector2Struct'
+    // Start for MATLABSystem: '<S5>/StateVector2Struct'
     localDW->objisempty = true;
     localDW->obj.isInitialized = 1;
 
-    // InitializeConditions for MATLABSystem: '<S4>/StateVector2Struct'
-    localDW->obj.OutputTemplate.North = 0.0;
-    localDW->obj.OutputTemplate.East = 0.0;
-    localDW->obj.OutputTemplate.Height = 0.0;
-    localDW->obj.OutputTemplate.AirSpeed = 0.0;
-    localDW->obj.OutputTemplate.HeadingAngle = 0.0;
-    localDW->obj.OutputTemplate.FlightPathAngle = 0.0;
-    localDW->obj.OutputTemplate.RollAngle = 0.0;
-    localDW->obj.OutputTemplate.RollAngleRate = 0.0;
-}
-
-// System reset for referenced model: 'MissionUAV'
-void MissionUAV_Reset(RT_MODEL_MissionUAV_T * const MissionUAV_M,
-                      DW_MissionUAV_f_T *localDW, X_MissionUAV_n_T *localX)
-{
-    FILE* a;
-
-    // InitializeConditions for Integrator: '<S4>/Integrator'
-    if (rtmIsFirstInitCond(MissionUAV_M)) {
-        std::memset(&localX->Integrator_CSTATE[0], 0, static_cast<uint32_T>
-                    (sizeof(real_T) << 3U));
-    }
-
-    localDW->Integrator_IWORK = 1;
-
-    // End of InitializeConditions for Integrator: '<S4>/Integrator'
-
-    // InitializeConditions for Integrator: '<S8>/TD_Bank'
-    localX->TD_Bank_CSTATE = 0.0;
-
-    // InitializeConditions for Integrator: '<S8>/dotBankTD'
-    localX->dotBankTD_CSTATE = 0.0;
-
-    // SystemReset for MATLAB Function: '<S1>/Get Speed Limit'
-    localDW->SingletonInstance_not_empty = false;
-    a = NULL;
-    for (int32_T i{0}; i < 20; i++) {
-        localDW->eml_openfiles_p[i] = a;
-    }
-
-    // End of SystemReset for MATLAB Function: '<S1>/Get Speed Limit'
-
-    // InitializeConditions for MATLABSystem: '<S4>/ComputeDerivative'
-    MissionUAV_Model_resetImpl(&localDW->obj_j);
-
-    // SystemReset for MATLAB Function: '<S1>/Get Max Bank'
-    localDW->SingletonInstance_not_empty_m = false;
-    a = NULL;
-    for (int32_T i{0}; i < 20; i++) {
-        localDW->eml_openfiles[i] = a;
-    }
-
-    // End of SystemReset for MATLAB Function: '<S1>/Get Max Bank'
-
-    // InitializeConditions for MATLABSystem: '<S4>/StateVector2Struct'
+    // InitializeConditions for MATLABSystem: '<S5>/StateVector2Struct'
     localDW->obj.OutputTemplate.North = 0.0;
     localDW->obj.OutputTemplate.East = 0.0;
     localDW->obj.OutputTemplate.Height = 0.0;
@@ -2878,7 +2824,7 @@ void MissionUAV(RT_MODEL_MissionUAV_T * const MissionUAV_M, const real_T
     real_T d_fid;
     real_T fid;
     real_T fid_tmp;
-    real_T rtb_RollAngle_c;
+    real_T rtb_RollAngle_d;
     int32_T c;
     int32_T i;
     int32_T i_0;
@@ -2888,7 +2834,7 @@ void MissionUAV(RT_MODEL_MissionUAV_T * const MissionUAV_M, const real_T
 
     boolean_T rtb_LowerRelop1;
 
-    // Integrator: '<S4>/Integrator'
+    // Integrator: '<S5>/Integrator'
     if (rtsiIsModeUpdateTimeStep(MissionUAV_M->solverInfo) &&
             (static_cast<boolean_T>(static_cast<int32_T>((*rtu_ResetState != 0.0)
            | (localDW->Integrator_IWORK != 0))))) {
@@ -3506,27 +3452,27 @@ void MissionUAV(RT_MODEL_MissionUAV_T * const MissionUAV_M, const real_T
         localDW->Min = std::fmin(localDW->SpdLmt[0], localDW->SpdLmt[1]);
     }
 
-    // RelationalOperator: '<S6>/LowerRelop1'
+    // RelationalOperator: '<S7>/LowerRelop1'
     rtb_LowerRelop1 = (*rtu_UAVGuidanceCmd_AirSpeed > localDW->Max);
 
-    // Switch: '<S6>/Switch2'
+    // Switch: '<S7>/Switch2'
     if (rtb_LowerRelop1) {
         b_fid = localDW->Max;
     } else {
-        // RelationalOperator: '<S6>/UpperRelop'
+        // RelationalOperator: '<S7>/UpperRelop'
         rtb_LowerRelop1 = (*rtu_UAVGuidanceCmd_AirSpeed < localDW->Min);
 
-        // Switch: '<S6>/Switch'
+        // Switch: '<S7>/Switch'
         if (rtb_LowerRelop1) {
             b_fid = localDW->Min;
         } else {
             b_fid = *rtu_UAVGuidanceCmd_AirSpeed;
         }
 
-        // End of Switch: '<S6>/Switch'
+        // End of Switch: '<S7>/Switch'
     }
 
-    // End of Switch: '<S6>/Switch2'
+    // End of Switch: '<S7>/Switch2'
 
     // Integrator: '<S8>/TD_Bank'
     if (rtsiIsModeUpdateTimeStep(MissionUAV_M->solverInfo) && (*rtu_ResetState
@@ -3538,21 +3484,21 @@ void MissionUAV(RT_MODEL_MissionUAV_T * const MissionUAV_M, const real_T
     // BusCreator: '<S1>/SlewGuidanceBus'
     ClimbAngleLimit = *rtu_UAVGuidanceCmd_Height;
 
-    // MATLABSystem: '<S4>/ComputeDerivative' incorporates:
+    // MATLABSystem: '<S5>/ComputeDerivative' incorporates:
     //   BusCreator: '<S1>/SlewGuidanceBus'
-    //   Integrator: '<S4>/Integrator'
+    //   Integrator: '<S5>/Integrator'
     //   Integrator: '<S8>/TD_Bank'
-    //   MATLAB Function: '<S1>/SimHdgControl'
+    //   MATLAB Function: '<S1>/Heading Control'
 
     DiveAngleLimit = std::cos(localX->Integrator_CSTATE[5]);
     c_fid_tmp = std::cos(localX->Integrator_CSTATE[4]);
     d_fid = std::sin(localX->Integrator_CSTATE[4]);
-    rtb_RollAngle_c = std::sin(localX->Integrator_CSTATE[5]);
+    rtb_RollAngle_d = std::sin(localX->Integrator_CSTATE[5]);
     c_fid = (-(c_fid_tmp * DiveAngleLimit) *
              localDW->FixedWingGuidanceEnvironmentBus_p.WindNorth + -(d_fid *
               DiveAngleLimit) *
              localDW->FixedWingGuidanceEnvironmentBus_p.WindEast) +
-        rtb_RollAngle_c * localDW->FixedWingGuidanceEnvironmentBus_p.WindDown;
+        rtb_RollAngle_d * localDW->FixedWingGuidanceEnvironmentBus_p.WindDown;
     fid_tmp = ((localDW->FixedWingGuidanceEnvironmentBus_p.WindNorth *
                 localDW->FixedWingGuidanceEnvironmentBus_p.WindNorth +
                 localDW->FixedWingGuidanceEnvironmentBus_p.WindEast *
@@ -3563,7 +3509,7 @@ void MissionUAV(RT_MODEL_MissionUAV_T * const MissionUAV_M, const real_T
     fid = std::sqrt(c_fid * c_fid - fid_tmp) + -c_fid;
     localDW->ComputeDerivative[0] = fid * c_fid_tmp * DiveAngleLimit;
     localDW->ComputeDerivative[1] = fid * d_fid * DiveAngleLimit;
-    localDW->ComputeDerivative[2] = fid * rtb_RollAngle_c;
+    localDW->ComputeDerivative[2] = fid * rtb_RollAngle_d;
     localDW->ComputeDerivative[3] = (b_fid - localX->Integrator_CSTATE[3]) *
         localDW->obj_j.ModelImpl.Configuration.PAirSpeed;
     if (fid == 0.0) {
@@ -3603,7 +3549,7 @@ void MissionUAV(RT_MODEL_MissionUAV_T * const MissionUAV_M, const real_T
         localDW->obj_j.ModelImpl.Configuration.PDRoll[1] *
         -localX->Integrator_CSTATE[7];
 
-    // End of MATLABSystem: '<S4>/ComputeDerivative'
+    // End of MATLABSystem: '<S5>/ComputeDerivative'
     if (rtmIsMajorTimeStep(MissionUAV_M)) {
         // MATLAB Function: '<S1>/Get Max Bank'
         // MATLAB Function 'MissionUAV/Get Max Bank': '<S2>:1'
@@ -4192,44 +4138,44 @@ void MissionUAV(RT_MODEL_MissionUAV_T * const MissionUAV_M, const real_T
     MissionUAV_emxFree_char_T(&data);
     MissionUAV_emxFree_char_T(&ret);
 
-    // MATLAB Function: '<S1>/SimHdgControl' incorporates:
-    //   Integrator: '<S4>/Integrator'
+    // MATLAB Function: '<S1>/Heading Control' incorporates:
+    //   Integrator: '<S5>/Integrator'
 
-    // MATLAB Function 'MissionUAV/SimHdgControl': '<S7>:1'
-    // '<S7>:1:3'
-    // '<S7>:1:4'
-    // '<S7>:1:5'
-    // '<S7>:1:7'
+    // MATLAB Function 'Heading Control': '<S4>:1'
+    // '<S4>:1:3'
+    // '<S4>:1:4'
+    // '<S4>:1:5'
+    // '<S4>:1:7'
     b_fid = 1.0 / localX->Integrator_CSTATE[3];
 
-    // '<S7>:1:8'
+    // '<S4>:1:8'
     ClimbAngleLimit = (std::cos(localX->Integrator_CSTATE[4]) * std::cos
                        (localX->Integrator_CSTATE[5]) *
                        localDW->FixedWingGuidanceEnvironmentBus_p.WindNorth +
                        std::sin(localX->Integrator_CSTATE[4]) * std::cos
                        (localX->Integrator_CSTATE[5]) *
                        localDW->FixedWingGuidanceEnvironmentBus_p.WindEast) +
-        -rtb_RollAngle_c * localDW->FixedWingGuidanceEnvironmentBus_p.WindDown;
+        -rtb_RollAngle_d * localDW->FixedWingGuidanceEnvironmentBus_p.WindDown;
 
-    // '<S7>:1:9'
-    // '<S7>:1:10'
-    // '<S7>:1:12'
-    rtb_RollAngle_c = *rtu_UAVGuidanceCmd_HeadingAngle -
+    // '<S4>:1:9'
+    // '<S4>:1:10'
+    // '<S4>:1:12'
+    rtb_RollAngle_d = *rtu_UAVGuidanceCmd_HeadingAngle -
         localX->Integrator_CSTATE[4];
-    if (std::abs(rtb_RollAngle_c) > 3.1415926535897931) {
-        if (std::isnan(rtb_RollAngle_c + 3.1415926535897931)) {
+    if (std::abs(rtb_RollAngle_d) > 3.1415926535897931) {
+        if (std::isnan(rtb_RollAngle_d + 3.1415926535897931)) {
             c_fid = (rtNaN);
-        } else if (std::isinf(rtb_RollAngle_c + 3.1415926535897931)) {
+        } else if (std::isinf(rtb_RollAngle_d + 3.1415926535897931)) {
             c_fid = (rtNaN);
-        } else if (rtb_RollAngle_c + 3.1415926535897931 == 0.0) {
+        } else if (rtb_RollAngle_d + 3.1415926535897931 == 0.0) {
             c_fid = 0.0;
         } else {
-            c_fid = std::fmod(rtb_RollAngle_c + 3.1415926535897931,
+            c_fid = std::fmod(rtb_RollAngle_d + 3.1415926535897931,
                               6.2831853071795862);
             rtb_LowerRelop1 = (c_fid == 0.0);
             if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
                     (rtb_LowerRelop1) ^ 1))) {
-                d_fid = std::abs((rtb_RollAngle_c + 3.1415926535897931) /
+                d_fid = std::abs((rtb_RollAngle_d + 3.1415926535897931) /
                                  6.2831853071795862);
                 rtb_LowerRelop1 = static_cast<boolean_T>(static_cast<int32_T>
                     ((std::abs(d_fid - std::floor(d_fid + 0.5)) >
@@ -4238,22 +4184,22 @@ void MissionUAV(RT_MODEL_MissionUAV_T * const MissionUAV_M, const real_T
 
             if (rtb_LowerRelop1) {
                 c_fid = 0.0;
-            } else if (rtb_RollAngle_c + 3.1415926535897931 < 0.0) {
+            } else if (rtb_RollAngle_d + 3.1415926535897931 < 0.0) {
                 c_fid += 6.2831853071795862;
             }
         }
 
-        if (static_cast<boolean_T>(static_cast<int32_T>((rtb_RollAngle_c +
+        if (static_cast<boolean_T>(static_cast<int32_T>((rtb_RollAngle_d +
                 3.1415926535897931 > 0.0) & (c_fid == 0.0)))) {
             c_fid = 6.2831853071795862;
         }
 
-        rtb_RollAngle_c = c_fid - 3.1415926535897931;
+        rtb_RollAngle_d = c_fid - 3.1415926535897931;
     }
 
-    rtb_RollAngle_c = rt_atan2d_snf((std::sqrt(ClimbAngleLimit * ClimbAngleLimit
-        - fid_tmp) + -ClimbAngleLimit) * rtb_RollAngle_c, std::cos
-        (localX->Integrator_CSTATE[4] - (localX->Integrator_CSTATE[4] - std::
+    rtb_RollAngle_d = rt_atan2d_snf((std::sqrt(std::fmax(0.0, ClimbAngleLimit *
+        ClimbAngleLimit - fid_tmp)) + -ClimbAngleLimit) * rtb_RollAngle_d, std::
+        cos(localX->Integrator_CSTATE[4] - (localX->Integrator_CSTATE[4] - std::
         asin(b_fid * localDW->FixedWingGuidanceEnvironmentBus_p.WindNorth * -std::
              sin(localX->Integrator_CSTATE[4]) + b_fid *
              localDW->FixedWingGuidanceEnvironmentBus_p.WindEast * c_fid_tmp))) *
@@ -4285,26 +4231,26 @@ void MissionUAV(RT_MODEL_MissionUAV_T * const MissionUAV_M, const real_T
     // '<S9>:1:9'
     fid = localDW->dotBankTD * 0.1;
 
-    // Switch: '<S5>/Switch2' incorporates:
-    //   RelationalOperator: '<S5>/LowerRelop1'
-    //   RelationalOperator: '<S5>/UpperRelop'
-    //   Switch: '<S5>/Switch'
+    // Switch: '<S6>/Switch2' incorporates:
+    //   RelationalOperator: '<S6>/LowerRelop1'
+    //   RelationalOperator: '<S6>/UpperRelop'
+    //   Switch: '<S6>/Switch'
 
     // '<S9>:1:10'
-    if (rtb_RollAngle_c > localDW->MinBankAng) {
-        rtb_RollAngle_c = localDW->MinBankAng;
-    } else if (rtb_RollAngle_c < localDW->Inverse) {
-        // Switch: '<S5>/Switch'
-        rtb_RollAngle_c = localDW->Inverse;
+    if (rtb_RollAngle_d > localDW->MinBankAng) {
+        rtb_RollAngle_d = localDW->MinBankAng;
+    } else if (rtb_RollAngle_d < localDW->Inverse) {
+        // Switch: '<S6>/Switch'
+        rtb_RollAngle_d = localDW->Inverse;
     }
 
-    // End of Switch: '<S5>/Switch2'
+    // End of Switch: '<S6>/Switch2'
 
     // MATLAB Function: '<S8>/fhan_Bank' incorporates:
     //   Integrator: '<S8>/TD_Bank'
     //   Sum: '<S8>/Sum1'
 
-    b_fid = (localX->TD_Bank_CSTATE - rtb_RollAngle_c) + fid;
+    b_fid = (localX->TD_Bank_CSTATE - rtb_RollAngle_d) + fid;
 
     // '<S9>:1:11'
     // '<S9>:1:12'
@@ -4370,42 +4316,42 @@ void MissionUAV(RT_MODEL_MissionUAV_T * const MissionUAV_M, const real_T
         ((ClimbAngleLimit - d_fid) / 2.0) - 2.0943951023931953 * b_fid;
 
     // SignalConversion generated from: '<Root>/SimUAVState' incorporates:
-    //   Integrator: '<S4>/Integrator'
+    //   Integrator: '<S5>/Integrator'
 
     *rty_SimUAVState_North = localX->Integrator_CSTATE[0];
 
     // SignalConversion generated from: '<Root>/SimUAVState' incorporates:
-    //   Integrator: '<S4>/Integrator'
+    //   Integrator: '<S5>/Integrator'
 
     *rty_SimUAVState_East = localX->Integrator_CSTATE[1];
 
     // SignalConversion generated from: '<Root>/SimUAVState' incorporates:
-    //   Integrator: '<S4>/Integrator'
+    //   Integrator: '<S5>/Integrator'
 
     *rty_SimUAVState_Height = localX->Integrator_CSTATE[2];
 
     // SignalConversion generated from: '<Root>/SimUAVState' incorporates:
-    //   Integrator: '<S4>/Integrator'
+    //   Integrator: '<S5>/Integrator'
 
     *rty_SimUAVState_AirSpeed = localX->Integrator_CSTATE[3];
 
     // SignalConversion generated from: '<Root>/SimUAVState' incorporates:
-    //   Integrator: '<S4>/Integrator'
+    //   Integrator: '<S5>/Integrator'
 
     *rty_SimUAVState_HeadingAngle = localX->Integrator_CSTATE[4];
 
     // SignalConversion generated from: '<Root>/SimUAVState' incorporates:
-    //   Integrator: '<S4>/Integrator'
+    //   Integrator: '<S5>/Integrator'
 
     *rty_SimUAVState_FlightPathAngle = localX->Integrator_CSTATE[5];
 
     // SignalConversion generated from: '<Root>/SimUAVState' incorporates:
-    //   Integrator: '<S4>/Integrator'
+    //   Integrator: '<S5>/Integrator'
 
     *rty_SimUAVState_RollAngle = localX->Integrator_CSTATE[6];
 
     // SignalConversion generated from: '<Root>/SimUAVState' incorporates:
-    //   Integrator: '<S4>/Integrator'
+    //   Integrator: '<S5>/Integrator'
 
     *rty_SimUAVState_RollAngleRate = localX->Integrator_CSTATE[7];
 }
@@ -4413,7 +4359,7 @@ void MissionUAV(RT_MODEL_MissionUAV_T * const MissionUAV_M, const real_T
 // Update for referenced model: 'MissionUAV'
 void MissionUAV_Update(DW_MissionUAV_f_T *localDW)
 {
-    // Update for Integrator: '<S4>/Integrator'
+    // Update for Integrator: '<S5>/Integrator'
     localDW->Integrator_IWORK = 0;
 }
 
@@ -4421,10 +4367,10 @@ void MissionUAV_Update(DW_MissionUAV_f_T *localDW)
 void MissionUAV_Deriv(const real_T *rtu_ResetState, DW_MissionUAV_f_T *localDW,
                       XDot_MissionUAV_n_T *localXdot)
 {
-    // Derivatives for Integrator: '<S4>/Integrator' incorporates:
+    // Derivatives for Integrator: '<S5>/Integrator' incorporates:
     //   Integrator: '<S8>/TD_Bank'
     //   Integrator: '<S8>/dotBankTD'
-    //   MATLABSystem: '<S4>/ComputeDerivative'
+    //   MATLABSystem: '<S5>/ComputeDerivative'
 
     if (*rtu_ResetState == 0.0) {
         std::memcpy(&localXdot->Integrator_CSTATE[0],
@@ -4444,7 +4390,7 @@ void MissionUAV_Deriv(const real_T *rtu_ResetState, DW_MissionUAV_f_T *localDW,
         localXdot->dotBankTD_CSTATE = 0.0;
     }
 
-    // End of Derivatives for Integrator: '<S4>/Integrator'
+    // End of Derivatives for Integrator: '<S5>/Integrator'
 }
 
 // Model initialize function

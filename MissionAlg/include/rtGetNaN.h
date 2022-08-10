@@ -1,11 +1,11 @@
 //
 // File: rtGetNaN.h
 //
-// Code generated for Simulink model 'MissionUAV'.
+// Code generated for Simulink model 'DeSerOtherUAV'.
 //
-// Model version                  : 3.8
+// Model version                  : 4.339
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Mon Jul 25 10:03:28 2022
+// C/C++ source code generated on : Wed Aug 10 13:58:08 2022
 //
 #ifndef RTW_HEADER_rtGetNaN_h_
 #define RTW_HEADER_rtGetNaN_h_

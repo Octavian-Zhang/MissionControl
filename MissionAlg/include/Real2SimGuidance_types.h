@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'Real2SimGuidance'.
 //
-// Model version                  : 4.175
+// Model version                  : 4.188
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Mon Jul 25 10:07:06 2022
+// C/C++ source code generated on : Wed Aug 10 14:01:28 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -172,7 +172,7 @@ struct FlightLogging
 
 #endif
 
-// Custom Type definition for MATLAB Function: '<S98>/getSpeedLimit'
+// Custom Type definition for MATLAB Function: '<S97>/getSpeedLimit'
 #include <stdio.h>
 
 // Custom Type definition for MATLAB Function: '<S15>/getLAPGainBias'
@@ -199,7 +199,7 @@ struct
 #endif
 // struct_robotics_slcore_internal_block_CoordinateTransformationConversion_Real2SimGuidance_T 
 
-// Custom Type definition for MATLAB Function: '<S98>/getSpeedLimit'
+// Custom Type definition for MATLAB Function: '<S97>/getSpeedLimit'
 #ifndef struct_uavDubinsConnection_Real2SimGuidance_T
 #define struct_uavDubinsConnection_Real2SimGuidance_T
 
@@ -250,13 +250,13 @@ struct nav_slalgs_internal_VectorFieldHistogram_Real2SimGuidance_T
     real_T CurrentDirectionWeight;
     real_T PreviousDirectionWeight;
     real_T HistogramThresholds[2];
-    real_T PolarObstacleDensity[180];
-    boolean_T BinaryHistogram[180];
-    boolean_T MaskedHistogram[180];
+    real_T PolarObstacleDensity[120];
+    boolean_T BinaryHistogram[120];
+    boolean_T MaskedHistogram[120];
     real_T PreviousDirection;
-    real_T AngularSectorMidPoints[180];
+    real_T AngularSectorMidPoints[120];
     real_T AngularDifference;
-    real_T AngularSectorStartPoints[180];
+    real_T AngularSectorStartPoints[120];
     real_T AngularLimits[2];
 };
 
@@ -308,7 +308,7 @@ struct uav_sluav_internal_system_WaypointFollower_Real2SimGuidance_T
 
 #endif  // struct_uav_sluav_internal_system_WaypointFollower_Real2SimGuidance_T
 
-// Custom Type definition for MATLAB Function: '<S98>/getSpeedLimit'
+// Custom Type definition for MATLAB Function: '<S97>/getSpeedLimit'
 #ifndef struct_DubinsObjSingleton_Real2SimGuidance_d_T
 #define struct_DubinsObjSingleton_Real2SimGuidance_d_T
 
