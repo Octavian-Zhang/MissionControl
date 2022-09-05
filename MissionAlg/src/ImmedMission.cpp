@@ -5,7 +5,7 @@
 //
 // Model version                  : 3.28
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Wed Aug 10 13:59:36 2022
+// C/C++ source code generated on : Mon Sep  5 17:30:08 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -114,46 +114,40 @@ real_T ImmedMission::ImmedMission_norm(const real_T x[3])
 }
 
 // System initialize for atomic system:
-void ImmedMission::ImmedMission_Altitude_Init(self_Altitude_ImmedMission_T
-    *ImmedMission_self_arg, const real_T rtu_0[4], const real_T rtu_1[6], real_T
-    rtu_2)
+void ImmedMission::ImmedMission_Altitude_Init(DW_Altitude_ImmedMission_T
+    *localDW)
 {
-    (void) (rtu_0);
-    (void) (rtu_1);
-    (void) (rtu_2);
-
     // Start for MATLABSystem: '<S112>/Altitude'
-    ImmedMission_self_arg->dwork.obj.LastWaypointFlag = false;
-    ImmedMission_self_arg->dwork.obj.StartFlag = true;
-    ImmedMission_self_arg->dwork.obj.LookaheadFactor = 1.01;
-    ImmedMission_self_arg->dwork.objisempty = true;
-    ImmedMission_self_arg->dwork.obj.isInitialized = 1;
+    localDW->obj.LastWaypointFlag = false;
+    localDW->obj.StartFlag = true;
+    localDW->obj.LookaheadFactor = 1.01;
+    localDW->objisempty = true;
+    localDW->obj.isInitialized = 1;
 
     // InitializeConditions for MATLABSystem: '<S112>/Altitude'
-    ImmedMission_self_arg->dwork.obj.WaypointIndex = 1.0;
+    localDW->obj.WaypointIndex = 1.0;
     for (int32_T i{0}; i < 6; i++) {
         // InitializeConditions for MATLABSystem: '<S112>/Altitude'
-        ImmedMission_self_arg->dwork.obj.WaypointsInternal[i] = (rtNaN);
+        localDW->obj.WaypointsInternal[i] = (rtNaN);
     }
 }
 
 // System reset for atomic system:
-void ImmedMission::ImmedMission_Altitude_Reset(self_Altitude_ImmedMission_T
-    *ImmedMission_self_arg)
+void ImmedMission::ImmedMission_Altitude_Reset(DW_Altitude_ImmedMission_T
+    *localDW)
 {
     // InitializeConditions for MATLABSystem: '<S112>/Altitude'
-    ImmedMission_self_arg->dwork.obj.WaypointIndex = 1.0;
+    localDW->obj.WaypointIndex = 1.0;
     for (int32_T i{0}; i < 6; i++) {
-        ImmedMission_self_arg->dwork.obj.WaypointsInternal[i] = (rtNaN);
+        localDW->obj.WaypointsInternal[i] = (rtNaN);
     }
 
     // End of InitializeConditions for MATLABSystem: '<S112>/Altitude'
 }
 
 // Output and update for atomic system:
-void ImmedMission::ImmedMission_Altitude(self_Altitude_ImmedMission_T
-    *ImmedMission_self_arg, const real_T rtu_0[4], const real_T rtu_1[6], real_T
-    rtu_2)
+void ImmedMission::ImmedMission_Altitude(const real_T rtu_0[4], const real_T
+    rtu_1[6], real_T rtu_2, DW_Altitude_ImmedMission_T *localDW)
 {
     real_T b_waypointsIn_data[6];
     real_T waypoints_data[6];
@@ -178,25 +172,24 @@ void ImmedMission::ImmedMission_Altitude(self_Altitude_ImmedMission_T
 
     // MATLABSystem: '<S112>/Altitude'
     lambda = rtu_2;
-    ImmedMission_self_arg->dwork.obj.LookaheadDistFlag = 0U;
+    localDW->obj.LookaheadDistFlag = 0U;
     if (rtu_2 < 0.1) {
         lambda = 0.1;
-        ImmedMission_self_arg->dwork.obj.LookaheadDistFlag = 1U;
+        localDW->obj.LookaheadDistFlag = 1U;
     }
 
-    ImmedMission_self_arg->dwork.obj.InitialPose[0] = 0.0;
-    ImmedMission_self_arg->dwork.obj.InitialPose[1] = 0.0;
-    ImmedMission_self_arg->dwork.obj.InitialPose[2] = 0.0;
-    ImmedMission_self_arg->dwork.obj.InitialPose[3] = 0.0;
+    localDW->obj.InitialPose[0] = 0.0;
+    localDW->obj.InitialPose[1] = 0.0;
+    localDW->obj.InitialPose[2] = 0.0;
+    localDW->obj.InitialPose[3] = 0.0;
     p = false;
     p_0 = true;
     b_k = 0;
     exitg1 = false;
     while ((!exitg1) && (b_k < 6)) {
-        if ((ImmedMission_self_arg->dwork.obj.WaypointsInternal[b_k] ==
-                rtu_1[b_k]) || (std::isnan
-                                (ImmedMission_self_arg->dwork.obj.WaypointsInternal
-                                 [b_k]) && std::isnan(rtu_1[b_k]))) {
+        if ((localDW->obj.WaypointsInternal[b_k] == rtu_1[b_k]) || (std::isnan
+                (localDW->obj.WaypointsInternal[b_k]) && std::isnan(rtu_1[b_k])))
+        {
             b_k = static_cast<int32_T>(b_k + 1);
         } else {
             p_0 = false;
@@ -211,10 +204,10 @@ void ImmedMission::ImmedMission_Altitude(self_Altitude_ImmedMission_T
     if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(p) ^ 1)))
     {
         for (b_k = 0; b_k < 6; b_k++) {
-            ImmedMission_self_arg->dwork.obj.WaypointsInternal[b_k] = rtu_1[b_k];
+            localDW->obj.WaypointsInternal[b_k] = rtu_1[b_k];
         }
 
-        ImmedMission_self_arg->dwork.obj.WaypointIndex = 1.0;
+        localDW->obj.WaypointIndex = 1.0;
     }
 
     b_waypointsIn_data[0] = rtu_1[1];
@@ -276,32 +269,29 @@ void ImmedMission::ImmedMission_Altitude(self_Altitude_ImmedMission_T
         }
     }
 
-    ImmedMission_self_arg->dwork.obj.NumWaypoints = static_cast<real_T>
-        (c_size_idx_0);
-    ImmedMission_self_arg->dwork.obj.LookaheadDistance = lambda;
+    localDW->obj.NumWaypoints = static_cast<real_T>(c_size_idx_0);
+    localDW->obj.LookaheadDistance = lambda;
     if (c_size_idx_0 == 0) {
         // MATLABSystem: '<S112>/Altitude'
-        ImmedMission_self_arg->dwork.Altitude_o1[0] = lambda * std::cos(rtu_0[3])
-            + rtu_0[0];
-        ImmedMission_self_arg->dwork.Altitude_o1[1] = lambda * std::sin(rtu_0[3])
-            + rtu_0[1];
-        ImmedMission_self_arg->dwork.Altitude_o1[2] = lambda * 0.0 + rtu_0[2];
+        localDW->Altitude_o1[0] = lambda * std::cos(rtu_0[3]) + rtu_0[0];
+        localDW->Altitude_o1[1] = lambda * std::sin(rtu_0[3]) + rtu_0[1];
+        localDW->Altitude_o1[2] = lambda * 0.0 + rtu_0[2];
 
         // MATLABSystem: '<S112>/Altitude'
-        ImmedMission_self_arg->dwork.HeadingAngle = rtu_0[3];
+        localDW->HeadingAngle = rtu_0[3];
 
         // MATLABSystem: '<S112>/Altitude'
-        ImmedMission_self_arg->dwork.Altitude_o5 = 1U;
+        localDW->Altitude_o5 = 1U;
     } else {
         boolean_T guard1{ false };
 
         guard1 = false;
         if (c_size_idx_0 == 1) {
-            if (ImmedMission_self_arg->dwork.obj.StartFlag) {
-                ImmedMission_self_arg->dwork.obj.InitialPose[0] = rtu_0[0];
-                ImmedMission_self_arg->dwork.obj.InitialPose[1] = rtu_0[1];
-                ImmedMission_self_arg->dwork.obj.InitialPose[2] = rtu_0[2];
-                ImmedMission_self_arg->dwork.obj.InitialPose[3] = rtu_0[3];
+            if (localDW->obj.StartFlag) {
+                localDW->obj.InitialPose[0] = rtu_0[0];
+                localDW->obj.InitialPose[1] = rtu_0[1];
+                localDW->obj.InitialPose[2] = rtu_0[2];
+                localDW->obj.InitialPose[3] = rtu_0[3];
             }
 
             b_waypointsIn[0] = b_waypointsIn_data[0] - rtu_0[0];
@@ -309,29 +299,26 @@ void ImmedMission::ImmedMission_Altitude(self_Altitude_ImmedMission_T
             b_waypointsIn[2] = b_waypointsIn_data[2] - rtu_0[2];
             if (ImmedMission_norm(b_waypointsIn) < 1.4901161193847656E-8) {
                 // MATLABSystem: '<S112>/Altitude'
-                ImmedMission_self_arg->dwork.Altitude_o1[0] = lambda * std::cos
-                    (rtu_0[3]) + rtu_0[0];
-                ImmedMission_self_arg->dwork.Altitude_o1[1] = lambda * std::sin
-                    (rtu_0[3]) + rtu_0[1];
-                ImmedMission_self_arg->dwork.Altitude_o1[2] = lambda * 0.0 +
-                    rtu_0[2];
+                localDW->Altitude_o1[0] = lambda * std::cos(rtu_0[3]) + rtu_0[0];
+                localDW->Altitude_o1[1] = lambda * std::sin(rtu_0[3]) + rtu_0[1];
+                localDW->Altitude_o1[2] = lambda * 0.0 + rtu_0[2];
 
                 // MATLABSystem: '<S112>/Altitude'
-                ImmedMission_self_arg->dwork.HeadingAngle = rtu_0[3];
+                localDW->HeadingAngle = rtu_0[3];
 
                 // MATLABSystem: '<S112>/Altitude'
-                ImmedMission_self_arg->dwork.Altitude_o5 = 1U;
-                ImmedMission_self_arg->dwork.obj.StartFlag = false;
+                localDW->Altitude_o5 = 1U;
+                localDW->obj.StartFlag = false;
             } else {
-                ImmedMission_self_arg->dwork.obj.StartFlag = false;
-                ImmedMission_self_arg->dwork.obj.NumWaypoints = 2.0;
+                localDW->obj.StartFlag = false;
+                localDW->obj.NumWaypoints = 2.0;
                 waypoints_size_idx_0 = static_cast<int32_T>(c_size_idx_0 + 1);
                 for (b_k = 0; b_k < 3; b_k++) {
                     int32_T waypoints_data_tmp;
                     waypoints_data_tmp = static_cast<int32_T>
                         (static_cast<int32_T>(c_size_idx_0 + 1) * b_k);
                     waypoints_data[waypoints_data_tmp] =
-                        ImmedMission_self_arg->dwork.obj.InitialPose[b_k];
+                        localDW->obj.InitialPose[b_k];
                     for (i1 = 0; i1 <= static_cast<int32_T>(c_size_idx_0 - 1);
                             i1++) {
                         waypoints_data[static_cast<int32_T>(static_cast<int32_T>
@@ -364,72 +351,64 @@ void ImmedMission::ImmedMission_Altitude(self_Altitude_ImmedMission_T
             boolean_T guard2{ false };
 
             p = false;
-            if (ImmedMission_self_arg->dwork.obj.WaypointIndex ==
-                    ImmedMission_self_arg->dwork.obj.NumWaypoints) {
+            if (localDW->obj.WaypointIndex == localDW->obj.NumWaypoints) {
                 p = true;
             }
 
             if (p) {
-                ImmedMission_self_arg->dwork.obj.LastWaypointFlag = true;
-                ImmedMission_self_arg->dwork.obj.WaypointIndex--;
+                localDW->obj.LastWaypointFlag = true;
+                localDW->obj.WaypointIndex--;
             }
 
             rtu_0_0[0] = rtu_0[0] - waypoints_data[static_cast<int32_T>(
-                static_cast<int32_T>
-                (ImmedMission_self_arg->dwork.obj.WaypointIndex + 1.0) - 1)];
+                static_cast<int32_T>(localDW->obj.WaypointIndex + 1.0) - 1)];
             rtu_0_0[1] = rtu_0[1] - waypoints_data[static_cast<int32_T>(
                 static_cast<int32_T>(static_cast<int32_T>
-                (ImmedMission_self_arg->dwork.obj.WaypointIndex + 1.0) +
-                waypoints_size_idx_0) - 1)];
+                (localDW->obj.WaypointIndex + 1.0) + waypoints_size_idx_0) - 1)];
             rtu_0_0[2] = rtu_0[2] - waypoints_data[static_cast<int32_T>(
                 static_cast<int32_T>(static_cast<int32_T>
-                (ImmedMission_self_arg->dwork.obj.WaypointIndex + 1.0) +
-                static_cast<int32_T>(waypoints_size_idx_0 << 1)) - 1)];
+                (localDW->obj.WaypointIndex + 1.0) + static_cast<int32_T>
+                (waypoints_size_idx_0 << 1)) - 1)];
             guard2 = false;
             if (ImmedMission_norm(rtu_0_0) <= 30.0) {
                 guard2 = true;
             } else {
                 r_idx_0 = waypoints_data[static_cast<int32_T>
-                    (static_cast<int32_T>
-                     (ImmedMission_self_arg->dwork.obj.WaypointIndex + 1.0) - 1)];
+                    (static_cast<int32_T>(localDW->obj.WaypointIndex + 1.0) - 1)];
                 b_waypointsIn[0] = rtu_0[0] - r_idx_0;
                 rtu_0_0[0] = r_idx_0 - waypoints_data[static_cast<int32_T>(
-                    static_cast<int32_T>
-                    (ImmedMission_self_arg->dwork.obj.WaypointIndex) - 1)];
+                    static_cast<int32_T>(localDW->obj.WaypointIndex) - 1)];
                 r_idx_0 = waypoints_data[static_cast<int32_T>
                     (static_cast<int32_T>(static_cast<int32_T>
-                      (ImmedMission_self_arg->dwork.obj.WaypointIndex + 1.0) +
-                      waypoints_size_idx_0) - 1)];
+                      (localDW->obj.WaypointIndex + 1.0) + waypoints_size_idx_0)
+                     - 1)];
                 b_waypointsIn[1] = rtu_0[1] - r_idx_0;
                 rtu_0_0[1] = r_idx_0 - waypoints_data[static_cast<int32_T>(
                     static_cast<int32_T>(static_cast<int32_T>
-                    (ImmedMission_self_arg->dwork.obj.WaypointIndex) +
-                    waypoints_size_idx_0) - 1)];
+                    (localDW->obj.WaypointIndex) + waypoints_size_idx_0) - 1)];
                 r_idx_2 = waypoints_data[static_cast<int32_T>
                     (static_cast<int32_T>(static_cast<int32_T>
-                      (ImmedMission_self_arg->dwork.obj.WaypointIndex + 1.0) +
-                      static_cast<int32_T>(waypoints_size_idx_0 << 1)) - 1)];
+                      (localDW->obj.WaypointIndex + 1.0) + static_cast<int32_T>
+                      (waypoints_size_idx_0 << 1)) - 1)];
                 b_waypointsIn[2] = rtu_0[2] - r_idx_2;
                 rtu_0_tmp = waypoints_data[static_cast<int32_T>
                     (static_cast<int32_T>(static_cast<int32_T>
                       (waypoints_size_idx_0 << 1) + static_cast<int32_T>
-                      (ImmedMission_self_arg->dwork.obj.WaypointIndex)) - 1)];
+                      (localDW->obj.WaypointIndex)) - 1)];
                 rtu_0_0[2] = r_idx_2 - rtu_0_tmp;
                 lambda = ImmedMission_norm(rtu_0_0);
                 b_0 = ImmedMission_norm(b_waypointsIn);
                 waypoints_tmp = waypoints_data[static_cast<int32_T>(static_cast<
-                    int32_T>(ImmedMission_self_arg->dwork.obj.WaypointIndex) - 1)];
+                    int32_T>(localDW->obj.WaypointIndex) - 1)];
                 r_idx_0 = waypoints_data[static_cast<int32_T>
-                    (static_cast<int32_T>
-                     (ImmedMission_self_arg->dwork.obj.WaypointIndex + 1.0) - 1)];
+                    (static_cast<int32_T>(localDW->obj.WaypointIndex + 1.0) - 1)];
                 waypoints_tmp_0 = waypoints_data[static_cast<int32_T>(
                     static_cast<int32_T>(static_cast<int32_T>
-                    (ImmedMission_self_arg->dwork.obj.WaypointIndex) +
-                    waypoints_size_idx_0) - 1)];
+                    (localDW->obj.WaypointIndex) + waypoints_size_idx_0) - 1)];
                 r_idx_1 = waypoints_data[static_cast<int32_T>
                     (static_cast<int32_T>(static_cast<int32_T>
-                      (ImmedMission_self_arg->dwork.obj.WaypointIndex + 1.0) +
-                      waypoints_size_idx_0) - 1)];
+                      (localDW->obj.WaypointIndex + 1.0) + waypoints_size_idx_0)
+                     - 1)];
                 lambda = ((r_idx_0 - waypoints_tmp) / lambda * (b_waypointsIn[0]
                            / b_0) + (r_idx_1 - waypoints_tmp_0) / lambda *
                           (b_waypointsIn[1] / b_0)) + (r_idx_2 - rtu_0_tmp) /
@@ -454,40 +433,36 @@ void ImmedMission::ImmedMission_Altitude(self_Altitude_ImmedMission_T
             }
 
             if (guard2) {
-                ImmedMission_self_arg->dwork.obj.WaypointIndex++;
+                localDW->obj.WaypointIndex++;
                 p = false;
-                if (ImmedMission_self_arg->dwork.obj.WaypointIndex ==
-                        ImmedMission_self_arg->dwork.obj.NumWaypoints) {
+                if (localDW->obj.WaypointIndex == localDW->obj.NumWaypoints) {
                     p = true;
                 }
 
                 if (p) {
-                    ImmedMission_self_arg->dwork.obj.LastWaypointFlag = true;
-                    ImmedMission_self_arg->dwork.obj.WaypointIndex--;
+                    localDW->obj.LastWaypointFlag = true;
+                    localDW->obj.WaypointIndex--;
                 }
 
                 b_waypointsIn[0] = waypoints_data[static_cast<int32_T>(
-                    static_cast<int32_T>
-                    (ImmedMission_self_arg->dwork.obj.WaypointIndex) - 1)];
+                    static_cast<int32_T>(localDW->obj.WaypointIndex) - 1)];
                 r_idx_0 = waypoints_data[static_cast<int32_T>
-                    (static_cast<int32_T>
-                     (ImmedMission_self_arg->dwork.obj.WaypointIndex + 1.0) - 1)];
+                    (static_cast<int32_T>(localDW->obj.WaypointIndex + 1.0) - 1)];
                 b_waypointsIn[1] = waypoints_data[static_cast<int32_T>(
                     static_cast<int32_T>(static_cast<int32_T>
-                    (ImmedMission_self_arg->dwork.obj.WaypointIndex) +
-                    waypoints_size_idx_0) - 1)];
+                    (localDW->obj.WaypointIndex) + waypoints_size_idx_0) - 1)];
                 r_idx_1 = waypoints_data[static_cast<int32_T>
                     (static_cast<int32_T>(static_cast<int32_T>
-                      (ImmedMission_self_arg->dwork.obj.WaypointIndex + 1.0) +
-                      waypoints_size_idx_0) - 1)];
+                      (localDW->obj.WaypointIndex + 1.0) + waypoints_size_idx_0)
+                     - 1)];
                 b_waypointsIn[2] = waypoints_data[static_cast<int32_T>(
                     static_cast<int32_T>(static_cast<int32_T>
                     (waypoints_size_idx_0 << 1) + static_cast<int32_T>
-                    (ImmedMission_self_arg->dwork.obj.WaypointIndex)) - 1)];
+                    (localDW->obj.WaypointIndex)) - 1)];
                 r_idx_2 = waypoints_data[static_cast<int32_T>
                     (static_cast<int32_T>(static_cast<int32_T>
-                      (ImmedMission_self_arg->dwork.obj.WaypointIndex + 1.0) +
-                      static_cast<int32_T>(waypoints_size_idx_0 << 1)) - 1)];
+                      (localDW->obj.WaypointIndex + 1.0) + static_cast<int32_T>
+                      (waypoints_size_idx_0 << 1)) - 1)];
             }
 
             waypoints_tmp = r_idx_0 - b_waypointsIn[0];
@@ -520,7 +495,7 @@ void ImmedMission::ImmedMission_Altitude(self_Altitude_ImmedMission_T
                 lambda = ImmedMission_norm(rtu_0_0);
             }
 
-            if (ImmedMission_self_arg->dwork.obj.LastWaypointFlag) {
+            if (localDW->obj.LastWaypointFlag) {
                 lambda = (((rtu_0[0] - b_waypointsIn[0]) * (r_idx_0 -
                             b_waypointsIn[0]) + (rtu_0[1] - b_waypointsIn[1]) *
                            (r_idx_1 - b_waypointsIn[1])) + (rtu_0[2] -
@@ -560,10 +535,10 @@ void ImmedMission::ImmedMission_Altitude(self_Altitude_ImmedMission_T
                 lambda_tmp = (rtNaN);
             }
 
-            if (ImmedMission_self_arg->dwork.obj.LookaheadDistance <= std::fmax
-                    (std::sqrt(b_0), 5.0 * lambda_tmp) + lambda) {
-                ImmedMission_self_arg->dwork.obj.LookaheadDistance =
-                    ImmedMission_self_arg->dwork.obj.LookaheadFactor * lambda;
+            if (localDW->obj.LookaheadDistance <= std::fmax(std::sqrt(b_0), 5.0 *
+                 lambda_tmp) + lambda) {
+                localDW->obj.LookaheadDistance = localDW->obj.LookaheadFactor *
+                    lambda;
             }
 
             lambda = b_waypointsIn[0] - rtu_0[0];
@@ -577,40 +552,40 @@ void ImmedMission::ImmedMission_Altitude(self_Altitude_ImmedMission_T
                    waypoints_tmp_1 * b_tmp_idx_2_tmp) * 2.0;
             lambda_tmp = std::sqrt(b_0 * b_0 - (((lambda * lambda + lambda_tmp *
                 lambda_tmp) + b_tmp_idx_2_tmp * b_tmp_idx_2_tmp) -
-                                    ImmedMission_self_arg->dwork.obj.LookaheadDistance
-                                    * ImmedMission_self_arg->dwork.obj.LookaheadDistance)
-                                   * (4.0 * rtu_0_tmp));
+                                    localDW->obj.LookaheadDistance *
+                                    localDW->obj.LookaheadDistance) * (4.0 *
+                                    rtu_0_tmp));
             lambda = std::fmax((-b_0 + lambda_tmp) / 2.0 / rtu_0_tmp, (-b_0 -
                                 lambda_tmp) / 2.0 / rtu_0_tmp);
             rtu_0_tmp = (1.0 - lambda) * b_waypointsIn[0] + lambda * r_idx_0;
 
             // MATLABSystem: '<S112>/Altitude'
-            ImmedMission_self_arg->dwork.Altitude_o1[0] = rtu_0_tmp;
+            localDW->Altitude_o1[0] = rtu_0_tmp;
             r_idx_0 = rtu_0_tmp;
             rtu_0_tmp = (1.0 - lambda) * b_waypointsIn[1] + lambda * r_idx_1;
 
             // MATLABSystem: '<S112>/Altitude'
-            ImmedMission_self_arg->dwork.Altitude_o1[1] = rtu_0_tmp;
-            ImmedMission_self_arg->dwork.Altitude_o1[2] = (1.0 - lambda) *
-                b_waypointsIn[2] + lambda * r_idx_2;
+            localDW->Altitude_o1[1] = rtu_0_tmp;
+            localDW->Altitude_o1[2] = (1.0 - lambda) * b_waypointsIn[2] + lambda
+                * r_idx_2;
 
             // MATLABSystem: '<S112>/Altitude'
-            ImmedMission_self_arg->dwork.HeadingAngle = rt_atan2d_snf(rtu_0_tmp
-                - rtu_0[1], r_idx_0 - rtu_0[0]);
+            localDW->HeadingAngle = rt_atan2d_snf(rtu_0_tmp - rtu_0[1], r_idx_0
+                - rtu_0[0]);
 
             // MATLABSystem: '<S112>/Altitude'
-            ImmedMission_self_arg->dwork.Altitude_o5 = 0U;
+            localDW->Altitude_o5 = 0U;
             p = false;
-            if (ImmedMission_self_arg->dwork.obj.LastWaypointFlag) {
+            if (localDW->obj.LastWaypointFlag) {
                 p = true;
             }
 
             if (p) {
                 // MATLABSystem: '<S112>/Altitude'
-                ImmedMission_self_arg->dwork.Altitude_o5 = 1U;
+                localDW->Altitude_o5 = 1U;
             }
 
-            ImmedMission_self_arg->dwork.obj.LastWaypointFlag = false;
+            localDW->obj.LastWaypointFlag = false;
         }
     }
 
@@ -619,20 +594,16 @@ void ImmedMission::ImmedMission_Altitude(self_Altitude_ImmedMission_T
 
 // System initialize for atomic system:
 void ImmedMission::ImmedMission_CoordinateTransformationConversion_Init
-    (self_CoordinateTransformationConversion_ImmedMission_T
-     *ImmedMission_self_arg, const real_T rtu_0[3])
+    (DW_CoordinateTransformationConversion_ImmedMission_T *localDW)
 {
-    (void) (rtu_0);
-
     // Start for MATLABSystem: '<S146>/Coordinate Transformation Conversion'
-    ImmedMission_self_arg->dwork.objisempty = true;
-    ImmedMission_self_arg->dwork.obj.isInitialized = 1;
+    localDW->objisempty = true;
+    localDW->obj.isInitialized = 1;
 }
 
 // Output and update for atomic system:
-void ImmedMission::ImmedMission_CoordinateTransformationConversion
-    (self_CoordinateTransformationConversion_ImmedMission_T
-     *ImmedMission_self_arg, const real_T rtu_0[3])
+void ImmedMission::ImmedMission_CoordinateTransformationConversion(const real_T
+    rtu_0[3], DW_CoordinateTransformationConversion_ImmedMission_T *localDW)
 {
     real_T out[9];
     real_T ct_idx_0;
@@ -664,8 +635,7 @@ void ImmedMission::ImmedMission_CoordinateTransformationConversion
     out[8] = ct_idx_1 * ct_idx_2;
 
     // MATLABSystem: '<S146>/Coordinate Transformation Conversion'
-    std::memcpy(&ImmedMission_self_arg->
-                dwork.CoordinateTransformationConversion[0], &out[0],
+    std::memcpy(&localDW->CoordinateTransformationConversion[0], &out[0],
                 static_cast<uint32_T>(9U * sizeof(real_T)));
 }
 
@@ -3890,12 +3860,6 @@ void ImmedMission::ImmedMission_binary_expand_op(emxArray_real_T_ImmedMission_T 
 void ImmedMission::init(boolean_T rty_ControlSwitch[2], FixedWingGuidanceBus
                         *rty_GuidanceCMD)
 {
-    // local block i/o variables
-    real_T rtb_TmpSignalConversionAtCoordinateTransformationConversionInport1[3];
-    real_T rtb_TmpSignalConversionAtCoordinateTransformationConversionInport1_e
-        [3];
-    real_T rtb_TmpSignalConversionAtAltitudeInport1[4];
-    real_T rtb_sqrt;
     FILE* a;
 
     // Start for SwitchCase: '<S1>/Switch Case'
@@ -3995,26 +3959,20 @@ void ImmedMission::init(boolean_T rty_ControlSwitch[2], FixedWingGuidanceBus
     // End of SystemInitialize for SubSystem: '<S112>/WayPointGen'
 
     // Constant: '<S112>/Constant'
-    ImmedMission_Altitude_Init(&self_Altitude,
-        rtb_TmpSignalConversionAtAltitudeInport1,
-        ImmedMission_DW.MatrixConcatenate, 50.0);
-    ImmedMission_Altitude_Init(&self_Heading,
-        rtb_TmpSignalConversionAtAltitudeInport1,
-        ImmedMission_DW.MatrixConcatenate, rtb_sqrt);
+    ImmedMission_Altitude_Init(&ImmedMission_DW.Altitude);
+    ImmedMission_Altitude_Init(&ImmedMission_DW.Heading);
 
     // End of SystemInitialize for SubSystem: '<S1>/Mode132_pAttack'
 
     // SystemInitialize for IfAction SubSystem: '<S1>/Mode254_ShiftEarthENU'
     ImmedMission_CoordinateTransformationConversion_Init
-        (&self_CoordinateTransformationConversion,
-         rtb_TmpSignalConversionAtCoordinateTransformationConversionInport1_e);
+        (&ImmedMission_DW.CoordinateTransformationConversion);
 
     // End of SystemInitialize for SubSystem: '<S1>/Mode254_ShiftEarthENU'
 
     // SystemInitialize for IfAction SubSystem: '<S1>/Mode253_ShiftBodyXYZ'
     ImmedMission_CoordinateTransformationConversion_Init
-        (&self_CoordinateTransformationConversion_j,
-         rtb_TmpSignalConversionAtCoordinateTransformationConversionInport1);
+        (&ImmedMission_DW.CoordinateTransformationConversion_j);
 
     // End of SystemInitialize for SubSystem: '<S1>/Mode253_ShiftBodyXYZ'
 
@@ -7166,8 +7124,8 @@ void ImmedMission::step(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
                 ImmedMission_PrevZCX.WayPointGen_Trig_ZCE = NEG_ZCSIG;
 
                 // End of SystemReset for SubSystem: '<S112>/WayPointGen'
-                ImmedMission_Altitude_Reset(&self_Altitude);
-                ImmedMission_Altitude_Reset(&self_Heading);
+                ImmedMission_Altitude_Reset(&ImmedMission_DW.Altitude);
+                ImmedMission_Altitude_Reset(&ImmedMission_DW.Heading);
 
                 // End of SystemReset for SubSystem: '<S1>/Mode132_pAttack'
             }
@@ -7380,9 +7338,9 @@ void ImmedMission::step(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             }
 
             // End of Outputs for SubSystem: '<S112>/WayPointGen'
-            ImmedMission_Altitude(&self_Altitude,
-                                  rtb_TmpSignalConversionAtAltitudeInport1,
-                                  ImmedMission_DW.MatrixConcatenate, 50.0);
+            ImmedMission_Altitude(rtb_TmpSignalConversionAtAltitudeInport1,
+                                  ImmedMission_DW.MatrixConcatenate, 50.0,
+                                  &ImmedMission_DW.Altitude);
 
             // Sum: '<S113>/Sum' incorporates:
             //   Constant: '<S112>/Constant'
@@ -7417,17 +7375,16 @@ void ImmedMission::step(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             //   DotProduct: '<S113>/Dot Product'
 
             rtb_sqrt = std::sqrt(rtb_LatitudeGCS * rtb_LatitudeGCS + rtb_Down);
-            ImmedMission_Altitude(&self_Heading,
-                                  rtb_TmpSignalConversionAtAltitudeInport1,
-                                  ImmedMission_DW.MatrixConcatenate, rtb_sqrt);
+            ImmedMission_Altitude(rtb_TmpSignalConversionAtAltitudeInport1,
+                                  ImmedMission_DW.MatrixConcatenate, rtb_sqrt,
+                                  &ImmedMission_DW.Heading);
 
             // Switch: '<S112>/Switch' incorporates:
             //   Logic: '<S112>/AND'
 
             if (static_cast<boolean_T>(static_cast<int32_T>((static_cast<int32_T>
-                    (self_Altitude.dwork.Altitude_o5) != 0) &
-                    (static_cast<int32_T>(self_Heading.dwork.Altitude_o5) != 0))))
-            {
+                    (ImmedMission_DW.Altitude.Altitude_o5) != 0) & (static_cast<
+                    int32_T>(ImmedMission_DW.Heading.Altitude_o5) != 0)))) {
                 // DataTypeConversion: '<S112>/DoubleStatus' incorporates:
                 //   Constant: '<S112>/Attack'
 
@@ -7444,9 +7401,9 @@ void ImmedMission::step(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             // BusCreator: '<S112>/GuidanceCMDBusCreator' incorporates:
             //   Gain: '<S112>/Down2Height'
 
-            rty_GuidanceCMD->Height = -self_Altitude.dwork.Altitude_o1[2];
+            rty_GuidanceCMD->Height = -ImmedMission_DW.Altitude.Altitude_o1[2];
             rty_GuidanceCMD->AirSpeed = 0.0;
-            rty_GuidanceCMD->HeadingAngle = self_Heading.dwork.HeadingAngle;
+            rty_GuidanceCMD->HeadingAngle = ImmedMission_DW.Heading.HeadingAngle;
             rtb_Compare_lh = false;
             rty_ControlSwitch[0] = true;
             rty_ControlSwitch[1] = false;
@@ -7507,8 +7464,8 @@ void ImmedMission::step(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             rtb_TmpSignalConversionAtCoordinateTransformationConversionInport1_e[
                 2] = 0.0;
             ImmedMission_CoordinateTransformationConversion
-                (&self_CoordinateTransformationConversion,
-                 rtb_TmpSignalConversionAtCoordinateTransformationConversionInport1_e);
+                (rtb_TmpSignalConversionAtCoordinateTransformationConversionInport1_e,
+                 &ImmedMission_DW.CoordinateTransformationConversion);
 
             // Product: '<S146>/Product' incorporates:
             //   MATLABSystem: '<S146>/Coordinate Transformation Conversion'
@@ -7518,14 +7475,14 @@ void ImmedMission::step(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             for (nm1d2 = 0; nm1d2 < 3; nm1d2++) {
                 rtb_TmpSignalConversionAtOrbitFollowerInport2[nm1d2] = 0.0;
                 rtb_TmpSignalConversionAtOrbitFollowerInport2[nm1d2] +=
-                    self_CoordinateTransformationConversion.dwork.CoordinateTransformationConversion
+                    ImmedMission_DW.CoordinateTransformationConversion.CoordinateTransformationConversion
                     [iy] * rtu_MissionInput->StartPosition.Lat;
                 rtb_TmpSignalConversionAtOrbitFollowerInport2[nm1d2] +=
-                    self_CoordinateTransformationConversion.dwork.CoordinateTransformationConversion
+                    ImmedMission_DW.CoordinateTransformationConversion.CoordinateTransformationConversion
                     [static_cast<int32_T>(iy + 1)] *
                     rtu_MissionInput->StartPosition.Lon;
                 rtb_TmpSignalConversionAtOrbitFollowerInport2[nm1d2] +=
-                    self_CoordinateTransformationConversion.dwork.CoordinateTransformationConversion
+                    ImmedMission_DW.CoordinateTransformationConversion.CoordinateTransformationConversion
                     [static_cast<int32_T>(iy + 2)] *
                     rtu_MissionInput->StartPosition.Alt;
                 iy = static_cast<int32_T>(iy + 3);
@@ -7714,8 +7671,8 @@ void ImmedMission::step(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             rtb_TmpSignalConversionAtCoordinateTransformationConversionInport1[2]
                 = rtu_SimUAVstate->RollAngle;
             ImmedMission_CoordinateTransformationConversion
-                (&self_CoordinateTransformationConversion_j,
-                 rtb_TmpSignalConversionAtCoordinateTransformationConversionInport1);
+                (rtb_TmpSignalConversionAtCoordinateTransformationConversionInport1,
+                 &ImmedMission_DW.CoordinateTransformationConversion_j);
 
             // Product: '<S139>/Matrix Multiply' incorporates:
             //   MATLABSystem: '<S139>/Coordinate Transformation Conversion'
@@ -7724,14 +7681,14 @@ void ImmedMission::step(const FixedWingGuidanceStateBus *rtu_SimUAVstate, const
             for (iy = 0; iy < 3; iy++) {
                 rtb_Sum_o[iy] = 0.0;
                 rtb_Sum_o[iy] +=
-                    self_CoordinateTransformationConversion_j.dwork.CoordinateTransformationConversion
+                    ImmedMission_DW.CoordinateTransformationConversion_j.CoordinateTransformationConversion
                     [iy] * 0.0;
                 rtb_Sum_o[iy] +=
-                    self_CoordinateTransformationConversion_j.dwork.CoordinateTransformationConversion
+                    ImmedMission_DW.CoordinateTransformationConversion_j.CoordinateTransformationConversion
                     [static_cast<int32_T>(iy + 3)] *
                     rtu_MissionInput->StartPosition.Lon;
                 rtb_Sum_o[iy] +=
-                    self_CoordinateTransformationConversion_j.dwork.CoordinateTransformationConversion
+                    ImmedMission_DW.CoordinateTransformationConversion_j.CoordinateTransformationConversion
                     [static_cast<int32_T>(iy + 6)] *
                     rtu_MissionInput->StartPosition.Alt;
             }
@@ -8017,10 +7974,6 @@ void ImmedMission::initialize()
 ImmedMission::ImmedMission() :
     ImmedMission_DW(),
     ImmedMission_PrevZCX(),
-    self_CoordinateTransformationConversion_j(),
-    self_CoordinateTransformationConversion(),
-    self_Heading(),
-    self_Altitude(),
     ImmedMission_M()
 {
     // Currently there is no constructor body generated.

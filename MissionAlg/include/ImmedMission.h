@@ -5,7 +5,7 @@
 //
 // Model version                  : 3.28
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Wed Aug 10 13:59:36 2022
+// C/C++ source code generated on : Mon Sep  5 17:30:08 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -78,6 +78,14 @@ class ImmedMission final
 
     // Block signals and states (default storage) for model 'ImmedMission'
     struct DW_ImmedMission_T {
+        DW_CoordinateTransformationConversion_ImmedMission_T
+            CoordinateTransformationConversion_j;
+                               // '<S146>/Coordinate Transformation Conversion'
+        DW_CoordinateTransformationConversion_ImmedMission_T
+            CoordinateTransformationConversion;
+                               // '<S146>/Coordinate Transformation Conversion'
+        DW_Altitude_ImmedMission_T Heading;// '<S112>/Altitude'
+        DW_Altitude_ImmedMission_T Altitude;// '<S112>/Altitude'
         FILE* eml_openfiles[20];       // '<S64>/BaseWayPoint'
         uav_sluav_internal_system_WaypointFollower_ImmedMission_c_T obj;// '<S58>/Waypoint Follower' 
         uav_sluav_internal_system_OrbitFollower_ImmedMission_T obj_c;// '<S24>/Orbit Follower' 
@@ -144,16 +152,6 @@ class ImmedMission final
         const char_T **errorStatus;
     };
 
-    // model data, for system '<S112>/Altitude'
-    struct self_Altitude_ImmedMission_T {
-        DW_Altitude_ImmedMission_T dwork;
-    };
-
-    // model data, for system '<S146>/Coordinate Transformation Conversion'
-    struct self_CoordinateTransformationConversion_ImmedMission_T {
-        DW_CoordinateTransformationConversion_ImmedMission_T dwork;
-    };
-
     // model initialize function
     void initialize();
 
@@ -214,38 +212,18 @@ class ImmedMission final
     // Triggered events
     PrevZCX_ImmedMission_T ImmedMission_PrevZCX;
 
-    // model data
-    self_CoordinateTransformationConversion_ImmedMission_T
-        self_CoordinateTransformationConversion_j;
-
-    // model data
-    self_CoordinateTransformationConversion_ImmedMission_T
-        self_CoordinateTransformationConversion;
-
-    // model data
-    self_Altitude_ImmedMission_T self_Heading;
-
-    // model data
-    self_Altitude_ImmedMission_T self_Altitude;
-
     // private member function(s) for subsystem '<S112>/Altitude'
-    static void ImmedMission_Altitude_Init(self_Altitude_ImmedMission_T
-        *ImmedMission_self_arg, const real_T rtu_0[4], const real_T rtu_1[6],
-        real_T rtu_2);
-    static void ImmedMission_Altitude_Reset(self_Altitude_ImmedMission_T
-        *ImmedMission_self_arg);
-    void ImmedMission_Altitude(self_Altitude_ImmedMission_T
-        *ImmedMission_self_arg, const real_T rtu_0[4], const real_T rtu_1[6],
-        real_T rtu_2);
+    static void ImmedMission_Altitude_Init(DW_Altitude_ImmedMission_T *localDW);
+    static void ImmedMission_Altitude_Reset(DW_Altitude_ImmedMission_T *localDW);
+    void ImmedMission_Altitude(const real_T rtu_0[4], const real_T rtu_1[6],
+        real_T rtu_2, DW_Altitude_ImmedMission_T *localDW);
     real_T ImmedMission_norm(const real_T x[3]);
 
     // private member function(s) for subsystem '<S146>/Coordinate Transformation Conversion'
     static void ImmedMission_CoordinateTransformationConversion_Init
-        (self_CoordinateTransformationConversion_ImmedMission_T
-         *ImmedMission_self_arg, const real_T rtu_0[3]);
-    static void ImmedMission_CoordinateTransformationConversion
-        (self_CoordinateTransformationConversion_ImmedMission_T
-         *ImmedMission_self_arg, const real_T rtu_0[3]);
+        (DW_CoordinateTransformationConversion_ImmedMission_T *localDW);
+    static void ImmedMission_CoordinateTransformationConversion(const real_T
+        rtu_0[3], DW_CoordinateTransformationConversion_ImmedMission_T *localDW);
 
     // private member function(s) for subsystem '<S139>/DivisionByZeroProtection'
     static void ImmedMission_DivisionByZeroProtection(real_T rtu_HorizSpd,

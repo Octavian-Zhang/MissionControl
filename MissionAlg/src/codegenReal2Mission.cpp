@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 4.364
+// Model version                  : 4.366
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Wed Aug 10 14:09:29 2022
+// C/C++ source code generated on : Mon Sep  5 17:39:47 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -7952,7 +7952,7 @@ void codegenReal2MissionModelClass::step()
         rtb_MemoryPose[3] = codegenReal2Mission_DW.MemoryPose_PreviousInput[3];
 
         // ModelReference: '<S43>/PreemptableMissionModeSelector'
-        PreemptableMissionModeSelectorMDLOBJ0.step
+        PreemptableMissionModeSelectorMDLOBJ1.step
             (&codegenReal2Mission_DW.StartSim,
              &codegenReal2Mission_DW.ReceiveCurrentMission_o2.MissionMode,
              &rtb_Switch,
@@ -8155,7 +8155,7 @@ void codegenReal2MissionModelClass::step()
         //   Inport: '<Root>/FlightState'
         //   Outport: '<Root>/MissionFB'
 
-        ImmedMissionMDLOBJ3.step
+        ImmedMissionMDLOBJ4.step
             (&rtb_BusConversion_InsertedFor_ImmedMission_at_inport_0_BusCreator1,
              &codegenReal2Mission_DW.RcvImmedCMD_o2, &ANDAvoidDanger,
              &codegenReal2Mission_U.FlightState.RealUAVState,
@@ -9650,13 +9650,13 @@ void codegenReal2MissionModelClass::step()
                 rtb_intImmedStatus;
 
             // Update for Delay: '<S42>/Delay'
-            for (int_T idxDelay{0}; idxDelay < 59; idxDelay++) {
+            for (int_T idxDelay{0}; idxDelay < 155; idxDelay++) {
                 codegenReal2Mission_DW.Delay_DSTATE[idxDelay] =
                     codegenReal2Mission_DW.Delay_DSTATE[static_cast<int_T>
                     (idxDelay + 1)];
             }
 
-            codegenReal2Mission_DW.Delay_DSTATE[59] =
+            codegenReal2Mission_DW.Delay_DSTATE[155] =
                 codegenReal2Mission_DW.thisTaskStatus_g;
 
             // End of Update for Delay: '<S42>/Delay'
@@ -9928,9 +9928,9 @@ void codegenReal2MissionModelClass::initialize()
     // Model Initialize function for ModelReference Block: '<S43>/PreemptableMissionModeSelector' 
 
     // Set error status pointer for ModelReference Block: '<S43>/PreemptableMissionModeSelector' 
-    PreemptableMissionModeSelectorMDLOBJ0.setErrorStatusPointer
+    PreemptableMissionModeSelectorMDLOBJ1.setErrorStatusPointer
         (rtmGetErrorStatusPointer((&codegenReal2Mission_M)));
-    PreemptableMissionModeSelectorMDLOBJ0.initialize();
+    PreemptableMissionModeSelectorMDLOBJ1.initialize();
 
     // Model Initialize function for ModelReference Block: '<Root>/DeSerOtherUAV' 
 
@@ -9950,9 +9950,9 @@ void codegenReal2MissionModelClass::initialize()
     // Model Initialize function for ModelReference Block: '<S7>/ImmedMission'
 
     // Set error status pointer for ModelReference Block: '<S7>/ImmedMission'
-    ImmedMissionMDLOBJ3.setErrorStatusPointer(rtmGetErrorStatusPointer
+    ImmedMissionMDLOBJ4.setErrorStatusPointer(rtmGetErrorStatusPointer
         ((&codegenReal2Mission_M)));
-    ImmedMissionMDLOBJ3.initialize();
+    ImmedMissionMDLOBJ4.initialize();
 
     // Model Initialize function for ModelReference Block: '<S80>/Real2SimGuidance' 
     Real2SimGuidance_initialize(rtmGetErrorStatusPointer((&codegenReal2Mission_M)),
@@ -10071,7 +10071,7 @@ void codegenReal2MissionModelClass::initialize()
         // SystemInitialize for Atomic SubSystem: '<Root>/MissionLogic'
         // SystemInitialize for Atomic SubSystem: '<S42>/FlightMission'
         // SystemInitialize for ModelReference: '<S43>/PreemptableMissionModeSelector' 
-        PreemptableMissionModeSelectorMDLOBJ0.init
+        PreemptableMissionModeSelectorMDLOBJ1.init
             (&codegenReal2Mission_DW.PreemptableMissionModeSelector_o2,
              &codegenReal2Mission_DW.PreemptableMissionModeSelector_o3[0]);
 
@@ -10086,7 +10086,7 @@ void codegenReal2MissionModelClass::initialize()
         // End of SystemInitialize for SubSystem: '<S42>/FlightMission'
 
         // SystemInitialize for ModelReference generated from: '<S7>/ImmedMission' 
-        ImmedMissionMDLOBJ3.init(&codegenReal2Mission_DW.ImmedMission_o3[0],
+        ImmedMissionMDLOBJ4.init(&codegenReal2Mission_DW.ImmedMission_o3[0],
             &codegenReal2Mission_DW.ImmedMission_o4);
 
         // SystemInitialize for Enabled SubSystem: '<S4>/GenPCD'

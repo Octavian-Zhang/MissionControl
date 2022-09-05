@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 4.364
+// Model version                  : 4.366
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Wed Aug 10 14:09:29 2022
+// C/C++ source code generated on : Mon Sep  5 17:39:47 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -160,7 +160,7 @@ class codegenReal2MissionModelClass final
             [4];
         real_T SelectNorthEastRadius[192];// '<S11>/SelectNorthEastRadius'
         real_T PointCloud[2097152];    // '<S11>/InterpCircle'
-        real_T Delay_DSTATE[60];       // '<S42>/Delay'
+        real_T Delay_DSTATE[156];      // '<S42>/Delay'
         real_T RateTransition_Buf0[4096];// '<Root>/Rate Transition'
         real_T RateTransition_Buf1[4096];// '<Root>/Rate Transition'
         real_T RateTransition_Buf2[4096];// '<Root>/Rate Transition'
@@ -630,10 +630,10 @@ class codegenReal2MissionModelClass final
     void codegenReal2Mission_derivatives();
 
     // model instance variable for '<S43>/PreemptableMissionModeSelector'
-    FlightMissionMode PreemptableMissionModeSelectorMDLOBJ0;
+    FlightMissionMode PreemptableMissionModeSelectorMDLOBJ1;
 
     // model instance variable for '<S7>/ImmedMission'
-    ImmedMission ImmedMissionMDLOBJ3;
+    ImmedMission ImmedMissionMDLOBJ4;
 
     // model instance variable for '<Root>/DeSerOtherUAV'
     DeSerOtherUAV DeSerOtherUAVMDLOBJ1;

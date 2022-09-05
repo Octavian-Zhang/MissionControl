@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'FlightMissionMode'.
 //
-// Model version                  : 3.33
+// Model version                  : 3.37
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Wed Aug 10 14:05:40 2022
+// C/C++ source code generated on : Mon Sep  5 17:36:03 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -113,10 +113,16 @@ class FlightMissionMode final
     struct DW_FlightMissionMode_T {
         DW_WayPointGenerator_FlightMissionMode_T sf_WayPointGenerator_f;// '<S138>/WayPointGenerator' 
         DW_StartPointGenerator_FlightMissionMode_T sf_StartPointGenerator_k;// '<S138>/StartPointGenerator' 
+        DW_RotateATMissionHdg_FlightMissionMode_T RotateATRunWayHdg_k;// '<S38>/RotateATMissionHdg' 
+        DW_RotateATMissionHdg_FlightMissionMode_T RotateATMissionHdg_k;// '<S38>/RotateATMissionHdg' 
         DW_SegmentSwitch_FlightMissionMode_T SegmentSwitch_p;// '<S133>/SegmentSwitch' 
         DW_WayPointGenerator_FlightMissionMode_T sf_WayPointGenerator_k;// '<S96>/WayPointGenerator' 
         DW_StartPointGenerator_FlightMissionMode_T sf_StartPointGenerator;// '<S96>/StartPointGenerator' 
+        DW_RotateATMissionHdg_FlightMissionMode_T RotateUpward;// '<S38>/RotateATMissionHdg' 
+        DW_RotateATMissionHdg_FlightMissionMode_T RotateATRunWayHdg;// '<S38>/RotateATMissionHdg' 
+        DW_RotateATMissionHdg_FlightMissionMode_T RotateATMissionHdg_m;// '<S38>/RotateATMissionHdg' 
         DW_SegmentSwitch_FlightMissionMode_T SegmentSwitch;// '<S91>/SegmentSwitch' 
+        DW_RotateATMissionHdg_FlightMissionMode_T RotateATMissionHdg;// '<S38>/RotateATMissionHdg' 
         FILE* eml_openfiles[20];       // '<S38>/WayPointGenerator'
         FILE* eml_openfiles_n[20];     // '<S181>/WayPointGenerator'
         uav_sluav_internal_system_WaypointFollower_FlightMissionMode_cc_T obj_j;// '<S179>/Waypoint Follower' 
@@ -136,7 +142,7 @@ class FlightMissionMode final
         real_T startPose_c[5];         // '<S96>/StartPointGenerator'
         real_T MergeLookAheadP_j[3];   // '<S95>/MergeLookAheadP'
         real_T nedWayPoint_o[24576];   // '<S38>/biasNED'
-        real_T Delay_DSTATE[200];      // '<S91>/Delay'
+        real_T Delay_DSTATE[24];       // '<S91>/Delay'
         real_T RotateRelPrevPos_DWORK4[9];// '<S38>/RotateRelPrevPos'
         real_T NED_WP_data[3072];
         real_T MAT[4096];
@@ -202,11 +208,6 @@ class FlightMissionMode final
         const char_T **errorStatus;
     };
 
-    // model data, for system '<S38>/RotateATMissionHdg'
-    struct self_RotateATMissionHdg_FlightMissionMode_T {
-        DW_RotateATMissionHdg_FlightMissionMode_T dwork;
-    };
-
     // model initialize function
     void initialize();
 
@@ -253,31 +254,11 @@ class FlightMissionMode final
     // Block states
     DW_FlightMissionMode_T FlightMissionMode_DW;
 
-    // model data
-    self_RotateATMissionHdg_FlightMissionMode_T self_RotateATRunWayHdg_k;
-
-    // model data
-    self_RotateATMissionHdg_FlightMissionMode_T self_RotateATMissionHdg_k;
-
-    // model data
-    self_RotateATMissionHdg_FlightMissionMode_T self_RotateUpward;
-
-    // model data
-    self_RotateATMissionHdg_FlightMissionMode_T self_RotateATRunWayHdg;
-
-    // model data
-    self_RotateATMissionHdg_FlightMissionMode_T self_RotateATMissionHdg_m;
-
-    // model data
-    self_RotateATMissionHdg_FlightMissionMode_T self_RotateATMissionHdg;
-
     // private member function(s) for subsystem '<S38>/RotateATMissionHdg'
     static void FlightMissionMode_RotateATMissionHdg_Init
-        (self_RotateATMissionHdg_FlightMissionMode_T *FlightMissionMode_self_arg,
-         const real_T rtu_0[3]);
-    static void FlightMissionMode_RotateATMissionHdg
-        (self_RotateATMissionHdg_FlightMissionMode_T *FlightMissionMode_self_arg,
-         const real_T rtu_0[3]);
+        (DW_RotateATMissionHdg_FlightMissionMode_T *localDW);
+    static void FlightMissionMode_RotateATMissionHdg(const real_T rtu_0[3],
+        DW_RotateATMissionHdg_FlightMissionMode_T *localDW);
 
     // private member function(s) for subsystem '<S122>/Waypoint Follower'
     static void FlightMissionMode_WaypointFollower_Init

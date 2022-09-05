@@ -5,7 +5,7 @@
 //
 // Model version                  : 3.15
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Wed Aug 10 13:59:40 2022
+// C/C++ source code generated on : Mon Sep  5 17:30:10 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -105,11 +105,11 @@ static void MissionUAV_Model_resetImpl
     obj->ModelImpl.Configuration.PDRoll[0] = 3402.9722249999991;
     obj->ModelImpl.Configuration.FlightPathAngleLimits[0] = -1.5707963267948966;
     obj->ModelImpl.Configuration.PDRoll[0] = 300.0;
-    obj->ModelImpl.Configuration.FlightPathAngleLimits[0] = -0.17453292519943295;
+    obj->ModelImpl.Configuration.FlightPathAngleLimits[0] = -0.3490658503988659;
     obj->ModelImpl.Configuration.PDRoll[1] = 116.66999999999999;
     obj->ModelImpl.Configuration.FlightPathAngleLimits[1] = 1.5707963267948966;
     obj->ModelImpl.Configuration.PDRoll[1] = 30.0;
-    obj->ModelImpl.Configuration.FlightPathAngleLimits[1] = 0.17453292519943295;
+    obj->ModelImpl.Configuration.FlightPathAngleLimits[1] = 0.3490658503988659;
 }
 
 static void MissionUAV_emxInit_char_T(emxArray_char_T_MissionUAV_T **pEmxArray,

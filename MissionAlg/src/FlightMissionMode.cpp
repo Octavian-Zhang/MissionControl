@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'FlightMissionMode'.
 //
-// Model version                  : 3.33
+// Model version                  : 3.37
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Wed Aug 10 14:05:40 2022
+// C/C++ source code generated on : Mon Sep  5 17:36:03 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -73,20 +73,16 @@ const FixedWingGuidanceBus FlightMissionMode_rtZFixedWingGuidanceBus{
 
 // System initialize for atomic system:
 void FlightMissionMode::FlightMissionMode_RotateATMissionHdg_Init
-    (self_RotateATMissionHdg_FlightMissionMode_T *FlightMissionMode_self_arg,
-     const real_T rtu_0[3])
+    (DW_RotateATMissionHdg_FlightMissionMode_T *localDW)
 {
-    (void) (rtu_0);
-
     // Start for MATLABSystem: '<S38>/RotateATMissionHdg'
-    FlightMissionMode_self_arg->dwork.objisempty = true;
-    FlightMissionMode_self_arg->dwork.obj.isInitialized = 1;
+    localDW->objisempty = true;
+    localDW->obj.isInitialized = 1;
 }
 
 // Output and update for atomic system:
-void FlightMissionMode::FlightMissionMode_RotateATMissionHdg
-    (self_RotateATMissionHdg_FlightMissionMode_T *FlightMissionMode_self_arg,
-     const real_T rtu_0[3])
+void FlightMissionMode::FlightMissionMode_RotateATMissionHdg(const real_T rtu_0
+    [3], DW_RotateATMissionHdg_FlightMissionMode_T *localDW)
 {
     real_T out[9];
     real_T ct_idx_0;
@@ -118,8 +114,8 @@ void FlightMissionMode::FlightMissionMode_RotateATMissionHdg
     out[8] = ct_idx_1 * ct_idx_2;
 
     // MATLABSystem: '<S38>/RotateATMissionHdg'
-    std::memcpy(&FlightMissionMode_self_arg->dwork.RotateATMissionHdg[0], &out[0],
-                static_cast<uint32_T>(9U * sizeof(real_T)));
+    std::memcpy(&localDW->RotateATMissionHdg[0], &out[0], static_cast<uint32_T>
+                (9U * sizeof(real_T)));
 }
 
 real_T FlightMissionMode::FlightMissionMode_norm(const real_T x[3])
@@ -23997,13 +23993,6 @@ void FlightMissionMode::FlightMissionMode_genSegWP_m(const real_T start[4],
 void FlightMissionMode::init(FixedWingGuidanceBus *rty_GuidanceCmds, real_T
     rty_InitialState[8])
 {
-    // local block i/o variables
-    real_T rtb_TmpSignalConversionAtRotateATRunWayHdgInport1[3];
-    real_T rtb_TmpSignalConversionAtRotateATMissionHdgInport1[3];
-    real_T rtb_TmpSignalConversionAtRotateUpwardInport1[3];
-    real_T rtb_TmpSignalConversionAtRotateATRunWayHdgInport1_l[3];
-    real_T rtb_TmpSignalConversionAtRotateATMissionHdgInport1_p[3];
-    real_T rtb_TmpSignalConversionAtRotateATMissionHdgInport1_i[3];
     FILE* a;
 
     // Start for SwitchCase: '<Root>/Switch Case'
@@ -24058,8 +24047,8 @@ void FlightMissionMode::init(FixedWingGuidanceBus *rty_GuidanceCmds, real_T
     }
 
     // End of SystemInitialize for MATLAB Function: '<S38>/WayPointGenerator'
-    FlightMissionMode_RotateATMissionHdg_Init(&self_RotateATMissionHdg,
-        rtb_TmpSignalConversionAtRotateATMissionHdgInport1_i);
+    FlightMissionMode_RotateATMissionHdg_Init
+        (&FlightMissionMode_DW.RotateATMissionHdg);
 
     // End of SystemInitialize for SubSystem: '<S34>/WayPointGenerator'
 
@@ -24088,12 +24077,11 @@ void FlightMissionMode::init(FixedWingGuidanceBus *rty_GuidanceCmds, real_T
     // SystemInitialize for MATLAB Function: '<S96>/WayPointGenerator'
     FlightMissionMode_WayPointGenerator_Init
         (&FlightMissionMode_DW.sf_WayPointGenerator_k);
-    FlightMissionMode_RotateATMissionHdg_Init(&self_RotateUpward,
-        rtb_TmpSignalConversionAtRotateUpwardInport1);
-    FlightMissionMode_RotateATMissionHdg_Init(&self_RotateATRunWayHdg,
-        rtb_TmpSignalConversionAtRotateATRunWayHdgInport1_l);
-    FlightMissionMode_RotateATMissionHdg_Init(&self_RotateATMissionHdg_m,
-        rtb_TmpSignalConversionAtRotateATMissionHdgInport1_p);
+    FlightMissionMode_RotateATMissionHdg_Init(&FlightMissionMode_DW.RotateUpward);
+    FlightMissionMode_RotateATMissionHdg_Init
+        (&FlightMissionMode_DW.RotateATRunWayHdg);
+    FlightMissionMode_RotateATMissionHdg_Init
+        (&FlightMissionMode_DW.RotateATMissionHdg_m);
 
     // End of SystemInitialize for SubSystem: '<S91>/WayPointGenerator'
 
@@ -24115,10 +24103,10 @@ void FlightMissionMode::init(FixedWingGuidanceBus *rty_GuidanceCmds, real_T
     // SystemInitialize for MATLAB Function: '<S138>/WayPointGenerator'
     FlightMissionMode_WayPointGenerator_Init
         (&FlightMissionMode_DW.sf_WayPointGenerator_f);
-    FlightMissionMode_RotateATMissionHdg_Init(&self_RotateATRunWayHdg_k,
-        rtb_TmpSignalConversionAtRotateATRunWayHdgInport1);
-    FlightMissionMode_RotateATMissionHdg_Init(&self_RotateATMissionHdg_k,
-        rtb_TmpSignalConversionAtRotateATMissionHdgInport1);
+    FlightMissionMode_RotateATMissionHdg_Init
+        (&FlightMissionMode_DW.RotateATRunWayHdg_k);
+    FlightMissionMode_RotateATMissionHdg_Init
+        (&FlightMissionMode_DW.RotateATMissionHdg_k);
 
     // End of SystemInitialize for SubSystem: '<S133>/WayPointGenerator'
 
@@ -25602,8 +25590,9 @@ void FlightMissionMode::step(const boolean_T *rtu_startFlight, const
                     rtb_Sum_k5;
                 rtb_TmpSignalConversionAtRotateATMissionHdgInport1_i[1] = 0.0;
                 rtb_TmpSignalConversionAtRotateATMissionHdgInport1_i[2] = 0.0;
-                FlightMissionMode_RotateATMissionHdg(&self_RotateATMissionHdg,
-                    rtb_TmpSignalConversionAtRotateATMissionHdgInport1_i);
+                FlightMissionMode_RotateATMissionHdg
+                    (rtb_TmpSignalConversionAtRotateATMissionHdgInport1_i,
+                     &FlightMissionMode_DW.RotateATMissionHdg);
 
                 // Reshape: '<S34>/Reshape2Row' incorporates:
                 //   Sum: '<S34>/RelPrevPos'
@@ -25617,7 +25606,8 @@ void FlightMissionMode::step(const boolean_T *rtu_startFlight, const
                 //   MATLABSystem: '<S38>/RotateATMissionHdg'
 
                 rt_mrdivide_U1d1x3_U2d3x3_Yd1x3_snf(rtb_ReshapeRowVecStartpose_d,
-                    self_RotateATMissionHdg.dwork.RotateATMissionHdg, u);
+                    FlightMissionMode_DW.RotateATMissionHdg.RotateATMissionHdg,
+                    u);
 
                 // MATLAB Function: '<S38>/WayPointGenerator' incorporates:
                 //   DataTypeConversion: '<S34>/Param2'
@@ -26130,16 +26120,16 @@ void FlightMissionMode::step(const boolean_T *rtu_startFlight, const
                         nrows = static_cast<int32_T>(rtb_Bias_f + i);
                         FlightMissionMode_DW.RotateIndivWayPoint_g[nrows] = 0.0;
                         FlightMissionMode_DW.RotateIndivWayPoint_g[nrows] +=
-                            self_RotateATMissionHdg.dwork.RotateATMissionHdg[i2]
-                            * FlightMissionMode_DW.WayPoint_p_m[rtb_Bias_f];
+                            FlightMissionMode_DW.RotateATMissionHdg.RotateATMissionHdg
+                            [i2] * FlightMissionMode_DW.WayPoint_p_m[rtb_Bias_f];
                         FlightMissionMode_DW.RotateIndivWayPoint_g[nrows] +=
-                            self_RotateATMissionHdg.dwork.RotateATMissionHdg[
-                            static_cast<int32_T>(i2 + 1)] *
+                            FlightMissionMode_DW.RotateATMissionHdg.RotateATMissionHdg
+                            [static_cast<int32_T>(i2 + 1)] *
                             FlightMissionMode_DW.WayPoint_p_m
                             [static_cast<int32_T>(rtb_Bias_f + 8192)];
                         FlightMissionMode_DW.RotateIndivWayPoint_g[nrows] +=
-                            self_RotateATMissionHdg.dwork.RotateATMissionHdg[
-                            static_cast<int32_T>(i2 + 2)] *
+                            FlightMissionMode_DW.RotateATMissionHdg.RotateATMissionHdg
+                            [static_cast<int32_T>(i2 + 2)] *
                             FlightMissionMode_DW.WayPoint_p_m
                             [static_cast<int32_T>(rtb_Bias_f + 16384)];
                     }
@@ -26797,7 +26787,7 @@ void FlightMissionMode::step(const boolean_T *rtu_startFlight, const
                 //   Delay: '<S91>/Delay'
 
                 std::memset(&FlightMissionMode_DW.Delay_DSTATE[0], 0,
-                            static_cast<uint32_T>(200U * sizeof(real_T)));
+                            static_cast<uint32_T>(24U * sizeof(real_T)));
 
                 // End of InitializeConditions for SubSystem: '<Root>/Mode3_RunWayNav' 
 
@@ -27037,8 +27027,9 @@ void FlightMissionMode::step(const boolean_T *rtu_startFlight, const
                 rtb_TmpSignalConversionAtRotateUpwardInport1[0] = 0.0;
                 rtb_TmpSignalConversionAtRotateUpwardInport1[1] = -0.0;
                 rtb_TmpSignalConversionAtRotateUpwardInport1[2] = 0.0;
-                FlightMissionMode_RotateATMissionHdg(&self_RotateUpward,
-                    rtb_TmpSignalConversionAtRotateUpwardInport1);
+                FlightMissionMode_RotateATMissionHdg
+                    (rtb_TmpSignalConversionAtRotateUpwardInport1,
+                     &FlightMissionMode_DW.RotateUpward);
 
                 // SignalConversion generated from: '<S96>/RotateATRunWayHdg' incorporates:
                 //   Constant: '<S96>/Zero'
@@ -27047,8 +27038,9 @@ void FlightMissionMode::step(const boolean_T *rtu_startFlight, const
                     rtb_Sum_k5;
                 rtb_TmpSignalConversionAtRotateATRunWayHdgInport1_l[1] = 0.0;
                 rtb_TmpSignalConversionAtRotateATRunWayHdgInport1_l[2] = 0.0;
-                FlightMissionMode_RotateATMissionHdg(&self_RotateATRunWayHdg,
-                    rtb_TmpSignalConversionAtRotateATRunWayHdgInport1_l);
+                FlightMissionMode_RotateATMissionHdg
+                    (rtb_TmpSignalConversionAtRotateATRunWayHdgInport1_l,
+                     &FlightMissionMode_DW.RotateATRunWayHdg);
 
                 // SignalConversion generated from: '<S96>/RotateATMissionHdg' incorporates:
                 //   Constant: '<S96>/Zero'
@@ -27057,8 +27049,9 @@ void FlightMissionMode::step(const boolean_T *rtu_startFlight, const
                     rtb_AltitudeGCS_dj;
                 rtb_TmpSignalConversionAtRotateATMissionHdgInport1_p[1] = 0.0;
                 rtb_TmpSignalConversionAtRotateATMissionHdgInport1_p[2] = 0.0;
-                FlightMissionMode_RotateATMissionHdg(&self_RotateATMissionHdg_m,
-                    rtb_TmpSignalConversionAtRotateATMissionHdgInport1_p);
+                FlightMissionMode_RotateATMissionHdg
+                    (rtb_TmpSignalConversionAtRotateATMissionHdgInport1_p,
+                     &FlightMissionMode_DW.RotateATMissionHdg_m);
 
                 // Product: '<S96>/MatrixProduct' incorporates:
                 //   MATLABSystem: '<S96>/RotateATMissionHdg'
@@ -27072,18 +27065,20 @@ void FlightMissionMode::step(const boolean_T *rtu_startFlight, const
                         rtb_Bias_f = static_cast<int32_T>(nrowx + i);
                         tmp[rtb_Bias_f] = 0.0;
                         tmp[rtb_Bias_f] +=
-                            self_RotateATMissionHdg_m.dwork.RotateATMissionHdg[i]
-                            * self_RotateATRunWayHdg.dwork.RotateATMissionHdg[nrowx];
+                            FlightMissionMode_DW.RotateATMissionHdg_m.RotateATMissionHdg
+                            [i] *
+                            FlightMissionMode_DW.RotateATRunWayHdg.RotateATMissionHdg
+                            [nrowx];
                         tmp[rtb_Bias_f] +=
-                            self_RotateATMissionHdg_m.dwork.RotateATMissionHdg[
-                            static_cast<int32_T>(i + 1)] *
-                            self_RotateATRunWayHdg.dwork.RotateATMissionHdg[
-                            static_cast<int32_T>(nrowx + 3)];
+                            FlightMissionMode_DW.RotateATMissionHdg_m.RotateATMissionHdg
+                            [static_cast<int32_T>(i + 1)] *
+                            FlightMissionMode_DW.RotateATRunWayHdg.RotateATMissionHdg
+                            [static_cast<int32_T>(nrowx + 3)];
                         tmp[rtb_Bias_f] +=
-                            self_RotateATMissionHdg_m.dwork.RotateATMissionHdg[
-                            static_cast<int32_T>(i + 2)] *
-                            self_RotateATRunWayHdg.dwork.RotateATMissionHdg[
-                            static_cast<int32_T>(nrowx + 6)];
+                            FlightMissionMode_DW.RotateATMissionHdg_m.RotateATMissionHdg
+                            [static_cast<int32_T>(i + 2)] *
+                            FlightMissionMode_DW.RotateATRunWayHdg.RotateATMissionHdg
+                            [static_cast<int32_T>(nrowx + 6)];
                     }
 
                     i = static_cast<int32_T>(i + 3);
@@ -27098,14 +27093,15 @@ void FlightMissionMode::step(const boolean_T *rtu_startFlight, const
                         b_exponent = static_cast<int32_T>(nrowx + i);
                         rtb_MatrixConcatenate[b_exponent] = 0.0;
                         rtb_MatrixConcatenate[b_exponent] += tmp[i] *
-                            self_RotateUpward.dwork.RotateATMissionHdg[nrowx];
+                            FlightMissionMode_DW.RotateUpward.RotateATMissionHdg[
+                            nrowx];
                         rtb_MatrixConcatenate[b_exponent] += tmp
                             [static_cast<int32_T>(i + 1)] *
-                            self_RotateUpward.dwork.RotateATMissionHdg[
+                            FlightMissionMode_DW.RotateUpward.RotateATMissionHdg[
                             static_cast<int32_T>(nrowx + 3)];
                         rtb_MatrixConcatenate[b_exponent] += tmp
                             [static_cast<int32_T>(i + 2)] *
-                            self_RotateUpward.dwork.RotateATMissionHdg[
+                            FlightMissionMode_DW.RotateUpward.RotateATMissionHdg[
                             static_cast<int32_T>(nrowx + 6)];
                     }
 
@@ -27118,8 +27114,8 @@ void FlightMissionMode::step(const boolean_T *rtu_startFlight, const
                 //   DataTypeConversion: '<S91>/Param1'
 
                 rtb_LatitudeGCS_gv = FlightMissionMode_DW.startPose_c[0];
-                rtb_Abs1_n = FlightMissionMode_DW.startPose_c[1] - static_cast<
-                    real_T>(rtu_Parameters->Param1);
+                rtb_Abs1_n = FlightMissionMode_DW.startPose_c[1] -
+                    static_cast<real_T>(rtu_Parameters->Param1);
                 rtb_Sum1_k_idx_0 = FlightMissionMode_DW.startPose_c[2] -
                     rtb_Switch_lo;
 
@@ -27291,13 +27287,13 @@ void FlightMissionMode::step(const boolean_T *rtu_startFlight, const
             // Update for Delay: '<S91>/Delay' incorporates:
             //   DataTypeConversion: '<S91>/Cast To Double'
 
-            for (b_exponent = 0; b_exponent < 199; b_exponent++) {
+            for (b_exponent = 0; b_exponent < 23; b_exponent++) {
                 FlightMissionMode_DW.Delay_DSTATE[b_exponent] =
                     FlightMissionMode_DW.Delay_DSTATE[static_cast<int_T>
                     (b_exponent + 1)];
             }
 
-            FlightMissionMode_DW.Delay_DSTATE[199] = static_cast<real_T>
+            FlightMissionMode_DW.Delay_DSTATE[23] = static_cast<real_T>
                 (FlightMissionMode_DW.RunWayLineMode_k);
 
             // End of Update for Delay: '<S91>/Delay'
@@ -27586,8 +27582,9 @@ void FlightMissionMode::step(const boolean_T *rtu_startFlight, const
                 rtb_TmpSignalConversionAtRotateATRunWayHdgInport1[0] = a_0;
                 rtb_TmpSignalConversionAtRotateATRunWayHdgInport1[1] = 0.0;
                 rtb_TmpSignalConversionAtRotateATRunWayHdgInport1[2] = 0.0;
-                FlightMissionMode_RotateATMissionHdg(&self_RotateATRunWayHdg_k,
-                    rtb_TmpSignalConversionAtRotateATRunWayHdgInport1);
+                FlightMissionMode_RotateATMissionHdg
+                    (rtb_TmpSignalConversionAtRotateATRunWayHdgInport1,
+                     &FlightMissionMode_DW.RotateATRunWayHdg_k);
 
                 // Product: '<S138>/ProductFlipXbias' incorporates:
                 //   DataTypeConversion: '<S133>/Param1'
@@ -27661,8 +27658,9 @@ void FlightMissionMode::step(const boolean_T *rtu_startFlight, const
                     rtb_AltitudeGCS_dj;
                 rtb_TmpSignalConversionAtRotateATMissionHdgInport1[1] = 0.0;
                 rtb_TmpSignalConversionAtRotateATMissionHdgInport1[2] = 0.0;
-                FlightMissionMode_RotateATMissionHdg(&self_RotateATMissionHdg_k,
-                    rtb_TmpSignalConversionAtRotateATMissionHdgInport1);
+                FlightMissionMode_RotateATMissionHdg
+                    (rtb_TmpSignalConversionAtRotateATMissionHdgInport1,
+                     &FlightMissionMode_DW.RotateATMissionHdg_k);
 
                 // Product: '<S138>/RotateRunwayStartpose' incorporates:
                 //   MATLABSystem: '<S138>/RotateATRunWayHdg'
@@ -27671,15 +27669,15 @@ void FlightMissionMode::step(const boolean_T *rtu_startFlight, const
                 for (i2 = 0; i2 < 3; i2++) {
                     turnVector[i2] = 0.0;
                     turnVector[i2] +=
-                        self_RotateATRunWayHdg_k.dwork.RotateATMissionHdg[i] *
-                        FlightMissionMode_DW.ProductFlipStartPose[0];
+                        FlightMissionMode_DW.RotateATRunWayHdg_k.RotateATMissionHdg
+                        [i] * FlightMissionMode_DW.ProductFlipStartPose[0];
                     turnVector[i2] +=
-                        self_RotateATRunWayHdg_k.dwork.RotateATMissionHdg[
-                        static_cast<int32_T>(i + 1)] *
+                        FlightMissionMode_DW.RotateATRunWayHdg_k.RotateATMissionHdg
+                        [static_cast<int32_T>(i + 1)] *
                         FlightMissionMode_DW.ProductFlipStartPose[1];
                     turnVector[i2] +=
-                        self_RotateATRunWayHdg_k.dwork.RotateATMissionHdg[
-                        static_cast<int32_T>(i + 2)] *
+                        FlightMissionMode_DW.RotateATRunWayHdg_k.RotateATMissionHdg
+                        [static_cast<int32_T>(i + 2)] *
                         FlightMissionMode_DW.ProductFlipStartPose[2];
                     i = static_cast<int32_T>(i + 3);
                 }
@@ -27698,14 +27696,14 @@ void FlightMissionMode::step(const boolean_T *rtu_startFlight, const
                 for (i2 = 0; i2 < 3; i2++) {
                     rtb_ReshapeRowVecStartpose_d[i2] = 0.0;
                     rtb_ReshapeRowVecStartpose_d[i2] +=
-                        self_RotateATMissionHdg_k.dwork.RotateATMissionHdg[i] *
-                        rtb_LatitudeGCS_gv;
+                        FlightMissionMode_DW.RotateATMissionHdg_k.RotateATMissionHdg
+                        [i] * rtb_LatitudeGCS_gv;
                     rtb_ReshapeRowVecStartpose_d[i2] +=
-                        self_RotateATMissionHdg_k.dwork.RotateATMissionHdg[
-                        static_cast<int32_T>(i + 1)] * rtb_Abs1_n;
+                        FlightMissionMode_DW.RotateATMissionHdg_k.RotateATMissionHdg
+                        [static_cast<int32_T>(i + 1)] * rtb_Abs1_n;
                     rtb_ReshapeRowVecStartpose_d[i2] +=
-                        self_RotateATMissionHdg_k.dwork.RotateATMissionHdg[
-                        static_cast<int32_T>(i + 2)] * rtb_Sum1_k_idx_0;
+                        FlightMissionMode_DW.RotateATMissionHdg_k.RotateATMissionHdg
+                        [static_cast<int32_T>(i + 2)] * rtb_Sum1_k_idx_0;
                     i = static_cast<int32_T>(i + 3);
                 }
 
@@ -27766,14 +27764,14 @@ void FlightMissionMode::step(const boolean_T *rtu_startFlight, const
                             b_exponent = static_cast<int32_T>(i2 + i);
                             rtb_RotateRunway[b_exponent] = 0.0;
                             rtb_RotateRunway[b_exponent] +=
-                                self_RotateATRunWayHdg_k.dwork.RotateATMissionHdg
+                                FlightMissionMode_DW.RotateATRunWayHdg_k.RotateATMissionHdg
                                 [nrowx] * rtb_y_o[i];
                             rtb_RotateRunway[b_exponent] +=
-                                self_RotateATRunWayHdg_k.dwork.RotateATMissionHdg
+                                FlightMissionMode_DW.RotateATRunWayHdg_k.RotateATMissionHdg
                                 [static_cast<int32_T>(nrowx + 1)] * rtb_y_o[
                                 static_cast<int32_T>(i + 128)];
                             rtb_RotateRunway[b_exponent] +=
-                                self_RotateATRunWayHdg_k.dwork.RotateATMissionHdg
+                                FlightMissionMode_DW.RotateATRunWayHdg_k.RotateATMissionHdg
                                 [static_cast<int32_T>(nrowx + 2)] * rtb_y_o[
                                 static_cast<int32_T>(i + 256)];
                             i2 = static_cast<int32_T>(i2 + 128);
@@ -27798,14 +27796,14 @@ void FlightMissionMode::step(const boolean_T *rtu_startFlight, const
                             b_exponent = static_cast<int32_T>(i2 + i);
                             rtb_RotateIndivWayPoint[b_exponent] = 0.0;
                             rtb_RotateIndivWayPoint[b_exponent] +=
-                                self_RotateATMissionHdg_k.dwork.RotateATMissionHdg
+                                FlightMissionMode_DW.RotateATMissionHdg_k.RotateATMissionHdg
                                 [nrowx] * rtb_y_o[i];
                             rtb_RotateIndivWayPoint[b_exponent] +=
-                                self_RotateATMissionHdg_k.dwork.RotateATMissionHdg
+                                FlightMissionMode_DW.RotateATMissionHdg_k.RotateATMissionHdg
                                 [static_cast<int32_T>(nrowx + 1)] * rtb_y_o[
                                 static_cast<int32_T>(i + 128)];
                             rtb_RotateIndivWayPoint[b_exponent] +=
-                                self_RotateATMissionHdg_k.dwork.RotateATMissionHdg
+                                FlightMissionMode_DW.RotateATMissionHdg_k.RotateATMissionHdg
                                 [static_cast<int32_T>(nrowx + 2)] * rtb_y_o[
                                 static_cast<int32_T>(i + 256)];
                             i2 = static_cast<int32_T>(i2 + 128);
@@ -29317,12 +29315,6 @@ void FlightMissionMode::initialize()
 // Constructor
 FlightMissionMode::FlightMissionMode() :
     FlightMissionMode_DW(),
-    self_RotateATRunWayHdg_k(),
-    self_RotateATMissionHdg_k(),
-    self_RotateUpward(),
-    self_RotateATRunWayHdg(),
-    self_RotateATMissionHdg_m(),
-    self_RotateATMissionHdg(),
     FlightMissionMode_M()
 {
     // Currently there is no constructor body generated.
