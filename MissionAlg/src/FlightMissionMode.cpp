@@ -5,7 +5,7 @@
 //
 // Model version                  : 3.37
 // Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Mon Sep  5 17:36:03 2022
+// C/C++ source code generated on : Tue Sep  6 11:59:48 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -27025,7 +27025,8 @@ void FlightMissionMode::step(const boolean_T *rtu_startFlight, const
                 //   Constant: '<S96>/Zero'
 
                 rtb_TmpSignalConversionAtRotateUpwardInport1[0] = 0.0;
-                rtb_TmpSignalConversionAtRotateUpwardInport1[1] = -0.0;
+                rtb_TmpSignalConversionAtRotateUpwardInport1[1] =
+                    -0.034906585039886591;
                 rtb_TmpSignalConversionAtRotateUpwardInport1[2] = 0.0;
                 FlightMissionMode_RotateATMissionHdg
                     (rtb_TmpSignalConversionAtRotateUpwardInport1,
