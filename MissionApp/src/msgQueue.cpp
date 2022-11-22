@@ -1,7 +1,6 @@
 // Implementation of msgQueue class member functions
 
 #include "msgQueue.hpp"
-#include <errno.h>
 #include <stdlib.h>
 
 msgQueue::msgQueue(const char *name, int flags, int maxmsg, int msgsize) : qName_{name}

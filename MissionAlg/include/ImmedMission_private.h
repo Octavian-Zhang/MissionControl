@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'ImmedMission'.
 //
-// Model version                  : 3.28
-// Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Mon Sep  5 17:30:08 2022
+// Model version                  : 4.1
+// Simulink Coder version         : 9.8 (R2022b) 13-May-2022
+// C/C++ source code generated on : Mon Nov 21 19:16:39 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -20,6 +20,9 @@
 #define RTW_HEADER_ImmedMission_private_h_
 #include "rtwtypes.h"
 #include "zero_crossing_types.h"
+#include "ImmedMission_types.h"
+#include "MissionModes.h"
+#include "ImmedMission.h"
 
 // Macros for accessing real-time model data structure
 #ifndef rtmGetErrorStatus
@@ -37,12 +40,6 @@
 #ifndef rtmSetErrorStatusPointer
 #define rtmSetErrorStatusPointer(rtm, val) ((rtm)->errorStatus = (val))
 #endif
-
-// Imported (extern) states
-extern void* AltitudeGCS_m0;           // synthesized block
-extern void* LatitudeGCS_m0;           // synthesized block
-extern void* LongitudeGCS_m0;          // synthesized block
-
 #endif                                 // RTW_HEADER_ImmedMission_private_h_
 
 //

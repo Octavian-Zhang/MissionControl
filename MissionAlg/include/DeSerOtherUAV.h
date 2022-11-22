@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'DeSerOtherUAV'.
 //
-// Model version                  : 4.339
-// Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Mon Sep  5 17:28:26 2022
+// Model version                  : 5.1
+// Simulink Coder version         : 9.8 (R2022b) 13-May-2022
+// C/C++ source code generated on : Mon Nov 21 19:17:31 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -23,14 +23,18 @@
 #include "rtw_continuous.h"
 #include "rtw_solver.h"
 #include <stddef.h>
+#include "RecvData_RealUAVStateBusT.h"
 #include "DeSerOtherUAV_types.h"
+#include "DatalinkInterface.h"
 
-extern "C" {
+extern "C"
+{
 
 #include "rt_nonfinite.h"
 
 }
-    extern "C"
+
+extern "C"
 {
 
 #include "rtGetInf.h"

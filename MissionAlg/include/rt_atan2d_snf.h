@@ -1,11 +1,11 @@
 //
 // File: rt_atan2d_snf.h
 //
-// Code generated for Simulink model 'DeSerOtherUAV'.
+// Code generated for Simulink model 'MissionUAV'.
 //
-// Model version                  : 4.339
-// Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Mon Sep  5 17:28:26 2022
+// Model version                  : 4.1
+// Simulink Coder version         : 9.8 (R2022b) 13-May-2022
+// C/C++ source code generated on : Mon Nov 21 19:16:40 2022
 //
 #ifndef RTW_HEADER_rt_atan2d_snf_h_
 #define RTW_HEADER_rt_atan2d_snf_h_

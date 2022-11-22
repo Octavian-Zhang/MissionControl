@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'DeSerOtherUAV'.
 //
-// Model version                  : 4.339
-// Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Mon Sep  5 17:28:26 2022
+// Model version                  : 5.1
+// Simulink Coder version         : 9.8 (R2022b) 13-May-2022
+// C/C++ source code generated on : Mon Nov 21 19:17:31 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -19,27 +19,7 @@
 #ifndef RTW_HEADER_DeSerOtherUAV_types_h_
 #define RTW_HEADER_DeSerOtherUAV_types_h_
 #include "rtwtypes.h"
-
-// Model Code Variants
-#ifndef DEFINED_TYPEDEF_FOR_RealUAVStateBus_
-#define DEFINED_TYPEDEF_FOR_RealUAVStateBus_
-
-struct RealUAVStateBus
-{
-    int32_T UAV_ID;
-    real_T Latitude_deg;
-    real_T Longitude_deg;
-    real_T Height_meter;
-    real_T Altitude_meter;
-    real_T AirSpeed_mps;
-    real_T GndSpd_mps;
-    real_T HeadingAngle_deg;
-    real_T FlightPathAngle_deg;
-    real_T RollAngle_deg;
-};
-
-#endif
-
+#include "DatalinkInterface.h"
 #ifndef DEFINED_TYPEDEF_FOR_QueuePolicy_T_
 #define DEFINED_TYPEDEF_FOR_QueuePolicy_T_
 
@@ -70,21 +50,6 @@ struct Buffer_real_T
 {
     boolean_T fOccupied;
     Msg_real_T fMsg;
-};
-
-#endif
-
-#ifndef DEFINED_TYPEDEF_FOR_RecvData_RealUAVStateBusT_
-#define DEFINED_TYPEDEF_FOR_RecvData_RealUAVStateBusT_
-
-class RecvData_RealUAVStateBusT
-{
-  public:
-    virtual void RecvData(RealUAVStateBus *data, int32_T length, int32_T *status)
-        = 0;
-    virtual ~RecvData_RealUAVStateBusT()
-    {
-    }
 };
 
 #endif

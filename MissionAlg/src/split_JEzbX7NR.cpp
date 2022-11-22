@@ -1,18 +1,18 @@
 //
-// File: split_uvVAOGsE.cpp
+// File: split_JEzbX7NR.cpp
 //
 // Code generated for Simulink model 'Real2SimGuidance'.
 //
-// Model version                  : 4.188
-// Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Mon Sep  5 17:31:54 2022
+// Model version                  : 5.10
+// Simulink Coder version         : 9.8 (R2022b) 13-May-2022
+// C/C++ source code generated on : Mon Nov 21 19:19:22 2022
 //
 #include "rtwtypes.h"
-#include "split_uvVAOGsE.h"
+#include "split_JEzbX7NR.h"
 #include <cmath>
 
 // Function for MATLAB Function: '<Root>/TimeNow'
-creal_T split_uvVAOGsE(real_T a)
+creal_T split_JEzbX7NR(real_T a)
 {
     creal_T aout;
     if (std::abs(a) <= 6.69692879491417E+299) {

@@ -26,9 +26,9 @@
                                 make_column("RollAngle", &FixedWingGuidanceStateBus::RollAngle),                \
                                 make_column("RollAngleRate", &FixedWingGuidanceStateBus::RollAngleRate)),       \
                         make_table<FCUCMD>("FlightCMD",                                                         \
-                                make_column("Latitude_deg", &FCUCMD::Latitude_deg),                             \
-                                make_column("Longitude_deg", &FCUCMD::Longitude_deg),                           \
-                                make_column("Height_meter", &FCUCMD::Height_meter),                             \
+                                make_column("RefLatitude_deg", &FCUCMD::RefLatitude_deg),                       \
+                                make_column("RefLongitude_deg", &FCUCMD::RefLongitude_deg),                     \
+                                make_column("RefHeight_meter", &FCUCMD::RefHeight_meter),                       \
                                 make_column("RefHdg_deg", &FCUCMD::RefHdg_deg),                                 \
                                 make_column("RefAirSpd_mps", &FCUCMD::RefAirSpd_mps),                           \
                                 make_column("RefGndSpd_mps", &FCUCMD::RefGndSpd_mps)),                          \

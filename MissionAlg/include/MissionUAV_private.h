@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'MissionUAV'.
 //
-// Model version                  : 3.15
-// Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Mon Sep  5 17:30:10 2022
+// Model version                  : 4.1
+// Simulink Coder version         : 9.8 (R2022b) 13-May-2022
+// C/C++ source code generated on : Mon Nov 21 19:16:40 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -19,21 +19,8 @@
 #ifndef RTW_HEADER_MissionUAV_private_h_
 #define RTW_HEADER_MissionUAV_private_h_
 #include "rtwtypes.h"
-#include "model_reference_types.h"
 #include "zero_crossing_types.h"
-
-// Private macros used by the generated code to access rtModel
-#ifndef rtmIsFirstInitCond
-#define rtmIsFirstInitCond(rtm)        ( *((rtm)->timingBridge->firstInitCond) )
-#endif
-
-#ifndef rtmIsMajorTimeStep
-#define rtmIsMajorTimeStep(rtm)        ((rtmGetSimTimeStep((rtm))) == MAJOR_TIME_STEP)
-#endif
-
-#ifndef rtmIsMinorTimeStep
-#define rtmIsMinorTimeStep(rtm)        ((rtmGetSimTimeStep((rtm))) == MINOR_TIME_STEP)
-#endif
+#include "MissionUAV_types.h"
 
 // Macros for accessing real-time model data structure
 #ifndef rtmGetErrorStatus
@@ -50,38 +37,6 @@
 
 #ifndef rtmSetErrorStatusPointer
 #define rtmSetErrorStatusPointer(rtm, val) ((rtm)->errorStatus = (val))
-#endif
-
-#ifndef rtmGetSimTimeStep
-#define rtmGetSimTimeStep(rtm)         (*((rtm)->Timing.simTimeStep))
-#endif
-
-#ifndef rtmGetSimTimeStepPointer
-#define rtmGetSimTimeStepPointer(rtm)  (rtm)->Timing.simTimeStep
-#endif
-
-#ifndef rtmSetSimTimeStepPointer
-#define rtmSetSimTimeStepPointer(rtm, val) ((rtm)->Timing.simTimeStep = (val))
-#endif
-
-#ifndef rtmGetStopRequested
-#define rtmGetStopRequested(rtm)       (*((rtm)->Timing.stopRequestedFlag))
-#endif
-
-#ifndef rtmSetStopRequested
-#define rtmSetStopRequested(rtm, val)  (*((rtm)->Timing.stopRequestedFlag) = (val))
-#endif
-
-#ifndef rtmGetStopRequestedPtr
-#define rtmGetStopRequestedPtr(rtm)    ((rtm)->Timing.stopRequestedFlag)
-#endif
-
-#ifndef rtmSetStopRequestedPtr
-#define rtmSetStopRequestedPtr(rtm, val) ((rtm)->Timing.stopRequestedFlag = (val))
-#endif
-
-#ifndef rtmGetT
-#define rtmGetT(rtm)                   (*((rtm)->timingBridge->taskTime[0]))
 #endif
 #endif                                 // RTW_HEADER_MissionUAV_private_h_
 

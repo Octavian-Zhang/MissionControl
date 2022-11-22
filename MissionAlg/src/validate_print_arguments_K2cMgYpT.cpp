@@ -1,17 +1,17 @@
 //
-// File: validate_print_arguments_sA7pOmrf.cpp
+// File: validate_print_arguments_K2cMgYpT.cpp
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 4.366
-// Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Mon Sep  5 17:39:47 2022
+// Model version                  : 5.25
+// Simulink Coder version         : 9.8 (R2022b) 13-May-2022
+// C/C++ source code generated on : Mon Nov 21 19:28:33 2022
 //
 #include "rtwtypes.h"
-#include "validate_print_arguments_sA7pOmrf.h"
+#include "validate_print_arguments_K2cMgYpT.h"
 
-// Function for MATLAB Function: '<S38>/PrintOnboardLog'
-void validate_print_arguments_sA7pOmrf(int32_T varargin_1, int32_T varargin_2,
+// Function for MATLAB Function: '<S42>/PrintOnboardLog'
+void validate_print_arguments_K2cMgYpT(int32_T varargin_1, int32_T varargin_2,
     int32_T varargin_3, int32_T varargin_4, int32_T varargin_5, int32_T
     varargin_6, int32_T varargin_7, int32_T validatedArguments[7])
 {

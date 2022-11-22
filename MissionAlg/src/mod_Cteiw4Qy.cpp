@@ -1,23 +1,25 @@
 //
-// File: mod_d42kHWKw.cpp
+// File: mod_Cteiw4Qy.cpp
 //
 // Code generated for Simulink model 'FlightMissionMode'.
 //
-// Model version                  : 3.37
-// Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Mon Sep  5 17:36:03 2022
+// Model version                  : 4.33
+// Simulink Coder version         : 9.8 (R2022b) 13-May-2022
+// C/C++ source code generated on : Mon Nov 21 19:24:11 2022
 //
 #include "rtwtypes.h"
-#include "mod_d42kHWKw.h"
+#include "mod_Cteiw4Qy.h"
 #include <cmath>
 
-extern "C" {
+extern "C"
+{
 
 #include "rt_nonfinite.h"
 
 }
-// Function for MATLAB Function: '<S96>/StartPointGenerator'
-    real_T mod_d42kHWKw(real_T x)
+
+// Function for MATLAB Function: '<S77>/StartPointGenerator'
+real_T mod_Cteiw4Qy(real_T x)
 {
     real_T r;
     if (std::isnan(x)) {

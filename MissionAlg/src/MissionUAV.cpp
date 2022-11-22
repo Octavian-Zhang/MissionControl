@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'MissionUAV'.
 //
-// Model version                  : 3.15
-// Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Mon Sep  5 17:30:10 2022
+// Model version                  : 4.1
+// Simulink Coder version         : 9.8 (R2022b) 13-May-2022
+// C/C++ source code generated on : Mon Nov 21 19:16:40 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -19,95 +19,158 @@
 #include "MissionUAV.h"
 #include "rtwtypes.h"
 #include "MissionUAV_types.h"
-#include <cstring>
 #include <stdio.h>
 #include <cmath>
+#include <cstring>
 #include "rt_atan2d_snf.h"
 #include <stddef.h>
 #include <cstdlib>
+#include "zero_crossing_types.h"
 #include "MissionUAV_private.h"
 
-extern "C" {
+extern "C"
+{
 
 #include "rt_nonfinite.h"
 
 }
-// Forward declaration for local functions
-    static void MissionUAV_Model_resetImpl
-    (robotics_core_internal_system_navigation_Model_MissionUAV_T *obj);
 
+// Forward declaration for local functions
+static void MissionUAV_Model_resetImpl
+    (robotics_core_internal_system_navigation_Model_MissionUAV_T *obj);
 static void MissionUAV_emxInit_char_T(emxArray_char_T_MissionUAV_T **pEmxArray,
     int32_T numDimensions);
 static int8_T MissionUAV_filedata_h(DW_MissionUAV_f_T *localDW);
-static int8_T MissionUAV_cfopen_d(const char_T *cfilename, const char_T
+static int8_T MissionUAV_cfopen_b(const char_T *cfilename, const char_T
     *cpermission, DW_MissionUAV_f_T *localDW);
 static real_T MissionUAV_fileManager_c(DW_MissionUAV_f_T *localDW);
 static void MissionUAV_emxEnsureCapacity_char_T(emxArray_char_T_MissionUAV_T
     *emxArray, int32_T oldNumel);
-static void MissionUAV_fread_b(real_T fileID, emxArray_char_T_MissionUAV_T *A,
+static void MissionUAV_fread_j(real_T fileID, emxArray_char_T_MissionUAV_T *A,
     DW_MissionUAV_f_T *localDW);
-static void MissionUAV_emxFree_char_T(emxArray_char_T_MissionUAV_T **pEmxArray);
+static void MissionUAV_copysign(emxArray_char_T_MissionUAV_T *s1, int32_T *idx,
+    const emxArray_char_T_MissionUAV_T *s, int32_T *k, int32_T n, boolean_T
+    *foundsign, boolean_T *success);
+static boolean_T MissionUAV_isUnitImag(const emxArray_char_T_MissionUAV_T *s,
+    int32_T k, int32_T n);
+static void MissionUAV_readNonFinite(const emxArray_char_T_MissionUAV_T *s,
+    int32_T *k, int32_T n, boolean_T *b_finite, real_T *fv);
 static boolean_T MissionUAV_copydigits(emxArray_char_T_MissionUAV_T *s1, int32_T
     *idx, const emxArray_char_T_MissionUAV_T *s, int32_T *k, int32_T n,
     boolean_T allowpoint);
+static boolean_T MissionUAV_copyexponent(emxArray_char_T_MissionUAV_T *s1,
+    int32_T *idx, const emxArray_char_T_MissionUAV_T *s, int32_T *k, int32_T n);
 static void MissionUAV_readfloat(emxArray_char_T_MissionUAV_T *s1, int32_T *idx,
     const emxArray_char_T_MissionUAV_T *s, int32_T *k, int32_T n, boolean_T
-    allowimag, boolean_T *isimag, boolean_T *b_finite, real_T *nfv, boolean_T
-    *foundsign, boolean_T *success);
+    *isimag, boolean_T *b_finite, real_T *nfv, boolean_T *foundsign, boolean_T
+    *success);
+static void MissionUAV_emxFree_char_T(emxArray_char_T_MissionUAV_T **pEmxArray);
 static creal_T MissionUAV_str2double(const emxArray_char_T_MissionUAV_T *s);
-static int32_T MissionUAV_cfclose_e(real_T fid, DW_MissionUAV_f_T *localDW);
+static int32_T MissionUAV_cfclose_g(real_T fid, DW_MissionUAV_f_T *localDW);
+static void MissionUAV_strtok(const emxArray_char_T_MissionUAV_T *x,
+    emxArray_char_T_MissionUAV_T *token, emxArray_char_T_MissionUAV_T *remain);
+static void MissionUAV_strtok_l(const emxArray_char_T_MissionUAV_T *x,
+    emxArray_char_T_MissionUAV_T *token);
+static void MissionUAV_strtrim(const emxArray_char_T_MissionUAV_T *x,
+    emxArray_char_T_MissionUAV_T *y);
+static boolean_T MissionUAV_strcmp(const emxArray_char_T_MissionUAV_T *a);
+static boolean_T MissionUAV_strcmp_j(const emxArray_char_T_MissionUAV_T *a);
+static boolean_T MissionUAV_contains(const emxArray_char_T_MissionUAV_T *str);
+static void MissionUAV_find_token(const emxArray_char_T_MissionUAV_T *x, int32_T
+    *itoken, int32_T *iremain);
+static void MissionUAV_strtok_ls(const emxArray_char_T_MissionUAV_T *x,
+    emxArray_char_T_MissionUAV_T *token, emxArray_char_T_MissionUAV_T *remain);
+static void MissionUAV_readINI_o(emxArray_char_T_MissionUAV_T *ret,
+    DW_MissionUAV_f_T *localDW);
+static void MissionUAV_readINI_oa(emxArray_char_T_MissionUAV_T *ret,
+    DW_MissionUAV_f_T *localDW);
+static void MissionUAV_strtok_lse(const emxArray_char_T_MissionUAV_T *x,
+    emxArray_char_T_MissionUAV_T *token);
+static boolean_T MissionUAV_strcmp_jn(const emxArray_char_T_MissionUAV_T *a);
+static boolean_T MissionUAV_strcmp_jng(const emxArray_char_T_MissionUAV_T *a);
+static uavDubinsConnection_MissionUAV_T
+    *MissionUAV_uavDubinsConnection_uavDubinsConnection
+    (uavDubinsConnection_MissionUAV_T *b_this, real_T varargin_2, real_T
+     varargin_4);
 static int8_T MissionUAV_filedata(DW_MissionUAV_f_T *localDW);
 static int8_T MissionUAV_cfopen(const char_T *cfilename, const char_T
     *cpermission, DW_MissionUAV_f_T *localDW);
 static real_T MissionUAV_fileManager(DW_MissionUAV_f_T *localDW);
 static void MissionUAV_fread(real_T fileID, emxArray_char_T_MissionUAV_T *A,
     DW_MissionUAV_f_T *localDW);
-static void MissionUAV_strtok(const emxArray_char_T_MissionUAV_T *x,
-    emxArray_char_T_MissionUAV_T *token, emxArray_char_T_MissionUAV_T *remain);
+static boolean_T MissionUAV_strcmp_jngk(const emxArray_char_T_MissionUAV_T *a);
 static int32_T MissionUAV_cfclose(real_T fid, DW_MissionUAV_f_T *localDW);
-static void MissionUAV_strtok_b(const emxArray_char_T_MissionUAV_T *x,
-    emxArray_char_T_MissionUAV_T *token);
-static void MissionUAV_strtrim(const emxArray_char_T_MissionUAV_T *x,
-    emxArray_char_T_MissionUAV_T *y);
-static boolean_T MissionUAV_strcmp(const emxArray_char_T_MissionUAV_T *a);
-static boolean_T MissionUAV_strcmp_h(const emxArray_char_T_MissionUAV_T *a);
-static boolean_T MissionUAV_contains(const emxArray_char_T_MissionUAV_T *str);
-static void MissionUAV_find_token(const emxArray_char_T_MissionUAV_T *x, int32_T
-    *itoken, int32_T *iremain);
-static void MissionUAV_strtok_bd(const emxArray_char_T_MissionUAV_T *x,
-    emxArray_char_T_MissionUAV_T *token, emxArray_char_T_MissionUAV_T *remain);
-static void MissionUAV_readINI_bm(emxArray_char_T_MissionUAV_T *ret,
-    DW_MissionUAV_f_T *localDW);
-static void MissionUAV_readINI_bmo(emxArray_char_T_MissionUAV_T *ret,
-    DW_MissionUAV_f_T *localDW);
-static void MissionUAV_strtok_bdc(const emxArray_char_T_MissionUAV_T *x,
-    emxArray_char_T_MissionUAV_T *token);
-static boolean_T MissionUAV_strcmp_hh(const emxArray_char_T_MissionUAV_T *a);
-static boolean_T MissionUAV_strcmp_hh4(const emxArray_char_T_MissionUAV_T *a);
-static uavDubinsConnection_MissionUAV_T
-    *MissionUAV_uavDubinsConnection_uavDubinsConnection
-    (uavDubinsConnection_MissionUAV_T *b_this, real_T varargin_2, real_T
-     varargin_4);
 static void MissionUAV_readINI(emxArray_char_T_MissionUAV_T *ret,
     DW_MissionUAV_f_T *localDW);
-static void MissionUAV_readINI_b(emxArray_char_T_MissionUAV_T *ret,
+static void MissionUAV_readINI_k(emxArray_char_T_MissionUAV_T *ret,
     DW_MissionUAV_f_T *localDW);
-static boolean_T MissionUAV_strcmp_hh4i(const emxArray_char_T_MissionUAV_T *a);
+
+//
+// Outputs for atomic system:
+//    '<S8>/TD_Bank'
+//    '<S8>/dotBankTD'
+//
+void MissionUAV_TD_Bank(const real_T *rtu_Reset, real_T *rty_OutputY, real_T
+                        rtp_deltaT, DW_TD_Bank_MissionUAV_T *localDW,
+                        ZCE_TD_Bank_MissionUAV_T *localZCE)
+{
+    real_T rtb_Gain_b;
+    boolean_T rtb_NOT_a;
+
+    // Delay: '<S10>/DelayInput'
+    if (static_cast<boolean_T>(static_cast<int32_T>((rt_ZCFcn(ANY_ZERO_CROSSING,
+            &localZCE->DelayInput_Reset_ZCE,
+            (*rtu_Reset)) != NO_ZCEVENT) | (*rtu_Reset != 0.0)))) {
+        localDW->DelayInput_DSTATE = 0.0;
+    }
+
+    // Gain: '<S10>/Gain' incorporates:
+    //   Delay: '<S10>/DelayInput'
+
+    rtb_Gain_b = rtp_deltaT * localDW->DelayInput_DSTATE;
+
+    // Logic: '<S10>/NOT'
+    rtb_NOT_a = static_cast<boolean_T>(static_cast<int32_T>((*rtu_Reset != 0.0) ^
+        1));
+
+    // Delay: '<S10>/DelayOutput'
+    if (static_cast<boolean_T>(static_cast<int32_T>((rt_ZCFcn(ANY_ZERO_CROSSING,
+            &localZCE->DelayOutput_Reset_ZCE,
+            (*rtu_Reset)) != NO_ZCEVENT) | (*rtu_Reset != 0.0)))) {
+        localDW->DelayOutput_DSTATE = 0.0;
+    }
+
+    // Sum: '<S10>/AddY' incorporates:
+    //   Delay: '<S10>/DelayOutput'
+    //   Product: '<S10>/Product'
+
+    *rty_OutputY = rtb_Gain_b * static_cast<real_T>(rtb_NOT_a) +
+        localDW->DelayOutput_DSTATE;
+}
+
+//
+// Update for atomic system:
+//    '<S8>/TD_Bank'
+//    '<S8>/dotBankTD'
+//
+void MissionUAV_TD_Bank_Update(real_T rtu_InputU, real_T *rty_OutputY,
+    DW_TD_Bank_MissionUAV_T *localDW)
+{
+    // Update for Delay: '<S10>/DelayInput'
+    localDW->DelayInput_DSTATE = rtu_InputU;
+
+    // Update for Delay: '<S10>/DelayOutput'
+    localDW->DelayOutput_DSTATE = *rty_OutputY;
+}
+
 static void MissionUAV_Model_resetImpl
     (robotics_core_internal_system_navigation_Model_MissionUAV_T *obj)
 {
-    obj->ModelImpl.Configuration.PHeight = 3.9;
-    obj->ModelImpl.Configuration.PFlightPathAngle = 39.0;
-    obj->ModelImpl.Configuration.PAirSpeed = 0.39;
     obj->ModelImpl.Configuration.PHeight = 4.0;
     obj->ModelImpl.Configuration.PFlightPathAngle = 12.0;
     obj->ModelImpl.Configuration.PAirSpeed = 1.0;
-    obj->ModelImpl.Configuration.PDRoll[0] = 3402.9722249999991;
-    obj->ModelImpl.Configuration.FlightPathAngleLimits[0] = -1.5707963267948966;
     obj->ModelImpl.Configuration.PDRoll[0] = 300.0;
     obj->ModelImpl.Configuration.FlightPathAngleLimits[0] = -0.3490658503988659;
-    obj->ModelImpl.Configuration.PDRoll[1] = 116.66999999999999;
-    obj->ModelImpl.Configuration.FlightPathAngleLimits[1] = 1.5707963267948966;
     obj->ModelImpl.Configuration.PDRoll[1] = 30.0;
     obj->ModelImpl.Configuration.FlightPathAngleLimits[1] = 0.3490658503988659;
 }
@@ -140,7 +203,7 @@ static int8_T MissionUAV_filedata_h(DW_MissionUAV_f_T *localDW)
     k = 1;
     exitg1 = false;
     while ((!exitg1) && (static_cast<int32_T>(k - 1) < 20)) {
-        if (localDW->eml_openfiles_p[static_cast<int32_T>(static_cast<int32_T>(
+        if (localDW->eml_openfiles_a[static_cast<int32_T>(static_cast<int32_T>(
                 static_cast<int8_T>(k)) - 1)] == NULL) {
             f = static_cast<int8_T>(k);
             exitg1 = true;
@@ -153,7 +216,7 @@ static int8_T MissionUAV_filedata_h(DW_MissionUAV_f_T *localDW)
 }
 
 // Function for MATLAB Function: '<S1>/Get Speed Limit'
-static int8_T MissionUAV_cfopen_d(const char_T *cfilename, const char_T
+static int8_T MissionUAV_cfopen_b(const char_T *cfilename, const char_T
     *cpermission, DW_MissionUAV_f_T *localDW)
 {
     int8_T fileid;
@@ -165,7 +228,7 @@ static int8_T MissionUAV_cfopen_d(const char_T *cfilename, const char_T
         filestar = fopen(cfilename, cpermission);
         if (filestar != NULL) {
             int32_T tmp;
-            localDW->eml_openfiles_p[static_cast<int32_T>(static_cast<int32_T>(j)
+            localDW->eml_openfiles_a[static_cast<int32_T>(static_cast<int32_T>(j)
                 - 1)] = filestar;
             tmp = static_cast<int32_T>(static_cast<int32_T>(j) + 2);
             if (static_cast<int32_T>(static_cast<int32_T>(j) + 2) > 127) {
@@ -184,7 +247,7 @@ static real_T MissionUAV_fileManager_c(DW_MissionUAV_f_T *localDW)
 {
     real_T f;
     int8_T fileid;
-    fileid = MissionUAV_cfopen_d("config.ini", "rb", localDW);
+    fileid = MissionUAV_cfopen_b("config.ini", "rb", localDW);
     f = static_cast<real_T>(fileid);
     return f;
 }
@@ -234,7 +297,7 @@ static void MissionUAV_emxEnsureCapacity_char_T(emxArray_char_T_MissionUAV_T
 }
 
 // Function for MATLAB Function: '<S1>/Get Speed Limit'
-static void MissionUAV_fread_b(real_T fileID, emxArray_char_T_MissionUAV_T *A,
+static void MissionUAV_fread_j(real_T fileID, emxArray_char_T_MissionUAV_T *A,
     DW_MissionUAV_f_T *localDW)
 {
     FILE* filestar;
@@ -242,13 +305,13 @@ static void MissionUAV_fread_b(real_T fileID, emxArray_char_T_MissionUAV_T *A,
     char_T tbuf[1024];
     int8_T fileid;
     nBytes = sizeof(char_T);
-    fileid = static_cast<int8_T>(std::round(fileID));
-    if (fileID != static_cast<real_T>(fileid)) {
+    fileid = static_cast<int8_T>(fileID);
+    if (fileID != static_cast<real_T>(static_cast<int8_T>(fileID))) {
         fileid = -1;
     }
 
     if (static_cast<int32_T>(fileid) >= 3) {
-        filestar = localDW->eml_openfiles_p[static_cast<int32_T>
+        filestar = localDW->eml_openfiles_a[static_cast<int32_T>
             (static_cast<int32_T>(fileid) - 3)];
     } else {
         switch (static_cast<int32_T>(fileid)) {
@@ -285,9 +348,10 @@ static void MissionUAV_fread_b(real_T fileID, emxArray_char_T_MissionUAV_T *A,
         int32_T c;
         c = 1;
         while (c > 0) {
-            int32_T c_0;
             int32_T i;
+            int32_T loop_ub;
             int32_T numRead;
+            int32_T tmp;
             c = 0;
             numRead = 1;
             while (static_cast<boolean_T>(static_cast<int32_T>((c < 1024) &
@@ -301,39 +365,206 @@ static void MissionUAV_fread_b(real_T fileID, emxArray_char_T_MissionUAV_T *A,
 
             numRead = A->size[0];
             if (c < 1) {
-                c_0 = -1;
+                i = -1;
+                loop_ub = -1;
             } else {
-                c_0 = static_cast<int32_T>(c - 1);
+                i = static_cast<int32_T>(c - 1);
+                loop_ub = static_cast<int32_T>(c - 1);
             }
 
-            i = A->size[0];
-            A->size[0] = static_cast<int32_T>(static_cast<int32_T>(c_0 + A->
-                size[0]) + 1);
-            MissionUAV_emxEnsureCapacity_char_T(A, i);
-            if (c < 1) {
-                c_0 = -1;
-            } else {
-                c_0 = static_cast<int32_T>(c - 1);
-            }
-
-            for (i = 0; i <= c_0; i++) {
+            tmp = A->size[0];
+            A->size[0] = static_cast<int32_T>(static_cast<int32_T>(i + A->size[0])
+                + 1);
+            MissionUAV_emxEnsureCapacity_char_T(A, tmp);
+            for (i = 0; i <= loop_ub; i++) {
                 A->data[static_cast<int32_T>(numRead + i)] = tbuf[i];
             }
         }
     }
 }
 
-static void MissionUAV_emxFree_char_T(emxArray_char_T_MissionUAV_T **pEmxArray)
+// Function for MATLAB Function: '<S1>/Get Max Bank'
+static void MissionUAV_copysign(emxArray_char_T_MissionUAV_T *s1, int32_T *idx,
+    const emxArray_char_T_MissionUAV_T *s, int32_T *k, int32_T n, boolean_T
+    *foundsign, boolean_T *success)
 {
-    if (*pEmxArray != static_cast<emxArray_char_T_MissionUAV_T *>(nullptr)) {
-        if (((*pEmxArray)->data != static_cast<char_T *>(nullptr)) &&
-                (*pEmxArray)->canFreeData) {
-            std::free((*pEmxArray)->data);
-        }
+    static const boolean_T b[128]{ false, false, false, false, false, false,
+        false, false, false, true, true, true, true, true, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, true, true, true, true, true, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false };
 
-        std::free((*pEmxArray)->size);
-        std::free(*pEmxArray);
-        *pEmxArray = static_cast<emxArray_char_T_MissionUAV_T *>(nullptr);
+    boolean_T exitg1;
+    boolean_T isneg;
+    isneg = false;
+    *foundsign = false;
+    exitg1 = false;
+    while ((!exitg1) && (*k <= n)) {
+        char_T tmp;
+        tmp = s->data[static_cast<int32_T>(*k - 1)];
+        if (tmp == '-') {
+            isneg = static_cast<boolean_T>(static_cast<int32_T>
+                (static_cast<int32_T>(isneg) ^ 1));
+            *foundsign = true;
+            *k = static_cast<int32_T>(*k + 1);
+        } else if (tmp == ',') {
+            *k = static_cast<int32_T>(*k + 1);
+        } else if (tmp == '+') {
+            *foundsign = true;
+            *k = static_cast<int32_T>(*k + 1);
+        } else if (static_cast<boolean_T>(static_cast<int32_T>
+                    (static_cast<int32_T>(b[static_cast<int32_T>
+                      (static_cast<int32_T>(static_cast<uint8_T>(tmp)) & 127)]) ^
+                     1))) {
+            exitg1 = true;
+        } else {
+            *k = static_cast<int32_T>(*k + 1);
+        }
+    }
+
+    *success = (*k <= n);
+    if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
+            (*success) & static_cast<int32_T>(isneg)))) {
+        if ((*idx >= 2) && (s1->data[static_cast<int32_T>(*idx - 2)] == '-')) {
+            s1->data[static_cast<int32_T>(*idx - 2)] = ' ';
+        } else {
+            s1->data[static_cast<int32_T>(*idx - 1)] = '-';
+            *idx = static_cast<int32_T>(*idx + 1);
+        }
+    }
+}
+
+// Function for MATLAB Function: '<S1>/Get Max Bank'
+static boolean_T MissionUAV_isUnitImag(const emxArray_char_T_MissionUAV_T *s,
+    int32_T k, int32_T n)
+{
+    boolean_T p;
+    p = false;
+    if (k <= n) {
+        char_T c_idx_0;
+        c_idx_0 = s->data[static_cast<int32_T>(k - 1)];
+        if (c_idx_0 == 'j') {
+            p = true;
+        } else if (c_idx_0 == 'i') {
+            if (k >= static_cast<int32_T>(n - 1)) {
+                p = true;
+            } else {
+                int32_T b_k;
+                char_T c_idx_1;
+                char_T c_idx_2;
+                b_k = k;
+                c_idx_0 = '\x00';
+                while ((b_k <= n) && (s->data[static_cast<int32_T>(b_k - 1)] ==
+                                      ',')) {
+                    b_k = static_cast<int32_T>(b_k + 1);
+                }
+
+                if (b_k <= n) {
+                    c_idx_0 = s->data[static_cast<int32_T>(b_k - 1)];
+                }
+
+                b_k = static_cast<int32_T>(b_k + 1);
+                c_idx_1 = '\x00';
+                while ((b_k <= n) && (s->data[static_cast<int32_T>(b_k - 1)] ==
+                                      ',')) {
+                    b_k = static_cast<int32_T>(b_k + 1);
+                }
+
+                if (b_k <= n) {
+                    c_idx_1 = s->data[static_cast<int32_T>(b_k - 1)];
+                }
+
+                b_k = static_cast<int32_T>(b_k + 1);
+                c_idx_2 = '\x00';
+                while ((b_k <= n) && (s->data[static_cast<int32_T>(b_k - 1)] ==
+                                      ',')) {
+                    b_k = static_cast<int32_T>(b_k + 1);
+                }
+
+                if (b_k <= n) {
+                    c_idx_2 = s->data[static_cast<int32_T>(b_k - 1)];
+                }
+
+                if (((c_idx_0 == 'I') || (c_idx_0 == 'i')) && ((c_idx_1 == 'N') ||
+                     (c_idx_1 == 'n')) && ((c_idx_2 == 'F') || (c_idx_2 == 'f')))
+                {
+                } else if ((c_idx_0 == 'N') || (c_idx_0 == 'n')) {
+                    if ((c_idx_1 == 'A') || (c_idx_1 == 'a')) {
+                        if ((c_idx_2 != 'N') && (c_idx_2 != 'n')) {
+                            p = true;
+                        }
+                    } else {
+                        p = true;
+                    }
+                } else {
+                    p = true;
+                }
+            }
+        }
+    }
+
+    return p;
+}
+
+// Function for MATLAB Function: '<S1>/Get Max Bank'
+static void MissionUAV_readNonFinite(const emxArray_char_T_MissionUAV_T *s,
+    int32_T *k, int32_T n, boolean_T *b_finite, real_T *fv)
+{
+    int32_T ksaved;
+    char_T c_idx_0;
+    char_T c_idx_1;
+    char_T c_idx_2;
+    ksaved = *k;
+    c_idx_0 = '\x00';
+    while ((*k <= n) && (s->data[static_cast<int32_T>(*k - 1)] == ',')) {
+        *k = static_cast<int32_T>(*k + 1);
+    }
+
+    if (*k <= n) {
+        c_idx_0 = s->data[static_cast<int32_T>(*k - 1)];
+    }
+
+    *k = static_cast<int32_T>(*k + 1);
+    c_idx_1 = '\x00';
+    while ((*k <= n) && (s->data[static_cast<int32_T>(*k - 1)] == ',')) {
+        *k = static_cast<int32_T>(*k + 1);
+    }
+
+    if (*k <= n) {
+        c_idx_1 = s->data[static_cast<int32_T>(*k - 1)];
+    }
+
+    *k = static_cast<int32_T>(*k + 1);
+    c_idx_2 = '\x00';
+    while ((*k <= n) && (s->data[static_cast<int32_T>(*k - 1)] == ',')) {
+        *k = static_cast<int32_T>(*k + 1);
+    }
+
+    if (*k <= n) {
+        c_idx_2 = s->data[static_cast<int32_T>(*k - 1)];
+    }
+
+    *k = static_cast<int32_T>(*k + 1);
+    if (((c_idx_0 == 'I') || (c_idx_0 == 'i')) && ((c_idx_1 == 'N') || (c_idx_1 ==
+          'n')) && ((c_idx_2 == 'F') || (c_idx_2 == 'f'))) {
+        *b_finite = false;
+        *fv = (rtInf);
+    } else if (((c_idx_0 == 'N') || (c_idx_0 == 'n')) && ((c_idx_1 == 'A') ||
+                (c_idx_1 == 'a')) && ((c_idx_2 == 'N') || (c_idx_2 == 'n'))) {
+        *b_finite = false;
+        *fv = (rtNaN);
+    } else {
+        *b_finite = true;
+        *fv = 0.0;
+        *k = ksaved;
     }
 }
 
@@ -379,10 +610,56 @@ static boolean_T MissionUAV_copydigits(emxArray_char_T_MissionUAV_T *s1, int32_T
 }
 
 // Function for MATLAB Function: '<S1>/Get Max Bank'
+static boolean_T MissionUAV_copyexponent(emxArray_char_T_MissionUAV_T *s1,
+    int32_T *idx, const emxArray_char_T_MissionUAV_T *s, int32_T *k, int32_T n)
+{
+    int32_T b_k;
+    boolean_T success;
+    success = true;
+    if (*k <= n) {
+        char_T tmp;
+        tmp = s->data[static_cast<int32_T>(*k - 1)];
+        if ((tmp == 'E') || (tmp == 'e')) {
+            int32_T kexp;
+            boolean_T b_success;
+            s1->data[static_cast<int32_T>(*idx - 1)] = 'e';
+            *idx = static_cast<int32_T>(*idx + 1);
+            *k = static_cast<int32_T>(*k + 1);
+            while ((*k <= n) && (s->data[static_cast<int32_T>(*k - 1)] == ','))
+            {
+                *k = static_cast<int32_T>(*k + 1);
+            }
+
+            if (*k <= n) {
+                if (s->data[static_cast<int32_T>(*k - 1)] == '-') {
+                    s1->data[static_cast<int32_T>(*idx - 1)] = '-';
+                    *idx = static_cast<int32_T>(*idx + 1);
+                    *k = static_cast<int32_T>(*k + 1);
+                } else if (s->data[static_cast<int32_T>(*k - 1)] == '+') {
+                    *k = static_cast<int32_T>(*k + 1);
+                }
+            }
+
+            kexp = *k;
+            b_k = *k;
+            b_success = MissionUAV_copydigits(s1, idx, s, &b_k, n, false);
+            *k = b_k;
+            if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
+                    (static_cast<boolean_T>(static_cast<int32_T>
+                    (static_cast<int32_T>(b_success) ^ 1))) | (b_k <= kexp)))) {
+                success = false;
+            }
+        }
+    }
+
+    return success;
+}
+
+// Function for MATLAB Function: '<S1>/Get Max Bank'
 static void MissionUAV_readfloat(emxArray_char_T_MissionUAV_T *s1, int32_T *idx,
     const emxArray_char_T_MissionUAV_T *s, int32_T *k, int32_T n, boolean_T
-    allowimag, boolean_T *isimag, boolean_T *b_finite, real_T *nfv, boolean_T
-    *foundsign, boolean_T *success)
+    *isimag, boolean_T *b_finite, real_T *nfv, boolean_T *foundsign, boolean_T
+    *success)
 {
     static const boolean_T b[128]{ false, false, false, false, false, false,
         false, false, false, true, true, true, true, true, false, false, false,
@@ -398,277 +675,119 @@ static void MissionUAV_readfloat(emxArray_char_T_MissionUAV_T *s1, int32_T *idx,
         false, false, false, false, false, false, false, false, false, false,
         false, false, false, false, false, false, false, false, false, false };
 
-    emxArray_char_T_MissionUAV_T *d;
     int32_T b_idx;
     int32_T b_k;
-    int32_T g_k;
-    char_T c_idx_0;
     boolean_T a__3;
-    boolean_T exitg1;
-    boolean_T isneg;
-    MissionUAV_emxInit_char_T(&d, 2);
     *isimag = false;
     *b_finite = true;
     *nfv = 0.0;
     b_idx = *idx;
     b_k = *k;
-    isneg = false;
-    *foundsign = false;
-    exitg1 = false;
-    while ((!exitg1) && (b_k <= n)) {
-        c_idx_0 = s->data[static_cast<int32_T>(b_k - 1)];
-        if (c_idx_0 == '-') {
-            isneg = static_cast<boolean_T>(static_cast<int32_T>
-                (static_cast<int32_T>(isneg) ^ 1));
-            *foundsign = true;
-            b_k = static_cast<int32_T>(b_k + 1);
-        } else if (c_idx_0 == ',') {
-            b_k = static_cast<int32_T>(b_k + 1);
-        } else if (c_idx_0 == '+') {
-            *foundsign = true;
-            b_k = static_cast<int32_T>(b_k + 1);
-        } else if (static_cast<boolean_T>(static_cast<int32_T>
-                    (static_cast<int32_T>(b[static_cast<int32_T>
-                      (static_cast<int32_T>(static_cast<uint8_T>(c_idx_0)) & 127)])
-                     ^ 1))) {
-            exitg1 = true;
-        } else {
-            b_k = static_cast<int32_T>(b_k + 1);
-        }
-    }
-
-    *success = (b_k <= n);
-    if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
-            (*success) & static_cast<int32_T>(isneg)))) {
-        if ((*idx >= 2) && (s1->data[static_cast<int32_T>(*idx - 2)] == '-')) {
-            s1->data[static_cast<int32_T>(*idx - 2)] = ' ';
-        } else {
-            s1->data[static_cast<int32_T>(*idx - 1)] = '-';
-            b_idx = static_cast<int32_T>(*idx + 1);
-        }
-    }
-
+    MissionUAV_copysign(s1, &b_idx, s, &b_k, n, foundsign, success);
     *idx = b_idx;
     *k = b_k;
     if (*success) {
-        char_T c_idx_1;
-        char_T c_idx_2;
-        isneg = false;
-        if (b_k <= n) {
-            c_idx_0 = s->data[static_cast<int32_T>(b_k - 1)];
-            if (c_idx_0 == 'j') {
-                isneg = true;
-            } else if (c_idx_0 == 'i') {
-                if (b_k >= static_cast<int32_T>(n - 1)) {
-                    isneg = true;
+        char_T tmp;
+        boolean_T exitg1;
+        if (MissionUAV_isUnitImag(s, b_k, n)) {
+            *isimag = true;
+            *k = static_cast<int32_T>(b_k + 1);
+            exitg1 = false;
+            while ((!exitg1) && (*k <= n)) {
+                tmp = s->data[static_cast<int32_T>(*k - 1)];
+                if (b[static_cast<int32_T>(static_cast<int32_T>
+                                           (static_cast<uint8_T>(tmp)) & 127)] ||
+                    (tmp == '\x00') || (tmp == ',')) {
+                    *k = static_cast<int32_T>(*k + 1);
                 } else {
-                    g_k = b_k;
-                    c_idx_0 = '\x00';
-                    while ((g_k <= n) && (s->data[static_cast<int32_T>(g_k - 1)]
-                                          == ',')) {
-                        g_k = static_cast<int32_T>(g_k + 1);
-                    }
-
-                    if (g_k <= n) {
-                        c_idx_0 = s->data[static_cast<int32_T>(g_k - 1)];
-                    }
-
-                    g_k = static_cast<int32_T>(g_k + 1);
-                    c_idx_1 = '\x00';
-                    while ((g_k <= n) && (s->data[static_cast<int32_T>(g_k - 1)]
-                                          == ',')) {
-                        g_k = static_cast<int32_T>(g_k + 1);
-                    }
-
-                    if (g_k <= n) {
-                        c_idx_1 = s->data[static_cast<int32_T>(g_k - 1)];
-                    }
-
-                    g_k = static_cast<int32_T>(g_k + 1);
-                    c_idx_2 = '\x00';
-                    while ((g_k <= n) && (s->data[static_cast<int32_T>(g_k - 1)]
-                                          == ',')) {
-                        g_k = static_cast<int32_T>(g_k + 1);
-                    }
-
-                    if (g_k <= n) {
-                        c_idx_2 = s->data[static_cast<int32_T>(g_k - 1)];
-                    }
-
-                    if (((c_idx_0 == 'I') || (c_idx_0 == 'i')) && ((c_idx_1 ==
-                            'N') || (c_idx_1 == 'n')) && ((c_idx_2 == 'F') ||
-                            (c_idx_2 == 'f'))) {
-                    } else if ((c_idx_0 == 'N') || (c_idx_0 == 'n')) {
-                        if ((c_idx_1 == 'A') || (c_idx_1 == 'a')) {
-                            if ((c_idx_2 != 'N') && (c_idx_2 != 'n')) {
-                                isneg = true;
-                            }
-                        } else {
-                            isneg = true;
-                        }
-                    } else {
-                        isneg = true;
-                    }
+                    exitg1 = true;
                 }
             }
-        }
 
-        if (isneg) {
-            if (allowimag) {
-                *isimag = true;
-                *k = static_cast<int32_T>(b_k + 1);
-                exitg1 = false;
-                while ((!exitg1) && (*k <= n)) {
-                    if (b[static_cast<int32_T>(static_cast<int32_T>
-                                               (static_cast<uint8_T>(s->data[
-                            static_cast<int32_T>(*k - 1)])) & 127)]) {
-                        *k = static_cast<int32_T>(*k + 1);
+            if ((*k <= n) && (s->data[static_cast<int32_T>(*k - 1)] == '*')) {
+                b_k = static_cast<int32_T>(*k + 1);
+                MissionUAV_copysign(s1, &b_idx, s, &b_k, n, &a__3, success);
+                *idx = b_idx;
+                if (*success) {
+                    if (MissionUAV_isUnitImag(s, b_k, n)) {
+                        *success = false;
                     } else {
-                        c_idx_0 = s->data[static_cast<int32_T>(*k - 1)];
-                        if ((c_idx_0 == '\x00') || (c_idx_0 == ',')) {
-                            *k = static_cast<int32_T>(*k + 1);
+                        MissionUAV_readNonFinite(s, &b_k, n, b_finite, nfv);
+                        if (*b_finite) {
+                            *success = MissionUAV_copydigits(s1, idx, s, &b_k, n,
+                                true);
+                            if (*success) {
+                                *success = MissionUAV_copyexponent(s1, idx, s,
+                                    &b_k, n);
+                            }
+                        } else if ((b_idx >= 2) && (s1->data[static_cast<int32_T>
+                                                    (b_idx - 2)] == '-')) {
+                            *idx = static_cast<int32_T>(b_idx - 1);
+                            s1->data[static_cast<int32_T>(b_idx - 2)] = ' ';
+                            *nfv = -*nfv;
+                        }
+
+                        exitg1 = false;
+                        while ((!exitg1) && (b_k <= n)) {
+                            tmp = s->data[static_cast<int32_T>(b_k - 1)];
+                            if (b[static_cast<int32_T>(static_cast<int32_T>(
+                                    static_cast<uint8_T>(tmp)) & 127)] || (tmp ==
+                                 '\x00') || (tmp == ',')) {
+                                b_k = static_cast<int32_T>(b_k + 1);
+                            } else {
+                                exitg1 = true;
+                            }
+                        }
+
+                        if ((b_k <= n) && (s->data[static_cast<int32_T>(b_k - 1)]
+                                           == '*')) {
+                            b_k = static_cast<int32_T>(b_k + 1);
+                            exitg1 = false;
+                            while ((!exitg1) && (b_k <= n)) {
+                                tmp = s->data[static_cast<int32_T>(b_k - 1)];
+                                if (b[static_cast<int32_T>(static_cast<int32_T>(
+                                        static_cast<uint8_T>(tmp)) & 127)] ||
+                                        (tmp == '\x00') || (tmp == ',')) {
+                                    b_k = static_cast<int32_T>(b_k + 1);
+                                } else {
+                                    exitg1 = true;
+                                }
+                            }
+                        }
+
+                        if (b_k <= n) {
+                            tmp = s->data[static_cast<int32_T>(b_k - 1)];
+                            if ((tmp == 'i') || (tmp == 'j')) {
+                                b_k = static_cast<int32_T>(b_k + 1);
+                            }
+                        }
+                    }
+
+                    exitg1 = false;
+                    while ((!exitg1) && (b_k <= n)) {
+                        tmp = s->data[static_cast<int32_T>(b_k - 1)];
+                        if (b[static_cast<int32_T>(static_cast<int32_T>(
+                                static_cast<uint8_T>(tmp)) & 127)] || (tmp ==
+                                '\x00') || (tmp == ',')) {
+                            b_k = static_cast<int32_T>(b_k + 1);
                         } else {
                             exitg1 = true;
                         }
                     }
                 }
 
-                if ((*k <= n) && (s->data[static_cast<int32_T>(*k - 1)] == '*'))
-                {
-                    *k = static_cast<int32_T>(*k + 1);
-                    MissionUAV_readfloat(s1, idx, s, k, n, false, &isneg,
-                                         b_finite, nfv, &a__3, success);
-                } else {
-                    s1->data[static_cast<int32_T>(b_idx - 1)] = '1';
-                    *idx = static_cast<int32_T>(b_idx + 1);
-                }
+                *k = b_k;
             } else {
-                *success = false;
+                s1->data[static_cast<int32_T>(b_idx - 1)] = '1';
+                *idx = static_cast<int32_T>(b_idx + 1);
             }
         } else {
-            g_k = b_k;
-            c_idx_0 = '\x00';
-            while ((g_k <= n) && (s->data[static_cast<int32_T>(g_k - 1)] == ','))
-            {
-                g_k = static_cast<int32_T>(g_k + 1);
-            }
-
-            if (g_k <= n) {
-                c_idx_0 = s->data[static_cast<int32_T>(g_k - 1)];
-            }
-
-            g_k = static_cast<int32_T>(g_k + 1);
-            c_idx_1 = '\x00';
-            while ((g_k <= n) && (s->data[static_cast<int32_T>(g_k - 1)] == ','))
-            {
-                g_k = static_cast<int32_T>(g_k + 1);
-            }
-
-            if (g_k <= n) {
-                c_idx_1 = s->data[static_cast<int32_T>(g_k - 1)];
-            }
-
-            g_k = static_cast<int32_T>(g_k + 1);
-            c_idx_2 = '\x00';
-            while ((g_k <= n) && (s->data[static_cast<int32_T>(g_k - 1)] == ','))
-            {
-                g_k = static_cast<int32_T>(g_k + 1);
-            }
-
-            if (g_k <= n) {
-                c_idx_2 = s->data[static_cast<int32_T>(g_k - 1)];
-            }
-
-            g_k = static_cast<int32_T>(g_k + 1);
-            if (((c_idx_0 == 'I') || (c_idx_0 == 'i')) && ((c_idx_1 == 'N') ||
-                    (c_idx_1 == 'n')) && ((c_idx_2 == 'F') || (c_idx_2 == 'f')))
-            {
-                *b_finite = false;
-                *nfv = (rtInf);
-            } else if (((c_idx_0 == 'N') || (c_idx_0 == 'n')) && ((c_idx_1 ==
-                         'A') || (c_idx_1 == 'a')) && ((c_idx_2 == 'N') ||
-                        (c_idx_2 == 'n'))) {
-                *b_finite = false;
-                *nfv = (rtNaN);
-            } else {
-                g_k = b_k;
-            }
-
-            *k = g_k;
+            MissionUAV_readNonFinite(s, &b_k, n, b_finite, nfv);
+            *k = b_k;
             if (*b_finite) {
-                int32_T loop_ub;
-                b_k = static_cast<int32_T>(d->size[0] * d->size[1]);
-                d->size[0] = 1;
-                d->size[1] = s1->size[1];
-                MissionUAV_emxEnsureCapacity_char_T(d, b_k);
-                loop_ub = static_cast<int32_T>(s1->size[1] - 1);
-                for (b_k = 0; b_k <= loop_ub; b_k++) {
-                    d->data[b_k] = s1->data[b_k];
-                }
-
-                *success = MissionUAV_copydigits(d, &b_idx, s, &g_k, n, true);
-                b_k = static_cast<int32_T>(s1->size[0] * s1->size[1]);
-                s1->size[0] = 1;
-                s1->size[1] = d->size[1];
-                MissionUAV_emxEnsureCapacity_char_T(s1, b_k);
-                loop_ub = d->size[1];
-                for (b_k = 0; b_k <= static_cast<int32_T>(loop_ub - 1); b_k++) {
-                    s1->data[b_k] = d->data[b_k];
-                }
-
-                *idx = b_idx;
-                *k = g_k;
-                if ((*success) && (g_k <= n)) {
-                    c_idx_0 = s->data[static_cast<int32_T>(g_k - 1)];
-                    if ((c_idx_0 == 'E') || (c_idx_0 == 'e')) {
-                        s1->data[static_cast<int32_T>(b_idx - 1)] = 'e';
-                        *idx = static_cast<int32_T>(b_idx + 1);
-                        while ((static_cast<int32_T>(g_k + 1) <= n) && (s->
-                                data[g_k] == ',')) {
-                            g_k = static_cast<int32_T>(g_k + 1);
-                        }
-
-                        if (static_cast<int32_T>(g_k + 1) <= n) {
-                            if (s->data[g_k] == '-') {
-                                s1->data[b_idx] = '-';
-                                *idx = static_cast<int32_T>(b_idx + 2);
-                                g_k = static_cast<int32_T>(g_k + 1);
-                            } else if (s->data[g_k] == '+') {
-                                g_k = static_cast<int32_T>(g_k + 1);
-                            }
-                        }
-
-                        b_k = static_cast<int32_T>(d->size[0] * d->size[1]);
-                        d->size[0] = 1;
-                        d->size[1] = s1->size[1];
-                        MissionUAV_emxEnsureCapacity_char_T(d, b_k);
-                        loop_ub = static_cast<int32_T>(s1->size[1] - 1);
-                        for (b_k = 0; b_k <= loop_ub; b_k++) {
-                            d->data[b_k] = s1->data[b_k];
-                        }
-
-                        b_idx = static_cast<int32_T>(g_k + 1);
-                        isneg = MissionUAV_copydigits(d, idx, s, &b_idx, n,
-                            false);
-                        b_k = static_cast<int32_T>(s1->size[0] * s1->size[1]);
-                        s1->size[0] = 1;
-                        s1->size[1] = d->size[1];
-                        MissionUAV_emxEnsureCapacity_char_T(s1, b_k);
-                        loop_ub = d->size[1];
-                        for (b_k = 0; b_k <= static_cast<int32_T>(loop_ub - 1);
-                                b_k++) {
-                            s1->data[b_k] = d->data[b_k];
-                        }
-
-                        *k = b_idx;
-                        if (static_cast<boolean_T>(static_cast<int32_T>((b_idx <=
-                               static_cast<int32_T>(g_k + 1)) |
-                                static_cast<int32_T>(static_cast<boolean_T>(
-                                static_cast<int32_T>(static_cast<int32_T>(isneg)
-                                 ^ 1)))))) {
-                            *success = false;
-                        }
-                    }
+                *success = MissionUAV_copydigits(s1, idx, s, k, n, true);
+                if (*success) {
+                    *success = MissionUAV_copyexponent(s1, idx, s, k, n);
                 }
             } else if ((b_idx >= 2) && (s1->data[static_cast<int32_T>(b_idx - 2)]
                         == '-')) {
@@ -684,8 +803,8 @@ static void MissionUAV_readfloat(emxArray_char_T_MissionUAV_T *s1, int32_T *idx,
                         static_cast<int32_T>(*k - 1)])) & 127)]) {
                     *k = static_cast<int32_T>(*k + 1);
                 } else {
-                    c_idx_0 = s->data[static_cast<int32_T>(*k - 1)];
-                    if ((c_idx_0 == '\x00') || (c_idx_0 == ',')) {
+                    tmp = s->data[static_cast<int32_T>(*k - 1)];
+                    if ((tmp == '\x00') || (tmp == ',')) {
                         *k = static_cast<int32_T>(*k + 1);
                     } else {
                         exitg1 = true;
@@ -705,8 +824,8 @@ static void MissionUAV_readfloat(emxArray_char_T_MissionUAV_T *s1, int32_T *idx,
             }
 
             if (*k <= n) {
-                c_idx_0 = s->data[static_cast<int32_T>(*k - 1)];
-                if ((c_idx_0 == 'i') || (c_idx_0 == 'j')) {
+                tmp = s->data[static_cast<int32_T>(*k - 1)];
+                if ((tmp == 'i') || (tmp == 'j')) {
                     *k = static_cast<int32_T>(*k + 1);
                     *isimag = true;
                 }
@@ -715,18 +834,33 @@ static void MissionUAV_readfloat(emxArray_char_T_MissionUAV_T *s1, int32_T *idx,
 
         exitg1 = false;
         while ((!exitg1) && (*k <= n)) {
-            c_idx_0 = s->data[static_cast<int32_T>(*k - 1)];
             if (b[static_cast<int32_T>(static_cast<int32_T>(static_cast<uint8_T>
-                    (c_idx_0)) & 127)] || (c_idx_0 == '\x00') || (c_idx_0 == ','))
-            {
+                    (s->data[static_cast<int32_T>(*k - 1)])) & 127)]) {
                 *k = static_cast<int32_T>(*k + 1);
             } else {
-                exitg1 = true;
+                tmp = s->data[static_cast<int32_T>(*k - 1)];
+                if ((tmp == '\x00') || (tmp == ',')) {
+                    *k = static_cast<int32_T>(*k + 1);
+                } else {
+                    exitg1 = true;
+                }
             }
         }
     }
+}
 
-    MissionUAV_emxFree_char_T(&d);
+static void MissionUAV_emxFree_char_T(emxArray_char_T_MissionUAV_T **pEmxArray)
+{
+    if (*pEmxArray != static_cast<emxArray_char_T_MissionUAV_T *>(nullptr)) {
+        if (((*pEmxArray)->data != static_cast<char_T *>(nullptr)) &&
+                (*pEmxArray)->canFreeData) {
+            std::free((*pEmxArray)->data);
+        }
+
+        std::free((*pEmxArray)->size);
+        std::free(*pEmxArray);
+        *pEmxArray = static_cast<emxArray_char_T_MissionUAV_T *>(nullptr);
+    }
 }
 
 // Function for MATLAB Function: '<S1>/Get Max Bank'
@@ -746,7 +880,6 @@ static creal_T MissionUAV_str2double(const emxArray_char_T_MissionUAV_T *s)
         false, false, false, false, false, false, false, false, false, false,
         false, false, false, false, false, false, false, false, false, false };
 
-    emxArray_char_T_MissionUAV_T *d;
     emxArray_char_T_MissionUAV_T *s1;
     creal_T x;
     real_T b_scanned1;
@@ -760,12 +893,10 @@ static creal_T MissionUAV_str2double(const emxArray_char_T_MissionUAV_T *s)
     boolean_T isfinite1;
     boolean_T isimag1;
     boolean_T success;
-    MissionUAV_emxInit_char_T(&d, 2);
     x.re = (rtNaN);
     x.im = 0.0;
     if (s->size[1] >= 1) {
         int32_T i;
-        int32_T loop_ub;
         int32_T ntoread;
         boolean_T exitg1;
         MissionUAV_emxInit_char_T(&s1, 2);
@@ -783,27 +914,18 @@ static creal_T MissionUAV_str2double(const emxArray_char_T_MissionUAV_T *s)
             }
         }
 
-        i = static_cast<int32_T>(d->size[0] * d->size[1]);
-        d->size[0] = 1;
-        d->size[1] = static_cast<int32_T>(s->size[1] + 2);
-        MissionUAV_emxEnsureCapacity_char_T(d, i);
-        loop_ub = s->size[1];
-        for (i = 0; i <= static_cast<int32_T>(loop_ub + 1); i++) {
-            d->data[i] = '\x00';
+        i = static_cast<int32_T>(s1->size[0] * s1->size[1]);
+        s1->size[0] = 1;
+        s1->size[1] = static_cast<int32_T>(s->size[1] + 2);
+        MissionUAV_emxEnsureCapacity_char_T(s1, i);
+        idx = s->size[1];
+        for (i = 0; i <= static_cast<int32_T>(idx + 1); i++) {
+            s1->data[i] = '\x00';
         }
 
         idx = 1;
-        MissionUAV_readfloat(d, &idx, s, &k, s->size[1], true, &isimag1,
-                             &isfinite1, &scanned1, &a__1, &success);
-        i = static_cast<int32_T>(s1->size[0] * s1->size[1]);
-        s1->size[0] = 1;
-        s1->size[1] = d->size[1];
-        MissionUAV_emxEnsureCapacity_char_T(s1, i);
-        loop_ub = static_cast<int32_T>(d->size[1] - 1);
-        for (i = 0; i <= loop_ub; i++) {
-            s1->data[i] = d->data[i];
-        }
-
+        MissionUAV_readfloat(s1, &idx, s, &k, s->size[1], &isimag1, &isfinite1,
+                             &scanned1, &a__1, &success);
         if (isfinite1) {
             ntoread = 1;
         }
@@ -811,27 +933,9 @@ static creal_T MissionUAV_str2double(const emxArray_char_T_MissionUAV_T *s)
         if (success) {
             if (k <= s->size[1]) {
                 s1->data[static_cast<int32_T>(idx - 1)] = ' ';
-                i = static_cast<int32_T>(d->size[0] * d->size[1]);
-                d->size[0] = 1;
-                d->size[1] = s1->size[1];
-                MissionUAV_emxEnsureCapacity_char_T(d, i);
-                loop_ub = static_cast<int32_T>(s1->size[1] - 1);
-                for (i = 0; i <= loop_ub; i++) {
-                    d->data[i] = s1->data[i];
-                }
-
                 idx = static_cast<int32_T>(idx + 1);
-                MissionUAV_readfloat(d, &idx, s, &k, s->size[1], true, &a__1,
+                MissionUAV_readfloat(s1, &idx, s, &k, s->size[1], &a__1,
                                      &success, &scanned2, &foundsign, &c_success);
-                i = static_cast<int32_T>(s1->size[0] * s1->size[1]);
-                s1->size[0] = 1;
-                s1->size[1] = d->size[1];
-                MissionUAV_emxEnsureCapacity_char_T(s1, i);
-                loop_ub = static_cast<int32_T>(d->size[1] - 1);
-                for (i = 0; i <= loop_ub; i++) {
-                    s1->data[i] = d->data[i];
-                }
-
                 if (success) {
                     ntoread = static_cast<int32_T>(ntoread + 1);
                 }
@@ -891,20 +995,19 @@ static creal_T MissionUAV_str2double(const emxArray_char_T_MissionUAV_T *s)
         MissionUAV_emxFree_char_T(&s1);
     }
 
-    MissionUAV_emxFree_char_T(&d);
     return x;
 }
 
 // Function for MATLAB Function: '<S1>/Get Speed Limit'
-static int32_T MissionUAV_cfclose_e(real_T fid, DW_MissionUAV_f_T *localDW)
+static int32_T MissionUAV_cfclose_g(real_T fid, DW_MissionUAV_f_T *localDW)
 {
     FILE* filestar;
     int32_T st;
     int8_T b_fileid;
     int8_T fileid;
     st = -1;
-    fileid = static_cast<int8_T>(std::round(fid));
-    if (fid != static_cast<real_T>(fileid)) {
+    fileid = static_cast<int8_T>(fid);
+    if (fid != static_cast<real_T>(static_cast<int8_T>(fid))) {
         fileid = -1;
     }
 
@@ -914,7 +1017,7 @@ static int32_T MissionUAV_cfclose_e(real_T fid, DW_MissionUAV_f_T *localDW)
     }
 
     if (static_cast<int32_T>(b_fileid) >= 3) {
-        filestar = localDW->eml_openfiles_p[static_cast<int32_T>
+        filestar = localDW->eml_openfiles_a[static_cast<int32_T>
             (static_cast<int32_T>(b_fileid) - 3)];
     } else {
         switch (static_cast<int32_T>(b_fileid)) {
@@ -942,161 +1045,12 @@ static int32_T MissionUAV_cfclose_e(real_T fid, DW_MissionUAV_f_T *localDW)
         cst = fclose(filestar);
         if (cst == 0) {
             st = 0;
-            localDW->eml_openfiles_p[static_cast<int32_T>(static_cast<int32_T>
+            localDW->eml_openfiles_a[static_cast<int32_T>(static_cast<int32_T>
                 (fileid) - 3)] = NULL;
         }
     }
 
     return st;
-}
-
-// Function for MATLAB Function: '<S1>/Get Max Bank'
-static int8_T MissionUAV_filedata(DW_MissionUAV_f_T *localDW)
-{
-    int32_T k;
-    int8_T f;
-    boolean_T exitg1;
-    f = 0;
-    k = 1;
-    exitg1 = false;
-    while ((!exitg1) && (static_cast<int32_T>(k - 1) < 20)) {
-        if (localDW->eml_openfiles[static_cast<int32_T>(static_cast<int32_T>(
-                static_cast<int8_T>(k)) - 1)] == NULL) {
-            f = static_cast<int8_T>(k);
-            exitg1 = true;
-        } else {
-            k = static_cast<int32_T>(k + 1);
-        }
-    }
-
-    return f;
-}
-
-// Function for MATLAB Function: '<S1>/Get Max Bank'
-static int8_T MissionUAV_cfopen(const char_T *cfilename, const char_T
-    *cpermission, DW_MissionUAV_f_T *localDW)
-{
-    int8_T fileid;
-    int8_T j;
-    fileid = -1;
-    j = MissionUAV_filedata(localDW);
-    if (static_cast<int32_T>(j) >= 1) {
-        FILE* filestar;
-        filestar = fopen(cfilename, cpermission);
-        if (filestar != NULL) {
-            int32_T tmp;
-            localDW->eml_openfiles[static_cast<int32_T>(static_cast<int32_T>(j)
-                - 1)] = filestar;
-            tmp = static_cast<int32_T>(static_cast<int32_T>(j) + 2);
-            if (static_cast<int32_T>(static_cast<int32_T>(j) + 2) > 127) {
-                tmp = 127;
-            }
-
-            fileid = static_cast<int8_T>(tmp);
-        }
-    }
-
-    return fileid;
-}
-
-// Function for MATLAB Function: '<S1>/Get Max Bank'
-static real_T MissionUAV_fileManager(DW_MissionUAV_f_T *localDW)
-{
-    real_T f;
-    int8_T fileid;
-    fileid = MissionUAV_cfopen("config.ini", "rb", localDW);
-    f = static_cast<real_T>(fileid);
-    return f;
-}
-
-// Function for MATLAB Function: '<S1>/Get Max Bank'
-static void MissionUAV_fread(real_T fileID, emxArray_char_T_MissionUAV_T *A,
-    DW_MissionUAV_f_T *localDW)
-{
-    FILE* filestar;
-    size_t nBytes;
-    char_T tbuf[1024];
-    int8_T fileid;
-    nBytes = sizeof(char_T);
-    fileid = static_cast<int8_T>(std::round(fileID));
-    if (fileID != static_cast<real_T>(fileid)) {
-        fileid = -1;
-    }
-
-    if (static_cast<int32_T>(fileid) >= 3) {
-        filestar = localDW->eml_openfiles[static_cast<int32_T>
-            (static_cast<int32_T>(fileid) - 3)];
-    } else {
-        switch (static_cast<int32_T>(fileid)) {
-          case 0:
-            filestar = stdin;
-            break;
-
-          case 1:
-            filestar = stdout;
-            break;
-
-          case 2:
-            filestar = stderr;
-            break;
-
-          default:
-            filestar = NULL;
-            break;
-        }
-    }
-
-    if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(
-            static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(
-              static_cast<boolean_T>(static_cast<int32_T>((fileID != 0.0) ^ 1)))
-             | static_cast<int32_T>(static_cast<boolean_T>(static_cast<int32_T>
-               ((fileID != 1.0) ^ 1)))))) | static_cast<int32_T>
-            (static_cast<boolean_T>(static_cast<int32_T>((fileID != 2.0) ^ 1))))))
-    {
-        filestar = NULL;
-    }
-
-    A->size[0] = 0;
-    if (static_cast<boolean_T>(static_cast<int32_T>((filestar == NULL) ^ 1))) {
-        int32_T c;
-        c = 1;
-        while (c > 0) {
-            int32_T c_0;
-            int32_T i;
-            int32_T numRead;
-            c = 0;
-            numRead = 1;
-            while (static_cast<boolean_T>(static_cast<int32_T>((c < 1024) &
-                     (numRead > 0)))) {
-                size_t numReadSizeT;
-                numReadSizeT = fread(&tbuf[c], nBytes, (size_t)(1024 - c),
-                                     filestar);
-                numRead = (int32_T)numReadSizeT;
-                c = static_cast<int32_T>(c + (int32_T)numReadSizeT);
-            }
-
-            numRead = A->size[0];
-            if (c < 1) {
-                c_0 = -1;
-            } else {
-                c_0 = static_cast<int32_T>(c - 1);
-            }
-
-            i = A->size[0];
-            A->size[0] = static_cast<int32_T>(static_cast<int32_T>(c_0 + A->
-                size[0]) + 1);
-            MissionUAV_emxEnsureCapacity_char_T(A, i);
-            if (c < 1) {
-                c_0 = -1;
-            } else {
-                c_0 = static_cast<int32_T>(c - 1);
-            }
-
-            for (i = 0; i <= c_0; i++) {
-                A->data[static_cast<int32_T>(numRead + i)] = tbuf[i];
-            }
-        }
-    }
 }
 
 // Function for MATLAB Function: '<S1>/Get Max Bank'
@@ -1154,62 +1108,7 @@ static void MissionUAV_strtok(const emxArray_char_T_MissionUAV_T *x,
 }
 
 // Function for MATLAB Function: '<S1>/Get Max Bank'
-static int32_T MissionUAV_cfclose(real_T fid, DW_MissionUAV_f_T *localDW)
-{
-    FILE* filestar;
-    int32_T st;
-    int8_T b_fileid;
-    int8_T fileid;
-    st = -1;
-    fileid = static_cast<int8_T>(std::round(fid));
-    if (fid != static_cast<real_T>(fileid)) {
-        fileid = -1;
-    }
-
-    b_fileid = fileid;
-    if (static_cast<int32_T>(fileid) < 0) {
-        b_fileid = -1;
-    }
-
-    if (static_cast<int32_T>(b_fileid) >= 3) {
-        filestar = localDW->eml_openfiles[static_cast<int32_T>(static_cast<
-            int32_T>(b_fileid) - 3)];
-    } else {
-        switch (static_cast<int32_T>(b_fileid)) {
-          case 0:
-            filestar = stdin;
-            break;
-
-          case 1:
-            filestar = stdout;
-            break;
-
-          case 2:
-            filestar = stderr;
-            break;
-
-          default:
-            filestar = NULL;
-            break;
-        }
-    }
-
-    if (static_cast<boolean_T>(static_cast<int32_T>((filestar != NULL) & (
-            static_cast<int32_T>(fileid) >= 3)))) {
-        int32_T cst;
-        cst = fclose(filestar);
-        if (cst == 0) {
-            st = 0;
-            localDW->eml_openfiles[static_cast<int32_T>(static_cast<int32_T>
-                (fileid) - 3)] = NULL;
-        }
-    }
-
-    return st;
-}
-
-// Function for MATLAB Function: '<S1>/Get Max Bank'
-static void MissionUAV_strtok_b(const emxArray_char_T_MissionUAV_T *x,
+static void MissionUAV_strtok_l(const emxArray_char_T_MissionUAV_T *x,
     emxArray_char_T_MissionUAV_T *token)
 {
     int32_T itoken;
@@ -1326,8 +1225,8 @@ static boolean_T MissionUAV_strcmp(const emxArray_char_T_MissionUAV_T *a)
         aTmp->size[0] = 1;
         aTmp->size[1] = a->size[1];
         MissionUAV_emxEnsureCapacity_char_T(aTmp, i);
-        loop_ub = static_cast<int32_T>(a->size[1] - 1);
-        for (i = 0; i <= loop_ub; i++) {
+        loop_ub = a->size[1];
+        for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
             aTmp->data[i] = a->data[i];
         }
     }
@@ -1359,7 +1258,7 @@ static boolean_T MissionUAV_strcmp(const emxArray_char_T_MissionUAV_T *a)
 }
 
 // Function for MATLAB Function: '<S1>/Get Max Bank'
-static boolean_T MissionUAV_strcmp_h(const emxArray_char_T_MissionUAV_T *a)
+static boolean_T MissionUAV_strcmp_j(const emxArray_char_T_MissionUAV_T *a)
 {
     static const char_T c[128]{ '\x00', '\x01', '\x02', '\x03', '\x04', '\x05',
         '\x06', '\x07', '\x08', '\x09', '\x0a', '\x0b', '\x0c', '\x0d', '\x0e',
@@ -1389,8 +1288,8 @@ static boolean_T MissionUAV_strcmp_h(const emxArray_char_T_MissionUAV_T *a)
         aTmp->size[0] = 1;
         aTmp->size[1] = a->size[1];
         MissionUAV_emxEnsureCapacity_char_T(aTmp, i);
-        loop_ub = static_cast<int32_T>(a->size[1] - 1);
-        for (i = 0; i <= loop_ub; i++) {
+        loop_ub = a->size[1];
+        for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
             aTmp->data[i] = a->data[i];
         }
     }
@@ -1464,7 +1363,7 @@ static void MissionUAV_find_token(const emxArray_char_T_MissionUAV_T *x, int32_T
 }
 
 // Function for MATLAB Function: '<S1>/Get Max Bank'
-static void MissionUAV_strtok_bd(const emxArray_char_T_MissionUAV_T *x,
+static void MissionUAV_strtok_ls(const emxArray_char_T_MissionUAV_T *x,
     emxArray_char_T_MissionUAV_T *token, emxArray_char_T_MissionUAV_T *remain)
 {
     int32_T b;
@@ -1509,7 +1408,7 @@ static void MissionUAV_strtok_bd(const emxArray_char_T_MissionUAV_T *x,
 }
 
 // Function for MATLAB Function: '<S1>/Get Speed Limit'
-static void MissionUAV_readINI_bm(emxArray_char_T_MissionUAV_T *ret,
+static void MissionUAV_readINI_o(emxArray_char_T_MissionUAV_T *ret,
     DW_MissionUAV_f_T *localDW)
 {
     static const char_T h[128]{ '\x00', '\x01', '\x02', '\x03', '\x04', '\x05',
@@ -1541,36 +1440,35 @@ static void MissionUAV_readINI_bm(emxArray_char_T_MissionUAV_T *ret,
     int8_T fileid;
     ret->size[0] = 1;
     ret->size[1] = 0;
-    fileid = MissionUAV_cfopen_d("config.ini", "rb", localDW);
+    fileid = MissionUAV_cfopen_b("config.ini", "rb", localDW);
     if (static_cast<int32_T>(fileid) < 0) {
         printf("INI-file \"%s\" was not found or could not be read.\n",
                "config.ini");
         fflush(stdout);
     } else {
-        int32_T itoken_0;
+        int32_T i_0;
         int32_T loop_ub;
-        MissionUAV_emxInit_char_T(&data, 2);
         MissionUAV_emxInit_char_T(&j, 1);
-        MissionUAV_fread_b(static_cast<real_T>(fileid), j, localDW);
-        itoken_0 = static_cast<int32_T>(data->size[0] * data->size[1]);
+        MissionUAV_fread_j(static_cast<real_T>(fileid), j, localDW);
+        MissionUAV_emxInit_char_T(&data, 2);
+        i_0 = static_cast<int32_T>(data->size[0] * data->size[1]);
         data->size[0] = 1;
         data->size[1] = j->size[0];
-        MissionUAV_emxEnsureCapacity_char_T(data, itoken_0);
+        MissionUAV_emxEnsureCapacity_char_T(data, i_0);
         loop_ub = j->size[0];
-        for (itoken_0 = 0; itoken_0 <= static_cast<int32_T>(loop_ub - 1);
-                itoken_0++) {
-            data->data[itoken_0] = j->data[itoken_0];
+        for (i_0 = 0; i_0 <= static_cast<int32_T>(loop_ub - 1); i_0++) {
+            data->data[i_0] = j->data[i_0];
         }
 
         MissionUAV_emxFree_char_T(&j);
+        MissionUAV_cfclose_g(static_cast<real_T>(fileid), localDW);
         MissionUAV_emxInit_char_T(&curSection, 2);
-        MissionUAV_emxInit_char_T(&curKey, 2);
-        MissionUAV_emxInit_char_T(&curVal, 2);
-        MissionUAV_cfclose_e(static_cast<real_T>(fileid), localDW);
         curSection->size[0] = 1;
         curSection->size[1] = 0;
+        MissionUAV_emxInit_char_T(&curKey, 2);
         curKey->size[0] = 1;
         curKey->size[1] = 0;
+        MissionUAV_emxInit_char_T(&curVal, 2);
         curVal->size[0] = 1;
         curVal->size[1] = 0;
         MissionUAV_emxInit_char_T(&curLine, 2);
@@ -1582,19 +1480,18 @@ static void MissionUAV_readINI_bm(emxArray_char_T_MissionUAV_T *ret,
             exitg1 = 0;
             if (data->size[1] != 0) {
                 boolean_T b_bool;
-                itoken_0 = static_cast<int32_T>(data_0->size[0] * data_0->size[1]);
+                i_0 = static_cast<int32_T>(data_0->size[0] * data_0->size[1]);
                 data_0->size[0] = 1;
                 data_0->size[1] = data->size[1];
-                MissionUAV_emxEnsureCapacity_char_T(data_0, itoken_0);
+                MissionUAV_emxEnsureCapacity_char_T(data_0, i_0);
                 loop_ub = static_cast<int32_T>(static_cast<int32_T>(data->size[0]
                     * data->size[1]) - 1);
-                for (itoken_0 = 0; itoken_0 <= loop_ub; itoken_0++) {
-                    itoken = itoken_0;
-                    data_0->data[itoken_0] = data->data[itoken_0];
+                for (i_0 = 0; i_0 <= loop_ub; i_0++) {
+                    data_0->data[i_0] = data->data[i_0];
                 }
 
                 MissionUAV_strtok(data_0, curLine, data);
-                MissionUAV_strtok_b(curLine, tmp);
+                MissionUAV_strtok_l(curLine, tmp);
                 MissionUAV_strtrim(tmp, curLine);
                 if (curLine->size[1] >= 2) {
                     boolean_T guard1{ false };
@@ -1623,17 +1520,16 @@ static void MissionUAV_readINI_bm(emxArray_char_T_MissionUAV_T *ret,
                                     1);
                             }
 
-                            itoken_0 = static_cast<int32_T>(curSection->size[0] *
+                            i_0 = static_cast<int32_T>(curSection->size[0] *
                                 curSection->size[1]);
                             curSection->size[0] = 1;
                             loop_ub = static_cast<int32_T>(itoken - iremain);
                             curSection->size[1] = loop_ub;
-                            MissionUAV_emxEnsureCapacity_char_T(curSection,
-                                itoken_0);
-                            for (itoken_0 = 0; itoken_0 <= static_cast<int32_T>
-                                    (loop_ub - 1); itoken_0++) {
-                                curSection->data[itoken_0] = curLine->data[
-                                    static_cast<int32_T>(iremain + itoken_0)];
+                            MissionUAV_emxEnsureCapacity_char_T(curSection, i_0);
+                            for (i_0 = 0; i_0 <= static_cast<int32_T>(loop_ub -
+                                    1); i_0++) {
+                                curSection->data[i_0] = curLine->data[
+                                    static_cast<int32_T>(iremain + i_0)];
                             }
 
                             curKey->size[0] = 1;
@@ -1653,7 +1549,7 @@ static void MissionUAV_readINI_bm(emxArray_char_T_MissionUAV_T *ret,
                         if ((static_cast<boolean_T>(static_cast<int32_T>(
                                 static_cast<int32_T>(b_bool) ^ 1))) &&
                                 MissionUAV_contains(curLine)) {
-                            MissionUAV_strtok_bd(curLine, aTmp, curVal);
+                            MissionUAV_strtok_ls(curLine, aTmp, curVal);
                             MissionUAV_find_token(curVal, &itoken, &iremain);
                             if (itoken > static_cast<int32_T>(iremain - 1)) {
                                 itoken = 0;
@@ -1664,17 +1560,16 @@ static void MissionUAV_readINI_bm(emxArray_char_T_MissionUAV_T *ret,
                             }
 
                             MissionUAV_strtrim(aTmp, curKey);
-                            itoken_0 = static_cast<int32_T>(curLine->size[0] *
+                            i_0 = static_cast<int32_T>(curLine->size[0] *
                                 curLine->size[1]);
                             curLine->size[0] = 1;
                             loop_ub = static_cast<int32_T>(iremain - itoken);
                             curLine->size[1] = loop_ub;
-                            MissionUAV_emxEnsureCapacity_char_T(curLine,
-                                itoken_0);
-                            for (itoken_0 = 0; itoken_0 <= static_cast<int32_T>
-                                    (loop_ub - 1); itoken_0++) {
-                                curLine->data[itoken_0] = curVal->data[
-                                    static_cast<int32_T>(itoken + itoken_0)];
+                            MissionUAV_emxEnsureCapacity_char_T(curLine, i_0);
+                            for (i_0 = 0; i_0 <= static_cast<int32_T>(loop_ub -
+                                    1); i_0++) {
+                                curLine->data[i_0] = curVal->data
+                                    [static_cast<int32_T>(itoken + i_0)];
                             }
 
                             MissionUAV_strtrim(curLine, curVal);
@@ -1687,15 +1582,14 @@ static void MissionUAV_readINI_bm(emxArray_char_T_MissionUAV_T *ret,
                         aTmp->size[0] = 1;
                         aTmp->size[1] = 0;
                     } else {
-                        itoken_0 = static_cast<int32_T>(aTmp->size[0] *
-                            aTmp->size[1]);
+                        i_0 = static_cast<int32_T>(aTmp->size[0] * aTmp->size[1]);
                         aTmp->size[0] = 1;
                         aTmp->size[1] = curKey->size[1];
-                        MissionUAV_emxEnsureCapacity_char_T(aTmp, itoken_0);
-                        loop_ub = static_cast<int32_T>(curKey->size[1] - 1);
-                        for (itoken_0 = 0; itoken_0 <= loop_ub; itoken_0++) {
-                            itoken = itoken_0;
-                            aTmp->data[itoken_0] = curKey->data[itoken_0];
+                        MissionUAV_emxEnsureCapacity_char_T(aTmp, i_0);
+                        loop_ub = curKey->size[1];
+                        for (i_0 = 0; i_0 <= static_cast<int32_T>(loop_ub - 1);
+                                i_0++) {
+                            aTmp->data[i_0] = curKey->data[i_0];
                         }
                     }
 
@@ -1722,14 +1616,14 @@ static void MissionUAV_readINI_bm(emxArray_char_T_MissionUAV_T *ret,
                     }
 
                     if (b_bool) {
-                        itoken_0 = static_cast<int32_T>(ret->size[0] * ret->
-                            size[1]);
+                        i_0 = static_cast<int32_T>(ret->size[0] * ret->size[1]);
                         ret->size[0] = 1;
                         ret->size[1] = curVal->size[1];
-                        MissionUAV_emxEnsureCapacity_char_T(ret, itoken_0);
-                        loop_ub = static_cast<int32_T>(curVal->size[1] - 1);
-                        for (itoken_0 = 0; itoken_0 <= loop_ub; itoken_0++) {
-                            ret->data[itoken_0] = curVal->data[itoken_0];
+                        MissionUAV_emxEnsureCapacity_char_T(ret, i_0);
+                        loop_ub = curVal->size[1];
+                        for (i_0 = 0; i_0 <= static_cast<int32_T>(loop_ub - 1);
+                                i_0++) {
+                            ret->data[i_0] = curVal->data[i_0];
                         }
 
                         exitg1 = 1;
@@ -1752,7 +1646,7 @@ static void MissionUAV_readINI_bm(emxArray_char_T_MissionUAV_T *ret,
 }
 
 // Function for MATLAB Function: '<S1>/Get Speed Limit'
-static void MissionUAV_readINI_bmo(emxArray_char_T_MissionUAV_T *ret,
+static void MissionUAV_readINI_oa(emxArray_char_T_MissionUAV_T *ret,
     DW_MissionUAV_f_T *localDW)
 {
     static const char_T h[128]{ '\x00', '\x01', '\x02', '\x03', '\x04', '\x05',
@@ -1784,36 +1678,35 @@ static void MissionUAV_readINI_bmo(emxArray_char_T_MissionUAV_T *ret,
     int8_T fileid;
     ret->size[0] = 1;
     ret->size[1] = 0;
-    fileid = MissionUAV_cfopen_d("config.ini", "rb", localDW);
+    fileid = MissionUAV_cfopen_b("config.ini", "rb", localDW);
     if (static_cast<int32_T>(fileid) < 0) {
         printf("INI-file \"%s\" was not found or could not be read.\n",
                "config.ini");
         fflush(stdout);
     } else {
-        int32_T itoken_0;
+        int32_T i_0;
         int32_T loop_ub;
-        MissionUAV_emxInit_char_T(&data, 2);
         MissionUAV_emxInit_char_T(&j, 1);
-        MissionUAV_fread_b(static_cast<real_T>(fileid), j, localDW);
-        itoken_0 = static_cast<int32_T>(data->size[0] * data->size[1]);
+        MissionUAV_fread_j(static_cast<real_T>(fileid), j, localDW);
+        MissionUAV_emxInit_char_T(&data, 2);
+        i_0 = static_cast<int32_T>(data->size[0] * data->size[1]);
         data->size[0] = 1;
         data->size[1] = j->size[0];
-        MissionUAV_emxEnsureCapacity_char_T(data, itoken_0);
+        MissionUAV_emxEnsureCapacity_char_T(data, i_0);
         loop_ub = j->size[0];
-        for (itoken_0 = 0; itoken_0 <= static_cast<int32_T>(loop_ub - 1);
-                itoken_0++) {
-            data->data[itoken_0] = j->data[itoken_0];
+        for (i_0 = 0; i_0 <= static_cast<int32_T>(loop_ub - 1); i_0++) {
+            data->data[i_0] = j->data[i_0];
         }
 
         MissionUAV_emxFree_char_T(&j);
+        MissionUAV_cfclose_g(static_cast<real_T>(fileid), localDW);
         MissionUAV_emxInit_char_T(&curSection, 2);
-        MissionUAV_emxInit_char_T(&curKey, 2);
-        MissionUAV_emxInit_char_T(&curVal, 2);
-        MissionUAV_cfclose_e(static_cast<real_T>(fileid), localDW);
         curSection->size[0] = 1;
         curSection->size[1] = 0;
+        MissionUAV_emxInit_char_T(&curKey, 2);
         curKey->size[0] = 1;
         curKey->size[1] = 0;
+        MissionUAV_emxInit_char_T(&curVal, 2);
         curVal->size[0] = 1;
         curVal->size[1] = 0;
         MissionUAV_emxInit_char_T(&curLine, 2);
@@ -1825,19 +1718,18 @@ static void MissionUAV_readINI_bmo(emxArray_char_T_MissionUAV_T *ret,
             exitg1 = 0;
             if (data->size[1] != 0) {
                 boolean_T b_bool;
-                itoken_0 = static_cast<int32_T>(data_0->size[0] * data_0->size[1]);
+                i_0 = static_cast<int32_T>(data_0->size[0] * data_0->size[1]);
                 data_0->size[0] = 1;
                 data_0->size[1] = data->size[1];
-                MissionUAV_emxEnsureCapacity_char_T(data_0, itoken_0);
+                MissionUAV_emxEnsureCapacity_char_T(data_0, i_0);
                 loop_ub = static_cast<int32_T>(static_cast<int32_T>(data->size[0]
                     * data->size[1]) - 1);
-                for (itoken_0 = 0; itoken_0 <= loop_ub; itoken_0++) {
-                    itoken = itoken_0;
-                    data_0->data[itoken_0] = data->data[itoken_0];
+                for (i_0 = 0; i_0 <= loop_ub; i_0++) {
+                    data_0->data[i_0] = data->data[i_0];
                 }
 
                 MissionUAV_strtok(data_0, curLine, data);
-                MissionUAV_strtok_b(curLine, tmp);
+                MissionUAV_strtok_l(curLine, tmp);
                 MissionUAV_strtrim(tmp, curLine);
                 if (curLine->size[1] >= 2) {
                     boolean_T guard1{ false };
@@ -1866,17 +1758,16 @@ static void MissionUAV_readINI_bmo(emxArray_char_T_MissionUAV_T *ret,
                                     1);
                             }
 
-                            itoken_0 = static_cast<int32_T>(curSection->size[0] *
+                            i_0 = static_cast<int32_T>(curSection->size[0] *
                                 curSection->size[1]);
                             curSection->size[0] = 1;
                             loop_ub = static_cast<int32_T>(itoken - iremain);
                             curSection->size[1] = loop_ub;
-                            MissionUAV_emxEnsureCapacity_char_T(curSection,
-                                itoken_0);
-                            for (itoken_0 = 0; itoken_0 <= static_cast<int32_T>
-                                    (loop_ub - 1); itoken_0++) {
-                                curSection->data[itoken_0] = curLine->data[
-                                    static_cast<int32_T>(iremain + itoken_0)];
+                            MissionUAV_emxEnsureCapacity_char_T(curSection, i_0);
+                            for (i_0 = 0; i_0 <= static_cast<int32_T>(loop_ub -
+                                    1); i_0++) {
+                                curSection->data[i_0] = curLine->data[
+                                    static_cast<int32_T>(iremain + i_0)];
                             }
 
                             curKey->size[0] = 1;
@@ -1896,7 +1787,7 @@ static void MissionUAV_readINI_bmo(emxArray_char_T_MissionUAV_T *ret,
                         if ((static_cast<boolean_T>(static_cast<int32_T>(
                                 static_cast<int32_T>(b_bool) ^ 1))) &&
                                 MissionUAV_contains(curLine)) {
-                            MissionUAV_strtok_bd(curLine, aTmp, curVal);
+                            MissionUAV_strtok_ls(curLine, aTmp, curVal);
                             MissionUAV_find_token(curVal, &itoken, &iremain);
                             if (itoken > static_cast<int32_T>(iremain - 1)) {
                                 itoken = 0;
@@ -1907,17 +1798,16 @@ static void MissionUAV_readINI_bmo(emxArray_char_T_MissionUAV_T *ret,
                             }
 
                             MissionUAV_strtrim(aTmp, curKey);
-                            itoken_0 = static_cast<int32_T>(curLine->size[0] *
+                            i_0 = static_cast<int32_T>(curLine->size[0] *
                                 curLine->size[1]);
                             curLine->size[0] = 1;
                             loop_ub = static_cast<int32_T>(iremain - itoken);
                             curLine->size[1] = loop_ub;
-                            MissionUAV_emxEnsureCapacity_char_T(curLine,
-                                itoken_0);
-                            for (itoken_0 = 0; itoken_0 <= static_cast<int32_T>
-                                    (loop_ub - 1); itoken_0++) {
-                                curLine->data[itoken_0] = curVal->data[
-                                    static_cast<int32_T>(itoken + itoken_0)];
+                            MissionUAV_emxEnsureCapacity_char_T(curLine, i_0);
+                            for (i_0 = 0; i_0 <= static_cast<int32_T>(loop_ub -
+                                    1); i_0++) {
+                                curLine->data[i_0] = curVal->data
+                                    [static_cast<int32_T>(itoken + i_0)];
                             }
 
                             MissionUAV_strtrim(curLine, curVal);
@@ -1930,15 +1820,14 @@ static void MissionUAV_readINI_bmo(emxArray_char_T_MissionUAV_T *ret,
                         aTmp->size[0] = 1;
                         aTmp->size[1] = 0;
                     } else {
-                        itoken_0 = static_cast<int32_T>(aTmp->size[0] *
-                            aTmp->size[1]);
+                        i_0 = static_cast<int32_T>(aTmp->size[0] * aTmp->size[1]);
                         aTmp->size[0] = 1;
                         aTmp->size[1] = curKey->size[1];
-                        MissionUAV_emxEnsureCapacity_char_T(aTmp, itoken_0);
-                        loop_ub = static_cast<int32_T>(curKey->size[1] - 1);
-                        for (itoken_0 = 0; itoken_0 <= loop_ub; itoken_0++) {
-                            itoken = itoken_0;
-                            aTmp->data[itoken_0] = curKey->data[itoken_0];
+                        MissionUAV_emxEnsureCapacity_char_T(aTmp, i_0);
+                        loop_ub = curKey->size[1];
+                        for (i_0 = 0; i_0 <= static_cast<int32_T>(loop_ub - 1);
+                                i_0++) {
+                            aTmp->data[i_0] = curKey->data[i_0];
                         }
                     }
 
@@ -1965,14 +1854,14 @@ static void MissionUAV_readINI_bmo(emxArray_char_T_MissionUAV_T *ret,
                     }
 
                     if (b_bool) {
-                        itoken_0 = static_cast<int32_T>(ret->size[0] * ret->
-                            size[1]);
+                        i_0 = static_cast<int32_T>(ret->size[0] * ret->size[1]);
                         ret->size[0] = 1;
                         ret->size[1] = curVal->size[1];
-                        MissionUAV_emxEnsureCapacity_char_T(ret, itoken_0);
-                        loop_ub = static_cast<int32_T>(curVal->size[1] - 1);
-                        for (itoken_0 = 0; itoken_0 <= loop_ub; itoken_0++) {
-                            ret->data[itoken_0] = curVal->data[itoken_0];
+                        MissionUAV_emxEnsureCapacity_char_T(ret, i_0);
+                        loop_ub = curVal->size[1];
+                        for (i_0 = 0; i_0 <= static_cast<int32_T>(loop_ub - 1);
+                                i_0++) {
+                            ret->data[i_0] = curVal->data[i_0];
                         }
 
                         exitg1 = 1;
@@ -1995,7 +1884,7 @@ static void MissionUAV_readINI_bmo(emxArray_char_T_MissionUAV_T *ret,
 }
 
 // Function for MATLAB Function: '<S1>/Get Max Bank'
-static void MissionUAV_strtok_bdc(const emxArray_char_T_MissionUAV_T *x,
+static void MissionUAV_strtok_lse(const emxArray_char_T_MissionUAV_T *x,
     emxArray_char_T_MissionUAV_T *token)
 {
     int32_T i;
@@ -2021,7 +1910,7 @@ static void MissionUAV_strtok_bdc(const emxArray_char_T_MissionUAV_T *x,
 }
 
 // Function for MATLAB Function: '<S1>/Get Max Bank'
-static boolean_T MissionUAV_strcmp_hh(const emxArray_char_T_MissionUAV_T *a)
+static boolean_T MissionUAV_strcmp_jn(const emxArray_char_T_MissionUAV_T *a)
 {
     static const char_T c[128]{ '\x00', '\x01', '\x02', '\x03', '\x04', '\x05',
         '\x06', '\x07', '\x08', '\x09', '\x0a', '\x0b', '\x0c', '\x0d', '\x0e',
@@ -2050,8 +1939,8 @@ static boolean_T MissionUAV_strcmp_hh(const emxArray_char_T_MissionUAV_T *a)
         aTmp->size[0] = 1;
         aTmp->size[1] = a->size[1];
         MissionUAV_emxEnsureCapacity_char_T(aTmp, i);
-        loop_ub = static_cast<int32_T>(a->size[1] - 1);
-        for (i = 0; i <= loop_ub; i++) {
+        loop_ub = a->size[1];
+        for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
             aTmp->data[i] = a->data[i];
         }
     }
@@ -2083,7 +1972,7 @@ static boolean_T MissionUAV_strcmp_hh(const emxArray_char_T_MissionUAV_T *a)
 }
 
 // Function for MATLAB Function: '<S1>/Get Max Bank'
-static boolean_T MissionUAV_strcmp_hh4(const emxArray_char_T_MissionUAV_T *a)
+static boolean_T MissionUAV_strcmp_jng(const emxArray_char_T_MissionUAV_T *a)
 {
     static const char_T c[128]{ '\x00', '\x01', '\x02', '\x03', '\x04', '\x05',
         '\x06', '\x07', '\x08', '\x09', '\x0a', '\x0b', '\x0c', '\x0d', '\x0e',
@@ -2112,8 +2001,8 @@ static boolean_T MissionUAV_strcmp_hh4(const emxArray_char_T_MissionUAV_T *a)
         aTmp->size[0] = 1;
         aTmp->size[1] = a->size[1];
         MissionUAV_emxEnsureCapacity_char_T(aTmp, i);
-        loop_ub = static_cast<int32_T>(a->size[1] - 1);
-        for (i = 0; i <= loop_ub; i++) {
+        loop_ub = a->size[1];
+        for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
             aTmp->data[i] = a->data[i];
         }
     }
@@ -2159,6 +2048,270 @@ static uavDubinsConnection_MissionUAV_T
 }
 
 // Function for MATLAB Function: '<S1>/Get Max Bank'
+static int8_T MissionUAV_filedata(DW_MissionUAV_f_T *localDW)
+{
+    int32_T k;
+    int8_T f;
+    boolean_T exitg1;
+    f = 0;
+    k = 1;
+    exitg1 = false;
+    while ((!exitg1) && (static_cast<int32_T>(k - 1) < 20)) {
+        if (localDW->eml_openfiles[static_cast<int32_T>(static_cast<int32_T>(
+                static_cast<int8_T>(k)) - 1)] == NULL) {
+            f = static_cast<int8_T>(k);
+            exitg1 = true;
+        } else {
+            k = static_cast<int32_T>(k + 1);
+        }
+    }
+
+    return f;
+}
+
+// Function for MATLAB Function: '<S1>/Get Max Bank'
+static int8_T MissionUAV_cfopen(const char_T *cfilename, const char_T
+    *cpermission, DW_MissionUAV_f_T *localDW)
+{
+    int8_T fileid;
+    int8_T j;
+    fileid = -1;
+    j = MissionUAV_filedata(localDW);
+    if (static_cast<int32_T>(j) >= 1) {
+        FILE* filestar;
+        filestar = fopen(cfilename, cpermission);
+        if (filestar != NULL) {
+            int32_T tmp;
+            localDW->eml_openfiles[static_cast<int32_T>(static_cast<int32_T>(j)
+                - 1)] = filestar;
+            tmp = static_cast<int32_T>(static_cast<int32_T>(j) + 2);
+            if (static_cast<int32_T>(static_cast<int32_T>(j) + 2) > 127) {
+                tmp = 127;
+            }
+
+            fileid = static_cast<int8_T>(tmp);
+        }
+    }
+
+    return fileid;
+}
+
+// Function for MATLAB Function: '<S1>/Get Max Bank'
+static real_T MissionUAV_fileManager(DW_MissionUAV_f_T *localDW)
+{
+    real_T f;
+    int8_T fileid;
+    fileid = MissionUAV_cfopen("config.ini", "rb", localDW);
+    f = static_cast<real_T>(fileid);
+    return f;
+}
+
+// Function for MATLAB Function: '<S1>/Get Max Bank'
+static void MissionUAV_fread(real_T fileID, emxArray_char_T_MissionUAV_T *A,
+    DW_MissionUAV_f_T *localDW)
+{
+    FILE* filestar;
+    size_t nBytes;
+    char_T tbuf[1024];
+    int8_T fileid;
+    nBytes = sizeof(char_T);
+    fileid = static_cast<int8_T>(fileID);
+    if (fileID != static_cast<real_T>(static_cast<int8_T>(fileID))) {
+        fileid = -1;
+    }
+
+    if (static_cast<int32_T>(fileid) >= 3) {
+        filestar = localDW->eml_openfiles[static_cast<int32_T>
+            (static_cast<int32_T>(fileid) - 3)];
+    } else {
+        switch (static_cast<int32_T>(fileid)) {
+          case 0:
+            filestar = stdin;
+            break;
+
+          case 1:
+            filestar = stdout;
+            break;
+
+          case 2:
+            filestar = stderr;
+            break;
+
+          default:
+            filestar = NULL;
+            break;
+        }
+    }
+
+    if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(
+            static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(
+              static_cast<boolean_T>(static_cast<int32_T>((fileID != 0.0) ^ 1)))
+             | static_cast<int32_T>(static_cast<boolean_T>(static_cast<int32_T>
+               ((fileID != 1.0) ^ 1)))))) | static_cast<int32_T>
+            (static_cast<boolean_T>(static_cast<int32_T>((fileID != 2.0) ^ 1))))))
+    {
+        filestar = NULL;
+    }
+
+    A->size[0] = 0;
+    if (static_cast<boolean_T>(static_cast<int32_T>((filestar == NULL) ^ 1))) {
+        int32_T c;
+        c = 1;
+        while (c > 0) {
+            int32_T i;
+            int32_T loop_ub;
+            int32_T numRead;
+            int32_T tmp;
+            c = 0;
+            numRead = 1;
+            while (static_cast<boolean_T>(static_cast<int32_T>((c < 1024) &
+                     (numRead > 0)))) {
+                size_t numReadSizeT;
+                numReadSizeT = fread(&tbuf[c], nBytes, (size_t)(1024 - c),
+                                     filestar);
+                numRead = (int32_T)numReadSizeT;
+                c = static_cast<int32_T>(c + (int32_T)numReadSizeT);
+            }
+
+            numRead = A->size[0];
+            if (c < 1) {
+                i = -1;
+                loop_ub = -1;
+            } else {
+                i = static_cast<int32_T>(c - 1);
+                loop_ub = static_cast<int32_T>(c - 1);
+            }
+
+            tmp = A->size[0];
+            A->size[0] = static_cast<int32_T>(static_cast<int32_T>(i + A->size[0])
+                + 1);
+            MissionUAV_emxEnsureCapacity_char_T(A, tmp);
+            for (i = 0; i <= loop_ub; i++) {
+                A->data[static_cast<int32_T>(numRead + i)] = tbuf[i];
+            }
+        }
+    }
+}
+
+// Function for MATLAB Function: '<S1>/Get Max Bank'
+static boolean_T MissionUAV_strcmp_jngk(const emxArray_char_T_MissionUAV_T *a)
+{
+    static const char_T c[128]{ '\x00', '\x01', '\x02', '\x03', '\x04', '\x05',
+        '\x06', '\x07', '\x08', '\x09', '\x0a', '\x0b', '\x0c', '\x0d', '\x0e',
+        '\x0f', '\x10', '\x11', '\x12', '\x13', '\x14', '\x15', '\x16', '\x17',
+        '\x18', '\x19', '\x1a', '\x1b', '\x1c', '\x1d', '\x1e', '\x1f', ' ', '!',
+        '\"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/',
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=',
+        '>', '?', '@', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
+        'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
+        'z', '[', '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g',
+        'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
+        'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~', '\x7f' };
+
+    static const char_T d[12]{ 'M', 'a', 'x', 'R', 'o', 'l', 'l', 'A', 'n', 'g',
+        'l', 'e' };
+
+    emxArray_char_T_MissionUAV_T *aTmp;
+    int32_T loop_ub;
+    boolean_T b_bool;
+    MissionUAV_emxInit_char_T(&aTmp, 2);
+    if (a->size[1] == 0) {
+        aTmp->size[0] = 1;
+        aTmp->size[1] = 0;
+    } else {
+        int32_T i;
+        i = static_cast<int32_T>(aTmp->size[0] * aTmp->size[1]);
+        aTmp->size[0] = 1;
+        aTmp->size[1] = a->size[1];
+        MissionUAV_emxEnsureCapacity_char_T(aTmp, i);
+        loop_ub = a->size[1];
+        for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+            aTmp->data[i] = a->data[i];
+        }
+    }
+
+    b_bool = false;
+    if (aTmp->size[1] == 12) {
+        loop_ub = 0;
+        int32_T exitg1;
+        do {
+            exitg1 = 0;
+            if (loop_ub < 12) {
+                if (c[static_cast<int32_T>(static_cast<int32_T>
+                                           (static_cast<uint8_T>(aTmp->
+                        data[loop_ub])) & 127)] != c[static_cast<int32_T>
+                        (d[loop_ub])]) {
+                    exitg1 = 1;
+                } else {
+                    loop_ub = static_cast<int32_T>(loop_ub + 1);
+                }
+            } else {
+                b_bool = true;
+                exitg1 = 1;
+            }
+        } while (exitg1 == 0);
+    }
+
+    MissionUAV_emxFree_char_T(&aTmp);
+    return b_bool;
+}
+
+// Function for MATLAB Function: '<S1>/Get Max Bank'
+static int32_T MissionUAV_cfclose(real_T fid, DW_MissionUAV_f_T *localDW)
+{
+    FILE* filestar;
+    int32_T st;
+    int8_T b_fileid;
+    int8_T fileid;
+    st = -1;
+    fileid = static_cast<int8_T>(fid);
+    if (fid != static_cast<real_T>(static_cast<int8_T>(fid))) {
+        fileid = -1;
+    }
+
+    b_fileid = fileid;
+    if (static_cast<int32_T>(fileid) < 0) {
+        b_fileid = -1;
+    }
+
+    if (static_cast<int32_T>(b_fileid) >= 3) {
+        filestar = localDW->eml_openfiles[static_cast<int32_T>
+            (static_cast<int32_T>(b_fileid) - 3)];
+    } else {
+        switch (static_cast<int32_T>(b_fileid)) {
+          case 0:
+            filestar = stdin;
+            break;
+
+          case 1:
+            filestar = stdout;
+            break;
+
+          case 2:
+            filestar = stderr;
+            break;
+
+          default:
+            filestar = NULL;
+            break;
+        }
+    }
+
+    if (static_cast<boolean_T>(static_cast<int32_T>((filestar != NULL) & (
+            static_cast<int32_T>(fileid) >= 3)))) {
+        int32_T cst;
+        cst = fclose(filestar);
+        if (cst == 0) {
+            st = 0;
+            localDW->eml_openfiles[static_cast<int32_T>(static_cast<int32_T>
+                (fileid) - 3)] = NULL;
+        }
+    }
+
+    return st;
+}
+
+// Function for MATLAB Function: '<S1>/Get Max Bank'
 static void MissionUAV_readINI(emxArray_char_T_MissionUAV_T *ret,
     DW_MissionUAV_f_T *localDW)
 {
@@ -2197,30 +2350,29 @@ static void MissionUAV_readINI(emxArray_char_T_MissionUAV_T *ret,
                "config.ini");
         fflush(stdout);
     } else {
-        int32_T itoken_0;
+        int32_T i_0;
         int32_T loop_ub;
-        MissionUAV_emxInit_char_T(&data, 2);
         MissionUAV_emxInit_char_T(&j, 1);
         MissionUAV_fread(static_cast<real_T>(fileid), j, localDW);
-        itoken_0 = static_cast<int32_T>(data->size[0] * data->size[1]);
+        MissionUAV_emxInit_char_T(&data, 2);
+        i_0 = static_cast<int32_T>(data->size[0] * data->size[1]);
         data->size[0] = 1;
         data->size[1] = j->size[0];
-        MissionUAV_emxEnsureCapacity_char_T(data, itoken_0);
+        MissionUAV_emxEnsureCapacity_char_T(data, i_0);
         loop_ub = j->size[0];
-        for (itoken_0 = 0; itoken_0 <= static_cast<int32_T>(loop_ub - 1);
-                itoken_0++) {
-            data->data[itoken_0] = j->data[itoken_0];
+        for (i_0 = 0; i_0 <= static_cast<int32_T>(loop_ub - 1); i_0++) {
+            data->data[i_0] = j->data[i_0];
         }
 
         MissionUAV_emxFree_char_T(&j);
-        MissionUAV_emxInit_char_T(&curSection, 2);
-        MissionUAV_emxInit_char_T(&curKey, 2);
-        MissionUAV_emxInit_char_T(&curVal, 2);
         MissionUAV_cfclose(static_cast<real_T>(fileid), localDW);
+        MissionUAV_emxInit_char_T(&curSection, 2);
         curSection->size[0] = 1;
         curSection->size[1] = 0;
+        MissionUAV_emxInit_char_T(&curKey, 2);
         curKey->size[0] = 1;
         curKey->size[1] = 0;
+        MissionUAV_emxInit_char_T(&curVal, 2);
         curVal->size[0] = 1;
         curVal->size[1] = 0;
         MissionUAV_emxInit_char_T(&curLine, 2);
@@ -2232,19 +2384,18 @@ static void MissionUAV_readINI(emxArray_char_T_MissionUAV_T *ret,
             exitg1 = 0;
             if (data->size[1] != 0) {
                 boolean_T b_bool;
-                itoken_0 = static_cast<int32_T>(data_0->size[0] * data_0->size[1]);
+                i_0 = static_cast<int32_T>(data_0->size[0] * data_0->size[1]);
                 data_0->size[0] = 1;
                 data_0->size[1] = data->size[1];
-                MissionUAV_emxEnsureCapacity_char_T(data_0, itoken_0);
+                MissionUAV_emxEnsureCapacity_char_T(data_0, i_0);
                 loop_ub = static_cast<int32_T>(static_cast<int32_T>(data->size[0]
                     * data->size[1]) - 1);
-                for (itoken_0 = 0; itoken_0 <= loop_ub; itoken_0++) {
-                    itoken = itoken_0;
-                    data_0->data[itoken_0] = data->data[itoken_0];
+                for (i_0 = 0; i_0 <= loop_ub; i_0++) {
+                    data_0->data[i_0] = data->data[i_0];
                 }
 
                 MissionUAV_strtok(data_0, curLine, data);
-                MissionUAV_strtok_b(curLine, tmp);
+                MissionUAV_strtok_l(curLine, tmp);
                 MissionUAV_strtrim(tmp, curLine);
                 if (curLine->size[1] >= 2) {
                     boolean_T guard1{ false };
@@ -2273,17 +2424,16 @@ static void MissionUAV_readINI(emxArray_char_T_MissionUAV_T *ret,
                                     1);
                             }
 
-                            itoken_0 = static_cast<int32_T>(curSection->size[0] *
+                            i_0 = static_cast<int32_T>(curSection->size[0] *
                                 curSection->size[1]);
                             curSection->size[0] = 1;
                             loop_ub = static_cast<int32_T>(itoken - iremain);
                             curSection->size[1] = loop_ub;
-                            MissionUAV_emxEnsureCapacity_char_T(curSection,
-                                itoken_0);
-                            for (itoken_0 = 0; itoken_0 <= static_cast<int32_T>
-                                    (loop_ub - 1); itoken_0++) {
-                                curSection->data[itoken_0] = curLine->data[
-                                    static_cast<int32_T>(iremain + itoken_0)];
+                            MissionUAV_emxEnsureCapacity_char_T(curSection, i_0);
+                            for (i_0 = 0; i_0 <= static_cast<int32_T>(loop_ub -
+                                    1); i_0++) {
+                                curSection->data[i_0] = curLine->data[
+                                    static_cast<int32_T>(iremain + i_0)];
                             }
 
                             curKey->size[0] = 1;
@@ -2303,7 +2453,7 @@ static void MissionUAV_readINI(emxArray_char_T_MissionUAV_T *ret,
                         if ((static_cast<boolean_T>(static_cast<int32_T>(
                                 static_cast<int32_T>(b_bool) ^ 1))) &&
                                 MissionUAV_contains(curLine)) {
-                            MissionUAV_strtok_bd(curLine, aTmp, curVal);
+                            MissionUAV_strtok_ls(curLine, aTmp, curVal);
                             MissionUAV_find_token(curVal, &itoken, &iremain);
                             if (itoken > static_cast<int32_T>(iremain - 1)) {
                                 itoken = 0;
@@ -2314,17 +2464,16 @@ static void MissionUAV_readINI(emxArray_char_T_MissionUAV_T *ret,
                             }
 
                             MissionUAV_strtrim(aTmp, curKey);
-                            itoken_0 = static_cast<int32_T>(curLine->size[0] *
+                            i_0 = static_cast<int32_T>(curLine->size[0] *
                                 curLine->size[1]);
                             curLine->size[0] = 1;
                             loop_ub = static_cast<int32_T>(iremain - itoken);
                             curLine->size[1] = loop_ub;
-                            MissionUAV_emxEnsureCapacity_char_T(curLine,
-                                itoken_0);
-                            for (itoken_0 = 0; itoken_0 <= static_cast<int32_T>
-                                    (loop_ub - 1); itoken_0++) {
-                                curLine->data[itoken_0] = curVal->data[
-                                    static_cast<int32_T>(itoken + itoken_0)];
+                            MissionUAV_emxEnsureCapacity_char_T(curLine, i_0);
+                            for (i_0 = 0; i_0 <= static_cast<int32_T>(loop_ub -
+                                    1); i_0++) {
+                                curLine->data[i_0] = curVal->data
+                                    [static_cast<int32_T>(itoken + i_0)];
                             }
 
                             MissionUAV_strtrim(curLine, curVal);
@@ -2337,15 +2486,14 @@ static void MissionUAV_readINI(emxArray_char_T_MissionUAV_T *ret,
                         aTmp->size[0] = 1;
                         aTmp->size[1] = 0;
                     } else {
-                        itoken_0 = static_cast<int32_T>(aTmp->size[0] *
-                            aTmp->size[1]);
+                        i_0 = static_cast<int32_T>(aTmp->size[0] * aTmp->size[1]);
                         aTmp->size[0] = 1;
                         aTmp->size[1] = curKey->size[1];
-                        MissionUAV_emxEnsureCapacity_char_T(aTmp, itoken_0);
-                        loop_ub = static_cast<int32_T>(curKey->size[1] - 1);
-                        for (itoken_0 = 0; itoken_0 <= loop_ub; itoken_0++) {
-                            itoken = itoken_0;
-                            aTmp->data[itoken_0] = curKey->data[itoken_0];
+                        MissionUAV_emxEnsureCapacity_char_T(aTmp, i_0);
+                        loop_ub = curKey->size[1];
+                        for (i_0 = 0; i_0 <= static_cast<int32_T>(loop_ub - 1);
+                                i_0++) {
+                            aTmp->data[i_0] = curKey->data[i_0];
                         }
                     }
 
@@ -2372,14 +2520,14 @@ static void MissionUAV_readINI(emxArray_char_T_MissionUAV_T *ret,
                     }
 
                     if (b_bool) {
-                        itoken_0 = static_cast<int32_T>(ret->size[0] * ret->
-                            size[1]);
+                        i_0 = static_cast<int32_T>(ret->size[0] * ret->size[1]);
                         ret->size[0] = 1;
                         ret->size[1] = curVal->size[1];
-                        MissionUAV_emxEnsureCapacity_char_T(ret, itoken_0);
-                        loop_ub = static_cast<int32_T>(curVal->size[1] - 1);
-                        for (itoken_0 = 0; itoken_0 <= loop_ub; itoken_0++) {
-                            ret->data[itoken_0] = curVal->data[itoken_0];
+                        MissionUAV_emxEnsureCapacity_char_T(ret, i_0);
+                        loop_ub = curVal->size[1];
+                        for (i_0 = 0; i_0 <= static_cast<int32_T>(loop_ub - 1);
+                                i_0++) {
+                            ret->data[i_0] = curVal->data[i_0];
                         }
 
                         exitg1 = 1;
@@ -2402,7 +2550,7 @@ static void MissionUAV_readINI(emxArray_char_T_MissionUAV_T *ret,
 }
 
 // Function for MATLAB Function: '<S1>/Get Max Bank'
-static void MissionUAV_readINI_b(emxArray_char_T_MissionUAV_T *ret,
+static void MissionUAV_readINI_k(emxArray_char_T_MissionUAV_T *ret,
     DW_MissionUAV_f_T *localDW)
 {
     static const char_T h[128]{ '\x00', '\x01', '\x02', '\x03', '\x04', '\x05',
@@ -2440,30 +2588,29 @@ static void MissionUAV_readINI_b(emxArray_char_T_MissionUAV_T *ret,
                "config.ini");
         fflush(stdout);
     } else {
-        int32_T itoken_0;
+        int32_T i_0;
         int32_T loop_ub;
-        MissionUAV_emxInit_char_T(&data, 2);
         MissionUAV_emxInit_char_T(&j, 1);
         MissionUAV_fread(static_cast<real_T>(fileid), j, localDW);
-        itoken_0 = static_cast<int32_T>(data->size[0] * data->size[1]);
+        MissionUAV_emxInit_char_T(&data, 2);
+        i_0 = static_cast<int32_T>(data->size[0] * data->size[1]);
         data->size[0] = 1;
         data->size[1] = j->size[0];
-        MissionUAV_emxEnsureCapacity_char_T(data, itoken_0);
+        MissionUAV_emxEnsureCapacity_char_T(data, i_0);
         loop_ub = j->size[0];
-        for (itoken_0 = 0; itoken_0 <= static_cast<int32_T>(loop_ub - 1);
-                itoken_0++) {
-            data->data[itoken_0] = j->data[itoken_0];
+        for (i_0 = 0; i_0 <= static_cast<int32_T>(loop_ub - 1); i_0++) {
+            data->data[i_0] = j->data[i_0];
         }
 
         MissionUAV_emxFree_char_T(&j);
-        MissionUAV_emxInit_char_T(&curSection, 2);
-        MissionUAV_emxInit_char_T(&curKey, 2);
-        MissionUAV_emxInit_char_T(&curVal, 2);
         MissionUAV_cfclose(static_cast<real_T>(fileid), localDW);
+        MissionUAV_emxInit_char_T(&curSection, 2);
         curSection->size[0] = 1;
         curSection->size[1] = 0;
+        MissionUAV_emxInit_char_T(&curKey, 2);
         curKey->size[0] = 1;
         curKey->size[1] = 0;
+        MissionUAV_emxInit_char_T(&curVal, 2);
         curVal->size[0] = 1;
         curVal->size[1] = 0;
         MissionUAV_emxInit_char_T(&curLine, 2);
@@ -2475,19 +2622,18 @@ static void MissionUAV_readINI_b(emxArray_char_T_MissionUAV_T *ret,
             exitg1 = 0;
             if (data->size[1] != 0) {
                 boolean_T b_bool;
-                itoken_0 = static_cast<int32_T>(data_0->size[0] * data_0->size[1]);
+                i_0 = static_cast<int32_T>(data_0->size[0] * data_0->size[1]);
                 data_0->size[0] = 1;
                 data_0->size[1] = data->size[1];
-                MissionUAV_emxEnsureCapacity_char_T(data_0, itoken_0);
+                MissionUAV_emxEnsureCapacity_char_T(data_0, i_0);
                 loop_ub = static_cast<int32_T>(static_cast<int32_T>(data->size[0]
                     * data->size[1]) - 1);
-                for (itoken_0 = 0; itoken_0 <= loop_ub; itoken_0++) {
-                    itoken = itoken_0;
-                    data_0->data[itoken_0] = data->data[itoken_0];
+                for (i_0 = 0; i_0 <= loop_ub; i_0++) {
+                    data_0->data[i_0] = data->data[i_0];
                 }
 
                 MissionUAV_strtok(data_0, curLine, data);
-                MissionUAV_strtok_b(curLine, tmp);
+                MissionUAV_strtok_l(curLine, tmp);
                 MissionUAV_strtrim(tmp, curLine);
                 if (curLine->size[1] >= 2) {
                     boolean_T guard1{ false };
@@ -2516,17 +2662,16 @@ static void MissionUAV_readINI_b(emxArray_char_T_MissionUAV_T *ret,
                                     1);
                             }
 
-                            itoken_0 = static_cast<int32_T>(curSection->size[0] *
+                            i_0 = static_cast<int32_T>(curSection->size[0] *
                                 curSection->size[1]);
                             curSection->size[0] = 1;
                             loop_ub = static_cast<int32_T>(itoken - iremain);
                             curSection->size[1] = loop_ub;
-                            MissionUAV_emxEnsureCapacity_char_T(curSection,
-                                itoken_0);
-                            for (itoken_0 = 0; itoken_0 <= static_cast<int32_T>
-                                    (loop_ub - 1); itoken_0++) {
-                                curSection->data[itoken_0] = curLine->data[
-                                    static_cast<int32_T>(iremain + itoken_0)];
+                            MissionUAV_emxEnsureCapacity_char_T(curSection, i_0);
+                            for (i_0 = 0; i_0 <= static_cast<int32_T>(loop_ub -
+                                    1); i_0++) {
+                                curSection->data[i_0] = curLine->data[
+                                    static_cast<int32_T>(iremain + i_0)];
                             }
 
                             curKey->size[0] = 1;
@@ -2546,7 +2691,7 @@ static void MissionUAV_readINI_b(emxArray_char_T_MissionUAV_T *ret,
                         if ((static_cast<boolean_T>(static_cast<int32_T>(
                                 static_cast<int32_T>(b_bool) ^ 1))) &&
                                 MissionUAV_contains(curLine)) {
-                            MissionUAV_strtok_bd(curLine, aTmp, curVal);
+                            MissionUAV_strtok_ls(curLine, aTmp, curVal);
                             MissionUAV_find_token(curVal, &itoken, &iremain);
                             if (itoken > static_cast<int32_T>(iremain - 1)) {
                                 itoken = 0;
@@ -2557,17 +2702,16 @@ static void MissionUAV_readINI_b(emxArray_char_T_MissionUAV_T *ret,
                             }
 
                             MissionUAV_strtrim(aTmp, curKey);
-                            itoken_0 = static_cast<int32_T>(curLine->size[0] *
+                            i_0 = static_cast<int32_T>(curLine->size[0] *
                                 curLine->size[1]);
                             curLine->size[0] = 1;
                             loop_ub = static_cast<int32_T>(iremain - itoken);
                             curLine->size[1] = loop_ub;
-                            MissionUAV_emxEnsureCapacity_char_T(curLine,
-                                itoken_0);
-                            for (itoken_0 = 0; itoken_0 <= static_cast<int32_T>
-                                    (loop_ub - 1); itoken_0++) {
-                                curLine->data[itoken_0] = curVal->data[
-                                    static_cast<int32_T>(itoken + itoken_0)];
+                            MissionUAV_emxEnsureCapacity_char_T(curLine, i_0);
+                            for (i_0 = 0; i_0 <= static_cast<int32_T>(loop_ub -
+                                    1); i_0++) {
+                                curLine->data[i_0] = curVal->data
+                                    [static_cast<int32_T>(itoken + i_0)];
                             }
 
                             MissionUAV_strtrim(curLine, curVal);
@@ -2580,15 +2724,14 @@ static void MissionUAV_readINI_b(emxArray_char_T_MissionUAV_T *ret,
                         aTmp->size[0] = 1;
                         aTmp->size[1] = 0;
                     } else {
-                        itoken_0 = static_cast<int32_T>(aTmp->size[0] *
-                            aTmp->size[1]);
+                        i_0 = static_cast<int32_T>(aTmp->size[0] * aTmp->size[1]);
                         aTmp->size[0] = 1;
                         aTmp->size[1] = curKey->size[1];
-                        MissionUAV_emxEnsureCapacity_char_T(aTmp, itoken_0);
-                        loop_ub = static_cast<int32_T>(curKey->size[1] - 1);
-                        for (itoken_0 = 0; itoken_0 <= loop_ub; itoken_0++) {
-                            itoken = itoken_0;
-                            aTmp->data[itoken_0] = curKey->data[itoken_0];
+                        MissionUAV_emxEnsureCapacity_char_T(aTmp, i_0);
+                        loop_ub = curKey->size[1];
+                        for (i_0 = 0; i_0 <= static_cast<int32_T>(loop_ub - 1);
+                                i_0++) {
+                            aTmp->data[i_0] = curKey->data[i_0];
                         }
                     }
 
@@ -2615,14 +2758,14 @@ static void MissionUAV_readINI_b(emxArray_char_T_MissionUAV_T *ret,
                     }
 
                     if (b_bool) {
-                        itoken_0 = static_cast<int32_T>(ret->size[0] * ret->
-                            size[1]);
+                        i_0 = static_cast<int32_T>(ret->size[0] * ret->size[1]);
                         ret->size[0] = 1;
                         ret->size[1] = curVal->size[1];
-                        MissionUAV_emxEnsureCapacity_char_T(ret, itoken_0);
-                        loop_ub = static_cast<int32_T>(curVal->size[1] - 1);
-                        for (itoken_0 = 0; itoken_0 <= loop_ub; itoken_0++) {
-                            ret->data[itoken_0] = curVal->data[itoken_0];
+                        MissionUAV_emxEnsureCapacity_char_T(ret, i_0);
+                        loop_ub = curVal->size[1];
+                        for (i_0 = 0; i_0 <= static_cast<int32_T>(loop_ub - 1);
+                                i_0++) {
+                            ret->data[i_0] = curVal->data[i_0];
                         }
 
                         exitg1 = 1;
@@ -2644,106 +2787,25 @@ static void MissionUAV_readINI_b(emxArray_char_T_MissionUAV_T *ret,
     }
 }
 
-// Function for MATLAB Function: '<S1>/Get Max Bank'
-static boolean_T MissionUAV_strcmp_hh4i(const emxArray_char_T_MissionUAV_T *a)
-{
-    static const char_T c[128]{ '\x00', '\x01', '\x02', '\x03', '\x04', '\x05',
-        '\x06', '\x07', '\x08', '\x09', '\x0a', '\x0b', '\x0c', '\x0d', '\x0e',
-        '\x0f', '\x10', '\x11', '\x12', '\x13', '\x14', '\x15', '\x16', '\x17',
-        '\x18', '\x19', '\x1a', '\x1b', '\x1c', '\x1d', '\x1e', '\x1f', ' ', '!',
-        '\"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/',
-        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=',
-        '>', '?', '@', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
-        'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
-        'z', '[', '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g',
-        'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
-        'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~', '\x7f' };
-
-    static const char_T d[12]{ 'M', 'a', 'x', 'R', 'o', 'l', 'l', 'A', 'n', 'g',
-        'l', 'e' };
-
-    emxArray_char_T_MissionUAV_T *aTmp;
-    int32_T loop_ub;
-    boolean_T b_bool;
-    MissionUAV_emxInit_char_T(&aTmp, 2);
-    if (a->size[1] == 0) {
-        aTmp->size[0] = 1;
-        aTmp->size[1] = 0;
-    } else {
-        int32_T i;
-        i = static_cast<int32_T>(aTmp->size[0] * aTmp->size[1]);
-        aTmp->size[0] = 1;
-        aTmp->size[1] = a->size[1];
-        MissionUAV_emxEnsureCapacity_char_T(aTmp, i);
-        loop_ub = static_cast<int32_T>(a->size[1] - 1);
-        for (i = 0; i <= loop_ub; i++) {
-            aTmp->data[i] = a->data[i];
-        }
-    }
-
-    b_bool = false;
-    if (aTmp->size[1] == 12) {
-        loop_ub = 0;
-        int32_T exitg1;
-        do {
-            exitg1 = 0;
-            if (loop_ub < 12) {
-                if (c[static_cast<int32_T>(static_cast<int32_T>
-                                           (static_cast<uint8_T>(aTmp->
-                        data[loop_ub])) & 127)] != c[static_cast<int32_T>
-                        (d[loop_ub])]) {
-                    exitg1 = 1;
-                } else {
-                    loop_ub = static_cast<int32_T>(loop_ub + 1);
-                }
-            } else {
-                b_bool = true;
-                exitg1 = 1;
-            }
-        } while (exitg1 == 0);
-    }
-
-    MissionUAV_emxFree_char_T(&aTmp);
-    return b_bool;
-}
-
 // System initialize for referenced model: 'MissionUAV'
-void MissionUAV_Init(RT_MODEL_MissionUAV_T * const MissionUAV_M,
-                     DW_MissionUAV_f_T *localDW, X_MissionUAV_n_T *localX)
+void MissionUAV_Init(DW_MissionUAV_f_T *localDW)
 {
     FILE* a;
-
-    // InitializeConditions for Integrator: '<S5>/Integrator'
-    if (rtmIsFirstInitCond(MissionUAV_M)) {
-        std::memset(&localX->Integrator_CSTATE[0], 0, static_cast<uint32_T>
-                    (sizeof(real_T) << 3U));
-    }
-
-    localDW->Integrator_IWORK = 1;
-
-    // End of InitializeConditions for Integrator: '<S5>/Integrator'
-
-    // InitializeConditions for Integrator: '<S8>/TD_Bank'
-    localX->TD_Bank_CSTATE = 0.0;
-
-    // InitializeConditions for Integrator: '<S8>/dotBankTD'
-    localX->dotBankTD_CSTATE = 0.0;
 
     // SystemInitialize for MATLAB Function: '<S1>/Get Speed Limit'
     a = NULL;
     for (int32_T i{0}; i < 20; i++) {
-        localDW->eml_openfiles_p[i] = a;
+        localDW->eml_openfiles_a[i] = a;
     }
 
     // End of SystemInitialize for MATLAB Function: '<S1>/Get Speed Limit'
 
-    // SystemInitialize for MATLAB Function: '<S1>/Get Max Bank'
-    a = NULL;
-    for (int32_T i{0}; i < 20; i++) {
-        localDW->eml_openfiles[i] = a;
-    }
+    // SystemInitialize for Atomic SubSystem: '<S1>/MissionUAV'
+    // SystemInitialize for Atomic SubSystem: '<S5>/DiscreteIntegrator'
+    // InitializeConditions for Delay: '<S9>/DelayOutput'
+    localDW->icLoad = true;
 
-    // End of SystemInitialize for MATLAB Function: '<S1>/Get Max Bank'
+    // End of SystemInitialize for SubSystem: '<S5>/DiscreteIntegrator'
 
     // Start for MATLABSystem: '<S5>/ComputeDerivative'
     localDW->objisempty_a = true;
@@ -2766,12 +2828,21 @@ void MissionUAV_Init(RT_MODEL_MissionUAV_T * const MissionUAV_M,
     localDW->obj.OutputTemplate.FlightPathAngle = 0.0;
     localDW->obj.OutputTemplate.RollAngle = 0.0;
     localDW->obj.OutputTemplate.RollAngleRate = 0.0;
+
+    // End of SystemInitialize for SubSystem: '<S1>/MissionUAV'
+
+    // SystemInitialize for MATLAB Function: '<S1>/Get Max Bank'
+    a = NULL;
+    for (int32_T i{0}; i < 20; i++) {
+        localDW->eml_openfiles[i] = a;
+    }
+
+    // End of SystemInitialize for MATLAB Function: '<S1>/Get Max Bank'
 }
 
-// Outputs for referenced model: 'MissionUAV'
-void MissionUAV(RT_MODEL_MissionUAV_T * const MissionUAV_M, const real_T
-                *rtu_ResetState, const real_T rtu_StartPos[8], const real_T
-                *rtu_UAVGuidanceCmd_Height, const real_T
+// Output and update for referenced model: 'MissionUAV'
+void MissionUAV(const real_T *rtu_ResetState, const real_T rtu_StartPos[8],
+                const real_T *rtu_UAVGuidanceCmd_Height, const real_T
                 *rtu_UAVGuidanceCmd_AirSpeed, const real_T
                 *rtu_UAVGuidanceCmd_HeadingAngle, real_T *rty_SimUAVState_North,
                 real_T *rty_SimUAVState_East, real_T *rty_SimUAVState_Height,
@@ -2780,7 +2851,7 @@ void MissionUAV(RT_MODEL_MissionUAV_T * const MissionUAV_M, const real_T
                 *rty_SimUAVState_FlightPathAngle, real_T
                 *rty_SimUAVState_RollAngle, real_T
                 *rty_SimUAVState_RollAngleRate, DW_MissionUAV_f_T *localDW,
-                X_MissionUAV_n_T *localX)
+                ZCE_MissionUAV_T *localZCE)
 {
     emxArray_char_T_MissionUAV_T *b_remainder;
     emxArray_char_T_MissionUAV_T *curKey;
@@ -2816,15 +2887,17 @@ void MissionUAV(RT_MODEL_MissionUAV_T * const MissionUAV_M, const real_T
     emxArray_char_T_MissionUAV_T *tmp_i;
     creal_T tmp;
     creal_T tmp_0;
-    real_T ClimbAngleLimit;
+    real_T rtb_AddY[8];
+    real_T AddY_p;
     real_T DiveAngleLimit;
+    real_T SpdLmt_idx_0;
     real_T b_fid;
+    real_T b_fid_tmp;
+    real_T b_tmp;
     real_T c_fid;
     real_T c_fid_tmp;
     real_T d_fid;
     real_T fid;
-    real_T fid_tmp;
-    real_T rtb_RollAngle_d;
     int32_T c;
     int32_T i;
     int32_T i_0;
@@ -2834,15 +2907,8 @@ void MissionUAV(RT_MODEL_MissionUAV_T * const MissionUAV_M, const real_T
 
     boolean_T rtb_LowerRelop1;
 
-    // Integrator: '<S5>/Integrator'
-    if (rtsiIsModeUpdateTimeStep(MissionUAV_M->solverInfo) &&
-            (static_cast<boolean_T>(static_cast<int32_T>((*rtu_ResetState != 0.0)
-           | (localDW->Integrator_IWORK != 0))))) {
-        // evaluate the level of the reset signal
-        std::memcpy(&localX->Integrator_CSTATE[0], &rtu_StartPos[0],
-                    static_cast<uint32_T>(sizeof(real_T) << 3U));
-    }
-
+    // MATLAB Function 'MissionUAV/Get Speed Limit': '<S3>:1'
+    // '<S3>:1:3'
     MissionUAV_emxInit_char_T(&ret, 2);
     MissionUAV_emxInit_char_T(&data, 2);
     MissionUAV_emxInit_char_T(&curSection, 2);
@@ -2851,622 +2917,601 @@ void MissionUAV(RT_MODEL_MissionUAV_T * const MissionUAV_M, const real_T
     MissionUAV_emxInit_char_T(&curLine, 2);
     MissionUAV_emxInit_char_T(&b_remainder, 2);
     MissionUAV_emxInit_char_T(&k, 1);
-    if (rtmIsMajorTimeStep(MissionUAV_M)) {
-        // BusCreator: '<S1>/FixedWingGuidanceEnvironmentBus' incorporates:
-        //   Constant: '<S1>/Gravity'
-        //   Constant: '<S1>/NoWind'
 
-        localDW->FixedWingGuidanceEnvironmentBus_p.WindNorth = 0.0;
-        localDW->FixedWingGuidanceEnvironmentBus_p.WindEast = 0.0;
-        localDW->FixedWingGuidanceEnvironmentBus_p.WindDown = 0.0;
-        localDW->FixedWingGuidanceEnvironmentBus_p.Gravity = 9.807;
+    // MATLAB Function: '<S1>/Get Speed Limit'
+    if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
+            (localDW->SingletonInstance_not_empty) ^ 1))) {
+        creal_T tmp_1;
+        creal_T tmp_2;
+        localDW->SingletonInstance.AirSpeed = 35.0;
+        localDW->SingletonInstance.MaxRollAngle = 0.3490658503988659;
+        localDW->SingletonInstance.FlightPathAngleLimit[0] = -0.175;
+        localDW->SingletonInstance.FlightPathAngleLimit[1] = 0.175;
+        localDW->SingletonInstance.SpdLmt[0] = 29.0;
+        localDW->SingletonInstance.SpdLmt[1] = 46.0;
+        ret->size[0] = 1;
+        ret->size[1] = 0;
+        fid = MissionUAV_fileManager_c(localDW);
+        if (fid < 0.0) {
+            printf("INI-file \"%s\" was not found or could not be read.\n",
+                   "config.ini");
+            fflush(stdout);
+        } else {
+            MissionUAV_fread_j(fid, k, localDW);
+            i_0 = static_cast<int32_T>(data->size[0] * data->size[1]);
+            data->size[0] = 1;
+            data->size[1] = k->size[0];
+            MissionUAV_emxEnsureCapacity_char_T(data, i_0);
+            loop_ub = k->size[0];
+            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+                data->data[i] = k->data[i];
+            }
 
-        // MATLAB Function: '<S1>/Get Speed Limit'
-        // MATLAB Function 'MissionUAV/Get Speed Limit': '<S3>:1'
-        // '<S3>:1:3'
-        if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
-                (localDW->SingletonInstance_not_empty) ^ 1))) {
-            creal_T tmp_1;
-            creal_T tmp_2;
-            localDW->SingletonInstance.AirSpeed = 35.0;
-            localDW->SingletonInstance.MaxRollAngle = 0.3490658503988659;
-            localDW->SingletonInstance.FlightPathAngleLimit[0] = -0.175;
-            localDW->SingletonInstance.FlightPathAngleLimit[1] = 0.175;
-            localDW->SingletonInstance.SpdLmt[0] = 29.0;
-            localDW->SingletonInstance.SpdLmt[1] = 46.0;
-            ret->size[0] = 1;
-            ret->size[1] = 0;
-            fid = MissionUAV_fileManager_c(localDW);
-            if (fid < 0.0) {
-                printf("INI-file \"%s\" was not found or could not be read.\n",
-                       "config.ini");
-                fflush(stdout);
-            } else {
-                MissionUAV_fread_b(fid, k, localDW);
-                i_0 = static_cast<int32_T>(data->size[0] * data->size[1]);
-                data->size[0] = 1;
-                data->size[1] = k->size[0];
-                MissionUAV_emxEnsureCapacity_char_T(data, i_0);
-                loop_ub = k->size[0];
-                for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
-                    data->data[i] = k->data[i];
+            MissionUAV_cfclose_g(fid, localDW);
+            curSection->size[0] = 1;
+            curSection->size[1] = 0;
+            curKey->size[0] = 1;
+            curKey->size[1] = 0;
+            curVal->size[0] = 1;
+            curVal->size[1] = 0;
+            MissionUAV_emxInit_char_T(&tmp_h, 2);
+            MissionUAV_emxInit_char_T(&tmp_i, 2);
+            MissionUAV_emxInit_char_T(&data_7, 2);
+            exitg1 = false;
+            while ((!exitg1) && (data->size[1] != 0)) {
+                i_0 = static_cast<int32_T>(data_7->size[0] * data_7->size[1]);
+                data_7->size[0] = 1;
+                data_7->size[1] = data->size[1];
+                MissionUAV_emxEnsureCapacity_char_T(data_7, i_0);
+                loop_ub = static_cast<int32_T>(static_cast<int32_T>(data->size[0]
+                    * data->size[1]) - 1);
+                for (i_0 = 0; i_0 <= loop_ub; i_0++) {
+                    data_7->data[i_0] = data->data[i_0];
                 }
 
-                MissionUAV_cfclose_e(fid, localDW);
-                curSection->size[0] = 1;
-                curSection->size[1] = 0;
-                curKey->size[0] = 1;
-                curKey->size[1] = 0;
-                curVal->size[0] = 1;
-                curVal->size[1] = 0;
-                MissionUAV_emxInit_char_T(&tmp_h, 2);
-                MissionUAV_emxInit_char_T(&tmp_i, 2);
-                MissionUAV_emxInit_char_T(&data_7, 2);
-                exitg1 = false;
-                while ((!exitg1) && (data->size[1] != 0)) {
-                    i_0 = static_cast<int32_T>(data_7->size[0] * data_7->size[1]);
-                    data_7->size[0] = 1;
-                    data_7->size[1] = data->size[1];
-                    MissionUAV_emxEnsureCapacity_char_T(data_7, i_0);
-                    loop_ub = static_cast<int32_T>(static_cast<int32_T>
-                        (data->size[0] * data->size[1]) - 1);
-                    for (i_0 = 0; i_0 <= loop_ub; i_0++) {
-                        data_7->data[i_0] = data->data[i_0];
+                MissionUAV_strtok(data_7, curLine, data);
+                MissionUAV_strtok_l(curLine, tmp_i);
+                MissionUAV_strtrim(tmp_i, curLine);
+                if (curLine->size[1] >= 2) {
+                    rtb_LowerRelop1 = false;
+                    if (curLine->data[0] == '[') {
+                        rtb_LowerRelop1 = true;
                     }
 
-                    MissionUAV_strtok(data_7, curLine, data);
-                    MissionUAV_strtok_b(curLine, tmp_i);
-                    MissionUAV_strtrim(tmp_i, curLine);
-                    if (curLine->size[1] >= 2) {
+                    guard1 = false;
+                    if (rtb_LowerRelop1) {
                         rtb_LowerRelop1 = false;
-                        if (curLine->data[0] == '[') {
+                        if (curLine->data[static_cast<int32_T>(curLine->size[1]
+                                - 1)] == ']') {
                             rtb_LowerRelop1 = true;
                         }
 
-                        guard1 = false;
                         if (rtb_LowerRelop1) {
-                            rtb_LowerRelop1 = false;
-                            if (curLine->data[static_cast<int32_T>(curLine->
-                                    size[1] - 1)] == ']') {
-                                rtb_LowerRelop1 = true;
-                            }
-
-                            if (rtb_LowerRelop1) {
-                                if (static_cast<int32_T>(curLine->size[1] - 1) <
-                                    2) {
-                                    c = 0;
-                                    i = 0;
-                                } else {
-                                    c = 1;
-                                    i = static_cast<int32_T>(curLine->size[1] -
-                                        1);
-                                }
-
-                                i_0 = static_cast<int32_T>(curSection->size[0] *
-                                    curSection->size[1]);
-                                curSection->size[0] = 1;
-                                loop_ub = static_cast<int32_T>(i - c);
-                                curSection->size[1] = loop_ub;
-                                MissionUAV_emxEnsureCapacity_char_T(curSection,
-                                    i_0);
-                                for (i = 0; i <= static_cast<int32_T>(loop_ub -
-                                        1); i++) {
-                                    curSection->data[i] = curLine->data[
-                                        static_cast<int32_T>(c + i)];
-                                }
-
-                                curKey->size[0] = 1;
-                                curKey->size[1] = 0;
+                            if (static_cast<int32_T>(curLine->size[1] - 1) < 2)
+                            {
+                                c = 0;
+                                i = 0;
                             } else {
-                                guard1 = true;
+                                c = 1;
+                                i = static_cast<int32_T>(curLine->size[1] - 1);
                             }
+
+                            i_0 = static_cast<int32_T>(curSection->size[0] *
+                                curSection->size[1]);
+                            curSection->size[0] = 1;
+                            loop_ub = static_cast<int32_T>(i - c);
+                            curSection->size[1] = loop_ub;
+                            MissionUAV_emxEnsureCapacity_char_T(curSection, i_0);
+                            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1);
+                                    i++) {
+                                curSection->data[i] = curLine->data[static_cast<
+                                    int32_T>(c + i)];
+                            }
+
+                            curKey->size[0] = 1;
+                            curKey->size[1] = 0;
                         } else {
                             guard1 = true;
                         }
-
-                        if (guard1) {
-                            if (curLine->data[0] == ';') {
-                                rtb_LowerRelop1 = true;
-                            }
-
-                            if ((static_cast<boolean_T>(static_cast<int32_T>(
-                                    static_cast<int32_T>(rtb_LowerRelop1) ^ 1)))
-                                && MissionUAV_contains(curLine)) {
-                                MissionUAV_strtok_bd(curLine, curVal,
-                                                     b_remainder);
-                                MissionUAV_strtrim(curVal, curKey);
-                                MissionUAV_strtok_bdc(b_remainder, tmp_h);
-                                MissionUAV_strtrim(tmp_h, curVal);
-                            }
-                        }
+                    } else {
+                        guard1 = true;
                     }
 
-                    if (MissionUAV_strcmp(curSection) && MissionUAV_strcmp_h
-                            (curKey)) {
-                        i_0 = static_cast<int32_T>(ret->size[0] * ret->size[1]);
-                        ret->size[0] = 1;
-                        ret->size[1] = curVal->size[1];
-                        MissionUAV_emxEnsureCapacity_char_T(ret, i_0);
-                        loop_ub = static_cast<int32_T>(curVal->size[1] - 1);
-                        for (i = 0; i <= loop_ub; i++) {
-                            ret->data[i] = curVal->data[i];
-                        }
-
-                        exitg1 = true;
-                    }
-                }
-
-                MissionUAV_emxFree_char_T(&data_7);
-                MissionUAV_emxFree_char_T(&tmp_i);
-                MissionUAV_emxFree_char_T(&tmp_h);
-            }
-
-            tmp = MissionUAV_str2double(ret);
-            printf("Set UAV NormAirSpeed:\t\t%f\n", tmp.re);
-            fflush(stdout);
-            ret->size[0] = 1;
-            ret->size[1] = 0;
-            b_fid = MissionUAV_fileManager_c(localDW);
-            if (b_fid < 0.0) {
-                printf("INI-file \"%s\" was not found or could not be read.\n",
-                       "config.ini");
-                fflush(stdout);
-            } else {
-                MissionUAV_fread_b(b_fid, k, localDW);
-                i_0 = static_cast<int32_T>(data->size[0] * data->size[1]);
-                data->size[0] = 1;
-                data->size[1] = k->size[0];
-                MissionUAV_emxEnsureCapacity_char_T(data, i_0);
-                loop_ub = k->size[0];
-                for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
-                    data->data[i] = k->data[i];
-                }
-
-                MissionUAV_cfclose_e(b_fid, localDW);
-                curSection->size[0] = 1;
-                curSection->size[1] = 0;
-                curKey->size[0] = 1;
-                curKey->size[1] = 0;
-                curVal->size[0] = 1;
-                curVal->size[1] = 0;
-                MissionUAV_emxInit_char_T(&tmp_f, 2);
-                MissionUAV_emxInit_char_T(&tmp_g, 2);
-                MissionUAV_emxInit_char_T(&data_6, 2);
-                exitg1 = false;
-                while ((!exitg1) && (data->size[1] != 0)) {
-                    i_0 = static_cast<int32_T>(data_6->size[0] * data_6->size[1]);
-                    data_6->size[0] = 1;
-                    data_6->size[1] = data->size[1];
-                    MissionUAV_emxEnsureCapacity_char_T(data_6, i_0);
-                    loop_ub = static_cast<int32_T>(static_cast<int32_T>
-                        (data->size[0] * data->size[1]) - 1);
-                    for (i_0 = 0; i_0 <= loop_ub; i_0++) {
-                        data_6->data[i_0] = data->data[i_0];
-                    }
-
-                    MissionUAV_strtok(data_6, curLine, data);
-                    MissionUAV_strtok_b(curLine, tmp_g);
-                    MissionUAV_strtrim(tmp_g, curLine);
-                    if (curLine->size[1] >= 2) {
-                        rtb_LowerRelop1 = false;
-                        if (curLine->data[0] == '[') {
+                    if (guard1) {
+                        if (curLine->data[0] == ';') {
                             rtb_LowerRelop1 = true;
                         }
 
-                        guard1 = false;
-                        if (rtb_LowerRelop1) {
-                            rtb_LowerRelop1 = false;
-                            if (curLine->data[static_cast<int32_T>(curLine->
-                                    size[1] - 1)] == ']') {
-                                rtb_LowerRelop1 = true;
-                            }
-
-                            if (rtb_LowerRelop1) {
-                                if (static_cast<int32_T>(curLine->size[1] - 1) <
-                                    2) {
-                                    c = 0;
-                                    i = 0;
-                                } else {
-                                    c = 1;
-                                    i = static_cast<int32_T>(curLine->size[1] -
-                                        1);
-                                }
-
-                                i_0 = static_cast<int32_T>(curSection->size[0] *
-                                    curSection->size[1]);
-                                curSection->size[0] = 1;
-                                loop_ub = static_cast<int32_T>(i - c);
-                                curSection->size[1] = loop_ub;
-                                MissionUAV_emxEnsureCapacity_char_T(curSection,
-                                    i_0);
-                                for (i = 0; i <= static_cast<int32_T>(loop_ub -
-                                        1); i++) {
-                                    curSection->data[i] = curLine->data[
-                                        static_cast<int32_T>(c + i)];
-                                }
-
-                                curKey->size[0] = 1;
-                                curKey->size[1] = 0;
-                            } else {
-                                guard1 = true;
-                            }
-                        } else {
-                            guard1 = true;
+                        if ((static_cast<boolean_T>(static_cast<int32_T>(
+                                static_cast<int32_T>(rtb_LowerRelop1) ^ 1))) &&
+                                MissionUAV_contains(curLine)) {
+                            MissionUAV_strtok_ls(curLine, curVal, b_remainder);
+                            MissionUAV_strtrim(curVal, curKey);
+                            MissionUAV_strtok_lse(b_remainder, tmp_h);
+                            MissionUAV_strtrim(tmp_h, curVal);
                         }
-
-                        if (guard1) {
-                            if (curLine->data[0] == ';') {
-                                rtb_LowerRelop1 = true;
-                            }
-
-                            if ((static_cast<boolean_T>(static_cast<int32_T>(
-                                    static_cast<int32_T>(rtb_LowerRelop1) ^ 1)))
-                                && MissionUAV_contains(curLine)) {
-                                MissionUAV_strtok_bd(curLine, curVal,
-                                                     b_remainder);
-                                MissionUAV_strtrim(curVal, curKey);
-                                MissionUAV_strtok_bdc(b_remainder, tmp_f);
-                                MissionUAV_strtrim(tmp_f, curVal);
-                            }
-                        }
-                    }
-
-                    if (MissionUAV_strcmp(curSection) && MissionUAV_strcmp_hh
-                            (curKey)) {
-                        i_0 = static_cast<int32_T>(ret->size[0] * ret->size[1]);
-                        ret->size[0] = 1;
-                        ret->size[1] = curVal->size[1];
-                        MissionUAV_emxEnsureCapacity_char_T(ret, i_0);
-                        loop_ub = static_cast<int32_T>(curVal->size[1] - 1);
-                        for (i = 0; i <= loop_ub; i++) {
-                            ret->data[i] = curVal->data[i];
-                        }
-
-                        exitg1 = true;
                     }
                 }
 
-                MissionUAV_emxFree_char_T(&data_6);
-                MissionUAV_emxFree_char_T(&tmp_g);
-                MissionUAV_emxFree_char_T(&tmp_f);
-            }
+                if (MissionUAV_strcmp(curSection) && MissionUAV_strcmp_j(curKey))
+                {
+                    i_0 = static_cast<int32_T>(ret->size[0] * ret->size[1]);
+                    ret->size[0] = 1;
+                    ret->size[1] = curVal->size[1];
+                    MissionUAV_emxEnsureCapacity_char_T(ret, i_0);
+                    loop_ub = curVal->size[1];
+                    for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+                        ret->data[i] = curVal->data[i];
+                    }
 
-            tmp_0 = MissionUAV_str2double(ret);
-            printf("Set UAV MaxAirSpeed:\t\t%f\n", tmp_0.re);
-            fflush(stdout);
-            ret->size[0] = 1;
-            ret->size[1] = 0;
-            c_fid = MissionUAV_fileManager_c(localDW);
-            if (c_fid < 0.0) {
-                printf("INI-file \"%s\" was not found or could not be read.\n",
-                       "config.ini");
-                fflush(stdout);
-            } else {
-                MissionUAV_fread_b(c_fid, k, localDW);
-                i_0 = static_cast<int32_T>(data->size[0] * data->size[1]);
-                data->size[0] = 1;
-                data->size[1] = k->size[0];
-                MissionUAV_emxEnsureCapacity_char_T(data, i_0);
-                loop_ub = k->size[0];
-                for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
-                    data->data[i] = k->data[i];
+                    exitg1 = true;
                 }
-
-                MissionUAV_cfclose_e(c_fid, localDW);
-                curSection->size[0] = 1;
-                curSection->size[1] = 0;
-                curKey->size[0] = 1;
-                curKey->size[1] = 0;
-                curVal->size[0] = 1;
-                curVal->size[1] = 0;
-                MissionUAV_emxInit_char_T(&tmp_d, 2);
-                MissionUAV_emxInit_char_T(&tmp_e, 2);
-                MissionUAV_emxInit_char_T(&data_5, 2);
-                exitg1 = false;
-                while ((!exitg1) && (data->size[1] != 0)) {
-                    i_0 = static_cast<int32_T>(data_5->size[0] * data_5->size[1]);
-                    data_5->size[0] = 1;
-                    data_5->size[1] = data->size[1];
-                    MissionUAV_emxEnsureCapacity_char_T(data_5, i_0);
-                    loop_ub = static_cast<int32_T>(static_cast<int32_T>
-                        (data->size[0] * data->size[1]) - 1);
-                    for (i_0 = 0; i_0 <= loop_ub; i_0++) {
-                        data_5->data[i_0] = data->data[i_0];
-                    }
-
-                    MissionUAV_strtok(data_5, curLine, data);
-                    MissionUAV_strtok_b(curLine, tmp_e);
-                    MissionUAV_strtrim(tmp_e, curLine);
-                    if (curLine->size[1] >= 2) {
-                        rtb_LowerRelop1 = false;
-                        if (curLine->data[0] == '[') {
-                            rtb_LowerRelop1 = true;
-                        }
-
-                        guard1 = false;
-                        if (rtb_LowerRelop1) {
-                            rtb_LowerRelop1 = false;
-                            if (curLine->data[static_cast<int32_T>(curLine->
-                                    size[1] - 1)] == ']') {
-                                rtb_LowerRelop1 = true;
-                            }
-
-                            if (rtb_LowerRelop1) {
-                                if (static_cast<int32_T>(curLine->size[1] - 1) <
-                                    2) {
-                                    c = 0;
-                                    i = 0;
-                                } else {
-                                    c = 1;
-                                    i = static_cast<int32_T>(curLine->size[1] -
-                                        1);
-                                }
-
-                                i_0 = static_cast<int32_T>(curSection->size[0] *
-                                    curSection->size[1]);
-                                curSection->size[0] = 1;
-                                loop_ub = static_cast<int32_T>(i - c);
-                                curSection->size[1] = loop_ub;
-                                MissionUAV_emxEnsureCapacity_char_T(curSection,
-                                    i_0);
-                                for (i = 0; i <= static_cast<int32_T>(loop_ub -
-                                        1); i++) {
-                                    curSection->data[i] = curLine->data[
-                                        static_cast<int32_T>(c + i)];
-                                }
-
-                                curKey->size[0] = 1;
-                                curKey->size[1] = 0;
-                            } else {
-                                guard1 = true;
-                            }
-                        } else {
-                            guard1 = true;
-                        }
-
-                        if (guard1) {
-                            if (curLine->data[0] == ';') {
-                                rtb_LowerRelop1 = true;
-                            }
-
-                            if ((static_cast<boolean_T>(static_cast<int32_T>(
-                                    static_cast<int32_T>(rtb_LowerRelop1) ^ 1)))
-                                && MissionUAV_contains(curLine)) {
-                                MissionUAV_strtok_bd(curLine, curVal,
-                                                     b_remainder);
-                                MissionUAV_strtrim(curVal, curKey);
-                                MissionUAV_strtok_bdc(b_remainder, tmp_d);
-                                MissionUAV_strtrim(tmp_d, curVal);
-                            }
-                        }
-                    }
-
-                    if (MissionUAV_strcmp(curSection) && MissionUAV_strcmp_hh4
-                            (curKey)) {
-                        i_0 = static_cast<int32_T>(ret->size[0] * ret->size[1]);
-                        ret->size[0] = 1;
-                        ret->size[1] = curVal->size[1];
-                        MissionUAV_emxEnsureCapacity_char_T(ret, i_0);
-                        loop_ub = static_cast<int32_T>(curVal->size[1] - 1);
-                        for (i = 0; i <= loop_ub; i++) {
-                            ret->data[i] = curVal->data[i];
-                        }
-
-                        exitg1 = true;
-                    }
-                }
-
-                MissionUAV_emxFree_char_T(&data_5);
-                MissionUAV_emxFree_char_T(&tmp_e);
-                MissionUAV_emxFree_char_T(&tmp_d);
             }
 
-            tmp_1 = MissionUAV_str2double(ret);
-            printf("Set UAV MinAirSpeed:\t\t%f\n", tmp_1.re);
-            fflush(stdout);
-            ret->size[0] = 1;
-            ret->size[1] = 0;
-            d_fid = MissionUAV_fileManager_c(localDW);
-            if (d_fid < 0.0) {
-                printf("INI-file \"%s\" was not found or could not be read.\n",
-                       "config.ini");
-                fflush(stdout);
-            } else {
-                MissionUAV_fread_b(d_fid, k, localDW);
-                i_0 = static_cast<int32_T>(data->size[0] * data->size[1]);
-                data->size[0] = 1;
-                data->size[1] = k->size[0];
-                MissionUAV_emxEnsureCapacity_char_T(data, i_0);
-                loop_ub = k->size[0];
-                for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
-                    data->data[i] = k->data[i];
-                }
-
-                MissionUAV_cfclose_e(d_fid, localDW);
-                curSection->size[0] = 1;
-                curSection->size[1] = 0;
-                curKey->size[0] = 1;
-                curKey->size[1] = 0;
-                curVal->size[0] = 1;
-                curVal->size[1] = 0;
-                MissionUAV_emxInit_char_T(&tmp_b, 2);
-                MissionUAV_emxInit_char_T(&tmp_c, 2);
-                MissionUAV_emxInit_char_T(&data_4, 2);
-                exitg1 = false;
-                while ((!exitg1) && (data->size[1] != 0)) {
-                    i_0 = static_cast<int32_T>(data_4->size[0] * data_4->size[1]);
-                    data_4->size[0] = 1;
-                    data_4->size[1] = data->size[1];
-                    MissionUAV_emxEnsureCapacity_char_T(data_4, i_0);
-                    loop_ub = static_cast<int32_T>(static_cast<int32_T>
-                        (data->size[0] * data->size[1]) - 1);
-                    for (i_0 = 0; i_0 <= loop_ub; i_0++) {
-                        data_4->data[i_0] = data->data[i_0];
-                    }
-
-                    MissionUAV_strtok(data_4, curLine, data);
-                    MissionUAV_strtok_b(curLine, tmp_c);
-                    MissionUAV_strtrim(tmp_c, curLine);
-                    if (curLine->size[1] >= 2) {
-                        rtb_LowerRelop1 = false;
-                        if (curLine->data[0] == '[') {
-                            rtb_LowerRelop1 = true;
-                        }
-
-                        guard1 = false;
-                        if (rtb_LowerRelop1) {
-                            rtb_LowerRelop1 = false;
-                            if (curLine->data[static_cast<int32_T>(curLine->
-                                    size[1] - 1)] == ']') {
-                                rtb_LowerRelop1 = true;
-                            }
-
-                            if (rtb_LowerRelop1) {
-                                if (static_cast<int32_T>(curLine->size[1] - 1) <
-                                    2) {
-                                    c = 0;
-                                    i = 0;
-                                } else {
-                                    c = 1;
-                                    i = static_cast<int32_T>(curLine->size[1] -
-                                        1);
-                                }
-
-                                i_0 = static_cast<int32_T>(curSection->size[0] *
-                                    curSection->size[1]);
-                                curSection->size[0] = 1;
-                                loop_ub = static_cast<int32_T>(i - c);
-                                curSection->size[1] = loop_ub;
-                                MissionUAV_emxEnsureCapacity_char_T(curSection,
-                                    i_0);
-                                for (i = 0; i <= static_cast<int32_T>(loop_ub -
-                                        1); i++) {
-                                    curSection->data[i] = curLine->data[
-                                        static_cast<int32_T>(c + i)];
-                                }
-
-                                curKey->size[0] = 1;
-                                curKey->size[1] = 0;
-                            } else {
-                                guard1 = true;
-                            }
-                        } else {
-                            guard1 = true;
-                        }
-
-                        if (guard1) {
-                            if (curLine->data[0] == ';') {
-                                rtb_LowerRelop1 = true;
-                            }
-
-                            if ((static_cast<boolean_T>(static_cast<int32_T>(
-                                    static_cast<int32_T>(rtb_LowerRelop1) ^ 1)))
-                                && MissionUAV_contains(curLine)) {
-                                MissionUAV_strtok_bd(curLine, curVal,
-                                                     b_remainder);
-                                MissionUAV_strtrim(curVal, curKey);
-                                MissionUAV_strtok_bdc(b_remainder, tmp_b);
-                                MissionUAV_strtrim(tmp_b, curVal);
-                            }
-                        }
-                    }
-
-                    if (MissionUAV_strcmp(curSection) && MissionUAV_strcmp_hh4i
-                            (curKey)) {
-                        i_0 = static_cast<int32_T>(ret->size[0] * ret->size[1]);
-                        ret->size[0] = 1;
-                        ret->size[1] = curVal->size[1];
-                        MissionUAV_emxEnsureCapacity_char_T(ret, i_0);
-                        loop_ub = static_cast<int32_T>(curVal->size[1] - 1);
-                        for (i = 0; i <= loop_ub; i++) {
-                            ret->data[i] = curVal->data[i];
-                        }
-
-                        exitg1 = true;
-                    }
-                }
-
-                MissionUAV_emxFree_char_T(&data_4);
-                MissionUAV_emxFree_char_T(&tmp_c);
-                MissionUAV_emxFree_char_T(&tmp_b);
-            }
-
-            tmp_2 = MissionUAV_str2double(ret);
-            d_fid = 0.017453292519943295 * tmp_2.re;
-            printf("Set UAV MaxRollAngle:\t\t%f\n", d_fid);
-            fflush(stdout);
-            MissionUAV_readINI_bm(ret, localDW);
-            tmp_2 = MissionUAV_str2double(ret);
-            ClimbAngleLimit = 0.017453292519943295 * tmp_2.re;
-            printf("Set UAV ClimbAngleLimit:\t%f\n", ClimbAngleLimit);
-            fflush(stdout);
-            MissionUAV_readINI_bmo(ret, localDW);
-            tmp_2 = MissionUAV_str2double(ret);
-            DiveAngleLimit = 0.017453292519943295 * tmp_2.re;
-            printf("Set UAV DiveAngleLimit:\t\t%f\n", DiveAngleLimit);
-            fflush(stdout);
-            if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
-                    (std::isnan(tmp.re)) ^ 1))) {
-                localDW->SingletonInstance.AirSpeed = tmp.re;
-            }
-
-            if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
-                    (std::isnan(d_fid)) ^ 1))) {
-                localDW->SingletonInstance.MaxRollAngle = d_fid;
-            }
-
-            if ((static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
-                    (std::isnan(ClimbAngleLimit)) ^ 1))) &&
-                    (static_cast<boolean_T>(static_cast<int32_T>
-                    (static_cast<int32_T>(std::isnan(DiveAngleLimit)) ^ 1)))) {
-                localDW->SingletonInstance.FlightPathAngleLimit[0] =
-                    DiveAngleLimit;
-                localDW->SingletonInstance.FlightPathAngleLimit[1] =
-                    ClimbAngleLimit;
-            }
-
-            if ((static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
-                    (std::isnan(tmp_0.re)) ^ 1))) && (static_cast<boolean_T>(
-                    static_cast<int32_T>(static_cast<int32_T>(std::isnan
-                    (tmp_1.re)) ^ 1)))) {
-                localDW->SingletonInstance.SpdLmt[0] = tmp_1.re;
-                localDW->SingletonInstance.SpdLmt[1] = tmp_0.re;
-            }
-
-            MissionUAV_uavDubinsConnection_uavDubinsConnection
-                (&localDW->SingletonInstance.Connector,
-                 localDW->SingletonInstance.AirSpeed,
-                 localDW->SingletonInstance.MaxRollAngle);
-            localDW->SingletonInstance_not_empty = true;
+            MissionUAV_emxFree_char_T(&data_7);
+            MissionUAV_emxFree_char_T(&tmp_i);
+            MissionUAV_emxFree_char_T(&tmp_h);
         }
 
-        localDW->SpdLmt[0] = localDW->SingletonInstance.SpdLmt[0];
-        localDW->SpdLmt[1] = localDW->SingletonInstance.SpdLmt[1];
+        tmp = MissionUAV_str2double(ret);
+        printf("Set UAV NormAirSpeed:\t\t%f\n", tmp.re);
+        fflush(stdout);
+        ret->size[0] = 1;
+        ret->size[1] = 0;
+        b_fid = MissionUAV_fileManager_c(localDW);
+        if (b_fid < 0.0) {
+            printf("INI-file \"%s\" was not found or could not be read.\n",
+                   "config.ini");
+            fflush(stdout);
+        } else {
+            MissionUAV_fread_j(b_fid, k, localDW);
+            i_0 = static_cast<int32_T>(data->size[0] * data->size[1]);
+            data->size[0] = 1;
+            data->size[1] = k->size[0];
+            MissionUAV_emxEnsureCapacity_char_T(data, i_0);
+            loop_ub = k->size[0];
+            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+                data->data[i] = k->data[i];
+            }
 
-        // End of MATLAB Function: '<S1>/Get Speed Limit'
+            MissionUAV_cfclose_g(b_fid, localDW);
+            curSection->size[0] = 1;
+            curSection->size[1] = 0;
+            curKey->size[0] = 1;
+            curKey->size[1] = 0;
+            curVal->size[0] = 1;
+            curVal->size[1] = 0;
+            MissionUAV_emxInit_char_T(&tmp_f, 2);
+            MissionUAV_emxInit_char_T(&tmp_g, 2);
+            MissionUAV_emxInit_char_T(&data_6, 2);
+            exitg1 = false;
+            while ((!exitg1) && (data->size[1] != 0)) {
+                i_0 = static_cast<int32_T>(data_6->size[0] * data_6->size[1]);
+                data_6->size[0] = 1;
+                data_6->size[1] = data->size[1];
+                MissionUAV_emxEnsureCapacity_char_T(data_6, i_0);
+                loop_ub = static_cast<int32_T>(static_cast<int32_T>(data->size[0]
+                    * data->size[1]) - 1);
+                for (i_0 = 0; i_0 <= loop_ub; i_0++) {
+                    data_6->data[i_0] = data->data[i_0];
+                }
 
-        // MinMax: '<S1>/Max'
-        localDW->Max = std::fmax(localDW->SpdLmt[0], localDW->SpdLmt[1]);
+                MissionUAV_strtok(data_6, curLine, data);
+                MissionUAV_strtok_l(curLine, tmp_g);
+                MissionUAV_strtrim(tmp_g, curLine);
+                if (curLine->size[1] >= 2) {
+                    rtb_LowerRelop1 = false;
+                    if (curLine->data[0] == '[') {
+                        rtb_LowerRelop1 = true;
+                    }
 
-        // MinMax: '<S1>/Min'
-        localDW->Min = std::fmin(localDW->SpdLmt[0], localDW->SpdLmt[1]);
+                    guard1 = false;
+                    if (rtb_LowerRelop1) {
+                        rtb_LowerRelop1 = false;
+                        if (curLine->data[static_cast<int32_T>(curLine->size[1]
+                                - 1)] == ']') {
+                            rtb_LowerRelop1 = true;
+                        }
+
+                        if (rtb_LowerRelop1) {
+                            if (static_cast<int32_T>(curLine->size[1] - 1) < 2)
+                            {
+                                c = 0;
+                                i = 0;
+                            } else {
+                                c = 1;
+                                i = static_cast<int32_T>(curLine->size[1] - 1);
+                            }
+
+                            i_0 = static_cast<int32_T>(curSection->size[0] *
+                                curSection->size[1]);
+                            curSection->size[0] = 1;
+                            loop_ub = static_cast<int32_T>(i - c);
+                            curSection->size[1] = loop_ub;
+                            MissionUAV_emxEnsureCapacity_char_T(curSection, i_0);
+                            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1);
+                                    i++) {
+                                curSection->data[i] = curLine->data[static_cast<
+                                    int32_T>(c + i)];
+                            }
+
+                            curKey->size[0] = 1;
+                            curKey->size[1] = 0;
+                        } else {
+                            guard1 = true;
+                        }
+                    } else {
+                        guard1 = true;
+                    }
+
+                    if (guard1) {
+                        if (curLine->data[0] == ';') {
+                            rtb_LowerRelop1 = true;
+                        }
+
+                        if ((static_cast<boolean_T>(static_cast<int32_T>(
+                                static_cast<int32_T>(rtb_LowerRelop1) ^ 1))) &&
+                                MissionUAV_contains(curLine)) {
+                            MissionUAV_strtok_ls(curLine, curVal, b_remainder);
+                            MissionUAV_strtrim(curVal, curKey);
+                            MissionUAV_strtok_lse(b_remainder, tmp_f);
+                            MissionUAV_strtrim(tmp_f, curVal);
+                        }
+                    }
+                }
+
+                if (MissionUAV_strcmp(curSection) && MissionUAV_strcmp_jn(curKey))
+                {
+                    i_0 = static_cast<int32_T>(ret->size[0] * ret->size[1]);
+                    ret->size[0] = 1;
+                    ret->size[1] = curVal->size[1];
+                    MissionUAV_emxEnsureCapacity_char_T(ret, i_0);
+                    loop_ub = curVal->size[1];
+                    for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+                        ret->data[i] = curVal->data[i];
+                    }
+
+                    exitg1 = true;
+                }
+            }
+
+            MissionUAV_emxFree_char_T(&data_6);
+            MissionUAV_emxFree_char_T(&tmp_g);
+            MissionUAV_emxFree_char_T(&tmp_f);
+        }
+
+        tmp_0 = MissionUAV_str2double(ret);
+        printf("Set UAV MaxAirSpeed:\t\t%f\n", tmp_0.re);
+        fflush(stdout);
+        ret->size[0] = 1;
+        ret->size[1] = 0;
+        c_fid = MissionUAV_fileManager_c(localDW);
+        if (c_fid < 0.0) {
+            printf("INI-file \"%s\" was not found or could not be read.\n",
+                   "config.ini");
+            fflush(stdout);
+        } else {
+            MissionUAV_fread_j(c_fid, k, localDW);
+            i_0 = static_cast<int32_T>(data->size[0] * data->size[1]);
+            data->size[0] = 1;
+            data->size[1] = k->size[0];
+            MissionUAV_emxEnsureCapacity_char_T(data, i_0);
+            loop_ub = k->size[0];
+            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+                data->data[i] = k->data[i];
+            }
+
+            MissionUAV_cfclose_g(c_fid, localDW);
+            curSection->size[0] = 1;
+            curSection->size[1] = 0;
+            curKey->size[0] = 1;
+            curKey->size[1] = 0;
+            curVal->size[0] = 1;
+            curVal->size[1] = 0;
+            MissionUAV_emxInit_char_T(&tmp_d, 2);
+            MissionUAV_emxInit_char_T(&tmp_e, 2);
+            MissionUAV_emxInit_char_T(&data_5, 2);
+            exitg1 = false;
+            while ((!exitg1) && (data->size[1] != 0)) {
+                i_0 = static_cast<int32_T>(data_5->size[0] * data_5->size[1]);
+                data_5->size[0] = 1;
+                data_5->size[1] = data->size[1];
+                MissionUAV_emxEnsureCapacity_char_T(data_5, i_0);
+                loop_ub = static_cast<int32_T>(static_cast<int32_T>(data->size[0]
+                    * data->size[1]) - 1);
+                for (i_0 = 0; i_0 <= loop_ub; i_0++) {
+                    data_5->data[i_0] = data->data[i_0];
+                }
+
+                MissionUAV_strtok(data_5, curLine, data);
+                MissionUAV_strtok_l(curLine, tmp_e);
+                MissionUAV_strtrim(tmp_e, curLine);
+                if (curLine->size[1] >= 2) {
+                    rtb_LowerRelop1 = false;
+                    if (curLine->data[0] == '[') {
+                        rtb_LowerRelop1 = true;
+                    }
+
+                    guard1 = false;
+                    if (rtb_LowerRelop1) {
+                        rtb_LowerRelop1 = false;
+                        if (curLine->data[static_cast<int32_T>(curLine->size[1]
+                                - 1)] == ']') {
+                            rtb_LowerRelop1 = true;
+                        }
+
+                        if (rtb_LowerRelop1) {
+                            if (static_cast<int32_T>(curLine->size[1] - 1) < 2)
+                            {
+                                c = 0;
+                                i = 0;
+                            } else {
+                                c = 1;
+                                i = static_cast<int32_T>(curLine->size[1] - 1);
+                            }
+
+                            i_0 = static_cast<int32_T>(curSection->size[0] *
+                                curSection->size[1]);
+                            curSection->size[0] = 1;
+                            loop_ub = static_cast<int32_T>(i - c);
+                            curSection->size[1] = loop_ub;
+                            MissionUAV_emxEnsureCapacity_char_T(curSection, i_0);
+                            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1);
+                                    i++) {
+                                curSection->data[i] = curLine->data[static_cast<
+                                    int32_T>(c + i)];
+                            }
+
+                            curKey->size[0] = 1;
+                            curKey->size[1] = 0;
+                        } else {
+                            guard1 = true;
+                        }
+                    } else {
+                        guard1 = true;
+                    }
+
+                    if (guard1) {
+                        if (curLine->data[0] == ';') {
+                            rtb_LowerRelop1 = true;
+                        }
+
+                        if ((static_cast<boolean_T>(static_cast<int32_T>(
+                                static_cast<int32_T>(rtb_LowerRelop1) ^ 1))) &&
+                                MissionUAV_contains(curLine)) {
+                            MissionUAV_strtok_ls(curLine, curVal, b_remainder);
+                            MissionUAV_strtrim(curVal, curKey);
+                            MissionUAV_strtok_lse(b_remainder, tmp_d);
+                            MissionUAV_strtrim(tmp_d, curVal);
+                        }
+                    }
+                }
+
+                if (MissionUAV_strcmp(curSection) && MissionUAV_strcmp_jng
+                        (curKey)) {
+                    i_0 = static_cast<int32_T>(ret->size[0] * ret->size[1]);
+                    ret->size[0] = 1;
+                    ret->size[1] = curVal->size[1];
+                    MissionUAV_emxEnsureCapacity_char_T(ret, i_0);
+                    loop_ub = curVal->size[1];
+                    for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+                        ret->data[i] = curVal->data[i];
+                    }
+
+                    exitg1 = true;
+                }
+            }
+
+            MissionUAV_emxFree_char_T(&data_5);
+            MissionUAV_emxFree_char_T(&tmp_e);
+            MissionUAV_emxFree_char_T(&tmp_d);
+        }
+
+        tmp_1 = MissionUAV_str2double(ret);
+        printf("Set UAV MinAirSpeed:\t\t%f\n", tmp_1.re);
+        fflush(stdout);
+        ret->size[0] = 1;
+        ret->size[1] = 0;
+        d_fid = MissionUAV_fileManager_c(localDW);
+        if (d_fid < 0.0) {
+            printf("INI-file \"%s\" was not found or could not be read.\n",
+                   "config.ini");
+            fflush(stdout);
+        } else {
+            MissionUAV_fread_j(d_fid, k, localDW);
+            i_0 = static_cast<int32_T>(data->size[0] * data->size[1]);
+            data->size[0] = 1;
+            data->size[1] = k->size[0];
+            MissionUAV_emxEnsureCapacity_char_T(data, i_0);
+            loop_ub = k->size[0];
+            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+                data->data[i] = k->data[i];
+            }
+
+            MissionUAV_cfclose_g(d_fid, localDW);
+            curSection->size[0] = 1;
+            curSection->size[1] = 0;
+            curKey->size[0] = 1;
+            curKey->size[1] = 0;
+            curVal->size[0] = 1;
+            curVal->size[1] = 0;
+            MissionUAV_emxInit_char_T(&tmp_b, 2);
+            MissionUAV_emxInit_char_T(&tmp_c, 2);
+            MissionUAV_emxInit_char_T(&data_4, 2);
+            exitg1 = false;
+            while ((!exitg1) && (data->size[1] != 0)) {
+                i_0 = static_cast<int32_T>(data_4->size[0] * data_4->size[1]);
+                data_4->size[0] = 1;
+                data_4->size[1] = data->size[1];
+                MissionUAV_emxEnsureCapacity_char_T(data_4, i_0);
+                loop_ub = static_cast<int32_T>(static_cast<int32_T>(data->size[0]
+                    * data->size[1]) - 1);
+                for (i_0 = 0; i_0 <= loop_ub; i_0++) {
+                    data_4->data[i_0] = data->data[i_0];
+                }
+
+                MissionUAV_strtok(data_4, curLine, data);
+                MissionUAV_strtok_l(curLine, tmp_c);
+                MissionUAV_strtrim(tmp_c, curLine);
+                if (curLine->size[1] >= 2) {
+                    rtb_LowerRelop1 = false;
+                    if (curLine->data[0] == '[') {
+                        rtb_LowerRelop1 = true;
+                    }
+
+                    guard1 = false;
+                    if (rtb_LowerRelop1) {
+                        rtb_LowerRelop1 = false;
+                        if (curLine->data[static_cast<int32_T>(curLine->size[1]
+                                - 1)] == ']') {
+                            rtb_LowerRelop1 = true;
+                        }
+
+                        if (rtb_LowerRelop1) {
+                            if (static_cast<int32_T>(curLine->size[1] - 1) < 2)
+                            {
+                                c = 0;
+                                i = 0;
+                            } else {
+                                c = 1;
+                                i = static_cast<int32_T>(curLine->size[1] - 1);
+                            }
+
+                            i_0 = static_cast<int32_T>(curSection->size[0] *
+                                curSection->size[1]);
+                            curSection->size[0] = 1;
+                            loop_ub = static_cast<int32_T>(i - c);
+                            curSection->size[1] = loop_ub;
+                            MissionUAV_emxEnsureCapacity_char_T(curSection, i_0);
+                            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1);
+                                    i++) {
+                                curSection->data[i] = curLine->data[static_cast<
+                                    int32_T>(c + i)];
+                            }
+
+                            curKey->size[0] = 1;
+                            curKey->size[1] = 0;
+                        } else {
+                            guard1 = true;
+                        }
+                    } else {
+                        guard1 = true;
+                    }
+
+                    if (guard1) {
+                        if (curLine->data[0] == ';') {
+                            rtb_LowerRelop1 = true;
+                        }
+
+                        if ((static_cast<boolean_T>(static_cast<int32_T>(
+                                static_cast<int32_T>(rtb_LowerRelop1) ^ 1))) &&
+                                MissionUAV_contains(curLine)) {
+                            MissionUAV_strtok_ls(curLine, curVal, b_remainder);
+                            MissionUAV_strtrim(curVal, curKey);
+                            MissionUAV_strtok_lse(b_remainder, tmp_b);
+                            MissionUAV_strtrim(tmp_b, curVal);
+                        }
+                    }
+                }
+
+                if (MissionUAV_strcmp(curSection) && MissionUAV_strcmp_jngk
+                        (curKey)) {
+                    i_0 = static_cast<int32_T>(ret->size[0] * ret->size[1]);
+                    ret->size[0] = 1;
+                    ret->size[1] = curVal->size[1];
+                    MissionUAV_emxEnsureCapacity_char_T(ret, i_0);
+                    loop_ub = curVal->size[1];
+                    for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+                        ret->data[i] = curVal->data[i];
+                    }
+
+                    exitg1 = true;
+                }
+            }
+
+            MissionUAV_emxFree_char_T(&data_4);
+            MissionUAV_emxFree_char_T(&tmp_c);
+            MissionUAV_emxFree_char_T(&tmp_b);
+        }
+
+        tmp_2 = MissionUAV_str2double(ret);
+        d_fid = 0.017453292519943295 * tmp_2.re;
+        printf("Set UAV MaxRollAngle:\t\t%f\n", d_fid);
+        fflush(stdout);
+        MissionUAV_readINI_o(ret, localDW);
+        tmp_2 = MissionUAV_str2double(ret);
+        b_fid = 0.017453292519943295 * tmp_2.re;
+        printf("Set UAV ClimbAngleLimit:\t%f\n", b_fid);
+        fflush(stdout);
+        MissionUAV_readINI_oa(ret, localDW);
+        tmp_2 = MissionUAV_str2double(ret);
+        DiveAngleLimit = 0.017453292519943295 * tmp_2.re;
+        printf("Set UAV DiveAngleLimit:\t\t%f\n", DiveAngleLimit);
+        fflush(stdout);
+        if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(std::
+                isnan(tmp.re)) ^ 1))) {
+            localDW->SingletonInstance.AirSpeed = tmp.re;
+        }
+
+        if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(std::
+                isnan(d_fid)) ^ 1))) {
+            localDW->SingletonInstance.MaxRollAngle = d_fid;
+        }
+
+        if ((static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
+                (std::isnan(b_fid)) ^ 1))) && (static_cast<boolean_T>(
+                static_cast<int32_T>(static_cast<int32_T>(std::isnan
+                (DiveAngleLimit)) ^ 1)))) {
+            localDW->SingletonInstance.FlightPathAngleLimit[0] = DiveAngleLimit;
+            localDW->SingletonInstance.FlightPathAngleLimit[1] = b_fid;
+        }
+
+        if ((static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
+                (std::isnan(tmp_0.re)) ^ 1))) && (static_cast<boolean_T>(
+                static_cast<int32_T>(static_cast<int32_T>(std::isnan(tmp_1.re)) ^
+               1)))) {
+            localDW->SingletonInstance.SpdLmt[0] = tmp_1.re;
+            localDW->SingletonInstance.SpdLmt[1] = tmp_0.re;
+        }
+
+        MissionUAV_uavDubinsConnection_uavDubinsConnection
+            (&localDW->SingletonInstance.Connector,
+             localDW->SingletonInstance.AirSpeed,
+             localDW->SingletonInstance.MaxRollAngle);
+        localDW->SingletonInstance_not_empty = true;
     }
 
-    // RelationalOperator: '<S7>/LowerRelop1'
-    rtb_LowerRelop1 = (*rtu_UAVGuidanceCmd_AirSpeed > localDW->Max);
+    SpdLmt_idx_0 = localDW->SingletonInstance.SpdLmt[0];
+    c_fid = localDW->SingletonInstance.SpdLmt[1];
+
+    // End of MATLAB Function: '<S1>/Get Speed Limit'
+
+    // MinMax: '<S1>/Max'
+    fid = std::fmax(SpdLmt_idx_0, c_fid);
+
+    // RelationalOperator: '<S7>/LowerRelop1' incorporates:
+    //   MinMax: '<S1>/Max'
+
+    rtb_LowerRelop1 = (*rtu_UAVGuidanceCmd_AirSpeed > fid);
 
     // Switch: '<S7>/Switch2'
-    if (rtb_LowerRelop1) {
-        b_fid = localDW->Max;
-    } else {
-        // RelationalOperator: '<S7>/UpperRelop'
-        rtb_LowerRelop1 = (*rtu_UAVGuidanceCmd_AirSpeed < localDW->Min);
+    if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
+            (rtb_LowerRelop1) ^ 1))) {
+        // MinMax: '<S1>/Min'
+        AddY_p = std::fmin(SpdLmt_idx_0, c_fid);
 
-        // Switch: '<S7>/Switch'
+        // RelationalOperator: '<S7>/UpperRelop' incorporates:
+        //   MinMax: '<S1>/Min'
+
+        rtb_LowerRelop1 = (*rtu_UAVGuidanceCmd_AirSpeed < AddY_p);
+
+        // Switch: '<S7>/Switch' incorporates:
+        //   MinMax: '<S1>/Min'
+
         if (rtb_LowerRelop1) {
-            b_fid = localDW->Min;
+            fid = AddY_p;
         } else {
-            b_fid = *rtu_UAVGuidanceCmd_AirSpeed;
+            fid = *rtu_UAVGuidanceCmd_AirSpeed;
         }
 
         // End of Switch: '<S7>/Switch'
@@ -3474,659 +3519,804 @@ void MissionUAV(RT_MODEL_MissionUAV_T * const MissionUAV_M, const real_T
 
     // End of Switch: '<S7>/Switch2'
 
-    // Integrator: '<S8>/TD_Bank'
-    if (rtsiIsModeUpdateTimeStep(MissionUAV_M->solverInfo) && (*rtu_ResetState
-            != 0.0)) {
-        // evaluate the level of the reset signal
-        localX->TD_Bank_CSTATE = 0.0;
-    }
+    // Outputs for Atomic SubSystem: '<S8>/TD_Bank'
+    MissionUAV_TD_Bank(rtu_ResetState, &AddY_p, 0.1, &localDW->TD_Bank,
+                       &localZCE->TD_Bank);
+
+    // End of Outputs for SubSystem: '<S8>/TD_Bank'
 
     // BusCreator: '<S1>/SlewGuidanceBus'
-    ClimbAngleLimit = *rtu_UAVGuidanceCmd_Height;
+    b_fid = *rtu_UAVGuidanceCmd_Height;
 
-    // MATLABSystem: '<S5>/ComputeDerivative' incorporates:
-    //   BusCreator: '<S1>/SlewGuidanceBus'
-    //   Integrator: '<S5>/Integrator'
-    //   Integrator: '<S8>/TD_Bank'
-    //   MATLAB Function: '<S1>/Heading Control'
-
-    DiveAngleLimit = std::cos(localX->Integrator_CSTATE[5]);
-    c_fid_tmp = std::cos(localX->Integrator_CSTATE[4]);
-    d_fid = std::sin(localX->Integrator_CSTATE[4]);
-    rtb_RollAngle_d = std::sin(localX->Integrator_CSTATE[5]);
-    c_fid = (-(c_fid_tmp * DiveAngleLimit) *
-             localDW->FixedWingGuidanceEnvironmentBus_p.WindNorth + -(d_fid *
-              DiveAngleLimit) *
-             localDW->FixedWingGuidanceEnvironmentBus_p.WindEast) +
-        rtb_RollAngle_d * localDW->FixedWingGuidanceEnvironmentBus_p.WindDown;
-    fid_tmp = ((localDW->FixedWingGuidanceEnvironmentBus_p.WindNorth *
-                localDW->FixedWingGuidanceEnvironmentBus_p.WindNorth +
-                localDW->FixedWingGuidanceEnvironmentBus_p.WindEast *
-                localDW->FixedWingGuidanceEnvironmentBus_p.WindEast) +
-               localDW->FixedWingGuidanceEnvironmentBus_p.WindDown *
-               localDW->FixedWingGuidanceEnvironmentBus_p.WindDown) -
-        localX->Integrator_CSTATE[3] * localX->Integrator_CSTATE[3];
-    fid = std::sqrt(c_fid * c_fid - fid_tmp) + -c_fid;
-    localDW->ComputeDerivative[0] = fid * c_fid_tmp * DiveAngleLimit;
-    localDW->ComputeDerivative[1] = fid * d_fid * DiveAngleLimit;
-    localDW->ComputeDerivative[2] = fid * rtb_RollAngle_d;
-    localDW->ComputeDerivative[3] = (b_fid - localX->Integrator_CSTATE[3]) *
-        localDW->obj_j.ModelImpl.Configuration.PAirSpeed;
-    if (fid == 0.0) {
-        localDW->ComputeDerivative[4] = 0.0;
-        localDW->ComputeDerivative[5] = 0.0;
-    } else {
-        if (localX->Integrator_CSTATE[3] == 0.0) {
-            localDW->ComputeDerivative[4] = 0.0;
-        } else {
-            b_fid = 1.0 / (std::cos(std::asin((fid * std::sin
-                              (localX->Integrator_CSTATE[5]) +
-                              localDW->FixedWingGuidanceEnvironmentBus_p.WindDown)
-                             / localX->Integrator_CSTATE[3])) *
-                           localX->Integrator_CSTATE[3]);
-            localDW->ComputeDerivative[4] = std::cos(std::asin(b_fid *
-                localDW->FixedWingGuidanceEnvironmentBus_p.WindNorth * -d_fid +
-                b_fid * localDW->FixedWingGuidanceEnvironmentBus_p.WindEast *
-                c_fid_tmp)) *
-                (localDW->FixedWingGuidanceEnvironmentBus_p.Gravity / fid * std::
-                 tan(localX->Integrator_CSTATE[6]));
-        }
-
-        localDW->ComputeDerivative[5] = (std::fmax(std::fmin(std::asin(std::fmax
-            (std::fmin((ClimbAngleLimit - localX->Integrator_CSTATE[2]) *
-                       localDW->obj_j.ModelImpl.Configuration.PHeight / fid, 1.0),
-             -1.0)),
-            localDW->obj_j.ModelImpl.Configuration.FlightPathAngleLimits[1]),
-            localDW->obj_j.ModelImpl.Configuration.FlightPathAngleLimits[0]) -
-            localX->Integrator_CSTATE[5]) *
-            localDW->obj_j.ModelImpl.Configuration.PFlightPathAngle;
+    // Outputs for Atomic SubSystem: '<S1>/MissionUAV'
+    // Outputs for Atomic SubSystem: '<S5>/DiscreteIntegrator'
+    // Delay: '<S9>/DelayInput'
+    if (static_cast<boolean_T>(static_cast<int32_T>((rt_ZCFcn(ANY_ZERO_CROSSING,
+            &localZCE->DelayInput_Reset_ZCE_g,
+            (*rtu_ResetState)) != NO_ZCEVENT) | (*rtu_ResetState != 0.0)))) {
+        std::memset(&localDW->DelayInput_DSTATE[0], 0, static_cast<uint32_T>
+                    (sizeof(real_T) << 3U));
     }
 
-    localDW->ComputeDerivative[6] = localX->Integrator_CSTATE[7];
-    localDW->ComputeDerivative[7] = (std::fmax(std::fmin(localX->TD_Bank_CSTATE,
-        1.5707963267948966), -1.5707963267948966) - localX->Integrator_CSTATE[6])
-        * localDW->obj_j.ModelImpl.Configuration.PDRoll[0] +
-        localDW->obj_j.ModelImpl.Configuration.PDRoll[1] *
-        -localX->Integrator_CSTATE[7];
+    // Logic: '<S9>/NOT'
+    rtb_LowerRelop1 = static_cast<boolean_T>(static_cast<int32_T>
+        ((*rtu_ResetState != 0.0) ^ 1));
 
-    // End of MATLABSystem: '<S5>/ComputeDerivative'
-    if (rtmIsMajorTimeStep(MissionUAV_M)) {
-        // MATLAB Function: '<S1>/Get Max Bank'
-        // MATLAB Function 'MissionUAV/Get Max Bank': '<S2>:1'
-        // '<S2>:1:3'
-        if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
-                (localDW->SingletonInstance_not_empty_m) ^ 1))) {
-            localDW->SingletonInstance_f.AirSpeed = 35.0;
-            localDW->SingletonInstance_f.MaxRollAngle = 0.3490658503988659;
-            localDW->SingletonInstance_f.FlightPathAngleLimit[0] = -0.175;
-            localDW->SingletonInstance_f.FlightPathAngleLimit[1] = 0.175;
-            ret->size[0] = 1;
-            ret->size[1] = 0;
-            fid = MissionUAV_fileManager(localDW);
-            if (fid < 0.0) {
-                printf("INI-file \"%s\" was not found or could not be read.\n",
-                       "config.ini");
-                fflush(stdout);
-            } else {
-                MissionUAV_fread(fid, k, localDW);
-                i_0 = static_cast<int32_T>(data->size[0] * data->size[1]);
-                data->size[0] = 1;
-                data->size[1] = k->size[0];
-                MissionUAV_emxEnsureCapacity_char_T(data, i_0);
-                loop_ub = k->size[0];
-                for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
-                    data->data[i] = k->data[i];
-                }
+    // Delay: '<S9>/DelayOutput'
+    if (static_cast<boolean_T>(static_cast<int32_T>((rt_ZCFcn(ANY_ZERO_CROSSING,
+            &localZCE->DelayOutput_Reset_ZCE_a,
+            (*rtu_ResetState)) != NO_ZCEVENT) | (*rtu_ResetState != 0.0)))) {
+        localDW->icLoad = true;
+    }
 
-                MissionUAV_cfclose(fid, localDW);
-                curSection->size[0] = 1;
-                curSection->size[1] = 0;
-                curKey->size[0] = 1;
-                curKey->size[1] = 0;
-                curVal->size[0] = 1;
-                curVal->size[1] = 0;
-                MissionUAV_emxInit_char_T(&tmp_9, 2);
-                MissionUAV_emxInit_char_T(&tmp_a, 2);
-                MissionUAV_emxInit_char_T(&data_3, 2);
-                exitg1 = false;
-                while ((!exitg1) && (data->size[1] != 0)) {
-                    i_0 = static_cast<int32_T>(data_3->size[0] * data_3->size[1]);
-                    data_3->size[0] = 1;
-                    data_3->size[1] = data->size[1];
-                    MissionUAV_emxEnsureCapacity_char_T(data_3, i_0);
-                    loop_ub = static_cast<int32_T>(static_cast<int32_T>
-                        (data->size[0] * data->size[1]) - 1);
-                    for (i_0 = 0; i_0 <= loop_ub; i_0++) {
-                        data_3->data[i_0] = data->data[i_0];
-                    }
-
-                    MissionUAV_strtok(data_3, curLine, data);
-                    MissionUAV_strtok_b(curLine, tmp_a);
-                    MissionUAV_strtrim(tmp_a, curLine);
-                    if (curLine->size[1] >= 2) {
-                        rtb_LowerRelop1 = false;
-                        if (curLine->data[0] == '[') {
-                            rtb_LowerRelop1 = true;
-                        }
-
-                        guard1 = false;
-                        if (rtb_LowerRelop1) {
-                            rtb_LowerRelop1 = false;
-                            if (curLine->data[static_cast<int32_T>(curLine->
-                                    size[1] - 1)] == ']') {
-                                rtb_LowerRelop1 = true;
-                            }
-
-                            if (rtb_LowerRelop1) {
-                                if (static_cast<int32_T>(curLine->size[1] - 1) <
-                                    2) {
-                                    c = 0;
-                                    i = 0;
-                                } else {
-                                    c = 1;
-                                    i = static_cast<int32_T>(curLine->size[1] -
-                                        1);
-                                }
-
-                                i_0 = static_cast<int32_T>(curSection->size[0] *
-                                    curSection->size[1]);
-                                curSection->size[0] = 1;
-                                loop_ub = static_cast<int32_T>(i - c);
-                                curSection->size[1] = loop_ub;
-                                MissionUAV_emxEnsureCapacity_char_T(curSection,
-                                    i_0);
-                                for (i = 0; i <= static_cast<int32_T>(loop_ub -
-                                        1); i++) {
-                                    curSection->data[i] = curLine->data[
-                                        static_cast<int32_T>(c + i)];
-                                }
-
-                                curKey->size[0] = 1;
-                                curKey->size[1] = 0;
-                            } else {
-                                guard1 = true;
-                            }
-                        } else {
-                            guard1 = true;
-                        }
-
-                        if (guard1) {
-                            if (curLine->data[0] == ';') {
-                                rtb_LowerRelop1 = true;
-                            }
-
-                            if ((static_cast<boolean_T>(static_cast<int32_T>(
-                                    static_cast<int32_T>(rtb_LowerRelop1) ^ 1)))
-                                && MissionUAV_contains(curLine)) {
-                                MissionUAV_strtok_bd(curLine, curVal,
-                                                     b_remainder);
-                                MissionUAV_strtrim(curVal, curKey);
-                                MissionUAV_strtok_bdc(b_remainder, tmp_9);
-                                MissionUAV_strtrim(tmp_9, curVal);
-                            }
-                        }
-                    }
-
-                    if (MissionUAV_strcmp(curSection) && MissionUAV_strcmp_h
-                            (curKey)) {
-                        i_0 = static_cast<int32_T>(ret->size[0] * ret->size[1]);
-                        ret->size[0] = 1;
-                        ret->size[1] = curVal->size[1];
-                        MissionUAV_emxEnsureCapacity_char_T(ret, i_0);
-                        loop_ub = static_cast<int32_T>(curVal->size[1] - 1);
-                        for (i = 0; i <= loop_ub; i++) {
-                            ret->data[i] = curVal->data[i];
-                        }
-
-                        exitg1 = true;
-                    }
-                }
-
-                MissionUAV_emxFree_char_T(&data_3);
-                MissionUAV_emxFree_char_T(&tmp_a);
-                MissionUAV_emxFree_char_T(&tmp_9);
-            }
-
-            tmp = MissionUAV_str2double(ret);
-            printf("Set UAV NormAirSpeed:\t\t%f\n", tmp.re);
-            fflush(stdout);
-            ret->size[0] = 1;
-            ret->size[1] = 0;
-            b_fid = MissionUAV_fileManager(localDW);
-            if (b_fid < 0.0) {
-                printf("INI-file \"%s\" was not found or could not be read.\n",
-                       "config.ini");
-                fflush(stdout);
-            } else {
-                MissionUAV_fread(b_fid, k, localDW);
-                i_0 = static_cast<int32_T>(data->size[0] * data->size[1]);
-                data->size[0] = 1;
-                data->size[1] = k->size[0];
-                MissionUAV_emxEnsureCapacity_char_T(data, i_0);
-                loop_ub = k->size[0];
-                for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
-                    data->data[i] = k->data[i];
-                }
-
-                MissionUAV_cfclose(b_fid, localDW);
-                curSection->size[0] = 1;
-                curSection->size[1] = 0;
-                curKey->size[0] = 1;
-                curKey->size[1] = 0;
-                curVal->size[0] = 1;
-                curVal->size[1] = 0;
-                MissionUAV_emxInit_char_T(&tmp_7, 2);
-                MissionUAV_emxInit_char_T(&tmp_8, 2);
-                MissionUAV_emxInit_char_T(&data_2, 2);
-                exitg1 = false;
-                while ((!exitg1) && (data->size[1] != 0)) {
-                    i_0 = static_cast<int32_T>(data_2->size[0] * data_2->size[1]);
-                    data_2->size[0] = 1;
-                    data_2->size[1] = data->size[1];
-                    MissionUAV_emxEnsureCapacity_char_T(data_2, i_0);
-                    loop_ub = static_cast<int32_T>(static_cast<int32_T>
-                        (data->size[0] * data->size[1]) - 1);
-                    for (i_0 = 0; i_0 <= loop_ub; i_0++) {
-                        data_2->data[i_0] = data->data[i_0];
-                    }
-
-                    MissionUAV_strtok(data_2, curLine, data);
-                    MissionUAV_strtok_b(curLine, tmp_8);
-                    MissionUAV_strtrim(tmp_8, curLine);
-                    if (curLine->size[1] >= 2) {
-                        rtb_LowerRelop1 = false;
-                        if (curLine->data[0] == '[') {
-                            rtb_LowerRelop1 = true;
-                        }
-
-                        guard1 = false;
-                        if (rtb_LowerRelop1) {
-                            rtb_LowerRelop1 = false;
-                            if (curLine->data[static_cast<int32_T>(curLine->
-                                    size[1] - 1)] == ']') {
-                                rtb_LowerRelop1 = true;
-                            }
-
-                            if (rtb_LowerRelop1) {
-                                if (static_cast<int32_T>(curLine->size[1] - 1) <
-                                    2) {
-                                    c = 0;
-                                    i = 0;
-                                } else {
-                                    c = 1;
-                                    i = static_cast<int32_T>(curLine->size[1] -
-                                        1);
-                                }
-
-                                i_0 = static_cast<int32_T>(curSection->size[0] *
-                                    curSection->size[1]);
-                                curSection->size[0] = 1;
-                                loop_ub = static_cast<int32_T>(i - c);
-                                curSection->size[1] = loop_ub;
-                                MissionUAV_emxEnsureCapacity_char_T(curSection,
-                                    i_0);
-                                for (i = 0; i <= static_cast<int32_T>(loop_ub -
-                                        1); i++) {
-                                    curSection->data[i] = curLine->data[
-                                        static_cast<int32_T>(c + i)];
-                                }
-
-                                curKey->size[0] = 1;
-                                curKey->size[1] = 0;
-                            } else {
-                                guard1 = true;
-                            }
-                        } else {
-                            guard1 = true;
-                        }
-
-                        if (guard1) {
-                            if (curLine->data[0] == ';') {
-                                rtb_LowerRelop1 = true;
-                            }
-
-                            if ((static_cast<boolean_T>(static_cast<int32_T>(
-                                    static_cast<int32_T>(rtb_LowerRelop1) ^ 1)))
-                                && MissionUAV_contains(curLine)) {
-                                MissionUAV_strtok_bd(curLine, curVal,
-                                                     b_remainder);
-                                MissionUAV_strtrim(curVal, curKey);
-                                MissionUAV_strtok_bdc(b_remainder, tmp_7);
-                                MissionUAV_strtrim(tmp_7, curVal);
-                            }
-                        }
-                    }
-
-                    if (MissionUAV_strcmp(curSection) && MissionUAV_strcmp_hh
-                            (curKey)) {
-                        i_0 = static_cast<int32_T>(ret->size[0] * ret->size[1]);
-                        ret->size[0] = 1;
-                        ret->size[1] = curVal->size[1];
-                        MissionUAV_emxEnsureCapacity_char_T(ret, i_0);
-                        loop_ub = static_cast<int32_T>(curVal->size[1] - 1);
-                        for (i = 0; i <= loop_ub; i++) {
-                            ret->data[i] = curVal->data[i];
-                        }
-
-                        exitg1 = true;
-                    }
-                }
-
-                MissionUAV_emxFree_char_T(&data_2);
-                MissionUAV_emxFree_char_T(&tmp_8);
-                MissionUAV_emxFree_char_T(&tmp_7);
-            }
-
-            tmp_0 = MissionUAV_str2double(ret);
-            printf("Set UAV MaxAirSpeed:\t\t%f\n", tmp_0.re);
-            fflush(stdout);
-            ret->size[0] = 1;
-            ret->size[1] = 0;
-            c_fid = MissionUAV_fileManager(localDW);
-            if (c_fid < 0.0) {
-                printf("INI-file \"%s\" was not found or could not be read.\n",
-                       "config.ini");
-                fflush(stdout);
-            } else {
-                MissionUAV_fread(c_fid, k, localDW);
-                i_0 = static_cast<int32_T>(data->size[0] * data->size[1]);
-                data->size[0] = 1;
-                data->size[1] = k->size[0];
-                MissionUAV_emxEnsureCapacity_char_T(data, i_0);
-                loop_ub = k->size[0];
-                for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
-                    data->data[i] = k->data[i];
-                }
-
-                MissionUAV_cfclose(c_fid, localDW);
-                curSection->size[0] = 1;
-                curSection->size[1] = 0;
-                curKey->size[0] = 1;
-                curKey->size[1] = 0;
-                curVal->size[0] = 1;
-                curVal->size[1] = 0;
-                MissionUAV_emxInit_char_T(&tmp_5, 2);
-                MissionUAV_emxInit_char_T(&tmp_6, 2);
-                MissionUAV_emxInit_char_T(&data_1, 2);
-                exitg1 = false;
-                while ((!exitg1) && (data->size[1] != 0)) {
-                    i_0 = static_cast<int32_T>(data_1->size[0] * data_1->size[1]);
-                    data_1->size[0] = 1;
-                    data_1->size[1] = data->size[1];
-                    MissionUAV_emxEnsureCapacity_char_T(data_1, i_0);
-                    loop_ub = static_cast<int32_T>(static_cast<int32_T>
-                        (data->size[0] * data->size[1]) - 1);
-                    for (i_0 = 0; i_0 <= loop_ub; i_0++) {
-                        data_1->data[i_0] = data->data[i_0];
-                    }
-
-                    MissionUAV_strtok(data_1, curLine, data);
-                    MissionUAV_strtok_b(curLine, tmp_6);
-                    MissionUAV_strtrim(tmp_6, curLine);
-                    if (curLine->size[1] >= 2) {
-                        rtb_LowerRelop1 = false;
-                        if (curLine->data[0] == '[') {
-                            rtb_LowerRelop1 = true;
-                        }
-
-                        guard1 = false;
-                        if (rtb_LowerRelop1) {
-                            rtb_LowerRelop1 = false;
-                            if (curLine->data[static_cast<int32_T>(curLine->
-                                    size[1] - 1)] == ']') {
-                                rtb_LowerRelop1 = true;
-                            }
-
-                            if (rtb_LowerRelop1) {
-                                if (static_cast<int32_T>(curLine->size[1] - 1) <
-                                    2) {
-                                    c = 0;
-                                    i = 0;
-                                } else {
-                                    c = 1;
-                                    i = static_cast<int32_T>(curLine->size[1] -
-                                        1);
-                                }
-
-                                i_0 = static_cast<int32_T>(curSection->size[0] *
-                                    curSection->size[1]);
-                                curSection->size[0] = 1;
-                                loop_ub = static_cast<int32_T>(i - c);
-                                curSection->size[1] = loop_ub;
-                                MissionUAV_emxEnsureCapacity_char_T(curSection,
-                                    i_0);
-                                for (i = 0; i <= static_cast<int32_T>(loop_ub -
-                                        1); i++) {
-                                    curSection->data[i] = curLine->data[
-                                        static_cast<int32_T>(c + i)];
-                                }
-
-                                curKey->size[0] = 1;
-                                curKey->size[1] = 0;
-                            } else {
-                                guard1 = true;
-                            }
-                        } else {
-                            guard1 = true;
-                        }
-
-                        if (guard1) {
-                            if (curLine->data[0] == ';') {
-                                rtb_LowerRelop1 = true;
-                            }
-
-                            if ((static_cast<boolean_T>(static_cast<int32_T>(
-                                    static_cast<int32_T>(rtb_LowerRelop1) ^ 1)))
-                                && MissionUAV_contains(curLine)) {
-                                MissionUAV_strtok_bd(curLine, curVal,
-                                                     b_remainder);
-                                MissionUAV_strtrim(curVal, curKey);
-                                MissionUAV_strtok_bdc(b_remainder, tmp_5);
-                                MissionUAV_strtrim(tmp_5, curVal);
-                            }
-                        }
-                    }
-
-                    if (MissionUAV_strcmp(curSection) && MissionUAV_strcmp_hh4
-                            (curKey)) {
-                        i_0 = static_cast<int32_T>(ret->size[0] * ret->size[1]);
-                        ret->size[0] = 1;
-                        ret->size[1] = curVal->size[1];
-                        MissionUAV_emxEnsureCapacity_char_T(ret, i_0);
-                        loop_ub = static_cast<int32_T>(curVal->size[1] - 1);
-                        for (i = 0; i <= loop_ub; i++) {
-                            ret->data[i] = curVal->data[i];
-                        }
-
-                        exitg1 = true;
-                    }
-                }
-
-                MissionUAV_emxFree_char_T(&data_1);
-                MissionUAV_emxFree_char_T(&tmp_6);
-                MissionUAV_emxFree_char_T(&tmp_5);
-            }
-
-            tmp_0 = MissionUAV_str2double(ret);
-            printf("Set UAV MinAirSpeed:\t\t%f\n", tmp_0.re);
-            fflush(stdout);
-            ret->size[0] = 1;
-            ret->size[1] = 0;
-            d_fid = MissionUAV_fileManager(localDW);
-            if (d_fid < 0.0) {
-                printf("INI-file \"%s\" was not found or could not be read.\n",
-                       "config.ini");
-                fflush(stdout);
-            } else {
-                MissionUAV_fread(d_fid, k, localDW);
-                i_0 = static_cast<int32_T>(data->size[0] * data->size[1]);
-                data->size[0] = 1;
-                data->size[1] = k->size[0];
-                MissionUAV_emxEnsureCapacity_char_T(data, i_0);
-                loop_ub = k->size[0];
-                for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
-                    data->data[i] = k->data[i];
-                }
-
-                MissionUAV_cfclose(d_fid, localDW);
-                curSection->size[0] = 1;
-                curSection->size[1] = 0;
-                curKey->size[0] = 1;
-                curKey->size[1] = 0;
-                curVal->size[0] = 1;
-                curVal->size[1] = 0;
-                MissionUAV_emxInit_char_T(&tmp_3, 2);
-                MissionUAV_emxInit_char_T(&tmp_4, 2);
-                MissionUAV_emxInit_char_T(&data_0, 2);
-                exitg1 = false;
-                while ((!exitg1) && (data->size[1] != 0)) {
-                    i_0 = static_cast<int32_T>(data_0->size[0] * data_0->size[1]);
-                    data_0->size[0] = 1;
-                    data_0->size[1] = data->size[1];
-                    MissionUAV_emxEnsureCapacity_char_T(data_0, i_0);
-                    loop_ub = static_cast<int32_T>(static_cast<int32_T>
-                        (data->size[0] * data->size[1]) - 1);
-                    for (i_0 = 0; i_0 <= loop_ub; i_0++) {
-                        data_0->data[i_0] = data->data[i_0];
-                    }
-
-                    MissionUAV_strtok(data_0, curLine, data);
-                    MissionUAV_strtok_b(curLine, tmp_4);
-                    MissionUAV_strtrim(tmp_4, curLine);
-                    if (curLine->size[1] >= 2) {
-                        rtb_LowerRelop1 = false;
-                        if (curLine->data[0] == '[') {
-                            rtb_LowerRelop1 = true;
-                        }
-
-                        guard1 = false;
-                        if (rtb_LowerRelop1) {
-                            rtb_LowerRelop1 = false;
-                            if (curLine->data[static_cast<int32_T>(curLine->
-                                    size[1] - 1)] == ']') {
-                                rtb_LowerRelop1 = true;
-                            }
-
-                            if (rtb_LowerRelop1) {
-                                if (static_cast<int32_T>(curLine->size[1] - 1) <
-                                    2) {
-                                    c = 0;
-                                    i = 0;
-                                } else {
-                                    c = 1;
-                                    i = static_cast<int32_T>(curLine->size[1] -
-                                        1);
-                                }
-
-                                i_0 = static_cast<int32_T>(curSection->size[0] *
-                                    curSection->size[1]);
-                                curSection->size[0] = 1;
-                                loop_ub = static_cast<int32_T>(i - c);
-                                curSection->size[1] = loop_ub;
-                                MissionUAV_emxEnsureCapacity_char_T(curSection,
-                                    i_0);
-                                for (i = 0; i <= static_cast<int32_T>(loop_ub -
-                                        1); i++) {
-                                    curSection->data[i] = curLine->data[
-                                        static_cast<int32_T>(c + i)];
-                                }
-
-                                curKey->size[0] = 1;
-                                curKey->size[1] = 0;
-                            } else {
-                                guard1 = true;
-                            }
-                        } else {
-                            guard1 = true;
-                        }
-
-                        if (guard1) {
-                            if (curLine->data[0] == ';') {
-                                rtb_LowerRelop1 = true;
-                            }
-
-                            if ((static_cast<boolean_T>(static_cast<int32_T>(
-                                    static_cast<int32_T>(rtb_LowerRelop1) ^ 1)))
-                                && MissionUAV_contains(curLine)) {
-                                MissionUAV_strtok_bd(curLine, curVal,
-                                                     b_remainder);
-                                MissionUAV_strtrim(curVal, curKey);
-                                MissionUAV_strtok_bdc(b_remainder, tmp_3);
-                                MissionUAV_strtrim(tmp_3, curVal);
-                            }
-                        }
-                    }
-
-                    if (MissionUAV_strcmp(curSection) && MissionUAV_strcmp_hh4i
-                            (curKey)) {
-                        i_0 = static_cast<int32_T>(ret->size[0] * ret->size[1]);
-                        ret->size[0] = 1;
-                        ret->size[1] = curVal->size[1];
-                        MissionUAV_emxEnsureCapacity_char_T(ret, i_0);
-                        loop_ub = static_cast<int32_T>(curVal->size[1] - 1);
-                        for (i = 0; i <= loop_ub; i++) {
-                            ret->data[i] = curVal->data[i];
-                        }
-
-                        exitg1 = true;
-                    }
-                }
-
-                MissionUAV_emxFree_char_T(&data_0);
-                MissionUAV_emxFree_char_T(&tmp_4);
-                MissionUAV_emxFree_char_T(&tmp_3);
-            }
-
-            tmp_0 = MissionUAV_str2double(ret);
-            d_fid = 0.017453292519943295 * tmp_0.re;
-            printf("Set UAV MaxRollAngle:\t\t%f\n", d_fid);
-            fflush(stdout);
-            MissionUAV_readINI(ret, localDW);
-            tmp_0 = MissionUAV_str2double(ret);
-            ClimbAngleLimit = 0.017453292519943295 * tmp_0.re;
-            printf("Set UAV ClimbAngleLimit:\t%f\n", ClimbAngleLimit);
-            fflush(stdout);
-            MissionUAV_readINI_b(ret, localDW);
-            tmp_0 = MissionUAV_str2double(ret);
-            DiveAngleLimit = 0.017453292519943295 * tmp_0.re;
-            printf("Set UAV DiveAngleLimit:\t\t%f\n", DiveAngleLimit);
-            fflush(stdout);
-            if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
-                    (std::isnan(tmp.re)) ^ 1))) {
-                localDW->SingletonInstance_f.AirSpeed = tmp.re;
-            }
-
-            if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
-                    (std::isnan(d_fid)) ^ 1))) {
-                localDW->SingletonInstance_f.MaxRollAngle = d_fid;
-            }
-
-            if ((static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
-                    (std::isnan(ClimbAngleLimit)) ^ 1))) &&
-                    (static_cast<boolean_T>(static_cast<int32_T>
-                    (static_cast<int32_T>(std::isnan(DiveAngleLimit)) ^ 1)))) {
-                localDW->SingletonInstance_f.FlightPathAngleLimit[0] =
-                    DiveAngleLimit;
-                localDW->SingletonInstance_f.FlightPathAngleLimit[1] =
-                    ClimbAngleLimit;
-            }
-
-            MissionUAV_uavDubinsConnection_uavDubinsConnection
-                (&localDW->SingletonInstance_f.Connector,
-                 localDW->SingletonInstance_f.AirSpeed,
-                 localDW->SingletonInstance_f.MaxRollAngle);
-            localDW->SingletonInstance_not_empty_m = true;
+    for (i = 0; i < 8; i++) {
+        if (localDW->icLoad) {
+            localDW->DelayOutput_DSTATE[i] = rtu_StartPos[i];
         }
 
-        fid = localDW->SingletonInstance_f.Connector.MaxRollAngle;
+        // Sum: '<S9>/AddY' incorporates:
+        //   Delay: '<S9>/DelayInput'
+        //   Gain: '<S9>/Gain'
+        //   Product: '<S9>/Product'
 
-        // MinMax: '<S1>/MinBankAng' incorporates:
-        //   Constant: '<S1>/Constant'
-        //   Gain: '<S1>/Gain'
-        //   MATLAB Function: '<S1>/Get Max Bank'
+        rtb_AddY[i] = 0.1 * localDW->DelayInput_DSTATE[i] * static_cast<real_T>
+            (rtb_LowerRelop1) + localDW->DelayOutput_DSTATE[i];
+    }
 
-        localDW->MinBankAng = std::fmin(0.78539816339744828, 57.295779513082323 *
-            fid * 3.0);
+    // End of Delay: '<S9>/DelayOutput'
+    // End of Outputs for SubSystem: '<S5>/DiscreteIntegrator'
+
+    // MATLABSystem: '<S5>/ComputeDerivative' incorporates:
+    //   BusCreator: '<S1>/FixedWingGuidanceEnvironmentBus'
+    //   BusCreator: '<S1>/SlewGuidanceBus'
+    //   Constant: '<S1>/Gravity'
+    //   Constant: '<S1>/NoWind'
+    //   Delay: '<S9>/DelayInput'
+    //   MATLAB Function: '<S1>/Heading Control'
+    //   Sum: '<S9>/AddY'
+
+    DiveAngleLimit = std::cos(rtb_AddY[5]);
+    c_fid_tmp = std::cos(rtb_AddY[4]);
+    d_fid = std::sin(rtb_AddY[4]);
+    b_fid_tmp = std::sin(rtb_AddY[5]);
+    c_fid = (-(c_fid_tmp * DiveAngleLimit) * 0.0 + -(d_fid * DiveAngleLimit) *
+             0.0) + b_fid_tmp * 0.0;
+    b_tmp = 0.0 - rtb_AddY[3] * rtb_AddY[3];
+    SpdLmt_idx_0 = std::sqrt(c_fid * c_fid - b_tmp) - c_fid;
+
+    // Update for Atomic SubSystem: '<S5>/DiscreteIntegrator'
+    localDW->DelayInput_DSTATE[0] = SpdLmt_idx_0 * c_fid_tmp * DiveAngleLimit;
+    localDW->DelayInput_DSTATE[1] = SpdLmt_idx_0 * d_fid * DiveAngleLimit;
+
+    // End of Update for SubSystem: '<S5>/DiscreteIntegrator'
+    c_fid = SpdLmt_idx_0 * b_fid_tmp;
+
+    // Update for Atomic SubSystem: '<S5>/DiscreteIntegrator'
+    localDW->DelayInput_DSTATE[2] = c_fid;
+    localDW->DelayInput_DSTATE[3] = (fid - rtb_AddY[3]) *
+        localDW->obj_j.ModelImpl.Configuration.PAirSpeed;
+
+    // End of Update for SubSystem: '<S5>/DiscreteIntegrator'
+    if (SpdLmt_idx_0 == 0.0) {
+        // Update for Atomic SubSystem: '<S5>/DiscreteIntegrator'
+        localDW->DelayInput_DSTATE[4] = 0.0;
+        localDW->DelayInput_DSTATE[5] = 0.0;
+
+        // End of Update for SubSystem: '<S5>/DiscreteIntegrator'
+    } else {
+        if (rtb_AddY[3] == 0.0) {
+            // Update for Atomic SubSystem: '<S5>/DiscreteIntegrator'
+            localDW->DelayInput_DSTATE[4] = 0.0;
+
+            // End of Update for SubSystem: '<S5>/DiscreteIntegrator'
+        } else {
+            fid = 1.0 / (std::cos(std::asin(c_fid / rtb_AddY[3])) * rtb_AddY[3]);
+
+            // Update for Atomic SubSystem: '<S5>/DiscreteIntegrator'
+            localDW->DelayInput_DSTATE[4] = std::cos(std::asin(fid * 0.0 *
+                -d_fid + fid * 0.0 * c_fid_tmp)) * (9.807 / SpdLmt_idx_0 * std::
+                tan(rtb_AddY[6]));
+
+            // End of Update for SubSystem: '<S5>/DiscreteIntegrator'
+        }
+
+        // Update for Atomic SubSystem: '<S5>/DiscreteIntegrator'
+        localDW->DelayInput_DSTATE[5] = (std::fmax(std::fmin(std::asin(std::fmax
+            (std::fmin((b_fid - rtb_AddY[2]) *
+                       localDW->obj_j.ModelImpl.Configuration.PHeight /
+                       SpdLmt_idx_0, 1.0), -1.0)),
+            localDW->obj_j.ModelImpl.Configuration.FlightPathAngleLimits[1]),
+            localDW->obj_j.ModelImpl.Configuration.FlightPathAngleLimits[0]) -
+            rtb_AddY[5]) *
+            localDW->obj_j.ModelImpl.Configuration.PFlightPathAngle;
+
+        // End of Update for SubSystem: '<S5>/DiscreteIntegrator'
+    }
+
+    // Update for Atomic SubSystem: '<S5>/DiscreteIntegrator'
+    localDW->DelayInput_DSTATE[6] = rtb_AddY[7];
+    localDW->DelayInput_DSTATE[7] = (std::fmax(std::fmin(AddY_p,
+        1.5707963267948966), -1.5707963267948966) - rtb_AddY[6]) *
+        localDW->obj_j.ModelImpl.Configuration.PDRoll[0] +
+        localDW->obj_j.ModelImpl.Configuration.PDRoll[1] * -rtb_AddY[7];
+
+    // Update for Delay: '<S9>/DelayOutput' incorporates:
+    //   Sum: '<S9>/AddY'
+
+    localDW->icLoad = false;
+    std::memcpy(&localDW->DelayOutput_DSTATE[0], &rtb_AddY[0],
+                static_cast<uint32_T>(sizeof(real_T) << 3U));
+
+    // End of Update for SubSystem: '<S5>/DiscreteIntegrator'
+
+    // SignalConversion generated from: '<Root>/SimUAVState' incorporates:
+    //   MATLABSystem: '<S5>/StateVector2Struct'
+    //   Sum: '<S9>/AddY'
+
+    *rty_SimUAVState_North = rtb_AddY[0];
+
+    // SignalConversion generated from: '<Root>/SimUAVState' incorporates:
+    //   MATLABSystem: '<S5>/StateVector2Struct'
+    //   Sum: '<S9>/AddY'
+
+    *rty_SimUAVState_East = rtb_AddY[1];
+
+    // SignalConversion generated from: '<Root>/SimUAVState' incorporates:
+    //   MATLABSystem: '<S5>/StateVector2Struct'
+    //   Sum: '<S9>/AddY'
+
+    *rty_SimUAVState_Height = rtb_AddY[2];
+
+    // SignalConversion generated from: '<Root>/SimUAVState' incorporates:
+    //   MATLABSystem: '<S5>/StateVector2Struct'
+    //   Sum: '<S9>/AddY'
+
+    *rty_SimUAVState_AirSpeed = rtb_AddY[3];
+
+    // SignalConversion generated from: '<Root>/SimUAVState' incorporates:
+    //   MATLABSystem: '<S5>/StateVector2Struct'
+    //   Sum: '<S9>/AddY'
+
+    *rty_SimUAVState_HeadingAngle = rtb_AddY[4];
+
+    // SignalConversion generated from: '<Root>/SimUAVState' incorporates:
+    //   MATLABSystem: '<S5>/StateVector2Struct'
+    //   Sum: '<S9>/AddY'
+
+    *rty_SimUAVState_FlightPathAngle = rtb_AddY[5];
+
+    // SignalConversion generated from: '<Root>/SimUAVState' incorporates:
+    //   MATLABSystem: '<S5>/StateVector2Struct'
+    //   Sum: '<S9>/AddY'
+
+    *rty_SimUAVState_RollAngle = rtb_AddY[6];
+
+    // SignalConversion generated from: '<Root>/SimUAVState' incorporates:
+    //   MATLABSystem: '<S5>/StateVector2Struct'
+    //   Sum: '<S9>/AddY'
+
+    *rty_SimUAVState_RollAngleRate = rtb_AddY[7];
+
+    // MATLAB Function: '<S1>/Heading Control' incorporates:
+    //   BusCreator: '<S1>/FixedWingGuidanceEnvironmentBus'
+    //   Constant: '<S1>/Gravity'
+    //   Constant: '<S1>/NoWind'
+    //   MATLABSystem: '<S5>/ComputeDerivative'
+    //   MATLABSystem: '<S5>/StateVector2Struct'
+    //   Sum: '<S9>/AddY'
+
+    // MATLAB Function 'Heading Control': '<S4>:1'
+    // '<S4>:1:3'
+    // '<S4>:1:4'
+    // '<S4>:1:5'
+    // '<S4>:1:7'
+    fid = 1.0 / rtb_AddY[3];
+
+    // '<S4>:1:8'
+    DiveAngleLimit = (std::cos(rtb_AddY[4]) * std::cos(rtb_AddY[5]) * 0.0 + std::
+                      sin(rtb_AddY[4]) * std::cos(rtb_AddY[5]) * 0.0) +
+        -b_fid_tmp * 0.0;
+
+    // '<S4>:1:9'
+    // '<S4>:1:10'
+    // '<S4>:1:12'
+    b_fid = *rtu_UAVGuidanceCmd_HeadingAngle - rtb_AddY[4];
+
+    // End of Outputs for SubSystem: '<S1>/MissionUAV'
+    if (std::abs(b_fid) > 3.1415926535897931) {
+        if (std::isnan(b_fid + 3.1415926535897931)) {
+            c_fid = (rtNaN);
+        } else if (std::isinf(b_fid + 3.1415926535897931)) {
+            c_fid = (rtNaN);
+        } else if (b_fid + 3.1415926535897931 == 0.0) {
+            c_fid = 0.0;
+        } else {
+            c_fid = std::fmod(b_fid + 3.1415926535897931, 6.2831853071795862);
+            rtb_LowerRelop1 = (c_fid == 0.0);
+            if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
+                    (rtb_LowerRelop1) ^ 1))) {
+                d_fid = std::abs((b_fid + 3.1415926535897931) /
+                                 6.2831853071795862);
+                rtb_LowerRelop1 = static_cast<boolean_T>(static_cast<int32_T>
+                    ((std::abs(d_fid - std::floor(d_fid + 0.5)) >
+                      2.2204460492503131E-16 * d_fid) ^ 1));
+            }
+
+            if (rtb_LowerRelop1) {
+                c_fid = 0.0;
+            } else if (b_fid + 3.1415926535897931 < 0.0) {
+                c_fid += 6.2831853071795862;
+            }
+        }
+
+        if (static_cast<boolean_T>(static_cast<int32_T>((b_fid +
+                3.1415926535897931 > 0.0) & (c_fid == 0.0)))) {
+            c_fid = 6.2831853071795862;
+        }
+
+        b_fid = c_fid - 3.1415926535897931;
+    }
+
+    // Outputs for Atomic SubSystem: '<S1>/MissionUAV'
+    SpdLmt_idx_0 = rt_atan2d_snf((std::sqrt(std::fmax(0.0, DiveAngleLimit *
+        DiveAngleLimit - b_tmp)) - DiveAngleLimit) * b_fid, std::cos(rtb_AddY[4]
+        - (rtb_AddY[4] - std::asin(fid * 0.0 * -std::sin(rtb_AddY[4]) + fid *
+        0.0 * c_fid_tmp))) * 9.807);
+
+    // End of Outputs for SubSystem: '<S1>/MissionUAV'
+
+    // MATLAB Function: '<S1>/Get Max Bank'
+    // MATLAB Function 'MissionUAV/Get Max Bank': '<S2>:1'
+    // '<S2>:1:3'
+    if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
+            (localDW->SingletonInstance_not_empty_p) ^ 1))) {
+        localDW->SingletonInstance_p.AirSpeed = 35.0;
+        localDW->SingletonInstance_p.MaxRollAngle = 0.3490658503988659;
+        localDW->SingletonInstance_p.FlightPathAngleLimit[0] = -0.175;
+        localDW->SingletonInstance_p.FlightPathAngleLimit[1] = 0.175;
+        ret->size[0] = 1;
+        ret->size[1] = 0;
+        fid = MissionUAV_fileManager(localDW);
+        if (fid < 0.0) {
+            printf("INI-file \"%s\" was not found or could not be read.\n",
+                   "config.ini");
+            fflush(stdout);
+        } else {
+            MissionUAV_fread(fid, k, localDW);
+            i_0 = static_cast<int32_T>(data->size[0] * data->size[1]);
+            data->size[0] = 1;
+            data->size[1] = k->size[0];
+            MissionUAV_emxEnsureCapacity_char_T(data, i_0);
+            loop_ub = k->size[0];
+            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+                data->data[i] = k->data[i];
+            }
+
+            MissionUAV_cfclose(fid, localDW);
+            curSection->size[0] = 1;
+            curSection->size[1] = 0;
+            curKey->size[0] = 1;
+            curKey->size[1] = 0;
+            curVal->size[0] = 1;
+            curVal->size[1] = 0;
+            MissionUAV_emxInit_char_T(&tmp_9, 2);
+            MissionUAV_emxInit_char_T(&tmp_a, 2);
+            MissionUAV_emxInit_char_T(&data_3, 2);
+            exitg1 = false;
+            while ((!exitg1) && (data->size[1] != 0)) {
+                i_0 = static_cast<int32_T>(data_3->size[0] * data_3->size[1]);
+                data_3->size[0] = 1;
+                data_3->size[1] = data->size[1];
+                MissionUAV_emxEnsureCapacity_char_T(data_3, i_0);
+                loop_ub = static_cast<int32_T>(static_cast<int32_T>(data->size[0]
+                    * data->size[1]) - 1);
+                for (i_0 = 0; i_0 <= loop_ub; i_0++) {
+                    data_3->data[i_0] = data->data[i_0];
+                }
+
+                MissionUAV_strtok(data_3, curLine, data);
+                MissionUAV_strtok_l(curLine, tmp_a);
+                MissionUAV_strtrim(tmp_a, curLine);
+                if (curLine->size[1] >= 2) {
+                    rtb_LowerRelop1 = false;
+                    if (curLine->data[0] == '[') {
+                        rtb_LowerRelop1 = true;
+                    }
+
+                    guard1 = false;
+                    if (rtb_LowerRelop1) {
+                        rtb_LowerRelop1 = false;
+                        if (curLine->data[static_cast<int32_T>(curLine->size[1]
+                                - 1)] == ']') {
+                            rtb_LowerRelop1 = true;
+                        }
+
+                        if (rtb_LowerRelop1) {
+                            if (static_cast<int32_T>(curLine->size[1] - 1) < 2)
+                            {
+                                c = 0;
+                                i = 0;
+                            } else {
+                                c = 1;
+                                i = static_cast<int32_T>(curLine->size[1] - 1);
+                            }
+
+                            i_0 = static_cast<int32_T>(curSection->size[0] *
+                                curSection->size[1]);
+                            curSection->size[0] = 1;
+                            loop_ub = static_cast<int32_T>(i - c);
+                            curSection->size[1] = loop_ub;
+                            MissionUAV_emxEnsureCapacity_char_T(curSection, i_0);
+                            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1);
+                                    i++) {
+                                curSection->data[i] = curLine->data[static_cast<
+                                    int32_T>(c + i)];
+                            }
+
+                            curKey->size[0] = 1;
+                            curKey->size[1] = 0;
+                        } else {
+                            guard1 = true;
+                        }
+                    } else {
+                        guard1 = true;
+                    }
+
+                    if (guard1) {
+                        if (curLine->data[0] == ';') {
+                            rtb_LowerRelop1 = true;
+                        }
+
+                        if ((static_cast<boolean_T>(static_cast<int32_T>(
+                                static_cast<int32_T>(rtb_LowerRelop1) ^ 1))) &&
+                                MissionUAV_contains(curLine)) {
+                            MissionUAV_strtok_ls(curLine, curVal, b_remainder);
+                            MissionUAV_strtrim(curVal, curKey);
+                            MissionUAV_strtok_lse(b_remainder, tmp_9);
+                            MissionUAV_strtrim(tmp_9, curVal);
+                        }
+                    }
+                }
+
+                if (MissionUAV_strcmp(curSection) && MissionUAV_strcmp_j(curKey))
+                {
+                    i_0 = static_cast<int32_T>(ret->size[0] * ret->size[1]);
+                    ret->size[0] = 1;
+                    ret->size[1] = curVal->size[1];
+                    MissionUAV_emxEnsureCapacity_char_T(ret, i_0);
+                    loop_ub = curVal->size[1];
+                    for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+                        ret->data[i] = curVal->data[i];
+                    }
+
+                    exitg1 = true;
+                }
+            }
+
+            MissionUAV_emxFree_char_T(&data_3);
+            MissionUAV_emxFree_char_T(&tmp_a);
+            MissionUAV_emxFree_char_T(&tmp_9);
+        }
+
+        tmp = MissionUAV_str2double(ret);
+        printf("Set UAV NormAirSpeed:\t\t%f\n", tmp.re);
+        fflush(stdout);
+        ret->size[0] = 1;
+        ret->size[1] = 0;
+        b_fid = MissionUAV_fileManager(localDW);
+        if (b_fid < 0.0) {
+            printf("INI-file \"%s\" was not found or could not be read.\n",
+                   "config.ini");
+            fflush(stdout);
+        } else {
+            MissionUAV_fread(b_fid, k, localDW);
+            i_0 = static_cast<int32_T>(data->size[0] * data->size[1]);
+            data->size[0] = 1;
+            data->size[1] = k->size[0];
+            MissionUAV_emxEnsureCapacity_char_T(data, i_0);
+            loop_ub = k->size[0];
+            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+                data->data[i] = k->data[i];
+            }
+
+            MissionUAV_cfclose(b_fid, localDW);
+            curSection->size[0] = 1;
+            curSection->size[1] = 0;
+            curKey->size[0] = 1;
+            curKey->size[1] = 0;
+            curVal->size[0] = 1;
+            curVal->size[1] = 0;
+            MissionUAV_emxInit_char_T(&tmp_7, 2);
+            MissionUAV_emxInit_char_T(&tmp_8, 2);
+            MissionUAV_emxInit_char_T(&data_2, 2);
+            exitg1 = false;
+            while ((!exitg1) && (data->size[1] != 0)) {
+                i_0 = static_cast<int32_T>(data_2->size[0] * data_2->size[1]);
+                data_2->size[0] = 1;
+                data_2->size[1] = data->size[1];
+                MissionUAV_emxEnsureCapacity_char_T(data_2, i_0);
+                loop_ub = static_cast<int32_T>(static_cast<int32_T>(data->size[0]
+                    * data->size[1]) - 1);
+                for (i_0 = 0; i_0 <= loop_ub; i_0++) {
+                    data_2->data[i_0] = data->data[i_0];
+                }
+
+                MissionUAV_strtok(data_2, curLine, data);
+                MissionUAV_strtok_l(curLine, tmp_8);
+                MissionUAV_strtrim(tmp_8, curLine);
+                if (curLine->size[1] >= 2) {
+                    rtb_LowerRelop1 = false;
+                    if (curLine->data[0] == '[') {
+                        rtb_LowerRelop1 = true;
+                    }
+
+                    guard1 = false;
+                    if (rtb_LowerRelop1) {
+                        rtb_LowerRelop1 = false;
+                        if (curLine->data[static_cast<int32_T>(curLine->size[1]
+                                - 1)] == ']') {
+                            rtb_LowerRelop1 = true;
+                        }
+
+                        if (rtb_LowerRelop1) {
+                            if (static_cast<int32_T>(curLine->size[1] - 1) < 2)
+                            {
+                                c = 0;
+                                i = 0;
+                            } else {
+                                c = 1;
+                                i = static_cast<int32_T>(curLine->size[1] - 1);
+                            }
+
+                            i_0 = static_cast<int32_T>(curSection->size[0] *
+                                curSection->size[1]);
+                            curSection->size[0] = 1;
+                            loop_ub = static_cast<int32_T>(i - c);
+                            curSection->size[1] = loop_ub;
+                            MissionUAV_emxEnsureCapacity_char_T(curSection, i_0);
+                            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1);
+                                    i++) {
+                                curSection->data[i] = curLine->data[static_cast<
+                                    int32_T>(c + i)];
+                            }
+
+                            curKey->size[0] = 1;
+                            curKey->size[1] = 0;
+                        } else {
+                            guard1 = true;
+                        }
+                    } else {
+                        guard1 = true;
+                    }
+
+                    if (guard1) {
+                        if (curLine->data[0] == ';') {
+                            rtb_LowerRelop1 = true;
+                        }
+
+                        if ((static_cast<boolean_T>(static_cast<int32_T>(
+                                static_cast<int32_T>(rtb_LowerRelop1) ^ 1))) &&
+                                MissionUAV_contains(curLine)) {
+                            MissionUAV_strtok_ls(curLine, curVal, b_remainder);
+                            MissionUAV_strtrim(curVal, curKey);
+                            MissionUAV_strtok_lse(b_remainder, tmp_7);
+                            MissionUAV_strtrim(tmp_7, curVal);
+                        }
+                    }
+                }
+
+                if (MissionUAV_strcmp(curSection) && MissionUAV_strcmp_jn(curKey))
+                {
+                    i_0 = static_cast<int32_T>(ret->size[0] * ret->size[1]);
+                    ret->size[0] = 1;
+                    ret->size[1] = curVal->size[1];
+                    MissionUAV_emxEnsureCapacity_char_T(ret, i_0);
+                    loop_ub = curVal->size[1];
+                    for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+                        ret->data[i] = curVal->data[i];
+                    }
+
+                    exitg1 = true;
+                }
+            }
+
+            MissionUAV_emxFree_char_T(&data_2);
+            MissionUAV_emxFree_char_T(&tmp_8);
+            MissionUAV_emxFree_char_T(&tmp_7);
+        }
+
+        tmp_0 = MissionUAV_str2double(ret);
+        printf("Set UAV MaxAirSpeed:\t\t%f\n", tmp_0.re);
+        fflush(stdout);
+        ret->size[0] = 1;
+        ret->size[1] = 0;
+        c_fid = MissionUAV_fileManager(localDW);
+        if (c_fid < 0.0) {
+            printf("INI-file \"%s\" was not found or could not be read.\n",
+                   "config.ini");
+            fflush(stdout);
+        } else {
+            MissionUAV_fread(c_fid, k, localDW);
+            i_0 = static_cast<int32_T>(data->size[0] * data->size[1]);
+            data->size[0] = 1;
+            data->size[1] = k->size[0];
+            MissionUAV_emxEnsureCapacity_char_T(data, i_0);
+            loop_ub = k->size[0];
+            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+                data->data[i] = k->data[i];
+            }
+
+            MissionUAV_cfclose(c_fid, localDW);
+            curSection->size[0] = 1;
+            curSection->size[1] = 0;
+            curKey->size[0] = 1;
+            curKey->size[1] = 0;
+            curVal->size[0] = 1;
+            curVal->size[1] = 0;
+            MissionUAV_emxInit_char_T(&tmp_5, 2);
+            MissionUAV_emxInit_char_T(&tmp_6, 2);
+            MissionUAV_emxInit_char_T(&data_1, 2);
+            exitg1 = false;
+            while ((!exitg1) && (data->size[1] != 0)) {
+                i_0 = static_cast<int32_T>(data_1->size[0] * data_1->size[1]);
+                data_1->size[0] = 1;
+                data_1->size[1] = data->size[1];
+                MissionUAV_emxEnsureCapacity_char_T(data_1, i_0);
+                loop_ub = static_cast<int32_T>(static_cast<int32_T>(data->size[0]
+                    * data->size[1]) - 1);
+                for (i_0 = 0; i_0 <= loop_ub; i_0++) {
+                    data_1->data[i_0] = data->data[i_0];
+                }
+
+                MissionUAV_strtok(data_1, curLine, data);
+                MissionUAV_strtok_l(curLine, tmp_6);
+                MissionUAV_strtrim(tmp_6, curLine);
+                if (curLine->size[1] >= 2) {
+                    rtb_LowerRelop1 = false;
+                    if (curLine->data[0] == '[') {
+                        rtb_LowerRelop1 = true;
+                    }
+
+                    guard1 = false;
+                    if (rtb_LowerRelop1) {
+                        rtb_LowerRelop1 = false;
+                        if (curLine->data[static_cast<int32_T>(curLine->size[1]
+                                - 1)] == ']') {
+                            rtb_LowerRelop1 = true;
+                        }
+
+                        if (rtb_LowerRelop1) {
+                            if (static_cast<int32_T>(curLine->size[1] - 1) < 2)
+                            {
+                                c = 0;
+                                i = 0;
+                            } else {
+                                c = 1;
+                                i = static_cast<int32_T>(curLine->size[1] - 1);
+                            }
+
+                            i_0 = static_cast<int32_T>(curSection->size[0] *
+                                curSection->size[1]);
+                            curSection->size[0] = 1;
+                            loop_ub = static_cast<int32_T>(i - c);
+                            curSection->size[1] = loop_ub;
+                            MissionUAV_emxEnsureCapacity_char_T(curSection, i_0);
+                            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1);
+                                    i++) {
+                                curSection->data[i] = curLine->data[static_cast<
+                                    int32_T>(c + i)];
+                            }
+
+                            curKey->size[0] = 1;
+                            curKey->size[1] = 0;
+                        } else {
+                            guard1 = true;
+                        }
+                    } else {
+                        guard1 = true;
+                    }
+
+                    if (guard1) {
+                        if (curLine->data[0] == ';') {
+                            rtb_LowerRelop1 = true;
+                        }
+
+                        if ((static_cast<boolean_T>(static_cast<int32_T>(
+                                static_cast<int32_T>(rtb_LowerRelop1) ^ 1))) &&
+                                MissionUAV_contains(curLine)) {
+                            MissionUAV_strtok_ls(curLine, curVal, b_remainder);
+                            MissionUAV_strtrim(curVal, curKey);
+                            MissionUAV_strtok_lse(b_remainder, tmp_5);
+                            MissionUAV_strtrim(tmp_5, curVal);
+                        }
+                    }
+                }
+
+                if (MissionUAV_strcmp(curSection) && MissionUAV_strcmp_jng
+                        (curKey)) {
+                    i_0 = static_cast<int32_T>(ret->size[0] * ret->size[1]);
+                    ret->size[0] = 1;
+                    ret->size[1] = curVal->size[1];
+                    MissionUAV_emxEnsureCapacity_char_T(ret, i_0);
+                    loop_ub = curVal->size[1];
+                    for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+                        ret->data[i] = curVal->data[i];
+                    }
+
+                    exitg1 = true;
+                }
+            }
+
+            MissionUAV_emxFree_char_T(&data_1);
+            MissionUAV_emxFree_char_T(&tmp_6);
+            MissionUAV_emxFree_char_T(&tmp_5);
+        }
+
+        tmp_0 = MissionUAV_str2double(ret);
+        printf("Set UAV MinAirSpeed:\t\t%f\n", tmp_0.re);
+        fflush(stdout);
+        ret->size[0] = 1;
+        ret->size[1] = 0;
+        d_fid = MissionUAV_fileManager(localDW);
+        if (d_fid < 0.0) {
+            printf("INI-file \"%s\" was not found or could not be read.\n",
+                   "config.ini");
+            fflush(stdout);
+        } else {
+            MissionUAV_fread(d_fid, k, localDW);
+            i_0 = static_cast<int32_T>(data->size[0] * data->size[1]);
+            data->size[0] = 1;
+            data->size[1] = k->size[0];
+            MissionUAV_emxEnsureCapacity_char_T(data, i_0);
+            loop_ub = k->size[0];
+            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+                data->data[i] = k->data[i];
+            }
+
+            MissionUAV_cfclose(d_fid, localDW);
+            curSection->size[0] = 1;
+            curSection->size[1] = 0;
+            curKey->size[0] = 1;
+            curKey->size[1] = 0;
+            curVal->size[0] = 1;
+            curVal->size[1] = 0;
+            MissionUAV_emxInit_char_T(&tmp_3, 2);
+            MissionUAV_emxInit_char_T(&tmp_4, 2);
+            MissionUAV_emxInit_char_T(&data_0, 2);
+            exitg1 = false;
+            while ((!exitg1) && (data->size[1] != 0)) {
+                i_0 = static_cast<int32_T>(data_0->size[0] * data_0->size[1]);
+                data_0->size[0] = 1;
+                data_0->size[1] = data->size[1];
+                MissionUAV_emxEnsureCapacity_char_T(data_0, i_0);
+                loop_ub = static_cast<int32_T>(static_cast<int32_T>(data->size[0]
+                    * data->size[1]) - 1);
+                for (i_0 = 0; i_0 <= loop_ub; i_0++) {
+                    data_0->data[i_0] = data->data[i_0];
+                }
+
+                MissionUAV_strtok(data_0, curLine, data);
+                MissionUAV_strtok_l(curLine, tmp_4);
+                MissionUAV_strtrim(tmp_4, curLine);
+                if (curLine->size[1] >= 2) {
+                    rtb_LowerRelop1 = false;
+                    if (curLine->data[0] == '[') {
+                        rtb_LowerRelop1 = true;
+                    }
+
+                    guard1 = false;
+                    if (rtb_LowerRelop1) {
+                        rtb_LowerRelop1 = false;
+                        if (curLine->data[static_cast<int32_T>(curLine->size[1]
+                                - 1)] == ']') {
+                            rtb_LowerRelop1 = true;
+                        }
+
+                        if (rtb_LowerRelop1) {
+                            if (static_cast<int32_T>(curLine->size[1] - 1) < 2)
+                            {
+                                c = 0;
+                                i = 0;
+                            } else {
+                                c = 1;
+                                i = static_cast<int32_T>(curLine->size[1] - 1);
+                            }
+
+                            i_0 = static_cast<int32_T>(curSection->size[0] *
+                                curSection->size[1]);
+                            curSection->size[0] = 1;
+                            loop_ub = static_cast<int32_T>(i - c);
+                            curSection->size[1] = loop_ub;
+                            MissionUAV_emxEnsureCapacity_char_T(curSection, i_0);
+                            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1);
+                                    i++) {
+                                curSection->data[i] = curLine->data[static_cast<
+                                    int32_T>(c + i)];
+                            }
+
+                            curKey->size[0] = 1;
+                            curKey->size[1] = 0;
+                        } else {
+                            guard1 = true;
+                        }
+                    } else {
+                        guard1 = true;
+                    }
+
+                    if (guard1) {
+                        if (curLine->data[0] == ';') {
+                            rtb_LowerRelop1 = true;
+                        }
+
+                        if ((static_cast<boolean_T>(static_cast<int32_T>(
+                                static_cast<int32_T>(rtb_LowerRelop1) ^ 1))) &&
+                                MissionUAV_contains(curLine)) {
+                            MissionUAV_strtok_ls(curLine, curVal, b_remainder);
+                            MissionUAV_strtrim(curVal, curKey);
+                            MissionUAV_strtok_lse(b_remainder, tmp_3);
+                            MissionUAV_strtrim(tmp_3, curVal);
+                        }
+                    }
+                }
+
+                if (MissionUAV_strcmp(curSection) && MissionUAV_strcmp_jngk
+                        (curKey)) {
+                    i_0 = static_cast<int32_T>(ret->size[0] * ret->size[1]);
+                    ret->size[0] = 1;
+                    ret->size[1] = curVal->size[1];
+                    MissionUAV_emxEnsureCapacity_char_T(ret, i_0);
+                    loop_ub = curVal->size[1];
+                    for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+                        ret->data[i] = curVal->data[i];
+                    }
+
+                    exitg1 = true;
+                }
+            }
+
+            MissionUAV_emxFree_char_T(&data_0);
+            MissionUAV_emxFree_char_T(&tmp_4);
+            MissionUAV_emxFree_char_T(&tmp_3);
+        }
+
+        tmp_0 = MissionUAV_str2double(ret);
+        d_fid = 0.017453292519943295 * tmp_0.re;
+        printf("Set UAV MaxRollAngle:\t\t%f\n", d_fid);
+        fflush(stdout);
+        MissionUAV_readINI(ret, localDW);
+        tmp_0 = MissionUAV_str2double(ret);
+        b_fid = 0.017453292519943295 * tmp_0.re;
+        printf("Set UAV ClimbAngleLimit:\t%f\n", b_fid);
+        fflush(stdout);
+        MissionUAV_readINI_k(ret, localDW);
+        tmp_0 = MissionUAV_str2double(ret);
+        DiveAngleLimit = 0.017453292519943295 * tmp_0.re;
+        printf("Set UAV DiveAngleLimit:\t\t%f\n", DiveAngleLimit);
+        fflush(stdout);
+        if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(std::
+                isnan(tmp.re)) ^ 1))) {
+            localDW->SingletonInstance_p.AirSpeed = tmp.re;
+        }
+
+        if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(std::
+                isnan(d_fid)) ^ 1))) {
+            localDW->SingletonInstance_p.MaxRollAngle = d_fid;
+        }
+
+        if ((static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
+                (std::isnan(b_fid)) ^ 1))) && (static_cast<boolean_T>(
+                static_cast<int32_T>(static_cast<int32_T>(std::isnan
+                (DiveAngleLimit)) ^ 1)))) {
+            localDW->SingletonInstance_p.FlightPathAngleLimit[0] =
+                DiveAngleLimit;
+            localDW->SingletonInstance_p.FlightPathAngleLimit[1] = b_fid;
+        }
+
+        MissionUAV_uavDubinsConnection_uavDubinsConnection
+            (&localDW->SingletonInstance_p.Connector,
+             localDW->SingletonInstance_p.AirSpeed,
+             localDW->SingletonInstance_p.MaxRollAngle);
+        localDW->SingletonInstance_not_empty_p = true;
     }
 
     MissionUAV_emxFree_char_T(&k);
@@ -4138,289 +4328,158 @@ void MissionUAV(RT_MODEL_MissionUAV_T * const MissionUAV_M, const real_T
     MissionUAV_emxFree_char_T(&data);
     MissionUAV_emxFree_char_T(&ret);
 
-    // MATLAB Function: '<S1>/Heading Control' incorporates:
-    //   Integrator: '<S5>/Integrator'
+    // MATLAB Function: '<S1>/Get Max Bank'
+    fid = localDW->SingletonInstance_p.Connector.MaxRollAngle;
 
-    // MATLAB Function 'Heading Control': '<S4>:1'
-    // '<S4>:1:3'
-    // '<S4>:1:4'
-    // '<S4>:1:5'
-    // '<S4>:1:7'
-    b_fid = 1.0 / localX->Integrator_CSTATE[3];
+    // MinMax: '<S1>/MinBankAng' incorporates:
+    //   Constant: '<S1>/Constant'
+    //   Gain: '<S1>/Gain'
+    //   MATLAB Function: '<S1>/Get Max Bank'
 
-    // '<S4>:1:8'
-    ClimbAngleLimit = (std::cos(localX->Integrator_CSTATE[4]) * std::cos
-                       (localX->Integrator_CSTATE[5]) *
-                       localDW->FixedWingGuidanceEnvironmentBus_p.WindNorth +
-                       std::sin(localX->Integrator_CSTATE[4]) * std::cos
-                       (localX->Integrator_CSTATE[5]) *
-                       localDW->FixedWingGuidanceEnvironmentBus_p.WindEast) +
-        -rtb_RollAngle_d * localDW->FixedWingGuidanceEnvironmentBus_p.WindDown;
-
-    // '<S4>:1:9'
-    // '<S4>:1:10'
-    // '<S4>:1:12'
-    rtb_RollAngle_d = *rtu_UAVGuidanceCmd_HeadingAngle -
-        localX->Integrator_CSTATE[4];
-    if (std::abs(rtb_RollAngle_d) > 3.1415926535897931) {
-        if (std::isnan(rtb_RollAngle_d + 3.1415926535897931)) {
-            c_fid = (rtNaN);
-        } else if (std::isinf(rtb_RollAngle_d + 3.1415926535897931)) {
-            c_fid = (rtNaN);
-        } else if (rtb_RollAngle_d + 3.1415926535897931 == 0.0) {
-            c_fid = 0.0;
-        } else {
-            c_fid = std::fmod(rtb_RollAngle_d + 3.1415926535897931,
-                              6.2831853071795862);
-            rtb_LowerRelop1 = (c_fid == 0.0);
-            if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
-                    (rtb_LowerRelop1) ^ 1))) {
-                d_fid = std::abs((rtb_RollAngle_d + 3.1415926535897931) /
-                                 6.2831853071795862);
-                rtb_LowerRelop1 = static_cast<boolean_T>(static_cast<int32_T>
-                    ((std::abs(d_fid - std::floor(d_fid + 0.5)) >
-                      2.2204460492503131E-16 * d_fid) ^ 1));
-            }
-
-            if (rtb_LowerRelop1) {
-                c_fid = 0.0;
-            } else if (rtb_RollAngle_d + 3.1415926535897931 < 0.0) {
-                c_fid += 6.2831853071795862;
-            }
-        }
-
-        if (static_cast<boolean_T>(static_cast<int32_T>((rtb_RollAngle_d +
-                3.1415926535897931 > 0.0) & (c_fid == 0.0)))) {
-            c_fid = 6.2831853071795862;
-        }
-
-        rtb_RollAngle_d = c_fid - 3.1415926535897931;
-    }
-
-    rtb_RollAngle_d = rt_atan2d_snf((std::sqrt(std::fmax(0.0, ClimbAngleLimit *
-        ClimbAngleLimit - fid_tmp)) + -ClimbAngleLimit) * rtb_RollAngle_d, std::
-        cos(localX->Integrator_CSTATE[4] - (localX->Integrator_CSTATE[4] - std::
-        asin(b_fid * localDW->FixedWingGuidanceEnvironmentBus_p.WindNorth * -std::
-             sin(localX->Integrator_CSTATE[4]) + b_fid *
-             localDW->FixedWingGuidanceEnvironmentBus_p.WindEast * c_fid_tmp))) *
-        localDW->FixedWingGuidanceEnvironmentBus_p.Gravity);
-    if (rtmIsMajorTimeStep(MissionUAV_M)) {
-        // Gain: '<S1>/Inverse'
-        localDW->Inverse = -localDW->MinBankAng;
-    }
-
-    // Integrator: '<S8>/dotBankTD'
-    if (rtsiIsModeUpdateTimeStep(MissionUAV_M->solverInfo) && (*rtu_ResetState
-            != 0.0)) {
-        // evaluate the level of the reset signal
-        localX->dotBankTD_CSTATE = 0.0;
-    }
-
-    // Integrator: '<S8>/dotBankTD'
-    localDW->dotBankTD = localX->dotBankTD_CSTATE;
-
-    // MATLAB Function: '<S8>/fhan_Bank' incorporates:
-    //   SignalConversion generated from: '<S9>/ SFunction '
-
-    // MATLAB Function 'MissionUAV/TD/fhan_Bank': '<S9>:1'
-    // '<S9>:1:3'
-    // '<S9>:1:4'
-    // '<S9>:1:5'
-    // '<S9>:1:6'
-    // '<S9>:1:8'
-    // '<S9>:1:9'
-    fid = localDW->dotBankTD * 0.1;
+    fid = std::fmin(0.78539816339744828, 57.295779513082323 * fid * 3.0);
 
     // Switch: '<S6>/Switch2' incorporates:
     //   RelationalOperator: '<S6>/LowerRelop1'
-    //   RelationalOperator: '<S6>/UpperRelop'
-    //   Switch: '<S6>/Switch'
 
-    // '<S9>:1:10'
-    if (rtb_RollAngle_d > localDW->MinBankAng) {
-        rtb_RollAngle_d = localDW->MinBankAng;
-    } else if (rtb_RollAngle_d < localDW->Inverse) {
-        // Switch: '<S6>/Switch'
-        rtb_RollAngle_d = localDW->Inverse;
+    if (static_cast<boolean_T>(static_cast<int32_T>((SpdLmt_idx_0 > fid) ^ 1)))
+    {
+        // Gain: '<S1>/Inverse'
+        fid = -fid;
+
+        // Switch: '<S6>/Switch' incorporates:
+        //   RelationalOperator: '<S6>/UpperRelop'
+
+        if (static_cast<boolean_T>(static_cast<int32_T>((SpdLmt_idx_0 < fid) ^ 1)))
+        {
+            fid = SpdLmt_idx_0;
+        }
+
+        // End of Switch: '<S6>/Switch'
     }
 
     // End of Switch: '<S6>/Switch2'
 
+    // Outputs for Atomic SubSystem: '<S8>/dotBankTD'
+    MissionUAV_TD_Bank(rtu_ResetState, &SpdLmt_idx_0, 0.1, &localDW->dotBankTD,
+                       &localZCE->dotBankTD);
+
+    // End of Outputs for SubSystem: '<S8>/dotBankTD'
+
     // MATLAB Function: '<S8>/fhan_Bank' incorporates:
-    //   Integrator: '<S8>/TD_Bank'
+    //   SignalConversion generated from: '<S12>/ SFunction '
     //   Sum: '<S8>/Sum1'
 
-    b_fid = (localX->TD_Bank_CSTATE - rtb_RollAngle_d) + fid;
+    // MATLAB Function 'MissionUAV/TD/fhan_Bank': '<S12>:1'
+    // '<S12>:1:3'
+    // '<S12>:1:4'
+    // '<S12>:1:5'
+    // '<S12>:1:6'
+    // '<S12>:1:8'
+    // '<S12>:1:9'
+    b_fid = SpdLmt_idx_0 * 0.1;
 
-    // '<S9>:1:11'
-    // '<S9>:1:12'
-    if (std::isnan(b_fid)) {
-        ClimbAngleLimit = b_fid;
-    } else if (b_fid < 0.0) {
-        ClimbAngleLimit = -1.0;
+    // '<S12>:1:10'
+    c_fid = (AddY_p - fid) + b_fid;
+
+    // '<S12>:1:11'
+    // '<S12>:1:12'
+    if (std::isnan(c_fid)) {
+        DiveAngleLimit = (rtNaN);
+    } else if (c_fid < 0.0) {
+        DiveAngleLimit = -1.0;
     } else {
-        ClimbAngleLimit = static_cast<real_T>(b_fid > 0.0);
+        DiveAngleLimit = static_cast<real_T>(c_fid > 0.0);
     }
 
-    c_fid = (std::sqrt((8.0 * std::abs(b_fid) + 0.020943951023931956) *
+    d_fid = (std::sqrt((8.0 * std::abs(c_fid) + 0.020943951023931956) *
                        0.020943951023931956) - 0.020943951023931956) *
-        ClimbAngleLimit / 2.0 + fid;
+        DiveAngleLimit / 2.0 + b_fid;
 
-    // '<S9>:1:13'
-    // '<S9>:1:14'
-    if (std::isnan(b_fid + 0.020943951023931956)) {
-        ClimbAngleLimit = b_fid + 0.020943951023931956;
-    } else if (b_fid + 0.020943951023931956 < 0.0) {
-        ClimbAngleLimit = -1.0;
+    // '<S12>:1:13'
+    // '<S12>:1:14'
+    if (std::isnan(c_fid + 0.020943951023931956)) {
+        DiveAngleLimit = (rtNaN);
+    } else if (c_fid + 0.020943951023931956 < 0.0) {
+        DiveAngleLimit = -1.0;
     } else {
-        ClimbAngleLimit = static_cast<real_T>(b_fid + 0.020943951023931956 > 0.0);
+        DiveAngleLimit = static_cast<real_T>(c_fid + 0.020943951023931956 > 0.0);
+    }
+
+    if (std::isnan(c_fid - 0.020943951023931956)) {
+        fid = (rtNaN);
+    } else if (c_fid - 0.020943951023931956 < 0.0) {
+        fid = -1.0;
+    } else {
+        fid = static_cast<real_T>(c_fid - 0.020943951023931956 > 0.0);
+    }
+
+    b_fid = ((b_fid + c_fid) - d_fid) * ((DiveAngleLimit - fid) / 2.0) + d_fid;
+
+    // Update for Atomic SubSystem: '<S8>/TD_Bank'
+    // '<S12>:1:15'
+    // '<S12>:1:17'
+    MissionUAV_TD_Bank_Update(SpdLmt_idx_0, &AddY_p, &localDW->TD_Bank);
+
+    // End of Update for SubSystem: '<S8>/TD_Bank'
+
+    // MATLAB Function: '<S8>/fhan_Bank'
+    if (std::isnan(b_fid)) {
+        DiveAngleLimit = (rtNaN);
+    } else if (b_fid < 0.0) {
+        DiveAngleLimit = -1.0;
+    } else {
+        DiveAngleLimit = static_cast<real_T>(b_fid > 0.0);
+    }
+
+    if (std::isnan(b_fid + 0.020943951023931956)) {
+        fid = (rtNaN);
+    } else if (b_fid + 0.020943951023931956 < 0.0) {
+        fid = -1.0;
+    } else {
+        fid = static_cast<real_T>(b_fid + 0.020943951023931956 > 0.0);
     }
 
     if (std::isnan(b_fid - 0.020943951023931956)) {
-        d_fid = b_fid - 0.020943951023931956;
+        c_fid = (rtNaN);
     } else if (b_fid - 0.020943951023931956 < 0.0) {
+        c_fid = -1.0;
+    } else {
+        c_fid = static_cast<real_T>(b_fid - 0.020943951023931956 > 0.0);
+    }
+
+    if (std::isnan(b_fid)) {
+        d_fid = (rtNaN);
+    } else if (b_fid < 0.0) {
         d_fid = -1.0;
     } else {
-        d_fid = static_cast<real_T>(b_fid - 0.020943951023931956 > 0.0);
+        d_fid = static_cast<real_T>(b_fid > 0.0);
     }
 
-    fid = ((fid + b_fid) - c_fid) * ((ClimbAngleLimit - d_fid) / 2.0) + c_fid;
+    // Update for Atomic SubSystem: '<S8>/dotBankTD'
+    MissionUAV_TD_Bank_Update(-2.0943951023931953 * (b_fid /
+        0.020943951023931956 - DiveAngleLimit) * ((fid - c_fid) / 2.0) -
+        2.0943951023931953 * d_fid, &SpdLmt_idx_0, &localDW->dotBankTD);
 
-    // '<S9>:1:15'
-    // '<S9>:1:17'
-    if (std::isnan(fid)) {
-        b_fid = fid;
-    } else if (fid < 0.0) {
-        b_fid = -1.0;
-    } else {
-        b_fid = static_cast<real_T>(fid > 0.0);
-    }
-
-    if (std::isnan(fid + 0.020943951023931956)) {
-        ClimbAngleLimit = fid + 0.020943951023931956;
-    } else if (fid + 0.020943951023931956 < 0.0) {
-        ClimbAngleLimit = -1.0;
-    } else {
-        ClimbAngleLimit = static_cast<real_T>(fid + 0.020943951023931956 > 0.0);
-    }
-
-    if (std::isnan(fid - 0.020943951023931956)) {
-        d_fid = fid - 0.020943951023931956;
-    } else if (fid - 0.020943951023931956 < 0.0) {
-        d_fid = -1.0;
-    } else {
-        d_fid = static_cast<real_T>(fid - 0.020943951023931956 > 0.0);
-    }
-
-    localDW->fh = (fid / 0.020943951023931956 - b_fid) * -2.0943951023931953 *
-        ((ClimbAngleLimit - d_fid) / 2.0) - 2.0943951023931953 * b_fid;
-
-    // SignalConversion generated from: '<Root>/SimUAVState' incorporates:
-    //   Integrator: '<S5>/Integrator'
-
-    *rty_SimUAVState_North = localX->Integrator_CSTATE[0];
-
-    // SignalConversion generated from: '<Root>/SimUAVState' incorporates:
-    //   Integrator: '<S5>/Integrator'
-
-    *rty_SimUAVState_East = localX->Integrator_CSTATE[1];
-
-    // SignalConversion generated from: '<Root>/SimUAVState' incorporates:
-    //   Integrator: '<S5>/Integrator'
-
-    *rty_SimUAVState_Height = localX->Integrator_CSTATE[2];
-
-    // SignalConversion generated from: '<Root>/SimUAVState' incorporates:
-    //   Integrator: '<S5>/Integrator'
-
-    *rty_SimUAVState_AirSpeed = localX->Integrator_CSTATE[3];
-
-    // SignalConversion generated from: '<Root>/SimUAVState' incorporates:
-    //   Integrator: '<S5>/Integrator'
-
-    *rty_SimUAVState_HeadingAngle = localX->Integrator_CSTATE[4];
-
-    // SignalConversion generated from: '<Root>/SimUAVState' incorporates:
-    //   Integrator: '<S5>/Integrator'
-
-    *rty_SimUAVState_FlightPathAngle = localX->Integrator_CSTATE[5];
-
-    // SignalConversion generated from: '<Root>/SimUAVState' incorporates:
-    //   Integrator: '<S5>/Integrator'
-
-    *rty_SimUAVState_RollAngle = localX->Integrator_CSTATE[6];
-
-    // SignalConversion generated from: '<Root>/SimUAVState' incorporates:
-    //   Integrator: '<S5>/Integrator'
-
-    *rty_SimUAVState_RollAngleRate = localX->Integrator_CSTATE[7];
-}
-
-// Update for referenced model: 'MissionUAV'
-void MissionUAV_Update(DW_MissionUAV_f_T *localDW)
-{
-    // Update for Integrator: '<S5>/Integrator'
-    localDW->Integrator_IWORK = 0;
-}
-
-// Derivatives for referenced model: 'MissionUAV'
-void MissionUAV_Deriv(const real_T *rtu_ResetState, DW_MissionUAV_f_T *localDW,
-                      XDot_MissionUAV_n_T *localXdot)
-{
-    // Derivatives for Integrator: '<S5>/Integrator' incorporates:
-    //   Integrator: '<S8>/TD_Bank'
-    //   Integrator: '<S8>/dotBankTD'
-    //   MATLABSystem: '<S5>/ComputeDerivative'
-
-    if (*rtu_ResetState == 0.0) {
-        std::memcpy(&localXdot->Integrator_CSTATE[0],
-                    &localDW->ComputeDerivative[0], static_cast<uint32_T>(sizeof
-                     (real_T) << 3U));
-        localXdot->TD_Bank_CSTATE = localDW->dotBankTD;
-        localXdot->dotBankTD_CSTATE = localDW->fh;
-    } else {
-        // level reset is active
-        std::memset(&localXdot->Integrator_CSTATE[0], 0, static_cast<uint32_T>
-                    (sizeof(real_T) << 3U));
-
-        // level reset is active
-        localXdot->TD_Bank_CSTATE = 0.0;
-
-        // level reset is active
-        localXdot->dotBankTD_CSTATE = 0.0;
-    }
-
-    // End of Derivatives for Integrator: '<S5>/Integrator'
+    // End of Update for SubSystem: '<S8>/dotBankTD'
 }
 
 // Model initialize function
-void MissionUAV_initialize(const char_T **rt_errorStatus, boolean_T
-    *rt_stopRequested, RTWSolverInfo *rt_solverInfo, const rtTimingBridge
-    *timingBridge, RT_MODEL_MissionUAV_T *const MissionUAV_M, ZCE_MissionUAV_T
-    *localZCE)
+void MissionUAV_initialize(const char_T **rt_errorStatus, RT_MODEL_MissionUAV_T *
+    const MissionUAV_M, ZCE_MissionUAV_T *localZCE)
 {
     // Registration code
 
     // initialize non-finites
     rt_InitInfAndNaN(sizeof(real_T));
-    MissionUAV_M->timingBridge = (timingBridge);
 
     // initialize error status
     rtmSetErrorStatusPointer(MissionUAV_M, rt_errorStatus);
-
-    // initialize stop requested flag
-    rtmSetStopRequestedPtr(MissionUAV_M, rt_stopRequested);
-
-    // initialize RTWSolverInfo
-    MissionUAV_M->solverInfo = (rt_solverInfo);
-
-    // Set the Timing fields to the appropriate data in the RTWSolverInfo
-    rtmSetSimTimeStepPointer(MissionUAV_M, rtsiGetSimTimeStepPtr
-        (MissionUAV_M->solverInfo));
-    MissionUAV_M->Timing.stepSize0 = (rtsiGetStepSize(MissionUAV_M->solverInfo));
-    localZCE->Integrator_Reset_ZCE = UNINITIALIZED_ZCSIG;
-    localZCE->TD_Bank_Reset_ZCE = UNINITIALIZED_ZCSIG;
-    localZCE->dotBankTD_Reset_ZCE = UNINITIALIZED_ZCSIG;
+    localZCE->DelayInput_Reset_ZCE_g = UNINITIALIZED_ZCSIG;
+    localZCE->DelayOutput_Reset_ZCE_a = UNINITIALIZED_ZCSIG;
+    localZCE->dotBankTD.DelayInput_Reset_ZCE = UNINITIALIZED_ZCSIG;
+    localZCE->dotBankTD.DelayOutput_Reset_ZCE = UNINITIALIZED_ZCSIG;
+    localZCE->TD_Bank.DelayInput_Reset_ZCE = UNINITIALIZED_ZCSIG;
+    localZCE->TD_Bank.DelayOutput_Reset_ZCE = UNINITIALIZED_ZCSIG;
 }
 
 //

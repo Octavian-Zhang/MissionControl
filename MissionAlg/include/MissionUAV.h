@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'MissionUAV'.
 //
-// Model version                  : 3.15
-// Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Mon Sep  5 17:30:10 2022
+// Model version                  : 4.1
+// Simulink Coder version         : 9.8 (R2022b) 13-May-2022
+// C/C++ source code generated on : Mon Nov 21 19:16:40 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -23,96 +23,87 @@
 #include "rtw_continuous.h"
 #include "rtw_solver.h"
 #include "MissionUAV_types.h"
+#include "rt_zcfcn.h"
 
-extern "C" {
+extern "C"
+{
 
 #include "rtGetInf.h"
 
 }
-    extern "C"
+
+extern "C"
 {
 
 #include "rt_nonfinite.h"
 
 }
 
-extern "C" {
+extern "C"
+{
 
 #include "rtGetNaN.h"
 
 }
-#include "model_reference_types.h"
+
 #include "zero_crossing_types.h"
+
+// Block signals and states (default storage) for system '<S8>/TD_Bank'
+struct DW_TD_Bank_MissionUAV_T {
+    real_T DelayInput_DSTATE;          // '<S10>/DelayInput'
+    real_T DelayOutput_DSTATE;         // '<S10>/DelayOutput'
+};
+
+// Zero-crossing (trigger) state for system '<S8>/TD_Bank'
+struct ZCV_TD_Bank_MissionUAV_T {
+    real_T DelayInput_Reset_ZC;        // '<S10>/DelayInput'
+    real_T DelayOutput_Reset_ZC;       // '<S10>/DelayOutput'
+};
+
+// Zero-crossing (trigger) state for system '<S8>/TD_Bank'
+struct ZCE_TD_Bank_MissionUAV_T {
+    ZCSigState DelayInput_Reset_ZCE;   // '<S10>/DelayInput'
+    ZCSigState DelayOutput_Reset_ZCE;  // '<S10>/DelayOutput'
+};
 
 // Block signals and states (default storage) for model 'MissionUAV'
 struct DW_MissionUAV_f_T {
+    DW_TD_Bank_MissionUAV_T dotBankTD; // '<S8>/dotBankTD'
+    DW_TD_Bank_MissionUAV_T TD_Bank;   // '<S8>/TD_Bank'
     FILE* eml_openfiles[20];           // '<S1>/Get Max Bank'
-    FILE* eml_openfiles_p[20];         // '<S1>/Get Speed Limit'
+    FILE* eml_openfiles_a[20];         // '<S1>/Get Speed Limit'
     robotics_core_internal_system_navigation_StateVector2Struct_MissionUAV_T obj;// '<S5>/StateVector2Struct' 
-    DubinsObjSingleton_MissionUAV_b_T SingletonInstance;// '<S1>/Get Speed Limit' 
+    DubinsObjSingleton_MissionUAV_a_T SingletonInstance;// '<S1>/Get Speed Limit' 
     robotics_core_internal_system_navigation_Model_MissionUAV_T obj_j;// '<S5>/ComputeDerivative' 
-    DubinsObjSingleton_MissionUAV_T SingletonInstance_f;// '<S1>/Get Max Bank'
-    FixedWingGuidanceEnvironmentBus FixedWingGuidanceEnvironmentBus_p;
-                                      // '<S1>/FixedWingGuidanceEnvironmentBus'
-    real_T ComputeDerivative[8];       // '<S5>/ComputeDerivative'
-    real_T SpdLmt[2];                  // '<S1>/Get Speed Limit'
-    real_T Max;                        // '<S1>/Max'
-    real_T Min;                        // '<S1>/Min'
-    real_T MinBankAng;                 // '<S1>/MinBankAng'
-    real_T Inverse;                    // '<S1>/Inverse'
-    real_T dotBankTD;                  // '<S8>/dotBankTD'
-    real_T fh;                         // '<S8>/fhan_Bank'
-    int_T Integrator_IWORK;            // '<S5>/Integrator'
+    DubinsObjSingleton_MissionUAV_T SingletonInstance_p;// '<S1>/Get Max Bank'
+    real_T DelayInput_DSTATE[8];       // '<S9>/DelayInput'
+    real_T DelayOutput_DSTATE[8];      // '<S9>/DelayOutput'
     boolean_T objisempty;              // '<S5>/StateVector2Struct'
+    boolean_T icLoad;                  // '<S9>/DelayOutput'
     boolean_T objisempty_a;            // '<S5>/ComputeDerivative'
     boolean_T SingletonInstance_not_empty;// '<S1>/Get Speed Limit'
-    boolean_T SingletonInstance_not_empty_m;// '<S1>/Get Max Bank'
+    boolean_T SingletonInstance_not_empty_p;// '<S1>/Get Max Bank'
 };
 
-// Continuous states for model 'MissionUAV'
-struct X_MissionUAV_n_T {
-    real_T Integrator_CSTATE[8];       // '<S5>/Integrator'
-    real_T TD_Bank_CSTATE;             // '<S8>/TD_Bank'
-    real_T dotBankTD_CSTATE;           // '<S8>/dotBankTD'
-};
-
-// State derivatives for model 'MissionUAV'
-struct XDot_MissionUAV_n_T {
-    real_T Integrator_CSTATE[8];       // '<S5>/Integrator'
-    real_T TD_Bank_CSTATE;             // '<S8>/TD_Bank'
-    real_T dotBankTD_CSTATE;           // '<S8>/dotBankTD'
-};
-
-// State Disabled for model 'MissionUAV'
-struct XDis_MissionUAV_n_T {
-    boolean_T Integrator_CSTATE[8];    // '<S5>/Integrator'
-    boolean_T TD_Bank_CSTATE;          // '<S8>/TD_Bank'
-    boolean_T dotBankTD_CSTATE;        // '<S8>/dotBankTD'
+// Zero-crossing (trigger) state for model 'MissionUAV'
+struct ZCV_MissionUAV_g_T {
+    ZCV_TD_Bank_MissionUAV_T dotBankTD;// '<S8>/TD_Bank'
+    ZCV_TD_Bank_MissionUAV_T TD_Bank;  // '<S8>/TD_Bank'
+    real_T DelayInput_Reset_ZC_d;      // '<S9>/DelayInput'
+    real_T DelayOutput_Reset_ZC_i;     // '<S9>/DelayOutput'
 };
 
 // Zero-crossing (trigger) state for model 'MissionUAV'
 struct ZCE_MissionUAV_T {
-    ZCSigState Integrator_Reset_ZCE;   // '<S5>/Integrator'
-    ZCSigState TD_Bank_Reset_ZCE;      // '<S8>/TD_Bank'
-    ZCSigState dotBankTD_Reset_ZCE;    // '<S8>/dotBankTD'
+    ZCE_TD_Bank_MissionUAV_T dotBankTD;// '<S8>/dotBankTD'
+    ZCE_TD_Bank_MissionUAV_T TD_Bank;  // '<S8>/TD_Bank'
+    ZCSigState DelayInput_Reset_ZCE_g; // '<S9>/DelayInput'
+    ZCSigState DelayOutput_Reset_ZCE_a;// '<S9>/DelayOutput'
 };
 
 // Real-time Model Data Structure
 struct tag_RTM_MissionUAV_T {
     const char_T **errorStatus;
-    RTWSolverInfo *solverInfo;
-    const rtTimingBridge *timingBridge;
-
-    //
-    //  Timing:
-    //  The following substructure contains information regarding
-    //  the timing information for the model.
-
-    struct {
-        time_T stepSize0;
-        SimTimeStep *simTimeStep;
-        boolean_T *stopRequestedFlag;
-    } Timing;
 };
 
 struct MdlrefDW_MissionUAV_T {
@@ -122,18 +113,16 @@ struct MdlrefDW_MissionUAV_T {
 };
 
 // Model reference registration function
-extern void MissionUAV_initialize(const char_T **rt_errorStatus, boolean_T
-    *rt_stopRequested, RTWSolverInfo *rt_solverInfo, const rtTimingBridge
-    *timingBridge, RT_MODEL_MissionUAV_T *const MissionUAV_M, ZCE_MissionUAV_T
-    *localZCE);
-extern void MissionUAV_Init(RT_MODEL_MissionUAV_T * const MissionUAV_M,
-    DW_MissionUAV_f_T *localDW, X_MissionUAV_n_T *localX);
-extern void MissionUAV_Deriv(const real_T *rtu_ResetState, DW_MissionUAV_f_T
-    *localDW, XDot_MissionUAV_n_T *localXdot);
-extern void MissionUAV_Update(DW_MissionUAV_f_T *localDW);
-extern void MissionUAV(RT_MODEL_MissionUAV_T * const MissionUAV_M, const real_T *
-                       rtu_ResetState, const real_T rtu_StartPos[8], const
-                       real_T *rtu_UAVGuidanceCmd_Height, const real_T
+extern void MissionUAV_initialize(const char_T **rt_errorStatus,
+    RT_MODEL_MissionUAV_T *const MissionUAV_M, ZCE_MissionUAV_T *localZCE);
+extern void MissionUAV_TD_Bank_Update(real_T rtu_InputU, real_T *rty_OutputY,
+    DW_TD_Bank_MissionUAV_T *localDW);
+extern void MissionUAV_TD_Bank(const real_T *rtu_Reset, real_T *rty_OutputY,
+    real_T rtp_deltaT, DW_TD_Bank_MissionUAV_T *localDW,
+    ZCE_TD_Bank_MissionUAV_T *localZCE);
+extern void MissionUAV_Init(DW_MissionUAV_f_T *localDW);
+extern void MissionUAV(const real_T *rtu_ResetState, const real_T rtu_StartPos[8],
+                       const real_T *rtu_UAVGuidanceCmd_Height, const real_T
                        *rtu_UAVGuidanceCmd_AirSpeed, const real_T
                        *rtu_UAVGuidanceCmd_HeadingAngle, real_T
                        *rty_SimUAVState_North, real_T *rty_SimUAVState_East,
@@ -143,7 +132,7 @@ extern void MissionUAV(RT_MODEL_MissionUAV_T * const MissionUAV_M, const real_T 
                        *rty_SimUAVState_FlightPathAngle, real_T
                        *rty_SimUAVState_RollAngle, real_T
                        *rty_SimUAVState_RollAngleRate, DW_MissionUAV_f_T
-                       *localDW, X_MissionUAV_n_T *localX);
+                       *localDW, ZCE_MissionUAV_T *localZCE);
 
 //-
 //  These blocks were eliminated from the model due to optimizations:
@@ -154,6 +143,7 @@ extern void MissionUAV(RT_MODEL_MissionUAV_T * const MissionUAV_M, const real_T 
 //  Block '<S7>/Data Type Propagation' : Unused code path elimination
 //  Block '<S5>/Data Type Conversion' : Eliminate redundant data type conversion
 //  Block '<S5>/Data Type Conversion1' : Eliminate redundant data type conversion
+//  Block '<S9>/Reshape' : Reshape block reduction
 //  Block '<S1>/Reshape' : Reshape block reduction
 
 
@@ -180,7 +170,10 @@ extern void MissionUAV(RT_MODEL_MissionUAV_T * const MissionUAV_M, const real_T 
 //  '<S6>'   : 'MissionUAV/MissionUAV/Saturation Dynamic'
 //  '<S7>'   : 'MissionUAV/MissionUAV/Saturation Dynamic Speed Limit'
 //  '<S8>'   : 'MissionUAV/MissionUAV/TD'
-//  '<S9>'   : 'MissionUAV/MissionUAV/TD/fhan_Bank'
+//  '<S9>'   : 'MissionUAV/MissionUAV/MissionUAV/DiscreteIntegrator'
+//  '<S10>'  : 'MissionUAV/MissionUAV/TD/TD_Bank'
+//  '<S11>'  : 'MissionUAV/MissionUAV/TD/dotBankTD'
+//  '<S12>'  : 'MissionUAV/MissionUAV/TD/fhan_Bank'
 
 #endif                                 // RTW_HEADER_MissionUAV_h_
 

@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'Real2SimGuidance'.
 //
-// Model version                  : 4.188
-// Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Mon Sep  5 17:31:54 2022
+// Model version                  : 5.10
+// Simulink Coder version         : 9.8 (R2022b) 13-May-2022
+// C/C++ source code generated on : Mon Nov 21 19:19:22 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -20,50 +20,6 @@
 #define RTW_HEADER_Real2SimGuidance_types_h_
 #include "rtwtypes.h"
 #include "DatalinkInterface.h"
-
-// Model Code Variants
-#ifndef DEFINED_TYPEDEF_FOR_RealUAVStateBus_
-#define DEFINED_TYPEDEF_FOR_RealUAVStateBus_
-
-struct RealUAVStateBus
-{
-    int32_T UAV_ID;
-    real_T Latitude_deg;
-    real_T Longitude_deg;
-    real_T Height_meter;
-    real_T Altitude_meter;
-    real_T AirSpeed_mps;
-    real_T GndSpd_mps;
-    real_T HeadingAngle_deg;
-    real_T FlightPathAngle_deg;
-    real_T RollAngle_deg;
-};
-
-#endif
-
-#ifndef DEFINED_TYPEDEF_FOR_VectorSpeed_
-#define DEFINED_TYPEDEF_FOR_VectorSpeed_
-
-struct VectorSpeed
-{
-    real_T eastSpeed;
-    real_T northSpeed;
-    real_T skySpeed;
-};
-
-#endif
-
-#ifndef DEFINED_TYPEDEF_FOR_StateFCU_
-#define DEFINED_TYPEDEF_FOR_StateFCU_
-
-struct StateFCU
-{
-    RealUAVStateBus RealUAVState;
-    VectorSpeed VecSpd;
-};
-
-#endif
-
 #ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceStateBus_
 #define DEFINED_TYPEDEF_FOR_FixedWingGuidanceStateBus_
 
@@ -122,21 +78,6 @@ struct ADRC
 
 #endif
 
-#ifndef DEFINED_TYPEDEF_FOR_FCUCMD_
-#define DEFINED_TYPEDEF_FOR_FCUCMD_
-
-struct FCUCMD
-{
-    real_T Latitude_deg;
-    real_T Longitude_deg;
-    real_T Height_meter;
-    real_T RefHdg_deg;
-    real_T RefAirSpd_mps;
-    real_T RefGndSpd_mps;
-};
-
-#endif
-
 #ifndef DEFINED_TYPEDEF_FOR_InternalStatus_
 #define DEFINED_TYPEDEF_FOR_InternalStatus_
 
@@ -172,8 +113,21 @@ struct FlightLogging
 
 #endif
 
-// Custom Type definition for MATLAB Function: '<S97>/getSpeedLimit'
+// Custom Type definition for MATLAB Function: '<S6>/ReadHomePoint'
 #include <stdio.h>
+#ifndef struct_emxArray_char_T_Real2SimGuidance_T
+#define struct_emxArray_char_T_Real2SimGuidance_T
+
+struct emxArray_char_T_Real2SimGuidance_T
+{
+    char_T *data;
+    int32_T *size;
+    int32_T allocatedSize;
+    int32_T numDimensions;
+    boolean_T canFreeData;
+};
+
+#endif                             // struct_emxArray_char_T_Real2SimGuidance_T
 
 // Custom Type definition for MATLAB Function: '<S15>/getLAPGainBias'
 #ifndef struct_s88w9UDFTziuJLEYZbYNZfH_Real2SimGuidance_T
@@ -199,7 +153,7 @@ struct
 #endif
 // struct_robotics_slcore_internal_block_CoordinateTransformationConversion_Real2SimGuidance_T 
 
-// Custom Type definition for MATLAB Function: '<S97>/getSpeedLimit'
+// Custom Type definition for MATLAB Function: '<S99>/getSpeedLimit'
 #ifndef struct_uavDubinsConnection_Real2SimGuidance_T
 #define struct_uavDubinsConnection_Real2SimGuidance_T
 
@@ -308,11 +262,11 @@ struct uav_sluav_internal_system_WaypointFollower_Real2SimGuidance_T
 
 #endif  // struct_uav_sluav_internal_system_WaypointFollower_Real2SimGuidance_T
 
-// Custom Type definition for MATLAB Function: '<S97>/getSpeedLimit'
-#ifndef struct_DubinsObjSingleton_Real2SimGuidance_d_T
-#define struct_DubinsObjSingleton_Real2SimGuidance_d_T
+// Custom Type definition for MATLAB Function: '<S99>/getSpeedLimit'
+#ifndef struct_DubinsObjSingleton_Real2SimGuidance_f_T
+#define struct_DubinsObjSingleton_Real2SimGuidance_f_T
 
-struct DubinsObjSingleton_Real2SimGuidance_d_T
+struct DubinsObjSingleton_Real2SimGuidance_f_T
 {
     real_T AirSpeed;
     real_T MaxRollAngle;
@@ -321,7 +275,7 @@ struct DubinsObjSingleton_Real2SimGuidance_d_T
     uavDubinsConnection_Real2SimGuidance_T Connector;
 };
 
-#endif                        // struct_DubinsObjSingleton_Real2SimGuidance_d_T
+#endif                        // struct_DubinsObjSingleton_Real2SimGuidance_f_T
 
 #ifndef struct_emxArray_real_T_Real2SimGuidance_T
 #define struct_emxArray_real_T_Real2SimGuidance_T
@@ -336,20 +290,6 @@ struct emxArray_real_T_Real2SimGuidance_T
 };
 
 #endif                             // struct_emxArray_real_T_Real2SimGuidance_T
-
-#ifndef struct_emxArray_char_T_Real2SimGuidance_T
-#define struct_emxArray_char_T_Real2SimGuidance_T
-
-struct emxArray_char_T_Real2SimGuidance_T
-{
-    char_T *data;
-    int32_T *size;
-    int32_T allocatedSize;
-    int32_T numDimensions;
-    boolean_T canFreeData;
-};
-
-#endif                             // struct_emxArray_char_T_Real2SimGuidance_T
 
 #ifndef struct_emxArray_boolean_T_Real2SimGuidance_T
 #define struct_emxArray_boolean_T_Real2SimGuidance_T

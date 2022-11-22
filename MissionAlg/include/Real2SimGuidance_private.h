@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'Real2SimGuidance'.
 //
-// Model version                  : 4.188
-// Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Mon Sep  5 17:31:54 2022
+// Model version                  : 5.10
+// Simulink Coder version         : 9.8 (R2022b) 13-May-2022
+// C/C++ source code generated on : Mon Nov 21 19:19:22 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -21,6 +21,7 @@
 #include "rtwtypes.h"
 #include "model_reference_types.h"
 #include "Real2SimGuidance.h"
+#include "Real2SimGuidance_types.h"
 
 // Private macros used by the generated code to access rtModel
 #ifndef rtmIsMajorTimeStep
@@ -112,12 +113,6 @@ extern const real_T rtCP_pooled_f3N7kzzFdIss[2];
 
 #define rtCP_VectorFieldHistogram_HistogramThresholds rtCP_pooled_f3N7kzzFdIss// Expression: HistThrshld
                                                                       //  Referenced by: '<S17>/Vector Field Histogram'
-
-
-// Imported (extern) states
-extern void* AltitudeGCS_m0;           // synthesized block
-extern void* LatitudeGCS_m0;           // synthesized block
-extern void* LongitudeGCS_m0;          // synthesized block
 
 #endif                                // RTW_HEADER_Real2SimGuidance_private_h_
 

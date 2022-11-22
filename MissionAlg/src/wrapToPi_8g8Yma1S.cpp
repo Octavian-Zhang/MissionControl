@@ -1,23 +1,23 @@
 //
-// File: wrapToPi_kQV0kjUY.cpp
+// File: wrapToPi_8g8Yma1S.cpp
 //
 // Code generated for Simulink model 'FlightMissionMode'.
 //
-// Model version                  : 3.37
-// Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Mon Sep  5 17:36:03 2022
+// Model version                  : 4.33
+// Simulink Coder version         : 9.8 (R2022b) 13-May-2022
+// C/C++ source code generated on : Mon Nov 21 19:24:11 2022
 //
 #include "rtwtypes.h"
-#include "wrapToPi_kQV0kjUY.h"
+#include "wrapToPi_8g8Yma1S.h"
 #include <cmath>
-#include "mod_d42kHWKw.h"
+#include "mod_Cteiw4Qy.h"
 
-// Function for MATLAB Function: '<S96>/StartPointGenerator'
-void wrapToPi_kQV0kjUY(real_T *theta)
+// Function for MATLAB Function: '<S77>/StartPointGenerator'
+void wrapToPi_8g8Yma1S(real_T *theta)
 {
     if (std::abs(*theta) > 3.1415926535897931) {
         real_T thetaWrap;
-        thetaWrap = mod_d42kHWKw(*theta + 3.1415926535897931);
+        thetaWrap = mod_Cteiw4Qy(*theta + 3.1415926535897931);
         if (static_cast<boolean_T>(static_cast<int32_T>((*theta +
                 3.1415926535897931 > 0.0) & (thetaWrap == 0.0)))) {
             thetaWrap = 6.2831853071795862;

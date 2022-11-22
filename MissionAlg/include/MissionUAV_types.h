@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'MissionUAV'.
 //
-// Model version                  : 3.15
-// Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Mon Sep  5 17:30:10 2022
+// Model version                  : 4.1
+// Simulink Coder version         : 9.8 (R2022b) 13-May-2022
+// C/C++ source code generated on : Mon Nov 21 19:16:40 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -19,8 +19,6 @@
 #ifndef RTW_HEADER_MissionUAV_types_h_
 #define RTW_HEADER_MissionUAV_types_h_
 #include "rtwtypes.h"
-
-// Model Code Variants
 #ifndef DEFINED_TYPEDEF_FOR_FixedWingGuidanceControlBus_
 #define DEFINED_TYPEDEF_FOR_FixedWingGuidanceControlBus_
 
@@ -146,10 +144,10 @@ struct DubinsObjSingleton_MissionUAV_T
 #endif                                // struct_DubinsObjSingleton_MissionUAV_T
 
 // Custom Type definition for MATLAB Function: '<S1>/Get Speed Limit'
-#ifndef struct_DubinsObjSingleton_MissionUAV_b_T
-#define struct_DubinsObjSingleton_MissionUAV_b_T
+#ifndef struct_DubinsObjSingleton_MissionUAV_a_T
+#define struct_DubinsObjSingleton_MissionUAV_a_T
 
-struct DubinsObjSingleton_MissionUAV_b_T
+struct DubinsObjSingleton_MissionUAV_a_T
 {
     real_T AirSpeed;
     real_T MaxRollAngle;
@@ -158,7 +156,7 @@ struct DubinsObjSingleton_MissionUAV_b_T
     uavDubinsConnection_MissionUAV_T Connector;
 };
 
-#endif                              // struct_DubinsObjSingleton_MissionUAV_b_T
+#endif                              // struct_DubinsObjSingleton_MissionUAV_a_T
 
 #ifndef struct_d_uav_internal_impl_fixedwing_Configuration_MissionUAV_T
 #define struct_d_uav_internal_impl_fixedwing_Configuration_MissionUAV_T

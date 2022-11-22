@@ -1,18 +1,20 @@
 //
 // File: rt_nonfinite.cpp
 //
-// Code generated for Simulink model 'DeSerOtherUAV'.
+// Code generated for Simulink model 'MissionUAV'.
 //
-// Model version                  : 4.339
-// Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Mon Sep  5 17:28:26 2022
+// Model version                  : 4.1
+// Simulink Coder version         : 9.8 (R2022b) 13-May-2022
+// C/C++ source code generated on : Mon Nov 21 19:16:40 2022
 //
-extern "C" {
+extern "C"
+{
 
 #include "rtGetNaN.h"
 
 }
-    extern "C"
+
+extern "C"
 {
 
 #include "rtGetInf.h"
@@ -22,14 +24,17 @@ extern "C" {
 #include <stddef.h>
 #include "rtwtypes.h"
 
-extern "C" {
+extern "C"
+{
 
 #include "rt_nonfinite.h"
 
 }
+
 #define NumBitsPerChar                 8U
 
-extern "C" {
+extern "C"
+{
     real_T rtInf;
     real_T rtMinusInf;
     real_T rtNaN;
@@ -37,7 +42,8 @@ extern "C" {
     real32_T rtMinusInfF;
     real32_T rtNaNF;
 }
-    extern "C"
+
+extern "C"
 {
     //
     // Initialize the rtInf, rtMinusInf, and rtNaN needed by the

@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'DeSerOtherUAV'.
 //
-// Model version                  : 4.339
-// Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Mon Sep  5 17:28:26 2022
+// Model version                  : 5.1
+// Simulink Coder version         : 9.8 (R2022b) 13-May-2022
+// C/C++ source code generated on : Mon Nov 21 19:17:31 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -18,17 +18,21 @@
 //
 #include "DeSerOtherUAV.h"
 #include "rtwtypes.h"
+#include "RecvData_RealUAVStateBusT.h"
 #include "DeSerOtherUAV_types.h"
 #include <cstring>
 #include <cmath>
 #include "rt_modd_snf.h"
 #include "rt_atan2d_snf.h"
+#include "DatalinkInterface.h"
 
-extern "C" {
+extern "C"
+{
 
 #include "rt_nonfinite.h"
 
 }
+
 #include "DeSerOtherUAV_private.h"
 
 const real_T DeSerOtherUAV_RGND{ 0.0 };// real_T ground
@@ -167,8 +171,8 @@ void DeSerOtherUAV::step(const real_T rtu_GCS_LLA[3], real_T rty_AllUAVPos[4096]
     // End of Outputs for SubSystem: '<Root>/While Iterator Serializer'
     boolean_T rtb_Receive_o1;
     do {
+        int32_T b_idx;
         int32_T i;
-        int32_T j;
         boolean_T exitg1;
         boolean_T rtb_rcv;
         if (s1_iter == 1) {
@@ -206,39 +210,39 @@ void DeSerOtherUAV::step(const real_T rtu_GCS_LLA[3], real_T rty_AllUAVPos[4096]
 
         // MATLAB Function 'While Iterator Serializer/testUniq': '<S7>:1'
         // '<S7>:1:3'
-        j = 0;
+        b_idx = 0;
         for (i = 0; i < 1024; i++) {
             rtb_rcv = static_cast<boolean_T>(static_cast<int32_T>
                 (static_cast<int32_T>(std::isnan(DeSerOtherUAV_DW.CatPos[i])) ^
                  1));
             if (rtb_rcv) {
-                j = static_cast<int32_T>(j + 1);
+                b_idx = static_cast<int32_T>(b_idx + 1);
             }
 
             c[i] = rtb_rcv;
         }
 
-        i = 0;
-        for (s9_iter = 0; s9_iter < 1024; s9_iter++) {
-            if (c[s9_iter]) {
-                b_data[i] = static_cast<int16_T>(static_cast<int32_T>(s9_iter +
-                    1));
-                i = static_cast<int32_T>(i + 1);
+        s9_iter = b_idx;
+        b_idx = 0;
+        for (i = 0; i < 1024; i++) {
+            if (c[i]) {
+                b_data[b_idx] = static_cast<int16_T>(static_cast<int32_T>(i + 1));
+                b_idx = static_cast<int32_T>(b_idx + 1);
             }
         }
 
         // '<S7>:1:3'
         rtb_rcv = false;
-        s9_iter = 0;
+        i = 0;
         exitg1 = false;
-        while ((!exitg1) && (s9_iter <= static_cast<int32_T>(j - 1))) {
+        while ((!exitg1) && (i <= static_cast<int32_T>(s9_iter - 1))) {
             if (DeSerOtherUAV_DW.CatPos[static_cast<int32_T>(static_cast<int32_T>
-                    (b_data[s9_iter]) - 1)] == static_cast<real_T>
+                    (b_data[i]) - 1)] == static_cast<real_T>
                     (DeSerOtherUAV_DW.Receive_o2.UAV_ID)) {
                 rtb_rcv = true;
                 exitg1 = true;
             } else {
-                s9_iter = static_cast<int32_T>(s9_iter + 1);
+                i = static_cast<int32_T>(i + 1);
             }
         }
 
@@ -261,8 +265,7 @@ void DeSerOtherUAV::step(const real_T rtu_GCS_LLA[3], real_T rty_AllUAVPos[4096]
             b.HeadingAngle_deg = 0.0;
             b.FlightPathAngle_deg = 0.0;
             b.RollAngle_deg = 0.0;
-            int32_T b_ii;
-            int32_T ii_size_idx_1;
+            int32_T j;
             do {
                 real_T SW;
                 real_T rtb_Abs1;
@@ -276,28 +279,28 @@ void DeSerOtherUAV::step(const real_T rtu_GCS_LLA[3], real_T rty_AllUAVPos[4096]
                 real_T rtb_VectorConcatenate_tmp_0;
                 real_T rtb_dEast;
                 real_T rtb_sincos_o1_n;
+                boolean_T rtb_Compare_b;
 
                 // MATLAB Function 'While Iterator Serializer/ProcessIndivState/While Iterator Subsystem/ReadBuff': '<S14>:1' 
                 // '<S14>:1:5'
                 x[0] = DeSerOtherUAV_DW.MsgBuff[0].UAV_ID;
                 x[1] = DeSerOtherUAV_DW.MsgBuff[1].UAV_ID;
                 j = 0;
-                ii_size_idx_1 = 1;
-                b_ii = 2;
+                b_idx = 1;
+                i = 2;
                 exitg1 = false;
-                while ((!exitg1) && (b_ii > 0)) {
-                    if (x[static_cast<int32_T>(b_ii - 1)] != 0) {
+                while ((!exitg1) && (i > 0)) {
+                    if (x[static_cast<int32_T>(i - 1)] != 0) {
                         j = 1;
-                        ii_data = static_cast<int8_T>(b_ii);
+                        ii_data = static_cast<int8_T>(i);
                         exitg1 = true;
                     } else {
-                        b_ii = static_cast<int32_T>(b_ii - 1);
+                        i = static_cast<int32_T>(i - 1);
                     }
                 }
 
                 if (j == 0) {
-                    ii_size_idx_1 = 0;
-                    i = 0;
+                    b_idx = 0;
                     rtb_Abs1_d = 0.0;
                     rtb_dEast = 0.0;
                     Receive = 0.0;
@@ -312,7 +315,7 @@ void DeSerOtherUAV::step(const real_T rtu_GCS_LLA[3], real_T rty_AllUAVPos[4096]
                 } else {
                     // '<S14>:1:6'
                     // '<S14>:1:7'
-                    i = DeSerOtherUAV_DW.MsgBuff[static_cast<int32_T>(
+                    j = DeSerOtherUAV_DW.MsgBuff[static_cast<int32_T>(
                         static_cast<int32_T>(ii_data) - 1)].UAV_ID;
                     rtb_Abs1_d = DeSerOtherUAV_DW.MsgBuff[static_cast<int32_T>(
                         static_cast<int32_T>(ii_data) - 1)].Latitude_deg;
@@ -334,7 +337,7 @@ void DeSerOtherUAV::step(const real_T rtu_GCS_LLA[3], real_T rty_AllUAVPos[4096]
                 }
 
                 // '<S14>:1:18'
-                if (static_cast<int32_T>(ii_size_idx_1 - 1) >= 0) {
+                if (static_cast<int32_T>(b_idx - 1) >= 0) {
                     DeSerOtherUAV_DW.MsgBuff[static_cast<int32_T>
                         (static_cast<int32_T>(ii_data) - 1)] = b;
                 }
@@ -342,63 +345,60 @@ void DeSerOtherUAV::step(const real_T rtu_GCS_LLA[3], real_T rty_AllUAVPos[4096]
                 rtb_Gain1_g *= 0.017453292519943295;
                 rtb_Gain1_a *= 0.017453292519943295;
                 if (std::abs(rtu_GCS_LLA[0]) > 180.0) {
-                    rtb_Switch = rt_modd_snf(rtu_GCS_LLA[0] + 180.0, 360.0) +
-                        -180.0;
+                    rtb_Switch = rt_modd_snf(rtu_GCS_LLA[0] + 180.0, 360.0) -
+                        180.0;
                 } else {
                     rtb_Switch = rtu_GCS_LLA[0];
                 }
 
                 rtb_Abs1 = std::abs(rtb_Switch);
                 if (rtb_Abs1 > 90.0) {
-                    if (static_cast<boolean_T>(static_cast<int32_T>
-                                               (static_cast<int32_T>(std::isnan
-                            (rtb_Switch)) ^ 1))) {
-                        if (rtb_Switch < 0.0) {
-                            rtb_Switch = -1.0;
-                        } else {
-                            rtb_Switch = static_cast<real_T>(rtb_Switch > 0.0);
-                        }
+                    if (std::isnan(rtb_Switch)) {
+                        rtb_Sum_k = (rtNaN);
+                    } else if (rtb_Switch < 0.0) {
+                        rtb_Sum_k = -1.0;
+                    } else {
+                        rtb_Sum_k = static_cast<real_T>(rtb_Switch > 0.0);
                     }
 
-                    rtb_Switch *= -(rtb_Abs1 + -90.0) + 90.0;
-                    j = 180;
+                    rtb_Switch = (-(rtb_Abs1 - 90.0) + 90.0) * rtb_Sum_k;
+                    i = 180;
                 } else {
-                    j = 0;
+                    i = 0;
                 }
 
-                rtb_Abs1 = static_cast<real_T>(j) + rtu_GCS_LLA[1];
+                rtb_Abs1 = static_cast<real_T>(i) + rtu_GCS_LLA[1];
                 if (std::abs(rtb_Abs1) > 180.0) {
-                    rtb_Abs1 = rt_modd_snf(rtb_Abs1 + 180.0, 360.0) + -180.0;
+                    rtb_Abs1 = rt_modd_snf(rtb_Abs1 + 180.0, 360.0) - 180.0;
                 }
 
                 rtb_Abs1_d -= rtb_Switch;
                 rtb_dEast -= rtb_Abs1;
                 if (std::abs(rtb_Abs1_d) > 180.0) {
-                    rtb_Abs1 = rt_modd_snf(rtb_Abs1_d + 180.0, 360.0) + -180.0;
+                    rtb_Abs1 = rt_modd_snf(rtb_Abs1_d + 180.0, 360.0) - 180.0;
                 } else {
                     rtb_Abs1 = rtb_Abs1_d;
                 }
 
                 rtb_Abs1_d = std::abs(rtb_Abs1);
                 if (rtb_Abs1_d > 90.0) {
-                    if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<
-                            int32_T>(std::isnan(rtb_Abs1)) ^ 1))) {
-                        if (rtb_Abs1 < 0.0) {
-                            rtb_Abs1 = -1.0;
-                        } else {
-                            rtb_Abs1 = static_cast<real_T>(rtb_Abs1 > 0.0);
-                        }
+                    if (std::isnan(rtb_Abs1)) {
+                        rtb_Sum_k = (rtNaN);
+                    } else if (rtb_Abs1 < 0.0) {
+                        rtb_Sum_k = -1.0;
+                    } else {
+                        rtb_Sum_k = static_cast<real_T>(rtb_Abs1 > 0.0);
                     }
 
-                    rtb_Abs1 *= -(rtb_Abs1_d + -90.0) + 90.0;
-                    j = 180;
+                    rtb_Abs1 = (-(rtb_Abs1_d - 90.0) + 90.0) * rtb_Sum_k;
+                    i = 180;
                 } else {
-                    j = 0;
+                    i = 0;
                 }
 
-                rtb_Sum_k = static_cast<real_T>(j) + rtb_dEast;
+                rtb_Sum_k = static_cast<real_T>(i) + rtb_dEast;
                 if (std::abs(rtb_Sum_k) > 180.0) {
-                    rtb_Sum_k = rt_modd_snf(rtb_Sum_k + 180.0, 360.0) + -180.0;
+                    rtb_Sum_k = rt_modd_snf(rtb_Sum_k + 180.0, 360.0) - 180.0;
                 }
 
                 // Unit Conversion - from: deg to: rad
@@ -437,16 +437,16 @@ void DeSerOtherUAV::step(const real_T rtu_GCS_LLA[3], real_T rty_AllUAVPos[4096]
                 rtb_VectorConcatenate[6] = -rtb_Gain1_g;
                 rtb_VectorConcatenate[7] = rtb_Sum_k * rtb_sincos_o1_n;
                 rtb_VectorConcatenate[8] = rtb_Sum_k * rtb_Abs1;
-                j = 0;
-                for (b_ii = 0; b_ii < 3; b_ii++) {
-                    rtb_sincos_o1[b_ii] = 0.0;
-                    rtb_sincos_o1[b_ii] += rtb_VectorConcatenate[j] *
+                i = 0;
+                for (b_idx = 0; b_idx < 3; b_idx++) {
+                    rtb_sincos_o1[b_idx] = 0.0;
+                    rtb_sincos_o1[b_idx] += rtb_VectorConcatenate[i] *
                         rtb_HorizSpd;
-                    rtb_sincos_o1[b_ii] += rtb_VectorConcatenate
-                        [static_cast<int32_T>(j + 1)] * 0.0;
-                    rtb_sincos_o1[b_ii] += rtb_VectorConcatenate
-                        [static_cast<int32_T>(j + 2)] * 0.0;
-                    j = static_cast<int32_T>(j + 3);
+                    rtb_sincos_o1[b_idx] += rtb_VectorConcatenate[static_cast<
+                        int32_T>(i + 1)] * 0.0;
+                    rtb_sincos_o1[b_idx] += rtb_VectorConcatenate
+                        [static_cast<int32_T>(i + 2)] * 0.0;
+                    i = static_cast<int32_T>(i + 3);
                 }
 
                 rtb_HorizSpd *= rtb_Sum_k;
@@ -455,26 +455,27 @@ void DeSerOtherUAV::step(const real_T rtu_GCS_LLA[3], real_T rty_AllUAVPos[4096]
                         tan(rtb_Gain1_a));
                 }
 
-                rtb_Abs1 = -(Receive + -rtu_GCS_LLA[2]);
+                rtb_Abs1 = -(Receive - rtu_GCS_LLA[2]);
 
                 // MATLAB Function 'ConstTurnPredState/MATLAB Function': '<S16>:1' 
                 // '<S16>:1:2'
-                rtb_Gain1_a = 57.295779513082323 * DeSerOtherUAV_DW.Omega;
+                rtb_HorizSpd = 57.295779513082323 * DeSerOtherUAV_DW.Omega;
 
                 // '<S16>:1:4'
-                Receive = std::fmax(std::abs(0.017453292519943295 * rtb_Gain1_a),
+                Receive = std::fmax(std::abs(0.017453292519943295 * rtb_HorizSpd),
                                     2.2204460492503131E-16);
-                j = 0;
-                if (rtb_Gain1_a < 0.0) {
-                    j = 1;
+                rtb_Compare_b = (rtb_HorizSpd < 0.0);
+                b_idx = -1;
+                if (rtb_Compare_b) {
+                    b_idx = 0;
                 }
 
-                if (static_cast<int32_T>(j - 1) >= 0) {
+                if (b_idx >= 0) {
                     b_data_0 = -Receive;
                 }
 
                 rtb_HorizSpd = Receive;
-                if (rtb_Gain1_a < 0.0) {
+                if (rtb_Compare_b) {
                     rtb_HorizSpd = b_data_0;
                 }
 
@@ -483,7 +484,7 @@ void DeSerOtherUAV::step(const real_T rtu_GCS_LLA[3], real_T rty_AllUAVPos[4096]
                 rtb_Gain1_g = (1.0 - std::cos(rtb_HorizSpd)) / rtb_HorizSpd;
 
                 // '<S16>:1:5'
-                rtb_Reshape[0] = static_cast<real_T>(i);
+                rtb_Reshape[0] = static_cast<real_T>(j);
                 rtb_Reshape[1] = ((rtb_dEast * 0.0 + rtb_Abs1_d) + SW *
                                   rtb_sincos_o1[0]) - rtb_Gain1_g *
                     rtb_sincos_o1[1];
@@ -498,39 +499,39 @@ void DeSerOtherUAV::step(const real_T rtu_GCS_LLA[3], real_T rty_AllUAVPos[4096]
                 if (static_cast<int32_T>(1 - static_cast<int32_T>
                                          (static_cast<boolean_T>
                                           (static_cast<int32_T>
-                                           ((static_cast<real_T>(i) != 0.0) ^ 1))))
+                                           ((static_cast<real_T>(j) != 0.0) ^ 1))))
                     >= 1) {
                     // '<S10>:1:7'
-                    for (j = 0; j < 1024; j++) {
-                        c[j] = std::isnan(DeSerOtherUAV_DW.CatPos[j]);
+                    for (i = 0; i < 1024; i++) {
+                        c[i] = std::isnan(DeSerOtherUAV_DW.CatPos[i]);
                     }
 
-                    b_ii = 0;
+                    i = 0;
                     exitg1 = false;
-                    while ((!exitg1) && (b_ii < 1024)) {
-                        if (c[b_ii]) {
+                    while ((!exitg1) && (i < 1024)) {
+                        if (c[i]) {
                             ii_data_idx_0 = static_cast<int16_T>
-                                (static_cast<int32_T>(b_ii + 1));
+                                (static_cast<int32_T>(i + 1));
                             exitg1 = true;
                         } else {
-                            b_ii = static_cast<int32_T>(b_ii + 1);
+                            i = static_cast<int32_T>(i + 1);
                         }
                     }
 
                     // '<S10>:1:8'
-                    for (j = 0; j < 4; j++) {
+                    for (i = 0; i < 4; i++) {
                         DeSerOtherUAV_DW.CatPos[static_cast<int32_T>(
                             static_cast<int32_T>(static_cast<int32_T>
-                            (ii_data_idx_0) + static_cast<int32_T>(j << 10)) - 1)]
-                            = rtb_Reshape[j];
+                            (ii_data_idx_0) + static_cast<int32_T>(i << 10)) - 1)]
+                            = rtb_Reshape[i];
                     }
                 }
 
                 // MATLAB Function 'While Iterator Serializer/ProcessIndivState/While Iterator Subsystem/PrintNbrID/PrintNbrID': '<S47>:1' 
-                if (i != 0) {
+                if (j != 0) {
                     // '<S47>:1:3'
                     // '<S47>:1:4'
-                    printf("UAV%i", i);
+                    printf("UAV%i", j);
                     fflush(stdout);
                 }
 

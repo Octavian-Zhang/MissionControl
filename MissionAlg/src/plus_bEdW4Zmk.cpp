@@ -1,17 +1,17 @@
 //
-// File: plus_WAUOGGgr.cpp
+// File: plus_bEdW4Zmk.cpp
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 4.366
-// Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Mon Sep  5 17:39:47 2022
+// Model version                  : 5.25
+// Simulink Coder version         : 9.8 (R2022b) 13-May-2022
+// C/C++ source code generated on : Mon Nov 21 19:28:33 2022
 //
 #include "rtwtypes.h"
-#include "plus_WAUOGGgr.h"
+#include "plus_bEdW4Zmk.h"
 
-// Function for MATLAB Function: '<S61>/Struct2PosixCurr'
-creal_T plus_WAUOGGgr(const creal_T a, real_T b)
+// Function for MATLAB Function: '<S84>/Struct2PosixCurr'
+creal_T plus_bEdW4Zmk(const creal_T a, real_T b)
 {
     creal_T c;
     real_T alo;

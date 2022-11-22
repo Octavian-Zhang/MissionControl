@@ -1,16 +1,16 @@
 //
 // File: rt_zcfcn.h
 //
-// Code generated for Simulink model 'ImmedMission'.
+// Code generated for Simulink model 'MissionUAV'.
 //
-// Model version                  : 3.28
-// Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
-// C/C++ source code generated on : Mon Sep  5 17:30:08 2022
+// Model version                  : 4.1
+// Simulink Coder version         : 9.8 (R2022b) 13-May-2022
+// C/C++ source code generated on : Mon Nov 21 19:16:40 2022
 //
 #ifndef RTW_HEADER_rt_zcfcn_h_
 #define RTW_HEADER_rt_zcfcn_h_
-#include "rtwtypes.h"
 #include "zero_crossing_types.h"
+#include "rtwtypes.h"
 #include "solver_zc.h"
 #ifndef slZcHadEvent
 #define slZcHadEvent(ev, zcsDir)       (((ev) & (zcsDir)) != 0x00 )
@@ -22,7 +22,8 @@
 
 #ifdef __cplusplus
 
-extern "C" {
+extern "C"
+{
 
 #endif
 
@@ -32,6 +33,7 @@ extern "C" {
 #ifdef __cplusplus
 
 }                                      // extern "C"
+
 #endif
 #endif                                 // RTW_HEADER_rt_zcfcn_h_
 
