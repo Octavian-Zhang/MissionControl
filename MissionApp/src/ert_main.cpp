@@ -1,5 +1,6 @@
 /* Code generated for Simulink model codegenReal2Mission */
 /* Code generated on Mon Nov 21 19:28:48 2022 */
+#include <future>
 #include "Executor.hpp"
 #include "ModelIO.hpp"
 
@@ -26,10 +27,25 @@ int main() {
   double const baserate = 0.1;
   /* Initialize Function */
   codegenReal2Mission_Obj.initialize();
+
+  // Waiting for OS clock calibration
+  msgQueue mqStart("/PosixMQ_Start", O_CREAT | O_RDONLY, 1, sizeof(bool));
+  bool startflag{};
+  printf("Waiting for OS Clock Calibration: %i\n", static_cast<int>(startflag));
+  printf((mq_receive(mqStart.getMQ(), (char *)&startflag, sizeof(bool), nullptr) > 0)
+             ? "OS Clock Calibrated: %i\n"
+             : "MQ_Receive Error %i",
+         static_cast<int>(startflag));
+
   /* Asynchronous tasks found in the model. */
   /* To schedule these tasks, manually call the functions commented out below:
    */
-  /* codegenReal2Mission_PushNbrUAV(); */
+  auto PushNbrUAVFuture = std::async(std::launch::async, [&]()
+                                     {while (true)
+    {
+        codegenReal2Mission_Obj.codegenReal2Mission_PushNbrUAV();
+        printf("*"); fflush(stdout);
+    } });
 
   /* Create scheduler and add tasks */
   platform::runtime::Executor executor;

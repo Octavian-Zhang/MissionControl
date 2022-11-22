@@ -25,7 +25,7 @@ void SendData_FCUCMD::
     if (*status != 0) // failed
     {
         int err = errno;
-        printf("errno = %i\n", err);
+        printf("%s errno = %i\n", getName(), err);
     }
 }
 
@@ -33,7 +33,7 @@ void SendData_FCUCMD::
 void SendData_FlightLogging::
     SendData(const FlightLogging *data, int32_T length, int32_T *status)
 {
-    DataLogging::wrtieLog(data);
+    // DataLogging::wrtieLog(data);
 }
 
 // Arg 4
@@ -46,7 +46,7 @@ void RecvData_FlightMode::
     if (*status >= 0) // failed
     {
         int err = errno;
-        printf("errno = %i\n", err);
+        printf("%s errno = %i\n", getName(), err);
     }
 }
 
@@ -60,7 +60,7 @@ void RecvData_RealUAVStateBus::
     if (*status >= 0) // failed
     {
         int err = errno;
-        printf("errno = %i\n", err);
+        printf("%s errno = %i\n", getName(), err);
     }
 }
 
@@ -88,7 +88,7 @@ void SendData_TaskStatus::
     if (*status != 0) // failed
     {
         int err = errno;
-        printf("errno = %i\n", err);
+        printf("%s errno = %i\n", getName(), err);
     }
 }
 
@@ -121,6 +121,6 @@ void RecvData_VectorSpeed::
     if (*status >= 0) // failed
     {
         int err = errno;
-        printf("errno = %i\n", err);
+        printf("%s errno = %i\n", getName(), err);
     }
 }

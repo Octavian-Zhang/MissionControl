@@ -8,7 +8,7 @@ class SendData_IndividualUAVCmd :
     public SendData_IndividualUAVCmdT, private msgQueue{
 public:
     SendData_IndividualUAVCmd()
-        : msgQueue("/PosixMQ_IndividualUAVCmd", O_CREAT | O_WRONLY | O_NONBLOCK, 1, sizeof(IndividualUAVCmd)) {};
+        : msgQueue("/PosixMQ_IndividualUAVCmd", O_CREAT | O_RDWR | O_NONBLOCK, 1, sizeof(IndividualUAVCmd)) {};
     void SendData(const IndividualUAVCmd *, int32_T, int32_T *);
 };
 
@@ -51,7 +51,7 @@ class RecvData_IndividualUAVCmd :
     public RecvData_IndividualUAVCmdT, private msgQueue{
 public:
     RecvData_IndividualUAVCmd()
-        : msgQueue("/PosixMQ_IndividualUAVCmd", O_CREAT | O_RDONLY | O_NONBLOCK, 1, sizeof(IndividualUAVCmd)) {};
+        : msgQueue("/PosixMQ_IndividualUAVCmd", O_CREAT | O_RDWR | O_NONBLOCK, 1, sizeof(IndividualUAVCmd)) {};
     void RecvData(IndividualUAVCmd *, int32_T, int32_T *);
 };
 
@@ -69,7 +69,7 @@ class RecvData_NbrUAVStateBus :
     public RecvData_RealUAVStateBusT, private msgQueue{
 public:
     RecvData_NbrUAVStateBus()
-        : msgQueue("/PosixMQ_TaskStatus", O_CREAT | O_RDONLY, 10, sizeof(RealUAVStateBus)) {};
+        : msgQueue("/PosixMQ_NbrUAVStateBus", O_CREAT | O_RDONLY, 10, sizeof(RealUAVStateBus)) {};
     void RecvData(RealUAVStateBus *, int32_T, int32_T *);
 };
 
