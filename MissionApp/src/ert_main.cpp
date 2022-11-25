@@ -1,6 +1,5 @@
 /* Code generated for Simulink model codegenReal2Mission */
-/* Code generated on Mon Nov 21 19:28:48 2022 */
-#include <future>
+/* Code generated on Fri Nov 25 19:38:18 2022 */
 #include "Executor.hpp"
 #include "ModelIO.hpp"
 
@@ -53,6 +52,7 @@ int main() {
   /* Add periodic tasks */
   executor.addPeriodicEvent([]() { codegenReal2Mission_Obj.step(); }, 1);
   executor.addPeriodicEvent([]() { codegenReal2Mission_Obj.step2(); }, 2);
+  executor.addPeriodicEvent([]() { codegenReal2Mission_Obj.step3(); }, 10);
 
   /* Run model */
   executor.run();

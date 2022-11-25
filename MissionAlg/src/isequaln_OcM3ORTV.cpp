@@ -3,15 +3,15 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 5.25
+// Model version                  : 5.28
 // Simulink Coder version         : 9.8 (R2022b) 13-May-2022
-// C/C++ source code generated on : Mon Nov 21 19:28:33 2022
+// C/C++ source code generated on : Fri Nov 25 19:38:09 2022
 //
 #include "MissionModes.h"
 #include "rtwtypes.h"
 #include "isequaln_OcM3ORTV.h"
 
-// Function for MATLAB Function: '<S85>/CommandCheck'
+// Function for MATLAB Function: '<S84>/CommandCheck'
 boolean_T isequaln_OcM3ORTV(MissionModes varargin_1, MissionModes varargin_2)
 {
     boolean_T p;

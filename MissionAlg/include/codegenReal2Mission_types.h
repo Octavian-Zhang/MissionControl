@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 5.25
+// Model version                  : 5.28
 // Simulink Coder version         : 9.8 (R2022b) 13-May-2022
-// C/C++ source code generated on : Mon Nov 21 19:28:33 2022
+// C/C++ source code generated on : Fri Nov 25 19:38:09 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -251,8 +251,43 @@ class SendData_FlightLoggingT
 // Custom Type definition for MATLAB Function: '<S2>/ReadParADRC'
 #include <stdio.h>
 
-// Custom Type definition for MATLAB Function: '<S96>/CurrentTime'
+// Custom Type definition for MATLAB Function: '<S95>/CurrentTime'
 #include "coder_posix_time.h"
+#ifndef struct_robotics_slcore_internal_block_CoordinateTransformationConversion_codegenReal2Mission_T
+#define struct_robotics_slcore_internal_block_CoordinateTransformationConversion_codegenReal2Mission_T
+
+struct
+    robotics_slcore_internal_block_CoordinateTransformationConversion_codegenReal2Mission_T
+{
+    int32_T isInitialized;
+};
+
+#endif
+// struct_robotics_slcore_internal_block_CoordinateTransformationConversion_codegenReal2Mission_T 
+
+#ifndef struct_b_robotics_slcore_internal_block_SampleTimeImpl_codegenReal2Mission_T
+#define struct_b_robotics_slcore_internal_block_SampleTimeImpl_codegenReal2Mission_T
+
+struct b_robotics_slcore_internal_block_SampleTimeImpl_codegenReal2Mission_T
+{
+    int32_T __dummy;
+};
+
+#endif
+// struct_b_robotics_slcore_internal_block_SampleTimeImpl_codegenReal2Mission_T
+
+#ifndef struct_uav_sluav_internal_system_UAVAnimation_codegenReal2Mission_T
+#define struct_uav_sluav_internal_system_UAVAnimation_codegenReal2Mission_T
+
+struct uav_sluav_internal_system_UAVAnimation_codegenReal2Mission_T
+{
+    int32_T isInitialized;
+    b_robotics_slcore_internal_block_SampleTimeImpl_codegenReal2Mission_T
+        SampleTimeHandler;
+};
+
+#endif   // struct_uav_sluav_internal_system_UAVAnimation_codegenReal2Mission_T
+
 #ifndef struct_emxArray_real_T_1x4_codegenReal2Mission_T
 #define struct_emxArray_real_T_1x4_codegenReal2Mission_T
 
@@ -303,7 +338,7 @@ struct emxArray_char_T_1x16_codegenReal2Mission_T
 
 #endif                     // struct_emxArray_char_T_1x16_codegenReal2Mission_T
 
-// Custom Type definition for MATLAB Function: '<S95>/PrintOnboardLog'
+// Custom Type definition for MATLAB Function: '<S94>/PrintOnboardLog'
 #ifndef struct_cell_wrap_1_codegenReal2Mission_T
 #define struct_cell_wrap_1_codegenReal2Mission_T
 
@@ -315,11 +350,11 @@ struct cell_wrap_1_codegenReal2Mission_T
 #endif                              // struct_cell_wrap_1_codegenReal2Mission_T
 
 #ifndef SS_UINT64
-#define SS_UINT64                      58
+#define SS_UINT64                      59
 #endif
 
 #ifndef SS_INT64
-#define SS_INT64                       59
+#define SS_INT64                       60
 #endif
 #endif                               // RTW_HEADER_codegenReal2Mission_types_h_
 

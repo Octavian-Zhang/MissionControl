@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'FlightMissionMode'.
 //
-// Model version                  : 4.33
+// Model version                  : 4.42
 // Simulink Coder version         : 9.8 (R2022b) 13-May-2022
-// C/C++ source code generated on : Mon Nov 21 19:24:11 2022
+// C/C++ source code generated on : Fri Nov 25 19:13:34 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -356,6 +356,45 @@ struct uav_sluav_internal_system_WaypointFollower_FlightMissionMode_cc_T
 
 #endif
     // struct_uav_sluav_internal_system_WaypointFollower_FlightMissionMode_cc_T
+
+// Custom Type definition for MATLAB Function: '<S40>/CheckPointInterp'
+#ifndef struct_cell_wrap_1_FlightMissionMode_T
+#define struct_cell_wrap_1_FlightMissionMode_T
+
+struct cell_wrap_1_FlightMissionMode_T
+{
+    emxArray_char_T_1x2_FlightMissionMode_T f1;
+};
+
+#endif                                // struct_cell_wrap_1_FlightMissionMode_T
+
+#ifndef struct_uavDubinsPathSegment_FlightMissionMode_b_T
+#define struct_uavDubinsPathSegment_FlightMissionMode_b_T
+
+struct uavDubinsPathSegment_FlightMissionMode_b_T
+{
+    real_T StartPose[4];
+    real_T GoalPose[4];
+    real_T FlightPathAngle;
+    real_T AirSpeed;
+    real_T MinTurningRadius;
+    real_T HelixRadius;
+    cell_wrap_1_FlightMissionMode_T MotionTypes[4];
+    real_T MotionLengths[4];
+    real_T Length;
+};
+
+#endif                     // struct_uavDubinsPathSegment_FlightMissionMode_b_T
+
+#ifndef struct_cell_wrap_22_FlightMissionMode_n_T
+#define struct_cell_wrap_22_FlightMissionMode_n_T
+
+struct cell_wrap_22_FlightMissionMode_n_T
+{
+    cell_wrap_1_FlightMissionMode_T f1[4];
+};
+
+#endif                             // struct_cell_wrap_22_FlightMissionMode_n_T
 
 // Forward declaration for rtModel
 typedef struct tag_RTM_FlightMissionMode_T RT_MODEL_FlightMissionMode_T;

@@ -3,14 +3,14 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 5.25
+// Model version                  : 5.28
 // Simulink Coder version         : 9.8 (R2022b) 13-May-2022
-// C/C++ source code generated on : Mon Nov 21 19:28:33 2022
+// C/C++ source code generated on : Fri Nov 25 19:38:09 2022
 //
 #include "rtwtypes.h"
 #include "validate_print_arguments_K2cMgYpT.h"
 
-// Function for MATLAB Function: '<S42>/PrintOnboardLog'
+// Function for MATLAB Function: '<S94>/PrintOnboardLog'
 void validate_print_arguments_K2cMgYpT(int32_T varargin_1, int32_T varargin_2,
     int32_T varargin_3, int32_T varargin_4, int32_T varargin_5, int32_T
     varargin_6, int32_T varargin_7, int32_T validatedArguments[7])

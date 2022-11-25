@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 5.25
+// Model version                  : 5.28
 // Simulink Coder version         : 9.8 (R2022b) 13-May-2022
-// C/C++ source code generated on : Mon Nov 21 19:28:33 2022
+// C/C++ source code generated on : Fri Nov 25 19:38:09 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -37,14 +37,14 @@
 #include "rt_atan2d_snf.h"
 #include <cstring>
 #include <stddef.h>
-#include "validate_print_arguments_K2cMgYpT.h"
-#include "validate_print_arguments_csk21eNA.h"
-#include "coder_posix_time.h"
-#include "split_JEzbX7NR.h"
 #include "floor_0EeG1Grp.h"
+#include "split_JEzbX7NR.h"
+#include "coder_posix_time.h"
 #include "isequaln_OcM3ORTV.h"
 #include "days2ymd_PW1eFTC1.h"
 #include "secs2hms_laMW7jUK.h"
+#include "validate_print_arguments_K2cMgYpT.h"
+#include "validate_print_arguments_csk21eNA.h"
 #include <cstdlib>
 #include "div_s32.h"
 #include "codegenReal2Mission_private.h"
@@ -2783,7 +2783,7 @@ boolean_T codegenReal2MissionModelClass::codegenReal2Mission_pop_k
     return isPop;
 }
 
-int32_T codegenReal2MissionModelClass::codegenReal2Mission_Receive_k_RecvData
+int32_T codegenReal2MissionModelClass::codegenReal2Mission_Receive_RecvData
     (IndividualUAVCmd *data)
 {
     Msg_IndividualUAVCmd msg;
@@ -2791,7 +2791,7 @@ int32_T codegenReal2MissionModelClass::codegenReal2Mission_Receive_k_RecvData
 
     // Queue generated from: '<S10>/MissionValidation' incorporates:
     //   DiscreteEventSubgraph generated from: '<S2>/DangerLidarScanPoints'
-    //   Receive: '<S83>/Receive'
+    //   Receive: '<S82>/Receive'
 
     if (codegenReal2Mission_pop_k
             (&codegenReal2Mission_DW.Queue_InsertedFor_MissionValidation_at_inport_0_Queue,
@@ -2804,7 +2804,7 @@ int32_T codegenReal2MissionModelClass::codegenReal2Mission_Receive_k_RecvData
     return status;
 }
 
-// Function for MATLAB Function: '<S42>/PrintOnboardLog'
+// Function for MATLAB Function: '<S42>/TimeConverter'
 creal_T codegenReal2MissionModelClass::codegenReal2Mission_two_prod(real_T a)
 {
     creal_T c;
@@ -2829,7 +2829,7 @@ creal_T codegenReal2MissionModelClass::codegenReal2Mission_two_prod(real_T a)
     return c;
 }
 
-// Function for MATLAB Function: '<S42>/PrintOnboardLog'
+// Function for MATLAB Function: '<S84>/CommandCheck'
 creal_T codegenReal2MissionModelClass::codegenReal2Mission_times(const creal_T a)
 {
     creal_T c;
@@ -2855,7 +2855,7 @@ creal_T codegenReal2MissionModelClass::codegenReal2Mission_times(const creal_T a
     return c;
 }
 
-// Function for MATLAB Function: '<S42>/PrintOnboardLog'
+// Function for MATLAB Function: '<S51>/CurrentTime'
 creal_T codegenReal2MissionModelClass::codegenReal2Mission_two_sum(real_T a,
     real_T b)
 {
@@ -2880,7 +2880,7 @@ creal_T codegenReal2MissionModelClass::codegenReal2Mission_two_sum(real_T a,
     return c;
 }
 
-// Function for MATLAB Function: '<S42>/PrintOnboardLog'
+// Function for MATLAB Function: '<S51>/CurrentTime'
 creal_T codegenReal2MissionModelClass::codegenReal2Mission_plus(const creal_T a,
     real_T b)
 {
@@ -2918,7 +2918,7 @@ creal_T codegenReal2MissionModelClass::codegenReal2Mission_plus(const creal_T a,
     return c;
 }
 
-// Function for MATLAB Function: '<S85>/CommandCheck'
+// Function for MATLAB Function: '<S84>/CommandCheck'
 creal_T codegenReal2MissionModelClass::codegenReal2Mission_createFromDateVec(
     const real_T inData[7])
 {
@@ -2973,7 +2973,7 @@ creal_T codegenReal2MissionModelClass::codegenReal2Mission_createFromDateVec(
     return t;
 }
 
-// Function for MATLAB Function: '<S85>/CommandCheck'
+// Function for MATLAB Function: '<S84>/CommandCheck'
 boolean_T codegenReal2MissionModelClass::codegenReal2Mission_isequaln(int32_T
     varargin_1_SequenceID, MissionModes varargin_1_MissionMode, real_T
     varargin_1_MissionLocation_Lat, real_T varargin_1_MissionLocation_Lon,
@@ -3196,7 +3196,7 @@ boolean_T codegenReal2MissionModelClass::codegenReal2Mission_isequaln(int32_T
     return p;
 }
 
-// Function for MATLAB Function: '<S42>/PrintOnboardLog'
+// Function for MATLAB Function: '<S42>/TimeConverter'
 creal_T codegenReal2MissionModelClass::codegenReal2Mission_two_diff(real_T a,
     real_T b)
 {
@@ -3221,7 +3221,7 @@ creal_T codegenReal2MissionModelClass::codegenReal2Mission_two_diff(real_T a,
     return c;
 }
 
-// Function for MATLAB Function: '<S85>/CommandCheck'
+// Function for MATLAB Function: '<S84>/CommandCheck'
 creal_T codegenReal2MissionModelClass::codegenReal2Mission_divide(const creal_T
     a)
 {
@@ -3270,7 +3270,7 @@ creal_T codegenReal2MissionModelClass::codegenReal2Mission_divide(const creal_T
     return c;
 }
 
-// Function for MATLAB Function: '<S42>/PrintOnboardLog'
+// Function for MATLAB Function: '<S84>/CommandCheck'
 creal_T codegenReal2MissionModelClass::codegenReal2Mission_minus(const creal_T a,
     const creal_T b)
 {
@@ -3309,7 +3309,7 @@ creal_T codegenReal2MissionModelClass::codegenReal2Mission_minus(const creal_T a
     return cout;
 }
 
-// Function for MATLAB Function: '<S85>/CommandCheck'
+// Function for MATLAB Function: '<S84>/CommandCheck'
 void codegenReal2MissionModelClass::codegenReal2Mission_getDateVec_i(real_T dd,
     real_T *y, real_T *mo, real_T *d, real_T *h, real_T *m, real_T *s)
 {
@@ -3385,7 +3385,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_getDateVec_i(real_T dd,
     }
 }
 
-// Function for MATLAB Function: '<S42>/PrintOnboardLog'
+// Function for MATLAB Function: '<S51>/CurrentTime'
 void codegenReal2MissionModelClass::codegenReal2Mission_getLocalTime(real_T
     *t_tm_nsec, real_T *t_tm_sec, real_T *t_tm_min, real_T *t_tm_hour, real_T
     *t_tm_mday, real_T *t_tm_mon, real_T *t_tm_year, boolean_T *t_tm_isdst)
@@ -3402,7 +3402,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_getLocalTime(real_T
     *t_tm_isdst = (origStructTm.tm_isdst != 0);
 }
 
-// Function for MATLAB Function: '<S85>/CommandCheck'
+// Function for MATLAB Function: '<S84>/CommandCheck'
 void codegenReal2MissionModelClass::codegenReal2Mission_getDateVec_ii(const
     creal_T dd, real_T *y, real_T *mo, real_T *d, real_T *h, real_T *m, real_T
     *s)
@@ -3485,7 +3485,7 @@ int32_T codegenReal2MissionModelClass::
     int32_T status{ 1 };
 
     // DiscreteEventSubgraph generated from: '<S2>/DangerLidarScanPoints' incorporates:
-    //   Send: '<S85>/PushCMD'
+    //   Send: '<S84>/PushCMD'
 
     msg = codegenReal2Mission_createMsg_f(data);
 
@@ -3509,7 +3509,7 @@ int32_T codegenReal2MissionModelClass::
     int32_T status{ 1 };
 
     // DiscreteEventSubgraph generated from: '<S2>/DangerLidarScanPoints' incorporates:
-    //   Send: '<S85>/SendFeedbackMissionCMD'
+    //   Send: '<S84>/SendFeedbackMissionCMD'
 
     msg = codegenReal2Mission_createMsg_f(data);
 
@@ -3533,7 +3533,7 @@ int32_T codegenReal2MissionModelClass::codegenReal2Mission_RcvImmedCMD_SendData(
     int32_T status{ 1 };
 
     // DiscreteEventSubgraph generated from: '<S2>/DangerLidarScanPoints' incorporates:
-    //   Send: '<S85>/SndImmedCMD'
+    //   Send: '<S84>/SndImmedCMD'
 
     msg = codegenReal2Mission_createMsg_f(data);
 
@@ -3550,7 +3550,7 @@ int32_T codegenReal2MissionModelClass::codegenReal2Mission_RcvImmedCMD_SendData(
     return status;
 }
 
-// Function for MATLAB Function: '<S95>/PrintOnboardLog'
+// Function for MATLAB Function: '<S94>/PrintOnboardLog'
 int8_T codegenReal2MissionModelClass::codegenReal2Mission_filedata_i(void) const
 {
     int32_T k;
@@ -3572,7 +3572,7 @@ int8_T codegenReal2MissionModelClass::codegenReal2Mission_filedata_i(void) const
     return f;
 }
 
-// Function for MATLAB Function: '<S95>/PrintOnboardLog'
+// Function for MATLAB Function: '<S94>/PrintOnboardLog'
 int8_T codegenReal2MissionModelClass::codegenReal2Mission_cfopen_h(const char_T *
     cfilename, const char_T *cpermission)
 {
@@ -3601,8 +3601,8 @@ int8_T codegenReal2MissionModelClass::codegenReal2Mission_cfopen_h(const char_T 
     return fileid;
 }
 
-// Function for MATLAB Function: '<S95>/PrintOnboardLog'
-void codegenReal2MissionModelClass::codegenReal2Mission_fileManager_b(real_T
+// Function for MATLAB Function: '<S94>/PrintOnboardLog'
+void codegenReal2MissionModelClass::codegenReal2Mission_fileManager(real_T
     varargin_1, FILE* *f, boolean_T *a)
 {
     int8_T fileid;
@@ -3643,7 +3643,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_fileManager_b(real_T
     }
 }
 
-// Function for MATLAB Function: '<S42>/PrintOnboardLog'
+// Function for MATLAB Function: '<S94>/PrintOnboardLog'
 void codegenReal2MissionModelClass::codegenReal2Mission_string_string
     (MissionModes val, char_T obj_Value_data[], int32_T obj_Value_size[2])
 {
@@ -3895,7 +3895,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_string_string
     }
 }
 
-// Function for MATLAB Function: '<S42>/PrintOnboardLog'
+// Function for MATLAB Function: '<S94>/PrintOnboardLog'
 creal_T codegenReal2MissionModelClass::codegenReal2Mission_datetime_datetime
     (void)
 {
@@ -3966,9 +3966,10 @@ creal_T codegenReal2MissionModelClass::codegenReal2Mission_datetime_datetime
     return b_this_data;
 }
 
-// Function for MATLAB Function: '<S42>/PrintOnboardLog'
-void codegenReal2MissionModelClass::codegenReal2Mission_getDateVec(const creal_T
-    dd, real_T *y, real_T *mo, real_T *d, real_T *h, real_T *m, real_T *s)
+// Function for MATLAB Function: '<S94>/PrintOnboardLog'
+void codegenReal2MissionModelClass::codegenReal2Mission_getDateVec_b(const
+    creal_T dd, real_T *y, real_T *mo, real_T *d, real_T *h, real_T *m, real_T
+    *s)
 {
     creal_T b_c;
     creal_T b_thi_0;
@@ -4152,8 +4153,8 @@ void codegenReal2MissionModelClass::codegenReal2Mission_getDateVec(const creal_T
     }
 }
 
-// Function for MATLAB Function: '<S95>/PrintOnboardLog'
-void codegenReal2MissionModelClass::codegenReal2Mission_printIndivMissionCMD_m
+// Function for MATLAB Function: '<S94>/PrintOnboardLog'
+void codegenReal2MissionModelClass::codegenReal2Mission_printIndivMissionCMD
     (int32_T IndivMissionCMD_SequenceID, MissionModes
      IndivMissionCMD_MissionMode, real_T IndivMissionCMD_MissionLocation_Lat,
      real_T IndivMissionCMD_MissionLocation_Lon, real_T
@@ -4190,7 +4191,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_printIndivMissionCMD_m
     char_T b_Value_data[15];
     boolean_T autoflush;
     b_NULL = NULL;
-    codegenReal2Mission_fileManager_b(fileID, &filestar, &autoflush);
+    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
     if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
     {
         fprintf(filestar, "\n====== Display Mission Command ======\n");
@@ -4200,7 +4201,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_printIndivMissionCMD_m
     }
 
     b_NULL = NULL;
-    codegenReal2Mission_fileManager_b(fileID, &filestar, &autoflush);
+    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
     if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
     {
         fprintf(filestar, "Sequence ID:\t\t%d\n", IndivMissionCMD_SequenceID);
@@ -4212,7 +4213,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_printIndivMissionCMD_m
     codegenReal2Mission_string_string(IndivMissionCMD_MissionMode, b_Value_data,
         b_Value_size);
     b_NULL = NULL;
-    codegenReal2Mission_fileManager_b(fileID, &filestar, &autoflush);
+    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
     if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
     {
         int32_T b_Value_idx_0;
@@ -4231,7 +4232,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_printIndivMissionCMD_m
     }
 
     b_NULL = NULL;
-    codegenReal2Mission_fileManager_b(fileID, &filestar, &autoflush);
+    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
     if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
     {
         fprintf(filestar, "Mission Location: \n");
@@ -4241,7 +4242,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_printIndivMissionCMD_m
     }
 
     b_NULL = NULL;
-    codegenReal2Mission_fileManager_b(fileID, &filestar, &autoflush);
+    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
     if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
     {
         fprintf(filestar, "\tLatitude:\t\t%f\n",
@@ -4252,7 +4253,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_printIndivMissionCMD_m
     }
 
     b_NULL = NULL;
-    codegenReal2Mission_fileManager_b(fileID, &filestar, &autoflush);
+    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
     if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
     {
         fprintf(filestar, "\tLongitude:\t\t%f\n",
@@ -4263,7 +4264,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_printIndivMissionCMD_m
     }
 
     b_NULL = NULL;
-    codegenReal2Mission_fileManager_b(fileID, &filestar, &autoflush);
+    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
     if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
     {
         fprintf(filestar, "\tAltitude:\t\t%f\n",
@@ -4274,7 +4275,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_printIndivMissionCMD_m
     }
 
     b_NULL = NULL;
-    codegenReal2Mission_fileManager_b(fileID, &filestar, &autoflush);
+    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
     if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
     {
         fprintf(filestar, "\tHeading:\t\t%f\n",
@@ -4285,7 +4286,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_printIndivMissionCMD_m
     }
 
     b_NULL = NULL;
-    codegenReal2Mission_fileManager_b(fileID, &filestar, &autoflush);
+    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
     if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
     {
         fprintf(filestar, "Parameters: \n");
@@ -4295,7 +4296,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_printIndivMissionCMD_m
     }
 
     b_NULL = NULL;
-    codegenReal2Mission_fileManager_b(fileID, &filestar, &autoflush);
+    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
     if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
     {
         fprintf(filestar, "\tparam1:\t\t%f\n", IndivMissionCMD_params_Param1);
@@ -4305,7 +4306,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_printIndivMissionCMD_m
     }
 
     b_NULL = NULL;
-    codegenReal2Mission_fileManager_b(fileID, &filestar, &autoflush);
+    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
     if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
     {
         fprintf(filestar, "\tparam2:\t\t%f\n", IndivMissionCMD_params_Param2);
@@ -4315,7 +4316,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_printIndivMissionCMD_m
     }
 
     b_NULL = NULL;
-    codegenReal2Mission_fileManager_b(fileID, &filestar, &autoflush);
+    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
     if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
     {
         fprintf(filestar, "\tparam3:\t\t%f\n", IndivMissionCMD_params_Param3);
@@ -4325,7 +4326,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_printIndivMissionCMD_m
     }
 
     b_NULL = NULL;
-    codegenReal2Mission_fileManager_b(fileID, &filestar, &autoflush);
+    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
     if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
     {
         fprintf(filestar, "\tparam4:\t\t%f\n", IndivMissionCMD_params_Param4);
@@ -4335,7 +4336,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_printIndivMissionCMD_m
     }
 
     b_NULL = NULL;
-    codegenReal2Mission_fileManager_b(fileID, &filestar, &autoflush);
+    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
     if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
     {
         fprintf(filestar, "\tparam5:\t\t%f\n", IndivMissionCMD_params_Param5);
@@ -4345,7 +4346,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_printIndivMissionCMD_m
     }
 
     b_NULL = NULL;
-    codegenReal2Mission_fileManager_b(fileID, &filestar, &autoflush);
+    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
     if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
     {
         fprintf(filestar, "\tparam6:\t\t%f\n", IndivMissionCMD_params_Param6);
@@ -4355,7 +4356,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_printIndivMissionCMD_m
     }
 
     b_NULL = NULL;
-    codegenReal2Mission_fileManager_b(fileID, &filestar, &autoflush);
+    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
     if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
     {
         fprintf(filestar, "\tparam7:\t\t%f\n", IndivMissionCMD_params_Param7);
@@ -4365,7 +4366,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_printIndivMissionCMD_m
     }
 
     b_NULL = NULL;
-    codegenReal2Mission_fileManager_b(fileID, &filestar, &autoflush);
+    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
     if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
     {
         fprintf(filestar, "Start Position: \n");
@@ -4375,7 +4376,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_printIndivMissionCMD_m
     }
 
     b_NULL = NULL;
-    codegenReal2Mission_fileManager_b(fileID, &filestar, &autoflush);
+    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
     if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
     {
         fprintf(filestar, "\tLatitude:\t\t%f\n",
@@ -4386,7 +4387,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_printIndivMissionCMD_m
     }
 
     b_NULL = NULL;
-    codegenReal2Mission_fileManager_b(fileID, &filestar, &autoflush);
+    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
     if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
     {
         fprintf(filestar, "\tLongitude:\t\t%f\n",
@@ -4397,7 +4398,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_printIndivMissionCMD_m
     }
 
     b_NULL = NULL;
-    codegenReal2Mission_fileManager_b(fileID, &filestar, &autoflush);
+    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
     if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
     {
         fprintf(filestar, "\tAltitude:\t\t%f\n",
@@ -4408,7 +4409,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_printIndivMissionCMD_m
     }
 
     b_NULL = NULL;
-    codegenReal2Mission_fileManager_b(fileID, &filestar, &autoflush);
+    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
     if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
     {
         fprintf(filestar, "\tHeading:\t\t%f\n",
@@ -4419,7 +4420,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_printIndivMissionCMD_m
     }
 
     b_NULL = NULL;
-    codegenReal2Mission_fileManager_b(fileID, &filestar, &autoflush);
+    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
     if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
     {
         fprintf(filestar, "Number of UAVs:\t\t%d\n", IndivMissionCMD_numUAV);
@@ -4429,7 +4430,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_printIndivMissionCMD_m
     }
 
     b_NULL = NULL;
-    codegenReal2Mission_fileManager_b(fileID, &filestar, &autoflush);
+    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
     if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
     {
         fprintf(filestar, "Formation Position:\t%d\n",
@@ -4445,7 +4446,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_printIndivMissionCMD_m
         IndivMissionCMD_StartTime.second, IndivMissionCMD_StartTime.millisecond,
         validatedHoleFilling);
     b_NULL = NULL;
-    codegenReal2Mission_fileManager_b(fileID, &filestar, &autoflush);
+    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
     if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
     {
         fprintf(filestar, "Start Time:   %04d-%02d-%02d %02d:%02d:%02d.%03d\n",
@@ -4459,27 +4460,27 @@ void codegenReal2MissionModelClass::codegenReal2Mission_printIndivMissionCMD_m
     }
 
     TimeNow_data = codegenReal2Mission_datetime_datetime();
-    codegenReal2Mission_getDateVec(TimeNow_data, &b_varargin_1, &a__1, &a__2,
+    codegenReal2Mission_getDateVec_b(TimeNow_data, &b_varargin_1, &a__1, &a__2,
         &a__3, &a__4, &a__5);
-    codegenReal2Mission_getDateVec(TimeNow_data, &a__2, &a__1, &a__3, &a__4,
+    codegenReal2Mission_getDateVec_b(TimeNow_data, &a__2, &a__1, &a__3, &a__4,
         &a__5, &a__11);
-    codegenReal2Mission_getDateVec(TimeNow_data, &a__3, &a__4, &a__2, &a__5,
+    codegenReal2Mission_getDateVec_b(TimeNow_data, &a__3, &a__4, &a__2, &a__5,
         &a__11, &a__17);
-    codegenReal2Mission_getDateVec(TimeNow_data, &a__4, &a__5, &a__11, &a__3,
+    codegenReal2Mission_getDateVec_b(TimeNow_data, &a__4, &a__5, &a__11, &a__3,
         &a__17, &a__23);
-    codegenReal2Mission_getDateVec(TimeNow_data, &a__5, &a__11, &a__17, &a__23,
+    codegenReal2Mission_getDateVec_b(TimeNow_data, &a__5, &a__11, &a__17, &a__23,
         &a__4, &a__29);
-    codegenReal2Mission_getDateVec(TimeNow_data, &a__11, &a__17, &a__23, &a__29,
-        &a__35, &a__5);
-    codegenReal2Mission_getDateVec(TimeNow_data, &a__17, &a__23, &a__29, &a__35,
-        &b_a__35, &a__11);
-    codegenReal2Mission_getDateVec(TimeNow_data, &a__17, &a__23, &a__29, &a__35,
-        &b_a__35, &x);
+    codegenReal2Mission_getDateVec_b(TimeNow_data, &a__11, &a__17, &a__23,
+        &a__29, &a__35, &a__5);
+    codegenReal2Mission_getDateVec_b(TimeNow_data, &a__17, &a__23, &a__29,
+        &a__35, &b_a__35, &a__11);
+    codegenReal2Mission_getDateVec_b(TimeNow_data, &a__17, &a__23, &a__29,
+        &a__35, &b_a__35, &x);
     validate_print_arguments_csk21eNA(b_varargin_1, a__1, a__2, a__3, a__4, std::
         floor(a__5), std::round((a__11 - std::floor(x)) * 1000.0),
         b_validatedHoleFilling);
     b_NULL = NULL;
-    codegenReal2Mission_fileManager_b(fileID, &filestar, &autoflush);
+    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
     if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
     {
         fprintf(filestar,
@@ -4494,7 +4495,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_printIndivMissionCMD_m
     }
 
     b_NULL = NULL;
-    codegenReal2Mission_fileManager_b(fileID, &filestar, &autoflush);
+    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
     if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
     {
         fprintf(filestar, "\n");
@@ -4504,7 +4505,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_printIndivMissionCMD_m
     }
 }
 
-// Function for MATLAB Function: '<S95>/PrintOnboardLog'
+// Function for MATLAB Function: '<S94>/PrintOnboardLog'
 int32_T codegenReal2MissionModelClass::codegenReal2Mission_cfclose_n(real_T fid)
 {
     FILE* filestar;
@@ -4576,7 +4577,7 @@ Msg_IndividualUAVCmd codegenReal2MissionModelClass::
 boolean_T codegenReal2MissionModelClass::codegenReal2Mission_push
     (Queue_IndividualUAVCmd *q, const Msg_IndividualUAVCmd *element)
 {
-    // Queue: '<S84>/Queue'
+    // Queue: '<S83>/Queue'
     q->fTail = static_cast<int32_T>(q->fTail + 1) % q->fCapacity;
     if (q->fTail == q->fHead) {
         q->fHead = static_cast<int32_T>(q->fHead + 1) % q->fCapacity;
@@ -4587,7 +4588,7 @@ boolean_T codegenReal2MissionModelClass::codegenReal2Mission_push
     q->fArray[q->fTail] = *element;
     return true;
 
-    // End of Queue: '<S84>/Queue'
+    // End of Queue: '<S83>/Queue'
 }
 
 int32_T codegenReal2MissionModelClass::codegenReal2Mission_Queue_SendData(const
@@ -4597,18 +4598,18 @@ int32_T codegenReal2MissionModelClass::codegenReal2Mission_Queue_SendData(const
     int32_T status{ 1 };
 
     // DiscreteEventSubgraph generated from: '<S2>/DangerLidarScanPoints' incorporates:
-    //   Send: '<S84>/Send'
+    //   Send: '<S83>/Send'
 
     msg = codegenReal2Mission_createMsg(data);
 
-    // Queue: '<S84>/Queue' incorporates:
+    // Queue: '<S83>/Queue' incorporates:
     //   DiscreteEventSubgraph generated from: '<S2>/DangerLidarScanPoints'
 
     if (codegenReal2Mission_push(&codegenReal2Mission_DW.Queue_Queue, &msg)) {
         status = 0;
     }
 
-    // End of Queue: '<S84>/Queue'
+    // End of Queue: '<S83>/Queue'
     return status;
 }
 
@@ -4617,7 +4618,7 @@ boolean_T codegenReal2MissionModelClass::codegenReal2Mission_pop
 {
     boolean_T isPop;
 
-    // Queue: '<S84>/Queue'
+    // Queue: '<S83>/Queue'
     if (q->fHead == -1) {
         isPop = false;
     } else {
@@ -4631,7 +4632,7 @@ boolean_T codegenReal2MissionModelClass::codegenReal2Mission_pop
         }
     }
 
-    // End of Queue: '<S84>/Queue'
+    // End of Queue: '<S83>/Queue'
     return isPop;
 }
 
@@ -4641,16 +4642,16 @@ int32_T codegenReal2MissionModelClass::codegenReal2Mission_Queue_RecvData
     Msg_IndividualUAVCmd msg;
     int32_T status{ 1 };
 
-    // Queue: '<S84>/Queue' incorporates:
+    // Queue: '<S83>/Queue' incorporates:
     //   DiscreteEventSubgraph generated from: '<S2>/DangerLidarScanPoints'
-    //   Receive: '<S92>/Receive'
+    //   Receive: '<S91>/Receive'
 
     if (codegenReal2Mission_pop(&codegenReal2Mission_DW.Queue_Queue, &msg)) {
         status = 0;
         *data = msg.fData;
     }
 
-    // End of Queue: '<S84>/Queue'
+    // End of Queue: '<S83>/Queue'
     return status;
 }
 
@@ -4663,14 +4664,14 @@ boolean_T codegenReal2MissionModelClass::codegenReal2Mission_push_b
     return true;
 }
 
-int32_T codegenReal2MissionModelClass::codegenReal2Mission_Receive_SendData(
+int32_T codegenReal2MissionModelClass::codegenReal2Mission_Receive_b_SendData(
     const IndividualUAVCmd *data)
 {
     Msg_IndividualUAVCmd msg;
     int32_T status{ 1 };
 
     // DiscreteEventSubgraph generated from: '<S2>/DangerLidarScanPoints' incorporates:
-    //   Send: '<S84>/SendCMD'
+    //   Send: '<S83>/SendCMD'
 
     msg = codegenReal2Mission_createMsg(data);
 
@@ -4706,14 +4707,14 @@ boolean_T codegenReal2MissionModelClass::codegenReal2Mission_push_j
     return true;
 }
 
-int32_T codegenReal2MissionModelClass::codegenReal2Mission_Receive_o_SendData(
+int32_T codegenReal2MissionModelClass::codegenReal2Mission_Receive_SendData(
     const DangerInfo *data)
 {
     Msg_DangerInfo msg;
     int32_T status{ 1 };
 
     // DiscreteEventSubgraph generated from: '<S2>/DangerLidarScanPoints' incorporates:
-    //   Send: '<S84>/SendDanger'
+    //   Send: '<S83>/SendDanger'
 
     msg = codegenReal2Mission_createMsg_fl(data);
 
@@ -4728,6 +4729,650 @@ int32_T codegenReal2MissionModelClass::codegenReal2Mission_Receive_o_SendData(
 
     // End of Queue generated from: '<S2>/DangerLidarScanPoints'
     return status;
+}
+
+boolean_T codegenReal2MissionModelClass::codegenReal2Mission_pop_h
+    (Buffer_missionCmd *q, Msg_missionCmd *elementOut)
+{
+    boolean_T isPop;
+
+    // Queue generated from: '<S7>/MissionUAVScheduling'
+    if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
+            (q->fOccupied) ^ 1))) {
+        isPop = false;
+    } else {
+        *elementOut = q->fMsg;
+        q->fOccupied = false;
+        isPop = true;
+    }
+
+    // End of Queue generated from: '<S7>/MissionUAVScheduling'
+    return isPop;
+}
+
+int32_T codegenReal2MissionModelClass::
+    codegenReal2Mission_RcvNextMission_RecvData(missionCmd *data)
+{
+    Msg_missionCmd msg;
+    int32_T status{ 1 };
+
+    // Queue generated from: '<S2>/RcvNextMission' incorporates:
+    //   DiscreteEventSubgraph generated from: '<S2>/DangerLidarScanPoints'
+
+    if (codegenReal2Mission_pop_h
+            (&codegenReal2Mission_DW.Queue_InsertedFor_RcvNextMission_at_inport_0_Queue,
+             &msg)) {
+        status = 0;
+        *data = msg.fData;
+    }
+
+    // End of Queue generated from: '<S2>/RcvNextMission'
+    return status;
+}
+
+int32_T codegenReal2MissionModelClass::
+    codegenReal2Mission_MissionUAVScheduling_In3_SendData(const missionCmd *data)
+{
+    Msg_missionCmd msg;
+    int32_T status{ 1 };
+
+    // DiscreteEventSubgraph generated from: '<S2>/DangerLidarScanPoints' incorporates:
+    //   Send: '<S50>/SendMission'
+
+    msg = codegenReal2Mission_createMsg_f(data);
+
+    // Queue generated from: '<S7>/MissionUAVScheduling'
+    if (codegenReal2Mission_push_i
+            (&codegenReal2Mission_DW.Queue_InsertedFor_MissionUAVScheduling_at_inport_2_Queue,
+             &msg)) {
+        status = 0;
+    }
+
+    return status;
+}
+
+// Function for Chart: '<S7>/MissionUAVScheduling'
+void codegenReal2MissionModelClass::codegenReal2Mission_FollowSwitch(const
+    int32_T *sfEvent)
+{
+    // During 'FollowSwitch': '<S46>:48'
+    switch (codegenReal2Mission_DW.is_FollowSwitch) {
+      case codegenReal2Mission_IN_FollowA:
+        // During 'FollowA': '<S46>:49'
+        if (*sfEvent == codegenReal2Mission_event_shiftFollow) {
+            // Transition: '<S46>:52'
+            codegenReal2Mission_DW.is_FollowSwitch =
+                codegenReal2Mission_IN_FollowB;
+
+            // Entry 'FollowB': '<S46>:51'
+            codegenReal2Mission_DW.followSwitch = false;
+        } else {
+            codegenReal2Mission_DW.followSwitch = true;
+        }
+        break;
+
+      case codegenReal2Mission_IN_FollowB:
+        // During 'FollowB': '<S46>:51'
+        if (*sfEvent == codegenReal2Mission_event_shiftFollow) {
+            // Transition: '<S46>:53'
+            codegenReal2Mission_DW.is_FollowSwitch =
+                codegenReal2Mission_IN_FollowA;
+
+            // Entry 'FollowA': '<S46>:49'
+            codegenReal2Mission_DW.followSwitch = true;
+        } else {
+            codegenReal2Mission_DW.followSwitch = false;
+        }
+        break;
+    }
+}
+
+Msg_missionCmd *codegenReal2MissionModelClass::
+    codegenReal2Mission_MissionUAVScheduling_In3_RecvMsg(void)
+{
+    Msg_missionCmd *msg;
+
+    // DiscreteEventSubgraph generated from: '<S2>/DangerLidarScanPoints'
+    msg =
+        &codegenReal2Mission_DW.Queue_InsertedFor_MissionUAVScheduling_at_inport_2_Out1RecvBuffer;
+
+    // Queue generated from: '<S7>/MissionUAVScheduling'
+    if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
+            (codegenReal2Mission_pop_h
+             (&codegenReal2Mission_DW.Queue_InsertedFor_MissionUAVScheduling_at_inport_2_Queue,
+              &codegenReal2Mission_DW.Queue_InsertedFor_MissionUAVScheduling_at_inport_2_Out1RecvBuffer))
+          ^ 1))) {
+        msg = nullptr;
+    }
+
+    return msg;
+}
+
+// Function for Chart: '<S7>/MissionUAVScheduling'
+boolean_T codegenReal2MissionModelClass::codegenReal2Mission_sf_msg_pop_ExecMsg
+    (boolean_T *ExecMsg_isValid)
+{
+    boolean_T isPresent;
+    if (*ExecMsg_isValid) {
+        isPresent = true;
+    } else {
+        codegenReal2Mission_DW.ExecMsg_msgHandle =
+            codegenReal2Mission_MissionUAVScheduling_In3_RecvMsg();
+        if (codegenReal2Mission_DW.ExecMsg_msgHandle != nullptr) {
+            codegenReal2Mission_DW.ExecMsg_msgDataPtr =
+                &(static_cast<Msg_missionCmd *>
+                  (codegenReal2Mission_DW.ExecMsg_msgHandle))->fData;
+            isPresent = true;
+        } else {
+            isPresent = false;
+        }
+
+        *ExecMsg_isValid = isPresent;
+    }
+
+    return isPresent;
+}
+
+int32_T codegenReal2MissionModelClass::codegenReal2Mission_Receive_SendMsg(const
+    Msg_missionCmd *msg)
+{
+    int32_T status{ 1 };
+
+    // Queue generated from: '<S7>/MsgRateTransitionA'
+    if (codegenReal2Mission_push_i
+            (&codegenReal2Mission_DW.Queue_InsertedFor_MsgRateTransitionA_at_inport_0_Queue,
+             msg)) {
+        status = 0;
+    }
+
+    // End of Queue generated from: '<S7>/MsgRateTransitionA'
+    return status;
+}
+
+// Function for Chart: '<S7>/MissionUAVScheduling'
+void codegenReal2MissionModelClass::
+    codegenReal2Mission_sf_msg_forward_ExecMsg_ExecMsgA(boolean_T
+    *ExecMsg_isValid)
+{
+    if (*ExecMsg_isValid) {
+        codegenReal2Mission_Receive_SendMsg(static_cast<Msg_missionCmd *>
+            (codegenReal2Mission_DW.ExecMsg_msgHandle));
+        *ExecMsg_isValid = false;
+    }
+}
+
+int32_T codegenReal2MissionModelClass::codegenReal2Mission_Receive_e_SendMsg(
+    const Msg_missionCmd *msg)
+{
+    int32_T status{ 1 };
+
+    // Queue generated from: '<S7>/MsgRateTransitionB'
+    if (codegenReal2Mission_push_i
+            (&codegenReal2Mission_DW.Queue_InsertedFor_MsgRateTransitionB_at_inport_0_Queue,
+             msg)) {
+        status = 0;
+    }
+
+    // End of Queue generated from: '<S7>/MsgRateTransitionB'
+    return status;
+}
+
+// Function for Chart: '<S7>/MissionUAVScheduling'
+void codegenReal2MissionModelClass::
+    codegenReal2Mission_sf_msg_forward_ExecMsg_ExecMsgB(boolean_T
+    *ExecMsg_isValid)
+{
+    if (*ExecMsg_isValid) {
+        codegenReal2Mission_Receive_e_SendMsg(static_cast<Msg_missionCmd *>
+            (codegenReal2Mission_DW.ExecMsg_msgHandle));
+        *ExecMsg_isValid = false;
+    }
+}
+
+// Function for Chart: '<S7>/MissionUAVScheduling'
+void codegenReal2MissionModelClass::codegenReal2Mission_sf_msg_discard_ExecMsg
+    (boolean_T *ExecMsg_isValid)
+{
+    *ExecMsg_isValid = false;
+}
+
+// Function for MATLAB Function: '<S52>/ReadPursuitShiftPercentage'
+int8_T codegenReal2MissionModelClass::codegenReal2Mission_filedata_hj(void)
+    const
+{
+    int32_T k;
+    int8_T f;
+    boolean_T exitg1;
+    f = 0;
+    k = 1;
+    exitg1 = false;
+    while ((!exitg1) && (static_cast<int32_T>(k - 1) < 20)) {
+        if (codegenReal2Mission_DW.eml_openfiles_b[static_cast<int32_T>(
+                static_cast<int32_T>(static_cast<int8_T>(k)) - 1)] == NULL) {
+            f = static_cast<int8_T>(k);
+            exitg1 = true;
+        } else {
+            k = static_cast<int32_T>(k + 1);
+        }
+    }
+
+    return f;
+}
+
+// Function for MATLAB Function: '<S52>/ReadPursuitShiftPercentage'
+int8_T codegenReal2MissionModelClass::codegenReal2Mission_cfopen_k(const char_T *
+    cfilename, const char_T *cpermission)
+{
+    int8_T fileid;
+    int8_T j;
+    fileid = -1;
+    j = codegenReal2Mission_filedata_hj();
+    if (static_cast<int32_T>(j) >= 1) {
+        FILE* filestar;
+        filestar = fopen(cfilename, cpermission);
+        if (filestar != NULL) {
+            int32_T tmp;
+            codegenReal2Mission_DW.eml_openfiles_b[static_cast<int32_T>(
+                static_cast<int32_T>(j) - 1)] = filestar;
+            tmp = static_cast<int32_T>(static_cast<int32_T>(j) + 2);
+            if (static_cast<int32_T>(static_cast<int32_T>(j) + 2) > 127) {
+                tmp = 127;
+            }
+
+            fileid = static_cast<int8_T>(tmp);
+        }
+    }
+
+    return fileid;
+}
+
+// Function for MATLAB Function: '<S52>/ReadPursuitShiftPercentage'
+void codegenReal2MissionModelClass::codegenReal2Mission_fread_e(real_T fileID,
+    emxArray_char_T_codegenReal2Mission_T *A)
+{
+    FILE* filestar;
+    size_t nBytes;
+    char_T tbuf[1024];
+    int8_T fileid;
+    nBytes = sizeof(char_T);
+    fileid = static_cast<int8_T>(fileID);
+    if (fileID != static_cast<real_T>(static_cast<int8_T>(fileID))) {
+        fileid = -1;
+    }
+
+    if (static_cast<int32_T>(fileid) >= 3) {
+        filestar = codegenReal2Mission_DW.eml_openfiles_b[static_cast<int32_T>(
+            static_cast<int32_T>(fileid) - 3)];
+    } else {
+        switch (static_cast<int32_T>(fileid)) {
+          case 0:
+            filestar = stdin;
+            break;
+
+          case 1:
+            filestar = stdout;
+            break;
+
+          case 2:
+            filestar = stderr;
+            break;
+
+          default:
+            filestar = NULL;
+            break;
+        }
+    }
+
+    if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(
+            static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(
+              static_cast<boolean_T>(static_cast<int32_T>((fileID != 0.0) ^ 1)))
+             | static_cast<int32_T>(static_cast<boolean_T>(static_cast<int32_T>
+               ((fileID != 1.0) ^ 1)))))) | static_cast<int32_T>
+            (static_cast<boolean_T>(static_cast<int32_T>((fileID != 2.0) ^ 1))))))
+    {
+        filestar = NULL;
+    }
+
+    A->size[0] = 0;
+    if (static_cast<boolean_T>(static_cast<int32_T>((filestar == NULL) ^ 1))) {
+        int32_T c;
+        c = 1;
+        while (c > 0) {
+            int32_T i;
+            int32_T loop_ub;
+            int32_T numRead;
+            int32_T tmp;
+            c = 0;
+            numRead = 1;
+            while (static_cast<boolean_T>(static_cast<int32_T>((c < 1024) &
+                     (numRead > 0)))) {
+                size_t numReadSizeT;
+                numReadSizeT = fread(&tbuf[c], nBytes, (size_t)(1024 - c),
+                                     filestar);
+                numRead = (int32_T)numReadSizeT;
+                c = static_cast<int32_T>(c + (int32_T)numReadSizeT);
+            }
+
+            numRead = A->size[0];
+            if (c < 1) {
+                i = -1;
+                loop_ub = -1;
+            } else {
+                i = static_cast<int32_T>(c - 1);
+                loop_ub = static_cast<int32_T>(c - 1);
+            }
+
+            tmp = A->size[0];
+            A->size[0] = static_cast<int32_T>(static_cast<int32_T>(i + A->size[0])
+                + 1);
+            codegenReal2Mission_emxEnsureCapacity_char_T(A, tmp);
+            for (i = 0; i <= loop_ub; i++) {
+                A->data[static_cast<int32_T>(numRead + i)] = tbuf[i];
+            }
+        }
+    }
+}
+
+// Function for MATLAB Function: '<S52>/ReadPursuitShiftPercentage'
+int32_T codegenReal2MissionModelClass::codegenReal2Mission_cfclose_l(real_T fid)
+{
+    FILE* filestar;
+    int32_T st;
+    int8_T b_fileid;
+    int8_T fileid;
+    st = -1;
+    fileid = static_cast<int8_T>(fid);
+    if (fid != static_cast<real_T>(static_cast<int8_T>(fid))) {
+        fileid = -1;
+    }
+
+    b_fileid = fileid;
+    if (static_cast<int32_T>(fileid) < 0) {
+        b_fileid = -1;
+    }
+
+    if (static_cast<int32_T>(b_fileid) >= 3) {
+        filestar = codegenReal2Mission_DW.eml_openfiles_b[static_cast<int32_T>(
+            static_cast<int32_T>(b_fileid) - 3)];
+    } else {
+        switch (static_cast<int32_T>(b_fileid)) {
+          case 0:
+            filestar = stdin;
+            break;
+
+          case 1:
+            filestar = stdout;
+            break;
+
+          case 2:
+            filestar = stderr;
+            break;
+
+          default:
+            filestar = NULL;
+            break;
+        }
+    }
+
+    if (static_cast<boolean_T>(static_cast<int32_T>((filestar != NULL) & (
+            static_cast<int32_T>(fileid) >= 3)))) {
+        int32_T cst;
+        cst = fclose(filestar);
+        if (cst == 0) {
+            st = 0;
+            codegenReal2Mission_DW.eml_openfiles_b[static_cast<int32_T>(
+                static_cast<int32_T>(fileid) - 3)] = NULL;
+        }
+    }
+
+    return st;
+}
+
+int32_T codegenReal2MissionModelClass::codegenReal2Mission_Receive_d_RecvData
+    (missionCmd *data)
+{
+    Msg_missionCmd msg;
+    int32_T status{ 1 };
+
+    // Queue generated from: '<S7>/MsgRateTransitionA'
+    if (codegenReal2Mission_pop_h
+            (&codegenReal2Mission_DW.Queue_InsertedFor_MsgRateTransitionA_at_inport_0_Queue,
+             &msg)) {
+        status = 0;
+        *data = msg.fData;
+    }
+
+    // End of Queue generated from: '<S7>/MsgRateTransitionA'
+    return status;
+}
+
+int32_T codegenReal2MissionModelClass::codegenReal2Mission_Receive_e_RecvData
+    (missionCmd *data)
+{
+    Msg_missionCmd msg;
+    int32_T status{ 1 };
+
+    // Queue generated from: '<S7>/MsgRateTransitionB'
+    if (codegenReal2Mission_pop_h
+            (&codegenReal2Mission_DW.Queue_InsertedFor_MsgRateTransitionB_at_inport_0_Queue,
+             &msg)) {
+        status = 0;
+        *data = msg.fData;
+    }
+
+    // End of Queue generated from: '<S7>/MsgRateTransitionB'
+    return status;
+}
+
+int32_T codegenReal2MissionModelClass::codegenReal2Mission_RcvImmedCMD_RecvData
+    (missionCmd *data)
+{
+    Msg_missionCmd msg;
+    int32_T status{ 1 };
+
+    // Queue generated from: '<S2>/RcvImmedCMD' incorporates:
+    //   DiscreteEventSubgraph generated from: '<S2>/DangerLidarScanPoints'
+
+    if (codegenReal2Mission_pop_h
+            (&codegenReal2Mission_DW.Queue_InsertedFor_RcvImmedCMD_at_inport_0_Queue,
+             &msg)) {
+        status = 0;
+        *data = msg.fData;
+    }
+
+    // End of Queue generated from: '<S2>/RcvImmedCMD'
+    return status;
+}
+
+// Function for MATLAB Function: '<S9>/ReadHomePoint'
+int8_T codegenReal2MissionModelClass::codegenReal2Mission_filedata_p(void) const
+{
+    int32_T k;
+    int8_T f;
+    boolean_T exitg1;
+    f = 0;
+    k = 1;
+    exitg1 = false;
+    while ((!exitg1) && (static_cast<int32_T>(k - 1) < 20)) {
+        if (codegenReal2Mission_DW.eml_openfiles[static_cast<int32_T>(
+                static_cast<int32_T>(static_cast<int8_T>(k)) - 1)] == NULL) {
+            f = static_cast<int8_T>(k);
+            exitg1 = true;
+        } else {
+            k = static_cast<int32_T>(k + 1);
+        }
+    }
+
+    return f;
+}
+
+// Function for MATLAB Function: '<S9>/ReadHomePoint'
+int8_T codegenReal2MissionModelClass::codegenReal2Mission_cfopen_o(const char_T *
+    cfilename, const char_T *cpermission)
+{
+    int8_T fileid;
+    int8_T j;
+    fileid = -1;
+    j = codegenReal2Mission_filedata_p();
+    if (static_cast<int32_T>(j) >= 1) {
+        FILE* filestar;
+        filestar = fopen(cfilename, cpermission);
+        if (filestar != NULL) {
+            int32_T tmp;
+            codegenReal2Mission_DW.eml_openfiles[static_cast<int32_T>(
+                static_cast<int32_T>(j) - 1)] = filestar;
+            tmp = static_cast<int32_T>(static_cast<int32_T>(j) + 2);
+            if (static_cast<int32_T>(static_cast<int32_T>(j) + 2) > 127) {
+                tmp = 127;
+            }
+
+            fileid = static_cast<int8_T>(tmp);
+        }
+    }
+
+    return fileid;
+}
+
+// Function for MATLAB Function: '<S9>/ReadHomePoint'
+void codegenReal2MissionModelClass::codegenReal2Mission_fread_i(real_T fileID,
+    emxArray_char_T_codegenReal2Mission_T *A)
+{
+    FILE* filestar;
+    size_t nBytes;
+    char_T tbuf[1024];
+    int8_T fileid;
+    nBytes = sizeof(char_T);
+    fileid = static_cast<int8_T>(fileID);
+    if (fileID != static_cast<real_T>(static_cast<int8_T>(fileID))) {
+        fileid = -1;
+    }
+
+    if (static_cast<int32_T>(fileid) >= 3) {
+        filestar = codegenReal2Mission_DW.eml_openfiles[static_cast<int32_T>(
+            static_cast<int32_T>(fileid) - 3)];
+    } else {
+        switch (static_cast<int32_T>(fileid)) {
+          case 0:
+            filestar = stdin;
+            break;
+
+          case 1:
+            filestar = stdout;
+            break;
+
+          case 2:
+            filestar = stderr;
+            break;
+
+          default:
+            filestar = NULL;
+            break;
+        }
+    }
+
+    if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(
+            static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(
+              static_cast<boolean_T>(static_cast<int32_T>((fileID != 0.0) ^ 1)))
+             | static_cast<int32_T>(static_cast<boolean_T>(static_cast<int32_T>
+               ((fileID != 1.0) ^ 1)))))) | static_cast<int32_T>
+            (static_cast<boolean_T>(static_cast<int32_T>((fileID != 2.0) ^ 1))))))
+    {
+        filestar = NULL;
+    }
+
+    A->size[0] = 0;
+    if (static_cast<boolean_T>(static_cast<int32_T>((filestar == NULL) ^ 1))) {
+        int32_T c;
+        c = 1;
+        while (c > 0) {
+            int32_T i;
+            int32_T loop_ub;
+            int32_T numRead;
+            int32_T tmp;
+            c = 0;
+            numRead = 1;
+            while (static_cast<boolean_T>(static_cast<int32_T>((c < 1024) &
+                     (numRead > 0)))) {
+                size_t numReadSizeT;
+                numReadSizeT = fread(&tbuf[c], nBytes, (size_t)(1024 - c),
+                                     filestar);
+                numRead = (int32_T)numReadSizeT;
+                c = static_cast<int32_T>(c + (int32_T)numReadSizeT);
+            }
+
+            numRead = A->size[0];
+            if (c < 1) {
+                i = -1;
+                loop_ub = -1;
+            } else {
+                i = static_cast<int32_T>(c - 1);
+                loop_ub = static_cast<int32_T>(c - 1);
+            }
+
+            tmp = A->size[0];
+            A->size[0] = static_cast<int32_T>(static_cast<int32_T>(i + A->size[0])
+                + 1);
+            codegenReal2Mission_emxEnsureCapacity_char_T(A, tmp);
+            for (i = 0; i <= loop_ub; i++) {
+                A->data[static_cast<int32_T>(numRead + i)] = tbuf[i];
+            }
+        }
+    }
+}
+
+// Function for MATLAB Function: '<S9>/ReadHomePoint'
+int32_T codegenReal2MissionModelClass::codegenReal2Mission_cfclose_m(real_T fid)
+{
+    FILE* filestar;
+    int32_T st;
+    int8_T b_fileid;
+    int8_T fileid;
+    st = -1;
+    fileid = static_cast<int8_T>(fid);
+    if (fid != static_cast<real_T>(static_cast<int8_T>(fid))) {
+        fileid = -1;
+    }
+
+    b_fileid = fileid;
+    if (static_cast<int32_T>(fileid) < 0) {
+        b_fileid = -1;
+    }
+
+    if (static_cast<int32_T>(b_fileid) >= 3) {
+        filestar = codegenReal2Mission_DW.eml_openfiles[static_cast<int32_T>(
+            static_cast<int32_T>(b_fileid) - 3)];
+    } else {
+        switch (static_cast<int32_T>(b_fileid)) {
+          case 0:
+            filestar = stdin;
+            break;
+
+          case 1:
+            filestar = stdout;
+            break;
+
+          case 2:
+            filestar = stderr;
+            break;
+
+          default:
+            filestar = NULL;
+            break;
+        }
+    }
+
+    if (static_cast<boolean_T>(static_cast<int32_T>((filestar != NULL) & (
+            static_cast<int32_T>(fileid) >= 3)))) {
+        int32_T cst;
+        cst = fclose(filestar);
+        if (cst == 0) {
+            st = 0;
+            codegenReal2Mission_DW.eml_openfiles[static_cast<int32_T>(
+                static_cast<int32_T>(fileid) - 3)] = NULL;
+        }
+    }
+
+    return st;
 }
 
 boolean_T codegenReal2MissionModelClass::codegenReal2Mission_pop_j
@@ -5336,650 +5981,6 @@ void codegenReal2MissionModelClass::codegenReal2Mission_emxFree_real_T
     }
 }
 
-boolean_T codegenReal2MissionModelClass::codegenReal2Mission_pop_h
-    (Buffer_missionCmd *q, Msg_missionCmd *elementOut)
-{
-    boolean_T isPop;
-
-    // Queue generated from: '<S7>/MissionUAVScheduling'
-    if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
-            (q->fOccupied) ^ 1))) {
-        isPop = false;
-    } else {
-        *elementOut = q->fMsg;
-        q->fOccupied = false;
-        isPop = true;
-    }
-
-    // End of Queue generated from: '<S7>/MissionUAVScheduling'
-    return isPop;
-}
-
-int32_T codegenReal2MissionModelClass::
-    codegenReal2Mission_RcvNextMission_RecvData(missionCmd *data)
-{
-    Msg_missionCmd msg;
-    int32_T status{ 1 };
-
-    // Queue generated from: '<S2>/RcvNextMission' incorporates:
-    //   DiscreteEventSubgraph generated from: '<S2>/DangerLidarScanPoints'
-
-    if (codegenReal2Mission_pop_h
-            (&codegenReal2Mission_DW.Queue_InsertedFor_RcvNextMission_at_inport_0_Queue,
-             &msg)) {
-        status = 0;
-        *data = msg.fData;
-    }
-
-    // End of Queue generated from: '<S2>/RcvNextMission'
-    return status;
-}
-
-int32_T codegenReal2MissionModelClass::
-    codegenReal2Mission_MissionUAVScheduling_In3_SendData(const missionCmd *data)
-{
-    Msg_missionCmd msg;
-    int32_T status{ 1 };
-
-    // DiscreteEventSubgraph generated from: '<S2>/DangerLidarScanPoints' incorporates:
-    //   Send: '<S51>/SendMission'
-
-    msg = codegenReal2Mission_createMsg_f(data);
-
-    // Queue generated from: '<S7>/MissionUAVScheduling'
-    if (codegenReal2Mission_push_i
-            (&codegenReal2Mission_DW.Queue_InsertedFor_MissionUAVScheduling_at_inport_2_Queue,
-             &msg)) {
-        status = 0;
-    }
-
-    return status;
-}
-
-// Function for Chart: '<S7>/MissionUAVScheduling'
-void codegenReal2MissionModelClass::codegenReal2Mission_FollowSwitch(const
-    int32_T *sfEvent)
-{
-    // During 'FollowSwitch': '<S47>:48'
-    switch (codegenReal2Mission_DW.is_FollowSwitch) {
-      case codegenReal2Mission_IN_FollowA:
-        // During 'FollowA': '<S47>:49'
-        if (*sfEvent == codegenReal2Mission_event_shiftFollow) {
-            // Transition: '<S47>:52'
-            codegenReal2Mission_DW.is_FollowSwitch =
-                codegenReal2Mission_IN_FollowB;
-
-            // Entry 'FollowB': '<S47>:51'
-            codegenReal2Mission_DW.followSwitch = false;
-        } else {
-            codegenReal2Mission_DW.followSwitch = true;
-        }
-        break;
-
-      case codegenReal2Mission_IN_FollowB:
-        // During 'FollowB': '<S47>:51'
-        if (*sfEvent == codegenReal2Mission_event_shiftFollow) {
-            // Transition: '<S47>:53'
-            codegenReal2Mission_DW.is_FollowSwitch =
-                codegenReal2Mission_IN_FollowA;
-
-            // Entry 'FollowA': '<S47>:49'
-            codegenReal2Mission_DW.followSwitch = true;
-        } else {
-            codegenReal2Mission_DW.followSwitch = false;
-        }
-        break;
-    }
-}
-
-Msg_missionCmd *codegenReal2MissionModelClass::
-    codegenReal2Mission_MissionUAVScheduling_In3_RecvMsg(void)
-{
-    Msg_missionCmd *msg;
-
-    // DiscreteEventSubgraph generated from: '<S2>/DangerLidarScanPoints'
-    msg =
-        &codegenReal2Mission_DW.Queue_InsertedFor_MissionUAVScheduling_at_inport_2_Out1RecvBuffer;
-
-    // Queue generated from: '<S7>/MissionUAVScheduling'
-    if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
-            (codegenReal2Mission_pop_h
-             (&codegenReal2Mission_DW.Queue_InsertedFor_MissionUAVScheduling_at_inport_2_Queue,
-              &codegenReal2Mission_DW.Queue_InsertedFor_MissionUAVScheduling_at_inport_2_Out1RecvBuffer))
-          ^ 1))) {
-        msg = nullptr;
-    }
-
-    return msg;
-}
-
-// Function for Chart: '<S7>/MissionUAVScheduling'
-boolean_T codegenReal2MissionModelClass::codegenReal2Mission_sf_msg_pop_ExecMsg
-    (boolean_T *ExecMsg_isValid)
-{
-    boolean_T isPresent;
-    if (*ExecMsg_isValid) {
-        isPresent = true;
-    } else {
-        codegenReal2Mission_DW.ExecMsg_msgHandle =
-            codegenReal2Mission_MissionUAVScheduling_In3_RecvMsg();
-        if (codegenReal2Mission_DW.ExecMsg_msgHandle != nullptr) {
-            codegenReal2Mission_DW.ExecMsg_msgDataPtr =
-                &(static_cast<Msg_missionCmd *>
-                  (codegenReal2Mission_DW.ExecMsg_msgHandle))->fData;
-            isPresent = true;
-        } else {
-            isPresent = false;
-        }
-
-        *ExecMsg_isValid = isPresent;
-    }
-
-    return isPresent;
-}
-
-int32_T codegenReal2MissionModelClass::codegenReal2Mission_Receive_SendMsg(const
-    Msg_missionCmd *msg)
-{
-    int32_T status{ 1 };
-
-    // Queue generated from: '<S7>/MsgRateTransitionA'
-    if (codegenReal2Mission_push_i
-            (&codegenReal2Mission_DW.Queue_InsertedFor_MsgRateTransitionA_at_inport_0_Queue,
-             msg)) {
-        status = 0;
-    }
-
-    // End of Queue generated from: '<S7>/MsgRateTransitionA'
-    return status;
-}
-
-// Function for Chart: '<S7>/MissionUAVScheduling'
-void codegenReal2MissionModelClass::
-    codegenReal2Mission_sf_msg_forward_ExecMsg_ExecMsgA(boolean_T
-    *ExecMsg_isValid)
-{
-    if (*ExecMsg_isValid) {
-        codegenReal2Mission_Receive_SendMsg(static_cast<Msg_missionCmd *>
-            (codegenReal2Mission_DW.ExecMsg_msgHandle));
-        *ExecMsg_isValid = false;
-    }
-}
-
-int32_T codegenReal2MissionModelClass::codegenReal2Mission_Receive_e_SendMsg(
-    const Msg_missionCmd *msg)
-{
-    int32_T status{ 1 };
-
-    // Queue generated from: '<S7>/MsgRateTransitionB'
-    if (codegenReal2Mission_push_i
-            (&codegenReal2Mission_DW.Queue_InsertedFor_MsgRateTransitionB_at_inport_0_Queue,
-             msg)) {
-        status = 0;
-    }
-
-    // End of Queue generated from: '<S7>/MsgRateTransitionB'
-    return status;
-}
-
-// Function for Chart: '<S7>/MissionUAVScheduling'
-void codegenReal2MissionModelClass::
-    codegenReal2Mission_sf_msg_forward_ExecMsg_ExecMsgB(boolean_T
-    *ExecMsg_isValid)
-{
-    if (*ExecMsg_isValid) {
-        codegenReal2Mission_Receive_e_SendMsg(static_cast<Msg_missionCmd *>
-            (codegenReal2Mission_DW.ExecMsg_msgHandle));
-        *ExecMsg_isValid = false;
-    }
-}
-
-// Function for Chart: '<S7>/MissionUAVScheduling'
-void codegenReal2MissionModelClass::codegenReal2Mission_sf_msg_discard_ExecMsg
-    (boolean_T *ExecMsg_isValid)
-{
-    *ExecMsg_isValid = false;
-}
-
-// Function for MATLAB Function: '<S53>/ReadPursuitShiftPercentage'
-int8_T codegenReal2MissionModelClass::codegenReal2Mission_filedata_hj(void)
-    const
-{
-    int32_T k;
-    int8_T f;
-    boolean_T exitg1;
-    f = 0;
-    k = 1;
-    exitg1 = false;
-    while ((!exitg1) && (static_cast<int32_T>(k - 1) < 20)) {
-        if (codegenReal2Mission_DW.eml_openfiles_b[static_cast<int32_T>(
-                static_cast<int32_T>(static_cast<int8_T>(k)) - 1)] == NULL) {
-            f = static_cast<int8_T>(k);
-            exitg1 = true;
-        } else {
-            k = static_cast<int32_T>(k + 1);
-        }
-    }
-
-    return f;
-}
-
-// Function for MATLAB Function: '<S53>/ReadPursuitShiftPercentage'
-int8_T codegenReal2MissionModelClass::codegenReal2Mission_cfopen_k(const char_T *
-    cfilename, const char_T *cpermission)
-{
-    int8_T fileid;
-    int8_T j;
-    fileid = -1;
-    j = codegenReal2Mission_filedata_hj();
-    if (static_cast<int32_T>(j) >= 1) {
-        FILE* filestar;
-        filestar = fopen(cfilename, cpermission);
-        if (filestar != NULL) {
-            int32_T tmp;
-            codegenReal2Mission_DW.eml_openfiles_b[static_cast<int32_T>(
-                static_cast<int32_T>(j) - 1)] = filestar;
-            tmp = static_cast<int32_T>(static_cast<int32_T>(j) + 2);
-            if (static_cast<int32_T>(static_cast<int32_T>(j) + 2) > 127) {
-                tmp = 127;
-            }
-
-            fileid = static_cast<int8_T>(tmp);
-        }
-    }
-
-    return fileid;
-}
-
-// Function for MATLAB Function: '<S53>/ReadPursuitShiftPercentage'
-void codegenReal2MissionModelClass::codegenReal2Mission_fread_e(real_T fileID,
-    emxArray_char_T_codegenReal2Mission_T *A)
-{
-    FILE* filestar;
-    size_t nBytes;
-    char_T tbuf[1024];
-    int8_T fileid;
-    nBytes = sizeof(char_T);
-    fileid = static_cast<int8_T>(fileID);
-    if (fileID != static_cast<real_T>(static_cast<int8_T>(fileID))) {
-        fileid = -1;
-    }
-
-    if (static_cast<int32_T>(fileid) >= 3) {
-        filestar = codegenReal2Mission_DW.eml_openfiles_b[static_cast<int32_T>(
-            static_cast<int32_T>(fileid) - 3)];
-    } else {
-        switch (static_cast<int32_T>(fileid)) {
-          case 0:
-            filestar = stdin;
-            break;
-
-          case 1:
-            filestar = stdout;
-            break;
-
-          case 2:
-            filestar = stderr;
-            break;
-
-          default:
-            filestar = NULL;
-            break;
-        }
-    }
-
-    if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(
-            static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(
-              static_cast<boolean_T>(static_cast<int32_T>((fileID != 0.0) ^ 1)))
-             | static_cast<int32_T>(static_cast<boolean_T>(static_cast<int32_T>
-               ((fileID != 1.0) ^ 1)))))) | static_cast<int32_T>
-            (static_cast<boolean_T>(static_cast<int32_T>((fileID != 2.0) ^ 1))))))
-    {
-        filestar = NULL;
-    }
-
-    A->size[0] = 0;
-    if (static_cast<boolean_T>(static_cast<int32_T>((filestar == NULL) ^ 1))) {
-        int32_T c;
-        c = 1;
-        while (c > 0) {
-            int32_T i;
-            int32_T loop_ub;
-            int32_T numRead;
-            int32_T tmp;
-            c = 0;
-            numRead = 1;
-            while (static_cast<boolean_T>(static_cast<int32_T>((c < 1024) &
-                     (numRead > 0)))) {
-                size_t numReadSizeT;
-                numReadSizeT = fread(&tbuf[c], nBytes, (size_t)(1024 - c),
-                                     filestar);
-                numRead = (int32_T)numReadSizeT;
-                c = static_cast<int32_T>(c + (int32_T)numReadSizeT);
-            }
-
-            numRead = A->size[0];
-            if (c < 1) {
-                i = -1;
-                loop_ub = -1;
-            } else {
-                i = static_cast<int32_T>(c - 1);
-                loop_ub = static_cast<int32_T>(c - 1);
-            }
-
-            tmp = A->size[0];
-            A->size[0] = static_cast<int32_T>(static_cast<int32_T>(i + A->size[0])
-                + 1);
-            codegenReal2Mission_emxEnsureCapacity_char_T(A, tmp);
-            for (i = 0; i <= loop_ub; i++) {
-                A->data[static_cast<int32_T>(numRead + i)] = tbuf[i];
-            }
-        }
-    }
-}
-
-// Function for MATLAB Function: '<S53>/ReadPursuitShiftPercentage'
-int32_T codegenReal2MissionModelClass::codegenReal2Mission_cfclose_l(real_T fid)
-{
-    FILE* filestar;
-    int32_T st;
-    int8_T b_fileid;
-    int8_T fileid;
-    st = -1;
-    fileid = static_cast<int8_T>(fid);
-    if (fid != static_cast<real_T>(static_cast<int8_T>(fid))) {
-        fileid = -1;
-    }
-
-    b_fileid = fileid;
-    if (static_cast<int32_T>(fileid) < 0) {
-        b_fileid = -1;
-    }
-
-    if (static_cast<int32_T>(b_fileid) >= 3) {
-        filestar = codegenReal2Mission_DW.eml_openfiles_b[static_cast<int32_T>(
-            static_cast<int32_T>(b_fileid) - 3)];
-    } else {
-        switch (static_cast<int32_T>(b_fileid)) {
-          case 0:
-            filestar = stdin;
-            break;
-
-          case 1:
-            filestar = stdout;
-            break;
-
-          case 2:
-            filestar = stderr;
-            break;
-
-          default:
-            filestar = NULL;
-            break;
-        }
-    }
-
-    if (static_cast<boolean_T>(static_cast<int32_T>((filestar != NULL) & (
-            static_cast<int32_T>(fileid) >= 3)))) {
-        int32_T cst;
-        cst = fclose(filestar);
-        if (cst == 0) {
-            st = 0;
-            codegenReal2Mission_DW.eml_openfiles_b[static_cast<int32_T>(
-                static_cast<int32_T>(fileid) - 3)] = NULL;
-        }
-    }
-
-    return st;
-}
-
-int32_T codegenReal2MissionModelClass::codegenReal2Mission_Receive_d_RecvData
-    (missionCmd *data)
-{
-    Msg_missionCmd msg;
-    int32_T status{ 1 };
-
-    // Queue generated from: '<S7>/MsgRateTransitionA'
-    if (codegenReal2Mission_pop_h
-            (&codegenReal2Mission_DW.Queue_InsertedFor_MsgRateTransitionA_at_inport_0_Queue,
-             &msg)) {
-        status = 0;
-        *data = msg.fData;
-    }
-
-    // End of Queue generated from: '<S7>/MsgRateTransitionA'
-    return status;
-}
-
-int32_T codegenReal2MissionModelClass::codegenReal2Mission_Receive_RecvData
-    (missionCmd *data)
-{
-    Msg_missionCmd msg;
-    int32_T status{ 1 };
-
-    // Queue generated from: '<S7>/MsgRateTransitionB'
-    if (codegenReal2Mission_pop_h
-            (&codegenReal2Mission_DW.Queue_InsertedFor_MsgRateTransitionB_at_inport_0_Queue,
-             &msg)) {
-        status = 0;
-        *data = msg.fData;
-    }
-
-    // End of Queue generated from: '<S7>/MsgRateTransitionB'
-    return status;
-}
-
-int32_T codegenReal2MissionModelClass::codegenReal2Mission_RcvImmedCMD_RecvData
-    (missionCmd *data)
-{
-    Msg_missionCmd msg;
-    int32_T status{ 1 };
-
-    // Queue generated from: '<S2>/RcvImmedCMD' incorporates:
-    //   DiscreteEventSubgraph generated from: '<S2>/DangerLidarScanPoints'
-
-    if (codegenReal2Mission_pop_h
-            (&codegenReal2Mission_DW.Queue_InsertedFor_RcvImmedCMD_at_inport_0_Queue,
-             &msg)) {
-        status = 0;
-        *data = msg.fData;
-    }
-
-    // End of Queue generated from: '<S2>/RcvImmedCMD'
-    return status;
-}
-
-// Function for MATLAB Function: '<S9>/ReadHomePoint'
-int8_T codegenReal2MissionModelClass::codegenReal2Mission_filedata_p(void) const
-{
-    int32_T k;
-    int8_T f;
-    boolean_T exitg1;
-    f = 0;
-    k = 1;
-    exitg1 = false;
-    while ((!exitg1) && (static_cast<int32_T>(k - 1) < 20)) {
-        if (codegenReal2Mission_DW.eml_openfiles[static_cast<int32_T>(
-                static_cast<int32_T>(static_cast<int8_T>(k)) - 1)] == NULL) {
-            f = static_cast<int8_T>(k);
-            exitg1 = true;
-        } else {
-            k = static_cast<int32_T>(k + 1);
-        }
-    }
-
-    return f;
-}
-
-// Function for MATLAB Function: '<S9>/ReadHomePoint'
-int8_T codegenReal2MissionModelClass::codegenReal2Mission_cfopen_o(const char_T *
-    cfilename, const char_T *cpermission)
-{
-    int8_T fileid;
-    int8_T j;
-    fileid = -1;
-    j = codegenReal2Mission_filedata_p();
-    if (static_cast<int32_T>(j) >= 1) {
-        FILE* filestar;
-        filestar = fopen(cfilename, cpermission);
-        if (filestar != NULL) {
-            int32_T tmp;
-            codegenReal2Mission_DW.eml_openfiles[static_cast<int32_T>(
-                static_cast<int32_T>(j) - 1)] = filestar;
-            tmp = static_cast<int32_T>(static_cast<int32_T>(j) + 2);
-            if (static_cast<int32_T>(static_cast<int32_T>(j) + 2) > 127) {
-                tmp = 127;
-            }
-
-            fileid = static_cast<int8_T>(tmp);
-        }
-    }
-
-    return fileid;
-}
-
-// Function for MATLAB Function: '<S9>/ReadHomePoint'
-void codegenReal2MissionModelClass::codegenReal2Mission_fread_i(real_T fileID,
-    emxArray_char_T_codegenReal2Mission_T *A)
-{
-    FILE* filestar;
-    size_t nBytes;
-    char_T tbuf[1024];
-    int8_T fileid;
-    nBytes = sizeof(char_T);
-    fileid = static_cast<int8_T>(fileID);
-    if (fileID != static_cast<real_T>(static_cast<int8_T>(fileID))) {
-        fileid = -1;
-    }
-
-    if (static_cast<int32_T>(fileid) >= 3) {
-        filestar = codegenReal2Mission_DW.eml_openfiles[static_cast<int32_T>(
-            static_cast<int32_T>(fileid) - 3)];
-    } else {
-        switch (static_cast<int32_T>(fileid)) {
-          case 0:
-            filestar = stdin;
-            break;
-
-          case 1:
-            filestar = stdout;
-            break;
-
-          case 2:
-            filestar = stderr;
-            break;
-
-          default:
-            filestar = NULL;
-            break;
-        }
-    }
-
-    if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(
-            static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(
-              static_cast<boolean_T>(static_cast<int32_T>((fileID != 0.0) ^ 1)))
-             | static_cast<int32_T>(static_cast<boolean_T>(static_cast<int32_T>
-               ((fileID != 1.0) ^ 1)))))) | static_cast<int32_T>
-            (static_cast<boolean_T>(static_cast<int32_T>((fileID != 2.0) ^ 1))))))
-    {
-        filestar = NULL;
-    }
-
-    A->size[0] = 0;
-    if (static_cast<boolean_T>(static_cast<int32_T>((filestar == NULL) ^ 1))) {
-        int32_T c;
-        c = 1;
-        while (c > 0) {
-            int32_T i;
-            int32_T loop_ub;
-            int32_T numRead;
-            int32_T tmp;
-            c = 0;
-            numRead = 1;
-            while (static_cast<boolean_T>(static_cast<int32_T>((c < 1024) &
-                     (numRead > 0)))) {
-                size_t numReadSizeT;
-                numReadSizeT = fread(&tbuf[c], nBytes, (size_t)(1024 - c),
-                                     filestar);
-                numRead = (int32_T)numReadSizeT;
-                c = static_cast<int32_T>(c + (int32_T)numReadSizeT);
-            }
-
-            numRead = A->size[0];
-            if (c < 1) {
-                i = -1;
-                loop_ub = -1;
-            } else {
-                i = static_cast<int32_T>(c - 1);
-                loop_ub = static_cast<int32_T>(c - 1);
-            }
-
-            tmp = A->size[0];
-            A->size[0] = static_cast<int32_T>(static_cast<int32_T>(i + A->size[0])
-                + 1);
-            codegenReal2Mission_emxEnsureCapacity_char_T(A, tmp);
-            for (i = 0; i <= loop_ub; i++) {
-                A->data[static_cast<int32_T>(numRead + i)] = tbuf[i];
-            }
-        }
-    }
-}
-
-// Function for MATLAB Function: '<S9>/ReadHomePoint'
-int32_T codegenReal2MissionModelClass::codegenReal2Mission_cfclose_m(real_T fid)
-{
-    FILE* filestar;
-    int32_T st;
-    int8_T b_fileid;
-    int8_T fileid;
-    st = -1;
-    fileid = static_cast<int8_T>(fid);
-    if (fid != static_cast<real_T>(static_cast<int8_T>(fid))) {
-        fileid = -1;
-    }
-
-    b_fileid = fileid;
-    if (static_cast<int32_T>(fileid) < 0) {
-        b_fileid = -1;
-    }
-
-    if (static_cast<int32_T>(b_fileid) >= 3) {
-        filestar = codegenReal2Mission_DW.eml_openfiles[static_cast<int32_T>(
-            static_cast<int32_T>(b_fileid) - 3)];
-    } else {
-        switch (static_cast<int32_T>(b_fileid)) {
-          case 0:
-            filestar = stdin;
-            break;
-
-          case 1:
-            filestar = stdout;
-            break;
-
-          case 2:
-            filestar = stderr;
-            break;
-
-          default:
-            filestar = NULL;
-            break;
-        }
-    }
-
-    if (static_cast<boolean_T>(static_cast<int32_T>((filestar != NULL) & (
-            static_cast<int32_T>(fileid) >= 3)))) {
-        int32_T cst;
-        cst = fclose(filestar);
-        if (cst == 0) {
-            st = 0;
-            codegenReal2Mission_DW.eml_openfiles[static_cast<int32_T>(
-                static_cast<int32_T>(fileid) - 3)] = NULL;
-        }
-    }
-
-    return st;
-}
-
 int32_T codegenReal2MissionModelClass::
     codegenReal2Mission_ReceiveThisMission_RecvData(missionCmd *data)
 {
@@ -6002,7 +6003,7 @@ int32_T codegenReal2MissionModelClass::
 }
 
 // Function for MATLAB Function: '<S42>/TimeConverter'
-void codegenReal2MissionModelClass::codegenReal2Mission_getDateVec_b(real_T dd,
+void codegenReal2MissionModelClass::codegenReal2Mission_getDateVec(real_T dd,
     real_T *y, real_T *mo, real_T *d, real_T *h, real_T *m, real_T *s)
 {
     creal_T a;
@@ -6251,510 +6252,6 @@ void codegenReal2MissionModelClass::codegenReal2Mission_getDateVec_b(real_T dd,
     }
 }
 
-// Function for MATLAB Function: '<S42>/PrintOnboardLog'
-int8_T codegenReal2MissionModelClass::codegenReal2Mission_filedata_d(void) const
-{
-    int32_T k;
-    int8_T f;
-    boolean_T exitg1;
-    f = 0;
-    k = 1;
-    exitg1 = false;
-    while ((!exitg1) && (static_cast<int32_T>(k - 1) < 20)) {
-        if (codegenReal2Mission_DW.eml_openfiles_l[static_cast<int32_T>(
-                static_cast<int32_T>(static_cast<int8_T>(k)) - 1)] == NULL) {
-            f = static_cast<int8_T>(k);
-            exitg1 = true;
-        } else {
-            k = static_cast<int32_T>(k + 1);
-        }
-    }
-
-    return f;
-}
-
-// Function for MATLAB Function: '<S42>/PrintOnboardLog'
-int8_T codegenReal2MissionModelClass::codegenReal2Mission_cfopen_m(const char_T *
-    cfilename, const char_T *cpermission)
-{
-    int8_T fileid;
-    int8_T j;
-    fileid = -1;
-    j = codegenReal2Mission_filedata_d();
-    if (static_cast<int32_T>(j) >= 1) {
-        FILE* filestar;
-        filestar = fopen(cfilename, cpermission);
-        if (filestar != NULL) {
-            int32_T tmp;
-            codegenReal2Mission_DW.eml_openfiles_l[static_cast<int32_T>(
-                static_cast<int32_T>(j) - 1)] = filestar;
-            codegenReal2Mission_DW.eml_autoflush_p[static_cast<int32_T>(
-                static_cast<int32_T>(j) - 1)] = true;
-            tmp = static_cast<int32_T>(static_cast<int32_T>(j) + 2);
-            if (static_cast<int32_T>(static_cast<int32_T>(j) + 2) > 127) {
-                tmp = 127;
-            }
-
-            fileid = static_cast<int8_T>(tmp);
-        }
-    }
-
-    return fileid;
-}
-
-// Function for MATLAB Function: '<S42>/PrintOnboardLog'
-void codegenReal2MissionModelClass::codegenReal2Mission_fileManager(real_T
-    varargin_1, FILE* *f, boolean_T *a)
-{
-    int8_T fileid;
-    fileid = static_cast<int8_T>(varargin_1);
-    if (static_cast<boolean_T>(static_cast<int32_T>((static_cast<int32_T>(
-            static_cast<int8_T>(varargin_1)) < 0) | (varargin_1 !=
-            static_cast<real_T>(static_cast<int8_T>(varargin_1)))))) {
-        fileid = -1;
-    }
-
-    if (static_cast<int32_T>(fileid) >= 3) {
-        *f = codegenReal2Mission_DW.eml_openfiles_l[static_cast<int32_T>(
-            static_cast<int32_T>(fileid) - 3)];
-        *a = codegenReal2Mission_DW.eml_autoflush_p[static_cast<int32_T>(
-            static_cast<int32_T>(fileid) - 3)];
-    } else {
-        switch (static_cast<int32_T>(fileid)) {
-          case 0:
-            *f = stdin;
-            *a = true;
-            break;
-
-          case 1:
-            *f = stdout;
-            *a = true;
-            break;
-
-          case 2:
-            *f = stderr;
-            *a = true;
-            break;
-
-          default:
-            *f = NULL;
-            *a = true;
-            break;
-        }
-    }
-}
-
-// Function for MATLAB Function: '<S42>/PrintOnboardLog'
-void codegenReal2MissionModelClass::codegenReal2Mission_printIndivMissionCMD
-    (int32_T IndivMissionCMD_SequenceID, MissionModes
-     IndivMissionCMD_MissionMode, real_T IndivMissionCMD_MissionLocation_Lat,
-     real_T IndivMissionCMD_MissionLocation_Lon, real_T
-     IndivMissionCMD_MissionLocation_Alt, real_T
-     IndivMissionCMD_MissionLocation_degHDG, real32_T
-     IndivMissionCMD_params_Param1, real32_T IndivMissionCMD_params_Param2,
-     real32_T IndivMissionCMD_params_Param3, real32_T
-     IndivMissionCMD_params_Param4, real32_T IndivMissionCMD_params_Param5,
-     real32_T IndivMissionCMD_params_Param6, real32_T
-     IndivMissionCMD_params_Param7, const Location IndivMissionCMD_StartPosition,
-     int32_T IndivMissionCMD_numUAV, int32_T IndivMissionCMD_FormationPos, const
-     Time IndivMissionCMD_StartTime, real_T fileID)
-{
-    FILE* b_NULL;
-    FILE* filestar;
-    creal_T TimeNow_data;
-    real_T b_validatedHoleFilling[7];
-    real_T a__1;
-    real_T a__11;
-    real_T a__17;
-    real_T a__2;
-    real_T a__23;
-    real_T a__29;
-    real_T a__3;
-    real_T a__35;
-    real_T a__4;
-    real_T a__5;
-    real_T b_a__35;
-    real_T b_varargin_1;
-    real_T x;
-    int32_T validatedHoleFilling[7];
-    int32_T b_Value_size[2];
-    char_T varargin_1_data[16];
-    char_T b_Value_data[15];
-    boolean_T autoflush;
-    b_NULL = NULL;
-    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
-    if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
-    {
-        fprintf(filestar, "\n====== Display Mission Command ======\n");
-        if (autoflush) {
-            fflush(filestar);
-        }
-    }
-
-    b_NULL = NULL;
-    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
-    if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
-    {
-        fprintf(filestar, "Sequence ID:\t\t%d\n", IndivMissionCMD_SequenceID);
-        if (autoflush) {
-            fflush(filestar);
-        }
-    }
-
-    codegenReal2Mission_string_string(IndivMissionCMD_MissionMode, b_Value_data,
-        b_Value_size);
-    b_NULL = NULL;
-    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
-    if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
-    {
-        int32_T b_Value_idx_0;
-        b_Value_idx_0 = b_Value_size[1];
-        for (int32_T varargin_1_data_tmp{0}; varargin_1_data_tmp <= static_cast<
-                int32_T>(b_Value_idx_0 - 1); varargin_1_data_tmp++) {
-            varargin_1_data[varargin_1_data_tmp] =
-                b_Value_data[varargin_1_data_tmp];
-        }
-
-        varargin_1_data[b_Value_size[1]] = '\x00';
-        fprintf(filestar, "Mission Mode:\t\t%s\n", &varargin_1_data[0]);
-        if (autoflush) {
-            fflush(filestar);
-        }
-    }
-
-    b_NULL = NULL;
-    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
-    if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
-    {
-        fprintf(filestar, "Mission Location: \n");
-        if (autoflush) {
-            fflush(filestar);
-        }
-    }
-
-    b_NULL = NULL;
-    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
-    if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
-    {
-        fprintf(filestar, "\tLatitude:\t\t%f\n",
-                IndivMissionCMD_MissionLocation_Lat);
-        if (autoflush) {
-            fflush(filestar);
-        }
-    }
-
-    b_NULL = NULL;
-    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
-    if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
-    {
-        fprintf(filestar, "\tLongitude:\t\t%f\n",
-                IndivMissionCMD_MissionLocation_Lon);
-        if (autoflush) {
-            fflush(filestar);
-        }
-    }
-
-    b_NULL = NULL;
-    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
-    if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
-    {
-        fprintf(filestar, "\tAltitude:\t\t%f\n",
-                IndivMissionCMD_MissionLocation_Alt);
-        if (autoflush) {
-            fflush(filestar);
-        }
-    }
-
-    b_NULL = NULL;
-    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
-    if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
-    {
-        fprintf(filestar, "\tHeading:\t\t%f\n",
-                IndivMissionCMD_MissionLocation_degHDG);
-        if (autoflush) {
-            fflush(filestar);
-        }
-    }
-
-    b_NULL = NULL;
-    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
-    if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
-    {
-        fprintf(filestar, "Parameters: \n");
-        if (autoflush) {
-            fflush(filestar);
-        }
-    }
-
-    b_NULL = NULL;
-    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
-    if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
-    {
-        fprintf(filestar, "\tparam1:\t\t%f\n", IndivMissionCMD_params_Param1);
-        if (autoflush) {
-            fflush(filestar);
-        }
-    }
-
-    b_NULL = NULL;
-    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
-    if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
-    {
-        fprintf(filestar, "\tparam2:\t\t%f\n", IndivMissionCMD_params_Param2);
-        if (autoflush) {
-            fflush(filestar);
-        }
-    }
-
-    b_NULL = NULL;
-    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
-    if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
-    {
-        fprintf(filestar, "\tparam3:\t\t%f\n", IndivMissionCMD_params_Param3);
-        if (autoflush) {
-            fflush(filestar);
-        }
-    }
-
-    b_NULL = NULL;
-    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
-    if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
-    {
-        fprintf(filestar, "\tparam4:\t\t%f\n", IndivMissionCMD_params_Param4);
-        if (autoflush) {
-            fflush(filestar);
-        }
-    }
-
-    b_NULL = NULL;
-    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
-    if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
-    {
-        fprintf(filestar, "\tparam5:\t\t%f\n", IndivMissionCMD_params_Param5);
-        if (autoflush) {
-            fflush(filestar);
-        }
-    }
-
-    b_NULL = NULL;
-    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
-    if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
-    {
-        fprintf(filestar, "\tparam6:\t\t%f\n", IndivMissionCMD_params_Param6);
-        if (autoflush) {
-            fflush(filestar);
-        }
-    }
-
-    b_NULL = NULL;
-    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
-    if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
-    {
-        fprintf(filestar, "\tparam7:\t\t%f\n", IndivMissionCMD_params_Param7);
-        if (autoflush) {
-            fflush(filestar);
-        }
-    }
-
-    b_NULL = NULL;
-    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
-    if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
-    {
-        fprintf(filestar, "Start Position: \n");
-        if (autoflush) {
-            fflush(filestar);
-        }
-    }
-
-    b_NULL = NULL;
-    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
-    if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
-    {
-        fprintf(filestar, "\tLatitude:\t\t%f\n",
-                IndivMissionCMD_StartPosition.Lat);
-        if (autoflush) {
-            fflush(filestar);
-        }
-    }
-
-    b_NULL = NULL;
-    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
-    if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
-    {
-        fprintf(filestar, "\tLongitude:\t\t%f\n",
-                IndivMissionCMD_StartPosition.Lon);
-        if (autoflush) {
-            fflush(filestar);
-        }
-    }
-
-    b_NULL = NULL;
-    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
-    if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
-    {
-        fprintf(filestar, "\tAltitude:\t\t%f\n",
-                IndivMissionCMD_StartPosition.Alt);
-        if (autoflush) {
-            fflush(filestar);
-        }
-    }
-
-    b_NULL = NULL;
-    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
-    if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
-    {
-        fprintf(filestar, "\tHeading:\t\t%f\n",
-                IndivMissionCMD_StartPosition.degHDG);
-        if (autoflush) {
-            fflush(filestar);
-        }
-    }
-
-    b_NULL = NULL;
-    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
-    if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
-    {
-        fprintf(filestar, "Number of UAVs:\t\t%d\n", IndivMissionCMD_numUAV);
-        if (autoflush) {
-            fflush(filestar);
-        }
-    }
-
-    b_NULL = NULL;
-    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
-    if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
-    {
-        fprintf(filestar, "Formation Position:\t%d\n",
-                IndivMissionCMD_FormationPos);
-        if (autoflush) {
-            fflush(filestar);
-        }
-    }
-
-    validate_print_arguments_K2cMgYpT(IndivMissionCMD_StartTime.year,
-        IndivMissionCMD_StartTime.month, IndivMissionCMD_StartTime.day,
-        IndivMissionCMD_StartTime.hour, IndivMissionCMD_StartTime.minute,
-        IndivMissionCMD_StartTime.second, IndivMissionCMD_StartTime.millisecond,
-        validatedHoleFilling);
-    b_NULL = NULL;
-    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
-    if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
-    {
-        fprintf(filestar, "Start Time:   %04d-%02d-%02d %02d:%02d:%02d.%03d\n",
-                validatedHoleFilling[0], validatedHoleFilling[1],
-                validatedHoleFilling[2], validatedHoleFilling[3],
-                validatedHoleFilling[4], validatedHoleFilling[5],
-                validatedHoleFilling[6]);
-        if (autoflush) {
-            fflush(filestar);
-        }
-    }
-
-    TimeNow_data = codegenReal2Mission_datetime_datetime();
-    codegenReal2Mission_getDateVec(TimeNow_data, &b_varargin_1, &a__1, &a__2,
-        &a__3, &a__4, &a__5);
-    codegenReal2Mission_getDateVec(TimeNow_data, &a__2, &a__1, &a__3, &a__4,
-        &a__5, &a__11);
-    codegenReal2Mission_getDateVec(TimeNow_data, &a__3, &a__4, &a__2, &a__5,
-        &a__11, &a__17);
-    codegenReal2Mission_getDateVec(TimeNow_data, &a__4, &a__5, &a__11, &a__3,
-        &a__17, &a__23);
-    codegenReal2Mission_getDateVec(TimeNow_data, &a__5, &a__11, &a__17, &a__23,
-        &a__4, &a__29);
-    codegenReal2Mission_getDateVec(TimeNow_data, &a__11, &a__17, &a__23, &a__29,
-        &a__35, &a__5);
-    codegenReal2Mission_getDateVec(TimeNow_data, &a__17, &a__23, &a__29, &a__35,
-        &b_a__35, &a__11);
-    codegenReal2Mission_getDateVec(TimeNow_data, &a__17, &a__23, &a__29, &a__35,
-        &b_a__35, &x);
-    validate_print_arguments_csk21eNA(b_varargin_1, a__1, a__2, a__3, a__4, std::
-        floor(a__5), std::round((a__11 - std::floor(x)) * 1000.0),
-        b_validatedHoleFilling);
-    b_NULL = NULL;
-    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
-    if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
-    {
-        fprintf(filestar,
-                "Current Time: %04.0f-%02.0f-%02.0f %02.0f:%02.0f:%02.0f.%03.0f\n",
-                b_validatedHoleFilling[0], b_validatedHoleFilling[1],
-                b_validatedHoleFilling[2], b_validatedHoleFilling[3],
-                b_validatedHoleFilling[4], b_validatedHoleFilling[5],
-                b_validatedHoleFilling[6]);
-        if (autoflush) {
-            fflush(filestar);
-        }
-    }
-
-    b_NULL = NULL;
-    codegenReal2Mission_fileManager(fileID, &filestar, &autoflush);
-    if (static_cast<boolean_T>(static_cast<int32_T>((filestar == b_NULL) ^ 1)))
-    {
-        fprintf(filestar, "\n");
-        if (autoflush) {
-            fflush(filestar);
-        }
-    }
-}
-
-// Function for MATLAB Function: '<S42>/PrintOnboardLog'
-int32_T codegenReal2MissionModelClass::codegenReal2Mission_cfclose_h(real_T fid)
-{
-    FILE* filestar;
-    int32_T st;
-    int8_T b_fileid;
-    int8_T fileid;
-    st = -1;
-    fileid = static_cast<int8_T>(fid);
-    if (static_cast<boolean_T>(static_cast<int32_T>((static_cast<int32_T>(
-            static_cast<int8_T>(fid)) < 0) | (fid != static_cast<real_T>(
-            static_cast<int8_T>(fid)))))) {
-        fileid = -1;
-    }
-
-    b_fileid = fileid;
-    if (static_cast<int32_T>(fileid) < 0) {
-        b_fileid = -1;
-    }
-
-    if (static_cast<int32_T>(b_fileid) >= 3) {
-        filestar = codegenReal2Mission_DW.eml_openfiles_l[static_cast<int32_T>(
-            static_cast<int32_T>(b_fileid) - 3)];
-    } else {
-        switch (static_cast<int32_T>(b_fileid)) {
-          case 0:
-            filestar = stdin;
-            break;
-
-          case 1:
-            filestar = stdout;
-            break;
-
-          case 2:
-            filestar = stderr;
-            break;
-
-          default:
-            filestar = NULL;
-            break;
-        }
-    }
-
-    if (static_cast<boolean_T>(static_cast<int32_T>((filestar != NULL) & (
-            static_cast<int32_T>(fileid) >= 3)))) {
-        int32_T cst;
-        cst = fclose(filestar);
-        if (cst == 0) {
-            st = 0;
-            codegenReal2Mission_DW.eml_openfiles_l[static_cast<int32_T>(
-                static_cast<int32_T>(fileid) - 3)] = NULL;
-            codegenReal2Mission_DW.eml_autoflush_p[static_cast<int32_T>(
-                static_cast<int32_T>(fileid) - 3)] = true;
-        }
-    }
-
-    return st;
-}
-
 int32_T codegenReal2MissionModelClass::
     codegenReal2Mission_ReceiveMissionA_SendData(const missionCmd *data)
 {
@@ -6762,7 +6259,7 @@ int32_T codegenReal2MissionModelClass::
     int32_T status{ 1 };
 
     // DiscreteEventSubgraph generated from: '<S2>/DangerLidarScanPoints' incorporates:
-    //   Send: '<S48>/Send'
+    //   Send: '<S47>/Send'
 
     msg = codegenReal2Mission_createMsg_f(data);
 
@@ -6801,7 +6298,7 @@ int32_T codegenReal2MissionModelClass::
     int32_T status{ 1 };
 
     // DiscreteEventSubgraph generated from: '<S2>/DangerLidarScanPoints' incorporates:
-    //   Send: '<S49>/Send'
+    //   Send: '<S48>/Send'
 
     msg = codegenReal2Mission_createMsg_f(data);
 
@@ -6837,7 +6334,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_initQueue
     (Queue_IndividualUAVCmd *q, QueuePolicy_T policy, int32_T capacity,
      Msg_IndividualUAVCmd *qPool)
 {
-    // Start for Queue: '<S84>/Queue'
+    // Start for Queue: '<S83>/Queue'
     q->fPolicy = policy;
     q->fCapacity = capacity;
     q->fHead = -1;
@@ -6869,6 +6366,7 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
     DangerInfo rtb_CreatDanger;
     FixedWingGuidanceStateBus rtb_FixedWingGuidanceStateBus;
     FixedWingGuidanceStateBus rtb_SwitchMissionUAVState;
+    IndividualUAVCmd rtb_IndivCMD;
     TaskStatus rtb_CreateStatusBus;
     emxArray_char_T_codegenReal2Mission_T *b_curKey;
     emxArray_char_T_codegenReal2Mission_T *curKey;
@@ -6909,9 +6407,9 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
     emxArray_char_T_codegenReal2Mission_T *tmp_n;
     emxArray_char_T_codegenReal2Mission_T *tmp_o;
     emxArray_char_T_codegenReal2Mission_T *x;
+    emxArray_real_T_codegenReal2Mission_T *Lat_0;
     emxArray_real_T_codegenReal2Mission_T *b_b;
     emxArray_real_T_codegenReal2Mission_T *b_tmp;
-    emxArray_real_T_codegenReal2Mission_T *fid_0;
     emxArray_real_T_codegenReal2Mission_T *theta;
     emxArray_real_T_codegenReal2Mission_T *tmp;
     emxArray_real_T_codegenReal2Mission_T *varargin_2;
@@ -6945,7 +6443,7 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
     real_T b_a__35;
     real_T b_x_0;
     real_T da_im;
-    real_T rtb_Sum1_o_idx_0;
+    real_T rtb_Sum1_idx_0;
     int32_T indx_data[64];
     int32_T ipos_data[64];
     int32_T b;
@@ -6992,6 +6490,15 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
         ((&codegenReal2Mission_M)->Timing.RateInteraction.TID1_2)++;
         if (((&codegenReal2Mission_M)->Timing.RateInteraction.TID1_2) > 1) {
             (&codegenReal2Mission_M)->Timing.RateInteraction.TID1_2 = 0;
+        }
+
+        // Update the flag to indicate when data transfers from
+        //   Sample time: [0.1s, 0.0s] to Sample time: [1.0s, 0.0s]
+        (&codegenReal2Mission_M)->Timing.RateInteraction.b_TID1_3 =
+            ((&codegenReal2Mission_M)->Timing.RateInteraction.TID1_3 == 0);
+        ((&codegenReal2Mission_M)->Timing.RateInteraction.TID1_3)++;
+        if (((&codegenReal2Mission_M)->Timing.RateInteraction.TID1_3) > 9) {
+            (&codegenReal2Mission_M)->Timing.RateInteraction.TID1_3 = 0;
         }
     }                                  // end MajorTimeStep
 
@@ -7548,21 +7055,21 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
         switch (codegenReal2Mission_DW.RateTransition_RDBuf) {
           case 0:
             for (i = 0; i < 4096; i++) {
-                codegenReal2Mission_DW.RateTransition[i] =
+                codegenReal2Mission_DW.RateTransition_c[i] =
                     codegenReal2Mission_DW.RateTransition_Buf0[i];
             }
             break;
 
           case 1:
             for (i = 0; i < 4096; i++) {
-                codegenReal2Mission_DW.RateTransition[i] =
+                codegenReal2Mission_DW.RateTransition_c[i] =
                     codegenReal2Mission_DW.RateTransition_Buf1[i];
             }
             break;
 
           case 2:
             for (i = 0; i < 4096; i++) {
-                codegenReal2Mission_DW.RateTransition[i] =
+                codegenReal2Mission_DW.RateTransition_c[i] =
                     codegenReal2Mission_DW.RateTransition_Buf2[i];
             }
             break;
@@ -8149,19 +7656,19 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
 
         // Outputs for Atomic SubSystem: '<S2>/PreProcessMissionCMD'
         // Outputs for Atomic SubSystem: '<S10>/MissionValidation'
-        // Receive: '<S83>/Receive'
-        wholeSecsFromMillis = codegenReal2Mission_Receive_k_RecvData
+        // Receive: '<S82>/Receive'
+        wholeSecsFromMillis = codegenReal2Mission_Receive_RecvData
             (&codegenReal2Mission_DW.Receive_o2_m);
 
-        // Outputs for Enabled SubSystem: '<S83>/TriggerMissionDispatch' incorporates:
-        //   EnablePort: '<S85>/Enable'
+        // Outputs for Enabled SubSystem: '<S82>/TriggerMissionDispatch' incorporates:
+        //   EnablePort: '<S84>/Enable'
 
         if (wholeSecsFromMillis != 1) {
-            // MATLAB Function: '<S85>/CommandCheck' incorporates:
-            //   DataStoreRead: '<S85>/ReadPreviousCMD'
+            // MATLAB Function: '<S84>/CommandCheck' incorporates:
+            //   DataStoreRead: '<S84>/ReadPreviousCMD'
 
-            // MATLAB Function 'MissionLogic/PreProcessMissionCMD/MissionValidation/TriggerMissionDispatch/CommandCheck': '<S86>:1' 
-            // '<S86>:1:6'
+            // MATLAB Function 'MissionLogic/PreProcessMissionCMD/MissionValidation/TriggerMissionDispatch/CommandCheck': '<S85>:1' 
+            // '<S85>:1:6'
             processedInData[0] = static_cast<real_T>
                 (codegenReal2Mission_DW.Receive_o2_m.StartTime.year);
             processedInData[1] = static_cast<real_T>
@@ -8222,8 +7729,8 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
             rtb_ImmedCMD.StartTime = 0.0;
             if (codegenReal2Mission_DW.Receive_o2_m.MissionMode != MissionModes::
                     TuneADRC) {
-                // '<S86>:1:8'
-                // '<S86>:1:9'
+                // '<S85>:1:8'
+                // '<S85>:1:9'
                 if (static_cast<boolean_T>(static_cast<int32_T>
                                            (static_cast<int32_T>
                                             (codegenReal2Mission_isequaln
@@ -8359,17 +7866,17 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
 
                         Lon = fid * 1000.0;
                         codegenReal2Mission_getDateVec_i(Lon, &Lat, &Alt, &b_I,
-                            &D, &a__4, &rtb_Sum1_o_idx_0);
+                            &D, &a__4, &rtb_Sum1_idx_0);
                         codegenReal2Mission_getDateVec_i(Lon, &b_I, &Alt, &D,
-                            &a__4, &rtb_Sum1_o_idx_0, &da_im);
+                            &a__4, &rtb_Sum1_idx_0, &da_im);
                         codegenReal2Mission_getDateVec_i(Lon, &D, &a__4, &b_I,
-                            &rtb_Sum1_o_idx_0, &da_im, &a__17);
+                            &rtb_Sum1_idx_0, &da_im, &a__17);
                         codegenReal2Mission_getDateVec_i(Lon, &a__4,
-                            &rtb_Sum1_o_idx_0, &da_im, &D, &a__17, &a__23);
-                        codegenReal2Mission_getDateVec_i(Lon, &rtb_Sum1_o_idx_0,
+                            &rtb_Sum1_idx_0, &da_im, &D, &a__17, &a__23);
+                        codegenReal2Mission_getDateVec_i(Lon, &rtb_Sum1_idx_0,
                             &da_im, &a__17, &a__23, &a__4, &a__29);
                         codegenReal2Mission_getDateVec_i(Lon, &da_im, &a__17,
-                            &a__23, &a__29, &a__35, &rtb_Sum1_o_idx_0);
+                            &a__23, &a__29, &a__35, &rtb_Sum1_idx_0);
                         codegenReal2Mission_getDateVec_i(Lon, &a__17, &a__23,
                             &a__29, &a__35, &b_a__35, &da_im);
                         codegenReal2Mission_getDateVec_i(Lon, &a__17, &a__23,
@@ -8379,7 +7886,7 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
                         b_I = std::round(b_I);
                         D = std::round(D);
                         a__4 = std::round(a__4);
-                        rtb_Sum1_o_idx_0 = std::floor(rtb_Sum1_o_idx_0);
+                        rtb_Sum1_idx_0 = std::floor(rtb_Sum1_idx_0);
                         da_im = std::round((da_im - std::floor(b_x_0)) * 1000.0);
                         if (a__17 < 2.147483648E+9) {
                             if (a__17 >= -2.147483648E+9) {
@@ -8431,9 +7938,9 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
                             b = MAX_int32_T;
                         }
 
-                        if (rtb_Sum1_o_idx_0 < 2.147483648E+9) {
-                            if (rtb_Sum1_o_idx_0 >= -2.147483648E+9) {
-                                md2 = static_cast<int32_T>(rtb_Sum1_o_idx_0);
+                        if (rtb_Sum1_idx_0 < 2.147483648E+9) {
+                            if (rtb_Sum1_idx_0 >= -2.147483648E+9) {
+                                md2 = static_cast<int32_T>(rtb_Sum1_idx_0);
                             } else {
                                 md2 = MIN_int32_T;
                             }
@@ -8474,9 +7981,9 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
                         codegenReal2Mission_getDateVec_ii(TimeNow_data, &Lon,
                             &Alt, &b_I, &D, &a__4, &Lat);
                         codegenReal2Mission_getDateVec_ii(TimeNow_data, &Alt,
-                            &b_I, &D, &a__4, &rtb_Sum1_o_idx_0, &Lon);
+                            &b_I, &D, &a__4, &rtb_Sum1_idx_0, &Lon);
                         codegenReal2Mission_getDateVec_ii(TimeNow_data, &Alt,
-                            &b_I, &D, &a__4, &rtb_Sum1_o_idx_0, &da_im);
+                            &b_I, &D, &a__4, &rtb_Sum1_idx_0, &da_im);
                         printf("Current Time: %04.0f-%02.0f-%02.0f %02.0f:%02.0f:%02.0f.%03.0f\n",
                                b_x_0, a__17, a__23, a__29, a__35, std::floor(Lat),
                                std::round(1000.0 * (Lon - std::floor(da_im))));
@@ -8484,7 +7991,7 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
                     }
                 }
 
-                // '<S86>:1:10'
+                // '<S85>:1:10'
                 rtb_FeedbackCMD.SequenceID =
                     codegenReal2Mission_DW.Receive_o2_m.SequenceID;
                 rtb_FeedbackCMD.MissionMode =
@@ -8501,7 +8008,7 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
                     codegenReal2Mission_DW.Receive_o2_m.FormationPos;
                 rtb_FeedbackCMD.StartTime = fid;
             } else {
-                // '<S86>:1:12'
+                // '<S85>:1:12'
                 rtb_FeedbackCMD.SequenceID =
                     codegenReal2Mission_DW.Receive_o2_m.SequenceID;
                 rtb_FeedbackCMD.MissionMode =
@@ -8532,59 +8039,59 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
                 codegenReal2Mission_DW.ParamADRC_e.useADRC =
                     (codegenReal2Mission_DW.Receive_o2_m.params.Param7 != 0.0F);
 
-                // '<S86>:1:14'
+                // '<S85>:1:14'
             }
 
-            // DataStoreWrite: '<S85>/WriteCurrentCMD'
-            // '<S86>:1:27'
-            // '<S86>:1:28'
+            // DataStoreWrite: '<S84>/WriteCurrentCMD'
+            // '<S85>:1:27'
+            // '<S85>:1:28'
             codegenReal2Mission_DW.MissionCMD = rtb_FeedbackCMD;
 
-            // Send: '<S85>/PushCMD' incorporates:
-            //   MATLAB Function: '<S85>/CommandCheck'
+            // Send: '<S84>/PushCMD' incorporates:
+            //   MATLAB Function: '<S84>/CommandCheck'
 
             if (NichtAvoidDanger) {
                 codegenReal2Mission_RcvNextMission_SendData(&rtb_FlightCMD);
             }
 
-            // End of Send: '<S85>/PushCMD'
+            // End of Send: '<S84>/PushCMD'
 
-            // Send: '<S85>/SendFeedbackMissionCMD'
+            // Send: '<S84>/SendFeedbackMissionCMD'
             codegenReal2Mission_ReceiveThisMission_SendData(&rtb_FeedbackCMD);
 
-            // Send: '<S85>/SndImmedCMD' incorporates:
-            //   MATLAB Function: '<S85>/CommandCheck'
+            // Send: '<S84>/SndImmedCMD' incorporates:
+            //   MATLAB Function: '<S84>/CommandCheck'
 
             if (rtb_NotEqual) {
                 codegenReal2Mission_RcvImmedCMD_SendData(&rtb_ImmedCMD);
             }
 
-            // End of Send: '<S85>/SndImmedCMD'
+            // End of Send: '<S84>/SndImmedCMD'
         }
 
-        // End of Receive: '<S83>/Receive'
-        // End of Outputs for SubSystem: '<S83>/TriggerMissionDispatch'
+        // End of Receive: '<S82>/Receive'
+        // End of Outputs for SubSystem: '<S82>/TriggerMissionDispatch'
         // End of Outputs for SubSystem: '<S10>/MissionValidation'
 
         // Outputs for Atomic SubSystem: '<S10>/QueueCMD'
-        // Receive: '<S84>/Receive'
+        // Receive: '<S83>/Receive'
         wholeSecsFromMillis = 1;
         MissionCMDRecvData.RecvData(&codegenReal2Mission_DW.Receive_o2, sizeof
             (IndividualUAVCmd), &wholeSecsFromMillis);
         rtb_Receive_o1_m = (wholeSecsFromMillis != 1);
 
-        // Outputs for Enabled SubSystem: '<S84>/UplinkLog' incorporates:
-        //   EnablePort: '<S95>/Enable'
+        // Outputs for Enabled SubSystem: '<S83>/UplinkLog' incorporates:
+        //   EnablePort: '<S94>/Enable'
 
         if (rtb_Receive_o1_m) {
-            // MATLAB Function: '<S95>/PrintOnboardLog'
-            // MATLAB Function 'MissionLogic/PreProcessMissionCMD/QueueCMD/UplinkLog/PrintOnboardLog': '<S98>:1' 
-            // '<S98>:1:3'
+            // MATLAB Function: '<S94>/PrintOnboardLog'
+            // MATLAB Function 'MissionLogic/PreProcessMissionCMD/QueueCMD/UplinkLog/PrintOnboardLog': '<S97>:1' 
+            // '<S97>:1:3'
             fileid = codegenReal2Mission_cfopen_h("OnboardUplinkRcvCMD.log",
                 "ab");
 
-            // '<S98>:1:4'
-            codegenReal2Mission_printIndivMissionCMD_m
+            // '<S97>:1:4'
+            codegenReal2Mission_printIndivMissionCMD
                 (codegenReal2Mission_DW.Receive_o2.SequenceID,
                  codegenReal2Mission_DW.Receive_o2.MissionMode,
                  codegenReal2Mission_DW.Receive_o2.MissionLocation.Lat,
@@ -8604,17 +8111,17 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
                  codegenReal2Mission_DW.Receive_o2.StartTime, static_cast<real_T>
                  (fileid));
 
-            // '<S98>:1:5'
+            // '<S97>:1:5'
             codegenReal2Mission_cfclose_n(static_cast<real_T>(fileid));
         }
 
-        // End of Outputs for SubSystem: '<S84>/UplinkLog'
+        // End of Outputs for SubSystem: '<S83>/UplinkLog'
 
-        // MATLAB Function: '<S84>/Struct2PosixCurr' incorporates:
-        //   Memory: '<S84>/Memory'
+        // MATLAB Function: '<S83>/Struct2PosixCurr' incorporates:
+        //   Memory: '<S83>/Memory'
 
-        // MATLAB Function 'Struct2Posix': '<S93>:1'
-        // '<S93>:1:3'
+        // MATLAB Function 'Struct2Posix': '<S92>:1'
+        // '<S92>:1:3'
         Lat = static_cast<real_T>
             (codegenReal2Mission_DW.Memory_PreviousInput.StartTime.year);
         Alt = static_cast<real_T>
@@ -8679,55 +8186,55 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
                    (codegenReal2Mission_DW.Memory_PreviousInput.StartTime.minute))
                   * 60000.0), Lon * 1000.0), b_I)).re / 1000.0;
 
-        // End of MATLAB Function: '<S84>/Struct2PosixCurr'
+        // End of MATLAB Function: '<S83>/Struct2PosixCurr'
 
-        // RelationalOperator: '<S90>/Compare' incorporates:
-        //   Constant: '<S90>/Constant'
+        // RelationalOperator: '<S89>/Compare' incorporates:
+        //   Constant: '<S89>/Constant'
 
         rtb_NotEqual = (codegenReal2Mission_DW.Receive_o2.MissionMode !=
                         MissionModes::AvoidDanger);
 
-        // Logic: '<S84>/NichtAvoidDanger'
+        // Logic: '<S83>/NichtAvoidDanger'
         NichtAvoidDanger = static_cast<boolean_T>(static_cast<int32_T>(
             static_cast<int32_T>(rtb_NotEqual) & static_cast<int32_T>
             (rtb_Receive_o1_m)));
 
-        // RelationalOperator: '<S88>/FixPt Relational Operator' incorporates:
-        //   UnitDelay: '<S88>/Delay Input1'
+        // RelationalOperator: '<S87>/FixPt Relational Operator' incorporates:
+        //   UnitDelay: '<S87>/Delay Input1'
         //
-        //  Block description for '<S88>/Delay Input1':
+        //  Block description for '<S87>/Delay Input1':
         //
         //   Store in Global RAM
 
         rtb_NotEqual = (codegenReal2Mission_DW.Receive_o2.SequenceID !=
                         codegenReal2Mission_DW.DelayInput1_DSTATE);
 
-        // RelationalOperator: '<S89>/Compare' incorporates:
-        //   Constant: '<S89>/Constant'
+        // RelationalOperator: '<S88>/Compare' incorporates:
+        //   Constant: '<S88>/Constant'
 
         rtb_AND_p = (codegenReal2Mission_DW.Receive_o2.MissionMode ==
                      MissionModes::AvoidDanger);
 
-        // MATLAB Function: '<S96>/CurrentTime'
-        // MATLAB Function 'CurrentTime/CurrentTime': '<S99>:1'
-        // '<S99>:1:3'
+        // MATLAB Function: '<S95>/CurrentTime'
+        // MATLAB Function 'CurrentTime/CurrentTime': '<S98>:1'
+        // '<S98>:1:3'
         codegenReal2Mission_getLocalTime(&Lat, &Lon, &Alt, &processedInData[3],
-            &D, &a__4, &rtb_Sum1_o_idx_0, &rtb_Receive_o1_m);
+            &D, &a__4, &rtb_Sum1_idx_0, &rtb_Receive_o1_m);
         processedInData[4] = Alt;
         processedInData[6] = Lat / 1.0E+6;
         b_I = processedInData[6];
-        Lat = (((((rtb_Sum1_o_idx_0 + a__4) + D) + processedInData[3]) + Alt) +
+        Lat = (((((rtb_Sum1_idx_0 + a__4) + D) + processedInData[3]) + Alt) +
                Lon) + processedInData[6];
         if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(
                 static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
                  (std::isinf(Lat)) ^ 1))) & static_cast<int32_T>
                 (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
                  (std::isnan(Lat)) ^ 1)))))) {
-            Lat = rtb_Sum1_o_idx_0;
+            Lat = rtb_Sum1_idx_0;
             Alt = a__4;
             if ((a__4 < 1.0) || (a__4 > 12.0)) {
                 Alt = std::floor((a__4 - 1.0) / 12.0);
-                Lat = rtb_Sum1_o_idx_0 + Alt;
+                Lat = rtb_Sum1_idx_0 + Alt;
                 Alt = ((a__4 - 1.0) - Alt * 12.0) + 1.0;
             }
 
@@ -8765,9 +8272,9 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
             b_this_data.re = Lat;
         }
 
-        // MATLAB Function: '<S84>/Struct2PosixUplink'
-        // MATLAB Function 'Struct2Posix': '<S94>:1'
-        // '<S94>:1:3'
+        // MATLAB Function: '<S83>/Struct2PosixUplink'
+        // MATLAB Function 'Struct2Posix': '<S93>:1'
+        // '<S93>:1:3'
         Lat = static_cast<real_T>
             (codegenReal2Mission_DW.Receive_o2.StartTime.year);
         Alt = static_cast<real_T>
@@ -8831,17 +8338,17 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
                                (codegenReal2Mission_DW.Receive_o2.StartTime.minute))
                               * 60000.0);
 
-        // Logic: '<S84>/OR' incorporates:
-        //   Constant: '<S87>/Constant'
-        //   Constant: '<S97>/Constant'
-        //   Logic: '<S84>/AND'
-        //   Logic: '<S84>/SndAND'
-        //   MATLAB Function: '<S84>/Struct2PosixUplink'
-        //   MATLAB Function: '<S96>/CurrentTime'
-        //   RelationalOperator: '<S84>/GreaterThanOrEqual'
-        //   RelationalOperator: '<S84>/Relational Operator'
-        //   RelationalOperator: '<S87>/Compare'
-        //   RelationalOperator: '<S97>/Compare'
+        // Logic: '<S83>/OR' incorporates:
+        //   Constant: '<S86>/Constant'
+        //   Constant: '<S96>/Constant'
+        //   Logic: '<S83>/AND'
+        //   Logic: '<S83>/SndAND'
+        //   MATLAB Function: '<S83>/Struct2PosixUplink'
+        //   MATLAB Function: '<S95>/CurrentTime'
+        //   RelationalOperator: '<S83>/GreaterThanOrEqual'
+        //   RelationalOperator: '<S83>/Relational Operator'
+        //   RelationalOperator: '<S86>/Compare'
+        //   RelationalOperator: '<S96>/Compare'
 
         rtb_Receive_o1_m = static_cast<boolean_T>(static_cast<int32_T>(
             static_cast<int32_T>(static_cast<boolean_T>(static_cast<int32_T>(
@@ -8851,13 +8358,13 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
             ((fid < 0.0) & static_cast<int32_T>(NichtAvoidDanger))))))) | (fid >
             (plus_bEdW4Zmk(plus_bEdW4Zmk(tmp_1, Lon * 1000.0), b_I)).re / 1000.0)));
 
-        // BusCreator: '<S91>/CreatDanger' incorporates:
-        //   DataTypeConversion: '<S91>/Cast To Double'
+        // BusCreator: '<S90>/CreatDanger' incorporates:
+        //   DataTypeConversion: '<S90>/Cast To Double'
 
         rtb_CreatDanger.Radius = static_cast<real_T>
             (codegenReal2Mission_DW.Receive_o2.params.Param1);
 
-        // DataTypeConversion: '<S91>/Cast To int32'
+        // DataTypeConversion: '<S90>/Cast To int32'
         tmp_7 = std::floor(codegenReal2Mission_DW.Receive_o2.params.Param3);
         if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(std::
                 isnan(tmp_7)) | static_cast<int32_T>(std::isinf(tmp_7))))) {
@@ -8866,8 +8373,8 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
             tmp_7 = std::fmod(tmp_7, 4.2949673E+9F);
         }
 
-        // BusCreator: '<S91>/CreatDanger' incorporates:
-        //   DataTypeConversion: '<S91>/Cast To int32'
+        // BusCreator: '<S90>/CreatDanger' incorporates:
+        //   DataTypeConversion: '<S90>/Cast To int32'
 
         rtb_CreatDanger.DangerID = tmp_7 < 0.0F ? static_cast<int32_T>(-
             static_cast<int32_T>(static_cast<uint32_T>(-tmp_7))) :
@@ -8875,56 +8382,56 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
         rtb_CreatDanger.DangerLoc =
             codegenReal2Mission_DW.Receive_o2.MissionLocation;
 
-        // Send: '<S84>/Send'
+        // Send: '<S83>/Send'
         if (NichtAvoidDanger) {
             codegenReal2Mission_Queue_SendData
                 (&codegenReal2Mission_DW.Receive_o2);
         }
 
-        // End of Send: '<S84>/Send'
+        // End of Send: '<S83>/Send'
 
-        // Outputs for Enabled SubSystem: '<S84>/ReadOne' incorporates:
-        //   EnablePort: '<S92>/Enable'
+        // Outputs for Enabled SubSystem: '<S83>/ReadOne' incorporates:
+        //   EnablePort: '<S91>/Enable'
 
         if (rtb_Receive_o1_m) {
-            // Receive: '<S92>/Receive'
+            // Receive: '<S91>/Receive'
             codegenReal2Mission_Queue_RecvData(&codegenReal2Mission_DW.Receive);
         }
 
-        // End of Outputs for SubSystem: '<S84>/ReadOne'
+        // End of Outputs for SubSystem: '<S83>/ReadOne'
 
-        // Send: '<S84>/SendCMD' incorporates:
-        //   Logic: '<S84>/MsgSndAND'
-        //   Memory: '<S84>/Memory'
-        //   RelationalOperator: '<S84>/NotEqual'
+        // Send: '<S83>/SendCMD' incorporates:
+        //   Logic: '<S83>/MsgSndAND'
+        //   Memory: '<S83>/Memory'
+        //   RelationalOperator: '<S83>/NotEqual'
 
         if (static_cast<boolean_T>(static_cast<int32_T>
                                    ((codegenReal2Mission_DW.Receive_o2_m.SequenceID
                != codegenReal2Mission_DW.Memory_PreviousInput.SequenceID) &
                                     static_cast<int32_T>(rtb_Receive_o1_m)))) {
-            codegenReal2Mission_Receive_SendData
+            codegenReal2Mission_Receive_b_SendData
                 (&codegenReal2Mission_DW.Memory_PreviousInput);
         }
 
-        // End of Send: '<S84>/SendCMD'
+        // End of Send: '<S83>/SendCMD'
 
-        // Send: '<S84>/SendDanger' incorporates:
-        //   Logic: '<S84>/AndSndDanger'
+        // Send: '<S83>/SendDanger' incorporates:
+        //   Logic: '<S83>/AndSndDanger'
 
         if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
                 (rtb_NotEqual) & static_cast<int32_T>(rtb_AND_p)))) {
-            codegenReal2Mission_Receive_o_SendData(&rtb_CreatDanger);
+            codegenReal2Mission_Receive_SendData(&rtb_CreatDanger);
         }
 
-        // End of Send: '<S84>/SendDanger'
+        // End of Send: '<S83>/SendDanger'
 
-        // Update for Memory: '<S84>/Memory'
+        // Update for Memory: '<S83>/Memory'
         codegenReal2Mission_DW.Memory_PreviousInput =
             codegenReal2Mission_DW.Receive;
 
-        // Update for UnitDelay: '<S88>/Delay Input1'
+        // Update for UnitDelay: '<S87>/Delay Input1'
         //
-        //  Block description for '<S88>/Delay Input1':
+        //  Block description for '<S87>/Delay Input1':
         //
         //   Store in Global RAM
 
@@ -8933,1151 +8440,6 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
 
         // End of Outputs for SubSystem: '<S10>/QueueCMD'
         // End of Outputs for SubSystem: '<S2>/PreProcessMissionCMD'
-
-        // Receive: '<S5>/Receive'
-        wholeSecsFromMillis = codegenReal2Mission_Receive_h_RecvData
-            (&codegenReal2Mission_DW.Receive_o2_a);
-
-        // Outputs for Enabled SubSystem: '<S5>/GenPCD' incorporates:
-        //   EnablePort: '<S13>/Enable'
-
-        if (wholeSecsFromMillis != 1) {
-            // MATLAB Function: '<S13>/ReadHomePoint'
-            // MATLAB Function 'ReadHomePoint': '<S16>:1'
-            if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
-                    (codegenReal2Mission_DW.HomePoint_not_empty_k) ^ 1))) {
-                // '<S16>:1:5'
-                // '<S16>:1:6'
-                ret->size[0] = 1;
-                ret->size[1] = 0;
-                fileid = codegenReal2Mission_cfopen_p("config.ini", "rb");
-                if (static_cast<int32_T>(fileid) < 0) {
-                    printf("INI-file \"%s\" was not found or could not be read.\n",
-                           "config.ini");
-                    fflush(stdout);
-                } else {
-                    codegenReal2Mission_fread_j(static_cast<real_T>(fileid), q);
-                    i = static_cast<int32_T>(data->size[0] * data->size[1]);
-                    data->size[0] = 1;
-                    data->size[1] = q->size[0];
-                    codegenReal2Mission_emxEnsureCapacity_char_T(data, i);
-                    loop_ub = q->size[0];
-                    for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
-                        data->data[i] = q->data[i];
-                    }
-
-                    codegenReal2Mission_cfclose_g(static_cast<real_T>(fileid));
-                    curSection->size[0] = 1;
-                    curSection->size[1] = 0;
-                    curKey->size[0] = 1;
-                    curKey->size[1] = 0;
-                    curVal->size[0] = 1;
-                    curVal->size[1] = 0;
-                    codegenReal2Mission_emxInit_char_T(&tmp_d, 2);
-                    codegenReal2Mission_emxInit_char_T(&data_5, 2);
-                    exitg1 = false;
-                    while ((!exitg1) && (data->size[1] != 0)) {
-                        i = static_cast<int32_T>(data_5->size[0] * data_5->size
-                            [1]);
-                        data_5->size[0] = 1;
-                        data_5->size[1] = data->size[1];
-                        codegenReal2Mission_emxEnsureCapacity_char_T(data_5, i);
-                        loop_ub = static_cast<int32_T>(static_cast<int32_T>
-                            (data->size[0] * data->size[1]) - 1);
-                        for (i = 0; i <= loop_ub; i++) {
-                            data_5->data[i] = data->data[i];
-                        }
-
-                        codegenReal2Mission_strtok(data_5, curLine, data);
-                        codegenReal2Mission_strtok_p(curLine, tmp_d);
-                        codegenReal2Mission_strtrim(tmp_d, curLine);
-                        if (curLine->size[1] >= 2) {
-                            rtb_NotEqual = false;
-                            if (curLine->data[0] == '[') {
-                                rtb_NotEqual = true;
-                            }
-
-                            guard1 = false;
-                            if (rtb_NotEqual) {
-                                rtb_NotEqual = false;
-                                if (curLine->data[static_cast<int32_T>
-                                        (curLine->size[1] - 1)] == ']') {
-                                    rtb_NotEqual = true;
-                                }
-
-                                if (rtb_NotEqual) {
-                                    if (static_cast<int32_T>(curLine->size[1] -
-                                            1) < 2) {
-                                        md2 = 0;
-                                        b = 0;
-                                    } else {
-                                        md2 = 1;
-                                        b = static_cast<int32_T>(curLine->size[1]
-                                            - 1);
-                                    }
-
-                                    i = static_cast<int32_T>(curSection->size[0]
-                                        * curSection->size[1]);
-                                    curSection->size[0] = 1;
-                                    loop_ub = static_cast<int32_T>(b - md2);
-                                    curSection->size[1] = loop_ub;
-                                    codegenReal2Mission_emxEnsureCapacity_char_T
-                                        (curSection, i);
-                                    for (i = 0; i <= static_cast<int32_T>
-                                            (loop_ub - 1); i++) {
-                                        curSection->data[i] = curLine->data[
-                                            static_cast<int32_T>(md2 + i)];
-                                    }
-
-                                    curKey->size[0] = 1;
-                                    curKey->size[1] = 0;
-                                } else {
-                                    guard1 = true;
-                                }
-                            } else {
-                                guard1 = true;
-                            }
-
-                            if (guard1) {
-                                if (curLine->data[0] == ';') {
-                                    rtb_NotEqual = true;
-                                }
-
-                                if ((static_cast<boolean_T>(static_cast<int32_T>
-                                                            (static_cast<int32_T>
-                                        (rtb_NotEqual) ^ 1))) &&
-                                        codegenReal2Mission_contains(curLine)) {
-                                    codegenReal2Mission_strtok_ph(curLine,
-                                        b_curKey, x);
-                                    codegenReal2Mission_find_token(x,
-                                        &wholeSecsFromMillis, &md2);
-                                    if (wholeSecsFromMillis >
-                                            static_cast<int32_T>(md2 - 1)) {
-                                        wholeSecsFromMillis = 0;
-                                        md2 = 0;
-                                    } else {
-                                        wholeSecsFromMillis =
-                                            static_cast<int32_T>
-                                            (wholeSecsFromMillis - 1);
-                                        md2 = static_cast<int32_T>(md2 - 1);
-                                    }
-
-                                    codegenReal2Mission_strtrim(b_curKey, curKey);
-                                    i = static_cast<int32_T>(b_curKey->size[0] *
-                                        b_curKey->size[1]);
-                                    b_curKey->size[0] = 1;
-                                    b_curKey->size[1] = static_cast<int32_T>(md2
-                                        - wholeSecsFromMillis);
-                                    codegenReal2Mission_emxEnsureCapacity_char_T
-                                        (b_curKey, i);
-                                    loop_ub = static_cast<int32_T>(md2 -
-                                        wholeSecsFromMillis);
-                                    for (i = 0; i <= static_cast<int32_T>
-                                            (loop_ub - 1); i++) {
-                                        b_curKey->data[i] = x->data
-                                            [static_cast<int32_T>
-                                            (wholeSecsFromMillis + i)];
-                                    }
-
-                                    codegenReal2Mission_strtrim(b_curKey, curVal);
-                                }
-                            }
-                        }
-
-                        if (codegenReal2Mission_strcmp(curSection) &&
-                                codegenReal2Mission_strcmp_p(curKey)) {
-                            i = static_cast<int32_T>(ret->size[0] * ret->size[1]);
-                            ret->size[0] = 1;
-                            ret->size[1] = curVal->size[1];
-                            codegenReal2Mission_emxEnsureCapacity_char_T(ret, i);
-                            loop_ub = curVal->size[1];
-                            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1);
-                                    i++) {
-                                ret->data[i] = curVal->data[i];
-                            }
-
-                            exitg1 = true;
-                        }
-                    }
-
-                    codegenReal2Mission_emxFree_char_T(&data_5);
-                    codegenReal2Mission_emxFree_char_T(&tmp_d);
-                }
-
-                tmp_1 = codegenReal2Mission_str2double(ret);
-                printf("Set Home Point Latitude:\t%f\n", tmp_1.re);
-                fflush(stdout);
-                ret->size[0] = 1;
-                ret->size[1] = 0;
-                fileid = codegenReal2Mission_cfopen_p("config.ini", "rb");
-                if (static_cast<int32_T>(fileid) < 0) {
-                    printf("INI-file \"%s\" was not found or could not be read.\n",
-                           "config.ini");
-                    fflush(stdout);
-                } else {
-                    codegenReal2Mission_fread_j(static_cast<real_T>(fileid), q);
-                    i = static_cast<int32_T>(data->size[0] * data->size[1]);
-                    data->size[0] = 1;
-                    data->size[1] = q->size[0];
-                    codegenReal2Mission_emxEnsureCapacity_char_T(data, i);
-                    loop_ub = q->size[0];
-                    for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
-                        data->data[i] = q->data[i];
-                    }
-
-                    codegenReal2Mission_cfclose_g(static_cast<real_T>(fileid));
-                    curSection->size[0] = 1;
-                    curSection->size[1] = 0;
-                    curKey->size[0] = 1;
-                    curKey->size[1] = 0;
-                    curVal->size[0] = 1;
-                    curVal->size[1] = 0;
-                    codegenReal2Mission_emxInit_char_T(&tmp_c, 2);
-                    codegenReal2Mission_emxInit_char_T(&data_4, 2);
-                    exitg1 = false;
-                    while ((!exitg1) && (data->size[1] != 0)) {
-                        i = static_cast<int32_T>(data_4->size[0] * data_4->size
-                            [1]);
-                        data_4->size[0] = 1;
-                        data_4->size[1] = data->size[1];
-                        codegenReal2Mission_emxEnsureCapacity_char_T(data_4, i);
-                        loop_ub = static_cast<int32_T>(static_cast<int32_T>
-                            (data->size[0] * data->size[1]) - 1);
-                        for (i = 0; i <= loop_ub; i++) {
-                            data_4->data[i] = data->data[i];
-                        }
-
-                        codegenReal2Mission_strtok(data_4, curLine, data);
-                        codegenReal2Mission_strtok_p(curLine, tmp_c);
-                        codegenReal2Mission_strtrim(tmp_c, curLine);
-                        if (curLine->size[1] >= 2) {
-                            rtb_NotEqual = false;
-                            if (curLine->data[0] == '[') {
-                                rtb_NotEqual = true;
-                            }
-
-                            guard1 = false;
-                            if (rtb_NotEqual) {
-                                rtb_NotEqual = false;
-                                if (curLine->data[static_cast<int32_T>
-                                        (curLine->size[1] - 1)] == ']') {
-                                    rtb_NotEqual = true;
-                                }
-
-                                if (rtb_NotEqual) {
-                                    if (static_cast<int32_T>(curLine->size[1] -
-                                            1) < 2) {
-                                        b = 0;
-                                        md2 = 0;
-                                    } else {
-                                        b = 1;
-                                        md2 = static_cast<int32_T>(curLine->
-                                            size[1] - 1);
-                                    }
-
-                                    i = static_cast<int32_T>(curSection->size[0]
-                                        * curSection->size[1]);
-                                    curSection->size[0] = 1;
-                                    loop_ub = static_cast<int32_T>(md2 - b);
-                                    curSection->size[1] = loop_ub;
-                                    codegenReal2Mission_emxEnsureCapacity_char_T
-                                        (curSection, i);
-                                    for (i = 0; i <= static_cast<int32_T>
-                                            (loop_ub - 1); i++) {
-                                        curSection->data[i] = curLine->data[
-                                            static_cast<int32_T>(b + i)];
-                                    }
-
-                                    curKey->size[0] = 1;
-                                    curKey->size[1] = 0;
-                                } else {
-                                    guard1 = true;
-                                }
-                            } else {
-                                guard1 = true;
-                            }
-
-                            if (guard1) {
-                                if (curLine->data[0] == ';') {
-                                    rtb_NotEqual = true;
-                                }
-
-                                if ((static_cast<boolean_T>(static_cast<int32_T>
-                                                            (static_cast<int32_T>
-                                        (rtb_NotEqual) ^ 1))) &&
-                                        codegenReal2Mission_contains(curLine)) {
-                                    codegenReal2Mission_strtok_ph(curLine,
-                                        b_curKey, x);
-                                    codegenReal2Mission_find_token(x,
-                                        &wholeSecsFromMillis, &md2);
-                                    if (wholeSecsFromMillis >
-                                            static_cast<int32_T>(md2 - 1)) {
-                                        b_md2 = 0;
-                                        b = 0;
-                                    } else {
-                                        b_md2 = static_cast<int32_T>
-                                            (wholeSecsFromMillis - 1);
-                                        b = static_cast<int32_T>(md2 - 1);
-                                    }
-
-                                    codegenReal2Mission_strtrim(b_curKey, curKey);
-                                    i = static_cast<int32_T>(b_curKey->size[0] *
-                                        b_curKey->size[1]);
-                                    b_curKey->size[0] = 1;
-                                    loop_ub = static_cast<int32_T>(b - b_md2);
-                                    b_curKey->size[1] = loop_ub;
-                                    codegenReal2Mission_emxEnsureCapacity_char_T
-                                        (b_curKey, i);
-                                    for (i = 0; i <= static_cast<int32_T>
-                                            (loop_ub - 1); i++) {
-                                        b_curKey->data[i] = x->data
-                                            [static_cast<int32_T>(b_md2 + i)];
-                                    }
-
-                                    codegenReal2Mission_strtrim(b_curKey, curVal);
-                                }
-                            }
-                        }
-
-                        if (codegenReal2Mission_strcmp(curSection) &&
-                                codegenReal2Mission_strcmp_p4(curKey)) {
-                            i = static_cast<int32_T>(ret->size[0] * ret->size[1]);
-                            ret->size[0] = 1;
-                            ret->size[1] = curVal->size[1];
-                            codegenReal2Mission_emxEnsureCapacity_char_T(ret, i);
-                            loop_ub = curVal->size[1];
-                            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1);
-                                    i++) {
-                                ret->data[i] = curVal->data[i];
-                            }
-
-                            exitg1 = true;
-                        }
-                    }
-
-                    codegenReal2Mission_emxFree_char_T(&data_4);
-                    codegenReal2Mission_emxFree_char_T(&tmp_c);
-                }
-
-                tmp_2 = codegenReal2Mission_str2double(ret);
-                printf("Set Home Point Longitude:\t%f\n", tmp_2.re);
-                fflush(stdout);
-                ret->size[0] = 1;
-                ret->size[1] = 0;
-                fileid = codegenReal2Mission_cfopen_p("config.ini", "rb");
-                if (static_cast<int32_T>(fileid) < 0) {
-                    printf("INI-file \"%s\" was not found or could not be read.\n",
-                           "config.ini");
-                    fflush(stdout);
-                } else {
-                    codegenReal2Mission_fread_j(static_cast<real_T>(fileid), q);
-                    i = static_cast<int32_T>(data->size[0] * data->size[1]);
-                    data->size[0] = 1;
-                    data->size[1] = q->size[0];
-                    codegenReal2Mission_emxEnsureCapacity_char_T(data, i);
-                    loop_ub = q->size[0];
-                    for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
-                        data->data[i] = q->data[i];
-                    }
-
-                    codegenReal2Mission_cfclose_g(static_cast<real_T>(fileid));
-                    curSection->size[0] = 1;
-                    curSection->size[1] = 0;
-                    curKey->size[0] = 1;
-                    curKey->size[1] = 0;
-                    curVal->size[0] = 1;
-                    curVal->size[1] = 0;
-                    codegenReal2Mission_emxInit_char_T(&tmp_b, 2);
-                    codegenReal2Mission_emxInit_char_T(&data_3, 2);
-                    exitg1 = false;
-                    while ((!exitg1) && (data->size[1] != 0)) {
-                        i = static_cast<int32_T>(data_3->size[0] * data_3->size
-                            [1]);
-                        data_3->size[0] = 1;
-                        data_3->size[1] = data->size[1];
-                        codegenReal2Mission_emxEnsureCapacity_char_T(data_3, i);
-                        loop_ub = static_cast<int32_T>(static_cast<int32_T>
-                            (data->size[0] * data->size[1]) - 1);
-                        for (i = 0; i <= loop_ub; i++) {
-                            data_3->data[i] = data->data[i];
-                        }
-
-                        codegenReal2Mission_strtok(data_3, curLine, data);
-                        codegenReal2Mission_strtok_p(curLine, tmp_b);
-                        codegenReal2Mission_strtrim(tmp_b, curLine);
-                        if (curLine->size[1] >= 2) {
-                            rtb_NotEqual = false;
-                            if (curLine->data[0] == '[') {
-                                rtb_NotEqual = true;
-                            }
-
-                            guard1 = false;
-                            if (rtb_NotEqual) {
-                                rtb_NotEqual = false;
-                                if (curLine->data[static_cast<int32_T>
-                                        (curLine->size[1] - 1)] == ']') {
-                                    rtb_NotEqual = true;
-                                }
-
-                                if (rtb_NotEqual) {
-                                    if (static_cast<int32_T>(curLine->size[1] -
-                                            1) < 2) {
-                                        b = 0;
-                                        b_md2 = 0;
-                                    } else {
-                                        b = 1;
-                                        b_md2 = static_cast<int32_T>
-                                            (curLine->size[1] - 1);
-                                    }
-
-                                    i = static_cast<int32_T>(curSection->size[0]
-                                        * curSection->size[1]);
-                                    curSection->size[0] = 1;
-                                    loop_ub = static_cast<int32_T>(b_md2 - b);
-                                    curSection->size[1] = loop_ub;
-                                    codegenReal2Mission_emxEnsureCapacity_char_T
-                                        (curSection, i);
-                                    for (i = 0; i <= static_cast<int32_T>
-                                            (loop_ub - 1); i++) {
-                                        curSection->data[i] = curLine->data[
-                                            static_cast<int32_T>(b + i)];
-                                    }
-
-                                    curKey->size[0] = 1;
-                                    curKey->size[1] = 0;
-                                } else {
-                                    guard1 = true;
-                                }
-                            } else {
-                                guard1 = true;
-                            }
-
-                            if (guard1) {
-                                if (curLine->data[0] == ';') {
-                                    rtb_NotEqual = true;
-                                }
-
-                                if ((static_cast<boolean_T>(static_cast<int32_T>
-                                                            (static_cast<int32_T>
-                                        (rtb_NotEqual) ^ 1))) &&
-                                        codegenReal2Mission_contains(curLine)) {
-                                    codegenReal2Mission_strtok_ph(curLine,
-                                        b_curKey, x);
-                                    codegenReal2Mission_find_token(x, &b_md2,
-                                        &wholeSecsFromMillis);
-                                    if (b_md2 > static_cast<int32_T>
-                                            (wholeSecsFromMillis - 1)) {
-                                        b = 0;
-                                        wholeSecsFromMillis = -1;
-                                    } else {
-                                        b = static_cast<int32_T>(b_md2 - 1);
-                                        wholeSecsFromMillis =
-                                            static_cast<int32_T>
-                                            (wholeSecsFromMillis - 2);
-                                    }
-
-                                    codegenReal2Mission_strtrim(b_curKey, curKey);
-                                    i = static_cast<int32_T>(b_curKey->size[0] *
-                                        b_curKey->size[1]);
-                                    b_curKey->size[0] = 1;
-                                    b_curKey->size[1] = static_cast<int32_T>(
-                                        static_cast<int32_T>(wholeSecsFromMillis
-                                        - b) + 1);
-                                    codegenReal2Mission_emxEnsureCapacity_char_T
-                                        (b_curKey, i);
-                                    loop_ub = static_cast<int32_T>
-                                        (wholeSecsFromMillis - b);
-                                    for (i = 0; i <= loop_ub; i++) {
-                                        b_curKey->data[i] = x->data
-                                            [static_cast<int32_T>(b + i)];
-                                    }
-
-                                    codegenReal2Mission_strtrim(b_curKey, curVal);
-                                }
-                            }
-                        }
-
-                        if (codegenReal2Mission_strcmp(curSection) &&
-                                codegenReal2Mission_strcmp_p4a(curKey)) {
-                            i = static_cast<int32_T>(ret->size[0] * ret->size[1]);
-                            ret->size[0] = 1;
-                            ret->size[1] = curVal->size[1];
-                            codegenReal2Mission_emxEnsureCapacity_char_T(ret, i);
-                            loop_ub = curVal->size[1];
-                            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1);
-                                    i++) {
-                                ret->data[i] = curVal->data[i];
-                            }
-
-                            exitg1 = true;
-                        }
-                    }
-
-                    codegenReal2Mission_emxFree_char_T(&data_3);
-                    codegenReal2Mission_emxFree_char_T(&tmp_b);
-                }
-
-                tmp_3 = codegenReal2Mission_str2double(ret);
-                printf("Set Home Point Altitude:\t%f\n", tmp_3.re);
-                fflush(stdout);
-                codegenReal2Mission_DW.HomePoint_g[0] = tmp_1.re;
-                codegenReal2Mission_DW.HomePoint_g[1] = tmp_2.re;
-                codegenReal2Mission_DW.HomePoint_g[2] = tmp_3.re;
-                codegenReal2Mission_DW.HomePoint_not_empty_k = true;
-                b_x[0] = std::isnan(codegenReal2Mission_DW.HomePoint_g[0]);
-                b_x[1] = std::isnan(codegenReal2Mission_DW.HomePoint_g[1]);
-                b_x[2] = std::isnan(codegenReal2Mission_DW.HomePoint_g[2]);
-                rtb_NotEqual = false;
-                md2 = 0;
-                exitg1 = false;
-                while ((!exitg1) && (md2 < 3)) {
-                    if (b_x[md2]) {
-                        rtb_NotEqual = true;
-                        exitg1 = true;
-                    } else {
-                        md2 = static_cast<int32_T>(md2 + 1);
-                    }
-                }
-
-                if (rtb_NotEqual) {
-                    // '<S16>:1:7'
-                    // '<S16>:1:8'
-                    codegenReal2Mission_DW.HomePoint_g[0] = 35.8617;
-                    codegenReal2Mission_DW.HomePoint_g[1] = 104.1954;
-                    codegenReal2Mission_DW.HomePoint_g[2] = 0.0;
-                }
-            }
-
-            // Switch: '<S32>/Switch' incorporates:
-            //   Abs: '<S32>/Abs'
-            //   Bias: '<S32>/Bias'
-            //   Bias: '<S32>/Bias1'
-            //   Constant: '<S32>/Constant2'
-            //   Constant: '<S33>/Constant'
-            //   MATLAB Function: '<S13>/ReadHomePoint'
-            //   Math: '<S32>/Math Function1'
-            //   RelationalOperator: '<S33>/Compare'
-
-            // '<S16>:1:12'
-            if (std::abs(codegenReal2Mission_DW.HomePoint_g[0]) > 180.0) {
-                fid = rt_modd_snf(codegenReal2Mission_DW.HomePoint_g[0] + 180.0,
-                                  360.0) - 180.0;
-            } else {
-                fid = codegenReal2Mission_DW.HomePoint_g[0];
-            }
-
-            // End of Switch: '<S32>/Switch'
-
-            // Abs: '<S29>/Abs1'
-            Lat = std::abs(fid);
-
-            // Switch: '<S29>/Switch' incorporates:
-            //   Bias: '<S29>/Bias'
-            //   Bias: '<S29>/Bias1'
-            //   Constant: '<S20>/Constant'
-            //   Constant: '<S20>/Constant1'
-            //   Constant: '<S31>/Constant'
-            //   Gain: '<S29>/Gain'
-            //   Product: '<S29>/Divide1'
-            //   RelationalOperator: '<S31>/Compare'
-            //   Signum: '<S29>/Sign1'
-            //   Switch: '<S20>/Switch1'
-
-            if (Lat > 90.0) {
-                // Signum: '<S29>/Sign1'
-                if (std::isnan(fid)) {
-                    a__17 = (rtNaN);
-                } else if (fid < 0.0) {
-                    a__17 = -1.0;
-                } else {
-                    a__17 = static_cast<real_T>(fid > 0.0);
-                }
-
-                fid = (-(Lat - 90.0) + 90.0) * a__17;
-                i = 180;
-            } else {
-                i = 0;
-            }
-
-            // End of Switch: '<S29>/Switch'
-
-            // Sum: '<S20>/Sum' incorporates:
-            //   MATLAB Function: '<S13>/ReadHomePoint'
-            //   Switch: '<S20>/Switch1'
-
-            b_I = static_cast<real_T>(i) + codegenReal2Mission_DW.HomePoint_g[1];
-
-            // Switch: '<S30>/Switch' incorporates:
-            //   Abs: '<S30>/Abs'
-            //   Bias: '<S30>/Bias'
-            //   Bias: '<S30>/Bias1'
-            //   Constant: '<S30>/Constant2'
-            //   Constant: '<S34>/Constant'
-            //   Math: '<S30>/Math Function1'
-            //   RelationalOperator: '<S34>/Compare'
-
-            if (std::abs(b_I) > 180.0) {
-                b_I = rt_modd_snf(b_I + 180.0, 360.0) - 180.0;
-            }
-
-            // End of Switch: '<S30>/Switch'
-
-            // Sum: '<S15>/Sum1'
-            rtb_Sum1_o_idx_0 = codegenReal2Mission_DW.Receive_o2_a.DangerLoc.Lat
-                - fid;
-            da_im = codegenReal2Mission_DW.Receive_o2_a.DangerLoc.Lon - b_I;
-
-            // Switch: '<S26>/Switch' incorporates:
-            //   Abs: '<S26>/Abs'
-            //   Bias: '<S26>/Bias'
-            //   Bias: '<S26>/Bias1'
-            //   Constant: '<S26>/Constant2'
-            //   Constant: '<S27>/Constant'
-            //   Math: '<S26>/Math Function1'
-            //   RelationalOperator: '<S27>/Compare'
-
-            if (std::abs(rtb_Sum1_o_idx_0) > 180.0) {
-                b_I = rt_modd_snf(rtb_Sum1_o_idx_0 + 180.0, 360.0) - 180.0;
-            } else {
-                b_I = rtb_Sum1_o_idx_0;
-            }
-
-            // End of Switch: '<S26>/Switch'
-
-            // Abs: '<S23>/Abs1'
-            Lat = std::abs(b_I);
-
-            // Switch: '<S23>/Switch' incorporates:
-            //   Bias: '<S23>/Bias'
-            //   Bias: '<S23>/Bias1'
-            //   Constant: '<S19>/Constant'
-            //   Constant: '<S19>/Constant1'
-            //   Constant: '<S25>/Constant'
-            //   Gain: '<S23>/Gain'
-            //   Product: '<S23>/Divide1'
-            //   RelationalOperator: '<S25>/Compare'
-            //   Signum: '<S23>/Sign1'
-            //   Switch: '<S19>/Switch1'
-
-            if (Lat > 90.0) {
-                // Signum: '<S23>/Sign1'
-                if (std::isnan(b_I)) {
-                    a__17 = (rtNaN);
-                } else if (b_I < 0.0) {
-                    a__17 = -1.0;
-                } else {
-                    a__17 = static_cast<real_T>(b_I > 0.0);
-                }
-
-                b_I = (-(Lat - 90.0) + 90.0) * a__17;
-                i = 180;
-            } else {
-                i = 0;
-            }
-
-            // End of Switch: '<S23>/Switch'
-
-            // Sum: '<S19>/Sum' incorporates:
-            //   Switch: '<S19>/Switch1'
-
-            Lat = static_cast<real_T>(i) + da_im;
-
-            // Switch: '<S24>/Switch' incorporates:
-            //   Abs: '<S24>/Abs'
-            //   Bias: '<S24>/Bias'
-            //   Bias: '<S24>/Bias1'
-            //   Constant: '<S24>/Constant2'
-            //   Constant: '<S28>/Constant'
-            //   Math: '<S24>/Math Function1'
-            //   RelationalOperator: '<S28>/Compare'
-
-            if (std::abs(Lat) > 180.0) {
-                Lat = rt_modd_snf(Lat + 180.0, 360.0) - 180.0;
-            }
-
-            // End of Switch: '<S24>/Switch'
-
-            // UnitConversion: '<S22>/Unit Conversion'
-            // Unit Conversion - from: deg to: rad
-            // Expression: output = (0.0174533*input) + (0)
-            rtb_Sum1_o_idx_0 = 0.017453292519943295 * b_I;
-            da_im = 0.017453292519943295 * Lat;
-
-            // UnitConversion: '<S37>/Unit Conversion'
-            // Unit Conversion - from: deg to: rad
-            // Expression: output = (0.0174533*input) + (0)
-            fid *= 0.017453292519943295;
-
-            // Trigonometry: '<S38>/Trigonometric Function1'
-            b_I = std::sin(fid);
-
-            // Sum: '<S38>/Sum1' incorporates:
-            //   Constant: '<S38>/Constant'
-            //   Product: '<S38>/Product1'
-
-            b_I = 1.0 - 0.0066943799901413295 * b_I * b_I;
-
-            // Product: '<S36>/Product1' incorporates:
-            //   Constant: '<S36>/Constant1'
-            //   Sqrt: '<S36>/sqrt'
-
-            Lat = 6.378137E+6 / std::sqrt(b_I);
-
-            // Product: '<S21>/dNorth' incorporates:
-            //   Constant: '<S36>/Constant2'
-            //   Product: '<S36>/Product3'
-            //   Trigonometry: '<S36>/Trigonometric Function1'
-
-            b_I = rtb_Sum1_o_idx_0 / rt_atan2d_snf(1.0, Lat *
-                0.99330562000985867 / b_I);
-
-            // Product: '<S21>/dEast' incorporates:
-            //   Constant: '<S36>/Constant3'
-            //   Product: '<S36>/Product4'
-            //   Trigonometry: '<S36>/Trigonometric Function'
-            //   Trigonometry: '<S36>/Trigonometric Function2'
-
-            // Unit Conversion - from: deg to: rad
-            // Expression: output = (0.0174533*input) + (0)
-            fid = 1.0 / rt_atan2d_snf(1.0, Lat * std::cos(fid)) * da_im;
-
-            // SignalConversion generated from: '<S13>/Vector Concatenate' incorporates:
-            //   Product: '<S21>/x*cos'
-            //   Product: '<S21>/x*sin'
-            //   Product: '<S21>/y*cos'
-            //   Product: '<S21>/y*sin'
-            //   Sum: '<S21>/Sum2'
-            //   Sum: '<S21>/Sum3'
-
-            rtb_VectorConcatenate[1] = fid * 0.0 + b_I;
-            rtb_VectorConcatenate[2] = fid - b_I * 0.0;
-
-            // DataTypeConversion: '<S13>/DangerID'
-            rtb_VectorConcatenate[0] = static_cast<real_T>
-                (codegenReal2Mission_DW.Receive_o2_a.DangerID);
-
-            // DataTypeConversion: '<S13>/DangerRadius'
-            rtb_VectorConcatenate[3] =
-                codegenReal2Mission_DW.Receive_o2_a.Radius;
-
-            // MATLAB Function: '<S13>/sizeconversion'
-            // MATLAB Function 'MissionLogic/DangerLidarScanPoints/GenPCD/sizeconversion': '<S18>:1' 
-            // '<S18>:1:3'
-            codegenReal2Mission_DW.SFunction_DIMS2[0] = 1;
-            codegenReal2Mission_DW.SFunction_DIMS2[1] = 4;
-
-            // MATLAB Function: '<S13>/getDangerList'
-            // MATLAB Function 'MissionLogic/DangerLidarScanPoints/GenPCD/getDangerList': '<S17>:1' 
-            // '<S17>:1:5'
-            for (i = 0; i < 64; i++) {
-                x_0[i] = std::isnan(codegenReal2Mission_DW.DangerList[i]);
-            }
-
-            wholeSecsFromMillis = 0;
-            b = 0;
-            exitg1 = false;
-            while ((!exitg1) && (b < 64)) {
-                if (x_0[b]) {
-                    wholeSecsFromMillis = 1;
-                    ii_data = static_cast<int8_T>(static_cast<int32_T>(b + 1));
-                    exitg1 = true;
-                } else {
-                    b = static_cast<int32_T>(b + 1);
-                }
-            }
-
-            // '<S17>:1:5'
-            loop_ub = codegenReal2Mission_DW.SFunction_DIMS2[0];
-            for (i = 0; i < 4; i++) {
-                for (b_md2 = 0; b_md2 <= static_cast<int32_T>(loop_ub - 1);
-                        b_md2++) {
-                    codegenReal2Mission_DW.DangerList[static_cast<int32_T>(
-                        static_cast<int32_T>(static_cast<int32_T>(ii_data) +
-                        static_cast<int32_T>(i << 6)) - 1)] =
-                        rtb_VectorConcatenate[static_cast<int32_T>
-                        (static_cast<int32_T>
-                         (codegenReal2Mission_DW.SFunction_DIMS2[0] * i) + b_md2)];
-                }
-            }
-
-            // '<S17>:1:6'
-            // '<S17>:1:15'
-            // '<S17>:1:14'
-            for (i = 0; i < 256; i++) {
-                Output[i] = (rtNaN);
-            }
-
-            // '<S17>:1:15'
-            for (i = 0; i < 64; i++) {
-                x_0[i] = static_cast<boolean_T>(static_cast<int32_T>(
-                    static_cast<int32_T>(std::isnan
-                    (codegenReal2Mission_DW.DangerList[i])) ^ 1));
-            }
-
-            wholeSecsFromMillis = 0;
-            for (b = 0; b < 64; b++) {
-                if (x_0[b]) {
-                    wholeSecsFromMillis = static_cast<int32_T>
-                        (wholeSecsFromMillis + 1);
-                }
-            }
-
-            indx_size = wholeSecsFromMillis;
-            wholeSecsFromMillis = 0;
-            for (b = 0; b < 64; b++) {
-                if (x_0[b]) {
-                    indx_data[wholeSecsFromMillis] = static_cast<int32_T>(b + 1);
-                    wholeSecsFromMillis = static_cast<int32_T>
-                        (wholeSecsFromMillis + 1);
-                }
-            }
-
-            // '<S17>:1:15'
-            loop_ub = indx_size;
-            for (i = 0; i < 4; i++) {
-                for (b_md2 = 0; b_md2 <= static_cast<int32_T>(indx_size - 1);
-                        b_md2++) {
-                    DangerList_data[static_cast<int32_T>(b_md2 +
-                        static_cast<int32_T>(indx_size * i))] =
-                        codegenReal2Mission_DW.DangerList[static_cast<int32_T>(
-                        static_cast<int32_T>(static_cast<int32_T>(i << 6) +
-                        indx_data[b_md2]) - 1)];
-                }
-            }
-
-            // '<S17>:1:18'
-            wholeSecsFromMillis = indx_size;
-            md2 = static_cast<int32_T>(static_cast<int32_T>(indx_size >> 1) - 1);
-            for (b = 0; b < 4; b++) {
-                for (b_n = 0; b_n <= md2; b_n++) {
-                    i = static_cast<int32_T>(indx_size * b);
-                    b_md2 = static_cast<int32_T>(b_n + i);
-                    fid = DangerList_data[b_md2];
-                    DangerList_data[b_md2] = DangerList_data[static_cast<int32_T>
-                        (static_cast<int32_T>(static_cast<int32_T>
-                          (wholeSecsFromMillis - b_n) + i) - 1)];
-                    DangerList_data[static_cast<int32_T>(static_cast<int32_T>(
-                        static_cast<int32_T>(wholeSecsFromMillis - b_n) +
-                        static_cast<int32_T>(indx_size * b)) - 1)] = fid;
-                }
-            }
-
-            // '<S17>:1:19'
-            wholeSecsFromMillis = indx_size;
-            for (i = 0; i <= static_cast<int32_T>(indx_size - 1); i++) {
-                DangerList_data_0[i] = DangerList_data[i];
-            }
-
-            codegenReal2Mission_unique_vector(DangerList_data_0,
-                &wholeSecsFromMillis, a__1_data, &i, indx_data, &indx_size,
-                ipos_data, &md2);
-
-            // '<S17>:1:20'
-            for (i = 0; i < 4; i++) {
-                for (b_md2 = 0; b_md2 <= static_cast<int32_T>(indx_size - 1);
-                        b_md2++) {
-                    DangerList_data_1[static_cast<int32_T>(b_md2 + static_cast<
-                        int32_T>(indx_size * i))] = DangerList_data[static_cast<
-                        int32_T>(static_cast<int32_T>(static_cast<int32_T>
-                                  (loop_ub * i) + indx_data[b_md2]) - 1)];
-                }
-            }
-
-            wholeSecsFromMillis = indx_size;
-            loop_ub = static_cast<int32_T>(indx_size << 2);
-            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
-                DangerList_data[i] = DangerList_data_1[i];
-            }
-
-            // '<S17>:1:21'
-            wholeSecsFromMillis = indx_size;
-            b_md2 = static_cast<int32_T>(static_cast<int32_T>(indx_size >> 1) -
-                1);
-            for (md2 = 0; md2 < 4; md2++) {
-                for (b_n = 0; b_n <= b_md2; b_n++) {
-                    i = static_cast<int32_T>(indx_size * md2);
-                    fid = DangerList_data[static_cast<int32_T>(b_n + i)];
-                    DangerList_data[static_cast<int32_T>(b_n + i)] =
-                        DangerList_data[static_cast<int32_T>(static_cast<int32_T>
-                        (static_cast<int32_T>(wholeSecsFromMillis - b_n) + i) -
-                        1)];
-                    DangerList_data[static_cast<int32_T>(static_cast<int32_T>(
-                        static_cast<int32_T>(wholeSecsFromMillis - b_n) +
-                        static_cast<int32_T>(indx_size * md2)) - 1)] = fid;
-                }
-            }
-
-            // '<S17>:1:23'
-            for (i = 0; i <= static_cast<int32_T>(indx_size - 1); i++) {
-                x_0[i] = (DangerList_data[static_cast<int32_T>
-                          (static_cast<int32_T>(indx_size * 3) + i)] != 0.0);
-            }
-
-            wholeSecsFromMillis = static_cast<int32_T>(indx_size - 1);
-            b = 0;
-            for (b_md2 = 0; b_md2 <= wholeSecsFromMillis; b_md2++) {
-                if (x_0[b_md2]) {
-                    b = static_cast<int32_T>(b + 1);
-                }
-            }
-
-            md2 = b;
-            b = 0;
-            for (b_md2 = 0; b_md2 <= wholeSecsFromMillis; b_md2++) {
-                if (x_0[b_md2]) {
-                    e_data[b] = static_cast<int8_T>(static_cast<int32_T>(b_md2 +
-                        1));
-                    b = static_cast<int32_T>(b + 1);
-                }
-            }
-
-            // '<S17>:1:23'
-            // '<S17>:1:25'
-            for (i = 0; i < 4; i++) {
-                for (b_md2 = 0; b_md2 <= static_cast<int32_T>(md2 - 1); b_md2++)
-                {
-                    Output[static_cast<int32_T>(b_md2 + static_cast<int32_T>(i <<
-                        6))] = DangerList_data[static_cast<int32_T>
-                        (static_cast<int32_T>(static_cast<int32_T>(indx_size * i)
-                          + static_cast<int32_T>(e_data[b_md2])) - 1)];
-                }
-            }
-
-            std::memcpy(&codegenReal2Mission_DW.DangerList[0], &Output[0],
-                        static_cast<uint32_T>(sizeof(real_T) << 8U));
-
-            // '<S17>:1:8'
-            b = 0;
-            for (wholeSecsFromMillis = 0; wholeSecsFromMillis < 64;
-                    wholeSecsFromMillis++) {
-                rtb_NotEqual = static_cast<boolean_T>(static_cast<int32_T>(
-                    static_cast<int32_T>(std::isnan
-                    (codegenReal2Mission_DW.DangerList[wholeSecsFromMillis])) ^
-                    1));
-                if (rtb_NotEqual) {
-                    b = static_cast<int32_T>(b + 1);
-                }
-
-                x_0[wholeSecsFromMillis] = rtb_NotEqual;
-            }
-
-            md2 = b;
-            wholeSecsFromMillis = 0;
-            for (b = 0; b < 64; b++) {
-                if (x_0[b]) {
-                    b_data[wholeSecsFromMillis] = static_cast<int8_T>(
-                        static_cast<int32_T>(b + 1));
-                    wholeSecsFromMillis = static_cast<int32_T>
-                        (wholeSecsFromMillis + 1);
-                }
-            }
-
-            // '<S17>:1:8'
-            codegenReal2Mission_DW.SFunction_DIMS2_c[0] = md2;
-            codegenReal2Mission_DW.SFunction_DIMS2_c[1] = 4;
-
-            // Selector: '<S13>/SelectNorthEastRadius' incorporates:
-            //   MATLAB Function: '<S13>/getDangerList'
-
-            codegenReal2Mission_DW.SelectNorthEastRadius_DIMS1[0] =
-                codegenReal2Mission_DW.SFunction_DIMS2_c[0];
-            codegenReal2Mission_DW.SelectNorthEastRadius_DIMS1[1] = 3;
-            loop_ub = codegenReal2Mission_DW.SFunction_DIMS2_c[0];
-            for (i = 0; i < 3; i++) {
-                for (b_md2 = 0; b_md2 <= static_cast<int32_T>(loop_ub - 1);
-                        b_md2++) {
-                    codegenReal2Mission_DW.SelectNorthEastRadius
-                        [static_cast<int32_T>(b_md2 + static_cast<int32_T>
-                        (codegenReal2Mission_DW.SelectNorthEastRadius_DIMS1[0] *
-                         i))] = codegenReal2Mission_DW.DangerList
-                        [static_cast<int32_T>(static_cast<int32_T>
-                        (static_cast<int32_T>(static_cast<int32_T>(i + 1) << 6)
-                         + static_cast<int32_T>(b_data[b_md2])) - 1)];
-                }
-            }
-
-            // End of Selector: '<S13>/SelectNorthEastRadius'
-
-            // MATLAB Function: '<S13>/InterpCircle'
-            // MATLAB Function 'MissionLogic/DangerLidarScanPoints/GenPCD/InterpCircle': '<S14>:1' 
-            // '<S14>:1:2'
-            codegenReal2Mission_DW.SFunction_DIMS2_i[0] = 0;
-            codegenReal2Mission_DW.SFunction_DIMS2_i[1] = 2;
-            b = codegenReal2Mission_DW.SelectNorthEastRadius_DIMS1[0];
-
-            // '<S14>:1:5'
-            codegenReal2Mission_emxInit_real_T(&varargin_2, 2);
-            codegenReal2Mission_emxInit_real_T(&theta, 2);
-            codegenReal2Mission_emxInit_real_T(&b_b, 1);
-            codegenReal2Mission_emxInit_real_T(&b_tmp, 1);
-            codegenReal2Mission_emxInit_real_T(&tmp, 2);
-            codegenReal2Mission_emxInit_real_T(&fid_0, 2);
-
-            // MATLAB Function: '<S13>/InterpCircle' incorporates:
-            //   Selector: '<S13>/SelectNorthEastRadius'
-
-            for (wholeSecsFromMillis = 0; wholeSecsFromMillis <=
-                    static_cast<int32_T>(b - 1); wholeSecsFromMillis++) {
-                // '<S14>:1:6'
-                fid = codegenReal2Mission_DW.SelectNorthEastRadius
-                    [static_cast<int32_T>(static_cast<int32_T>
-                    (codegenReal2Mission_DW.SelectNorthEastRadius_DIMS1[0] << 1)
-                    + wholeSecsFromMillis)];
-
-                // '<S14>:1:16'
-                Lat = std::ceil(360.0 / (3.0 / fid * 57.295779513082323));
-                if (static_cast<boolean_T>(static_cast<int32_T>((Lat >= 0.0) ^ 1)))
-                {
-                    theta->size[0] = 1;
-                    theta->size[1] = 0;
-                } else {
-                    i = static_cast<int32_T>(theta->size[0] * theta->size[1]);
-                    theta->size[0] = 1;
-                    theta->size[1] = static_cast<int32_T>(Lat);
-                    codegenReal2Mission_emxEnsureCapacity_real_T(theta, i);
-                    if (static_cast<int32_T>(Lat) >= 1) {
-                        theta->data[static_cast<int32_T>(static_cast<int32_T>
-                            (Lat) - 1)] = 6.2831853071795862;
-                        if (theta->size[1] >= 2) {
-                            theta->data[0] = 0.0;
-                            if (theta->size[1] >= 3) {
-                                Lat = 6.2831853071795862 / (static_cast<real_T>
-                                    (theta->size[1]) - 1.0);
-                                md2 = theta->size[1];
-                                for (b_md2 = 0; b_md2 <= static_cast<int32_T>
-                                        (md2 - 3); b_md2++) {
-                                    theta->data[static_cast<int32_T>(b_md2 + 1)]
-                                        = (static_cast<real_T>(b_md2) + 1.0) *
-                                        Lat;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                // '<S14>:1:17'
-                i = b_tmp->size[0];
-                b_tmp->size[0] = theta->size[1];
-                codegenReal2Mission_emxEnsureCapacity_real_T(b_tmp, i);
-                loop_ub = theta->size[1];
-                for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
-                    b_tmp->data[i] = theta->data[i];
-                }
-
-                i = b_b->size[0];
-                b_b->size[0] = b_tmp->size[0];
-                codegenReal2Mission_emxEnsureCapacity_real_T(b_b, i);
-                loop_ub = b_tmp->size[0];
-                for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
-                    b_b->data[i] = b_tmp->data[i];
-                }
-
-                b_md2 = b_tmp->size[0];
-                for (md2 = 0; md2 <= static_cast<int32_T>(b_md2 - 1); md2++) {
-                    b_b->data[md2] = std::cos(b_b->data[md2]);
-                }
-
-                b_md2 = b_tmp->size[0];
-                for (md2 = 0; md2 <= static_cast<int32_T>(b_md2 - 1); md2++) {
-                    b_tmp->data[md2] = std::sin(b_tmp->data[md2]);
-                }
-
-                i = static_cast<int32_T>(fid_0->size[0] * fid_0->size[1]);
-                fid_0->size[0] = b_b->size[0];
-                fid_0->size[1] = 2;
-                codegenReal2Mission_emxEnsureCapacity_real_T(fid_0, i);
-                loop_ub = b_b->size[0];
-                for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
-                    fid_0->data[i] = fid * b_b->data[i];
-                }
-
-                loop_ub = b_tmp->size[0];
-                for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
-                    fid_0->data[static_cast<int32_T>(i + b_b->size[0])] = fid *
-                        b_tmp->data[i];
-                }
-
-                tmp_0[0] =
-                    codegenReal2Mission_DW.SelectNorthEastRadius[wholeSecsFromMillis];
-                tmp_0[1] = codegenReal2Mission_DW.SelectNorthEastRadius[
-                    static_cast<int32_T>(wholeSecsFromMillis +
-                    codegenReal2Mission_DW.SelectNorthEastRadius_DIMS1[0])];
-                i = static_cast<int32_T>(varargin_2->size[0] * varargin_2->size
-                    [1]);
-                varargin_2->size[0] = fid_0->size[0];
-                varargin_2->size[1] = 2;
-                codegenReal2Mission_emxEnsureCapacity_real_T(varargin_2, i);
-                loop_ub = fid_0->size[0];
-                for (i = 0; i < 2; i++) {
-                    for (b_md2 = 0; b_md2 <= static_cast<int32_T>(loop_ub - 1);
-                            b_md2++) {
-                        varargin_2->data[static_cast<int32_T>(b_md2 +
-                            static_cast<int32_T>(varargin_2->size[0] * i))] =
-                            fid_0->data[static_cast<int32_T>(static_cast<int32_T>
-                            (fid_0->size[0] * i) + b_md2)] + tmp_0[i];
-                    }
-                }
-
-                // '<S14>:1:11'
-                if (codegenReal2Mission_DW.SFunction_DIMS2_i[0] != 0) {
-                    b_n = codegenReal2Mission_DW.SFunction_DIMS2_i[0];
-                } else {
-                    b_n = 0;
-                }
-
-                if (varargin_2->size[0] != 0) {
-                    md2 = varargin_2->size[0];
-                } else {
-                    md2 = 0;
-                }
-
-                i = static_cast<int32_T>(tmp->size[0] * tmp->size[1]);
-                tmp->size[0] = static_cast<int32_T>(b_n + md2);
-                tmp->size[1] = 2;
-                codegenReal2Mission_emxEnsureCapacity_real_T(tmp, i);
-                for (i = 0; i < 2; i++) {
-                    for (b_md2 = 0; b_md2 <= static_cast<int32_T>(b_n - 1);
-                            b_md2++) {
-                        tmp->data[static_cast<int32_T>(b_md2 +
-                            static_cast<int32_T>(tmp->size[0] * i))] =
-                            codegenReal2Mission_DW.PointCloud
-                            [static_cast<int32_T>(static_cast<int32_T>(b_n * i)
-                            + b_md2)];
-                    }
-                }
-
-                for (i = 0; i < 2; i++) {
-                    for (b_md2 = 0; b_md2 <= static_cast<int32_T>(md2 - 1);
-                            b_md2++) {
-                        tmp->data[static_cast<int32_T>(static_cast<int32_T>
-                            (b_md2 + b_n) + static_cast<int32_T>(tmp->size[0] *
-                            i))] = varargin_2->data[static_cast<int32_T>(
-                            static_cast<int32_T>(varargin_2->size[0] * i) +
-                            b_md2)];
-                    }
-                }
-
-                codegenReal2Mission_DW.SFunction_DIMS2_i[0] = tmp->size[0];
-                codegenReal2Mission_DW.SFunction_DIMS2_i[1] = 2;
-                loop_ub = static_cast<int32_T>(tmp->size[0] << 1);
-                for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
-                    codegenReal2Mission_DW.PointCloud[i] = tmp->data[i];
-                }
-            }
-
-            codegenReal2Mission_emxFree_real_T(&fid_0);
-            codegenReal2Mission_emxFree_real_T(&tmp);
-            codegenReal2Mission_emxFree_real_T(&b_tmp);
-            codegenReal2Mission_emxFree_real_T(&b_b);
-            codegenReal2Mission_emxFree_real_T(&theta);
-            codegenReal2Mission_emxFree_real_T(&varargin_2);
-        }
-
-        // End of Receive: '<S5>/Receive'
-        // End of Outputs for SubSystem: '<S5>/GenPCD'
-
-        // Memory: '<S2>/Memory'
-        rtb_Memory_m = codegenReal2Mission_DW.Memory_PreviousInput_l;
 
         // Receive: '<S2>/RcvNextMission'
         codegenReal2Mission_RcvNextMission_RecvData
@@ -10089,27 +8451,27 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
             ((codegenReal2Mission_DW.RcvNextMission.params.Param7 != 0.0F) ^ 1));
 
         // Outputs for Enabled SubSystem: '<S7>/TriggerNewMissionBroadcast' incorporates:
-        //   EnablePort: '<S51>/Enable'
+        //   EnablePort: '<S50>/Enable'
 
-        // RelationalOperator: '<S45>/FixPt Relational Operator' incorporates:
-        //   UnitDelay: '<S45>/Delay Input1'
+        // RelationalOperator: '<S44>/FixPt Relational Operator' incorporates:
+        //   UnitDelay: '<S44>/Delay Input1'
         //
-        //  Block description for '<S45>/Delay Input1':
+        //  Block description for '<S44>/Delay Input1':
         //
         //   Store in Global RAM
 
         if (codegenReal2Mission_DW.RcvNextMission.SequenceID !=
                 codegenReal2Mission_DW.DelayInput1_DSTATE_e) {
-            // DataStoreWrite: '<S51>/Data Store Write'
+            // DataStoreWrite: '<S50>/Data Store Write'
             codegenReal2Mission_DW.CurrentFlightMission =
                 codegenReal2Mission_DW.RcvNextMission;
 
-            // Send: '<S51>/SendMission'
+            // Send: '<S50>/SendMission'
             codegenReal2Mission_MissionUAVScheduling_In3_SendData
                 (&codegenReal2Mission_DW.RcvNextMission);
         }
 
-        // End of RelationalOperator: '<S45>/FixPt Relational Operator'
+        // End of RelationalOperator: '<S44>/FixPt Relational Operator'
         // End of Outputs for SubSystem: '<S7>/TriggerNewMissionBroadcast'
 
         // Chart: '<S7>/MissionUAVScheduling' incorporates:
@@ -10129,33 +8491,33 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
             // Entry Internal: MissionLogic/FlightMission/MissionUAVScheduling
             codegenReal2Mission_DW.is_active_MissionSwitch = 1U;
 
-            // Entry Internal 'MissionSwitch': '<S47>:47'
-            // Transition: '<S47>:16'
+            // Entry Internal 'MissionSwitch': '<S46>:47'
+            // Transition: '<S46>:16'
             codegenReal2Mission_DW.is_MissionSwitch =
                 codegenReal2Mission_IN_MissionA;
 
-            // Entry 'MissionA': '<S47>:12'
+            // Entry 'MissionA': '<S46>:12'
             codegenReal2Mission_DW.EnableA = 1.0;
             codegenReal2Mission_DW.EnableB = 0.0;
             codegenReal2Mission_DW.is_active_FollowSwitch = 1U;
 
-            // Entry Internal 'FollowSwitch': '<S47>:48'
-            // Transition: '<S47>:50'
+            // Entry Internal 'FollowSwitch': '<S46>:48'
+            // Transition: '<S46>:50'
             codegenReal2Mission_DW.is_FollowSwitch =
                 codegenReal2Mission_IN_FollowA;
 
-            // Entry 'FollowA': '<S47>:49'
+            // Entry 'FollowA': '<S46>:49'
             codegenReal2Mission_DW.followSwitch = true;
         } else {
             if (static_cast<uint32_T>
                     (codegenReal2Mission_DW.is_active_MissionSwitch) != 0U) {
-                // During 'MissionSwitch': '<S47>:47'
+                // During 'MissionSwitch': '<S46>:47'
                 switch (codegenReal2Mission_DW.is_MissionSwitch) {
                   case codegenReal2Mission_IN_A2B:
-                    // During 'A2B': '<S47>:42'
+                    // During 'A2B': '<S46>:42'
                     if (codegenReal2Mission_DW.Memory_PreviousInput_f) {
-                        // Transition: '<S47>:44'
-                        // Event: '<S47>:55'
+                        // Transition: '<S46>:44'
+                        // Event: '<S46>:55'
                         wholeSecsFromMillis =
                             codegenReal2Mission_event_shiftFollow;
                         if (static_cast<uint32_T>
@@ -10169,17 +8531,17 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
                         codegenReal2Mission_DW.is_MissionSwitch =
                             codegenReal2Mission_IN_MissionB;
 
-                        // Entry 'MissionB': '<S47>:10'
+                        // Entry 'MissionB': '<S46>:10'
                         codegenReal2Mission_DW.EnableA = 0.0;
                         codegenReal2Mission_DW.EnableB = 1.0;
                     }
                     break;
 
                   case codegenReal2Mission_IN_B2A:
-                    // During 'B2A': '<S47>:77'
+                    // During 'B2A': '<S46>:77'
                     if (codegenReal2Mission_DW.Memory_PreviousInput_f) {
-                        // Transition: '<S47>:73'
-                        // Event: '<S47>:55'
+                        // Transition: '<S46>:73'
+                        // Event: '<S46>:55'
                         wholeSecsFromMillis =
                             codegenReal2Mission_event_shiftFollow;
                         if (static_cast<uint32_T>
@@ -10193,14 +8555,14 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
                         codegenReal2Mission_DW.is_MissionSwitch =
                             codegenReal2Mission_IN_MissionA;
 
-                        // Entry 'MissionA': '<S47>:12'
+                        // Entry 'MissionA': '<S46>:12'
                         codegenReal2Mission_DW.EnableA = 1.0;
                         codegenReal2Mission_DW.EnableB = 0.0;
                     }
                     break;
 
                   case codegenReal2Mission_IN_MissionA:
-                    // During 'MissionA': '<S47>:12'
+                    // During 'MissionA': '<S46>:12'
                     if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<
                             int32_T>(codegenReal2Mission_sf_msg_pop_ExecMsg
                                      (&NichtAvoidDanger)) ^ 1))) {
@@ -10208,33 +8570,33 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
                     }
 
                     if (rtb_Receive_o1_m) {
-                        // Transition: '<S47>:7'
+                        // Transition: '<S46>:7'
                         codegenReal2Mission_sf_msg_forward_ExecMsg_ExecMsgB
                             (&NichtAvoidDanger);
 
-                        // Exit 'MissionA': '<S47>:12'
+                        // Exit 'MissionA': '<S46>:12'
                         codegenReal2Mission_DW.EnableA = 0.0;
                         codegenReal2Mission_DW.EnableB = 1.0;
                         codegenReal2Mission_DW.is_MissionSwitch =
                             codegenReal2Mission_IN_A2B;
                     } else if (codegenReal2Mission_sf_msg_pop_ExecMsg
                                (&NichtAvoidDanger)) {
-                        // Transition: '<S47>:79'
+                        // Transition: '<S46>:79'
                         codegenReal2Mission_sf_msg_forward_ExecMsg_ExecMsgA
                             (&NichtAvoidDanger);
 
-                        // Exit 'MissionA': '<S47>:12'
+                        // Exit 'MissionA': '<S46>:12'
                         codegenReal2Mission_DW.is_MissionSwitch =
                             codegenReal2Mission_IN_MissionA;
 
-                        // Entry 'MissionA': '<S47>:12'
+                        // Entry 'MissionA': '<S46>:12'
                         codegenReal2Mission_DW.EnableA = 1.0;
                         codegenReal2Mission_DW.EnableB = 0.0;
                     }
                     break;
 
                   case codegenReal2Mission_IN_MissionB:
-                    // During 'MissionB': '<S47>:10'
+                    // During 'MissionB': '<S46>:10'
                     if (static_cast<boolean_T>(static_cast<int32_T>
                                                (static_cast<int32_T>
                                                 (codegenReal2Mission_sf_msg_pop_ExecMsg
@@ -10243,26 +8605,26 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
                     }
 
                     if (rtb_Receive_o1_m) {
-                        // Transition: '<S47>:11'
+                        // Transition: '<S46>:11'
                         codegenReal2Mission_sf_msg_forward_ExecMsg_ExecMsgA
                             (&NichtAvoidDanger);
 
-                        // Exit 'MissionB': '<S47>:10'
+                        // Exit 'MissionB': '<S46>:10'
                         codegenReal2Mission_DW.EnableA = 1.0;
                         codegenReal2Mission_DW.EnableB = 0.0;
                         codegenReal2Mission_DW.is_MissionSwitch =
                             codegenReal2Mission_IN_B2A;
                     } else if (codegenReal2Mission_sf_msg_pop_ExecMsg
                                (&NichtAvoidDanger)) {
-                        // Transition: '<S47>:80'
+                        // Transition: '<S46>:80'
                         codegenReal2Mission_sf_msg_forward_ExecMsg_ExecMsgB
                             (&NichtAvoidDanger);
 
-                        // Exit 'MissionB': '<S47>:10'
+                        // Exit 'MissionB': '<S46>:10'
                         codegenReal2Mission_DW.is_MissionSwitch =
                             codegenReal2Mission_IN_MissionB;
 
-                        // Entry 'MissionB': '<S47>:10'
+                        // Entry 'MissionB': '<S46>:10'
                         codegenReal2Mission_DW.EnableA = 0.0;
                         codegenReal2Mission_DW.EnableB = 1.0;
                     }
@@ -10303,10 +8665,10 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
             codegenReal2Mission_DW.EnableB;
 
         // Outputs for Atomic SubSystem: '<S7>/JumpDelay'
-        // Outputs for Atomic SubSystem: '<S46>/ComputDelay'
-        // MATLAB Function: '<S53>/ReadPursuitShiftPercentage'
-        // MATLAB Function 'ComputShift/ReadPursuitShiftPercentage': '<S54>:1'
-        // '<S54>:1:3'
+        // Outputs for Atomic SubSystem: '<S45>/ComputDelay'
+        // MATLAB Function: '<S52>/ReadPursuitShiftPercentage'
+        // MATLAB Function 'ComputShift/ReadPursuitShiftPercentage': '<S53>:1'
+        // '<S53>:1:3'
         if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
                 (codegenReal2Mission_DW.PursuitShift_not_empty) ^ 1))) {
             ret->size[0] = 1;
@@ -10675,26 +9037,26 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
             fflush(stdout);
         }
 
-        // Switch: '<S53>/AllPositivePosSwitch' incorporates:
-        //   Bias: '<S53>/plusOne'
-        //   DataTypeConversion: '<S53>/doubleFormPos'
-        //   DataTypeConversion: '<S53>/doubleNumUAV'
-        //   Sum: '<S53>/Minus'
+        // Switch: '<S52>/AllPositivePosSwitch' incorporates:
+        //   Bias: '<S52>/plusOne'
+        //   DataTypeConversion: '<S52>/doubleFormPos'
+        //   DataTypeConversion: '<S52>/doubleNumUAV'
+        //   Sum: '<S52>/Minus'
 
         if (codegenReal2Mission_DW.RcvNextMission.FormationPos > 0) {
-            b_I = static_cast<real_T>
+            D = static_cast<real_T>
                 (codegenReal2Mission_DW.RcvNextMission.FormationPos);
         } else {
-            b_I = (static_cast<real_T>
-                   (codegenReal2Mission_DW.RcvNextMission.numUAV) + 1.0) +
+            D = (static_cast<real_T>
+                 (codegenReal2Mission_DW.RcvNextMission.numUAV) + 1.0) +
                 static_cast<real_T>
                 (codegenReal2Mission_DW.RcvNextMission.FormationPos);
         }
 
-        // End of Switch: '<S53>/AllPositivePosSwitch'
+        // End of Switch: '<S52>/AllPositivePosSwitch'
 
-        // Signum: '<S53>/Sign' incorporates:
-        //   MATLAB Function: '<S53>/ReadPursuitShiftPercentage'
+        // Signum: '<S52>/Sign' incorporates:
+        //   MATLAB Function: '<S52>/ReadPursuitShiftPercentage'
 
         if (std::isnan(codegenReal2Mission_DW.PursuitShift)) {
             a__17 = (rtNaN);
@@ -10705,44 +9067,44 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
                 0.0);
         }
 
-        // Product: '<S53>/DivideThree' incorporates:
-        //   Abs: '<S53>/Abs'
-        //   Bias: '<S53>/Bias'
-        //   Constant: '<S53>/Three'
-        //   MATLAB Function: '<S53>/ReadPursuitShiftPercentage'
-        //   Math: '<S53>/ModThree'
-        //   Math: '<S53>/Pow'
-        //   Product: '<S53>/DivideByThree'
-        //   Rounding: '<S53>/idxCeil'
-        //   Signum: '<S53>/Sign'
+        // Product: '<S52>/DivideThree' incorporates:
+        //   Abs: '<S52>/Abs'
+        //   Bias: '<S52>/Bias'
+        //   Constant: '<S52>/Three'
+        //   MATLAB Function: '<S52>/ReadPursuitShiftPercentage'
+        //   Math: '<S52>/ModThree'
+        //   Math: '<S52>/Pow'
+        //   Product: '<S52>/DivideByThree'
+        //   Rounding: '<S52>/idxCeil'
+        //   Signum: '<S52>/Sign'
 
-        codegenReal2Mission_DW.DivideThree = (rt_modd_snf(std::ceil(b_I / 3.0),
-            3.0) + 1.0) / 3.0 * rt_powd_snf(a__17, b_I) * std::abs
+        codegenReal2Mission_DW.DivideThree = (rt_modd_snf(std::ceil(D / 3.0),
+            3.0) + 1.0) / 3.0 * rt_powd_snf(a__17, D) * std::abs
             (codegenReal2Mission_DW.PursuitShift);
 
-        // End of Outputs for SubSystem: '<S46>/ComputDelay'
+        // End of Outputs for SubSystem: '<S45>/ComputDelay'
         // End of Outputs for SubSystem: '<S7>/JumpDelay'
 
-        // MATLAB Function: '<S52>/CurrentTime'
-        // MATLAB Function 'CurrentTime/CurrentTime': '<S55>:1'
-        // '<S55>:1:3'
+        // MATLAB Function: '<S51>/CurrentTime'
+        // MATLAB Function 'CurrentTime/CurrentTime': '<S54>:1'
+        // '<S54>:1:3'
         codegenReal2Mission_getLocalTime(&Lat, &Lon, &Alt, &processedInData[3],
-            &D, &a__4, &rtb_Sum1_o_idx_0, &rtb_Receive_o1_m);
+            &D, &a__4, &rtb_Sum1_idx_0, &rtb_Receive_o1_m);
         processedInData[4] = Alt;
         processedInData[6] = Lat / 1.0E+6;
         b_I = processedInData[6];
-        Lat = (((((rtb_Sum1_o_idx_0 + a__4) + D) + processedInData[3]) + Alt) +
+        Lat = (((((rtb_Sum1_idx_0 + a__4) + D) + processedInData[3]) + Alt) +
                Lon) + processedInData[6];
         if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(
                 static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
                  (std::isinf(Lat)) ^ 1))) & static_cast<int32_T>
                 (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
                  (std::isnan(Lat)) ^ 1)))))) {
-            Lat = rtb_Sum1_o_idx_0;
+            Lat = rtb_Sum1_idx_0;
             Alt = a__4;
             if ((a__4 < 1.0) || (a__4 > 12.0)) {
                 Alt = std::floor((a__4 - 1.0) / 12.0);
-                Lat = rtb_Sum1_o_idx_0 + Alt;
+                Lat = rtb_Sum1_idx_0 + Alt;
                 Alt = ((a__4 - 1.0) - Alt * 12.0) + 1.0;
             }
 
@@ -10780,12 +9142,12 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
             b_this_data.re = Lat;
         }
 
-        // Receive: '<S48>/Receive'
+        // Receive: '<S47>/Receive'
         wholeSecsFromMillis = codegenReal2Mission_Receive_d_RecvData
             (&codegenReal2Mission_DW.Receive_o2_d);
         NichtAvoidDanger = (wholeSecsFromMillis != 1);
 
-        // RateTransition: '<S48>/MsgRT'
+        // RateTransition: '<S47>/MsgRT'
         if ((&codegenReal2Mission_M)->Timing.RateInteraction.TID1_2 == 1) {
             codegenReal2Mission_DW.MsgRT_WrBufIdx = static_cast<int8_T>(
                 static_cast<int32_T>(codegenReal2Mission_DW.MsgRT_WrBufIdx) == 0);
@@ -10795,32 +9157,33 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
             (codegenReal2Mission_DW.MsgRT_WrBufIdx)] =
             codegenReal2Mission_DW.Receive_o2_d;
 
-        // End of RateTransition: '<S48>/MsgRT'
+        // End of RateTransition: '<S47>/MsgRT'
 
-        // RateTransition: '<S48>/Rate Transition' incorporates:
-        //   Logic: '<S48>/OR'
-        //   Memory: '<S48>/Memory'
+        // RateTransition: '<S47>/Rate Transition' incorporates:
+        //   Logic: '<S47>/OR'
+        //   Memory: '<S47>/Memory'
 
         if ((&codegenReal2Mission_M)->Timing.RateInteraction.TID1_2 == 1) {
-            codegenReal2Mission_DW.RateTransition_WrBufIdx = static_cast<int8_T>
-                (static_cast<int32_T>
-                 (codegenReal2Mission_DW.RateTransition_WrBufIdx) == 0);
+            codegenReal2Mission_DW.RateTransition_WrBufIdx_j =
+                static_cast<int8_T>(static_cast<int32_T>
+                                    (codegenReal2Mission_DW.RateTransition_WrBufIdx_j)
+                                    == 0);
         }
 
-        codegenReal2Mission_DW.RateTransition_Buf[static_cast<int32_T>
-            (codegenReal2Mission_DW.RateTransition_WrBufIdx)] =
+        codegenReal2Mission_DW.RateTransition_Buf_c[static_cast<int32_T>
+            (codegenReal2Mission_DW.RateTransition_WrBufIdx_j)] =
             static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
             (codegenReal2Mission_DW.Memory_PreviousInput_j) |
             static_cast<int32_T>(NichtAvoidDanger)));
 
-        // End of RateTransition: '<S48>/Rate Transition'
+        // End of RateTransition: '<S47>/Rate Transition'
 
-        // Receive: '<S49>/Receive'
-        wholeSecsFromMillis = codegenReal2Mission_Receive_RecvData
+        // Receive: '<S48>/Receive'
+        wholeSecsFromMillis = codegenReal2Mission_Receive_e_RecvData
             (&codegenReal2Mission_DW.Receive_o2_p);
         rtb_NotEqual = (wholeSecsFromMillis != 1);
 
-        // RateTransition: '<S49>/MsgRT'
+        // RateTransition: '<S48>/MsgRT'
         if ((&codegenReal2Mission_M)->Timing.RateInteraction.TID1_2 == 1) {
             codegenReal2Mission_DW.MsgRT_WrBufIdx_b = static_cast<int8_T>(
                 static_cast<int32_T>(codegenReal2Mission_DW.MsgRT_WrBufIdx_b) ==
@@ -10831,11 +9194,11 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
             (codegenReal2Mission_DW.MsgRT_WrBufIdx_b)] =
             codegenReal2Mission_DW.Receive_o2_p;
 
-        // End of RateTransition: '<S49>/MsgRT'
+        // End of RateTransition: '<S48>/MsgRT'
 
-        // RateTransition: '<S49>/Rate Transition' incorporates:
-        //   Logic: '<S49>/OR'
-        //   Memory: '<S49>/Memory'
+        // RateTransition: '<S48>/Rate Transition' incorporates:
+        //   Logic: '<S48>/OR'
+        //   Memory: '<S48>/Memory'
 
         if ((&codegenReal2Mission_M)->Timing.RateInteraction.TID1_2 == 1) {
             codegenReal2Mission_DW.RateTransition_WrBufIdx_h =
@@ -10850,7 +9213,7 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
             (codegenReal2Mission_DW.Memory_PreviousInput_p) |
             static_cast<int32_T>(rtb_NotEqual)));
 
-        // End of RateTransition: '<S49>/Rate Transition'
+        // End of RateTransition: '<S48>/Rate Transition'
 
         // Chart: '<S7>/NewMission'
         // Gateway: MissionLogic/FlightMission/NewMission
@@ -10866,15 +9229,15 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
             codegenReal2Mission_DW.is_active_c18_codegenReal2Mission = 1U;
 
             // Entry Internal: MissionLogic/FlightMission/NewMission
-            // Transition: '<S50>:3'
-            // Entry 'TriggerNewMission': '<S50>:2'
+            // Transition: '<S49>:3'
+            // Entry 'TriggerNewMission': '<S49>:2'
             rtb_Receive_o1_m = true;
 
-            // During 'TriggerNewMission': '<S50>:2'
+            // During 'TriggerNewMission': '<S49>:2'
         } else if (rtb_Receive_o1_m != codegenReal2Mission_DW.followSwitch_start)
         {
-            // Transition: '<S50>:4'
-            // Entry 'TriggerNewMission': '<S50>:2'
+            // Transition: '<S49>:4'
+            // Entry 'TriggerNewMission': '<S49>:2'
             rtb_Receive_o1_m = true;
         } else {
             rtb_Receive_o1_m = false;
@@ -10893,7 +9256,7 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
         }
 
         // Product: '<S7>/Product' incorporates:
-        //   MATLAB Function: '<S52>/CurrentTime'
+        //   MATLAB Function: '<S51>/CurrentTime'
         //   SampleTimeMath: '<S7>/Weighted Sample Time Math'
         //   Signum: '<S7>/Sign'
         //   Sum: '<S7>/Minus'
@@ -10901,8 +9264,8 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
         //  About '<S7>/Weighted Sample Time Math':
         //   y = u * K where K = 1 / ( w * Ts )
 
-        b_I = (b_this_data.re / 1000.0 -
-               codegenReal2Mission_DW.RcvNextMission.StartTime) * 10.0 * a__17;
+        D = (b_this_data.re / 1000.0 -
+             codegenReal2Mission_DW.RcvNextMission.StartTime) * 10.0 * a__17;
 
         // Update for Memory: '<S7>/Memory' incorporates:
         //   RateTransition: '<S7>/Rate Transition'
@@ -10971,7 +9334,7 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
         }
 
         codegenReal2Mission_DW.TmpRTBAtModelAInport3_Buf[static_cast<int32_T>
-            (codegenReal2Mission_DW.TmpRTBAtModelAInport3_WrBufIdx)] = b_I *
+            (codegenReal2Mission_DW.TmpRTBAtModelAInport3_WrBufIdx)] = D *
             codegenReal2Mission_DW.EnableA;
 
         // RateTransition generated from: '<S7>/ModelB' incorporates:
@@ -10985,22 +9348,22 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
         }
 
         codegenReal2Mission_DW.TmpRTBAtModelBInport3_Buf[static_cast<int32_T>
-            (codegenReal2Mission_DW.TmpRTBAtModelBInport3_WrBufIdx)] = b_I *
+            (codegenReal2Mission_DW.TmpRTBAtModelBInport3_WrBufIdx)] = D *
             codegenReal2Mission_DW.EnableB;
 
-        // Update for UnitDelay: '<S45>/Delay Input1'
+        // Update for UnitDelay: '<S44>/Delay Input1'
         //
-        //  Block description for '<S45>/Delay Input1':
+        //  Block description for '<S44>/Delay Input1':
         //
         //   Store in Global RAM
 
         codegenReal2Mission_DW.DelayInput1_DSTATE_e =
             codegenReal2Mission_DW.RcvNextMission.SequenceID;
 
-        // Update for Memory: '<S48>/Memory'
+        // Update for Memory: '<S47>/Memory'
         codegenReal2Mission_DW.Memory_PreviousInput_j = NichtAvoidDanger;
 
-        // Update for Memory: '<S49>/Memory'
+        // Update for Memory: '<S48>/Memory'
         codegenReal2Mission_DW.Memory_PreviousInput_p = rtb_NotEqual;
 
         // End of Outputs for SubSystem: '<S2>/FlightMission'
@@ -11011,11 +9374,11 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
         NichtAvoidDanger = (wholeSecsFromMillis != 1);
 
         // MATLAB Function: '<S9>/ReadHomePoint'
-        // MATLAB Function 'ReadHomePoint': '<S60>:1'
+        // MATLAB Function 'ReadHomePoint': '<S59>:1'
         if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
                 (codegenReal2Mission_DW.HomePoint_not_empty) ^ 1))) {
-            // '<S60>:1:5'
-            // '<S60>:1:6'
+            // '<S59>:1:5'
+            // '<S59>:1:6'
             ret->size[0] = 1;
             ret->size[1] = 0;
             fileid = codegenReal2Mission_cfopen_o("config.ini", "rb");
@@ -11041,23 +9404,23 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
                 curKey->size[1] = 0;
                 curVal->size[0] = 1;
                 curVal->size[1] = 0;
-                codegenReal2Mission_emxInit_char_T(&tmp_a, 2);
-                codegenReal2Mission_emxInit_char_T(&data_2, 2);
+                codegenReal2Mission_emxInit_char_T(&tmp_d, 2);
+                codegenReal2Mission_emxInit_char_T(&data_5, 2);
                 exitg1 = false;
                 while ((!exitg1) && (data->size[1] != 0)) {
-                    i = static_cast<int32_T>(data_2->size[0] * data_2->size[1]);
-                    data_2->size[0] = 1;
-                    data_2->size[1] = data->size[1];
-                    codegenReal2Mission_emxEnsureCapacity_char_T(data_2, i);
+                    i = static_cast<int32_T>(data_5->size[0] * data_5->size[1]);
+                    data_5->size[0] = 1;
+                    data_5->size[1] = data->size[1];
+                    codegenReal2Mission_emxEnsureCapacity_char_T(data_5, i);
                     loop_ub = static_cast<int32_T>(static_cast<int32_T>
                         (data->size[0] * data->size[1]) - 1);
                     for (i = 0; i <= loop_ub; i++) {
-                        data_2->data[i] = data->data[i];
+                        data_5->data[i] = data->data[i];
                     }
 
-                    codegenReal2Mission_strtok(data_2, curLine, data);
-                    codegenReal2Mission_strtok_p(curLine, tmp_a);
-                    codegenReal2Mission_strtrim(tmp_a, curLine);
+                    codegenReal2Mission_strtok(data_5, curLine, data);
+                    codegenReal2Mission_strtok_p(curLine, tmp_d);
+                    codegenReal2Mission_strtrim(tmp_d, curLine);
                     if (curLine->size[1] >= 2) {
                         rtb_NotEqual = false;
                         if (curLine->data[0] == '[') {
@@ -11165,8 +9528,8 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
                     }
                 }
 
-                codegenReal2Mission_emxFree_char_T(&data_2);
-                codegenReal2Mission_emxFree_char_T(&tmp_a);
+                codegenReal2Mission_emxFree_char_T(&data_5);
+                codegenReal2Mission_emxFree_char_T(&tmp_d);
             }
 
             tmp_1 = codegenReal2Mission_str2double(ret);
@@ -11197,23 +9560,23 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
                 curKey->size[1] = 0;
                 curVal->size[0] = 1;
                 curVal->size[1] = 0;
-                codegenReal2Mission_emxInit_char_T(&tmp_9, 2);
-                codegenReal2Mission_emxInit_char_T(&data_1, 2);
+                codegenReal2Mission_emxInit_char_T(&tmp_c, 2);
+                codegenReal2Mission_emxInit_char_T(&data_4, 2);
                 exitg1 = false;
                 while ((!exitg1) && (data->size[1] != 0)) {
-                    i = static_cast<int32_T>(data_1->size[0] * data_1->size[1]);
-                    data_1->size[0] = 1;
-                    data_1->size[1] = data->size[1];
-                    codegenReal2Mission_emxEnsureCapacity_char_T(data_1, i);
+                    i = static_cast<int32_T>(data_4->size[0] * data_4->size[1]);
+                    data_4->size[0] = 1;
+                    data_4->size[1] = data->size[1];
+                    codegenReal2Mission_emxEnsureCapacity_char_T(data_4, i);
                     loop_ub = static_cast<int32_T>(static_cast<int32_T>
                         (data->size[0] * data->size[1]) - 1);
                     for (i = 0; i <= loop_ub; i++) {
-                        data_1->data[i] = data->data[i];
+                        data_4->data[i] = data->data[i];
                     }
 
-                    codegenReal2Mission_strtok(data_1, curLine, data);
-                    codegenReal2Mission_strtok_p(curLine, tmp_9);
-                    codegenReal2Mission_strtrim(tmp_9, curLine);
+                    codegenReal2Mission_strtok(data_4, curLine, data);
+                    codegenReal2Mission_strtok_p(curLine, tmp_c);
+                    codegenReal2Mission_strtrim(tmp_c, curLine);
                     if (curLine->size[1] >= 2) {
                         rtb_NotEqual = false;
                         if (curLine->data[0] == '[') {
@@ -11318,8 +9681,8 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
                     }
                 }
 
-                codegenReal2Mission_emxFree_char_T(&data_1);
-                codegenReal2Mission_emxFree_char_T(&tmp_9);
+                codegenReal2Mission_emxFree_char_T(&data_4);
+                codegenReal2Mission_emxFree_char_T(&tmp_c);
             }
 
             tmp_2 = codegenReal2Mission_str2double(ret);
@@ -11350,23 +9713,23 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
                 curKey->size[1] = 0;
                 curVal->size[0] = 1;
                 curVal->size[1] = 0;
-                codegenReal2Mission_emxInit_char_T(&tmp_8, 2);
-                codegenReal2Mission_emxInit_char_T(&data_0, 2);
+                codegenReal2Mission_emxInit_char_T(&tmp_b, 2);
+                codegenReal2Mission_emxInit_char_T(&data_3, 2);
                 exitg1 = false;
                 while ((!exitg1) && (data->size[1] != 0)) {
-                    i = static_cast<int32_T>(data_0->size[0] * data_0->size[1]);
-                    data_0->size[0] = 1;
-                    data_0->size[1] = data->size[1];
-                    codegenReal2Mission_emxEnsureCapacity_char_T(data_0, i);
+                    i = static_cast<int32_T>(data_3->size[0] * data_3->size[1]);
+                    data_3->size[0] = 1;
+                    data_3->size[1] = data->size[1];
+                    codegenReal2Mission_emxEnsureCapacity_char_T(data_3, i);
                     loop_ub = static_cast<int32_T>(static_cast<int32_T>
                         (data->size[0] * data->size[1]) - 1);
                     for (i = 0; i <= loop_ub; i++) {
-                        data_0->data[i] = data->data[i];
+                        data_3->data[i] = data->data[i];
                     }
 
-                    codegenReal2Mission_strtok(data_0, curLine, data);
-                    codegenReal2Mission_strtok_p(curLine, tmp_8);
-                    codegenReal2Mission_strtrim(tmp_8, curLine);
+                    codegenReal2Mission_strtok(data_3, curLine, data);
+                    codegenReal2Mission_strtok_p(curLine, tmp_b);
+                    codegenReal2Mission_strtrim(tmp_b, curLine);
                     if (curLine->size[1] >= 2) {
                         rtb_NotEqual = false;
                         if (curLine->data[0] == '[') {
@@ -11473,8 +9836,8 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
                     }
                 }
 
-                codegenReal2Mission_emxFree_char_T(&data_0);
-                codegenReal2Mission_emxFree_char_T(&tmp_8);
+                codegenReal2Mission_emxFree_char_T(&data_3);
+                codegenReal2Mission_emxFree_char_T(&tmp_b);
             }
 
             tmp_3 = codegenReal2Mission_str2double(ret);
@@ -11500,37 +9863,25 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
             }
 
             if (rtb_NotEqual) {
-                // '<S60>:1:7'
-                // '<S60>:1:8'
+                // '<S59>:1:7'
+                // '<S59>:1:8'
                 codegenReal2Mission_DW.HomePoint[0] = 35.8617;
                 codegenReal2Mission_DW.HomePoint[1] = 104.1954;
                 codegenReal2Mission_DW.HomePoint[2] = 0.0;
             }
         }
 
-        // End of Outputs for SubSystem: '<Root>/MissionLogic'
-        codegenReal2Mission_emxFree_char_T(&q);
-        codegenReal2Mission_emxFree_char_T(&x);
-        codegenReal2Mission_emxFree_char_T(&b_curKey);
-        codegenReal2Mission_emxFree_char_T(&curLine);
-        codegenReal2Mission_emxFree_char_T(&curVal);
-        codegenReal2Mission_emxFree_char_T(&curKey);
-        codegenReal2Mission_emxFree_char_T(&curSection);
-        codegenReal2Mission_emxFree_char_T(&data);
-        codegenReal2Mission_emxFree_char_T(&ret);
-
-        // Outputs for Atomic SubSystem: '<Root>/MissionLogic'
-        // Switch: '<S74>/Switch' incorporates:
-        //   Abs: '<S74>/Abs'
-        //   Bias: '<S74>/Bias'
-        //   Bias: '<S74>/Bias1'
-        //   Constant: '<S74>/Constant2'
-        //   Constant: '<S75>/Constant'
+        // Switch: '<S73>/Switch' incorporates:
+        //   Abs: '<S73>/Abs'
+        //   Bias: '<S73>/Bias'
+        //   Bias: '<S73>/Bias1'
+        //   Constant: '<S73>/Constant2'
+        //   Constant: '<S74>/Constant'
         //   MATLAB Function: '<S9>/ReadHomePoint'
-        //   Math: '<S74>/Math Function1'
-        //   RelationalOperator: '<S75>/Compare'
+        //   Math: '<S73>/Math Function1'
+        //   RelationalOperator: '<S74>/Compare'
 
-        // '<S60>:1:12'
+        // '<S59>:1:12'
         if (std::abs(codegenReal2Mission_DW.HomePoint[0]) > 180.0) {
             b_I = rt_modd_snf(codegenReal2Mission_DW.HomePoint[0] + 180.0, 360.0)
                 - 180.0;
@@ -11538,25 +9889,25 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
             b_I = codegenReal2Mission_DW.HomePoint[0];
         }
 
-        // End of Switch: '<S74>/Switch'
+        // End of Switch: '<S73>/Switch'
 
-        // Abs: '<S71>/Abs1'
+        // Abs: '<S70>/Abs1'
         Lat = std::abs(b_I);
 
-        // Switch: '<S71>/Switch' incorporates:
-        //   Bias: '<S71>/Bias'
-        //   Bias: '<S71>/Bias1'
-        //   Constant: '<S62>/Constant'
-        //   Constant: '<S62>/Constant1'
-        //   Constant: '<S73>/Constant'
-        //   Gain: '<S71>/Gain'
-        //   Product: '<S71>/Divide1'
-        //   RelationalOperator: '<S73>/Compare'
-        //   Signum: '<S71>/Sign1'
-        //   Switch: '<S62>/Switch1'
+        // Switch: '<S70>/Switch' incorporates:
+        //   Bias: '<S70>/Bias'
+        //   Bias: '<S70>/Bias1'
+        //   Constant: '<S61>/Constant'
+        //   Constant: '<S61>/Constant1'
+        //   Constant: '<S72>/Constant'
+        //   Gain: '<S70>/Gain'
+        //   Product: '<S70>/Divide1'
+        //   RelationalOperator: '<S72>/Compare'
+        //   Signum: '<S70>/Sign1'
+        //   Switch: '<S61>/Switch1'
 
         if (Lat > 90.0) {
-            // Signum: '<S71>/Sign1'
+            // Signum: '<S70>/Sign1'
             if (std::isnan(b_I)) {
                 a__17 = (rtNaN);
             } else if (b_I < 0.0) {
@@ -11571,67 +9922,67 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
             i = 0;
         }
 
-        // End of Switch: '<S71>/Switch'
+        // End of Switch: '<S70>/Switch'
 
-        // Sum: '<S62>/Sum' incorporates:
+        // Sum: '<S61>/Sum' incorporates:
         //   MATLAB Function: '<S9>/ReadHomePoint'
-        //   Switch: '<S62>/Switch1'
+        //   Switch: '<S61>/Switch1'
 
         D = static_cast<real_T>(i) + codegenReal2Mission_DW.HomePoint[1];
 
-        // Switch: '<S72>/Switch' incorporates:
-        //   Abs: '<S72>/Abs'
-        //   Bias: '<S72>/Bias'
-        //   Bias: '<S72>/Bias1'
-        //   Constant: '<S72>/Constant2'
-        //   Constant: '<S76>/Constant'
-        //   Math: '<S72>/Math Function1'
-        //   RelationalOperator: '<S76>/Compare'
+        // Switch: '<S71>/Switch' incorporates:
+        //   Abs: '<S71>/Abs'
+        //   Bias: '<S71>/Bias'
+        //   Bias: '<S71>/Bias1'
+        //   Constant: '<S71>/Constant2'
+        //   Constant: '<S75>/Constant'
+        //   Math: '<S71>/Math Function1'
+        //   RelationalOperator: '<S75>/Compare'
 
         if (std::abs(D) > 180.0) {
             D = rt_modd_snf(D + 180.0, 360.0) - 180.0;
         }
 
-        // End of Switch: '<S72>/Switch'
+        // End of Switch: '<S71>/Switch'
 
-        // Sum: '<S59>/Sum1'
-        rtb_Sum1_o_idx_0 = codegenReal2Mission_DW.Receive_m.Latitude_deg - b_I;
+        // Sum: '<S58>/Sum1'
+        rtb_Sum1_idx_0 = codegenReal2Mission_DW.Receive_m.Latitude_deg - b_I;
         da_im = codegenReal2Mission_DW.Receive_m.Longitude_deg - D;
 
-        // Switch: '<S68>/Switch' incorporates:
-        //   Abs: '<S68>/Abs'
-        //   Bias: '<S68>/Bias'
-        //   Bias: '<S68>/Bias1'
-        //   Constant: '<S68>/Constant2'
-        //   Constant: '<S69>/Constant'
-        //   Math: '<S68>/Math Function1'
-        //   RelationalOperator: '<S69>/Compare'
+        // Switch: '<S67>/Switch' incorporates:
+        //   Abs: '<S67>/Abs'
+        //   Bias: '<S67>/Bias'
+        //   Bias: '<S67>/Bias1'
+        //   Constant: '<S67>/Constant2'
+        //   Constant: '<S68>/Constant'
+        //   Math: '<S67>/Math Function1'
+        //   RelationalOperator: '<S68>/Compare'
 
-        if (std::abs(rtb_Sum1_o_idx_0) > 180.0) {
-            D = rt_modd_snf(rtb_Sum1_o_idx_0 + 180.0, 360.0) - 180.0;
+        if (std::abs(rtb_Sum1_idx_0) > 180.0) {
+            D = rt_modd_snf(rtb_Sum1_idx_0 + 180.0, 360.0) - 180.0;
         } else {
-            D = rtb_Sum1_o_idx_0;
+            D = rtb_Sum1_idx_0;
         }
 
-        // End of Switch: '<S68>/Switch'
+        // End of Switch: '<S67>/Switch'
 
-        // Abs: '<S65>/Abs1'
+        // Abs: '<S64>/Abs1'
         Lat = std::abs(D);
 
-        // Switch: '<S65>/Switch' incorporates:
-        //   Bias: '<S65>/Bias'
-        //   Bias: '<S65>/Bias1'
-        //   Constant: '<S61>/Constant'
-        //   Constant: '<S61>/Constant1'
-        //   Constant: '<S67>/Constant'
-        //   Gain: '<S65>/Gain'
-        //   Product: '<S65>/Divide1'
-        //   RelationalOperator: '<S67>/Compare'
-        //   Signum: '<S65>/Sign1'
-        //   Switch: '<S61>/Switch1'
+        // Switch: '<S64>/Switch' incorporates:
+        //   Bias: '<S64>/Bias'
+        //   Bias: '<S64>/Bias1'
+        //   Constant: '<S60>/Constant'
+        //   Constant: '<S60>/Constant1'
+        //   Constant: '<S66>/Constant'
+        //   Gain: '<S64>/Gain'
+        //   Product: '<S64>/Divide1'
+        //   RelationalOperator: '<S66>/Compare'
+        //   Signum: '<S64>/Sign1'
+        //   Switch: '<S60>/Switch1'
 
         if (Lat > 90.0) {
-            // Signum: '<S65>/Sign1'
+            // Signum: '<S64>/Sign1'
             if (std::isnan(D)) {
                 a__17 = (rtNaN);
             } else if (D < 0.0) {
@@ -11646,67 +9997,66 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
             i = 0;
         }
 
-        // End of Switch: '<S65>/Switch'
+        // End of Switch: '<S64>/Switch'
 
-        // Sum: '<S61>/Sum' incorporates:
-        //   Switch: '<S61>/Switch1'
+        // Sum: '<S60>/Sum' incorporates:
+        //   Switch: '<S60>/Switch1'
 
-        Alt = static_cast<real_T>(i) + da_im;
+        Lat = static_cast<real_T>(i) + da_im;
 
-        // Switch: '<S66>/Switch' incorporates:
-        //   Abs: '<S66>/Abs'
-        //   Bias: '<S66>/Bias'
-        //   Bias: '<S66>/Bias1'
-        //   Constant: '<S66>/Constant2'
-        //   Constant: '<S70>/Constant'
-        //   Math: '<S66>/Math Function1'
-        //   RelationalOperator: '<S70>/Compare'
+        // Switch: '<S65>/Switch' incorporates:
+        //   Abs: '<S65>/Abs'
+        //   Bias: '<S65>/Bias'
+        //   Bias: '<S65>/Bias1'
+        //   Constant: '<S65>/Constant2'
+        //   Constant: '<S69>/Constant'
+        //   Math: '<S65>/Math Function1'
+        //   RelationalOperator: '<S69>/Compare'
 
-        if (std::abs(Alt) > 180.0) {
-            Alt = rt_modd_snf(Alt + 180.0, 360.0) - 180.0;
+        if (std::abs(Lat) > 180.0) {
+            Lat = rt_modd_snf(Lat + 180.0, 360.0) - 180.0;
         }
 
-        // End of Switch: '<S66>/Switch'
+        // End of Switch: '<S65>/Switch'
 
-        // UnitConversion: '<S64>/Unit Conversion'
+        // UnitConversion: '<S63>/Unit Conversion'
         // Unit Conversion - from: deg to: rad
         // Expression: output = (0.0174533*input) + (0)
-        rtb_Sum1_o_idx_0 = 0.017453292519943295 * D;
-        da_im = 0.017453292519943295 * Alt;
+        rtb_Sum1_idx_0 = 0.017453292519943295 * D;
+        da_im = 0.017453292519943295 * Lat;
 
-        // UnitConversion: '<S79>/Unit Conversion'
+        // UnitConversion: '<S78>/Unit Conversion'
         // Unit Conversion - from: deg to: rad
         // Expression: output = (0.0174533*input) + (0)
         b_I *= 0.017453292519943295;
 
-        // Trigonometry: '<S80>/Trigonometric Function1'
-        Alt = std::sin(b_I);
+        // Trigonometry: '<S79>/Trigonometric Function1'
+        Lat = std::sin(b_I);
 
-        // Sum: '<S80>/Sum1' incorporates:
-        //   Constant: '<S80>/Constant'
-        //   Product: '<S80>/Product1'
+        // Sum: '<S79>/Sum1' incorporates:
+        //   Constant: '<S79>/Constant'
+        //   Product: '<S79>/Product1'
 
-        Alt = 1.0 - 0.0066943799901413295 * Alt * Alt;
+        Lat = 1.0 - 0.0066943799901413295 * Lat * Lat;
 
-        // Product: '<S78>/Product1' incorporates:
-        //   Constant: '<S78>/Constant1'
-        //   Sqrt: '<S78>/sqrt'
+        // Product: '<S77>/Product1' incorporates:
+        //   Constant: '<S77>/Constant1'
+        //   Sqrt: '<S77>/sqrt'
 
-        D = 6.378137E+6 / std::sqrt(Alt);
+        D = 6.378137E+6 / std::sqrt(Lat);
 
-        // Product: '<S63>/dNorth' incorporates:
-        //   Constant: '<S78>/Constant2'
-        //   Product: '<S78>/Product3'
-        //   Trigonometry: '<S78>/Trigonometric Function1'
+        // Product: '<S62>/dNorth' incorporates:
+        //   Constant: '<S77>/Constant2'
+        //   Product: '<S77>/Product3'
+        //   Trigonometry: '<S77>/Trigonometric Function1'
 
-        Alt = rtb_Sum1_o_idx_0 / rt_atan2d_snf(1.0, D * 0.99330562000985867 /
-            Alt);
+        Lat = rtb_Sum1_idx_0 / rt_atan2d_snf(1.0, D * 0.99330562000985867 / Lat);
 
-        // Product: '<S63>/dEast' incorporates:
-        //   Constant: '<S78>/Constant3'
-        //   Product: '<S78>/Product4'
-        //   Trigonometry: '<S78>/Trigonometric Function'
-        //   Trigonometry: '<S78>/Trigonometric Function2'
+        // Product: '<S62>/dEast' incorporates:
+        //   Constant: '<S77>/Constant3'
+        //   Product: '<S77>/Product4'
+        //   Trigonometry: '<S77>/Trigonometric Function'
+        //   Trigonometry: '<S77>/Trigonometric Function2'
 
         // Unit Conversion - from: deg to: rad
         // Expression: output = (0.0174533*input) + (0)
@@ -11714,17 +10064,17 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
 
         // BusCreator: '<S9>/FixedWingGuidanceStateBus' incorporates:
         //   Constant: '<S9>/dummyRollAngleRate'
+        //   Gain: '<S55>/Gain1'
         //   Gain: '<S56>/Gain1'
         //   Gain: '<S57>/Gain1'
-        //   Gain: '<S58>/Gain1'
         //   MATLAB Function: '<S9>/ReadHomePoint'
-        //   Product: '<S63>/x*cos'
-        //   Product: '<S63>/x*sin'
-        //   Product: '<S63>/y*cos'
-        //   Product: '<S63>/y*sin'
-        //   Sum: '<S59>/Sum'
-        //   Sum: '<S63>/Sum2'
-        //   Sum: '<S63>/Sum3'
+        //   Product: '<S62>/x*cos'
+        //   Product: '<S62>/x*sin'
+        //   Product: '<S62>/y*cos'
+        //   Product: '<S62>/y*sin'
+        //   Sum: '<S58>/Sum'
+        //   Sum: '<S62>/Sum2'
+        //   Sum: '<S62>/Sum3'
 
         rtb_FixedWingGuidanceStateBus.Height =
             codegenReal2Mission_DW.Receive_m.Height_meter -
@@ -11735,11 +10085,14 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
             codegenReal2Mission_DW.Receive_m.FlightPathAngle_deg;
         rtb_FixedWingGuidanceStateBus.RollAngle = 0.017453292519943295 *
             codegenReal2Mission_DW.Receive_m.RollAngle_deg;
-        rtb_FixedWingGuidanceStateBus.North = D * 0.0 + Alt;
-        rtb_FixedWingGuidanceStateBus.East = D - Alt * 0.0;
+        rtb_FixedWingGuidanceStateBus.North = D * 0.0 + Lat;
+        rtb_FixedWingGuidanceStateBus.East = D - Lat * 0.0;
         rtb_FixedWingGuidanceStateBus.AirSpeed =
             codegenReal2Mission_DW.Receive_m.AirSpeed_mps;
         rtb_FixedWingGuidanceStateBus.RollAngleRate = 0.0;
+
+        // Memory: '<S2>/Memory'
+        rtb_Memory_m = codegenReal2Mission_DW.Memory_PreviousInput_l;
 
         // ModelReference generated from: '<S8>/ImmedMission'
         ImmedMission(&rtb_SwitchMissionUAVState,
@@ -11750,7 +10103,7 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
                      &codegenReal2Mission_DW.RcvNextMission.params.Param3,
                      &codegenReal2Mission_DW.RcvNextMission.numUAV,
                      &codegenReal2Mission_DW.RcvNextMission.FormationPos,
-                     &codegenReal2Mission_DW.RateTransition[0], &rtb_Memory_m,
+                     &codegenReal2Mission_DW.RateTransition_c[0], &rtb_Memory_m,
                      &codegenReal2Mission_DW.Receive_m.UAV_ID,
                      &codegenReal2Mission_DW.thisTaskStatus,
                      &codegenReal2Mission_DW.ImmedMission_o2,
@@ -11759,6 +10112,1175 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
                      &(codegenReal2Mission_DW.ImmedMission_InstanceData.rtdw),
                      &(codegenReal2Mission_DW.ImmedMission_InstanceData.rtzce));
 
+        // Outputs for Atomic SubSystem: '<S12>/VisualizeUAV'
+        // RateTransition: '<S99>/Rate Transition'
+        if ((&codegenReal2Mission_M)->Timing.RateInteraction.TID1_3 == 1) {
+            codegenReal2Mission_DW.RateTransition_WrBufIdx = static_cast<int8_T>
+                (static_cast<int32_T>
+                 (codegenReal2Mission_DW.RateTransition_WrBufIdx) == 0);
+        }
+
+        // End of RateTransition: '<S99>/Rate Transition'
+        // End of Outputs for SubSystem: '<S12>/VisualizeUAV'
+
+        // Receive: '<S5>/Receive'
+        wholeSecsFromMillis = codegenReal2Mission_Receive_h_RecvData
+            (&codegenReal2Mission_DW.Receive_o2_a);
+
+        // Outputs for Enabled SubSystem: '<S5>/GenPCD' incorporates:
+        //   EnablePort: '<S13>/Enable'
+
+        if (wholeSecsFromMillis != 1) {
+            int32_T DangerList_size_idx_0;
+
+            // MATLAB Function: '<S13>/ReadHomePoint'
+            // MATLAB Function 'ReadHomePoint': '<S16>:1'
+            if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
+                    (codegenReal2Mission_DW.HomePoint_not_empty_k) ^ 1))) {
+                // '<S16>:1:5'
+                // '<S16>:1:6'
+                ret->size[0] = 1;
+                ret->size[1] = 0;
+                fileid = codegenReal2Mission_cfopen_p("config.ini", "rb");
+                if (static_cast<int32_T>(fileid) < 0) {
+                    printf("INI-file \"%s\" was not found or could not be read.\n",
+                           "config.ini");
+                    fflush(stdout);
+                } else {
+                    codegenReal2Mission_fread_j(static_cast<real_T>(fileid), q);
+                    i = static_cast<int32_T>(data->size[0] * data->size[1]);
+                    data->size[0] = 1;
+                    data->size[1] = q->size[0];
+                    codegenReal2Mission_emxEnsureCapacity_char_T(data, i);
+                    loop_ub = q->size[0];
+                    for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+                        data->data[i] = q->data[i];
+                    }
+
+                    codegenReal2Mission_cfclose_g(static_cast<real_T>(fileid));
+                    curSection->size[0] = 1;
+                    curSection->size[1] = 0;
+                    curKey->size[0] = 1;
+                    curKey->size[1] = 0;
+                    curVal->size[0] = 1;
+                    curVal->size[1] = 0;
+                    codegenReal2Mission_emxInit_char_T(&tmp_a, 2);
+                    codegenReal2Mission_emxInit_char_T(&data_2, 2);
+                    exitg1 = false;
+                    while ((!exitg1) && (data->size[1] != 0)) {
+                        i = static_cast<int32_T>(data_2->size[0] * data_2->size
+                            [1]);
+                        data_2->size[0] = 1;
+                        data_2->size[1] = data->size[1];
+                        codegenReal2Mission_emxEnsureCapacity_char_T(data_2, i);
+                        loop_ub = static_cast<int32_T>(static_cast<int32_T>
+                            (data->size[0] * data->size[1]) - 1);
+                        for (i = 0; i <= loop_ub; i++) {
+                            data_2->data[i] = data->data[i];
+                        }
+
+                        codegenReal2Mission_strtok(data_2, curLine, data);
+                        codegenReal2Mission_strtok_p(curLine, tmp_a);
+                        codegenReal2Mission_strtrim(tmp_a, curLine);
+                        if (curLine->size[1] >= 2) {
+                            rtb_NotEqual = false;
+                            if (curLine->data[0] == '[') {
+                                rtb_NotEqual = true;
+                            }
+
+                            guard1 = false;
+                            if (rtb_NotEqual) {
+                                rtb_NotEqual = false;
+                                if (curLine->data[static_cast<int32_T>
+                                        (curLine->size[1] - 1)] == ']') {
+                                    rtb_NotEqual = true;
+                                }
+
+                                if (rtb_NotEqual) {
+                                    if (static_cast<int32_T>(curLine->size[1] -
+                                            1) < 2) {
+                                        md2 = 0;
+                                        b = 0;
+                                    } else {
+                                        md2 = 1;
+                                        b = static_cast<int32_T>(curLine->size[1]
+                                            - 1);
+                                    }
+
+                                    i = static_cast<int32_T>(curSection->size[0]
+                                        * curSection->size[1]);
+                                    curSection->size[0] = 1;
+                                    loop_ub = static_cast<int32_T>(b - md2);
+                                    curSection->size[1] = loop_ub;
+                                    codegenReal2Mission_emxEnsureCapacity_char_T
+                                        (curSection, i);
+                                    for (i = 0; i <= static_cast<int32_T>
+                                            (loop_ub - 1); i++) {
+                                        curSection->data[i] = curLine->data[
+                                            static_cast<int32_T>(md2 + i)];
+                                    }
+
+                                    curKey->size[0] = 1;
+                                    curKey->size[1] = 0;
+                                } else {
+                                    guard1 = true;
+                                }
+                            } else {
+                                guard1 = true;
+                            }
+
+                            if (guard1) {
+                                if (curLine->data[0] == ';') {
+                                    rtb_NotEqual = true;
+                                }
+
+                                if ((static_cast<boolean_T>(static_cast<int32_T>
+                                                            (static_cast<int32_T>
+                                        (rtb_NotEqual) ^ 1))) &&
+                                        codegenReal2Mission_contains(curLine)) {
+                                    codegenReal2Mission_strtok_ph(curLine,
+                                        b_curKey, x);
+                                    codegenReal2Mission_find_token(x,
+                                        &wholeSecsFromMillis, &md2);
+                                    if (wholeSecsFromMillis >
+                                            static_cast<int32_T>(md2 - 1)) {
+                                        wholeSecsFromMillis = 0;
+                                        md2 = 0;
+                                    } else {
+                                        wholeSecsFromMillis =
+                                            static_cast<int32_T>
+                                            (wholeSecsFromMillis - 1);
+                                        md2 = static_cast<int32_T>(md2 - 1);
+                                    }
+
+                                    codegenReal2Mission_strtrim(b_curKey, curKey);
+                                    i = static_cast<int32_T>(b_curKey->size[0] *
+                                        b_curKey->size[1]);
+                                    b_curKey->size[0] = 1;
+                                    b_curKey->size[1] = static_cast<int32_T>(md2
+                                        - wholeSecsFromMillis);
+                                    codegenReal2Mission_emxEnsureCapacity_char_T
+                                        (b_curKey, i);
+                                    loop_ub = static_cast<int32_T>(md2 -
+                                        wholeSecsFromMillis);
+                                    for (i = 0; i <= static_cast<int32_T>
+                                            (loop_ub - 1); i++) {
+                                        b_curKey->data[i] = x->data
+                                            [static_cast<int32_T>
+                                            (wholeSecsFromMillis + i)];
+                                    }
+
+                                    codegenReal2Mission_strtrim(b_curKey, curVal);
+                                }
+                            }
+                        }
+
+                        if (codegenReal2Mission_strcmp(curSection) &&
+                                codegenReal2Mission_strcmp_p(curKey)) {
+                            i = static_cast<int32_T>(ret->size[0] * ret->size[1]);
+                            ret->size[0] = 1;
+                            ret->size[1] = curVal->size[1];
+                            codegenReal2Mission_emxEnsureCapacity_char_T(ret, i);
+                            loop_ub = curVal->size[1];
+                            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1);
+                                    i++) {
+                                ret->data[i] = curVal->data[i];
+                            }
+
+                            exitg1 = true;
+                        }
+                    }
+
+                    codegenReal2Mission_emxFree_char_T(&data_2);
+                    codegenReal2Mission_emxFree_char_T(&tmp_a);
+                }
+
+                tmp_1 = codegenReal2Mission_str2double(ret);
+                printf("Set Home Point Latitude:\t%f\n", tmp_1.re);
+                fflush(stdout);
+                ret->size[0] = 1;
+                ret->size[1] = 0;
+                fileid = codegenReal2Mission_cfopen_p("config.ini", "rb");
+                if (static_cast<int32_T>(fileid) < 0) {
+                    printf("INI-file \"%s\" was not found or could not be read.\n",
+                           "config.ini");
+                    fflush(stdout);
+                } else {
+                    codegenReal2Mission_fread_j(static_cast<real_T>(fileid), q);
+                    i = static_cast<int32_T>(data->size[0] * data->size[1]);
+                    data->size[0] = 1;
+                    data->size[1] = q->size[0];
+                    codegenReal2Mission_emxEnsureCapacity_char_T(data, i);
+                    loop_ub = q->size[0];
+                    for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+                        data->data[i] = q->data[i];
+                    }
+
+                    codegenReal2Mission_cfclose_g(static_cast<real_T>(fileid));
+                    curSection->size[0] = 1;
+                    curSection->size[1] = 0;
+                    curKey->size[0] = 1;
+                    curKey->size[1] = 0;
+                    curVal->size[0] = 1;
+                    curVal->size[1] = 0;
+                    codegenReal2Mission_emxInit_char_T(&tmp_9, 2);
+                    codegenReal2Mission_emxInit_char_T(&data_1, 2);
+                    exitg1 = false;
+                    while ((!exitg1) && (data->size[1] != 0)) {
+                        i = static_cast<int32_T>(data_1->size[0] * data_1->size
+                            [1]);
+                        data_1->size[0] = 1;
+                        data_1->size[1] = data->size[1];
+                        codegenReal2Mission_emxEnsureCapacity_char_T(data_1, i);
+                        loop_ub = static_cast<int32_T>(static_cast<int32_T>
+                            (data->size[0] * data->size[1]) - 1);
+                        for (i = 0; i <= loop_ub; i++) {
+                            data_1->data[i] = data->data[i];
+                        }
+
+                        codegenReal2Mission_strtok(data_1, curLine, data);
+                        codegenReal2Mission_strtok_p(curLine, tmp_9);
+                        codegenReal2Mission_strtrim(tmp_9, curLine);
+                        if (curLine->size[1] >= 2) {
+                            rtb_NotEqual = false;
+                            if (curLine->data[0] == '[') {
+                                rtb_NotEqual = true;
+                            }
+
+                            guard1 = false;
+                            if (rtb_NotEqual) {
+                                rtb_NotEqual = false;
+                                if (curLine->data[static_cast<int32_T>
+                                        (curLine->size[1] - 1)] == ']') {
+                                    rtb_NotEqual = true;
+                                }
+
+                                if (rtb_NotEqual) {
+                                    if (static_cast<int32_T>(curLine->size[1] -
+                                            1) < 2) {
+                                        b = 0;
+                                        md2 = 0;
+                                    } else {
+                                        b = 1;
+                                        md2 = static_cast<int32_T>(curLine->
+                                            size[1] - 1);
+                                    }
+
+                                    i = static_cast<int32_T>(curSection->size[0]
+                                        * curSection->size[1]);
+                                    curSection->size[0] = 1;
+                                    loop_ub = static_cast<int32_T>(md2 - b);
+                                    curSection->size[1] = loop_ub;
+                                    codegenReal2Mission_emxEnsureCapacity_char_T
+                                        (curSection, i);
+                                    for (i = 0; i <= static_cast<int32_T>
+                                            (loop_ub - 1); i++) {
+                                        curSection->data[i] = curLine->data[
+                                            static_cast<int32_T>(b + i)];
+                                    }
+
+                                    curKey->size[0] = 1;
+                                    curKey->size[1] = 0;
+                                } else {
+                                    guard1 = true;
+                                }
+                            } else {
+                                guard1 = true;
+                            }
+
+                            if (guard1) {
+                                if (curLine->data[0] == ';') {
+                                    rtb_NotEqual = true;
+                                }
+
+                                if ((static_cast<boolean_T>(static_cast<int32_T>
+                                                            (static_cast<int32_T>
+                                        (rtb_NotEqual) ^ 1))) &&
+                                        codegenReal2Mission_contains(curLine)) {
+                                    codegenReal2Mission_strtok_ph(curLine,
+                                        b_curKey, x);
+                                    codegenReal2Mission_find_token(x,
+                                        &wholeSecsFromMillis, &md2);
+                                    if (wholeSecsFromMillis >
+                                            static_cast<int32_T>(md2 - 1)) {
+                                        b_md2 = 0;
+                                        b = 0;
+                                    } else {
+                                        b_md2 = static_cast<int32_T>
+                                            (wholeSecsFromMillis - 1);
+                                        b = static_cast<int32_T>(md2 - 1);
+                                    }
+
+                                    codegenReal2Mission_strtrim(b_curKey, curKey);
+                                    i = static_cast<int32_T>(b_curKey->size[0] *
+                                        b_curKey->size[1]);
+                                    b_curKey->size[0] = 1;
+                                    loop_ub = static_cast<int32_T>(b - b_md2);
+                                    b_curKey->size[1] = loop_ub;
+                                    codegenReal2Mission_emxEnsureCapacity_char_T
+                                        (b_curKey, i);
+                                    for (i = 0; i <= static_cast<int32_T>
+                                            (loop_ub - 1); i++) {
+                                        b_curKey->data[i] = x->data
+                                            [static_cast<int32_T>(b_md2 + i)];
+                                    }
+
+                                    codegenReal2Mission_strtrim(b_curKey, curVal);
+                                }
+                            }
+                        }
+
+                        if (codegenReal2Mission_strcmp(curSection) &&
+                                codegenReal2Mission_strcmp_p4(curKey)) {
+                            i = static_cast<int32_T>(ret->size[0] * ret->size[1]);
+                            ret->size[0] = 1;
+                            ret->size[1] = curVal->size[1];
+                            codegenReal2Mission_emxEnsureCapacity_char_T(ret, i);
+                            loop_ub = curVal->size[1];
+                            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1);
+                                    i++) {
+                                ret->data[i] = curVal->data[i];
+                            }
+
+                            exitg1 = true;
+                        }
+                    }
+
+                    codegenReal2Mission_emxFree_char_T(&data_1);
+                    codegenReal2Mission_emxFree_char_T(&tmp_9);
+                }
+
+                tmp_2 = codegenReal2Mission_str2double(ret);
+                printf("Set Home Point Longitude:\t%f\n", tmp_2.re);
+                fflush(stdout);
+                ret->size[0] = 1;
+                ret->size[1] = 0;
+                fileid = codegenReal2Mission_cfopen_p("config.ini", "rb");
+                if (static_cast<int32_T>(fileid) < 0) {
+                    printf("INI-file \"%s\" was not found or could not be read.\n",
+                           "config.ini");
+                    fflush(stdout);
+                } else {
+                    codegenReal2Mission_fread_j(static_cast<real_T>(fileid), q);
+                    i = static_cast<int32_T>(data->size[0] * data->size[1]);
+                    data->size[0] = 1;
+                    data->size[1] = q->size[0];
+                    codegenReal2Mission_emxEnsureCapacity_char_T(data, i);
+                    loop_ub = q->size[0];
+                    for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+                        data->data[i] = q->data[i];
+                    }
+
+                    codegenReal2Mission_cfclose_g(static_cast<real_T>(fileid));
+                    curSection->size[0] = 1;
+                    curSection->size[1] = 0;
+                    curKey->size[0] = 1;
+                    curKey->size[1] = 0;
+                    curVal->size[0] = 1;
+                    curVal->size[1] = 0;
+                    codegenReal2Mission_emxInit_char_T(&tmp_8, 2);
+                    codegenReal2Mission_emxInit_char_T(&data_0, 2);
+                    exitg1 = false;
+                    while ((!exitg1) && (data->size[1] != 0)) {
+                        i = static_cast<int32_T>(data_0->size[0] * data_0->size
+                            [1]);
+                        data_0->size[0] = 1;
+                        data_0->size[1] = data->size[1];
+                        codegenReal2Mission_emxEnsureCapacity_char_T(data_0, i);
+                        loop_ub = static_cast<int32_T>(static_cast<int32_T>
+                            (data->size[0] * data->size[1]) - 1);
+                        for (i = 0; i <= loop_ub; i++) {
+                            data_0->data[i] = data->data[i];
+                        }
+
+                        codegenReal2Mission_strtok(data_0, curLine, data);
+                        codegenReal2Mission_strtok_p(curLine, tmp_8);
+                        codegenReal2Mission_strtrim(tmp_8, curLine);
+                        if (curLine->size[1] >= 2) {
+                            rtb_NotEqual = false;
+                            if (curLine->data[0] == '[') {
+                                rtb_NotEqual = true;
+                            }
+
+                            guard1 = false;
+                            if (rtb_NotEqual) {
+                                rtb_NotEqual = false;
+                                if (curLine->data[static_cast<int32_T>
+                                        (curLine->size[1] - 1)] == ']') {
+                                    rtb_NotEqual = true;
+                                }
+
+                                if (rtb_NotEqual) {
+                                    if (static_cast<int32_T>(curLine->size[1] -
+                                            1) < 2) {
+                                        b = 0;
+                                        b_md2 = 0;
+                                    } else {
+                                        b = 1;
+                                        b_md2 = static_cast<int32_T>
+                                            (curLine->size[1] - 1);
+                                    }
+
+                                    i = static_cast<int32_T>(curSection->size[0]
+                                        * curSection->size[1]);
+                                    curSection->size[0] = 1;
+                                    loop_ub = static_cast<int32_T>(b_md2 - b);
+                                    curSection->size[1] = loop_ub;
+                                    codegenReal2Mission_emxEnsureCapacity_char_T
+                                        (curSection, i);
+                                    for (i = 0; i <= static_cast<int32_T>
+                                            (loop_ub - 1); i++) {
+                                        curSection->data[i] = curLine->data[
+                                            static_cast<int32_T>(b + i)];
+                                    }
+
+                                    curKey->size[0] = 1;
+                                    curKey->size[1] = 0;
+                                } else {
+                                    guard1 = true;
+                                }
+                            } else {
+                                guard1 = true;
+                            }
+
+                            if (guard1) {
+                                if (curLine->data[0] == ';') {
+                                    rtb_NotEqual = true;
+                                }
+
+                                if ((static_cast<boolean_T>(static_cast<int32_T>
+                                                            (static_cast<int32_T>
+                                        (rtb_NotEqual) ^ 1))) &&
+                                        codegenReal2Mission_contains(curLine)) {
+                                    codegenReal2Mission_strtok_ph(curLine,
+                                        b_curKey, x);
+                                    codegenReal2Mission_find_token(x, &b_md2,
+                                        &wholeSecsFromMillis);
+                                    if (b_md2 > static_cast<int32_T>
+                                            (wholeSecsFromMillis - 1)) {
+                                        b = 0;
+                                        wholeSecsFromMillis = -1;
+                                    } else {
+                                        b = static_cast<int32_T>(b_md2 - 1);
+                                        wholeSecsFromMillis =
+                                            static_cast<int32_T>
+                                            (wholeSecsFromMillis - 2);
+                                    }
+
+                                    codegenReal2Mission_strtrim(b_curKey, curKey);
+                                    i = static_cast<int32_T>(b_curKey->size[0] *
+                                        b_curKey->size[1]);
+                                    b_curKey->size[0] = 1;
+                                    b_curKey->size[1] = static_cast<int32_T>(
+                                        static_cast<int32_T>(wholeSecsFromMillis
+                                        - b) + 1);
+                                    codegenReal2Mission_emxEnsureCapacity_char_T
+                                        (b_curKey, i);
+                                    loop_ub = static_cast<int32_T>
+                                        (wholeSecsFromMillis - b);
+                                    for (i = 0; i <= loop_ub; i++) {
+                                        b_curKey->data[i] = x->data
+                                            [static_cast<int32_T>(b + i)];
+                                    }
+
+                                    codegenReal2Mission_strtrim(b_curKey, curVal);
+                                }
+                            }
+                        }
+
+                        if (codegenReal2Mission_strcmp(curSection) &&
+                                codegenReal2Mission_strcmp_p4a(curKey)) {
+                            i = static_cast<int32_T>(ret->size[0] * ret->size[1]);
+                            ret->size[0] = 1;
+                            ret->size[1] = curVal->size[1];
+                            codegenReal2Mission_emxEnsureCapacity_char_T(ret, i);
+                            loop_ub = curVal->size[1];
+                            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1);
+                                    i++) {
+                                ret->data[i] = curVal->data[i];
+                            }
+
+                            exitg1 = true;
+                        }
+                    }
+
+                    codegenReal2Mission_emxFree_char_T(&data_0);
+                    codegenReal2Mission_emxFree_char_T(&tmp_8);
+                }
+
+                tmp_3 = codegenReal2Mission_str2double(ret);
+                printf("Set Home Point Altitude:\t%f\n", tmp_3.re);
+                fflush(stdout);
+                codegenReal2Mission_DW.HomePoint_g[0] = tmp_1.re;
+                codegenReal2Mission_DW.HomePoint_g[1] = tmp_2.re;
+                codegenReal2Mission_DW.HomePoint_g[2] = tmp_3.re;
+                codegenReal2Mission_DW.HomePoint_not_empty_k = true;
+                b_x[0] = std::isnan(codegenReal2Mission_DW.HomePoint_g[0]);
+                b_x[1] = std::isnan(codegenReal2Mission_DW.HomePoint_g[1]);
+                b_x[2] = std::isnan(codegenReal2Mission_DW.HomePoint_g[2]);
+                rtb_NotEqual = false;
+                md2 = 0;
+                exitg1 = false;
+                while ((!exitg1) && (md2 < 3)) {
+                    if (b_x[md2]) {
+                        rtb_NotEqual = true;
+                        exitg1 = true;
+                    } else {
+                        md2 = static_cast<int32_T>(md2 + 1);
+                    }
+                }
+
+                if (rtb_NotEqual) {
+                    // '<S16>:1:7'
+                    // '<S16>:1:8'
+                    codegenReal2Mission_DW.HomePoint_g[0] = 35.8617;
+                    codegenReal2Mission_DW.HomePoint_g[1] = 104.1954;
+                    codegenReal2Mission_DW.HomePoint_g[2] = 0.0;
+                }
+            }
+
+            // Switch: '<S32>/Switch' incorporates:
+            //   Abs: '<S32>/Abs'
+            //   Bias: '<S32>/Bias'
+            //   Bias: '<S32>/Bias1'
+            //   Constant: '<S32>/Constant2'
+            //   Constant: '<S33>/Constant'
+            //   MATLAB Function: '<S13>/ReadHomePoint'
+            //   Math: '<S32>/Math Function1'
+            //   RelationalOperator: '<S33>/Compare'
+
+            // '<S16>:1:12'
+            if (std::abs(codegenReal2Mission_DW.HomePoint_g[0]) > 180.0) {
+                b_I = rt_modd_snf(codegenReal2Mission_DW.HomePoint_g[0] + 180.0,
+                                  360.0) - 180.0;
+            } else {
+                b_I = codegenReal2Mission_DW.HomePoint_g[0];
+            }
+
+            // End of Switch: '<S32>/Switch'
+
+            // Abs: '<S29>/Abs1'
+            Lat = std::abs(b_I);
+
+            // Switch: '<S29>/Switch' incorporates:
+            //   Bias: '<S29>/Bias'
+            //   Bias: '<S29>/Bias1'
+            //   Constant: '<S20>/Constant'
+            //   Constant: '<S20>/Constant1'
+            //   Constant: '<S31>/Constant'
+            //   Gain: '<S29>/Gain'
+            //   Product: '<S29>/Divide1'
+            //   RelationalOperator: '<S31>/Compare'
+            //   Signum: '<S29>/Sign1'
+            //   Switch: '<S20>/Switch1'
+
+            if (Lat > 90.0) {
+                // Signum: '<S29>/Sign1'
+                if (std::isnan(b_I)) {
+                    a__17 = (rtNaN);
+                } else if (b_I < 0.0) {
+                    a__17 = -1.0;
+                } else {
+                    a__17 = static_cast<real_T>(b_I > 0.0);
+                }
+
+                b_I = (-(Lat - 90.0) + 90.0) * a__17;
+                i = 180;
+            } else {
+                i = 0;
+            }
+
+            // End of Switch: '<S29>/Switch'
+
+            // Sum: '<S20>/Sum' incorporates:
+            //   MATLAB Function: '<S13>/ReadHomePoint'
+            //   Switch: '<S20>/Switch1'
+
+            D = static_cast<real_T>(i) + codegenReal2Mission_DW.HomePoint_g[1];
+
+            // Switch: '<S30>/Switch' incorporates:
+            //   Abs: '<S30>/Abs'
+            //   Bias: '<S30>/Bias'
+            //   Bias: '<S30>/Bias1'
+            //   Constant: '<S30>/Constant2'
+            //   Constant: '<S34>/Constant'
+            //   Math: '<S30>/Math Function1'
+            //   RelationalOperator: '<S34>/Compare'
+
+            if (std::abs(D) > 180.0) {
+                D = rt_modd_snf(D + 180.0, 360.0) - 180.0;
+            }
+
+            // End of Switch: '<S30>/Switch'
+
+            // Sum: '<S15>/Sum1'
+            rtb_Sum1_idx_0 = codegenReal2Mission_DW.Receive_o2_a.DangerLoc.Lat -
+                b_I;
+            da_im = codegenReal2Mission_DW.Receive_o2_a.DangerLoc.Lon - D;
+
+            // Switch: '<S26>/Switch' incorporates:
+            //   Abs: '<S26>/Abs'
+            //   Bias: '<S26>/Bias'
+            //   Bias: '<S26>/Bias1'
+            //   Constant: '<S26>/Constant2'
+            //   Constant: '<S27>/Constant'
+            //   Math: '<S26>/Math Function1'
+            //   RelationalOperator: '<S27>/Compare'
+
+            if (std::abs(rtb_Sum1_idx_0) > 180.0) {
+                D = rt_modd_snf(rtb_Sum1_idx_0 + 180.0, 360.0) - 180.0;
+            } else {
+                D = rtb_Sum1_idx_0;
+            }
+
+            // End of Switch: '<S26>/Switch'
+
+            // Abs: '<S23>/Abs1'
+            Lat = std::abs(D);
+
+            // Switch: '<S23>/Switch' incorporates:
+            //   Bias: '<S23>/Bias'
+            //   Bias: '<S23>/Bias1'
+            //   Constant: '<S19>/Constant'
+            //   Constant: '<S19>/Constant1'
+            //   Constant: '<S25>/Constant'
+            //   Gain: '<S23>/Gain'
+            //   Product: '<S23>/Divide1'
+            //   RelationalOperator: '<S25>/Compare'
+            //   Signum: '<S23>/Sign1'
+            //   Switch: '<S19>/Switch1'
+
+            if (Lat > 90.0) {
+                // Signum: '<S23>/Sign1'
+                if (std::isnan(D)) {
+                    a__17 = (rtNaN);
+                } else if (D < 0.0) {
+                    a__17 = -1.0;
+                } else {
+                    a__17 = static_cast<real_T>(D > 0.0);
+                }
+
+                D = (-(Lat - 90.0) + 90.0) * a__17;
+                i = 180;
+            } else {
+                i = 0;
+            }
+
+            // End of Switch: '<S23>/Switch'
+
+            // Sum: '<S19>/Sum' incorporates:
+            //   Switch: '<S19>/Switch1'
+
+            Alt = static_cast<real_T>(i) + da_im;
+
+            // Switch: '<S24>/Switch' incorporates:
+            //   Abs: '<S24>/Abs'
+            //   Bias: '<S24>/Bias'
+            //   Bias: '<S24>/Bias1'
+            //   Constant: '<S24>/Constant2'
+            //   Constant: '<S28>/Constant'
+            //   Math: '<S24>/Math Function1'
+            //   RelationalOperator: '<S28>/Compare'
+
+            if (std::abs(Alt) > 180.0) {
+                Alt = rt_modd_snf(Alt + 180.0, 360.0) - 180.0;
+            }
+
+            // End of Switch: '<S24>/Switch'
+
+            // UnitConversion: '<S22>/Unit Conversion'
+            // Unit Conversion - from: deg to: rad
+            // Expression: output = (0.0174533*input) + (0)
+            rtb_Sum1_idx_0 = 0.017453292519943295 * D;
+            da_im = 0.017453292519943295 * Alt;
+
+            // UnitConversion: '<S37>/Unit Conversion'
+            // Unit Conversion - from: deg to: rad
+            // Expression: output = (0.0174533*input) + (0)
+            b_I *= 0.017453292519943295;
+
+            // Trigonometry: '<S38>/Trigonometric Function1'
+            D = std::sin(b_I);
+
+            // Sum: '<S38>/Sum1' incorporates:
+            //   Constant: '<S38>/Constant'
+            //   Product: '<S38>/Product1'
+
+            D = 1.0 - 0.0066943799901413295 * D * D;
+
+            // Product: '<S36>/Product1' incorporates:
+            //   Constant: '<S36>/Constant1'
+            //   Sqrt: '<S36>/sqrt'
+
+            Alt = 6.378137E+6 / std::sqrt(D);
+
+            // Product: '<S21>/dNorth' incorporates:
+            //   Constant: '<S36>/Constant2'
+            //   Product: '<S36>/Product3'
+            //   Trigonometry: '<S36>/Trigonometric Function1'
+
+            D = rtb_Sum1_idx_0 / rt_atan2d_snf(1.0, Alt * 0.99330562000985867 /
+                D);
+
+            // Product: '<S21>/dEast' incorporates:
+            //   Constant: '<S36>/Constant3'
+            //   Product: '<S36>/Product4'
+            //   Trigonometry: '<S36>/Trigonometric Function'
+            //   Trigonometry: '<S36>/Trigonometric Function2'
+
+            // Unit Conversion - from: deg to: rad
+            // Expression: output = (0.0174533*input) + (0)
+            b_I = 1.0 / rt_atan2d_snf(1.0, Alt * std::cos(b_I)) * da_im;
+
+            // SignalConversion generated from: '<S13>/Vector Concatenate' incorporates:
+            //   Product: '<S21>/x*cos'
+            //   Product: '<S21>/x*sin'
+            //   Product: '<S21>/y*cos'
+            //   Product: '<S21>/y*sin'
+            //   Sum: '<S21>/Sum2'
+            //   Sum: '<S21>/Sum3'
+
+            rtb_VectorConcatenate[1] = b_I * 0.0 + D;
+            rtb_VectorConcatenate[2] = b_I - D * 0.0;
+
+            // DataTypeConversion: '<S13>/DangerID'
+            rtb_VectorConcatenate[0] = static_cast<real_T>
+                (codegenReal2Mission_DW.Receive_o2_a.DangerID);
+
+            // DataTypeConversion: '<S13>/DangerRadius'
+            rtb_VectorConcatenate[3] =
+                codegenReal2Mission_DW.Receive_o2_a.Radius;
+
+            // MATLAB Function: '<S13>/sizeconversion'
+            // MATLAB Function 'MissionLogic/DangerLidarScanPoints/GenPCD/sizeconversion': '<S18>:1' 
+            // '<S18>:1:3'
+            codegenReal2Mission_DW.SFunction_DIMS2[0] = 1;
+            codegenReal2Mission_DW.SFunction_DIMS2[1] = 4;
+
+            // MATLAB Function: '<S13>/getDangerList'
+            // MATLAB Function 'MissionLogic/DangerLidarScanPoints/GenPCD/getDangerList': '<S17>:1' 
+            // '<S17>:1:5'
+            for (i = 0; i < 64; i++) {
+                x_0[i] = std::isnan(codegenReal2Mission_DW.DangerList[i]);
+            }
+
+            wholeSecsFromMillis = 0;
+            b = 0;
+            exitg1 = false;
+            while ((!exitg1) && (b < 64)) {
+                if (x_0[b]) {
+                    wholeSecsFromMillis = 1;
+                    ii_data = static_cast<int8_T>(static_cast<int32_T>(b + 1));
+                    exitg1 = true;
+                } else {
+                    b = static_cast<int32_T>(b + 1);
+                }
+            }
+
+            // '<S17>:1:5'
+            loop_ub = codegenReal2Mission_DW.SFunction_DIMS2[0];
+            for (i = 0; i < 4; i++) {
+                for (b_md2 = 0; b_md2 <= static_cast<int32_T>(loop_ub - 1);
+                        b_md2++) {
+                    codegenReal2Mission_DW.DangerList[static_cast<int32_T>(
+                        static_cast<int32_T>(static_cast<int32_T>(ii_data) +
+                        static_cast<int32_T>(i << 6)) - 1)] =
+                        rtb_VectorConcatenate[static_cast<int32_T>
+                        (static_cast<int32_T>
+                         (codegenReal2Mission_DW.SFunction_DIMS2[0] * i) + b_md2)];
+                }
+            }
+
+            // '<S17>:1:6'
+            // '<S17>:1:15'
+            // '<S17>:1:14'
+            for (i = 0; i < 256; i++) {
+                Output[i] = (rtNaN);
+            }
+
+            // '<S17>:1:15'
+            for (i = 0; i < 64; i++) {
+                x_0[i] = static_cast<boolean_T>(static_cast<int32_T>(
+                    static_cast<int32_T>(std::isnan
+                    (codegenReal2Mission_DW.DangerList[i])) ^ 1));
+            }
+
+            wholeSecsFromMillis = 0;
+            for (b = 0; b < 64; b++) {
+                if (x_0[b]) {
+                    wholeSecsFromMillis = static_cast<int32_T>
+                        (wholeSecsFromMillis + 1);
+                }
+            }
+
+            indx_size = wholeSecsFromMillis;
+            wholeSecsFromMillis = 0;
+            for (b = 0; b < 64; b++) {
+                if (x_0[b]) {
+                    indx_data[wholeSecsFromMillis] = static_cast<int32_T>(b + 1);
+                    wholeSecsFromMillis = static_cast<int32_T>
+                        (wholeSecsFromMillis + 1);
+                }
+            }
+
+            // '<S17>:1:15'
+            DangerList_size_idx_0 = indx_size;
+            for (i = 0; i < 4; i++) {
+                for (b_md2 = 0; b_md2 <= static_cast<int32_T>(indx_size - 1);
+                        b_md2++) {
+                    DangerList_data[static_cast<int32_T>(b_md2 +
+                        static_cast<int32_T>(indx_size * i))] =
+                        codegenReal2Mission_DW.DangerList[static_cast<int32_T>(
+                        static_cast<int32_T>(static_cast<int32_T>(i << 6) +
+                        indx_data[b_md2]) - 1)];
+                }
+            }
+
+            // '<S17>:1:18'
+            wholeSecsFromMillis = indx_size;
+            md2 = static_cast<int32_T>(static_cast<int32_T>(indx_size >> 1) - 1);
+            for (b = 0; b < 4; b++) {
+                for (b_n = 0; b_n <= md2; b_n++) {
+                    i = static_cast<int32_T>(indx_size * b);
+                    loop_ub = static_cast<int32_T>(b_n + i);
+                    Lat = DangerList_data[loop_ub];
+                    DangerList_data[loop_ub] = DangerList_data
+                        [static_cast<int32_T>(static_cast<int32_T>
+                        (static_cast<int32_T>(wholeSecsFromMillis - b_n) + i) -
+                        1)];
+                    DangerList_data[static_cast<int32_T>(static_cast<int32_T>(
+                        static_cast<int32_T>(wholeSecsFromMillis - b_n) +
+                        static_cast<int32_T>(indx_size * b)) - 1)] = Lat;
+                }
+            }
+
+            // '<S17>:1:19'
+            wholeSecsFromMillis = indx_size;
+            for (i = 0; i <= static_cast<int32_T>(indx_size - 1); i++) {
+                DangerList_data_0[i] = DangerList_data[i];
+            }
+
+            codegenReal2Mission_unique_vector(DangerList_data_0,
+                &wholeSecsFromMillis, a__1_data, &i, indx_data, &indx_size,
+                ipos_data, &md2);
+
+            // '<S17>:1:20'
+            for (i = 0; i < 4; i++) {
+                for (b_md2 = 0; b_md2 <= static_cast<int32_T>(indx_size - 1);
+                        b_md2++) {
+                    DangerList_data_1[static_cast<int32_T>(b_md2 + static_cast<
+                        int32_T>(indx_size * i))] = DangerList_data[static_cast<
+                        int32_T>(static_cast<int32_T>(static_cast<int32_T>
+                                  (DangerList_size_idx_0 * i) + indx_data[b_md2])
+                                 - 1)];
+                }
+            }
+
+            wholeSecsFromMillis = indx_size;
+            loop_ub = static_cast<int32_T>(indx_size << 2);
+            for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+                DangerList_data[i] = DangerList_data_1[i];
+            }
+
+            // '<S17>:1:21'
+            wholeSecsFromMillis = indx_size;
+            b_md2 = static_cast<int32_T>(static_cast<int32_T>(indx_size >> 1) -
+                1);
+            for (md2 = 0; md2 < 4; md2++) {
+                for (b_n = 0; b_n <= b_md2; b_n++) {
+                    i = static_cast<int32_T>(indx_size * md2);
+                    loop_ub = static_cast<int32_T>(b_n + i);
+                    Lat = DangerList_data[loop_ub];
+                    DangerList_data[loop_ub] = DangerList_data
+                        [static_cast<int32_T>(static_cast<int32_T>
+                        (static_cast<int32_T>(wholeSecsFromMillis - b_n) + i) -
+                        1)];
+                    DangerList_data[static_cast<int32_T>(static_cast<int32_T>(
+                        static_cast<int32_T>(wholeSecsFromMillis - b_n) +
+                        static_cast<int32_T>(indx_size * md2)) - 1)] = Lat;
+                }
+            }
+
+            // '<S17>:1:23'
+            for (i = 0; i <= static_cast<int32_T>(indx_size - 1); i++) {
+                x_0[i] = (DangerList_data[static_cast<int32_T>
+                          (static_cast<int32_T>(indx_size * 3) + i)] != 0.0);
+            }
+
+            wholeSecsFromMillis = static_cast<int32_T>(indx_size - 1);
+            b = 0;
+            for (b_md2 = 0; b_md2 <= wholeSecsFromMillis; b_md2++) {
+                if (x_0[b_md2]) {
+                    b = static_cast<int32_T>(b + 1);
+                }
+            }
+
+            md2 = b;
+            b = 0;
+            for (b_md2 = 0; b_md2 <= wholeSecsFromMillis; b_md2++) {
+                if (x_0[b_md2]) {
+                    e_data[b] = static_cast<int8_T>(static_cast<int32_T>(b_md2 +
+                        1));
+                    b = static_cast<int32_T>(b + 1);
+                }
+            }
+
+            // '<S17>:1:23'
+            // '<S17>:1:25'
+            for (i = 0; i < 4; i++) {
+                for (b_md2 = 0; b_md2 <= static_cast<int32_T>(md2 - 1); b_md2++)
+                {
+                    Output[static_cast<int32_T>(b_md2 + static_cast<int32_T>(i <<
+                        6))] = DangerList_data[static_cast<int32_T>
+                        (static_cast<int32_T>(static_cast<int32_T>(indx_size * i)
+                          + static_cast<int32_T>(e_data[b_md2])) - 1)];
+                }
+            }
+
+            std::memcpy(&codegenReal2Mission_DW.DangerList[0], &Output[0],
+                        static_cast<uint32_T>(sizeof(real_T) << 8U));
+
+            // '<S17>:1:8'
+            b = 0;
+            for (wholeSecsFromMillis = 0; wholeSecsFromMillis < 64;
+                    wholeSecsFromMillis++) {
+                rtb_NotEqual = static_cast<boolean_T>(static_cast<int32_T>(
+                    static_cast<int32_T>(std::isnan
+                    (codegenReal2Mission_DW.DangerList[wholeSecsFromMillis])) ^
+                    1));
+                if (rtb_NotEqual) {
+                    b = static_cast<int32_T>(b + 1);
+                }
+
+                x_0[wholeSecsFromMillis] = rtb_NotEqual;
+            }
+
+            b_md2 = b;
+            wholeSecsFromMillis = 0;
+            for (b = 0; b < 64; b++) {
+                if (x_0[b]) {
+                    b_data[wholeSecsFromMillis] = static_cast<int8_T>(
+                        static_cast<int32_T>(b + 1));
+                    wholeSecsFromMillis = static_cast<int32_T>
+                        (wholeSecsFromMillis + 1);
+                }
+            }
+
+            // '<S17>:1:8'
+            codegenReal2Mission_DW.SFunction_DIMS2_c[0] = b_md2;
+            codegenReal2Mission_DW.SFunction_DIMS2_c[1] = 4;
+
+            // Selector: '<S13>/SelectNorthEastRadius' incorporates:
+            //   MATLAB Function: '<S13>/getDangerList'
+
+            codegenReal2Mission_DW.SelectNorthEastRadius_DIMS1[0] =
+                codegenReal2Mission_DW.SFunction_DIMS2_c[0];
+            codegenReal2Mission_DW.SelectNorthEastRadius_DIMS1[1] = 3;
+            loop_ub = codegenReal2Mission_DW.SFunction_DIMS2_c[0];
+            for (i = 0; i < 3; i++) {
+                for (b_md2 = 0; b_md2 <= static_cast<int32_T>(loop_ub - 1);
+                        b_md2++) {
+                    codegenReal2Mission_DW.SelectNorthEastRadius
+                        [static_cast<int32_T>(b_md2 + static_cast<int32_T>
+                        (codegenReal2Mission_DW.SelectNorthEastRadius_DIMS1[0] *
+                         i))] = codegenReal2Mission_DW.DangerList
+                        [static_cast<int32_T>(static_cast<int32_T>
+                        (static_cast<int32_T>(static_cast<int32_T>(i + 1) << 6)
+                         + static_cast<int32_T>(b_data[b_md2])) - 1)];
+                }
+            }
+
+            // End of Selector: '<S13>/SelectNorthEastRadius'
+
+            // MATLAB Function: '<S13>/InterpCircle'
+            // MATLAB Function 'MissionLogic/DangerLidarScanPoints/GenPCD/InterpCircle': '<S14>:1' 
+            // '<S14>:1:2'
+            codegenReal2Mission_DW.SFunction_DIMS2_i[0] = 0;
+            codegenReal2Mission_DW.SFunction_DIMS2_i[1] = 2;
+            b = codegenReal2Mission_DW.SelectNorthEastRadius_DIMS1[0];
+
+            // '<S14>:1:5'
+            codegenReal2Mission_emxInit_real_T(&varargin_2, 2);
+            codegenReal2Mission_emxInit_real_T(&theta, 2);
+            codegenReal2Mission_emxInit_real_T(&b_b, 1);
+            codegenReal2Mission_emxInit_real_T(&b_tmp, 1);
+            codegenReal2Mission_emxInit_real_T(&tmp, 2);
+            codegenReal2Mission_emxInit_real_T(&Lat_0, 2);
+
+            // MATLAB Function: '<S13>/InterpCircle' incorporates:
+            //   Selector: '<S13>/SelectNorthEastRadius'
+
+            for (wholeSecsFromMillis = 0; wholeSecsFromMillis <=
+                    static_cast<int32_T>(b - 1); wholeSecsFromMillis++) {
+                // '<S14>:1:6'
+                Lat = codegenReal2Mission_DW.SelectNorthEastRadius
+                    [static_cast<int32_T>(static_cast<int32_T>
+                    (codegenReal2Mission_DW.SelectNorthEastRadius_DIMS1[0] << 1)
+                    + wholeSecsFromMillis)];
+
+                // '<S14>:1:16'
+                Lon = std::ceil(360.0 / (3.0 / Lat * 57.295779513082323));
+                if (static_cast<boolean_T>(static_cast<int32_T>((Lon >= 0.0) ^ 1)))
+                {
+                    theta->size[0] = 1;
+                    theta->size[1] = 0;
+                } else {
+                    i = static_cast<int32_T>(theta->size[0] * theta->size[1]);
+                    theta->size[0] = 1;
+                    theta->size[1] = static_cast<int32_T>(Lon);
+                    codegenReal2Mission_emxEnsureCapacity_real_T(theta, i);
+                    if (static_cast<int32_T>(Lon) >= 1) {
+                        theta->data[static_cast<int32_T>(static_cast<int32_T>
+                            (Lon) - 1)] = 6.2831853071795862;
+                        if (theta->size[1] >= 2) {
+                            theta->data[0] = 0.0;
+                            if (theta->size[1] >= 3) {
+                                Lon = 6.2831853071795862 / (static_cast<real_T>
+                                    (theta->size[1]) - 1.0);
+                                md2 = theta->size[1];
+                                for (b_md2 = 0; b_md2 <= static_cast<int32_T>
+                                        (md2 - 3); b_md2++) {
+                                    theta->data[static_cast<int32_T>(b_md2 + 1)]
+                                        = (static_cast<real_T>(b_md2) + 1.0) *
+                                        Lon;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // '<S14>:1:17'
+                i = b_tmp->size[0];
+                b_tmp->size[0] = theta->size[1];
+                codegenReal2Mission_emxEnsureCapacity_real_T(b_tmp, i);
+                loop_ub = theta->size[1];
+                for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+                    b_tmp->data[i] = theta->data[i];
+                }
+
+                i = b_b->size[0];
+                b_b->size[0] = b_tmp->size[0];
+                codegenReal2Mission_emxEnsureCapacity_real_T(b_b, i);
+                loop_ub = b_tmp->size[0];
+                for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+                    b_b->data[i] = b_tmp->data[i];
+                }
+
+                b_md2 = b_tmp->size[0];
+                for (md2 = 0; md2 <= static_cast<int32_T>(b_md2 - 1); md2++) {
+                    b_b->data[md2] = std::cos(b_b->data[md2]);
+                }
+
+                b_md2 = b_tmp->size[0];
+                for (md2 = 0; md2 <= static_cast<int32_T>(b_md2 - 1); md2++) {
+                    b_tmp->data[md2] = std::sin(b_tmp->data[md2]);
+                }
+
+                i = static_cast<int32_T>(Lat_0->size[0] * Lat_0->size[1]);
+                Lat_0->size[0] = b_b->size[0];
+                Lat_0->size[1] = 2;
+                codegenReal2Mission_emxEnsureCapacity_real_T(Lat_0, i);
+                loop_ub = b_b->size[0];
+                for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+                    Lat_0->data[i] = Lat * b_b->data[i];
+                }
+
+                loop_ub = b_tmp->size[0];
+                for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+                    Lat_0->data[static_cast<int32_T>(i + b_b->size[0])] = Lat *
+                        b_tmp->data[i];
+                }
+
+                tmp_0[0] =
+                    codegenReal2Mission_DW.SelectNorthEastRadius[wholeSecsFromMillis];
+                tmp_0[1] = codegenReal2Mission_DW.SelectNorthEastRadius[
+                    static_cast<int32_T>(wholeSecsFromMillis +
+                    codegenReal2Mission_DW.SelectNorthEastRadius_DIMS1[0])];
+                i = static_cast<int32_T>(varargin_2->size[0] * varargin_2->size
+                    [1]);
+                varargin_2->size[0] = Lat_0->size[0];
+                varargin_2->size[1] = 2;
+                codegenReal2Mission_emxEnsureCapacity_real_T(varargin_2, i);
+                loop_ub = Lat_0->size[0];
+                for (i = 0; i < 2; i++) {
+                    for (b_md2 = 0; b_md2 <= static_cast<int32_T>(loop_ub - 1);
+                            b_md2++) {
+                        varargin_2->data[static_cast<int32_T>(b_md2 +
+                            static_cast<int32_T>(varargin_2->size[0] * i))] =
+                            Lat_0->data[static_cast<int32_T>(static_cast<int32_T>
+                            (Lat_0->size[0] * i) + b_md2)] + tmp_0[i];
+                    }
+                }
+
+                // '<S14>:1:11'
+                if (codegenReal2Mission_DW.SFunction_DIMS2_i[0] != 0) {
+                    b_n = codegenReal2Mission_DW.SFunction_DIMS2_i[0];
+                } else {
+                    b_n = 0;
+                }
+
+                if (varargin_2->size[0] != 0) {
+                    md2 = varargin_2->size[0];
+                } else {
+                    md2 = 0;
+                }
+
+                i = static_cast<int32_T>(tmp->size[0] * tmp->size[1]);
+                tmp->size[0] = static_cast<int32_T>(b_n + md2);
+                tmp->size[1] = 2;
+                codegenReal2Mission_emxEnsureCapacity_real_T(tmp, i);
+                for (i = 0; i < 2; i++) {
+                    for (b_md2 = 0; b_md2 <= static_cast<int32_T>(b_n - 1);
+                            b_md2++) {
+                        tmp->data[static_cast<int32_T>(b_md2 +
+                            static_cast<int32_T>(tmp->size[0] * i))] =
+                            codegenReal2Mission_DW.PointCloud
+                            [static_cast<int32_T>(static_cast<int32_T>(b_n * i)
+                            + b_md2)];
+                    }
+                }
+
+                for (i = 0; i < 2; i++) {
+                    for (b_md2 = 0; b_md2 <= static_cast<int32_T>(md2 - 1);
+                            b_md2++) {
+                        tmp->data[static_cast<int32_T>(static_cast<int32_T>
+                            (b_md2 + b_n) + static_cast<int32_T>(tmp->size[0] *
+                            i))] = varargin_2->data[static_cast<int32_T>(
+                            static_cast<int32_T>(varargin_2->size[0] * i) +
+                            b_md2)];
+                    }
+                }
+
+                codegenReal2Mission_DW.SFunction_DIMS2_i[0] = tmp->size[0];
+                codegenReal2Mission_DW.SFunction_DIMS2_i[1] = 2;
+                loop_ub = static_cast<int32_T>(tmp->size[0] << 1);
+                for (i = 0; i <= static_cast<int32_T>(loop_ub - 1); i++) {
+                    codegenReal2Mission_DW.PointCloud[i] = tmp->data[i];
+                }
+            }
+
+            codegenReal2Mission_emxFree_real_T(&Lat_0);
+            codegenReal2Mission_emxFree_real_T(&tmp);
+            codegenReal2Mission_emxFree_real_T(&b_tmp);
+            codegenReal2Mission_emxFree_real_T(&b_b);
+            codegenReal2Mission_emxFree_real_T(&theta);
+            codegenReal2Mission_emxFree_real_T(&varargin_2);
+        }
+
+        // End of Receive: '<S5>/Receive'
+        // End of Outputs for SubSystem: '<S5>/GenPCD'
+        // End of Outputs for SubSystem: '<Root>/MissionLogic'
+        codegenReal2Mission_emxFree_char_T(&q);
+        codegenReal2Mission_emxFree_char_T(&x);
+        codegenReal2Mission_emxFree_char_T(&b_curKey);
+        codegenReal2Mission_emxFree_char_T(&curLine);
+        codegenReal2Mission_emxFree_char_T(&curVal);
+        codegenReal2Mission_emxFree_char_T(&curKey);
+        codegenReal2Mission_emxFree_char_T(&curSection);
+        codegenReal2Mission_emxFree_char_T(&data);
+        codegenReal2Mission_emxFree_char_T(&ret);
+
+        // Outputs for Atomic SubSystem: '<Root>/MissionLogic'
         // Outputs for Atomic SubSystem: '<S2>/FeedbackCurrentMission'
         // Logic: '<S6>/OR'
         codegenReal2Mission_DW.OR = static_cast<boolean_T>(static_cast<int32_T>(
@@ -11829,165 +11351,146 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
         // Receive: '<S6>/ReceiveThisMission'
         if (wholeSecsFromMillis != 1) {
             // MATLAB Function: '<S42>/TimeConverter'
-            // MATLAB Function 'MissionLogic/FeedbackCurrentMission/TriggerCurrentMisisonFeedback/TimeConverter': '<S44>:1' 
-            // '<S44>:1:3'
+            // MATLAB Function 'MissionLogic/FeedbackCurrentMission/TriggerCurrentMisisonFeedback/TimeConverter': '<S43>:1' 
+            // '<S43>:1:3'
             Lon = codegenReal2Mission_DW.ReceiveThisMission_o2.StartTime *
                 1000.0;
-            codegenReal2Mission_getDateVec_b(Lon, &Lat, &Alt, &b_I, &D, &a__4,
-                &rtb_Sum1_o_idx_0);
-            codegenReal2Mission_getDateVec_b(Lon, &b_I, &Alt, &D, &a__4,
-                &rtb_Sum1_o_idx_0, &da_im);
-            codegenReal2Mission_getDateVec_b(Lon, &D, &a__4, &b_I,
-                &rtb_Sum1_o_idx_0, &da_im, &a__17);
-            codegenReal2Mission_getDateVec_b(Lon, &a__4, &rtb_Sum1_o_idx_0,
-                &da_im, &D, &a__17, &a__23);
-            codegenReal2Mission_getDateVec_b(Lon, &rtb_Sum1_o_idx_0, &da_im,
-                &a__17, &a__23, &a__4, &a__29);
-            codegenReal2Mission_getDateVec_b(Lon, &da_im, &a__17, &a__23, &a__29,
-                &a__35, &rtb_Sum1_o_idx_0);
-            codegenReal2Mission_getDateVec_b(Lon, &a__17, &a__23, &a__29, &a__35,
+            codegenReal2Mission_getDateVec(Lon, &Lat, &Alt, &b_I, &D, &a__4,
+                &rtb_Sum1_idx_0);
+            codegenReal2Mission_getDateVec(Lon, &b_I, &Alt, &D, &a__4,
+                &rtb_Sum1_idx_0, &da_im);
+            codegenReal2Mission_getDateVec(Lon, &D, &a__4, &b_I, &rtb_Sum1_idx_0,
+                &da_im, &a__17);
+            codegenReal2Mission_getDateVec(Lon, &a__4, &rtb_Sum1_idx_0, &da_im,
+                &D, &a__17, &a__23);
+            codegenReal2Mission_getDateVec(Lon, &rtb_Sum1_idx_0, &da_im, &a__17,
+                &a__23, &a__4, &a__29);
+            codegenReal2Mission_getDateVec(Lon, &da_im, &a__17, &a__23, &a__29,
+                &a__35, &rtb_Sum1_idx_0);
+            codegenReal2Mission_getDateVec(Lon, &a__17, &a__23, &a__29, &a__35,
                 &b_a__35, &da_im);
-            codegenReal2Mission_getDateVec_b(Lon, &a__17, &a__23, &a__29, &a__35,
+            codegenReal2Mission_getDateVec(Lon, &a__17, &a__23, &a__29, &a__35,
                 &b_a__35, &b_x_0);
+
+            // BusCreator: '<S42>/IndivCMD'
+            rtb_IndivCMD.SequenceID =
+                codegenReal2Mission_DW.ReceiveThisMission_o2.SequenceID;
+            rtb_IndivCMD.MissionMode =
+                codegenReal2Mission_DW.ReceiveThisMission_o2.MissionMode;
+            rtb_IndivCMD.MissionLocation =
+                codegenReal2Mission_DW.ReceiveThisMission_o2.MissionLocation;
+            rtb_IndivCMD.params =
+                codegenReal2Mission_DW.ReceiveThisMission_o2.params;
+            rtb_IndivCMD.StartPosition =
+                codegenReal2Mission_DW.ReceiveThisMission_o2.StartPosition;
+            rtb_IndivCMD.numUAV =
+                codegenReal2Mission_DW.ReceiveThisMission_o2.numUAV;
+            rtb_IndivCMD.FormationPos =
+                codegenReal2Mission_DW.ReceiveThisMission_o2.FormationPos;
+
+            // MATLAB Function: '<S42>/TimeConverter'
             a__17 = std::round(Lat);
             if (a__17 < 2.147483648E+9) {
                 if (a__17 >= -2.147483648E+9) {
-                    codegenReal2Mission_DW.IndivCMD.StartTime.year =
-                        static_cast<int32_T>(a__17);
+                    // BusCreator: '<S42>/IndivCMD'
+                    rtb_IndivCMD.StartTime.year = static_cast<int32_T>(a__17);
                 } else {
-                    codegenReal2Mission_DW.IndivCMD.StartTime.year = MIN_int32_T;
+                    // BusCreator: '<S42>/IndivCMD'
+                    rtb_IndivCMD.StartTime.year = MIN_int32_T;
                 }
             } else {
-                codegenReal2Mission_DW.IndivCMD.StartTime.year = MAX_int32_T;
+                // BusCreator: '<S42>/IndivCMD'
+                rtb_IndivCMD.StartTime.year = MAX_int32_T;
             }
 
             a__17 = std::round(Alt);
             if (a__17 < 2.147483648E+9) {
                 if (a__17 >= -2.147483648E+9) {
-                    codegenReal2Mission_DW.IndivCMD.StartTime.month =
-                        static_cast<int32_T>(a__17);
+                    // BusCreator: '<S42>/IndivCMD'
+                    rtb_IndivCMD.StartTime.month = static_cast<int32_T>(a__17);
                 } else {
-                    codegenReal2Mission_DW.IndivCMD.StartTime.month =
-                        MIN_int32_T;
+                    // BusCreator: '<S42>/IndivCMD'
+                    rtb_IndivCMD.StartTime.month = MIN_int32_T;
                 }
             } else {
-                codegenReal2Mission_DW.IndivCMD.StartTime.month = MAX_int32_T;
+                // BusCreator: '<S42>/IndivCMD'
+                rtb_IndivCMD.StartTime.month = MAX_int32_T;
             }
 
             a__17 = std::round(b_I);
             if (a__17 < 2.147483648E+9) {
                 if (a__17 >= -2.147483648E+9) {
-                    codegenReal2Mission_DW.IndivCMD.StartTime.day = static_cast<
-                        int32_T>(a__17);
+                    // BusCreator: '<S42>/IndivCMD'
+                    rtb_IndivCMD.StartTime.day = static_cast<int32_T>(a__17);
                 } else {
-                    codegenReal2Mission_DW.IndivCMD.StartTime.day = MIN_int32_T;
+                    // BusCreator: '<S42>/IndivCMD'
+                    rtb_IndivCMD.StartTime.day = MIN_int32_T;
                 }
             } else {
-                codegenReal2Mission_DW.IndivCMD.StartTime.day = MAX_int32_T;
+                // BusCreator: '<S42>/IndivCMD'
+                rtb_IndivCMD.StartTime.day = MAX_int32_T;
             }
 
             a__17 = std::round(D);
             if (a__17 < 2.147483648E+9) {
                 if (a__17 >= -2.147483648E+9) {
-                    codegenReal2Mission_DW.IndivCMD.StartTime.hour =
-                        static_cast<int32_T>(a__17);
+                    // BusCreator: '<S42>/IndivCMD'
+                    rtb_IndivCMD.StartTime.hour = static_cast<int32_T>(a__17);
                 } else {
-                    codegenReal2Mission_DW.IndivCMD.StartTime.hour = MIN_int32_T;
+                    // BusCreator: '<S42>/IndivCMD'
+                    rtb_IndivCMD.StartTime.hour = MIN_int32_T;
                 }
             } else {
-                codegenReal2Mission_DW.IndivCMD.StartTime.hour = MAX_int32_T;
+                // BusCreator: '<S42>/IndivCMD'
+                rtb_IndivCMD.StartTime.hour = MAX_int32_T;
             }
 
             a__17 = std::round(a__4);
             if (a__17 < 2.147483648E+9) {
                 if (a__17 >= -2.147483648E+9) {
-                    codegenReal2Mission_DW.IndivCMD.StartTime.minute =
-                        static_cast<int32_T>(a__17);
+                    // BusCreator: '<S42>/IndivCMD'
+                    rtb_IndivCMD.StartTime.minute = static_cast<int32_T>(a__17);
                 } else {
-                    codegenReal2Mission_DW.IndivCMD.StartTime.minute =
-                        MIN_int32_T;
+                    // BusCreator: '<S42>/IndivCMD'
+                    rtb_IndivCMD.StartTime.minute = MIN_int32_T;
                 }
             } else {
-                codegenReal2Mission_DW.IndivCMD.StartTime.minute = MAX_int32_T;
+                // BusCreator: '<S42>/IndivCMD'
+                rtb_IndivCMD.StartTime.minute = MAX_int32_T;
             }
 
-            a__17 = std::floor(rtb_Sum1_o_idx_0);
+            a__17 = std::floor(rtb_Sum1_idx_0);
             if (a__17 < 2.147483648E+9) {
                 if (a__17 >= -2.147483648E+9) {
-                    codegenReal2Mission_DW.IndivCMD.StartTime.second =
-                        static_cast<int32_T>(a__17);
+                    // BusCreator: '<S42>/IndivCMD'
+                    rtb_IndivCMD.StartTime.second = static_cast<int32_T>(a__17);
                 } else {
-                    codegenReal2Mission_DW.IndivCMD.StartTime.second =
-                        MIN_int32_T;
+                    // BusCreator: '<S42>/IndivCMD'
+                    rtb_IndivCMD.StartTime.second = MIN_int32_T;
                 }
             } else {
-                codegenReal2Mission_DW.IndivCMD.StartTime.second = MAX_int32_T;
+                // BusCreator: '<S42>/IndivCMD'
+                rtb_IndivCMD.StartTime.second = MAX_int32_T;
             }
 
             a__17 = std::round((da_im - std::floor(b_x_0)) * 1000.0);
             if (a__17 < 2.147483648E+9) {
                 if (a__17 >= -2.147483648E+9) {
-                    codegenReal2Mission_DW.IndivCMD.StartTime.millisecond =
-                        static_cast<int32_T>(a__17);
+                    // BusCreator: '<S42>/IndivCMD'
+                    rtb_IndivCMD.StartTime.millisecond = static_cast<int32_T>
+                        (a__17);
                 } else {
-                    codegenReal2Mission_DW.IndivCMD.StartTime.millisecond =
-                        MIN_int32_T;
+                    // BusCreator: '<S42>/IndivCMD'
+                    rtb_IndivCMD.StartTime.millisecond = MIN_int32_T;
                 }
             } else {
-                codegenReal2Mission_DW.IndivCMD.StartTime.millisecond =
-                    MAX_int32_T;
+                // BusCreator: '<S42>/IndivCMD'
+                rtb_IndivCMD.StartTime.millisecond = MAX_int32_T;
             }
 
-            // End of MATLAB Function: '<S42>/TimeConverter'
-
-            // BusCreator: '<S42>/IndivCMD'
-            codegenReal2Mission_DW.IndivCMD.SequenceID =
-                codegenReal2Mission_DW.ReceiveThisMission_o2.SequenceID;
-            codegenReal2Mission_DW.IndivCMD.MissionMode =
-                codegenReal2Mission_DW.ReceiveThisMission_o2.MissionMode;
-            codegenReal2Mission_DW.IndivCMD.MissionLocation =
-                codegenReal2Mission_DW.ReceiveThisMission_o2.MissionLocation;
-            codegenReal2Mission_DW.IndivCMD.params =
-                codegenReal2Mission_DW.ReceiveThisMission_o2.params;
-            codegenReal2Mission_DW.IndivCMD.StartPosition =
-                codegenReal2Mission_DW.ReceiveThisMission_o2.StartPosition;
-            codegenReal2Mission_DW.IndivCMD.numUAV =
-                codegenReal2Mission_DW.ReceiveThisMission_o2.numUAV;
-            codegenReal2Mission_DW.IndivCMD.FormationPos =
-                codegenReal2Mission_DW.ReceiveThisMission_o2.FormationPos;
-
-            // MATLAB Function: '<S42>/PrintOnboardLog'
-            // MATLAB Function 'MissionLogic/FeedbackCurrentMission/TriggerCurrentMisisonFeedback/PrintOnboardLog': '<S43>:1' 
-            // '<S43>:1:3'
-            fileid = codegenReal2Mission_cfopen_m("OnboardMissionCMD.log", "ab");
-
-            // '<S43>:1:4'
-            codegenReal2Mission_printIndivMissionCMD
-                (codegenReal2Mission_DW.IndivCMD.SequenceID,
-                 codegenReal2Mission_DW.IndivCMD.MissionMode,
-                 codegenReal2Mission_DW.IndivCMD.MissionLocation.Lat,
-                 codegenReal2Mission_DW.IndivCMD.MissionLocation.Lon,
-                 codegenReal2Mission_DW.IndivCMD.MissionLocation.Alt,
-                 codegenReal2Mission_DW.IndivCMD.MissionLocation.degHDG,
-                 codegenReal2Mission_DW.IndivCMD.params.Param1,
-                 codegenReal2Mission_DW.IndivCMD.params.Param2,
-                 codegenReal2Mission_DW.IndivCMD.params.Param3,
-                 codegenReal2Mission_DW.IndivCMD.params.Param4,
-                 codegenReal2Mission_DW.IndivCMD.params.Param5,
-                 codegenReal2Mission_DW.IndivCMD.params.Param6,
-                 codegenReal2Mission_DW.IndivCMD.params.Param7,
-                 codegenReal2Mission_DW.IndivCMD.StartPosition,
-                 codegenReal2Mission_DW.IndivCMD.numUAV,
-                 codegenReal2Mission_DW.IndivCMD.FormationPos,
-                 codegenReal2Mission_DW.IndivCMD.StartTime, static_cast<real_T>
-                 (fileid));
-
-            // '<S43>:1:5'
-            codegenReal2Mission_cfclose_h(static_cast<real_T>(fileid));
-
             // Send: '<S42>/Send'
-            CurrentMissionSendData.SendData(&codegenReal2Mission_DW.IndivCMD,
-                sizeof(IndividualUAVCmd), &status_2);
+            CurrentMissionSendData.SendData(&rtb_IndivCMD, sizeof
+                (IndividualUAVCmd), &status_2);
         }
 
         // End of Outputs for SubSystem: '<S6>/TriggerCurrentMisisonFeedback'
@@ -12078,7 +11581,7 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
     // End of RateTransition: '<Root>/RTLLA'
 
     // Outputs for Atomic SubSystem: '<Root>/TrackingControl'
-    // ModelReference generated from: '<S101>/Real2SimGuidance'
+    // ModelReference generated from: '<S100>/Real2SimGuidance'
     Real2SimGuidance(&(codegenReal2Mission_DW.Real2SimGuidance_InstanceData.rtm),
                      &codegenReal2Mission_DW.OR,
                      &codegenReal2Mission_DW.ReceiveFlightMode,
@@ -12128,7 +11631,7 @@ void codegenReal2MissionModelClass::step() // Sample time: [0.0s, 0.0s]
         // End of Update for SubSystem: '<Root>/MissionLogic'
 
         // Update for Atomic SubSystem: '<Root>/TrackingControl'
-        // Update for ModelReference generated from: '<S101>/Real2SimGuidance'
+        // Update for ModelReference generated from: '<S100>/Real2SimGuidance'
         Real2SimGuidance_Update
             (&(codegenReal2Mission_DW.Real2SimGuidance_InstanceData.rtm),
              &codegenReal2Mission_DW.OR, &codegenReal2Mission_DW.ImmedMission_o2,
@@ -12177,7 +11680,7 @@ void codegenReal2MissionModelClass::codegenReal2Mission_derivatives()
 {
     // Derivatives for Atomic SubSystem: '<Root>/TrackingControl'
 
-    // Derivatives for ModelReference generated from: '<S101>/Real2SimGuidance'
+    // Derivatives for ModelReference generated from: '<S100>/Real2SimGuidance'
     Real2SimGuidance_Deriv
         (&(codegenReal2Mission_DW.Real2SimGuidance_InstanceData.rtdw),
          &(((XDot_codegenReal2Mission_T *) (&codegenReal2Mission_M)->derivs)
@@ -12210,27 +11713,27 @@ void codegenReal2MissionModelClass::step2() // Sample time: [0.2s, 0.0s]
     rtb_EnableB =
         codegenReal2Mission_DW.EnableB_Buf[codegenReal2Mission_DW.EnableB_RdBufIdx];
 
-    // RateTransition: '<S48>/Rate Transition'
-    codegenReal2Mission_DW.RateTransition_RdBufIdx = static_cast<int8_T>(
-        static_cast<int32_T>(codegenReal2Mission_DW.RateTransition_RdBufIdx) ==
+    // RateTransition: '<S47>/Rate Transition'
+    codegenReal2Mission_DW.RateTransition_RdBufIdx_c = static_cast<int8_T>(
+        static_cast<int32_T>(codegenReal2Mission_DW.RateTransition_RdBufIdx_c) ==
         0);
 
-    // RateTransition: '<S48>/MsgRT'
+    // RateTransition: '<S47>/MsgRT'
     codegenReal2Mission_DW.MsgRT_RdBufIdx = static_cast<int8_T>
         (static_cast<int32_T>(codegenReal2Mission_DW.MsgRT_RdBufIdx) == 0);
 
-    // Send: '<S48>/Send' incorporates:
-    //   RateTransition: '<S48>/MsgRT'
-    //   RateTransition: '<S48>/Rate Transition'
+    // Send: '<S47>/Send' incorporates:
+    //   RateTransition: '<S47>/MsgRT'
+    //   RateTransition: '<S47>/Rate Transition'
 
-    if (codegenReal2Mission_DW.RateTransition_Buf[codegenReal2Mission_DW.RateTransition_RdBufIdx])
+    if (codegenReal2Mission_DW.RateTransition_Buf_c[codegenReal2Mission_DW.RateTransition_RdBufIdx_c])
     {
         codegenReal2Mission_ReceiveMissionA_SendData
             (&codegenReal2Mission_DW.MsgRT_Buf[static_cast<int32_T>
              (codegenReal2Mission_DW.MsgRT_RdBufIdx)]);
     }
 
-    // End of Send: '<S48>/Send'
+    // End of Send: '<S47>/Send'
 
     // Receive: '<S7>/ReceiveMissionA'
     status = codegenReal2Mission_ReceiveMissionA_RecvData
@@ -12253,18 +11756,18 @@ void codegenReal2MissionModelClass::step2() // Sample time: [0.2s, 0.0s]
                           &(codegenReal2Mission_DW.ModelA_InstanceData.rtdw),
                           &(codegenReal2Mission_DW.ModelA_InstanceData.rtzce));
 
-    // RateTransition: '<S49>/Rate Transition'
+    // RateTransition: '<S48>/Rate Transition'
     codegenReal2Mission_DW.RateTransition_RdBufIdx_o = static_cast<int8_T>(
         static_cast<int32_T>(codegenReal2Mission_DW.RateTransition_RdBufIdx_o) ==
         0);
 
-    // RateTransition: '<S49>/MsgRT'
+    // RateTransition: '<S48>/MsgRT'
     codegenReal2Mission_DW.MsgRT_RdBufIdx_b = static_cast<int8_T>
         (static_cast<int32_T>(codegenReal2Mission_DW.MsgRT_RdBufIdx_b) == 0);
 
-    // Send: '<S49>/Send' incorporates:
-    //   RateTransition: '<S49>/MsgRT'
-    //   RateTransition: '<S49>/Rate Transition'
+    // Send: '<S48>/Send' incorporates:
+    //   RateTransition: '<S48>/MsgRT'
+    //   RateTransition: '<S48>/Rate Transition'
 
     if (codegenReal2Mission_DW.RateTransition_Buf_l[codegenReal2Mission_DW.RateTransition_RdBufIdx_o])
     {
@@ -12273,7 +11776,7 @@ void codegenReal2MissionModelClass::step2() // Sample time: [0.2s, 0.0s]
              (codegenReal2Mission_DW.MsgRT_RdBufIdx_b)]);
     }
 
-    // End of Send: '<S49>/Send'
+    // End of Send: '<S48>/Send'
 
     // Receive: '<S7>/ReceiveMissionB'
     status = codegenReal2Mission_ReceiveMissionB_RecvData
@@ -12344,6 +11847,20 @@ void codegenReal2MissionModelClass::step2() // Sample time: [0.2s, 0.0s]
         codegenReal2Mission_DW.ModelB_o2;
 
     // End of Outputs for SubSystem: '<S2>/FlightMission'
+    // End of Outputs for SubSystem: '<Root>/MissionLogic'
+}
+
+// Model step function for TID3
+void codegenReal2MissionModelClass::step3() // Sample time: [1.0s, 0.0s]
+{
+    // Outputs for Atomic SubSystem: '<Root>/MissionLogic'
+    // Outputs for Atomic SubSystem: '<S12>/VisualizeUAV'
+    // RateTransition: '<S99>/Rate Transition'
+    codegenReal2Mission_DW.RateTransition_RdBufIdx = static_cast<int8_T>(
+        static_cast<int32_T>(codegenReal2Mission_DW.RateTransition_RdBufIdx) ==
+        0);
+
+    // End of Outputs for SubSystem: '<S12>/VisualizeUAV'
     // End of Outputs for SubSystem: '<Root>/MissionLogic'
 }
 
@@ -12484,12 +12001,12 @@ void codegenReal2MissionModelClass::initialize()
     }
 
     {
-        static uint32_T *clockTickPtrs[4];
-        static uint32_T *clockTickHPtrs[4];
-        static real_T *taskTimePtrs[4];
+        static uint32_T *clockTickPtrs[5];
+        static uint32_T *clockTickHPtrs[5];
+        static real_T *taskTimePtrs[5];
         static uint32_T *taskCounterPtrs;
-        static boolean_T *rateTransitionPtrs[(4 * 4)];
-        (&codegenReal2Mission_M)->timingBridge.nTasks = 4;
+        static boolean_T *rateTransitionPtrs[(5 * 5)];
+        (&codegenReal2Mission_M)->timingBridge.nTasks = 5;
         clockTickPtrs[0] = &((&codegenReal2Mission_M)->Timing.clockTick0);
         clockTickHPtrs[0] = &((&codegenReal2Mission_M)->Timing.clockTickH0);
         clockTickPtrs[1] = &((&codegenReal2Mission_M)->Timing.clockTick1);
@@ -12498,18 +12015,23 @@ void codegenReal2MissionModelClass::initialize()
         clockTickHPtrs[2] = (nullptr);
         clockTickPtrs[3] = (nullptr);
         clockTickHPtrs[3] = (nullptr);
+        clockTickPtrs[4] = (nullptr);
+        clockTickHPtrs[4] = (nullptr);
         (&codegenReal2Mission_M)->timingBridge.clockTick = clockTickPtrs;
         (&codegenReal2Mission_M)->timingBridge.clockTickH = clockTickHPtrs;
         taskCounterPtrs = &((&codegenReal2Mission_M)->Timing.TaskCounters.TID[0]);
         (&codegenReal2Mission_M)->timingBridge.taskCounter = taskCounterPtrs;
-        rateTransitionPtrs[1*4 + 2] = &((&codegenReal2Mission_M)
+        rateTransitionPtrs[1*5 + 2] = &((&codegenReal2Mission_M)
             ->Timing.RateInteraction.b_TID1_2);
+        rateTransitionPtrs[1*5 + 3] = &((&codegenReal2Mission_M)
+            ->Timing.RateInteraction.b_TID1_3);
         (&codegenReal2Mission_M)->timingBridge.rateTransition =
             rateTransitionPtrs;
         taskTimePtrs[0] = &((&codegenReal2Mission_M)->Timing.t[0]);
         taskTimePtrs[1] = (nullptr);
         taskTimePtrs[2] = (nullptr);
         taskTimePtrs[3] = (nullptr);
+        taskTimePtrs[4] = (nullptr);
         (&codegenReal2Mission_M)->timingBridge.taskTime = taskTimePtrs;
     }
 
@@ -12538,7 +12060,7 @@ void codegenReal2MissionModelClass::initialize()
     ImmedMission_initialize(rtmGetErrorStatusPointer((&codegenReal2Mission_M)),
                             &(codegenReal2Mission_DW.ImmedMission_InstanceData.rtm));
 
-    // Model Initialize function for ModelReference Block: '<S101>/Real2SimGuidance' 
+    // Model Initialize function for ModelReference Block: '<S100>/Real2SimGuidance' 
     Real2SimGuidance_initialize(rtmGetErrorStatusPointer((&codegenReal2Mission_M)),
         rtmGetStopRequestedPtr((&codegenReal2Mission_M)),
         &((&codegenReal2Mission_M)->solverInfo), &(&codegenReal2Mission_M)
@@ -12574,6 +12096,12 @@ void codegenReal2MissionModelClass::initialize()
 
         // End of SystemInitialize for MATLAB Function: '<S2>/ReadParADRC'
 
+        // SystemInitialize for Atomic SubSystem: '<S12>/VisualizeUAV'
+        // InitializeConditions for RateTransition: '<S99>/Rate Transition'
+        codegenReal2Mission_DW.RateTransition_RdBufIdx = 1;
+
+        // End of SystemInitialize for SubSystem: '<S12>/VisualizeUAV'
+
         // SystemInitialize for Enabled SubSystem: '<S5>/GenPCD'
         // Start for DataStoreMemory: '<S13>/Data Store Memory'
         for (int32_T i{0}; i < 256; i++) {
@@ -12591,18 +12119,6 @@ void codegenReal2MissionModelClass::initialize()
         // End of SystemInitialize for MATLAB Function: '<S13>/ReadHomePoint'
         // End of SystemInitialize for SubSystem: '<S5>/GenPCD'
 
-        // SystemInitialize for Atomic SubSystem: '<S2>/FeedbackCurrentMission'
-        // SystemInitialize for Enabled SubSystem: '<S6>/TriggerCurrentMisisonFeedback' 
-        // SystemInitialize for MATLAB Function: '<S42>/PrintOnboardLog'
-        a = NULL;
-        for (int32_T i{0}; i < 20; i++) {
-            codegenReal2Mission_DW.eml_openfiles_l[i] = a;
-        }
-
-        // End of SystemInitialize for MATLAB Function: '<S42>/PrintOnboardLog'
-        // End of SystemInitialize for SubSystem: '<S6>/TriggerCurrentMisisonFeedback' 
-        // End of SystemInitialize for SubSystem: '<S2>/FeedbackCurrentMission'
-
         // SystemInitialize for Atomic SubSystem: '<S2>/FlightMission'
         // InitializeConditions for RateTransition generated from: '<S7>/ModelA' 
         codegenReal2Mission_DW.EnableA_RdBufIdx = 1;
@@ -12610,16 +12126,16 @@ void codegenReal2MissionModelClass::initialize()
         // InitializeConditions for RateTransition generated from: '<S7>/ModelB' 
         codegenReal2Mission_DW.EnableB_RdBufIdx = 1;
 
-        // InitializeConditions for RateTransition: '<S48>/MsgRT'
+        // InitializeConditions for RateTransition: '<S47>/MsgRT'
         codegenReal2Mission_DW.MsgRT_RdBufIdx = 1;
 
-        // InitializeConditions for RateTransition: '<S48>/Rate Transition'
-        codegenReal2Mission_DW.RateTransition_RdBufIdx = 1;
+        // InitializeConditions for RateTransition: '<S47>/Rate Transition'
+        codegenReal2Mission_DW.RateTransition_RdBufIdx_c = 1;
 
-        // InitializeConditions for RateTransition: '<S49>/MsgRT'
+        // InitializeConditions for RateTransition: '<S48>/MsgRT'
         codegenReal2Mission_DW.MsgRT_RdBufIdx_b = 1;
 
-        // InitializeConditions for RateTransition: '<S49>/Rate Transition'
+        // InitializeConditions for RateTransition: '<S48>/Rate Transition'
         codegenReal2Mission_DW.RateTransition_RdBufIdx_o = 1;
 
         // InitializeConditions for RateTransition generated from: '<S7>/SwitchMissionUAVState' 
@@ -12641,15 +12157,15 @@ void codegenReal2MissionModelClass::initialize()
         codegenReal2Mission_DW.TmpRTBAtModelBInport3_RdBufIdx = 1;
 
         // SystemInitialize for Atomic SubSystem: '<S7>/JumpDelay'
-        // SystemInitialize for Atomic SubSystem: '<S46>/ComputDelay'
-        // SystemInitialize for MATLAB Function: '<S53>/ReadPursuitShiftPercentage' 
+        // SystemInitialize for Atomic SubSystem: '<S45>/ComputDelay'
+        // SystemInitialize for MATLAB Function: '<S52>/ReadPursuitShiftPercentage' 
         a = NULL;
         for (int32_T i{0}; i < 20; i++) {
             codegenReal2Mission_DW.eml_openfiles_b[i] = a;
         }
 
-        // End of SystemInitialize for MATLAB Function: '<S53>/ReadPursuitShiftPercentage' 
-        // End of SystemInitialize for SubSystem: '<S46>/ComputDelay'
+        // End of SystemInitialize for MATLAB Function: '<S52>/ReadPursuitShiftPercentage' 
+        // End of SystemInitialize for SubSystem: '<S45>/ComputDelay'
         // End of SystemInitialize for SubSystem: '<S7>/JumpDelay'
 
         // SystemInitialize for ModelReference: '<S7>/ModelA'
@@ -12678,29 +12194,29 @@ void codegenReal2MissionModelClass::initialize()
 
         // SystemInitialize for Atomic SubSystem: '<S2>/PreProcessMissionCMD'
         // SystemInitialize for Atomic SubSystem: '<S10>/QueueCMD'
-        // Start for Queue: '<S84>/Queue'
+        // Start for Queue: '<S83>/Queue'
         codegenReal2Mission_initQueue(&codegenReal2Mission_DW.Queue_Queue,
             QueuePolicy_T::MSG_FIFO_QUEUE, 16,
             &codegenReal2Mission_DW.Queue_Msg[0]);
 
-        // SystemInitialize for Enabled SubSystem: '<S84>/UplinkLog'
-        // SystemInitialize for MATLAB Function: '<S95>/PrintOnboardLog'
+        // SystemInitialize for Enabled SubSystem: '<S83>/UplinkLog'
+        // SystemInitialize for MATLAB Function: '<S94>/PrintOnboardLog'
         a = NULL;
         for (int32_T i{0}; i < 20; i++) {
             codegenReal2Mission_DW.eml_openfiles_h[i] = a;
         }
 
-        // End of SystemInitialize for MATLAB Function: '<S95>/PrintOnboardLog'
-        // End of SystemInitialize for SubSystem: '<S84>/UplinkLog'
+        // End of SystemInitialize for MATLAB Function: '<S94>/PrintOnboardLog'
+        // End of SystemInitialize for SubSystem: '<S83>/UplinkLog'
         // End of SystemInitialize for SubSystem: '<S10>/QueueCMD'
         // End of SystemInitialize for SubSystem: '<S2>/PreProcessMissionCMD'
         // End of SystemInitialize for SubSystem: '<Root>/MissionLogic'
 
-        // Start for Receive: '<S92>/Receive'
+        // Start for Receive: '<S91>/Receive'
         std::memset(&codegenReal2Mission_DW.Receive, 0, sizeof(IndividualUAVCmd));
 
         // SystemInitialize for Atomic SubSystem: '<Root>/TrackingControl'
-        // SystemInitialize for ModelReference generated from: '<S101>/Real2SimGuidance' 
+        // SystemInitialize for ModelReference generated from: '<S100>/Real2SimGuidance' 
         Real2SimGuidance_Init
             (&(codegenReal2Mission_DW.Real2SimGuidance_InstanceData.rtdw),
              &(codegenReal2Mission_X.Real2SimGuidance_CSTATE));

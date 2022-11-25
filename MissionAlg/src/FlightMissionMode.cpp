@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'FlightMissionMode'.
 //
-// Model version                  : 4.33
+// Model version                  : 4.42
 // Simulink Coder version         : 9.8 (R2022b) 13-May-2022
-// C/C++ source code generated on : Mon Nov 21 19:24:11 2022
+// C/C++ source code generated on : Fri Nov 25 19:13:34 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -628,11 +628,11 @@ static boolean_T FlightMissionMode_strcmp_hbqn(const
     emxArray_char_T_FlightMissionMode_T *a);
 static boolean_T FlightMissionMode_strcmp_hbqnf(const
     emxArray_char_T_FlightMissionMode_T *a);
-static uavDubinsConnection_FlightMissionMode_T
+static uavDubinsConnection_FlightMissionMode_g_T
     *FlightMissionMode_uavDubinsConnection_uavDubinsConnection_lg
-    (uavDubinsConnection_FlightMissionMode_T *b_this, real_T varargin_2, real_T
-     varargin_4, const real_T varargin_6[2]);
-static uavDubinsConnection_FlightMissionMode_T
+    (uavDubinsConnection_FlightMissionMode_g_T *b_this, real_T varargin_2,
+     real_T varargin_4, const real_T varargin_6[2]);
+static uavDubinsConnection_FlightMissionMode_g_T
     *FlightMissionMode_DubinsObjSingleton_getConnector_p
     (DW_FlightMissionMode_f_T *localDW);
 static void* FlightMissionMode_uavDubinsBuildable_uavDubinsBuildable_j(real_T
@@ -644,17 +644,16 @@ static boolean_T FlightMissionMode_strcmp_hbqnfps(const char_T a_data[], const
 static void FlightMissionMode_uavDubinsPathSegment_uavDubinsPathSegment_hw(const
     real_T varargin_1[4], const real_T varargin_2[4], real_T varargin_3, real_T
     varargin_4, real_T varargin_5, real_T varargin_6, const
-    cell_wrap_0_FlightMissionMode_T varargin_7[4], const real_T varargin_8[4],
-    uavDubinsPathSegment_FlightMissionMode_T *b_this);
+    cell_wrap_1_FlightMissionMode_T varargin_7[4], const real_T varargin_8[4],
+    uavDubinsPathSegment_FlightMissionMode_b_T *b_this);
 static void FlightMissionMode_uavDubinsBuiltins_connect_g(const
-    uavDubinsConnection_FlightMissionMode_T *obj, const real_T startPose[4],
+    uavDubinsConnection_FlightMissionMode_g_T *obj, const real_T startPose[4],
     const real_T goalPose[4], real_T turningRadius,
-    uavDubinsPathSegment_FlightMissionMode_T *pathSegObjs, real_T *pathCosts);
-static real_T FlightMissionMode_angdiff(real_T x, real_T y);
+    uavDubinsPathSegment_FlightMissionMode_b_T *pathSegObjs, real_T *pathCosts);
 static void FlightMissionMode_eml_float_colon(real_T d, real_T b,
     emxArray_real_T_FlightMissionMode_T *y);
 static void FlightMissionMode_strcmp_hbqnfpsg(const
-    cell_wrap_0_FlightMissionMode_T a[4], boolean_T b_bool[4]);
+    cell_wrap_1_FlightMissionMode_T a[4], boolean_T b_bool[4]);
 static boolean_T FlightMissionMode_any_i(const boolean_T x[4]);
 static void FlightMissionMode_useConstantDim_i(real_T varargin_2_data[], const
     int32_T varargin_2_size[2]);
@@ -706,13 +705,14 @@ static void FlightMissionMode_uavDubinsPathSegment_interpolate_b(const real_T
     b_this_StartPose[4], const real_T b_this_GoalPose[4], real_T
     b_this_FlightPathAngle, real_T b_this_AirSpeed, real_T
     b_this_MinTurningRadius, real_T b_this_HelixRadius, const
-    cell_wrap_0_FlightMissionMode_T b_this_MotionTypes[4], const real_T
+    cell_wrap_1_FlightMissionMode_T b_this_MotionTypes[4], const real_T
     b_this_MotionLengths[4], real_T b_this_Length,
     emxArray_real_T_FlightMissionMode_T *samples,
     emxArray_real_T_FlightMissionMode_T *poses);
 static void FlightMissionMode_genSegWP_j(const real_T start[4], const real_T
     ende[4], emxArray_real_T_FlightMissionMode_T *segWayPoints,
     DW_FlightMissionMode_f_T *localDW);
+static real_T FlightMissionMode_angdiff(real_T x, real_T y);
 
 // System initialize for atomic system:
 void FlightMissionMode_RotateATMissionHdg_Init
@@ -20144,12 +20144,12 @@ static boolean_T FlightMissionMode_strcmp_hbqnf(const
 }
 
 // Function for MATLAB Function: '<S40>/CheckPointInterp'
-static uavDubinsConnection_FlightMissionMode_T
+static uavDubinsConnection_FlightMissionMode_g_T
     *FlightMissionMode_uavDubinsConnection_uavDubinsConnection_lg
-    (uavDubinsConnection_FlightMissionMode_T *b_this, real_T varargin_2, real_T
-     varargin_4, const real_T varargin_6[2])
+    (uavDubinsConnection_FlightMissionMode_g_T *b_this, real_T varargin_2,
+     real_T varargin_4, const real_T varargin_6[2])
 {
-    uavDubinsConnection_FlightMissionMode_T *c_this;
+    uavDubinsConnection_FlightMissionMode_g_T *c_this;
     real_T b_x;
     c_this = b_this;
     b_this->AirSpeed = 10.0;
@@ -20170,7 +20170,7 @@ static uavDubinsConnection_FlightMissionMode_T
 }
 
 // Function for MATLAB Function: '<S40>/CheckPointInterp'
-static uavDubinsConnection_FlightMissionMode_T
+static uavDubinsConnection_FlightMissionMode_g_T
     *FlightMissionMode_DubinsObjSingleton_getConnector_p
     (DW_FlightMissionMode_f_T *localDW)
 {
@@ -20194,7 +20194,7 @@ static uavDubinsConnection_FlightMissionMode_T
     emxArray_char_T_FlightMissionMode_T *tmp_6;
     emxArray_char_T_FlightMissionMode_T *tmp_7;
     emxArray_char_T_FlightMissionMode_T *tmp_8;
-    uavDubinsConnection_FlightMissionMode_T *outputArg;
+    uavDubinsConnection_FlightMissionMode_g_T *outputArg;
     real_T tmp_9[2];
     if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
             (localDW->SingletonInstance_not_empty) ^ 1))) {
@@ -20896,8 +20896,8 @@ static boolean_T FlightMissionMode_strcmp_hbqnfps(const char_T a_data[], const
 static void FlightMissionMode_uavDubinsPathSegment_uavDubinsPathSegment_hw(const
     real_T varargin_1[4], const real_T varargin_2[4], real_T varargin_3, real_T
     varargin_4, real_T varargin_5, real_T varargin_6, const
-    cell_wrap_0_FlightMissionMode_T varargin_7[4], const real_T varargin_8[4],
-    uavDubinsPathSegment_FlightMissionMode_T *b_this)
+    cell_wrap_1_FlightMissionMode_T varargin_7[4], const real_T varargin_8[4],
+    uavDubinsPathSegment_FlightMissionMode_b_T *b_this)
 {
     static const char_T h[128]{ '\x00', '\x01', '\x02', '\x03', '\x04', '\x05',
         '\x06', '\x07', '\x08', '\x09', '\x0a', '\x0b', '\x0c', '\x0d', '\x0e',
@@ -21005,125 +21005,125 @@ static void FlightMissionMode_uavDubinsPathSegment_uavDubinsPathSegment_hw(const
 
 // Function for MATLAB Function: '<S40>/CheckPointInterp'
 static void FlightMissionMode_uavDubinsBuiltins_connect_g(const
-    uavDubinsConnection_FlightMissionMode_T *obj, const real_T startPose[4],
+    uavDubinsConnection_FlightMissionMode_g_T *obj, const real_T startPose[4],
     const real_T goalPose[4], real_T turningRadius,
-    uavDubinsPathSegment_FlightMissionMode_T *pathSegObjs, real_T *pathCosts)
+    uavDubinsPathSegment_FlightMissionMode_b_T *pathSegObjs, real_T *pathCosts)
 {
     void* b_obj_UAVDubinsBuildableObj;
-    cell_wrap_0_FlightMissionMode_T ac;
-    cell_wrap_0_FlightMissionMode_T ad;
-    cell_wrap_0_FlightMissionMode_T ae;
-    cell_wrap_0_FlightMissionMode_T af;
-    cell_wrap_0_FlightMissionMode_T bc;
-    cell_wrap_0_FlightMissionMode_T bd;
-    cell_wrap_0_FlightMissionMode_T be;
-    cell_wrap_0_FlightMissionMode_T bf;
-    cell_wrap_0_FlightMissionMode_T cc;
-    cell_wrap_0_FlightMissionMode_T cd;
-    cell_wrap_0_FlightMissionMode_T ce;
-    cell_wrap_0_FlightMissionMode_T cf;
-    cell_wrap_0_FlightMissionMode_T dc;
-    cell_wrap_0_FlightMissionMode_T dd;
-    cell_wrap_0_FlightMissionMode_T de;
-    cell_wrap_0_FlightMissionMode_T df;
-    cell_wrap_0_FlightMissionMode_T ec;
-    cell_wrap_0_FlightMissionMode_T ed;
-    cell_wrap_0_FlightMissionMode_T ee;
-    cell_wrap_0_FlightMissionMode_T ef;
-    cell_wrap_0_FlightMissionMode_T fc;
-    cell_wrap_0_FlightMissionMode_T fd;
-    cell_wrap_0_FlightMissionMode_T fe;
-    cell_wrap_0_FlightMissionMode_T ff;
-    cell_wrap_0_FlightMissionMode_T gc;
-    cell_wrap_0_FlightMissionMode_T gd;
-    cell_wrap_0_FlightMissionMode_T ge;
-    cell_wrap_0_FlightMissionMode_T gf;
-    cell_wrap_0_FlightMissionMode_T hc;
-    cell_wrap_0_FlightMissionMode_T hd;
-    cell_wrap_0_FlightMissionMode_T he;
-    cell_wrap_0_FlightMissionMode_T hf;
-    cell_wrap_0_FlightMissionMode_T ib;
-    cell_wrap_0_FlightMissionMode_T ic;
-    cell_wrap_0_FlightMissionMode_T id;
-    cell_wrap_0_FlightMissionMode_T ie;
-    cell_wrap_0_FlightMissionMode_T jb;
-    cell_wrap_0_FlightMissionMode_T jc;
-    cell_wrap_0_FlightMissionMode_T jd;
-    cell_wrap_0_FlightMissionMode_T je;
-    cell_wrap_0_FlightMissionMode_T jf;
-    cell_wrap_0_FlightMissionMode_T kb;
-    cell_wrap_0_FlightMissionMode_T kc;
-    cell_wrap_0_FlightMissionMode_T kd;
-    cell_wrap_0_FlightMissionMode_T ke;
-    cell_wrap_0_FlightMissionMode_T kf;
-    cell_wrap_0_FlightMissionMode_T lb;
-    cell_wrap_0_FlightMissionMode_T lc;
-    cell_wrap_0_FlightMissionMode_T ld;
-    cell_wrap_0_FlightMissionMode_T le;
-    cell_wrap_0_FlightMissionMode_T lf;
-    cell_wrap_0_FlightMissionMode_T mb;
-    cell_wrap_0_FlightMissionMode_T mc;
-    cell_wrap_0_FlightMissionMode_T md;
-    cell_wrap_0_FlightMissionMode_T me;
-    cell_wrap_0_FlightMissionMode_T mf;
-    cell_wrap_0_FlightMissionMode_T nb;
-    cell_wrap_0_FlightMissionMode_T nc;
-    cell_wrap_0_FlightMissionMode_T nd;
-    cell_wrap_0_FlightMissionMode_T ne;
-    cell_wrap_0_FlightMissionMode_T nf;
-    cell_wrap_0_FlightMissionMode_T ob;
-    cell_wrap_0_FlightMissionMode_T oc;
-    cell_wrap_0_FlightMissionMode_T od;
-    cell_wrap_0_FlightMissionMode_T oe;
-    cell_wrap_0_FlightMissionMode_T of;
-    cell_wrap_0_FlightMissionMode_T pb;
-    cell_wrap_0_FlightMissionMode_T pc;
-    cell_wrap_0_FlightMissionMode_T pd;
-    cell_wrap_0_FlightMissionMode_T pe;
-    cell_wrap_0_FlightMissionMode_T pf;
-    cell_wrap_0_FlightMissionMode_T qb;
-    cell_wrap_0_FlightMissionMode_T qc;
-    cell_wrap_0_FlightMissionMode_T qd;
-    cell_wrap_0_FlightMissionMode_T qe;
-    cell_wrap_0_FlightMissionMode_T qf;
-    cell_wrap_0_FlightMissionMode_T rb;
-    cell_wrap_0_FlightMissionMode_T rc;
-    cell_wrap_0_FlightMissionMode_T rd;
-    cell_wrap_0_FlightMissionMode_T re;
-    cell_wrap_0_FlightMissionMode_T rf;
-    cell_wrap_0_FlightMissionMode_T sb;
-    cell_wrap_0_FlightMissionMode_T sc;
-    cell_wrap_0_FlightMissionMode_T sd;
-    cell_wrap_0_FlightMissionMode_T se;
-    cell_wrap_0_FlightMissionMode_T sf;
-    cell_wrap_0_FlightMissionMode_T tb;
-    cell_wrap_0_FlightMissionMode_T tc;
-    cell_wrap_0_FlightMissionMode_T td;
-    cell_wrap_0_FlightMissionMode_T te;
-    cell_wrap_0_FlightMissionMode_T tf;
-    cell_wrap_0_FlightMissionMode_T ub;
-    cell_wrap_0_FlightMissionMode_T uc;
-    cell_wrap_0_FlightMissionMode_T ud;
-    cell_wrap_0_FlightMissionMode_T ue;
-    cell_wrap_0_FlightMissionMode_T uf;
-    cell_wrap_0_FlightMissionMode_T vb;
-    cell_wrap_0_FlightMissionMode_T vc;
-    cell_wrap_0_FlightMissionMode_T vd;
-    cell_wrap_0_FlightMissionMode_T ve;
-    cell_wrap_0_FlightMissionMode_T wb;
-    cell_wrap_0_FlightMissionMode_T wc;
-    cell_wrap_0_FlightMissionMode_T wd;
-    cell_wrap_0_FlightMissionMode_T we;
-    cell_wrap_0_FlightMissionMode_T xb;
-    cell_wrap_0_FlightMissionMode_T xc;
-    cell_wrap_0_FlightMissionMode_T xd;
-    cell_wrap_0_FlightMissionMode_T xe;
-    cell_wrap_0_FlightMissionMode_T yb;
-    cell_wrap_0_FlightMissionMode_T yc;
-    cell_wrap_0_FlightMissionMode_T yd;
-    cell_wrap_0_FlightMissionMode_T ye;
-    cell_wrap_22_FlightMissionMode_T motionTypes[28];
-    cell_wrap_22_FlightMissionMode_T b;
+    cell_wrap_1_FlightMissionMode_T ac;
+    cell_wrap_1_FlightMissionMode_T ad;
+    cell_wrap_1_FlightMissionMode_T ae;
+    cell_wrap_1_FlightMissionMode_T af;
+    cell_wrap_1_FlightMissionMode_T bc;
+    cell_wrap_1_FlightMissionMode_T bd;
+    cell_wrap_1_FlightMissionMode_T be;
+    cell_wrap_1_FlightMissionMode_T bf;
+    cell_wrap_1_FlightMissionMode_T cc;
+    cell_wrap_1_FlightMissionMode_T cd;
+    cell_wrap_1_FlightMissionMode_T ce;
+    cell_wrap_1_FlightMissionMode_T cf;
+    cell_wrap_1_FlightMissionMode_T dc;
+    cell_wrap_1_FlightMissionMode_T dd;
+    cell_wrap_1_FlightMissionMode_T de;
+    cell_wrap_1_FlightMissionMode_T df;
+    cell_wrap_1_FlightMissionMode_T ec;
+    cell_wrap_1_FlightMissionMode_T ed;
+    cell_wrap_1_FlightMissionMode_T ee;
+    cell_wrap_1_FlightMissionMode_T ef;
+    cell_wrap_1_FlightMissionMode_T fc;
+    cell_wrap_1_FlightMissionMode_T fd;
+    cell_wrap_1_FlightMissionMode_T fe;
+    cell_wrap_1_FlightMissionMode_T ff;
+    cell_wrap_1_FlightMissionMode_T gc;
+    cell_wrap_1_FlightMissionMode_T gd;
+    cell_wrap_1_FlightMissionMode_T ge;
+    cell_wrap_1_FlightMissionMode_T gf;
+    cell_wrap_1_FlightMissionMode_T hc;
+    cell_wrap_1_FlightMissionMode_T hd;
+    cell_wrap_1_FlightMissionMode_T he;
+    cell_wrap_1_FlightMissionMode_T hf;
+    cell_wrap_1_FlightMissionMode_T ib;
+    cell_wrap_1_FlightMissionMode_T ic;
+    cell_wrap_1_FlightMissionMode_T id;
+    cell_wrap_1_FlightMissionMode_T ie;
+    cell_wrap_1_FlightMissionMode_T jb;
+    cell_wrap_1_FlightMissionMode_T jc;
+    cell_wrap_1_FlightMissionMode_T jd;
+    cell_wrap_1_FlightMissionMode_T je;
+    cell_wrap_1_FlightMissionMode_T jf;
+    cell_wrap_1_FlightMissionMode_T kb;
+    cell_wrap_1_FlightMissionMode_T kc;
+    cell_wrap_1_FlightMissionMode_T kd;
+    cell_wrap_1_FlightMissionMode_T ke;
+    cell_wrap_1_FlightMissionMode_T kf;
+    cell_wrap_1_FlightMissionMode_T lb;
+    cell_wrap_1_FlightMissionMode_T lc;
+    cell_wrap_1_FlightMissionMode_T ld;
+    cell_wrap_1_FlightMissionMode_T le;
+    cell_wrap_1_FlightMissionMode_T lf;
+    cell_wrap_1_FlightMissionMode_T mb;
+    cell_wrap_1_FlightMissionMode_T mc;
+    cell_wrap_1_FlightMissionMode_T md;
+    cell_wrap_1_FlightMissionMode_T me;
+    cell_wrap_1_FlightMissionMode_T mf;
+    cell_wrap_1_FlightMissionMode_T nb;
+    cell_wrap_1_FlightMissionMode_T nc;
+    cell_wrap_1_FlightMissionMode_T nd;
+    cell_wrap_1_FlightMissionMode_T ne;
+    cell_wrap_1_FlightMissionMode_T nf;
+    cell_wrap_1_FlightMissionMode_T ob;
+    cell_wrap_1_FlightMissionMode_T oc;
+    cell_wrap_1_FlightMissionMode_T od;
+    cell_wrap_1_FlightMissionMode_T oe;
+    cell_wrap_1_FlightMissionMode_T of;
+    cell_wrap_1_FlightMissionMode_T pb;
+    cell_wrap_1_FlightMissionMode_T pc;
+    cell_wrap_1_FlightMissionMode_T pd;
+    cell_wrap_1_FlightMissionMode_T pe;
+    cell_wrap_1_FlightMissionMode_T pf;
+    cell_wrap_1_FlightMissionMode_T qb;
+    cell_wrap_1_FlightMissionMode_T qc;
+    cell_wrap_1_FlightMissionMode_T qd;
+    cell_wrap_1_FlightMissionMode_T qe;
+    cell_wrap_1_FlightMissionMode_T qf;
+    cell_wrap_1_FlightMissionMode_T rb;
+    cell_wrap_1_FlightMissionMode_T rc;
+    cell_wrap_1_FlightMissionMode_T rd;
+    cell_wrap_1_FlightMissionMode_T re;
+    cell_wrap_1_FlightMissionMode_T rf;
+    cell_wrap_1_FlightMissionMode_T sb;
+    cell_wrap_1_FlightMissionMode_T sc;
+    cell_wrap_1_FlightMissionMode_T sd;
+    cell_wrap_1_FlightMissionMode_T se;
+    cell_wrap_1_FlightMissionMode_T sf;
+    cell_wrap_1_FlightMissionMode_T tb;
+    cell_wrap_1_FlightMissionMode_T tc;
+    cell_wrap_1_FlightMissionMode_T td;
+    cell_wrap_1_FlightMissionMode_T te;
+    cell_wrap_1_FlightMissionMode_T tf;
+    cell_wrap_1_FlightMissionMode_T ub;
+    cell_wrap_1_FlightMissionMode_T uc;
+    cell_wrap_1_FlightMissionMode_T ud;
+    cell_wrap_1_FlightMissionMode_T ue;
+    cell_wrap_1_FlightMissionMode_T uf;
+    cell_wrap_1_FlightMissionMode_T vb;
+    cell_wrap_1_FlightMissionMode_T vc;
+    cell_wrap_1_FlightMissionMode_T vd;
+    cell_wrap_1_FlightMissionMode_T ve;
+    cell_wrap_1_FlightMissionMode_T wb;
+    cell_wrap_1_FlightMissionMode_T wc;
+    cell_wrap_1_FlightMissionMode_T wd;
+    cell_wrap_1_FlightMissionMode_T we;
+    cell_wrap_1_FlightMissionMode_T xb;
+    cell_wrap_1_FlightMissionMode_T xc;
+    cell_wrap_1_FlightMissionMode_T xd;
+    cell_wrap_1_FlightMissionMode_T xe;
+    cell_wrap_1_FlightMissionMode_T yb;
+    cell_wrap_1_FlightMissionMode_T yc;
+    cell_wrap_1_FlightMissionMode_T yd;
+    cell_wrap_1_FlightMissionMode_T ye;
+    cell_wrap_22_FlightMissionMode_n_T motionTypes[28];
+    cell_wrap_22_FlightMissionMode_n_T b;
     real_T g[16];
     real_T ml[16];
     real_T ml1[16];
@@ -21723,47 +21723,6 @@ static void FlightMissionMode_uavDubinsBuiltins_connect_g(const
     *pathCosts = sum_ftQQGuCy(ml1_0);
 }
 
-static real_T FlightMissionMode_angdiff(real_T x, real_T y)
-{
-    real_T delta;
-    delta = y - x;
-    if (std::abs(delta) > 3.1415926535897931) {
-        real_T thetaWrap;
-        if (std::isnan(delta + 3.1415926535897931) || std::isinf(delta +
-                3.1415926535897931)) {
-            thetaWrap = (rtNaN);
-        } else if (delta + 3.1415926535897931 == 0.0) {
-            thetaWrap = 0.0;
-        } else {
-            boolean_T rEQ0;
-            thetaWrap = std::fmod(delta + 3.1415926535897931, 6.2831853071795862);
-            rEQ0 = (thetaWrap == 0.0);
-            if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
-                    (rEQ0) ^ 1))) {
-                real_T q;
-                q = std::abs((delta + 3.1415926535897931) / 6.2831853071795862);
-                rEQ0 = static_cast<boolean_T>(static_cast<int32_T>((std::abs(q -
-                    std::floor(q + 0.5)) > 2.2204460492503131E-16 * q) ^ 1));
-            }
-
-            if (rEQ0) {
-                thetaWrap = 0.0;
-            } else if (delta + 3.1415926535897931 < 0.0) {
-                thetaWrap += 6.2831853071795862;
-            }
-        }
-
-        if (static_cast<boolean_T>(static_cast<int32_T>((delta +
-                3.1415926535897931 > 0.0) & (thetaWrap == 0.0)))) {
-            thetaWrap = 6.2831853071795862;
-        }
-
-        delta = thetaWrap - 3.1415926535897931;
-    }
-
-    return delta;
-}
-
 // Function for MATLAB Function: '<S40>/CheckPointInterp'
 static void FlightMissionMode_eml_float_colon(real_T d, real_T b,
     emxArray_real_T_FlightMissionMode_T *y)
@@ -21822,7 +21781,7 @@ static void FlightMissionMode_eml_float_colon(real_T d, real_T b,
 
 // Function for MATLAB Function: '<S40>/CheckPointInterp'
 static void FlightMissionMode_strcmp_hbqnfpsg(const
-    cell_wrap_0_FlightMissionMode_T a[4], boolean_T b_bool[4])
+    cell_wrap_1_FlightMissionMode_T a[4], boolean_T b_bool[4])
 {
     b_bool[0] = false;
     if ((a[0].f1.size[1] == 1) && (a[0].f1.data[0] == 'N')) {
@@ -22791,7 +22750,7 @@ static void FlightMissionMode_uavDubinsPathSegment_interpolate_b(const real_T
     b_this_StartPose[4], const real_T b_this_GoalPose[4], real_T
     b_this_FlightPathAngle, real_T b_this_AirSpeed, real_T
     b_this_MinTurningRadius, real_T b_this_HelixRadius, const
-    cell_wrap_0_FlightMissionMode_T b_this_MotionTypes[4], const real_T
+    cell_wrap_1_FlightMissionMode_T b_this_MotionTypes[4], const real_T
     b_this_MotionLengths[4], real_T b_this_Length,
     emxArray_real_T_FlightMissionMode_T *samples,
     emxArray_real_T_FlightMissionMode_T *poses)
@@ -23571,8 +23530,8 @@ static void FlightMissionMode_genSegWP_j(const real_T start[4], const real_T
 {
     emxArray_real_T_FlightMissionMode_T *lengths;
     emxArray_real_T_FlightMissionMode_T *poses;
-    uavDubinsConnection_FlightMissionMode_T *obj;
-    uavDubinsPathSegment_FlightMissionMode_T pathSegObj;
+    uavDubinsConnection_FlightMissionMode_g_T *obj;
+    uavDubinsPathSegment_FlightMissionMode_b_T pathSegObj;
     real_T a__1;
     int32_T i_0;
     int32_T loop_ub;
@@ -23637,6 +23596,47 @@ static void FlightMissionMode_genSegWP_j(const real_T start[4], const real_T
     }
 
     FlightMissionMode_emxFree_real_T_n(&poses);
+}
+
+static real_T FlightMissionMode_angdiff(real_T x, real_T y)
+{
+    real_T delta;
+    delta = y - x;
+    if (std::abs(delta) > 3.1415926535897931) {
+        real_T thetaWrap;
+        if (std::isnan(delta + 3.1415926535897931) || std::isinf(delta +
+                3.1415926535897931)) {
+            thetaWrap = (rtNaN);
+        } else if (delta + 3.1415926535897931 == 0.0) {
+            thetaWrap = 0.0;
+        } else {
+            boolean_T rEQ0;
+            thetaWrap = std::fmod(delta + 3.1415926535897931, 6.2831853071795862);
+            rEQ0 = (thetaWrap == 0.0);
+            if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
+                    (rEQ0) ^ 1))) {
+                real_T q;
+                q = std::abs((delta + 3.1415926535897931) / 6.2831853071795862);
+                rEQ0 = static_cast<boolean_T>(static_cast<int32_T>((std::abs(q -
+                    std::floor(q + 0.5)) > 2.2204460492503131E-16 * q) ^ 1));
+            }
+
+            if (rEQ0) {
+                thetaWrap = 0.0;
+            } else if (delta + 3.1415926535897931 < 0.0) {
+                thetaWrap += 6.2831853071795862;
+            }
+        }
+
+        if (static_cast<boolean_T>(static_cast<int32_T>((delta +
+                3.1415926535897931 > 0.0) & (thetaWrap == 0.0)))) {
+            thetaWrap = 6.2831853071795862;
+        }
+
+        delta = thetaWrap - 3.1415926535897931;
+    }
+
+    return delta;
 }
 
 // System initialize for referenced model: 'FlightMissionMode'
@@ -24019,18 +24019,17 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
     emxArray_real_T_FlightMissionMode_T *dummyWayPoint;
     emxArray_real_T_FlightMissionMode_T *dummyWayPoint_0;
     emxArray_real_T_FlightMissionMode_T *lengths;
-    emxArray_real_T_FlightMissionMode_T *pathLength;
     emxArray_real_T_FlightMissionMode_T *poses;
     emxArray_real_T_FlightMissionMode_T *segWayPoints;
     emxArray_real_T_FlightMissionMode_T *waypoints;
-    uavDubinsConnection_FlightMissionMode_T *obj;
-    uavDubinsPathSegment_FlightMissionMode_T a__1_0;
+    uavDubinsConnection_FlightMissionMode_g_T *obj;
+    uavDubinsPathSegment_FlightMissionMode_b_T pathSegObj;
     real_T tmp[9];
     real_T tmp_i[9];
     real_T startPose[5];
     real_T CheckPoints_0[4];
     real_T CheckPoints_1[4];
-    real_T Reshape[4];
+    real_T LLA0_gw_0[4];
     real_T LLA0_gw[3];
     real_T tmp_0[3];
     real_T u[3];
@@ -24041,19 +24040,18 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
     real_T d;
     real_T distToCenter;
     real_T rtb_Switch_l;
-    real_T turnVector_idx_2;
     real_T xyCenter_idx_1;
+    real_T y2;
     int32_T NED_WP_size[2];
     int32_T j_size[2];
     int32_T obj_Value_size[2];
     int32_T q_size[2];
     int32_T b_exponent;
-    int32_T i1;
-    int32_T i2;
+    int32_T i;
+    int32_T iremain;
     int32_T iy;
-    int32_T nread;
+    int32_T nrows;
     int32_T rtb_Bias_mn;
-    int16_T d_0[2];
     char_T j_data[37];
     char_T obj_Value_data[37];
     int8_T rtb_MatrixConcatenate[9];
@@ -24070,7 +24068,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
 
     // Chart: '<Root>/PreemptableMissionModeSelector'
     // Gateway: PreemptableMissionModeSelector
-    nread = 0;
+    iy = 0;
     do {
         isStable = true;
 
@@ -24204,12 +24202,12 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             }
         }
 
-        nread = static_cast<int32_T>(static_cast<uint32_T>(static_cast<uint32_T>
-            (nread) + 1U));
+        iy = static_cast<int32_T>(static_cast<uint32_T>(static_cast<uint32_T>(iy)
+            + 1U));
     } while (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>(
                     static_cast<boolean_T>(static_cast<int32_T>
                     (static_cast<int32_T>(isStable) ^ 1))) &
-                    (static_cast<uint32_T>(nread) <= 2U))));
+                    (static_cast<uint32_T>(iy) <= 2U))));
 
     // SwitchCase: '<Root>/Switch Case'
     rtPrevAction = localDW->SwitchCase_ActiveSubsystem;
@@ -24318,7 +24316,6 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             real_T rtb_Abs1_il;
             real_T rtb_Sum1_e_idx_0;
             real_T rtb_Sum1_e_idx_1;
-            int32_T i;
             boolean_T exitg1;
             boolean_T guard1{ false };
 
@@ -24365,8 +24362,9 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 creal_T tmp_1;
                 creal_T tmp_2;
                 creal_T tmp_3;
-                int32_T nv;
-                int32_T stride;
+                int32_T i1;
+                int32_T iacol;
+                int32_T ibmat;
 
                 // '<S12>:1:5'
                 // '<S12>:1:6'
@@ -24381,12 +24379,12 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 } else {
                     FlightMissionMode_fread_h(static_cast<real_T>(rtPrevAction),
                         q, localDW);
-                    stride = static_cast<int32_T>(data->size[0] * data->size[1]);
+                    ibmat = static_cast<int32_T>(data->size[0] * data->size[1]);
                     data->size[0] = 1;
                     data->size[1] = q->size[0];
-                    FlightMissionMode_emxEnsureCapacity_char_T_g(data, stride);
-                    nv = q->size[0];
-                    for (i = 0; i <= static_cast<int32_T>(nv - 1); i++) {
+                    FlightMissionMode_emxEnsureCapacity_char_T_g(data, ibmat);
+                    iacol = q->size[0];
+                    for (i = 0; i <= static_cast<int32_T>(iacol - 1); i++) {
                         data->data[i] = q->data[i];
                     }
 
@@ -24402,16 +24400,16 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                     FlightMissionMode_emxInit_char_T_ey(&data_2, 2);
                     exitg1 = false;
                     while ((!exitg1) && (data->size[1] != 0)) {
-                        stride = static_cast<int32_T>(data_2->size[0] *
+                        ibmat = static_cast<int32_T>(data_2->size[0] *
                             data_2->size[1]);
                         data_2->size[0] = 1;
                         data_2->size[1] = data->size[1];
                         FlightMissionMode_emxEnsureCapacity_char_T_g(data_2,
-                            stride);
-                        i = static_cast<int32_T>(static_cast<int32_T>(data->
-                            size[0] * data->size[1]) - 1);
-                        for (stride = 0; stride <= i; stride++) {
-                            data_2->data[stride] = data->data[stride];
+                            ibmat);
+                        iy = static_cast<int32_T>(static_cast<int32_T>
+                            (data->size[0] * data->size[1]) - 1);
+                        for (ibmat = 0; ibmat <= iy; ibmat++) {
+                            data_2->data[ibmat] = data->data[ibmat];
                         }
 
                         FlightMissionMode_strtok_d(data_2, curLine, data);
@@ -24435,23 +24433,23 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                     if (static_cast<int32_T>(curLine->size[1] -
                                             1) < 2) {
                                         iy = 0;
-                                        nread = 0;
+                                        iremain = 0;
                                     } else {
                                         iy = 1;
-                                        nread = static_cast<int32_T>
+                                        iremain = static_cast<int32_T>
                                             (curLine->size[1] - 1);
                                     }
 
-                                    stride = static_cast<int32_T>
+                                    ibmat = static_cast<int32_T>
                                         (curSection->size[0] * curSection->size
                                          [1]);
                                     curSection->size[0] = 1;
-                                    nv = static_cast<int32_T>(nread - iy);
-                                    curSection->size[1] = nv;
+                                    iacol = static_cast<int32_T>(iremain - iy);
+                                    curSection->size[1] = iacol;
                                     FlightMissionMode_emxEnsureCapacity_char_T_g
-                                        (curSection, stride);
-                                    for (i = 0; i <= static_cast<int32_T>(nv - 1);
-                                         i++) {
+                                        (curSection, ibmat);
+                                    for (i = 0; i <= static_cast<int32_T>(iacol
+                                            - 1); i++) {
                                         curSection->data[i] = curLine->data[
                                             static_cast<int32_T>(iy + i)];
                                     }
@@ -24476,26 +24474,28 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                         FlightMissionMode_contains_d(curLine)) {
                                     FlightMissionMode_strtok_dq4(curLine, curVal,
                                         x);
-                                    FlightMissionMode_find_token_m(x, &i1,
-                                        &nread);
-                                    if (i1 > static_cast<int32_T>(nread - 1)) {
+                                    FlightMissionMode_find_token_m(x, &iy,
+                                        &iremain);
+                                    if (iy > static_cast<int32_T>(iremain - 1))
+                                    {
                                         iy = 0;
-                                        i1 = 0;
+                                        iremain = 0;
                                     } else {
-                                        iy = static_cast<int32_T>(i1 - 1);
-                                        i1 = static_cast<int32_T>(nread - 1);
+                                        iy = static_cast<int32_T>(iy - 1);
+                                        iremain = static_cast<int32_T>(iremain -
+                                            1);
                                     }
 
                                     FlightMissionMode_strtrim_f(curVal, curKey);
-                                    stride = static_cast<int32_T>(curLine->size
-                                        [0] * curLine->size[1]);
+                                    ibmat = static_cast<int32_T>(curLine->size[0]
+                                        * curLine->size[1]);
                                     curLine->size[0] = 1;
-                                    nv = static_cast<int32_T>(i1 - iy);
-                                    curLine->size[1] = nv;
+                                    iacol = static_cast<int32_T>(iremain - iy);
+                                    curLine->size[1] = iacol;
                                     FlightMissionMode_emxEnsureCapacity_char_T_g
-                                        (curLine, stride);
-                                    for (i = 0; i <= static_cast<int32_T>(nv - 1);
-                                         i++) {
+                                        (curLine, ibmat);
+                                    for (i = 0; i <= static_cast<int32_T>(iacol
+                                            - 1); i++) {
                                         curLine->data[i] = x->data
                                             [static_cast<int32_T>(iy + i)];
                                     }
@@ -24507,15 +24507,15 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
 
                         if (FlightMissionMode_strcmp_b(curSection) &&
                                 FlightMissionMode_strcmp_bx(curKey)) {
-                            stride = static_cast<int32_T>(tline->size[0] *
+                            ibmat = static_cast<int32_T>(tline->size[0] *
                                 tline->size[1]);
                             tline->size[0] = 1;
                             tline->size[1] = curVal->size[1];
                             FlightMissionMode_emxEnsureCapacity_char_T_g(tline,
-                                stride);
-                            nv = curVal->size[1];
-                            for (i = 0; i <= static_cast<int32_T>(nv - 1); i++)
-                            {
+                                ibmat);
+                            iacol = curVal->size[1];
+                            for (i = 0; i <= static_cast<int32_T>(iacol - 1); i
+                                    ++) {
                                 tline->data[i] = curVal->data[i];
                             }
 
@@ -24541,12 +24541,12 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 } else {
                     FlightMissionMode_fread_h(static_cast<real_T>(rtPrevAction),
                         q, localDW);
-                    stride = static_cast<int32_T>(data->size[0] * data->size[1]);
+                    ibmat = static_cast<int32_T>(data->size[0] * data->size[1]);
                     data->size[0] = 1;
                     data->size[1] = q->size[0];
-                    FlightMissionMode_emxEnsureCapacity_char_T_g(data, stride);
-                    nv = q->size[0];
-                    for (i = 0; i <= static_cast<int32_T>(nv - 1); i++) {
+                    FlightMissionMode_emxEnsureCapacity_char_T_g(data, ibmat);
+                    iacol = q->size[0];
+                    for (i = 0; i <= static_cast<int32_T>(iacol - 1); i++) {
                         data->data[i] = q->data[i];
                     }
 
@@ -24562,16 +24562,16 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                     FlightMissionMode_emxInit_char_T_ey(&data_1, 2);
                     exitg1 = false;
                     while ((!exitg1) && (data->size[1] != 0)) {
-                        stride = static_cast<int32_T>(data_1->size[0] *
+                        ibmat = static_cast<int32_T>(data_1->size[0] *
                             data_1->size[1]);
                         data_1->size[0] = 1;
                         data_1->size[1] = data->size[1];
                         FlightMissionMode_emxEnsureCapacity_char_T_g(data_1,
-                            stride);
-                        i = static_cast<int32_T>(static_cast<int32_T>(data->
-                            size[0] * data->size[1]) - 1);
-                        for (stride = 0; stride <= i; stride++) {
-                            data_1->data[stride] = data->data[stride];
+                            ibmat);
+                        iy = static_cast<int32_T>(static_cast<int32_T>
+                            (data->size[0] * data->size[1]) - 1);
+                        for (ibmat = 0; ibmat <= iy; ibmat++) {
+                            data_1->data[ibmat] = data->data[ibmat];
                         }
 
                         FlightMissionMode_strtok_d(data_1, curLine, data);
@@ -24592,27 +24592,26 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                 }
 
                                 if (isStable) {
-                                    int32_T ntoread;
                                     if (static_cast<int32_T>(curLine->size[1] -
                                             1) < 2) {
                                         i1 = 0;
-                                        ntoread = 0;
+                                        i = 0;
                                     } else {
                                         i1 = 1;
-                                        ntoread = static_cast<int32_T>
-                                            (curLine->size[1] - 1);
+                                        i = static_cast<int32_T>(curLine->size[1]
+                                            - 1);
                                     }
 
-                                    stride = static_cast<int32_T>
+                                    ibmat = static_cast<int32_T>
                                         (curSection->size[0] * curSection->size
                                          [1]);
                                     curSection->size[0] = 1;
-                                    nv = static_cast<int32_T>(ntoread - i1);
-                                    curSection->size[1] = nv;
+                                    iacol = static_cast<int32_T>(i - i1);
+                                    curSection->size[1] = iacol;
                                     FlightMissionMode_emxEnsureCapacity_char_T_g
-                                        (curSection, stride);
-                                    for (i = 0; i <= static_cast<int32_T>(nv - 1);
-                                         i++) {
+                                        (curSection, ibmat);
+                                    for (i = 0; i <= static_cast<int32_T>(iacol
+                                            - 1); i++) {
                                         curSection->data[i] = curLine->data[
                                             static_cast<int32_T>(i1 + i)];
                                     }
@@ -24638,25 +24637,27 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                     FlightMissionMode_strtok_dq4(curLine, curVal,
                                         x);
                                     FlightMissionMode_find_token_m(x, &iy,
-                                        &nread);
-                                    if (iy > static_cast<int32_T>(nread - 1)) {
+                                        &iremain);
+                                    if (iy > static_cast<int32_T>(iremain - 1))
+                                    {
                                         iy = 0;
-                                        nread = 0;
+                                        iremain = 0;
                                     } else {
                                         iy = static_cast<int32_T>(iy - 1);
-                                        nread = static_cast<int32_T>(nread - 1);
+                                        iremain = static_cast<int32_T>(iremain -
+                                            1);
                                     }
 
                                     FlightMissionMode_strtrim_f(curVal, curKey);
-                                    stride = static_cast<int32_T>(curLine->size
-                                        [0] * curLine->size[1]);
+                                    ibmat = static_cast<int32_T>(curLine->size[0]
+                                        * curLine->size[1]);
                                     curLine->size[0] = 1;
-                                    nv = static_cast<int32_T>(nread - iy);
-                                    curLine->size[1] = nv;
+                                    iacol = static_cast<int32_T>(iremain - iy);
+                                    curLine->size[1] = iacol;
                                     FlightMissionMode_emxEnsureCapacity_char_T_g
-                                        (curLine, stride);
-                                    for (i = 0; i <= static_cast<int32_T>(nv - 1);
-                                         i++) {
+                                        (curLine, ibmat);
+                                    for (i = 0; i <= static_cast<int32_T>(iacol
+                                            - 1); i++) {
                                         curLine->data[i] = x->data
                                             [static_cast<int32_T>(iy + i)];
                                     }
@@ -24668,15 +24669,15 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
 
                         if (FlightMissionMode_strcmp_b(curSection) &&
                                 FlightMissionMode_strcmp_bxk(curKey)) {
-                            stride = static_cast<int32_T>(tline->size[0] *
+                            ibmat = static_cast<int32_T>(tline->size[0] *
                                 tline->size[1]);
                             tline->size[0] = 1;
                             tline->size[1] = curVal->size[1];
                             FlightMissionMode_emxEnsureCapacity_char_T_g(tline,
-                                stride);
-                            nv = curVal->size[1];
-                            for (i = 0; i <= static_cast<int32_T>(nv - 1); i++)
-                            {
+                                ibmat);
+                            iacol = curVal->size[1];
+                            for (i = 0; i <= static_cast<int32_T>(iacol - 1); i
+                                    ++) {
                                 tline->data[i] = curVal->data[i];
                             }
 
@@ -24702,12 +24703,12 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 } else {
                     FlightMissionMode_fread_h(static_cast<real_T>(rtPrevAction),
                         q, localDW);
-                    stride = static_cast<int32_T>(data->size[0] * data->size[1]);
+                    ibmat = static_cast<int32_T>(data->size[0] * data->size[1]);
                     data->size[0] = 1;
                     data->size[1] = q->size[0];
-                    FlightMissionMode_emxEnsureCapacity_char_T_g(data, stride);
-                    nv = q->size[0];
-                    for (i = 0; i <= static_cast<int32_T>(nv - 1); i++) {
+                    FlightMissionMode_emxEnsureCapacity_char_T_g(data, ibmat);
+                    iacol = q->size[0];
+                    for (i = 0; i <= static_cast<int32_T>(iacol - 1); i++) {
                         data->data[i] = q->data[i];
                     }
 
@@ -24723,16 +24724,16 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                     FlightMissionMode_emxInit_char_T_ey(&data_0, 2);
                     exitg1 = false;
                     while ((!exitg1) && (data->size[1] != 0)) {
-                        stride = static_cast<int32_T>(data_0->size[0] *
+                        ibmat = static_cast<int32_T>(data_0->size[0] *
                             data_0->size[1]);
                         data_0->size[0] = 1;
                         data_0->size[1] = data->size[1];
                         FlightMissionMode_emxEnsureCapacity_char_T_g(data_0,
-                            stride);
-                        i = static_cast<int32_T>(static_cast<int32_T>(data->
-                            size[0] * data->size[1]) - 1);
-                        for (stride = 0; stride <= i; stride++) {
-                            data_0->data[stride] = data->data[stride];
+                            ibmat);
+                        iy = static_cast<int32_T>(static_cast<int32_T>
+                            (data->size[0] * data->size[1]) - 1);
+                        for (ibmat = 0; ibmat <= iy; ibmat++) {
+                            data_0->data[ibmat] = data->data[ibmat];
                         }
 
                         FlightMissionMode_strtok_d(data_0, curLine, data);
@@ -24755,26 +24756,26 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                 if (isStable) {
                                     if (static_cast<int32_T>(curLine->size[1] -
                                             1) < 2) {
-                                        iy = 0;
-                                        i2 = 0;
+                                        i1 = 0;
+                                        i = 0;
                                     } else {
-                                        iy = 1;
-                                        i2 = static_cast<int32_T>(curLine->size
-                                            [1] - 1);
+                                        i1 = 1;
+                                        i = static_cast<int32_T>(curLine->size[1]
+                                            - 1);
                                     }
 
-                                    stride = static_cast<int32_T>
+                                    ibmat = static_cast<int32_T>
                                         (curSection->size[0] * curSection->size
                                          [1]);
                                     curSection->size[0] = 1;
-                                    nv = static_cast<int32_T>(i2 - iy);
-                                    curSection->size[1] = nv;
+                                    iacol = static_cast<int32_T>(i - i1);
+                                    curSection->size[1] = iacol;
                                     FlightMissionMode_emxEnsureCapacity_char_T_g
-                                        (curSection, stride);
-                                    for (i = 0; i <= static_cast<int32_T>(nv - 1);
-                                         i++) {
+                                        (curSection, ibmat);
+                                    for (i = 0; i <= static_cast<int32_T>(iacol
+                                            - 1); i++) {
                                         curSection->data[i] = curLine->data[
-                                            static_cast<int32_T>(iy + i)];
+                                            static_cast<int32_T>(i1 + i)];
                                     }
 
                                     curKey->size[0] = 1;
@@ -24795,31 +24796,31 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                                             (static_cast<int32_T>
                                         (isStable) ^ 1))) &&
                                         FlightMissionMode_contains_d(curLine)) {
-                                    int32_T n;
                                     FlightMissionMode_strtok_dq4(curLine, curVal,
                                         x);
-                                    FlightMissionMode_find_token_m(x, &iy,
-                                        &nread);
-                                    if (iy > static_cast<int32_T>(nread - 1)) {
-                                        n = 0;
-                                        i = 0;
+                                    FlightMissionMode_find_token_m(x, &iremain,
+                                        &iy);
+                                    if (iremain > static_cast<int32_T>(iy - 1))
+                                    {
+                                        i1 = 0;
+                                        iy = 0;
                                     } else {
-                                        n = static_cast<int32_T>(iy - 1);
-                                        i = static_cast<int32_T>(nread - 1);
+                                        i1 = static_cast<int32_T>(iremain - 1);
+                                        iy = static_cast<int32_T>(iy - 1);
                                     }
 
                                     FlightMissionMode_strtrim_f(curVal, curKey);
-                                    stride = static_cast<int32_T>(curLine->size
-                                        [0] * curLine->size[1]);
+                                    ibmat = static_cast<int32_T>(curLine->size[0]
+                                        * curLine->size[1]);
                                     curLine->size[0] = 1;
-                                    nv = static_cast<int32_T>(i - n);
-                                    curLine->size[1] = nv;
+                                    iacol = static_cast<int32_T>(iy - i1);
+                                    curLine->size[1] = iacol;
                                     FlightMissionMode_emxEnsureCapacity_char_T_g
-                                        (curLine, stride);
-                                    for (i = 0; i <= static_cast<int32_T>(nv - 1);
-                                         i++) {
+                                        (curLine, ibmat);
+                                    for (i = 0; i <= static_cast<int32_T>(iacol
+                                            - 1); i++) {
                                         curLine->data[i] = x->data
-                                            [static_cast<int32_T>(n + i)];
+                                            [static_cast<int32_T>(i1 + i)];
                                     }
 
                                     FlightMissionMode_strtrim_f(curLine, curVal);
@@ -24829,15 +24830,15 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
 
                         if (FlightMissionMode_strcmp_b(curSection) &&
                                 FlightMissionMode_strcmp_bxki(curKey)) {
-                            stride = static_cast<int32_T>(tline->size[0] *
+                            ibmat = static_cast<int32_T>(tline->size[0] *
                                 tline->size[1]);
                             tline->size[0] = 1;
                             tline->size[1] = curVal->size[1];
                             FlightMissionMode_emxEnsureCapacity_char_T_g(tline,
-                                stride);
-                            nv = curVal->size[1];
-                            for (i = 0; i <= static_cast<int32_T>(nv - 1); i++)
-                            {
+                                ibmat);
+                            iacol = curVal->size[1];
+                            for (i = 0; i <= static_cast<int32_T>(iacol - 1); i
+                                    ++) {
                                 tline->data[i] = curVal->data[i];
                             }
 
@@ -24860,14 +24861,14 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 b_x[1] = std::isnan(localDW->HomePoint_p[1]);
                 b_x[2] = std::isnan(localDW->HomePoint_p[2]);
                 isStable = false;
-                nread = 0;
+                iremain = 0;
                 exitg1 = false;
-                while ((!exitg1) && (nread < 3)) {
-                    if (b_x[nread]) {
+                while ((!exitg1) && (iremain < 3)) {
+                    if (b_x[iremain]) {
                         isStable = true;
                         exitg1 = true;
                     } else {
-                        nread = static_cast<int32_T>(nread + 1);
+                        iremain = static_cast<int32_T>(iremain + 1);
                     }
                 }
 
@@ -25118,18 +25119,19 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 Lon = rtu_Pose[3];
                 *rty_thisTaskStatus = localDW->obj_f.NumCircles;
             } else {
+                real_T distToCenter_tmp_tmp;
                 isStable = false;
                 p = true;
-                nread = 0;
+                iremain = 0;
                 exitg1 = false;
-                while ((!exitg1) && (nread < 3)) {
+                while ((!exitg1) && (iremain < 3)) {
                     if (static_cast<boolean_T>(static_cast<int32_T>
                                                ((localDW->obj_f.OrbitCenterInternal
-                            [nread] == LLA0_gw[nread]) ^ 1))) {
+                            [iremain] == LLA0_gw[iremain]) ^ 1))) {
                         p = false;
                         exitg1 = true;
                     } else {
-                        nread = static_cast<int32_T>(nread + 1);
+                        iremain = static_cast<int32_T>(iremain + 1);
                     }
                 }
 
@@ -25171,22 +25173,22 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
 
                 rtb_Sum1_e_idx_1 = rtu_Pose[0] - rtb_Switch_l;
                 distToCenter_tmp[0] = rtb_Sum1_e_idx_1;
-                turnVector_idx_2 = rtu_Pose[1] - rtb_Abs1_il;
-                distToCenter_tmp[1] = turnVector_idx_2;
-                distToCenter = std::sqrt(turnVector_idx_2 * turnVector_idx_2 +
-                    rtb_Sum1_e_idx_1 * rtb_Sum1_e_idx_1);
+                distToCenter_tmp_tmp = rtu_Pose[1] - rtb_Abs1_il;
+                distToCenter_tmp[1] = distToCenter_tmp_tmp;
+                distToCenter = std::sqrt(distToCenter_tmp_tmp *
+                    distToCenter_tmp_tmp + rtb_Sum1_e_idx_1 * rtb_Sum1_e_idx_1);
                 rtb_Sum1_e_idx_0 = Alt + localDW->obj_f.LookaheadDistance;
-                d = std::abs(rtb_Sum1_e_idx_0);
-                isStable = std::isinf(d);
-                p = std::isnan(d);
+                y2 = std::abs(rtb_Sum1_e_idx_0);
+                isStable = std::isinf(y2);
+                p = std::isnan(y2);
                 if (static_cast<boolean_T>(static_cast<int32_T>
                                            (static_cast<int32_T>(isStable) |
                                             static_cast<int32_T>(p)))) {
                     Lon = (rtNaN);
-                } else if (d < 4.4501477170144028E-308) {
+                } else if (y2 < 4.4501477170144028E-308) {
                     Lon = 4.94065645841247E-324;
                 } else {
-                    std::frexp(d, &rtb_Bias_mn);
+                    std::frexp(y2, &rtb_Bias_mn);
                     Lon = std::ldexp(1.0, static_cast<int32_T>(rtb_Bias_mn - 53));
                 }
 
@@ -25197,10 +25199,10 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                     if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<
                             int32_T>(isStable) | static_cast<int32_T>(p)))) {
                         Lon = (rtNaN);
-                    } else if (d < 4.4501477170144028E-308) {
+                    } else if (y2 < 4.4501477170144028E-308) {
                         Lon = 4.94065645841247E-324;
                     } else {
-                        std::frexp(d, &b_exponent);
+                        std::frexp(y2, &b_exponent);
                         Lon = std::ldexp(1.0, static_cast<int32_T>(b_exponent -
                                           53));
                     }
@@ -25209,7 +25211,6 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                         + 5.0 * Lon) {
                         guard1 = true;
                     } else {
-                        real_T distToCenter_tmp_0;
                         if (localDW->obj_f.StartFlag) {
                             localDW->obj_f.PrevPosition[0] = rtu_Pose[0];
                             localDW->obj_f.PrevPosition[1] = rtu_Pose[1];
@@ -25219,21 +25220,21 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                         rtu_Pose_0[0] = rtb_Sum1_e_idx_1;
                         rtu_Pose_0[1] = rtu_Pose[1] - rtb_Abs1_il;
                         d = FlightMissionMode_norm_p(rtu_Pose_0);
-                        turnVector_idx_2 = localDW->obj_f.LookaheadDistance *
+                        distToCenter_tmp_tmp = localDW->obj_f.LookaheadDistance *
                             localDW->obj_f.LookaheadDistance;
-                        Lon = ((turnVector_idx_2 - Alt * Alt) + d * d) / (2.0 *
-                            d);
-                        rtb_Sum1_e_idx_0 = rtb_Switch_l - rtu_Pose[0];
-                        Alt = rtb_Sum1_e_idx_0 * Lon / d + rtu_Pose[0];
-                        distToCenter_tmp_0 = rtb_Abs1_il - rtu_Pose[1];
-                        distToCenter = distToCenter_tmp_0 * Lon / d + rtu_Pose[1];
-                        Lon = std::sqrt(turnVector_idx_2 - Lon * Lon);
-                        turnVector_idx_2 = distToCenter_tmp_0 * Lon / d;
-                        distToCenter_tmp[0] = Alt - turnVector_idx_2;
-                        distToCenter_tmp[1] = turnVector_idx_2 + Alt;
-                        Lon = rtb_Sum1_e_idx_0 * Lon / d;
-                        turnVector_idx_2 = Lon + distToCenter;
-                        xyCenter_idx_1 = distToCenter - Lon;
+                        Lon = ((distToCenter_tmp_tmp - Alt * Alt) + d * d) /
+                            (2.0 * d);
+                        distToCenter = rtb_Switch_l - rtu_Pose[0];
+                        Alt = distToCenter * Lon / d + rtu_Pose[0];
+                        rtb_Sum1_e_idx_0 = rtb_Abs1_il - rtu_Pose[1];
+                        y2 = rtb_Sum1_e_idx_0 * Lon / d + rtu_Pose[1];
+                        Lon = std::sqrt(distToCenter_tmp_tmp - Lon * Lon);
+                        distToCenter_tmp_tmp = rtb_Sum1_e_idx_0 * Lon / d;
+                        distToCenter_tmp[0] = Alt - distToCenter_tmp_tmp;
+                        distToCenter_tmp[1] = distToCenter_tmp_tmp + Alt;
+                        Lon = distToCenter * Lon / d;
+                        d = Lon + y2;
+                        xyCenter_idx_1 = y2 - Lon;
                         if ((rtu_Parameters->Param2 == 0.0F) &&
                                 (static_cast<boolean_T>(static_cast<int32_T>(
                                 static_cast<int32_T>
@@ -25244,37 +25245,38 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                             Lon = static_cast<real_T>(rtu_Parameters->Param2);
                         }
 
-                        distToCenter = localDW->obj_f.PrevPosition[0] -
-                            rtb_Switch_l;
-                        Alt = localDW->obj_f.PrevPosition[1] - rtb_Abs1_il;
-                        u[0] = distToCenter;
-                        u[1] = Alt;
+                        Alt = localDW->obj_f.PrevPosition[0] - rtb_Switch_l;
+                        distToCenter = localDW->obj_f.PrevPosition[1] -
+                            rtb_Abs1_il;
+                        u[0] = Alt;
+                        u[1] = distToCenter;
                         u[2] = 0.0;
                         LLA0_gw[0] = rtb_Sum1_e_idx_1;
                         LLA0_gw[1] = rtu_Pose[1] - rtb_Abs1_il;
                         LLA0_gw[2] = 0.0;
                         if (Lon < 0.0) {
                             u[0] = rtb_Sum1_e_idx_1;
-                            LLA0_gw[0] = distToCenter;
+                            LLA0_gw[0] = Alt;
                             u[1] = LLA0_gw[1];
-                            LLA0_gw[1] = Alt;
+                            LLA0_gw[1] = distToCenter;
                             u[2] = 0.0;
                             LLA0_gw[2] = 0.0;
                         }
 
                         rtb_Sum1_e_idx_0 = FlightMissionMode_norm_pv(u);
-                        distToCenter_tmp_0 = FlightMissionMode_norm_pv(LLA0_gw);
-                        distToCenter = u[0] / rtb_Sum1_e_idx_0;
-                        Alt = LLA0_gw[0] / distToCenter_tmp_0;
-                        d = u[1] / rtb_Sum1_e_idx_0;
-                        rtb_Sum1_e_idx_1 = LLA0_gw[1] / distToCenter_tmp_0;
+                        distToCenter_tmp_tmp = FlightMissionMode_norm_pv(LLA0_gw);
+                        Alt = u[0] / rtb_Sum1_e_idx_0;
+                        distToCenter = LLA0_gw[0] / distToCenter_tmp_tmp;
+                        y2 = u[1] / rtb_Sum1_e_idx_0;
+                        rtb_Sum1_e_idx_1 = LLA0_gw[1] / distToCenter_tmp_tmp;
                         localDW->obj_f.PrevPosition[0] = rtu_Pose[0];
                         localDW->obj_f.PrevPosition[1] = rtu_Pose[1];
                         localDW->obj_f.PrevPosition[2] = rtu_Pose[2];
-                        localDW->obj_f.NumCircles += rt_atan2d_snf(distToCenter *
-                            rtb_Sum1_e_idx_1 - Alt * d, (distToCenter * Alt + d *
-                            rtb_Sum1_e_idx_1) + 0.0 / rtb_Sum1_e_idx_0 * (0.0 /
-                            distToCenter_tmp_0)) / 2.0 / 3.1415926535897931;
+                        localDW->obj_f.NumCircles += rt_atan2d_snf(Alt *
+                            rtb_Sum1_e_idx_1 - distToCenter * y2, (Alt *
+                            distToCenter + y2 * rtb_Sum1_e_idx_1) + 0.0 /
+                            rtb_Sum1_e_idx_0 * (0.0 / distToCenter_tmp_tmp)) /
+                            2.0 / 3.1415926535897931;
                         *rty_thisTaskStatus = localDW->obj_f.NumCircles;
                         u[0] = rtb_Switch_l - rtu_Pose[0];
                         u[1] = rtb_Abs1_il - rtu_Pose[1];
@@ -25288,22 +25290,20 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
 
                         switch (static_cast<int32_T>(rtb_Sum1_e_idx_0)) {
                           case 1:
-                            if ((distToCenter_tmp[0] - rtu_Pose[0]) * u[1] -
-                                    (turnVector_idx_2 - rtu_Pose[1]) * u[0] >
-                                    0.0) {
+                            if ((distToCenter_tmp[0] - rtu_Pose[0]) * u[1] - (d
+                                    - rtu_Pose[1]) * u[0] > 0.0) {
                                 Lon = distToCenter_tmp[0];
-                                xyCenter_idx_1 = turnVector_idx_2;
+                                xyCenter_idx_1 = d;
                             } else {
                                 Lon = distToCenter_tmp[1];
                             }
                             break;
 
                           case -1:
-                            if ((distToCenter_tmp[0] - rtu_Pose[0]) * u[1] -
-                                    (turnVector_idx_2 - rtu_Pose[1]) * u[0] <
-                                    0.0) {
+                            if ((distToCenter_tmp[0] - rtu_Pose[0]) * u[1] - (d
+                                    - rtu_Pose[1]) * u[0] < 0.0) {
                                 Lon = distToCenter_tmp[0];
-                                xyCenter_idx_1 = turnVector_idx_2;
+                                xyCenter_idx_1 = d;
                             } else {
                                 Lon = distToCenter_tmp[1];
                             }
@@ -25311,15 +25311,14 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
 
                           default:
                             if (std::abs(FlightMissionMode_angdiff(rt_atan2d_snf
-                                    (turnVector_idx_2 - rtu_Pose[1],
-                                     distToCenter_tmp[0] - rtu_Pose[0]),
-                                    rtu_Pose[3])) < std::abs
+                                    (d - rtu_Pose[1], distToCenter_tmp[0] -
+                                     rtu_Pose[0]), rtu_Pose[3])) < std::abs
                                     (FlightMissionMode_angdiff(rt_atan2d_snf
                                     (xyCenter_idx_1 - rtu_Pose[1],
                                      distToCenter_tmp[1] - rtu_Pose[0]),
                                     rtu_Pose[3]))) {
                                 Lon = distToCenter_tmp[0];
-                                xyCenter_idx_1 = turnVector_idx_2;
+                                xyCenter_idx_1 = d;
                             } else {
                                 Lon = distToCenter_tmp[1];
                             }
@@ -25341,8 +25340,8 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                     rtb_Sum1_e_idx_0 = FlightMissionMode_norm_p(distToCenter_tmp);
                     Lon = rtb_Sum1_e_idx_1 / rtb_Sum1_e_idx_0 * Alt +
                         rtb_Switch_l;
-                    xyCenter_idx_1 = turnVector_idx_2 / rtb_Sum1_e_idx_0 * Alt +
-                        rtb_Abs1_il;
+                    xyCenter_idx_1 = distToCenter_tmp_tmp / rtb_Sum1_e_idx_0 *
+                        Alt + rtb_Abs1_il;
                     *rty_thisTaskStatus = localDW->obj_f.NumCircles;
                 }
 
@@ -25421,11 +25420,9 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             real_T rtb_Abs1_il;
             real_T rtb_Sum1_e_idx_0;
             real_T rtb_Sum1_e_idx_1;
-            int32_T i;
-            int32_T n;
-            int32_T ntoread;
-            int32_T nv;
-            int32_T stride;
+            int32_T i1;
+            int32_T iacol;
+            int32_T ibmat;
             boolean_T exitg1;
             boolean_T guard1;
             if (static_cast<int32_T>(rtAction) != static_cast<int32_T>
@@ -25486,88 +25483,92 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             if (*rtu_Reset) {
                 localDW->WayPointGenerator_MODE_h = true;
 
-                // MATLAB Function: '<S41>/CompScanWidth' incorporates:
+                // Abs: '<S41>/Abs' incorporates:
                 //   DataTypeConversion: '<S36>/Param2'
+                //   MATLAB Function: '<S41>/CheckPointGenerator'
+
+                y2 = std::abs(static_cast<real_T>(rtu_Parameters->Param2));
+
+                // MATLAB Function: '<S41>/CompScanWidth' incorporates:
+                //   Abs: '<S41>/Abs'
 
                 // MATLAB Function 'Mode2_HorzScanNav/Mode2_Variant/Mode2/WayPointGenerator/CompScanWidth': '<S70>:1' 
                 // '<S70>:1:3'
-                d = std::ceil(static_cast<real_T>(rtu_Parameters->Param2) /
-                              (rtb_Abs1_il * Alt));
+                distToCenter = std::ceil(y2 / (rtb_Abs1_il * Alt));
 
                 // '<S70>:1:4'
-                distToCenter = static_cast<real_T>(rtu_Parameters->Param2) / d;
+                d = y2 / distToCenter;
 
                 // MATLAB Function: '<S41>/CheckPointGenerator' incorporates:
                 //   MATLAB Function: '<S41>/CompScanWidth'
 
                 // MATLAB Function 'Mode2_HorzScanNav/Mode2_Variant/Mode2/WayPointGenerator/CheckPointGenerator': '<S69>:1' 
-                // '<S69>:1:4'
+                // '<S69>:1:9'
                 for (i = 0; i < 32768; i++) {
                     localDW->CheckPoints[i] = (rtNaN);
                 }
 
-                nread = static_cast<int32_T>(d);
+                iremain = static_cast<int32_T>(distToCenter);
 
-                // '<S69>:1:5'
-                for (iy = 0; iy <= static_cast<int32_T>(nread - 1); iy++) {
+                // '<S69>:1:10'
+                for (iy = 0; iy <= static_cast<int32_T>(iremain - 1); iy++) {
                     if (rt_remd_snf(static_cast<real_T>(iy) + 1.0, 2.0) == 1.0)
                     {
-                        // '<S69>:1:6'
-                        // '<S69>:1:7'
+                        // '<S69>:1:11'
+                        // '<S69>:1:12'
                         i = static_cast<int32_T>(static_cast<int32_T>(
                             static_cast<int32_T>(iy + 1) << 1) - 2);
                         localDW->CheckPoints[i] = -0.25 * std::abs(Lat) + 0.25 *
                             Lat;
                         localDW->CheckPoints[static_cast<int32_T>(i + 8192)] =
-                            (((static_cast<real_T>(iy) + 1.0) - 1.0) *
-                             distToCenter - 0.25 * std::abs(Lon)) + 0.25 * Lon;
+                            (((static_cast<real_T>(iy) + 1.0) - 1.0) * d - 0.25 *
+                             std::abs(Lon)) + 0.25 * Lon;
                         localDW->CheckPoints[static_cast<int32_T>(i + 16384)] =
                             0.0;
                         localDW->CheckPoints[static_cast<int32_T>(i + 24576)] =
                             0.0;
 
-                        // '<S69>:1:10'
+                        // '<S69>:1:15'
                         i = static_cast<int32_T>(static_cast<int32_T>(
                             static_cast<int32_T>(iy + 1) << 1) - 1);
                         localDW->CheckPoints[i] = 0.75 * std::abs(Lat) + 0.25 *
                             Lat;
                         localDW->CheckPoints[static_cast<int32_T>(i + 8192)] =
-                            (((static_cast<real_T>(iy) + 1.0) - 1.0) *
-                             distToCenter - 0.25 * std::abs(Lon)) + 0.25 * Lon;
+                            (((static_cast<real_T>(iy) + 1.0) - 1.0) * d - 0.25 *
+                             std::abs(Lon)) + 0.25 * Lon;
                         localDW->CheckPoints[static_cast<int32_T>(i + 16384)] =
                             0.0;
                         localDW->CheckPoints[static_cast<int32_T>(i + 24576)] =
                             0.0;
                     } else {
-                        // '<S69>:1:14'
+                        // '<S69>:1:19'
                         i = static_cast<int32_T>(static_cast<int32_T>(
                             static_cast<int32_T>(iy + 1) << 1) - 2);
                         localDW->CheckPoints[i] = 0.75 * std::abs(Lat) + 0.25 *
                             Lat;
+                        rtb_Sum1_e_idx_0 = ((static_cast<real_T>(iy) + 1.0) -
+                                            1.0) * d;
                         localDW->CheckPoints[static_cast<int32_T>(i + 8192)] =
-                            (((static_cast<real_T>(iy) + 1.0) - 1.0) *
-                             distToCenter - 0.25 * std::abs(Lon)) + 0.25 * Lon;
+                            (rtb_Sum1_e_idx_0 - 0.25 * y2) + 0.25 * Lon;
                         localDW->CheckPoints[static_cast<int32_T>(i + 16384)] =
                             0.0;
                         localDW->CheckPoints[static_cast<int32_T>(i + 24576)] =
                             3.1415926535897931;
 
-                        // '<S69>:1:17'
+                        // '<S69>:1:22'
                         i = static_cast<int32_T>(static_cast<int32_T>(
                             static_cast<int32_T>(iy + 1) << 1) - 1);
                         localDW->CheckPoints[i] = -0.25 * std::abs(Lat) + 0.25 *
                             Lat;
                         localDW->CheckPoints[static_cast<int32_T>(i + 8192)] =
-                            (((static_cast<real_T>(iy) + 1.0) - 1.0) *
-                             distToCenter - 0.25 * std::abs(Lon)) + 0.25 * Lon;
+                            (rtb_Sum1_e_idx_0 - 0.25 * std::abs(Lon)) + 0.25 *
+                            Lon;
                         localDW->CheckPoints[static_cast<int32_T>(i + 16384)] =
                             0.0;
                         localDW->CheckPoints[static_cast<int32_T>(i + 24576)] =
                             3.1415926535897931;
                     }
                 }
-
-                // End of MATLAB Function: '<S41>/CheckPointGenerator'
 
                 // Product: '<S41>/Product' incorporates:
                 //   Bias: '<S41>/Bias'
@@ -25596,7 +25597,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             // End of Outputs for SubSystem: '<S36>/WayPointGenerator'
 
             // MATLAB Function: '<S37>/ReadHomePoint'
-            // MATLAB Function 'Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg1/ReadHomePoint': '<S43>:1' 
+            // MATLAB Function 'Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg/ReadHomePoint': '<S43>:1' 
             if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<int32_T>
                     (localDW->HomePoint_not_empty_g) ^ 1))) {
                 creal_T tmp_1;
@@ -25616,12 +25617,12 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 } else {
                     FlightMissionMode_fread_hc(static_cast<real_T>(rtPrevAction),
                         q, localDW);
-                    stride = static_cast<int32_T>(data->size[0] * data->size[1]);
+                    ibmat = static_cast<int32_T>(data->size[0] * data->size[1]);
                     data->size[0] = 1;
                     data->size[1] = q->size[0];
-                    FlightMissionMode_emxEnsureCapacity_char_T_g(data, stride);
-                    nv = q->size[0];
-                    for (i = 0; i <= static_cast<int32_T>(nv - 1); i++) {
+                    FlightMissionMode_emxEnsureCapacity_char_T_g(data, ibmat);
+                    iacol = q->size[0];
+                    for (i = 0; i <= static_cast<int32_T>(iacol - 1); i++) {
                         data->data[i] = q->data[i];
                     }
 
@@ -25637,16 +25638,16 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                     FlightMissionMode_emxInit_char_T_ey(&data_5, 2);
                     exitg1 = false;
                     while ((!exitg1) && (data->size[1] != 0)) {
-                        stride = static_cast<int32_T>(data_5->size[0] *
+                        ibmat = static_cast<int32_T>(data_5->size[0] *
                             data_5->size[1]);
                         data_5->size[0] = 1;
                         data_5->size[1] = data->size[1];
                         FlightMissionMode_emxEnsureCapacity_char_T_g(data_5,
-                            stride);
-                        i = static_cast<int32_T>(static_cast<int32_T>(data->
-                            size[0] * data->size[1]) - 1);
-                        for (stride = 0; stride <= i; stride++) {
-                            data_5->data[stride] = data->data[stride];
+                            ibmat);
+                        iy = static_cast<int32_T>(static_cast<int32_T>
+                            (data->size[0] * data->size[1]) - 1);
+                        for (ibmat = 0; ibmat <= iy; ibmat++) {
+                            data_5->data[ibmat] = data->data[ibmat];
                         }
 
                         FlightMissionMode_strtok_d(data_5, curLine, data);
@@ -25670,23 +25671,23 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                     if (static_cast<int32_T>(curLine->size[1] -
                                             1) < 2) {
                                         iy = 0;
-                                        nread = 0;
+                                        iremain = 0;
                                     } else {
                                         iy = 1;
-                                        nread = static_cast<int32_T>
+                                        iremain = static_cast<int32_T>
                                             (curLine->size[1] - 1);
                                     }
 
-                                    stride = static_cast<int32_T>
+                                    ibmat = static_cast<int32_T>
                                         (curSection->size[0] * curSection->size
                                          [1]);
                                     curSection->size[0] = 1;
-                                    nv = static_cast<int32_T>(nread - iy);
-                                    curSection->size[1] = nv;
+                                    iacol = static_cast<int32_T>(iremain - iy);
+                                    curSection->size[1] = iacol;
                                     FlightMissionMode_emxEnsureCapacity_char_T_g
-                                        (curSection, stride);
-                                    for (i = 0; i <= static_cast<int32_T>(nv - 1);
-                                         i++) {
+                                        (curSection, ibmat);
+                                    for (i = 0; i <= static_cast<int32_T>(iacol
+                                            - 1); i++) {
                                         curSection->data[i] = curLine->data[
                                             static_cast<int32_T>(iy + i)];
                                     }
@@ -25711,26 +25712,28 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                         FlightMissionMode_contains_d(curLine)) {
                                     FlightMissionMode_strtok_dq4(curLine, curVal,
                                         x);
-                                    FlightMissionMode_find_token_m(x, &i1,
-                                        &nread);
-                                    if (i1 > static_cast<int32_T>(nread - 1)) {
+                                    FlightMissionMode_find_token_m(x, &iy,
+                                        &iremain);
+                                    if (iy > static_cast<int32_T>(iremain - 1))
+                                    {
                                         iy = 0;
-                                        i1 = 0;
+                                        iremain = 0;
                                     } else {
-                                        iy = static_cast<int32_T>(i1 - 1);
-                                        i1 = static_cast<int32_T>(nread - 1);
+                                        iy = static_cast<int32_T>(iy - 1);
+                                        iremain = static_cast<int32_T>(iremain -
+                                            1);
                                     }
 
                                     FlightMissionMode_strtrim_f(curVal, curKey);
-                                    stride = static_cast<int32_T>(curLine->size
-                                        [0] * curLine->size[1]);
+                                    ibmat = static_cast<int32_T>(curLine->size[0]
+                                        * curLine->size[1]);
                                     curLine->size[0] = 1;
-                                    nv = static_cast<int32_T>(i1 - iy);
-                                    curLine->size[1] = nv;
+                                    iacol = static_cast<int32_T>(iremain - iy);
+                                    curLine->size[1] = iacol;
                                     FlightMissionMode_emxEnsureCapacity_char_T_g
-                                        (curLine, stride);
-                                    for (i = 0; i <= static_cast<int32_T>(nv - 1);
-                                         i++) {
+                                        (curLine, ibmat);
+                                    for (i = 0; i <= static_cast<int32_T>(iacol
+                                            - 1); i++) {
                                         curLine->data[i] = x->data
                                             [static_cast<int32_T>(iy + i)];
                                     }
@@ -25742,15 +25745,15 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
 
                         if (FlightMissionMode_strcmp_b(curSection) &&
                                 FlightMissionMode_strcmp_bx(curKey)) {
-                            stride = static_cast<int32_T>(tline->size[0] *
+                            ibmat = static_cast<int32_T>(tline->size[0] *
                                 tline->size[1]);
                             tline->size[0] = 1;
                             tline->size[1] = curVal->size[1];
                             FlightMissionMode_emxEnsureCapacity_char_T_g(tline,
-                                stride);
-                            nv = curVal->size[1];
-                            for (i = 0; i <= static_cast<int32_T>(nv - 1); i++)
-                            {
+                                ibmat);
+                            iacol = curVal->size[1];
+                            for (i = 0; i <= static_cast<int32_T>(iacol - 1); i
+                                    ++) {
                                 tline->data[i] = curVal->data[i];
                             }
 
@@ -25776,12 +25779,12 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 } else {
                     FlightMissionMode_fread_hc(static_cast<real_T>(rtPrevAction),
                         q, localDW);
-                    stride = static_cast<int32_T>(data->size[0] * data->size[1]);
+                    ibmat = static_cast<int32_T>(data->size[0] * data->size[1]);
                     data->size[0] = 1;
                     data->size[1] = q->size[0];
-                    FlightMissionMode_emxEnsureCapacity_char_T_g(data, stride);
-                    nv = q->size[0];
-                    for (i = 0; i <= static_cast<int32_T>(nv - 1); i++) {
+                    FlightMissionMode_emxEnsureCapacity_char_T_g(data, ibmat);
+                    iacol = q->size[0];
+                    for (i = 0; i <= static_cast<int32_T>(iacol - 1); i++) {
                         data->data[i] = q->data[i];
                     }
 
@@ -25797,16 +25800,16 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                     FlightMissionMode_emxInit_char_T_ey(&data_4, 2);
                     exitg1 = false;
                     while ((!exitg1) && (data->size[1] != 0)) {
-                        stride = static_cast<int32_T>(data_4->size[0] *
+                        ibmat = static_cast<int32_T>(data_4->size[0] *
                             data_4->size[1]);
                         data_4->size[0] = 1;
                         data_4->size[1] = data->size[1];
                         FlightMissionMode_emxEnsureCapacity_char_T_g(data_4,
-                            stride);
-                        i = static_cast<int32_T>(static_cast<int32_T>(data->
-                            size[0] * data->size[1]) - 1);
-                        for (stride = 0; stride <= i; stride++) {
-                            data_4->data[stride] = data->data[stride];
+                            ibmat);
+                        iy = static_cast<int32_T>(static_cast<int32_T>
+                            (data->size[0] * data->size[1]) - 1);
+                        for (ibmat = 0; ibmat <= iy; ibmat++) {
+                            data_4->data[ibmat] = data->data[ibmat];
                         }
 
                         FlightMissionMode_strtok_d(data_4, curLine, data);
@@ -25830,23 +25833,23 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                     if (static_cast<int32_T>(curLine->size[1] -
                                             1) < 2) {
                                         i1 = 0;
-                                        ntoread = 0;
+                                        i = 0;
                                     } else {
                                         i1 = 1;
-                                        ntoread = static_cast<int32_T>
-                                            (curLine->size[1] - 1);
+                                        i = static_cast<int32_T>(curLine->size[1]
+                                            - 1);
                                     }
 
-                                    stride = static_cast<int32_T>
+                                    ibmat = static_cast<int32_T>
                                         (curSection->size[0] * curSection->size
                                          [1]);
                                     curSection->size[0] = 1;
-                                    nv = static_cast<int32_T>(ntoread - i1);
-                                    curSection->size[1] = nv;
+                                    iacol = static_cast<int32_T>(i - i1);
+                                    curSection->size[1] = iacol;
                                     FlightMissionMode_emxEnsureCapacity_char_T_g
-                                        (curSection, stride);
-                                    for (i = 0; i <= static_cast<int32_T>(nv - 1);
-                                         i++) {
+                                        (curSection, ibmat);
+                                    for (i = 0; i <= static_cast<int32_T>(iacol
+                                            - 1); i++) {
                                         curSection->data[i] = curLine->data[
                                             static_cast<int32_T>(i1 + i)];
                                     }
@@ -25872,25 +25875,27 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                     FlightMissionMode_strtok_dq4(curLine, curVal,
                                         x);
                                     FlightMissionMode_find_token_m(x, &iy,
-                                        &nread);
-                                    if (iy > static_cast<int32_T>(nread - 1)) {
+                                        &iremain);
+                                    if (iy > static_cast<int32_T>(iremain - 1))
+                                    {
                                         iy = 0;
-                                        nread = 0;
+                                        iremain = 0;
                                     } else {
                                         iy = static_cast<int32_T>(iy - 1);
-                                        nread = static_cast<int32_T>(nread - 1);
+                                        iremain = static_cast<int32_T>(iremain -
+                                            1);
                                     }
 
                                     FlightMissionMode_strtrim_f(curVal, curKey);
-                                    stride = static_cast<int32_T>(curLine->size
-                                        [0] * curLine->size[1]);
+                                    ibmat = static_cast<int32_T>(curLine->size[0]
+                                        * curLine->size[1]);
                                     curLine->size[0] = 1;
-                                    nv = static_cast<int32_T>(nread - iy);
-                                    curLine->size[1] = nv;
+                                    iacol = static_cast<int32_T>(iremain - iy);
+                                    curLine->size[1] = iacol;
                                     FlightMissionMode_emxEnsureCapacity_char_T_g
-                                        (curLine, stride);
-                                    for (i = 0; i <= static_cast<int32_T>(nv - 1);
-                                         i++) {
+                                        (curLine, ibmat);
+                                    for (i = 0; i <= static_cast<int32_T>(iacol
+                                            - 1); i++) {
                                         curLine->data[i] = x->data
                                             [static_cast<int32_T>(iy + i)];
                                     }
@@ -25902,15 +25907,15 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
 
                         if (FlightMissionMode_strcmp_b(curSection) &&
                                 FlightMissionMode_strcmp_bxk(curKey)) {
-                            stride = static_cast<int32_T>(tline->size[0] *
+                            ibmat = static_cast<int32_T>(tline->size[0] *
                                 tline->size[1]);
                             tline->size[0] = 1;
                             tline->size[1] = curVal->size[1];
                             FlightMissionMode_emxEnsureCapacity_char_T_g(tline,
-                                stride);
-                            nv = curVal->size[1];
-                            for (i = 0; i <= static_cast<int32_T>(nv - 1); i++)
-                            {
+                                ibmat);
+                            iacol = curVal->size[1];
+                            for (i = 0; i <= static_cast<int32_T>(iacol - 1); i
+                                    ++) {
                                 tline->data[i] = curVal->data[i];
                             }
 
@@ -25936,12 +25941,12 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 } else {
                     FlightMissionMode_fread_hc(static_cast<real_T>(rtPrevAction),
                         q, localDW);
-                    stride = static_cast<int32_T>(data->size[0] * data->size[1]);
+                    ibmat = static_cast<int32_T>(data->size[0] * data->size[1]);
                     data->size[0] = 1;
                     data->size[1] = q->size[0];
-                    FlightMissionMode_emxEnsureCapacity_char_T_g(data, stride);
-                    nv = q->size[0];
-                    for (i = 0; i <= static_cast<int32_T>(nv - 1); i++) {
+                    FlightMissionMode_emxEnsureCapacity_char_T_g(data, ibmat);
+                    iacol = q->size[0];
+                    for (i = 0; i <= static_cast<int32_T>(iacol - 1); i++) {
                         data->data[i] = q->data[i];
                     }
 
@@ -25957,16 +25962,16 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                     FlightMissionMode_emxInit_char_T_ey(&data_3, 2);
                     exitg1 = false;
                     while ((!exitg1) && (data->size[1] != 0)) {
-                        stride = static_cast<int32_T>(data_3->size[0] *
+                        ibmat = static_cast<int32_T>(data_3->size[0] *
                             data_3->size[1]);
                         data_3->size[0] = 1;
                         data_3->size[1] = data->size[1];
                         FlightMissionMode_emxEnsureCapacity_char_T_g(data_3,
-                            stride);
-                        i = static_cast<int32_T>(static_cast<int32_T>(data->
-                            size[0] * data->size[1]) - 1);
-                        for (stride = 0; stride <= i; stride++) {
-                            data_3->data[stride] = data->data[stride];
+                            ibmat);
+                        iy = static_cast<int32_T>(static_cast<int32_T>
+                            (data->size[0] * data->size[1]) - 1);
+                        for (ibmat = 0; ibmat <= iy; ibmat++) {
+                            data_3->data[ibmat] = data->data[ibmat];
                         }
 
                         FlightMissionMode_strtok_d(data_3, curLine, data);
@@ -25989,26 +25994,26 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                 if (isStable) {
                                     if (static_cast<int32_T>(curLine->size[1] -
                                             1) < 2) {
-                                        iy = 0;
-                                        i2 = 0;
+                                        i1 = 0;
+                                        i = 0;
                                     } else {
-                                        iy = 1;
-                                        i2 = static_cast<int32_T>(curLine->size
-                                            [1] - 1);
+                                        i1 = 1;
+                                        i = static_cast<int32_T>(curLine->size[1]
+                                            - 1);
                                     }
 
-                                    stride = static_cast<int32_T>
+                                    ibmat = static_cast<int32_T>
                                         (curSection->size[0] * curSection->size
                                          [1]);
                                     curSection->size[0] = 1;
-                                    nv = static_cast<int32_T>(i2 - iy);
-                                    curSection->size[1] = nv;
+                                    iacol = static_cast<int32_T>(i - i1);
+                                    curSection->size[1] = iacol;
                                     FlightMissionMode_emxEnsureCapacity_char_T_g
-                                        (curSection, stride);
-                                    for (i = 0; i <= static_cast<int32_T>(nv - 1);
-                                         i++) {
+                                        (curSection, ibmat);
+                                    for (i = 0; i <= static_cast<int32_T>(iacol
+                                            - 1); i++) {
                                         curSection->data[i] = curLine->data[
-                                            static_cast<int32_T>(iy + i)];
+                                            static_cast<int32_T>(i1 + i)];
                                     }
 
                                     curKey->size[0] = 1;
@@ -26031,28 +26036,29 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                         FlightMissionMode_contains_d(curLine)) {
                                     FlightMissionMode_strtok_dq4(curLine, curVal,
                                         x);
-                                    FlightMissionMode_find_token_m(x, &iy,
-                                        &nread);
-                                    if (iy > static_cast<int32_T>(nread - 1)) {
-                                        n = 0;
-                                        i = 0;
+                                    FlightMissionMode_find_token_m(x, &iremain,
+                                        &iy);
+                                    if (iremain > static_cast<int32_T>(iy - 1))
+                                    {
+                                        i1 = 0;
+                                        iy = 0;
                                     } else {
-                                        n = static_cast<int32_T>(iy - 1);
-                                        i = static_cast<int32_T>(nread - 1);
+                                        i1 = static_cast<int32_T>(iremain - 1);
+                                        iy = static_cast<int32_T>(iy - 1);
                                     }
 
                                     FlightMissionMode_strtrim_f(curVal, curKey);
-                                    stride = static_cast<int32_T>(curLine->size
-                                        [0] * curLine->size[1]);
+                                    ibmat = static_cast<int32_T>(curLine->size[0]
+                                        * curLine->size[1]);
                                     curLine->size[0] = 1;
-                                    nv = static_cast<int32_T>(i - n);
-                                    curLine->size[1] = nv;
+                                    iacol = static_cast<int32_T>(iy - i1);
+                                    curLine->size[1] = iacol;
                                     FlightMissionMode_emxEnsureCapacity_char_T_g
-                                        (curLine, stride);
-                                    for (i = 0; i <= static_cast<int32_T>(nv - 1);
-                                         i++) {
+                                        (curLine, ibmat);
+                                    for (i = 0; i <= static_cast<int32_T>(iacol
+                                            - 1); i++) {
                                         curLine->data[i] = x->data
-                                            [static_cast<int32_T>(n + i)];
+                                            [static_cast<int32_T>(i1 + i)];
                                     }
 
                                     FlightMissionMode_strtrim_f(curLine, curVal);
@@ -26062,15 +26068,15 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
 
                         if (FlightMissionMode_strcmp_b(curSection) &&
                                 FlightMissionMode_strcmp_bxki(curKey)) {
-                            stride = static_cast<int32_T>(tline->size[0] *
+                            ibmat = static_cast<int32_T>(tline->size[0] *
                                 tline->size[1]);
                             tline->size[0] = 1;
                             tline->size[1] = curVal->size[1];
                             FlightMissionMode_emxEnsureCapacity_char_T_g(tline,
-                                stride);
-                            nv = curVal->size[1];
-                            for (i = 0; i <= static_cast<int32_T>(nv - 1); i++)
-                            {
+                                ibmat);
+                            iacol = curVal->size[1];
+                            for (i = 0; i <= static_cast<int32_T>(iacol - 1); i
+                                    ++) {
                                 tline->data[i] = curVal->data[i];
                             }
 
@@ -26093,14 +26099,14 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 b_x[1] = std::isnan(localDW->HomePoint_m[1]);
                 b_x[2] = std::isnan(localDW->HomePoint_m[2]);
                 isStable = false;
-                nread = 0;
+                iremain = 0;
                 exitg1 = false;
-                while ((!exitg1) && (nread < 3)) {
-                    if (b_x[nread]) {
+                while ((!exitg1) && (iremain < 3)) {
+                    if (b_x[iremain]) {
                         isStable = true;
                         exitg1 = true;
                     } else {
-                        nread = static_cast<int32_T>(nread + 1);
+                        iremain = static_cast<int32_T>(iremain + 1);
                     }
                 }
 
@@ -26131,7 +26137,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             //   Constant: '<S36>/One2ZeroIdx'
             //   Sum: '<S36>/Minus'
 
-            d = (Lat - 1.0) * rtb_Abs1_il;
+            y2 = (Lat - 1.0) * rtb_Abs1_il;
 
             // Switch: '<S57>/Switch' incorporates:
             //   Abs: '<S57>/Abs'
@@ -26357,18 +26363,17 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             // Sum: '<S36>/SumNorth' incorporates:
             //   Product: '<S36>/ProductNorth'
 
-            rtb_Sum1_e_idx_0 = localDW->ProductNorth * Lat +
-                rtu_StartLocation->Lat;
+            d = localDW->ProductNorth * Lat + rtu_StartLocation->Lat;
 
             // Sum: '<S36>/SumEast' incorporates:
             //   Product: '<S36>/ProductEast'
 
-            rtb_Sum1_e_idx_1 = localDW->ProductEast * Lat +
+            rtb_Sum1_e_idx_0 = localDW->ProductEast * Lat +
                 rtu_StartLocation->Lon;
 
             // Product: '<S36>/Product'
-            LLA0_gw[0] = rtb_Sum1_e_idx_0 * Lat;
-            LLA0_gw[1] = rtb_Sum1_e_idx_1 * Lat;
+            LLA0_gw[0] = d * Lat;
+            LLA0_gw[1] = rtb_Sum1_e_idx_0 * Lat;
             LLA0_gw[2] = rtu_StartLocation->Alt * Lat;
 
             // Switch: '<S36>/Switch'
@@ -26385,8 +26390,6 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             //   EnablePort: '<S40>/Enable'
 
             if (*rtu_Reset) {
-                int32_T npages;
-                int32_T pageroot;
                 if (static_cast<boolean_T>(static_cast<int32_T>
                                            (static_cast<int32_T>
                                             (localDW->WayPoint_MODE) ^ 1))) {
@@ -26412,35 +26415,11 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                     (rtb_TmpSignalConversionAtRotateATMissionHdgInport1_i,
                      &localDW->RotateATMissionHdg);
 
-                // Reshape: '<S40>/Reshape' incorporates:
+                // MATLAB Function: '<S40>/CheckPointInterp' incorporates:
                 //   Sum: '<S40>/Minus'
 
-                Reshape[3] = Lat - rtb_Switch_l;
+                LLA0_gw_0[3] = Lat - rtb_Switch_l;
 
-                // Product: '<S40>/Matrix Multiply' incorporates:
-                //   MATLABSystem: '<S40>/RotateATMissionHdg'
-                //   Product: '<S36>/Product'
-
-                i = 0;
-                for (i1 = 0; i1 < 3; i1++) {
-                    u[i1] = 0.0;
-                    u[i1] += localDW->RotateATMissionHdg.RotateATMissionHdg[i] *
-                        LLA0_gw[0];
-                    u[i1] += localDW->RotateATMissionHdg.RotateATMissionHdg[
-                        static_cast<int32_T>(i + 1)] * LLA0_gw[1];
-                    u[i1] += localDW->RotateATMissionHdg.RotateATMissionHdg[
-                        static_cast<int32_T>(i + 2)] * LLA0_gw[2];
-                    i = static_cast<int32_T>(i + 3);
-                }
-
-                // Reshape: '<S40>/Reshape' incorporates:
-                //   Product: '<S40>/Matrix Multiply'
-
-                Reshape[0] = u[0];
-                Reshape[1] = u[1];
-                Reshape[2] = u[2];
-
-                // MATLAB Function: '<S40>/CheckPointInterp'
                 // MATLAB Function 'Mode2_HorzScanNav/Mode2_Variant/Mode2/WayPoint/CheckPointInterp': '<S66>:1' 
                 // '<S66>:1:5'
                 // '<S66>:1:4'
@@ -26453,362 +26432,112 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 }
 
                 i1 = 0;
-                i2 = 24576;
-                for (nread = 0; nread < 8192; nread++) {
-                    localDW->distinctWptsIdx[nread] = false;
+                i = 24576;
+                for (iremain = 0; iremain < 8192; iremain++) {
+                    localDW->distinctWptsIdx[iremain] = false;
                     i1 = static_cast<int32_T>(i1 + 1);
-                    i2 = static_cast<int32_T>(i2 + 1);
-                    ntoread = i1;
+                    i = static_cast<int32_T>(i + 1);
+                    nrows = i1;
                     exitg1 = false;
-                    while ((!exitg1) && (ntoread <= i2)) {
-                        if (localDW->x[static_cast<int32_T>(ntoread - 1)]) {
-                            localDW->distinctWptsIdx[nread] = true;
+                    while ((!exitg1) && (nrows <= i)) {
+                        if (localDW->x[static_cast<int32_T>(nrows - 1)]) {
+                            localDW->distinctWptsIdx[iremain] = true;
                             exitg1 = true;
                         } else {
-                            ntoread = static_cast<int32_T>(ntoread + 8192);
+                            nrows = static_cast<int32_T>(nrows + 8192);
                         }
                     }
                 }
 
-                i2 = 0;
-                for (nread = 0; nread < 8192; nread++) {
+                i1 = 0;
+                for (iy = 0; iy < 8192; iy++) {
                     isStable = static_cast<boolean_T>(static_cast<int32_T>(
-                        static_cast<int32_T>(localDW->distinctWptsIdx[nread]) ^
-                        1));
+                        static_cast<int32_T>(localDW->distinctWptsIdx[iy]) ^ 1));
                     if (isStable) {
-                        i2 = static_cast<int32_T>(i2 + 1);
+                        i1 = static_cast<int32_T>(i1 + 1);
                     }
 
-                    localDW->distinctWptsIdx[nread] = isStable;
+                    localDW->distinctWptsIdx[iy] = isStable;
                 }
 
-                n = i2;
-                iy = 0;
-                for (nread = 0; nread < 8192; nread++) {
-                    if (localDW->distinctWptsIdx[nread]) {
-                        localDW->d_data[iy] = static_cast<int16_T>
-                            (static_cast<int32_T>(nread + 1));
-                        iy = static_cast<int32_T>(iy + 1);
+                iremain = i1;
+                i1 = 0;
+                for (iy = 0; iy < 8192; iy++) {
+                    if (localDW->distinctWptsIdx[iy]) {
+                        localDW->c_data_f[i1] = static_cast<int16_T>(
+                            static_cast<int32_T>(iy + 1));
+                        i1 = static_cast<int32_T>(i1 + 1);
                     }
                 }
 
                 // '<S66>:1:5'
                 FlightMissionMode_emxInit_real_T_h(&CheckPoints, 2);
-                stride = static_cast<int32_T>(CheckPoints->size[0] *
+                ibmat = static_cast<int32_T>(CheckPoints->size[0] *
                     CheckPoints->size[1]);
 
                 // MATLAB Function: '<S40>/CheckPointInterp'
-                CheckPoints->size[0] = i2;
+                CheckPoints->size[0] = iremain;
                 CheckPoints->size[1] = 4;
-                FlightMissionMode_emxEnsureCapacity_real_T_c(CheckPoints, stride);
+                FlightMissionMode_emxEnsureCapacity_real_T_c(CheckPoints, ibmat);
 
                 // MATLAB Function: '<S40>/CheckPointInterp'
                 for (i = 0; i < 4; i++) {
-                    for (i1 = 0; i1 <= static_cast<int32_T>(i2 - 1); i1++) {
+                    for (i1 = 0; i1 <= static_cast<int32_T>(iremain - 1); i1++)
+                    {
                         CheckPoints->data[static_cast<int32_T>(i1 + static_cast<
                             int32_T>(CheckPoints->size[0] * i))] =
                             localDW->CheckPoints[static_cast<int32_T>(
                             static_cast<int32_T>(static_cast<int32_T>(i << 13) +
-                            static_cast<int32_T>(localDW->d_data[i1])) - 1)];
+                            static_cast<int32_T>(localDW->c_data_f[i1])) - 1)];
                     }
                 }
-
-                // '<S66>:1:8'
-                FlightMissionMode_emxInit_real_T_h(&pathLength, 1);
-                stride = pathLength->size[0];
-
-                // MATLAB Function: '<S40>/CheckPointInterp'
-                pathLength->size[0] = i2;
-                FlightMissionMode_emxEnsureCapacity_real_T_c(pathLength, stride);
-
-                // MATLAB Function: '<S40>/CheckPointInterp' incorporates:
-                //   Reshape: '<S40>/Reshape'
-
-                for (i = 0; i <= static_cast<int32_T>(i2 - 1); i++) {
-                    pathLength->data[i] = 0.0;
-                }
-
-                // '<S66>:1:9'
-                for (iy = 0; iy <= static_cast<int32_T>(i2 - 1); iy++) {
-                    // '<S66>:1:10'
-                    obj = FlightMissionMode_DubinsObjSingleton_getConnector_p
-                        (localDW);
-                    CheckPoints_0[0] = CheckPoints->data[iy];
-                    CheckPoints_0[1] = CheckPoints->data[static_cast<int32_T>(iy
-                        + CheckPoints->size[0])];
-                    CheckPoints_0[2] = CheckPoints->data[static_cast<int32_T>(
-                        static_cast<int32_T>(CheckPoints->size[0] << 1) + iy)];
-                    CheckPoints_0[3] = CheckPoints->data[static_cast<int32_T>(
-                        static_cast<int32_T>(CheckPoints->size[0] * 3) + iy)];
-                    FlightMissionMode_uavDubinsBuiltins_connect_g(obj, Reshape,
-                        CheckPoints_0, obj->MinTurningRadius, &a__1_0,
-                        &pathLength->data[iy]);
-
-                    // '<S66>:1:10'
-                }
-
-                // '<S66>:1:13'
-                i1 = pathLength->size[0];
-                if (static_cast<int32_T>(static_cast<int32_T>
-                                         (static_cast<uint16_T>
-                                          (static_cast<int32_T>(pathLength->
-                        size[0] - 1))) + 1) <= 2) {
-                    if (static_cast<int32_T>(static_cast<int32_T>
-                                             (static_cast<uint16_T>(static_cast<
-                            int32_T>(pathLength->size[0] - 1))) + 1) == 1) {
-                        iy = 1;
-                    } else if (pathLength->data[0] > pathLength->data[
-                               static_cast<int32_T>(pathLength->size[0] - 1)]) {
-                        iy = pathLength->size[0];
-                    } else if (std::isnan(pathLength->data[0])) {
-                        if (static_cast<boolean_T>(static_cast<int32_T>(
-                                static_cast<int32_T>(std::isnan(pathLength->
-                                data[static_cast<int32_T>(pathLength->size[0] -
-                                 1)])) ^ 1))) {
-                            iy = pathLength->size[0];
-                        } else {
-                            iy = 1;
-                        }
-                    } else {
-                        iy = 1;
-                    }
-                } else {
-                    if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<
-                            int32_T>(std::isnan(pathLength->data[0])) ^ 1))) {
-                        i2 = 1;
-                    } else {
-                        i2 = 0;
-                        iy = 2;
-                        exitg1 = false;
-                        while ((!exitg1) && (iy <= i1)) {
-                            if (static_cast<boolean_T>(static_cast<int32_T>(
-                                    static_cast<int32_T>(std::isnan
-                                    (pathLength->data[static_cast<int32_T>(iy -
-                                     1)])) ^ 1))) {
-                                i2 = iy;
-                                exitg1 = true;
-                            } else {
-                                iy = static_cast<int32_T>(iy + 1);
-                            }
-                        }
-                    }
-
-                    if (i2 == 0) {
-                        iy = 1;
-                    } else {
-                        rtb_Switch_l = pathLength->data[static_cast<int32_T>(i2
-                            - 1)];
-                        iy = i2;
-                        for (nread = static_cast<int32_T>(i2 + 1); nread <= i1;
-                                nread++) {
-                            rtb_Sum1_e_idx_0 = pathLength->data
-                                [static_cast<int32_T>(nread - 1)];
-                            if (rtb_Switch_l > rtb_Sum1_e_idx_0) {
-                                rtb_Switch_l = rtb_Sum1_e_idx_0;
-                                iy = nread;
-                            }
-                        }
-                    }
-                }
-
-                FlightMissionMode_emxFree_real_T_n(&pathLength);
-
-                // MATLAB Function: '<S40>/CheckPointInterp'
-                // '<S66>:1:13'
-                i2 = (n == 1);
-                if (n != 0) {
-                    if (static_cast<int32_T>(1 - iy) < 0) {
-                        ntoread = static_cast<int32_T>(iy - 1);
-                        isStable = false;
-                    } else {
-                        ntoread = 0;
-                        isStable = true;
-                    }
-
-                    d_0[0] = static_cast<int16_T>(n);
-                    d_0[1] = 4;
-                    if (static_cast<int32_T>(d_0[i2]) <= 1) {
-                        ntoread = 0;
-                    } else {
-                        d_0[0] = static_cast<int16_T>(n);
-                        d_0[1] = 4;
-                        if (ntoread > static_cast<int32_T>(d_0[i2])) {
-                            d_0[0] = static_cast<int16_T>(n);
-                            d_0[1] = 4;
-                            i = static_cast<int32_T>(d_0[i2]);
-                            ntoread = static_cast<int32_T>(ntoread -
-                                static_cast<int32_T>(i * div_s32(ntoread, i)));
-                        }
-
-                        d_0[0] = static_cast<int16_T>(n);
-                        d_0[1] = 4;
-                        if (ntoread > static_cast<int32_T>(static_cast<int32_T>
-                                (d_0[i2]) >> 1)) {
-                            d_0[0] = static_cast<int16_T>(n);
-                            d_0[1] = 4;
-                            ntoread = static_cast<int32_T>(static_cast<int32_T>
-                                (d_0[i2]) - ntoread);
-                            isStable = static_cast<boolean_T>
-                                (static_cast<int32_T>(static_cast<int32_T>
-                                  (isStable) ^ 1));
-                        }
-                    }
-
-                    if (n >= 4) {
-                        i = n;
-                    } else {
-                        i = 4;
-                    }
-
-                    nread = static_cast<int32_T>(static_cast<int16_T>(
-                        static_cast<int32_T>(i / 2)));
-                    for (i = 0; i <= static_cast<int32_T>(nread - 1); i++) {
-                        localDW->MAT[i] = 0.0;
-                    }
-
-                    d_0[0] = static_cast<int16_T>(n);
-                    d_0[1] = 4;
-                    iy = static_cast<int32_T>(d_0[i2]);
-                    d_0[0] = static_cast<int16_T>(n);
-                    d_0[1] = 4;
-                    nv = static_cast<int32_T>(d_0[i2]);
-                    stride = 1;
-                    for (nread = 0; nread <= static_cast<int32_T>(i2 - 1); nread
-                            ++) {
-                        stride = static_cast<int32_T>(stride * n);
-                    }
-
-                    npages = 1;
-                    for (nread = static_cast<int32_T>(i2 + 2); nread < 3; nread
-                            ++) {
-                        npages = static_cast<int32_T>(npages << 2);
-                    }
-
-                    d_0[0] = static_cast<int16_T>(n);
-                    d_0[1] = 4;
-                    nread = static_cast<int32_T>(stride * static_cast<int32_T>
-                        (d_0[i2]));
-                    d_0[0] = static_cast<int16_T>(n);
-                    d_0[1] = 4;
-                    if ((static_cast<int32_T>(d_0[i2]) > 1) && (ntoread > 0)) {
-                        for (i1 = 0; i1 <= static_cast<int32_T>(npages - 1); i1
-                                ++) {
-                            pageroot = static_cast<int32_T>(i1 * nread);
-                            for (i2 = 0; i2 <= static_cast<int32_T>(stride - 1);
-                                 i2++) {
-                                int32_T b_i1;
-                                b_i1 = static_cast<int32_T>(pageroot + i2);
-                                if (isStable) {
-                                    for (i = 0; i <= static_cast<int32_T>
-                                            (ntoread - 1); i++) {
-                                        localDW->MAT[i] = CheckPoints->data[
-                                            static_cast<int32_T>(static_cast<
-                                            int32_T>(static_cast<int32_T>(
-                                            static_cast<int32_T>(i + iy) -
-                                            ntoread) * stride) + b_i1)];
-                                    }
-
-                                    for (i = nv; i >= static_cast<int32_T>
-                                            (ntoread + 1); i--) {
-                                        CheckPoints->data[static_cast<int32_T>
-                                            (b_i1 + static_cast<int32_T>(
-                                              static_cast<int32_T>(i - 1) *
-                                              stride))] = CheckPoints->data[
-                                            static_cast<int32_T>(static_cast<
-                                            int32_T>(static_cast<int32_T>(
-                                            static_cast<int32_T>(i - ntoread) -
-                                            1) * stride) + b_i1)];
-                                    }
-
-                                    for (i = 0; i <= static_cast<int32_T>
-                                            (ntoread - 1); i++) {
-                                        CheckPoints->data[static_cast<int32_T>
-                                            (b_i1 + static_cast<int32_T>(i *
-                                              stride))] = localDW->MAT[i];
-                                    }
-                                } else {
-                                    for (i = 0; i <= static_cast<int32_T>
-                                            (ntoread - 1); i++) {
-                                        localDW->MAT[i] = CheckPoints->data[
-                                            static_cast<int32_T>(static_cast<
-                                            int32_T>(i * stride) + b_i1)];
-                                    }
-
-                                    n = static_cast<int32_T>(static_cast<int32_T>
-                                        (iy - ntoread) - 1);
-                                    for (i = 0; i <= n; i++) {
-                                        CheckPoints->data[static_cast<int32_T>
-                                            (b_i1 + static_cast<int32_T>(i *
-                                              stride))] = CheckPoints->data[
-                                            static_cast<int32_T>(static_cast<
-                                            int32_T>(static_cast<int32_T>(i +
-                                            ntoread) * stride) + b_i1)];
-                                    }
-
-                                    for (i = 0; i <= static_cast<int32_T>
-                                            (ntoread - 1); i++) {
-                                        CheckPoints->data[static_cast<int32_T>
-                                            (b_i1 + static_cast<int32_T>(
-                                              static_cast<int32_T>(static_cast<
-                                               int32_T>(i + iy) - ntoread) *
-                                              stride))] = localDW->MAT[i];
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-
-                iy = CheckPoints->size[0];
 
                 // '<S66>:1:16'
                 FlightMissionMode_emxInit_real_T_h(&segWayPoints, 2);
                 FlightMissionMode_emxInit_real_T_h(&dummyWayPoint_0, 2);
 
                 // MATLAB Function: '<S40>/CheckPointInterp'
-                for (nread = 0; nread <= static_cast<int32_T>(iy - 2); nread++)
-                {
-                    rtb_Sum1_e_idx_0 = CheckPoints->data[static_cast<int32_T>(
-                        static_cast<int32_T>(static_cast<int32_T>
-                        (CheckPoints->size[0] * 3) + nread) + 1)];
-                    if (CheckPoints->data[static_cast<int32_T>
-                            (static_cast<int32_T>(CheckPoints->size[0] * 3) +
-                             nread)] != rtb_Sum1_e_idx_0) {
+                for (iy = 0; iy <= static_cast<int32_T>(iremain - 2); iy++) {
+                    if (localDW->CheckPoints[static_cast<int32_T>(static_cast<
+                            int32_T>(localDW->c_data_f[static_cast<int32_T>(iy +
+                           1)]) + 24575)] != localDW->CheckPoints
+                            [static_cast<int32_T>(static_cast<int32_T>
+                            (localDW->c_data_f[iy]) + 24575)]) {
                         // '<S66>:1:17'
                         // '<S66>:1:18'
-                        CheckPoints_0[0] = CheckPoints->data[nread];
+                        CheckPoints_0[0] = CheckPoints->data[iy];
                         CheckPoints_1[0] = CheckPoints->data[static_cast<int32_T>
-                            (nread + 1)];
+                            (iy + 1)];
                         CheckPoints_0[1] = CheckPoints->data[static_cast<int32_T>
-                            (nread + CheckPoints->size[0])];
+                            (iy + CheckPoints->size[0])];
                         CheckPoints_1[1] = CheckPoints->data[static_cast<int32_T>
-                            (static_cast<int32_T>(nread + CheckPoints->size[0])
-                             + 1)];
+                            (static_cast<int32_T>(iy + CheckPoints->size[0]) + 1)];
                         CheckPoints_0[2] = CheckPoints->data[static_cast<int32_T>
                             (static_cast<int32_T>(CheckPoints->size[0] << 1) +
-                             nread)];
+                             iy)];
                         CheckPoints_1[2] = CheckPoints->data[static_cast<int32_T>
                             (static_cast<int32_T>(static_cast<int32_T>
-                              (CheckPoints->size[0] << 1) + nread) + 1)];
+                              (CheckPoints->size[0] << 1) + iy) + 1)];
                         CheckPoints_0[3] = CheckPoints->data[static_cast<int32_T>
-                            (static_cast<int32_T>(CheckPoints->size[0] * 3) +
-                             nread)];
-                        CheckPoints_1[3] = rtb_Sum1_e_idx_0;
+                            (static_cast<int32_T>(CheckPoints->size[0] * 3) + iy)];
+                        CheckPoints_1[3] = CheckPoints->data[static_cast<int32_T>
+                            (static_cast<int32_T>(static_cast<int32_T>
+                              (CheckPoints->size[0] * 3) + iy) + 1)];
                         FlightMissionMode_genSegWP_j(CheckPoints_0,
                             CheckPoints_1, segWayPoints, localDW);
 
                         // '<S66>:1:19'
-                        stride = static_cast<int32_T>(dummyWayPoint_0->size[0] *
+                        ibmat = static_cast<int32_T>(dummyWayPoint_0->size[0] *
                             dummyWayPoint_0->size[1]);
                         dummyWayPoint_0->size[0] = static_cast<int32_T>
                             (dummyWayPoint->size[0] + segWayPoints->size[0]);
                         dummyWayPoint_0->size[1] = 3;
                         FlightMissionMode_emxEnsureCapacity_real_T_c
-                            (dummyWayPoint_0, stride);
-                        nv = dummyWayPoint->size[0];
+                            (dummyWayPoint_0, ibmat);
+                        iacol = dummyWayPoint->size[0];
                         for (i = 0; i < 3; i++) {
-                            for (i1 = 0; i1 <= static_cast<int32_T>(nv - 1); i1
-                                    ++) {
+                            for (i1 = 0; i1 <= static_cast<int32_T>(iacol - 1);
+                                    i1++) {
                                 dummyWayPoint_0->data[static_cast<int32_T>(i1 +
                                     static_cast<int32_T>(dummyWayPoint_0->size[0]
                                     * i))] = dummyWayPoint->data
@@ -26817,10 +26546,10 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                             }
                         }
 
-                        nv = segWayPoints->size[0];
+                        iacol = segWayPoints->size[0];
                         for (i = 0; i < 3; i++) {
-                            for (i1 = 0; i1 <= static_cast<int32_T>(nv - 1); i1
-                                    ++) {
+                            for (i1 = 0; i1 <= static_cast<int32_T>(iacol - 1);
+                                    i1++) {
                                 dummyWayPoint_0->data[static_cast<int32_T>(
                                     static_cast<int32_T>(i1 +
                                     dummyWayPoint->size[0]) +
@@ -26831,14 +26560,15 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                             }
                         }
 
-                        stride = static_cast<int32_T>(dummyWayPoint->size[0] *
+                        ibmat = static_cast<int32_T>(dummyWayPoint->size[0] *
                             dummyWayPoint->size[1]);
                         dummyWayPoint->size[0] = dummyWayPoint_0->size[0];
                         dummyWayPoint->size[1] = 3;
                         FlightMissionMode_emxEnsureCapacity_real_T_c
-                            (dummyWayPoint, stride);
-                        nv = static_cast<int32_T>(dummyWayPoint_0->size[0] * 3);
-                        for (i = 0; i <= static_cast<int32_T>(nv - 1); i++) {
+                            (dummyWayPoint, ibmat);
+                        iacol = static_cast<int32_T>(dummyWayPoint_0->size[0] *
+                            3);
+                        for (i = 0; i <= static_cast<int32_T>(iacol - 1); i++) {
                             dummyWayPoint->data[i] = dummyWayPoint_0->data[i];
                         }
                     }
@@ -26848,81 +26578,79 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 obj = FlightMissionMode_DubinsObjSingleton_getConnector_p
                     (localDW);
                 CheckPoints_0[0] = CheckPoints->data[static_cast<int32_T>
-                    (CheckPoints->size[0] - 1)];
+                    (iremain - 1)];
                 CheckPoints_1[0] = CheckPoints->data[0];
                 CheckPoints_0[1] = CheckPoints->data[static_cast<int32_T>(
-                    static_cast<int32_T>(CheckPoints->size[0] +
-                    CheckPoints->size[0]) - 1)];
+                    static_cast<int32_T>(iremain + CheckPoints->size[0]) - 1)];
                 CheckPoints_1[1] = CheckPoints->data[CheckPoints->size[0]];
                 CheckPoints_0[2] = CheckPoints->data[static_cast<int32_T>(
                     static_cast<int32_T>(static_cast<int32_T>(CheckPoints->size
-                    [0] << 1) + CheckPoints->size[0]) - 1)];
+                    [0] << 1) + iremain) - 1)];
                 CheckPoints_1[2] = CheckPoints->data[static_cast<int32_T>
                     (CheckPoints->size[0] << 1)];
                 CheckPoints_0[3] = CheckPoints->data[static_cast<int32_T>(
                     static_cast<int32_T>(static_cast<int32_T>(CheckPoints->size
-                    [0] * 3) + CheckPoints->size[0]) - 1)];
+                    [0] * 3) + iremain) - 1)];
                 CheckPoints_1[3] = CheckPoints->data[static_cast<int32_T>
                     (CheckPoints->size[0] * 3)];
                 FlightMissionMode_uavDubinsBuiltins_connect_g(obj, CheckPoints_0,
-                    CheckPoints_1, obj->MinTurningRadius, &a__1_0, &rtb_Switch_l);
-                rtb_Switch_l = std::fmax(2.2204460492503131E-16, a__1_0.Length /
-                    128.0);
+                    CheckPoints_1, obj->MinTurningRadius, &pathSegObj, &d);
+                d = std::fmax(2.2204460492503131E-16, pathSegObj.Length / 128.0);
                 FlightMissionMode_emxInit_real_T_h(&lengths, 2);
 
                 // MATLAB Function: '<S40>/CheckPointInterp'
-                if (std::isnan(a__1_0.Length)) {
-                    stride = static_cast<int32_T>(lengths->size[0] *
+                if (std::isnan(pathSegObj.Length)) {
+                    ibmat = static_cast<int32_T>(lengths->size[0] *
                         lengths->size[1]);
                     lengths->size[0] = 1;
                     lengths->size[1] = 1;
-                    FlightMissionMode_emxEnsureCapacity_real_T_c(lengths, stride);
+                    FlightMissionMode_emxEnsureCapacity_real_T_c(lengths, ibmat);
                     lengths->data[0] = (rtNaN);
-                } else if (a__1_0.Length < 0.0) {
+                } else if (pathSegObj.Length < 0.0) {
                     lengths->size[0] = 1;
                     lengths->size[1] = 0;
-                } else if (std::isinf(a__1_0.Length) && std::isinf(rtb_Switch_l))
-                {
-                    stride = static_cast<int32_T>(lengths->size[0] *
+                } else if (std::isinf(pathSegObj.Length) && std::isinf(d)) {
+                    ibmat = static_cast<int32_T>(lengths->size[0] *
                         lengths->size[1]);
                     lengths->size[0] = 1;
                     lengths->size[1] = 1;
-                    FlightMissionMode_emxEnsureCapacity_real_T_c(lengths, stride);
+                    FlightMissionMode_emxEnsureCapacity_real_T_c(lengths, ibmat);
                     lengths->data[0] = (rtNaN);
-                } else if (std::isinf(rtb_Switch_l)) {
-                    stride = static_cast<int32_T>(lengths->size[0] *
+                } else if (std::isinf(d)) {
+                    ibmat = static_cast<int32_T>(lengths->size[0] *
                         lengths->size[1]);
                     lengths->size[0] = 1;
                     lengths->size[1] = 1;
-                    FlightMissionMode_emxEnsureCapacity_real_T_c(lengths, stride);
+                    FlightMissionMode_emxEnsureCapacity_real_T_c(lengths, ibmat);
                     lengths->data[0] = 0.0;
-                } else if (std::floor(rtb_Switch_l) == rtb_Switch_l) {
-                    stride = static_cast<int32_T>(lengths->size[0] *
+                } else if (std::floor(d) == d) {
+                    ibmat = static_cast<int32_T>(lengths->size[0] *
                         lengths->size[1]);
                     lengths->size[0] = 1;
-                    nv = static_cast<int32_T>(a__1_0.Length / rtb_Switch_l);
-                    lengths->size[1] = static_cast<int32_T>(nv + 1);
-                    FlightMissionMode_emxEnsureCapacity_real_T_c(lengths, stride);
-                    for (i = 0; i <= nv; i++) {
-                        lengths->data[i] = rtb_Switch_l * static_cast<real_T>(i);
+                    iacol = static_cast<int32_T>(pathSegObj.Length / d);
+                    lengths->size[1] = static_cast<int32_T>(iacol + 1);
+                    FlightMissionMode_emxEnsureCapacity_real_T_c(lengths, ibmat);
+                    for (i = 0; i <= iacol; i++) {
+                        lengths->data[i] = d * static_cast<real_T>(i);
                     }
                 } else {
-                    FlightMissionMode_eml_float_colon(rtb_Switch_l,
-                        a__1_0.Length, lengths);
+                    FlightMissionMode_eml_float_colon(d, pathSegObj.Length,
+                        lengths);
                 }
 
                 FlightMissionMode_emxInit_real_T_h(&poses, 2);
 
                 // MATLAB Function: '<S40>/CheckPointInterp'
                 FlightMissionMode_uavDubinsPathSegment_interpolate_b
-                    (a__1_0.StartPose, a__1_0.GoalPose, a__1_0.FlightPathAngle,
-                     a__1_0.AirSpeed, a__1_0.MinTurningRadius,
-                     a__1_0.HelixRadius, a__1_0.MotionTypes,
-                     a__1_0.MotionLengths, a__1_0.Length, lengths, poses);
+                    (pathSegObj.StartPose, pathSegObj.GoalPose,
+                     pathSegObj.FlightPathAngle, pathSegObj.AirSpeed,
+                     pathSegObj.MinTurningRadius, pathSegObj.HelixRadius,
+                     pathSegObj.MotionTypes, pathSegObj.MotionLengths,
+                     pathSegObj.Length, lengths, poses);
                 FlightMissionMode_emxFree_real_T_n(&lengths);
 
                 // '<S66>:1:25'
-                stride = static_cast<int32_T>(dummyWayPoint_0->size[0] *
+                ibmat = static_cast<int32_T>(dummyWayPoint_0->size[0] *
                     dummyWayPoint_0->size[1]);
 
                 // MATLAB Function: '<S40>/CheckPointInterp'
@@ -26930,13 +26658,13 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                     (dummyWayPoint->size[0] + poses->size[0]);
                 dummyWayPoint_0->size[1] = 3;
                 FlightMissionMode_emxEnsureCapacity_real_T_c(dummyWayPoint_0,
-                    stride);
+                    ibmat);
 
                 // MATLAB Function: '<S40>/CheckPointInterp'
-                nv = dummyWayPoint->size[0];
-                iy = poses->size[0];
+                iacol = dummyWayPoint->size[0];
+                iremain = poses->size[0];
                 for (i = 0; i < 3; i++) {
-                    for (i1 = 0; i1 <= static_cast<int32_T>(nv - 1); i1++) {
+                    for (i1 = 0; i1 <= static_cast<int32_T>(iacol - 1); i1++) {
                         dummyWayPoint_0->data[static_cast<int32_T>(i1 +
                             static_cast<int32_T>(dummyWayPoint_0->size[0] * i))]
                             = dummyWayPoint->data[static_cast<int32_T>(
@@ -26944,81 +26672,102 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                             i1)];
                     }
 
-                    for (i1 = 0; i1 <= static_cast<int32_T>(iy - 1); i1++) {
-                        dummyWayPoint_0->data[static_cast<int32_T>(static_cast<
-                            int32_T>(i1 + dummyWayPoint->size[0]) + static_cast<
-                            int32_T>(dummyWayPoint_0->size[0] * i))] =
-                            poses->data[static_cast<int32_T>(static_cast<int32_T>
-                            (poses->size[0] * i) + i1)];
+                    for (i1 = 0; i1 <= static_cast<int32_T>(iremain - 1); i1++)
+                    {
+                        dummyWayPoint_0->data[static_cast<int32_T>
+                            (static_cast<int32_T>(i1 + dummyWayPoint->size[0]) +
+                             static_cast<int32_T>(dummyWayPoint_0->size[0] * i))]
+                            = poses->data[static_cast<int32_T>
+                            (static_cast<int32_T>(poses->size[0] * i) + i1)];
                     }
                 }
 
                 FlightMissionMode_emxFree_real_T_n(&poses);
-                stride = static_cast<int32_T>(dummyWayPoint->size[0] *
+                ibmat = static_cast<int32_T>(dummyWayPoint->size[0] *
                     dummyWayPoint->size[1]);
 
                 // MATLAB Function: '<S40>/CheckPointInterp'
                 dummyWayPoint->size[0] = dummyWayPoint_0->size[0];
                 dummyWayPoint->size[1] = 3;
                 FlightMissionMode_emxEnsureCapacity_real_T_c(dummyWayPoint,
-                    stride);
+                    ibmat);
 
                 // MATLAB Function: '<S40>/CheckPointInterp'
-                nv = static_cast<int32_T>(dummyWayPoint_0->size[0] * 3);
-                for (i = 0; i <= static_cast<int32_T>(nv - 1); i++) {
+                iacol = static_cast<int32_T>(dummyWayPoint_0->size[0] * 3);
+                for (i = 0; i <= static_cast<int32_T>(iacol - 1); i++) {
                     dummyWayPoint->data[i] = dummyWayPoint_0->data[i];
                 }
 
                 // '<S66>:1:28'
-                rtb_Sum1_e_idx_0 = std::ceil(8192.0 / static_cast<real_T>
-                    (dummyWayPoint->size[0]));
-                stride = static_cast<int32_T>(segWayPoints->size[0] *
+                d = std::ceil(8192.0 / static_cast<real_T>(dummyWayPoint->size[0]));
+                ibmat = static_cast<int32_T>(segWayPoints->size[0] *
                     segWayPoints->size[1]);
 
                 // MATLAB Function: '<S40>/CheckPointInterp'
                 segWayPoints->size[0] = dummyWayPoint->size[0];
                 segWayPoints->size[1] = 3;
-                FlightMissionMode_emxEnsureCapacity_real_T_c(segWayPoints,
-                    stride);
+                FlightMissionMode_emxEnsureCapacity_real_T_c(segWayPoints, ibmat);
 
                 // MATLAB Function: '<S40>/CheckPointInterp'
-                nv = static_cast<int32_T>(dummyWayPoint->size[0] * 3);
-                for (i = 0; i <= static_cast<int32_T>(nv - 1); i++) {
+                iacol = static_cast<int32_T>(dummyWayPoint->size[0] * 3);
+                for (i = 0; i <= static_cast<int32_T>(iacol - 1); i++) {
                     segWayPoints->data[i] = dummyWayPoint->data[i];
                 }
 
-                stride = static_cast<int32_T>(dummyWayPoint->size[0] *
+                ibmat = static_cast<int32_T>(dummyWayPoint->size[0] *
                     dummyWayPoint->size[1]);
 
                 // MATLAB Function: '<S40>/CheckPointInterp'
                 dummyWayPoint->size[0] = static_cast<int32_T>
-                    (dummyWayPoint->size[0] * static_cast<int32_T>
-                     (rtb_Sum1_e_idx_0));
+                    (dummyWayPoint->size[0] * static_cast<int32_T>(d));
                 dummyWayPoint->size[1] = 3;
                 FlightMissionMode_emxEnsureCapacity_real_T_c(dummyWayPoint,
-                    stride);
+                    ibmat);
 
                 // MATLAB Function: '<S40>/CheckPointInterp'
-                nv = segWayPoints->size[0];
-                stride = static_cast<int32_T>(static_cast<int32_T>
-                    (rtb_Sum1_e_idx_0) - 1);
-                for (i1 = 0; i1 < 3; i1++) {
-                    npages = static_cast<int32_T>(i1 * nv);
-                    nread = static_cast<int32_T>(static_cast<int32_T>(
-                        static_cast<int32_T>(nv * static_cast<int32_T>
-                        (rtb_Sum1_e_idx_0)) * i1) - 1);
-                    for (i2 = 0; i2 <= stride; i2++) {
-                        pageroot = static_cast<int32_T>(static_cast<int32_T>(
-                            static_cast<int32_T>(i2 * nv) + nread) + 1);
-                        for (iy = 0; iy <= static_cast<int32_T>(nv - 1); iy++) {
-                            dummyWayPoint->data[static_cast<int32_T>(pageroot +
-                                iy)] = segWayPoints->data[static_cast<int32_T>
-                                (npages + iy)];
+                nrows = segWayPoints->size[0];
+                i = static_cast<int32_T>(static_cast<int32_T>(d) - 1);
+                for (iremain = 0; iremain < 3; iremain++) {
+                    iacol = static_cast<int32_T>(iremain * nrows);
+                    ibmat = static_cast<int32_T>(static_cast<int32_T>(
+                        static_cast<int32_T>(nrows * static_cast<int32_T>(d)) *
+                        iremain) - 1);
+                    for (i1 = 0; i1 <= i; i1++) {
+                        int32_T ibcol;
+                        ibcol = static_cast<int32_T>(static_cast<int32_T>(
+                            static_cast<int32_T>(i1 * nrows) + ibmat) + 1);
+                        for (iy = 0; iy <= static_cast<int32_T>(nrows - 1); iy++)
+                        {
+                            dummyWayPoint->data[static_cast<int32_T>(ibcol + iy)]
+                                = segWayPoints->data[static_cast<int32_T>(iacol
+                                + iy)];
                         }
                     }
                 }
 
+                // Product: '<S40>/Matrix Multiply' incorporates:
+                //   MATLABSystem: '<S40>/RotateATMissionHdg'
+                //   Product: '<S36>/Product'
+
                 // '<S66>:1:31'
+                i = 0;
+                for (i1 = 0; i1 < 3; i1++) {
+                    u[i1] = 0.0;
+                    u[i1] += localDW->RotateATMissionHdg.RotateATMissionHdg[i] *
+                        LLA0_gw[0];
+                    u[i1] += localDW->RotateATMissionHdg.RotateATMissionHdg[
+                        static_cast<int32_T>(i + 1)] * LLA0_gw[1];
+                    u[i1] += localDW->RotateATMissionHdg.RotateATMissionHdg[
+                        static_cast<int32_T>(i + 2)] * LLA0_gw[2];
+                    i = static_cast<int32_T>(i + 3);
+                }
+
+                // End of Product: '<S40>/Matrix Multiply'
+
+                // MATLAB Function: '<S40>/CheckPointInterp'
+                LLA0_gw_0[0] = u[0];
+                LLA0_gw_0[1] = u[1];
+                LLA0_gw_0[2] = u[2];
                 CheckPoints_0[0] = CheckPoints->data[0];
                 CheckPoints_0[1] = CheckPoints->data[CheckPoints->size[0]];
                 CheckPoints_0[2] = CheckPoints->data[static_cast<int32_T>
@@ -27027,14 +26776,12 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                     (CheckPoints->size[0] * 3)];
                 FlightMissionMode_emxFree_real_T_n(&CheckPoints);
 
-                // MATLAB Function: '<S40>/CheckPointInterp' incorporates:
-                //   Reshape: '<S40>/Reshape'
-
-                FlightMissionMode_genSegWP_j(Reshape, CheckPoints_0,
+                // MATLAB Function: '<S40>/CheckPointInterp'
+                FlightMissionMode_genSegWP_j(LLA0_gw_0, CheckPoints_0,
                     segWayPoints, localDW);
 
                 // '<S66>:1:34'
-                stride = static_cast<int32_T>(dummyWayPoint_0->size[0] *
+                ibmat = static_cast<int32_T>(dummyWayPoint_0->size[0] *
                     dummyWayPoint_0->size[1]);
 
                 // MATLAB Function: '<S40>/CheckPointInterp'
@@ -27042,20 +26789,21 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                     (segWayPoints->size[0] + dummyWayPoint->size[0]);
                 dummyWayPoint_0->size[1] = 3;
                 FlightMissionMode_emxEnsureCapacity_real_T_c(dummyWayPoint_0,
-                    stride);
+                    ibmat);
 
                 // MATLAB Function: '<S40>/CheckPointInterp'
-                nv = segWayPoints->size[0];
-                iy = dummyWayPoint->size[0];
+                iacol = segWayPoints->size[0];
+                iremain = dummyWayPoint->size[0];
                 for (i = 0; i < 3; i++) {
-                    for (i1 = 0; i1 <= static_cast<int32_T>(nv - 1); i1++) {
+                    for (i1 = 0; i1 <= static_cast<int32_T>(iacol - 1); i1++) {
                         dummyWayPoint_0->data[static_cast<int32_T>(i1 +
                             static_cast<int32_T>(dummyWayPoint_0->size[0] * i))]
                             = segWayPoints->data[static_cast<int32_T>(
                             static_cast<int32_T>(segWayPoints->size[0] * i) + i1)];
                     }
 
-                    for (i1 = 0; i1 <= static_cast<int32_T>(iy - 1); i1++) {
+                    for (i1 = 0; i1 <= static_cast<int32_T>(iremain - 1); i1++)
+                    {
                         dummyWayPoint_0->data[static_cast<int32_T>
                             (static_cast<int32_T>(i1 + segWayPoints->size[0]) +
                              static_cast<int32_T>(dummyWayPoint_0->size[0] * i))]
@@ -27084,7 +26832,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
 
                     localDW->WayPoint_k_m[i] = localDW->WayPoint_k[i];
                     localDW->WayPoint_k_m[static_cast<int32_T>(i + 8192)] =
-                        localDW->WayPoint_k[static_cast<int32_T>(i + 8192)] + d;
+                        localDW->WayPoint_k[static_cast<int32_T>(i + 8192)] + y2;
                     localDW->WayPoint_k_m[static_cast<int32_T>(i + 16384)] =
                         localDW->WayPoint_k[static_cast<int32_T>(i + 16384)];
                 }
@@ -27122,11 +26870,11 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
 
                 // MATLAB Function 'biasNED': '<S67>:1'
                 // '<S67>:1:4'
-                for (i1 = 0; i1 < 3; i1++) {
-                    nread = static_cast<int32_T>(i1 << 13);
-                    for (i2 = 0; i2 < 8192; i2++) {
-                        localDW->WayPoint_k_m[static_cast<int32_T>(nread + i2)] =
-                            LLA0_gw[i1];
+                for (iremain = 0; iremain < 3; iremain++) {
+                    ibmat = static_cast<int32_T>(iremain << 13);
+                    for (i1 = 0; i1 < 8192; i1++) {
+                        localDW->WayPoint_k_m[static_cast<int32_T>(ibmat + i1)] =
+                            LLA0_gw[iremain];
                     }
                 }
 
@@ -27190,22 +26938,22 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 }
 
                 if (p && (iy != 0) && (i1 != 0)) {
-                    nread = 0;
+                    iremain = 0;
                     exitg1 = false;
-                    while ((!exitg1) && (nread <= static_cast<int32_T>(
+                    while ((!exitg1) && (iremain <= static_cast<int32_T>(
                              static_cast<int32_T>(i1 * 3) - 1))) {
                         if (static_cast<boolean_T>(static_cast<int32_T>
                                                    ((localDW->obj_k.WaypointsInternal
                                 [static_cast<int32_T>(static_cast<int32_T>(
-                                 static_cast<int32_T>(nread / iy) << 13) + nread
-                                % iy)] == localDW->WayPoint_k
-                                [static_cast<int32_T>(static_cast<int32_T>(
-                                 static_cast<int32_T>(nread / i1) << 13) + nread
-                                % i1)]) ^ 1))) {
+                                 static_cast<int32_T>(iremain / iy) << 13) +
+                                iremain % iy)] == localDW->WayPoint_k[
+                                static_cast<int32_T>(static_cast<int32_T>(
+                                 static_cast<int32_T>(iremain / i1) << 13) +
+                                iremain % i1)]) ^ 1))) {
                             p = false;
                             exitg1 = true;
                         } else {
-                            nread = static_cast<int32_T>(nread + 1);
+                            iremain = static_cast<int32_T>(iremain + 1);
                         }
                     }
                 }
@@ -27232,12 +26980,12 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 localDW->distinctWptsIdx[i] = true;
             }
 
-            for (nread = 0; nread < 8191; nread++) {
+            for (iremain = 0; iremain < 8191; iremain++) {
                 i = 0;
                 i1 = 0;
-                for (i2 = 0; i2 < 3; i2++) {
-                    iy = static_cast<int32_T>(i1 + nread);
-                    localDW->x_f[static_cast<int32_T>(i + nread)] =
+                for (iacol = 0; iacol < 3; iacol++) {
+                    iy = static_cast<int32_T>(i1 + iremain);
+                    localDW->x_g[static_cast<int32_T>(i + iremain)] =
                         (localDW->nedWayPoint_o[static_cast<int32_T>(iy + 1)] !=
                          localDW->nedWayPoint_o[iy]);
                     i = static_cast<int32_T>(i + 8191);
@@ -27246,68 +26994,69 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             }
 
             i1 = 0;
-            i2 = 16382;
-            for (nread = 0; nread < 8191; nread++) {
-                localDW->y[nread] = false;
+            i = 16382;
+            for (iremain = 0; iremain < 8191; iremain++) {
+                localDW->y[iremain] = false;
                 i1 = static_cast<int32_T>(i1 + 1);
-                i2 = static_cast<int32_T>(i2 + 1);
-                ntoread = i1;
+                i = static_cast<int32_T>(i + 1);
+                nrows = i1;
                 exitg1 = false;
-                while ((!exitg1) && (ntoread <= i2)) {
-                    if (localDW->x_f[static_cast<int32_T>(ntoread - 1)]) {
-                        localDW->y[nread] = true;
+                while ((!exitg1) && (nrows <= i)) {
+                    if (localDW->x_g[static_cast<int32_T>(nrows - 1)]) {
+                        localDW->y[iremain] = true;
                         exitg1 = true;
                     } else {
-                        ntoread = static_cast<int32_T>(ntoread + 8191);
+                        nrows = static_cast<int32_T>(nrows + 8191);
                     }
                 }
 
-                localDW->distinctWptsIdx[nread] = localDW->y[nread];
+                localDW->distinctWptsIdx[iremain] = localDW->y[iremain];
             }
 
-            i2 = 0;
+            i1 = 0;
             for (iy = 0; iy < 8192; iy++) {
                 if (localDW->distinctWptsIdx[iy]) {
-                    i2 = static_cast<int32_T>(i2 + 1);
+                    i1 = static_cast<int32_T>(i1 + 1);
                 }
             }
 
-            iy = 0;
-            for (nread = 0; nread < 8192; nread++) {
-                if (localDW->distinctWptsIdx[nread]) {
-                    localDW->b_data[iy] = static_cast<int16_T>(static_cast<
-                        int32_T>(nread + 1));
-                    iy = static_cast<int32_T>(iy + 1);
+            iacol = i1;
+            i1 = 0;
+            for (iy = 0; iy < 8192; iy++) {
+                if (localDW->distinctWptsIdx[iy]) {
+                    localDW->b_data[i1] = static_cast<int16_T>
+                        (static_cast<int32_T>(iy + 1));
+                    i1 = static_cast<int32_T>(i1 + 1);
                 }
             }
 
-            stride = static_cast<int32_T>(b_waypointsIn->size[0] *
+            ibmat = static_cast<int32_T>(b_waypointsIn->size[0] *
                 b_waypointsIn->size[1]);
 
             // MATLABSystem: '<S36>/Waypoint Follower'
-            b_waypointsIn->size[0] = i2;
+            b_waypointsIn->size[0] = iacol;
             b_waypointsIn->size[1] = 3;
-            FlightMissionMode_emxEnsureCapacity_real_T_c(b_waypointsIn, stride);
+            FlightMissionMode_emxEnsureCapacity_real_T_c(b_waypointsIn, ibmat);
 
             // MATLABSystem: '<S36>/Waypoint Follower'
             for (i = 0; i < 3; i++) {
-                for (i1 = 0; i1 <= static_cast<int32_T>(i2 - 1); i1++) {
+                for (i1 = 0; i1 <= static_cast<int32_T>(iacol - 1); i1++) {
                     b_waypointsIn->data[static_cast<int32_T>(i1 +
                         static_cast<int32_T>(b_waypointsIn->size[0] * i))] =
-                        localDW->nedWayPoint_o[static_cast<int32_T>
-                        (static_cast<int32_T>(static_cast<int32_T>(i << 13) +
-                          static_cast<int32_T>(localDW->b_data[i1])) - 1)];
+                        localDW->nedWayPoint_o[static_cast<int32_T>(static_cast<
+                        int32_T>(static_cast<int32_T>(i << 13) +
+                                 static_cast<int32_T>(localDW->b_data[i1])) - 1)];
                 }
             }
 
             localDW->obj_k.LookaheadDistance = 200.0;
-            if (i2 == 0) {
+            if (iacol == 0) {
                 LLA0_gw[2] = rtu_Pose[2];
                 Lon = rtu_Pose[3];
                 rtb_MergeStatus = 1U;
             } else {
                 guard1 = false;
-                if (i2 == 1) {
+                if (iacol == 1) {
                     if (localDW->obj_k.StartFlag) {
                         localDW->obj_k.InitialPose[0] = rtu_Pose[0];
                         localDW->obj_k.InitialPose[1] = rtu_Pose[1];
@@ -27326,19 +27075,19 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                     } else {
                         localDW->obj_k.StartFlag = false;
                         localDW->obj_k.NumWaypoints = 2.0;
-                        stride = static_cast<int32_T>(waypoints->size[0] *
+                        ibmat = static_cast<int32_T>(waypoints->size[0] *
                             waypoints->size[1]);
                         waypoints->size[0] = static_cast<int32_T>
                             (b_waypointsIn->size[0] + 1);
                         waypoints->size[1] = 3;
                         FlightMissionMode_emxEnsureCapacity_real_T_c(waypoints,
-                            stride);
-                        nv = b_waypointsIn->size[0];
+                            ibmat);
+                        iacol = b_waypointsIn->size[0];
                         for (i = 0; i < 3; i++) {
                             waypoints->data[static_cast<int32_T>(waypoints->
                                 size[0] * i)] = localDW->obj_k.InitialPose[i];
-                            for (i1 = 0; i1 <= static_cast<int32_T>(nv - 1); i1
-                                    ++) {
+                            for (i1 = 0; i1 <= static_cast<int32_T>(iacol - 1);
+                                    i1++) {
                                 waypoints->data[static_cast<int32_T>(
                                     static_cast<int32_T>(i1 +
                                     static_cast<int32_T>(waypoints->size[0] * i))
@@ -27351,14 +27100,14 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                         guard1 = true;
                     }
                 } else {
-                    stride = static_cast<int32_T>(waypoints->size[0] *
+                    ibmat = static_cast<int32_T>(waypoints->size[0] *
                         waypoints->size[1]);
                     waypoints->size[0] = b_waypointsIn->size[0];
                     waypoints->size[1] = 3;
                     FlightMissionMode_emxEnsureCapacity_real_T_c(waypoints,
-                        stride);
-                    nv = static_cast<int32_T>(b_waypointsIn->size[0] * 3);
-                    for (i = 0; i <= static_cast<int32_T>(nv - 1); i++) {
+                        ibmat);
+                    iacol = static_cast<int32_T>(b_waypointsIn->size[0] * 3);
+                    for (i = 0; i <= static_cast<int32_T>(iacol - 1); i++) {
                         waypoints->data[i] = b_waypointsIn->data[i];
                     }
 
@@ -27366,7 +27115,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 }
 
                 if (guard1) {
-                    real_T distToCenter_tmp_0;
+                    real_T distToCenter_tmp_tmp;
                     boolean_T guard2{ false };
 
                     isStable = false;
@@ -27425,40 +27174,42 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                             (waypoints->size[0] << 1) + static_cast<int32_T>
                             (localDW->obj_k.WaypointIndex)) - 1)];
                         rtb_Sum1_e_idx_0 = FlightMissionMode_norm_pv(u);
-                        distToCenter_tmp_0 = FlightMissionMode_norm_pv(LLA0_gw);
-                        distToCenter = waypoints->data[static_cast<int32_T>(
-                            static_cast<int32_T>(localDW->obj_k.WaypointIndex) -
-                            1)];
+                        distToCenter_tmp_tmp = FlightMissionMode_norm_pv(LLA0_gw);
+                        Alt = waypoints->data[static_cast<int32_T>
+                            (static_cast<int32_T>(localDW->obj_k.WaypointIndex)
+                             - 1)];
                         rtb_Abs1_il = waypoints->data[static_cast<int32_T>(
                             static_cast<int32_T>(localDW->obj_k.WaypointIndex +
                             1.0) - 1)];
-                        Alt = waypoints->data[static_cast<int32_T>
-                            (static_cast<int32_T>(static_cast<int32_T>
-                              (localDW->obj_k.WaypointIndex) + waypoints->size[0])
-                             - 1)];
+                        distToCenter = waypoints->data[static_cast<int32_T>(
+                            static_cast<int32_T>(static_cast<int32_T>
+                            (localDW->obj_k.WaypointIndex) + waypoints->size[0])
+                            - 1)];
                         rtb_Switch_l = waypoints->data[static_cast<int32_T>(
                             static_cast<int32_T>(static_cast<int32_T>
                             (localDW->obj_k.WaypointIndex + 1.0) +
                             waypoints->size[0]) - 1)];
-                        turnVector_idx_2 = waypoints->data[static_cast<int32_T>(
-                            static_cast<int32_T>(static_cast<int32_T>
-                            (waypoints->size[0] << 1) + static_cast<int32_T>
-                            (localDW->obj_k.WaypointIndex)) - 1)];
-                        Lon = waypoints->data[static_cast<int32_T>
+                        d = waypoints->data[static_cast<int32_T>
                             (static_cast<int32_T>(static_cast<int32_T>
-                              (localDW->obj_k.WaypointIndex + 1.0) +
-                              static_cast<int32_T>(waypoints->size[0] << 1)) - 1)];
-                        d = ((rtb_Abs1_il - distToCenter) / rtb_Sum1_e_idx_0 *
-                             (LLA0_gw[0] / distToCenter_tmp_0) + (rtb_Switch_l -
-                              Alt) / rtb_Sum1_e_idx_0 * (LLA0_gw[1] /
-                              distToCenter_tmp_0)) + (Lon - turnVector_idx_2) /
-                            rtb_Sum1_e_idx_0 * (LLA0_gw[2] / distToCenter_tmp_0);
-                        if (std::isnan(d)) {
+                              (waypoints->size[0] << 1) + static_cast<int32_T>
+                              (localDW->obj_k.WaypointIndex)) - 1)];
+                        Lon = waypoints->data[static_cast<int32_T>(static_cast<
+                            int32_T>(static_cast<int32_T>
+                                     (localDW->obj_k.WaypointIndex + 1.0) +
+                                     static_cast<int32_T>(waypoints->size[0] <<
+                            1)) - 1)];
+                        y2 = ((rtb_Abs1_il - Alt) / rtb_Sum1_e_idx_0 * (LLA0_gw
+                               [0] / distToCenter_tmp_tmp) + (rtb_Switch_l -
+                               distToCenter) / rtb_Sum1_e_idx_0 * (LLA0_gw[1] /
+                               distToCenter_tmp_tmp)) + (Lon - d) /
+                            rtb_Sum1_e_idx_0 * (LLA0_gw[2] /
+                                                distToCenter_tmp_tmp);
+                        if (std::isnan(y2)) {
                             rtb_Sum1_e_idx_0 = (rtNaN);
-                        } else if (d < 0.0) {
+                        } else if (y2 < 0.0) {
                             rtb_Sum1_e_idx_0 = -1.0;
                         } else {
-                            rtb_Sum1_e_idx_0 = static_cast<real_T>(d > 0.0);
+                            rtb_Sum1_e_idx_0 = static_cast<real_T>(y2 > 0.0);
                         }
 
                         if (rtb_Sum1_e_idx_0 >= 0.0) {
@@ -27483,45 +27234,45 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                             localDW->obj_k.WaypointIndex--;
                         }
 
-                        distToCenter = waypoints->data[static_cast<int32_T>(
-                            static_cast<int32_T>(localDW->obj_k.WaypointIndex) -
-                            1)];
+                        Alt = waypoints->data[static_cast<int32_T>
+                            (static_cast<int32_T>(localDW->obj_k.WaypointIndex)
+                             - 1)];
                         LLA0_gw[0] = waypoints->data[static_cast<int32_T>(
                             static_cast<int32_T>(localDW->obj_k.WaypointIndex +
                             1.0) - 1)];
-                        Alt = waypoints->data[static_cast<int32_T>
-                            (static_cast<int32_T>(static_cast<int32_T>
-                              (localDW->obj_k.WaypointIndex) + waypoints->size[0])
-                             - 1)];
+                        distToCenter = waypoints->data[static_cast<int32_T>(
+                            static_cast<int32_T>(static_cast<int32_T>
+                            (localDW->obj_k.WaypointIndex) + waypoints->size[0])
+                            - 1)];
                         LLA0_gw[1] = waypoints->data[static_cast<int32_T>(
                             static_cast<int32_T>(static_cast<int32_T>
                             (localDW->obj_k.WaypointIndex + 1.0) +
                             waypoints->size[0]) - 1)];
-                        turnVector_idx_2 = waypoints->data[static_cast<int32_T>(
-                            static_cast<int32_T>(static_cast<int32_T>
-                            (waypoints->size[0] << 1) + static_cast<int32_T>
-                            (localDW->obj_k.WaypointIndex)) - 1)];
+                        d = waypoints->data[static_cast<int32_T>
+                            (static_cast<int32_T>(static_cast<int32_T>
+                              (waypoints->size[0] << 1) + static_cast<int32_T>
+                              (localDW->obj_k.WaypointIndex)) - 1)];
                         LLA0_gw[2] = waypoints->data[static_cast<int32_T>(
                             static_cast<int32_T>(static_cast<int32_T>
-                            (localDW->obj_k.WaypointIndex + 1.0) +
-                            static_cast<int32_T>(waypoints->size[0] << 1)) - 1)];
+                            (localDW->obj_k.WaypointIndex + 1.0) + static_cast<
+                            int32_T>(waypoints->size[0] << 1)) - 1)];
                     }
 
-                    rtb_Sum1_e_idx_1 = LLA0_gw[0] - distToCenter;
-                    rtb_Switch_l = rtu_Pose[0] - distToCenter;
-                    rtb_Sum1_e_idx_0 = LLA0_gw[1] - Alt;
-                    Lon = rtu_Pose[1] - Alt;
-                    distToCenter_tmp_0 = LLA0_gw[2] - turnVector_idx_2;
-                    d = rtu_Pose[2] - turnVector_idx_2;
+                    rtb_Sum1_e_idx_1 = LLA0_gw[0] - Alt;
+                    rtb_Switch_l = rtu_Pose[0] - Alt;
+                    rtb_Sum1_e_idx_0 = LLA0_gw[1] - distToCenter;
+                    Lon = rtu_Pose[1] - distToCenter;
+                    distToCenter_tmp_tmp = LLA0_gw[2] - d;
+                    y2 = rtu_Pose[2] - d;
                     rtb_Abs1_il = ((Lon * rtb_Sum1_e_idx_0 + rtb_Switch_l *
-                                    rtb_Sum1_e_idx_1) + d * distToCenter_tmp_0) /
-                        ((rtb_Sum1_e_idx_0 * rtb_Sum1_e_idx_0 + rtb_Sum1_e_idx_1
-                          * rtb_Sum1_e_idx_1) + distToCenter_tmp_0 *
-                         distToCenter_tmp_0);
+                                    rtb_Sum1_e_idx_1) + y2 *
+                                   distToCenter_tmp_tmp) / ((rtb_Sum1_e_idx_0 *
+                        rtb_Sum1_e_idx_0 + rtb_Sum1_e_idx_1 * rtb_Sum1_e_idx_1)
+                        + distToCenter_tmp_tmp * distToCenter_tmp_tmp);
                     if (rtb_Abs1_il < 0.0) {
                         u[0] = rtb_Switch_l;
                         u[1] = Lon;
-                        u[2] = d;
+                        u[2] = y2;
                         rtb_Abs1_il = FlightMissionMode_norm_pv(u);
                     } else if (rtb_Abs1_il > 1.0) {
                         u[0] = rtu_Pose[0] - LLA0_gw[0];
@@ -27530,46 +27281,44 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                         rtb_Abs1_il = FlightMissionMode_norm_pv(u);
                     } else {
                         u[0] = rtu_Pose[0] - (rtb_Abs1_il * rtb_Sum1_e_idx_1 +
-                                              distToCenter);
-                        u[1] = rtu_Pose[1] - (rtb_Abs1_il * rtb_Sum1_e_idx_0 +
                                               Alt);
-                        u[2] = rtu_Pose[2] - (rtb_Abs1_il * distToCenter_tmp_0 +
-                                              turnVector_idx_2);
+                        u[1] = rtu_Pose[1] - (rtb_Abs1_il * rtb_Sum1_e_idx_0 +
+                                              distToCenter);
+                        u[2] = rtu_Pose[2] - (rtb_Abs1_il * distToCenter_tmp_tmp
+                                              + d);
                         rtb_Abs1_il = FlightMissionMode_norm_pv(u);
                     }
 
                     if (localDW->obj_k.LastWaypointFlag) {
-                        rtb_Abs1_il = (((rtu_Pose[0] - distToCenter) * (LLA0_gw
-                                         [0] - distToCenter) + Lon *
-                                        rtb_Sum1_e_idx_0) + (rtu_Pose[2] -
-                                        turnVector_idx_2) * (LLA0_gw[2] -
-                                        turnVector_idx_2)) / (((LLA0_gw[0] -
-                            distToCenter) * (LLA0_gw[0] - distToCenter) +
-                            rtb_Sum1_e_idx_0 * rtb_Sum1_e_idx_0) + (LLA0_gw[2] -
-                            turnVector_idx_2) * (LLA0_gw[2] - turnVector_idx_2));
+                        rtb_Abs1_il = (((rtu_Pose[0] - Alt) * (LLA0_gw[0] - Alt)
+                                        + Lon * rtb_Sum1_e_idx_0) + (rtu_Pose[2]
+                                        - d) * (LLA0_gw[2] - d)) / (((LLA0_gw[0]
+                            - Alt) * (LLA0_gw[0] - Alt) + rtb_Sum1_e_idx_0 *
+                            rtb_Sum1_e_idx_0) + (LLA0_gw[2] - d) * (LLA0_gw[2] -
+                            d));
                         u[0] = rtu_Pose[0] - (rtb_Abs1_il * rtb_Sum1_e_idx_1 +
-                                              distToCenter);
-                        u[1] = rtu_Pose[1] - (rtb_Abs1_il * rtb_Sum1_e_idx_0 +
                                               Alt);
-                        u[2] = rtu_Pose[2] - (rtb_Abs1_il * distToCenter_tmp_0 +
-                                              turnVector_idx_2);
+                        u[1] = rtu_Pose[1] - (rtb_Abs1_il * rtb_Sum1_e_idx_0 +
+                                              distToCenter);
+                        u[2] = rtu_Pose[2] - (rtb_Abs1_il * distToCenter_tmp_tmp
+                                              + d);
                         rtb_Abs1_il = FlightMissionMode_norm_pv(u);
                     }
 
-                    d = std::abs(rtb_Abs1_il);
+                    y2 = std::abs(rtb_Abs1_il);
                     if (static_cast<boolean_T>(static_cast<int32_T>
                                                (static_cast<int32_T>(std::isinf
-                            (d)) | static_cast<int32_T>(std::isnan(d))))) {
+                            (y2)) | static_cast<int32_T>(std::isnan(y2))))) {
                         Lon = (rtNaN);
                         rtb_Switch_l = (rtNaN);
-                    } else if (d < 4.4501477170144028E-308) {
+                    } else if (y2 < 4.4501477170144028E-308) {
                         Lon = 4.94065645841247E-324;
                         rtb_Switch_l = 4.94065645841247E-324;
                     } else {
-                        std::frexp(d, &rtb_Bias_mn);
+                        std::frexp(y2, &rtb_Bias_mn);
                         Lon = std::ldexp(1.0, static_cast<int32_T>(rtb_Bias_mn -
                                           53));
-                        std::frexp(d, &b_exponent);
+                        std::frexp(y2, &b_exponent);
                         rtb_Switch_l = std::ldexp(1.0, static_cast<int32_T>
                             (b_exponent - 53));
                     }
@@ -27580,27 +27329,25 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                             localDW->obj_k.LookaheadFactor * rtb_Abs1_il;
                     }
 
-                    d = distToCenter - rtu_Pose[0];
-                    rtb_Switch_l = Alt - rtu_Pose[1];
-                    Lon = ((LLA0_gw[0] - distToCenter) * (LLA0_gw[0] -
-                            distToCenter) + (LLA0_gw[1] - Alt) * (LLA0_gw[1] -
-                            Alt)) + (LLA0_gw[2] - turnVector_idx_2) * (LLA0_gw[2]
-                        - turnVector_idx_2);
-                    xyCenter_idx_1 = turnVector_idx_2 - rtu_Pose[2];
-                    rtb_Abs1_il = ((rtb_Sum1_e_idx_1 * d + rtb_Sum1_e_idx_0 *
-                                    rtb_Switch_l) + distToCenter_tmp_0 *
+                    y2 = Alt - rtu_Pose[0];
+                    rtb_Switch_l = distToCenter - rtu_Pose[1];
+                    Lon = ((LLA0_gw[0] - Alt) * (LLA0_gw[0] - Alt) + (LLA0_gw[1]
+                            - distToCenter) * (LLA0_gw[1] - distToCenter)) +
+                        (LLA0_gw[2] - d) * (LLA0_gw[2] - d);
+                    xyCenter_idx_1 = d - rtu_Pose[2];
+                    rtb_Abs1_il = ((rtb_Sum1_e_idx_1 * y2 + rtb_Sum1_e_idx_0 *
+                                    rtb_Switch_l) + distToCenter_tmp_tmp *
                                    xyCenter_idx_1) * 2.0;
-                    rtb_Switch_l = std::sqrt(rtb_Abs1_il * rtb_Abs1_il - (((d *
-                        d + rtb_Switch_l * rtb_Switch_l) + xyCenter_idx_1 *
+                    rtb_Switch_l = std::sqrt(rtb_Abs1_il * rtb_Abs1_il - (((y2 *
+                        y2 + rtb_Switch_l * rtb_Switch_l) + xyCenter_idx_1 *
                         xyCenter_idx_1) - localDW->obj_k.LookaheadDistance *
                         localDW->obj_k.LookaheadDistance) * (4.0 * Lon));
                     Lon = std::fmax((-rtb_Abs1_il + rtb_Switch_l) / 2.0 / Lon, (
                                      -rtb_Abs1_il - rtb_Switch_l) / 2.0 / Lon);
-                    LLA0_gw[2] = (1.0 - Lon) * turnVector_idx_2 + Lon * LLA0_gw
-                        [2];
-                    Lon = rt_atan2d_snf(((1.0 - Lon) * Alt + Lon * LLA0_gw[1]) -
-                                        rtu_Pose[1], ((1.0 - Lon) * distToCenter
-                                         + Lon * LLA0_gw[0]) - rtu_Pose[0]);
+                    LLA0_gw[2] = (1.0 - Lon) * d + Lon * LLA0_gw[2];
+                    Lon = rt_atan2d_snf(((1.0 - Lon) * distToCenter + Lon *
+                                         LLA0_gw[1]) - rtu_Pose[1], ((1.0 - Lon)
+                                         * Alt + Lon * LLA0_gw[0]) - rtu_Pose[0]);
                     rtb_MergeStatus = 0U;
                     isStable = false;
                     if (localDW->obj_k.LastWaypointFlag) {
@@ -27657,7 +27404,8 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             real_T rtb_Abs1_il;
             real_T rtb_Sum1_e_idx_0;
             real_T rtb_Sum1_e_idx_1;
-            int32_T i;
+            int32_T i1;
+            int32_T iacol;
             if (static_cast<int32_T>(rtAction) != static_cast<int32_T>
                     (rtPrevAction)) {
                 FILE* a;
@@ -27703,8 +27451,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 creal_T tmp_1;
                 creal_T tmp_2;
                 creal_T tmp_3;
-                int32_T nv;
-                int32_T stride;
+                int32_T ibmat;
                 boolean_T exitg1;
                 boolean_T guard1;
 
@@ -27721,12 +27468,12 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 } else {
                     FlightMissionMode_fread_ow(static_cast<real_T>(rtPrevAction),
                         q, localDW);
-                    stride = static_cast<int32_T>(data->size[0] * data->size[1]);
+                    ibmat = static_cast<int32_T>(data->size[0] * data->size[1]);
                     data->size[0] = 1;
                     data->size[1] = q->size[0];
-                    FlightMissionMode_emxEnsureCapacity_char_T_g(data, stride);
-                    nv = q->size[0];
-                    for (i = 0; i <= static_cast<int32_T>(nv - 1); i++) {
+                    FlightMissionMode_emxEnsureCapacity_char_T_g(data, ibmat);
+                    iacol = q->size[0];
+                    for (i = 0; i <= static_cast<int32_T>(iacol - 1); i++) {
                         data->data[i] = q->data[i];
                     }
 
@@ -27742,16 +27489,16 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                     FlightMissionMode_emxInit_char_T_ey(&data_8, 2);
                     exitg1 = false;
                     while ((!exitg1) && (data->size[1] != 0)) {
-                        stride = static_cast<int32_T>(data_8->size[0] *
+                        ibmat = static_cast<int32_T>(data_8->size[0] *
                             data_8->size[1]);
                         data_8->size[0] = 1;
                         data_8->size[1] = data->size[1];
                         FlightMissionMode_emxEnsureCapacity_char_T_g(data_8,
-                            stride);
-                        i = static_cast<int32_T>(static_cast<int32_T>(data->
-                            size[0] * data->size[1]) - 1);
-                        for (stride = 0; stride <= i; stride++) {
-                            data_8->data[stride] = data->data[stride];
+                            ibmat);
+                        iy = static_cast<int32_T>(static_cast<int32_T>
+                            (data->size[0] * data->size[1]) - 1);
+                        for (ibmat = 0; ibmat <= iy; ibmat++) {
+                            data_8->data[ibmat] = data->data[ibmat];
                         }
 
                         FlightMissionMode_strtok_d(data_8, curLine, data);
@@ -27775,23 +27522,23 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                     if (static_cast<int32_T>(curLine->size[1] -
                                             1) < 2) {
                                         iy = 0;
-                                        nread = 0;
+                                        iremain = 0;
                                     } else {
                                         iy = 1;
-                                        nread = static_cast<int32_T>
+                                        iremain = static_cast<int32_T>
                                             (curLine->size[1] - 1);
                                     }
 
-                                    stride = static_cast<int32_T>
+                                    ibmat = static_cast<int32_T>
                                         (curSection->size[0] * curSection->size
                                          [1]);
                                     curSection->size[0] = 1;
-                                    nv = static_cast<int32_T>(nread - iy);
-                                    curSection->size[1] = nv;
+                                    iacol = static_cast<int32_T>(iremain - iy);
+                                    curSection->size[1] = iacol;
                                     FlightMissionMode_emxEnsureCapacity_char_T_g
-                                        (curSection, stride);
-                                    for (i = 0; i <= static_cast<int32_T>(nv - 1);
-                                         i++) {
+                                        (curSection, ibmat);
+                                    for (i = 0; i <= static_cast<int32_T>(iacol
+                                            - 1); i++) {
                                         curSection->data[i] = curLine->data[
                                             static_cast<int32_T>(iy + i)];
                                     }
@@ -27816,26 +27563,28 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                         FlightMissionMode_contains_d(curLine)) {
                                     FlightMissionMode_strtok_dq4(curLine, curVal,
                                         x);
-                                    FlightMissionMode_find_token_m(x, &i1,
-                                        &nread);
-                                    if (i1 > static_cast<int32_T>(nread - 1)) {
+                                    FlightMissionMode_find_token_m(x, &iy,
+                                        &iremain);
+                                    if (iy > static_cast<int32_T>(iremain - 1))
+                                    {
                                         iy = 0;
-                                        i1 = 0;
+                                        iremain = 0;
                                     } else {
-                                        iy = static_cast<int32_T>(i1 - 1);
-                                        i1 = static_cast<int32_T>(nread - 1);
+                                        iy = static_cast<int32_T>(iy - 1);
+                                        iremain = static_cast<int32_T>(iremain -
+                                            1);
                                     }
 
                                     FlightMissionMode_strtrim_f(curVal, curKey);
-                                    stride = static_cast<int32_T>(curLine->size
-                                        [0] * curLine->size[1]);
+                                    ibmat = static_cast<int32_T>(curLine->size[0]
+                                        * curLine->size[1]);
                                     curLine->size[0] = 1;
-                                    nv = static_cast<int32_T>(i1 - iy);
-                                    curLine->size[1] = nv;
+                                    iacol = static_cast<int32_T>(iremain - iy);
+                                    curLine->size[1] = iacol;
                                     FlightMissionMode_emxEnsureCapacity_char_T_g
-                                        (curLine, stride);
-                                    for (i = 0; i <= static_cast<int32_T>(nv - 1);
-                                         i++) {
+                                        (curLine, ibmat);
+                                    for (i = 0; i <= static_cast<int32_T>(iacol
+                                            - 1); i++) {
                                         curLine->data[i] = x->data
                                             [static_cast<int32_T>(iy + i)];
                                     }
@@ -27847,15 +27596,15 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
 
                         if (FlightMissionMode_strcmp_b(curSection) &&
                                 FlightMissionMode_strcmp_bx(curKey)) {
-                            stride = static_cast<int32_T>(tline->size[0] *
+                            ibmat = static_cast<int32_T>(tline->size[0] *
                                 tline->size[1]);
                             tline->size[0] = 1;
                             tline->size[1] = curVal->size[1];
                             FlightMissionMode_emxEnsureCapacity_char_T_g(tline,
-                                stride);
-                            nv = curVal->size[1];
-                            for (i = 0; i <= static_cast<int32_T>(nv - 1); i++)
-                            {
+                                ibmat);
+                            iacol = curVal->size[1];
+                            for (i = 0; i <= static_cast<int32_T>(iacol - 1); i
+                                    ++) {
                                 tline->data[i] = curVal->data[i];
                             }
 
@@ -27881,12 +27630,12 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 } else {
                     FlightMissionMode_fread_ow(static_cast<real_T>(rtPrevAction),
                         q, localDW);
-                    stride = static_cast<int32_T>(data->size[0] * data->size[1]);
+                    ibmat = static_cast<int32_T>(data->size[0] * data->size[1]);
                     data->size[0] = 1;
                     data->size[1] = q->size[0];
-                    FlightMissionMode_emxEnsureCapacity_char_T_g(data, stride);
-                    nv = q->size[0];
-                    for (i = 0; i <= static_cast<int32_T>(nv - 1); i++) {
+                    FlightMissionMode_emxEnsureCapacity_char_T_g(data, ibmat);
+                    iacol = q->size[0];
+                    for (i = 0; i <= static_cast<int32_T>(iacol - 1); i++) {
                         data->data[i] = q->data[i];
                     }
 
@@ -27902,16 +27651,16 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                     FlightMissionMode_emxInit_char_T_ey(&data_7, 2);
                     exitg1 = false;
                     while ((!exitg1) && (data->size[1] != 0)) {
-                        stride = static_cast<int32_T>(data_7->size[0] *
+                        ibmat = static_cast<int32_T>(data_7->size[0] *
                             data_7->size[1]);
                         data_7->size[0] = 1;
                         data_7->size[1] = data->size[1];
                         FlightMissionMode_emxEnsureCapacity_char_T_g(data_7,
-                            stride);
-                        i = static_cast<int32_T>(static_cast<int32_T>(data->
-                            size[0] * data->size[1]) - 1);
-                        for (stride = 0; stride <= i; stride++) {
-                            data_7->data[stride] = data->data[stride];
+                            ibmat);
+                        iy = static_cast<int32_T>(static_cast<int32_T>
+                            (data->size[0] * data->size[1]) - 1);
+                        for (ibmat = 0; ibmat <= iy; ibmat++) {
+                            data_7->data[ibmat] = data->data[ibmat];
                         }
 
                         FlightMissionMode_strtok_d(data_7, curLine, data);
@@ -27932,27 +27681,26 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                 }
 
                                 if (isStable) {
-                                    int32_T ntoread;
                                     if (static_cast<int32_T>(curLine->size[1] -
                                             1) < 2) {
                                         i1 = 0;
-                                        ntoread = 0;
+                                        i = 0;
                                     } else {
                                         i1 = 1;
-                                        ntoread = static_cast<int32_T>
-                                            (curLine->size[1] - 1);
+                                        i = static_cast<int32_T>(curLine->size[1]
+                                            - 1);
                                     }
 
-                                    stride = static_cast<int32_T>
+                                    ibmat = static_cast<int32_T>
                                         (curSection->size[0] * curSection->size
                                          [1]);
                                     curSection->size[0] = 1;
-                                    nv = static_cast<int32_T>(ntoread - i1);
-                                    curSection->size[1] = nv;
+                                    iacol = static_cast<int32_T>(i - i1);
+                                    curSection->size[1] = iacol;
                                     FlightMissionMode_emxEnsureCapacity_char_T_g
-                                        (curSection, stride);
-                                    for (i = 0; i <= static_cast<int32_T>(nv - 1);
-                                         i++) {
+                                        (curSection, ibmat);
+                                    for (i = 0; i <= static_cast<int32_T>(iacol
+                                            - 1); i++) {
                                         curSection->data[i] = curLine->data[
                                             static_cast<int32_T>(i1 + i)];
                                     }
@@ -27978,25 +27726,27 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                     FlightMissionMode_strtok_dq4(curLine, curVal,
                                         x);
                                     FlightMissionMode_find_token_m(x, &iy,
-                                        &nread);
-                                    if (iy > static_cast<int32_T>(nread - 1)) {
+                                        &iremain);
+                                    if (iy > static_cast<int32_T>(iremain - 1))
+                                    {
                                         iy = 0;
-                                        nread = 0;
+                                        iremain = 0;
                                     } else {
                                         iy = static_cast<int32_T>(iy - 1);
-                                        nread = static_cast<int32_T>(nread - 1);
+                                        iremain = static_cast<int32_T>(iremain -
+                                            1);
                                     }
 
                                     FlightMissionMode_strtrim_f(curVal, curKey);
-                                    stride = static_cast<int32_T>(curLine->size
-                                        [0] * curLine->size[1]);
+                                    ibmat = static_cast<int32_T>(curLine->size[0]
+                                        * curLine->size[1]);
                                     curLine->size[0] = 1;
-                                    nv = static_cast<int32_T>(nread - iy);
-                                    curLine->size[1] = nv;
+                                    iacol = static_cast<int32_T>(iremain - iy);
+                                    curLine->size[1] = iacol;
                                     FlightMissionMode_emxEnsureCapacity_char_T_g
-                                        (curLine, stride);
-                                    for (i = 0; i <= static_cast<int32_T>(nv - 1);
-                                         i++) {
+                                        (curLine, ibmat);
+                                    for (i = 0; i <= static_cast<int32_T>(iacol
+                                            - 1); i++) {
                                         curLine->data[i] = x->data
                                             [static_cast<int32_T>(iy + i)];
                                     }
@@ -28008,15 +27758,15 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
 
                         if (FlightMissionMode_strcmp_b(curSection) &&
                                 FlightMissionMode_strcmp_bxk(curKey)) {
-                            stride = static_cast<int32_T>(tline->size[0] *
+                            ibmat = static_cast<int32_T>(tline->size[0] *
                                 tline->size[1]);
                             tline->size[0] = 1;
                             tline->size[1] = curVal->size[1];
                             FlightMissionMode_emxEnsureCapacity_char_T_g(tline,
-                                stride);
-                            nv = curVal->size[1];
-                            for (i = 0; i <= static_cast<int32_T>(nv - 1); i++)
-                            {
+                                ibmat);
+                            iacol = curVal->size[1];
+                            for (i = 0; i <= static_cast<int32_T>(iacol - 1); i
+                                    ++) {
                                 tline->data[i] = curVal->data[i];
                             }
 
@@ -28042,12 +27792,12 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 } else {
                     FlightMissionMode_fread_ow(static_cast<real_T>(rtPrevAction),
                         q, localDW);
-                    stride = static_cast<int32_T>(data->size[0] * data->size[1]);
+                    ibmat = static_cast<int32_T>(data->size[0] * data->size[1]);
                     data->size[0] = 1;
                     data->size[1] = q->size[0];
-                    FlightMissionMode_emxEnsureCapacity_char_T_g(data, stride);
-                    nv = q->size[0];
-                    for (i = 0; i <= static_cast<int32_T>(nv - 1); i++) {
+                    FlightMissionMode_emxEnsureCapacity_char_T_g(data, ibmat);
+                    iacol = q->size[0];
+                    for (i = 0; i <= static_cast<int32_T>(iacol - 1); i++) {
                         data->data[i] = q->data[i];
                     }
 
@@ -28063,16 +27813,16 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                     FlightMissionMode_emxInit_char_T_ey(&data_6, 2);
                     exitg1 = false;
                     while ((!exitg1) && (data->size[1] != 0)) {
-                        stride = static_cast<int32_T>(data_6->size[0] *
+                        ibmat = static_cast<int32_T>(data_6->size[0] *
                             data_6->size[1]);
                         data_6->size[0] = 1;
                         data_6->size[1] = data->size[1];
                         FlightMissionMode_emxEnsureCapacity_char_T_g(data_6,
-                            stride);
-                        i = static_cast<int32_T>(static_cast<int32_T>(data->
-                            size[0] * data->size[1]) - 1);
-                        for (stride = 0; stride <= i; stride++) {
-                            data_6->data[stride] = data->data[stride];
+                            ibmat);
+                        iy = static_cast<int32_T>(static_cast<int32_T>
+                            (data->size[0] * data->size[1]) - 1);
+                        for (ibmat = 0; ibmat <= iy; ibmat++) {
+                            data_6->data[ibmat] = data->data[ibmat];
                         }
 
                         FlightMissionMode_strtok_d(data_6, curLine, data);
@@ -28095,26 +27845,26 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                 if (isStable) {
                                     if (static_cast<int32_T>(curLine->size[1] -
                                             1) < 2) {
-                                        iy = 0;
-                                        i2 = 0;
+                                        i1 = 0;
+                                        i = 0;
                                     } else {
-                                        iy = 1;
-                                        i2 = static_cast<int32_T>(curLine->size
-                                            [1] - 1);
+                                        i1 = 1;
+                                        i = static_cast<int32_T>(curLine->size[1]
+                                            - 1);
                                     }
 
-                                    stride = static_cast<int32_T>
+                                    ibmat = static_cast<int32_T>
                                         (curSection->size[0] * curSection->size
                                          [1]);
                                     curSection->size[0] = 1;
-                                    nv = static_cast<int32_T>(i2 - iy);
-                                    curSection->size[1] = nv;
+                                    iacol = static_cast<int32_T>(i - i1);
+                                    curSection->size[1] = iacol;
                                     FlightMissionMode_emxEnsureCapacity_char_T_g
-                                        (curSection, stride);
-                                    for (i = 0; i <= static_cast<int32_T>(nv - 1);
-                                         i++) {
+                                        (curSection, ibmat);
+                                    for (i = 0; i <= static_cast<int32_T>(iacol
+                                            - 1); i++) {
                                         curSection->data[i] = curLine->data[
-                                            static_cast<int32_T>(iy + i)];
+                                            static_cast<int32_T>(i1 + i)];
                                     }
 
                                     curKey->size[0] = 1;
@@ -28135,31 +27885,31 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                                             (static_cast<int32_T>
                                         (isStable) ^ 1))) &&
                                         FlightMissionMode_contains_d(curLine)) {
-                                    int32_T n;
                                     FlightMissionMode_strtok_dq4(curLine, curVal,
                                         x);
-                                    FlightMissionMode_find_token_m(x, &iy,
-                                        &nread);
-                                    if (iy > static_cast<int32_T>(nread - 1)) {
-                                        n = 0;
-                                        i = 0;
+                                    FlightMissionMode_find_token_m(x, &iremain,
+                                        &iy);
+                                    if (iremain > static_cast<int32_T>(iy - 1))
+                                    {
+                                        i1 = 0;
+                                        iy = 0;
                                     } else {
-                                        n = static_cast<int32_T>(iy - 1);
-                                        i = static_cast<int32_T>(nread - 1);
+                                        i1 = static_cast<int32_T>(iremain - 1);
+                                        iy = static_cast<int32_T>(iy - 1);
                                     }
 
                                     FlightMissionMode_strtrim_f(curVal, curKey);
-                                    stride = static_cast<int32_T>(curLine->size
-                                        [0] * curLine->size[1]);
+                                    ibmat = static_cast<int32_T>(curLine->size[0]
+                                        * curLine->size[1]);
                                     curLine->size[0] = 1;
-                                    nv = static_cast<int32_T>(i - n);
-                                    curLine->size[1] = nv;
+                                    iacol = static_cast<int32_T>(iy - i1);
+                                    curLine->size[1] = iacol;
                                     FlightMissionMode_emxEnsureCapacity_char_T_g
-                                        (curLine, stride);
-                                    for (i = 0; i <= static_cast<int32_T>(nv - 1);
-                                         i++) {
+                                        (curLine, ibmat);
+                                    for (i = 0; i <= static_cast<int32_T>(iacol
+                                            - 1); i++) {
                                         curLine->data[i] = x->data
-                                            [static_cast<int32_T>(n + i)];
+                                            [static_cast<int32_T>(i1 + i)];
                                     }
 
                                     FlightMissionMode_strtrim_f(curLine, curVal);
@@ -28169,15 +27919,15 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
 
                         if (FlightMissionMode_strcmp_b(curSection) &&
                                 FlightMissionMode_strcmp_bxki(curKey)) {
-                            stride = static_cast<int32_T>(tline->size[0] *
+                            ibmat = static_cast<int32_T>(tline->size[0] *
                                 tline->size[1]);
                             tline->size[0] = 1;
                             tline->size[1] = curVal->size[1];
                             FlightMissionMode_emxEnsureCapacity_char_T_g(tline,
-                                stride);
-                            nv = curVal->size[1];
-                            for (i = 0; i <= static_cast<int32_T>(nv - 1); i++)
-                            {
+                                ibmat);
+                            iacol = curVal->size[1];
+                            for (i = 0; i <= static_cast<int32_T>(iacol - 1); i
+                                    ++) {
                                 tline->data[i] = curVal->data[i];
                             }
 
@@ -28200,14 +27950,14 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 b_x[1] = std::isnan(localDW->HomePoint_o[1]);
                 b_x[2] = std::isnan(localDW->HomePoint_o[2]);
                 isStable = false;
-                nread = 0;
+                iremain = 0;
                 exitg1 = false;
-                while ((!exitg1) && (nread < 3)) {
-                    if (b_x[nread]) {
+                while ((!exitg1) && (iremain < 3)) {
+                    if (b_x[iremain]) {
                         isStable = true;
                         exitg1 = true;
                     } else {
-                        nread = static_cast<int32_T>(nread + 1);
+                        iremain = static_cast<int32_T>(iremain + 1);
                     }
                 }
 
@@ -28420,7 +28170,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             Alt = rtu_MissionLocation->Alt - localDW->HomePoint_o[2];
 
             // Gain: '<S74>/Gain1'
-            d = 0.017453292519943295 * rtu_MissionLocation->degHDG;
+            y2 = 0.017453292519943295 * rtu_MissionLocation->degHDG;
 
             // Outputs for Enabled SubSystem: '<S72>/WayPointGenerator' incorporates:
             //   EnablePort: '<S77>/Enable'
@@ -28444,14 +28194,14 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 distToCenter = static_cast<real_T>(*rtu_MissionUAV);
 
                 // DataTypeConversion: '<S77>/Cast To Double'
-                rtb_Abs1_il = static_cast<real_T>(*rtu_FormationIDX);
+                d = static_cast<real_T>(*rtu_FormationIDX);
 
                 // MATLAB Function: '<S77>/StartPointGenerator' incorporates:
                 //   Concatenate: '<S77>/Matrix Concatenate WayPoint'
                 //   DataTypeConversion: '<S72>/Param3'
 
                 FlightMissionMode_StartPointGenerator(static_cast<real_T>
-                    (rtu_Parameters->Param3), distToCenter, rtb_Abs1_il,
+                    (rtu_Parameters->Param3), distToCenter, d,
                     &localDW->MatrixConcatenateWayPoint_g[1536],
                     localDW->startPose_a, &localDW->sf_StartPointGenerator);
 
@@ -28503,7 +28253,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 // SignalConversion generated from: '<S77>/RotateATMissionHdg' incorporates:
                 //   Constant: '<S77>/Zero'
 
-                rtb_TmpSignalConversionAtRotateATMissionHdgInport1_p[0] = d;
+                rtb_TmpSignalConversionAtRotateATMissionHdgInport1_p[0] = y2;
                 rtb_TmpSignalConversionAtRotateATMissionHdgInport1_p[1] = 0.0;
                 rtb_TmpSignalConversionAtRotateATMissionHdgInport1_p[2] = 0.0;
                 FlightMissionMode_RotateATMissionHdg
@@ -28564,19 +28314,19 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                     for (i = 0; i < 128; i++) {
                         // Product: '<S110>/Matrix Divide'
                         i1 = 0;
-                        i2 = 0;
+                        iacol = 0;
                         for (rtb_Bias_mn = 0; rtb_Bias_mn < 3; rtb_Bias_mn++) {
-                            b_exponent = static_cast<int32_T>(i1 + i);
-                            rtb_MatrixDivide_g[b_exponent] = 0.0;
-                            rtb_MatrixDivide_g[b_exponent] += tmp[i2] * rtb_y[i];
-                            rtb_MatrixDivide_g[b_exponent] += tmp
-                                [static_cast<int32_T>(i2 + 1)] * rtb_y[
+                            iremain = static_cast<int32_T>(i1 + i);
+                            rtb_MatrixDivide_g[iremain] = 0.0;
+                            rtb_MatrixDivide_g[iremain] += tmp[iacol] * rtb_y[i];
+                            rtb_MatrixDivide_g[iremain] += tmp
+                                [static_cast<int32_T>(iacol + 1)] * rtb_y[
                                 static_cast<int32_T>(i + 128)];
-                            rtb_MatrixDivide_g[b_exponent] += tmp
-                                [static_cast<int32_T>(i2 + 2)] * rtb_y[
-                                static_cast<int32_T>(i + 256)];
+                            rtb_MatrixDivide_g[iremain] += tmp[static_cast<
+                                int32_T>(iacol + 2)] * rtb_y[static_cast<int32_T>
+                                (i + 256)];
                             i1 = static_cast<int32_T>(i1 + 128);
-                            i2 = static_cast<int32_T>(i2 + 3);
+                            iacol = static_cast<int32_T>(iacol + 3);
                         }
 
                         // End of Product: '<S110>/Matrix Divide'
@@ -28631,7 +28381,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                     localDW->nedWayPoint_j);
 
                 // Sum: '<S77>/Sum'
-                localDW->Sum_i = (d + distToCenter) + localDW->startPose_a[3];
+                localDW->Sum_i = (y2 + distToCenter) + localDW->startPose_a[3];
             } else {
                 localDW->WayPointGenerator_MODE_k = false;
             }
@@ -28707,7 +28457,8 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             real_T rtb_Abs1_il;
             real_T rtb_Sum1_e_idx_0;
             real_T rtb_Sum1_e_idx_1;
-            int32_T i;
+            int32_T i1;
+            int32_T iacol;
             if (static_cast<int32_T>(rtAction) != static_cast<int32_T>
                     (rtPrevAction)) {
                 FILE* a;
@@ -28742,8 +28493,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 creal_T tmp_1;
                 creal_T tmp_2;
                 creal_T tmp_3;
-                int32_T nv;
-                int32_T stride;
+                int32_T ibmat;
                 boolean_T exitg1;
                 boolean_T guard1;
 
@@ -28760,12 +28510,12 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 } else {
                     FlightMissionMode_fread_j(static_cast<real_T>(rtPrevAction),
                         q, localDW);
-                    stride = static_cast<int32_T>(data->size[0] * data->size[1]);
+                    ibmat = static_cast<int32_T>(data->size[0] * data->size[1]);
                     data->size[0] = 1;
                     data->size[1] = q->size[0];
-                    FlightMissionMode_emxEnsureCapacity_char_T_g(data, stride);
-                    nv = q->size[0];
-                    for (i = 0; i <= static_cast<int32_T>(nv - 1); i++) {
+                    FlightMissionMode_emxEnsureCapacity_char_T_g(data, ibmat);
+                    iacol = q->size[0];
+                    for (i = 0; i <= static_cast<int32_T>(iacol - 1); i++) {
                         data->data[i] = q->data[i];
                     }
 
@@ -28781,16 +28531,16 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                     FlightMissionMode_emxInit_char_T_ey(&data_b, 2);
                     exitg1 = false;
                     while ((!exitg1) && (data->size[1] != 0)) {
-                        stride = static_cast<int32_T>(data_b->size[0] *
+                        ibmat = static_cast<int32_T>(data_b->size[0] *
                             data_b->size[1]);
                         data_b->size[0] = 1;
                         data_b->size[1] = data->size[1];
                         FlightMissionMode_emxEnsureCapacity_char_T_g(data_b,
-                            stride);
-                        i = static_cast<int32_T>(static_cast<int32_T>(data->
-                            size[0] * data->size[1]) - 1);
-                        for (stride = 0; stride <= i; stride++) {
-                            data_b->data[stride] = data->data[stride];
+                            ibmat);
+                        iy = static_cast<int32_T>(static_cast<int32_T>
+                            (data->size[0] * data->size[1]) - 1);
+                        for (ibmat = 0; ibmat <= iy; ibmat++) {
+                            data_b->data[ibmat] = data->data[ibmat];
                         }
 
                         FlightMissionMode_strtok_d(data_b, curLine, data);
@@ -28814,23 +28564,23 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                     if (static_cast<int32_T>(curLine->size[1] -
                                             1) < 2) {
                                         iy = 0;
-                                        nread = 0;
+                                        iremain = 0;
                                     } else {
                                         iy = 1;
-                                        nread = static_cast<int32_T>
+                                        iremain = static_cast<int32_T>
                                             (curLine->size[1] - 1);
                                     }
 
-                                    stride = static_cast<int32_T>
+                                    ibmat = static_cast<int32_T>
                                         (curSection->size[0] * curSection->size
                                          [1]);
                                     curSection->size[0] = 1;
-                                    nv = static_cast<int32_T>(nread - iy);
-                                    curSection->size[1] = nv;
+                                    iacol = static_cast<int32_T>(iremain - iy);
+                                    curSection->size[1] = iacol;
                                     FlightMissionMode_emxEnsureCapacity_char_T_g
-                                        (curSection, stride);
-                                    for (i = 0; i <= static_cast<int32_T>(nv - 1);
-                                         i++) {
+                                        (curSection, ibmat);
+                                    for (i = 0; i <= static_cast<int32_T>(iacol
+                                            - 1); i++) {
                                         curSection->data[i] = curLine->data[
                                             static_cast<int32_T>(iy + i)];
                                     }
@@ -28855,26 +28605,28 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                         FlightMissionMode_contains_d(curLine)) {
                                     FlightMissionMode_strtok_dq4(curLine, curVal,
                                         x);
-                                    FlightMissionMode_find_token_m(x, &i1,
-                                        &nread);
-                                    if (i1 > static_cast<int32_T>(nread - 1)) {
+                                    FlightMissionMode_find_token_m(x, &iy,
+                                        &iremain);
+                                    if (iy > static_cast<int32_T>(iremain - 1))
+                                    {
                                         iy = 0;
-                                        i1 = 0;
+                                        iremain = 0;
                                     } else {
-                                        iy = static_cast<int32_T>(i1 - 1);
-                                        i1 = static_cast<int32_T>(nread - 1);
+                                        iy = static_cast<int32_T>(iy - 1);
+                                        iremain = static_cast<int32_T>(iremain -
+                                            1);
                                     }
 
                                     FlightMissionMode_strtrim_f(curVal, curKey);
-                                    stride = static_cast<int32_T>(curLine->size
-                                        [0] * curLine->size[1]);
+                                    ibmat = static_cast<int32_T>(curLine->size[0]
+                                        * curLine->size[1]);
                                     curLine->size[0] = 1;
-                                    nv = static_cast<int32_T>(i1 - iy);
-                                    curLine->size[1] = nv;
+                                    iacol = static_cast<int32_T>(iremain - iy);
+                                    curLine->size[1] = iacol;
                                     FlightMissionMode_emxEnsureCapacity_char_T_g
-                                        (curLine, stride);
-                                    for (i = 0; i <= static_cast<int32_T>(nv - 1);
-                                         i++) {
+                                        (curLine, ibmat);
+                                    for (i = 0; i <= static_cast<int32_T>(iacol
+                                            - 1); i++) {
                                         curLine->data[i] = x->data
                                             [static_cast<int32_T>(iy + i)];
                                     }
@@ -28886,15 +28638,15 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
 
                         if (FlightMissionMode_strcmp_b(curSection) &&
                                 FlightMissionMode_strcmp_bx(curKey)) {
-                            stride = static_cast<int32_T>(tline->size[0] *
+                            ibmat = static_cast<int32_T>(tline->size[0] *
                                 tline->size[1]);
                             tline->size[0] = 1;
                             tline->size[1] = curVal->size[1];
                             FlightMissionMode_emxEnsureCapacity_char_T_g(tline,
-                                stride);
-                            nv = curVal->size[1];
-                            for (i = 0; i <= static_cast<int32_T>(nv - 1); i++)
-                            {
+                                ibmat);
+                            iacol = curVal->size[1];
+                            for (i = 0; i <= static_cast<int32_T>(iacol - 1); i
+                                    ++) {
                                 tline->data[i] = curVal->data[i];
                             }
 
@@ -28920,12 +28672,12 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 } else {
                     FlightMissionMode_fread_j(static_cast<real_T>(rtPrevAction),
                         q, localDW);
-                    stride = static_cast<int32_T>(data->size[0] * data->size[1]);
+                    ibmat = static_cast<int32_T>(data->size[0] * data->size[1]);
                     data->size[0] = 1;
                     data->size[1] = q->size[0];
-                    FlightMissionMode_emxEnsureCapacity_char_T_g(data, stride);
-                    nv = q->size[0];
-                    for (i = 0; i <= static_cast<int32_T>(nv - 1); i++) {
+                    FlightMissionMode_emxEnsureCapacity_char_T_g(data, ibmat);
+                    iacol = q->size[0];
+                    for (i = 0; i <= static_cast<int32_T>(iacol - 1); i++) {
                         data->data[i] = q->data[i];
                     }
 
@@ -28941,16 +28693,16 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                     FlightMissionMode_emxInit_char_T_ey(&data_a, 2);
                     exitg1 = false;
                     while ((!exitg1) && (data->size[1] != 0)) {
-                        stride = static_cast<int32_T>(data_a->size[0] *
+                        ibmat = static_cast<int32_T>(data_a->size[0] *
                             data_a->size[1]);
                         data_a->size[0] = 1;
                         data_a->size[1] = data->size[1];
                         FlightMissionMode_emxEnsureCapacity_char_T_g(data_a,
-                            stride);
-                        i = static_cast<int32_T>(static_cast<int32_T>(data->
-                            size[0] * data->size[1]) - 1);
-                        for (stride = 0; stride <= i; stride++) {
-                            data_a->data[stride] = data->data[stride];
+                            ibmat);
+                        iy = static_cast<int32_T>(static_cast<int32_T>
+                            (data->size[0] * data->size[1]) - 1);
+                        for (ibmat = 0; ibmat <= iy; ibmat++) {
+                            data_a->data[ibmat] = data->data[ibmat];
                         }
 
                         FlightMissionMode_strtok_d(data_a, curLine, data);
@@ -28971,27 +28723,26 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                 }
 
                                 if (isStable) {
-                                    int32_T ntoread;
                                     if (static_cast<int32_T>(curLine->size[1] -
                                             1) < 2) {
                                         i1 = 0;
-                                        ntoread = 0;
+                                        i = 0;
                                     } else {
                                         i1 = 1;
-                                        ntoread = static_cast<int32_T>
-                                            (curLine->size[1] - 1);
+                                        i = static_cast<int32_T>(curLine->size[1]
+                                            - 1);
                                     }
 
-                                    stride = static_cast<int32_T>
+                                    ibmat = static_cast<int32_T>
                                         (curSection->size[0] * curSection->size
                                          [1]);
                                     curSection->size[0] = 1;
-                                    nv = static_cast<int32_T>(ntoread - i1);
-                                    curSection->size[1] = nv;
+                                    iacol = static_cast<int32_T>(i - i1);
+                                    curSection->size[1] = iacol;
                                     FlightMissionMode_emxEnsureCapacity_char_T_g
-                                        (curSection, stride);
-                                    for (i = 0; i <= static_cast<int32_T>(nv - 1);
-                                         i++) {
+                                        (curSection, ibmat);
+                                    for (i = 0; i <= static_cast<int32_T>(iacol
+                                            - 1); i++) {
                                         curSection->data[i] = curLine->data[
                                             static_cast<int32_T>(i1 + i)];
                                     }
@@ -29017,25 +28768,27 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                     FlightMissionMode_strtok_dq4(curLine, curVal,
                                         x);
                                     FlightMissionMode_find_token_m(x, &iy,
-                                        &nread);
-                                    if (iy > static_cast<int32_T>(nread - 1)) {
+                                        &iremain);
+                                    if (iy > static_cast<int32_T>(iremain - 1))
+                                    {
                                         iy = 0;
-                                        nread = 0;
+                                        iremain = 0;
                                     } else {
                                         iy = static_cast<int32_T>(iy - 1);
-                                        nread = static_cast<int32_T>(nread - 1);
+                                        iremain = static_cast<int32_T>(iremain -
+                                            1);
                                     }
 
                                     FlightMissionMode_strtrim_f(curVal, curKey);
-                                    stride = static_cast<int32_T>(curLine->size
-                                        [0] * curLine->size[1]);
+                                    ibmat = static_cast<int32_T>(curLine->size[0]
+                                        * curLine->size[1]);
                                     curLine->size[0] = 1;
-                                    nv = static_cast<int32_T>(nread - iy);
-                                    curLine->size[1] = nv;
+                                    iacol = static_cast<int32_T>(iremain - iy);
+                                    curLine->size[1] = iacol;
                                     FlightMissionMode_emxEnsureCapacity_char_T_g
-                                        (curLine, stride);
-                                    for (i = 0; i <= static_cast<int32_T>(nv - 1);
-                                         i++) {
+                                        (curLine, ibmat);
+                                    for (i = 0; i <= static_cast<int32_T>(iacol
+                                            - 1); i++) {
                                         curLine->data[i] = x->data
                                             [static_cast<int32_T>(iy + i)];
                                     }
@@ -29047,15 +28800,15 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
 
                         if (FlightMissionMode_strcmp_b(curSection) &&
                                 FlightMissionMode_strcmp_bxk(curKey)) {
-                            stride = static_cast<int32_T>(tline->size[0] *
+                            ibmat = static_cast<int32_T>(tline->size[0] *
                                 tline->size[1]);
                             tline->size[0] = 1;
                             tline->size[1] = curVal->size[1];
                             FlightMissionMode_emxEnsureCapacity_char_T_g(tline,
-                                stride);
-                            nv = curVal->size[1];
-                            for (i = 0; i <= static_cast<int32_T>(nv - 1); i++)
-                            {
+                                ibmat);
+                            iacol = curVal->size[1];
+                            for (i = 0; i <= static_cast<int32_T>(iacol - 1); i
+                                    ++) {
                                 tline->data[i] = curVal->data[i];
                             }
 
@@ -29081,12 +28834,12 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 } else {
                     FlightMissionMode_fread_j(static_cast<real_T>(rtPrevAction),
                         q, localDW);
-                    stride = static_cast<int32_T>(data->size[0] * data->size[1]);
+                    ibmat = static_cast<int32_T>(data->size[0] * data->size[1]);
                     data->size[0] = 1;
                     data->size[1] = q->size[0];
-                    FlightMissionMode_emxEnsureCapacity_char_T_g(data, stride);
-                    nv = q->size[0];
-                    for (i = 0; i <= static_cast<int32_T>(nv - 1); i++) {
+                    FlightMissionMode_emxEnsureCapacity_char_T_g(data, ibmat);
+                    iacol = q->size[0];
+                    for (i = 0; i <= static_cast<int32_T>(iacol - 1); i++) {
                         data->data[i] = q->data[i];
                     }
 
@@ -29102,16 +28855,16 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                     FlightMissionMode_emxInit_char_T_ey(&data_9, 2);
                     exitg1 = false;
                     while ((!exitg1) && (data->size[1] != 0)) {
-                        stride = static_cast<int32_T>(data_9->size[0] *
+                        ibmat = static_cast<int32_T>(data_9->size[0] *
                             data_9->size[1]);
                         data_9->size[0] = 1;
                         data_9->size[1] = data->size[1];
                         FlightMissionMode_emxEnsureCapacity_char_T_g(data_9,
-                            stride);
-                        i = static_cast<int32_T>(static_cast<int32_T>(data->
-                            size[0] * data->size[1]) - 1);
-                        for (stride = 0; stride <= i; stride++) {
-                            data_9->data[stride] = data->data[stride];
+                            ibmat);
+                        iy = static_cast<int32_T>(static_cast<int32_T>
+                            (data->size[0] * data->size[1]) - 1);
+                        for (ibmat = 0; ibmat <= iy; ibmat++) {
+                            data_9->data[ibmat] = data->data[ibmat];
                         }
 
                         FlightMissionMode_strtok_d(data_9, curLine, data);
@@ -29134,26 +28887,26 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                 if (isStable) {
                                     if (static_cast<int32_T>(curLine->size[1] -
                                             1) < 2) {
-                                        iy = 0;
-                                        i2 = 0;
+                                        i1 = 0;
+                                        i = 0;
                                     } else {
-                                        iy = 1;
-                                        i2 = static_cast<int32_T>(curLine->size
-                                            [1] - 1);
+                                        i1 = 1;
+                                        i = static_cast<int32_T>(curLine->size[1]
+                                            - 1);
                                     }
 
-                                    stride = static_cast<int32_T>
+                                    ibmat = static_cast<int32_T>
                                         (curSection->size[0] * curSection->size
                                          [1]);
                                     curSection->size[0] = 1;
-                                    nv = static_cast<int32_T>(i2 - iy);
-                                    curSection->size[1] = nv;
+                                    iacol = static_cast<int32_T>(i - i1);
+                                    curSection->size[1] = iacol;
                                     FlightMissionMode_emxEnsureCapacity_char_T_g
-                                        (curSection, stride);
-                                    for (i = 0; i <= static_cast<int32_T>(nv - 1);
-                                         i++) {
+                                        (curSection, ibmat);
+                                    for (i = 0; i <= static_cast<int32_T>(iacol
+                                            - 1); i++) {
                                         curSection->data[i] = curLine->data[
-                                            static_cast<int32_T>(iy + i)];
+                                            static_cast<int32_T>(i1 + i)];
                                     }
 
                                     curKey->size[0] = 1;
@@ -29174,31 +28927,31 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                                             (static_cast<int32_T>
                                         (isStable) ^ 1))) &&
                                         FlightMissionMode_contains_d(curLine)) {
-                                    int32_T n;
                                     FlightMissionMode_strtok_dq4(curLine, curVal,
                                         x);
-                                    FlightMissionMode_find_token_m(x, &iy,
-                                        &nread);
-                                    if (iy > static_cast<int32_T>(nread - 1)) {
-                                        n = 0;
-                                        i = 0;
+                                    FlightMissionMode_find_token_m(x, &iremain,
+                                        &iy);
+                                    if (iremain > static_cast<int32_T>(iy - 1))
+                                    {
+                                        i1 = 0;
+                                        iy = 0;
                                     } else {
-                                        n = static_cast<int32_T>(iy - 1);
-                                        i = static_cast<int32_T>(nread - 1);
+                                        i1 = static_cast<int32_T>(iremain - 1);
+                                        iy = static_cast<int32_T>(iy - 1);
                                     }
 
                                     FlightMissionMode_strtrim_f(curVal, curKey);
-                                    stride = static_cast<int32_T>(curLine->size
-                                        [0] * curLine->size[1]);
+                                    ibmat = static_cast<int32_T>(curLine->size[0]
+                                        * curLine->size[1]);
                                     curLine->size[0] = 1;
-                                    nv = static_cast<int32_T>(i - n);
-                                    curLine->size[1] = nv;
+                                    iacol = static_cast<int32_T>(iy - i1);
+                                    curLine->size[1] = iacol;
                                     FlightMissionMode_emxEnsureCapacity_char_T_g
-                                        (curLine, stride);
-                                    for (i = 0; i <= static_cast<int32_T>(nv - 1);
-                                         i++) {
+                                        (curLine, ibmat);
+                                    for (i = 0; i <= static_cast<int32_T>(iacol
+                                            - 1); i++) {
                                         curLine->data[i] = x->data
-                                            [static_cast<int32_T>(n + i)];
+                                            [static_cast<int32_T>(i1 + i)];
                                     }
 
                                     FlightMissionMode_strtrim_f(curLine, curVal);
@@ -29208,15 +28961,15 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
 
                         if (FlightMissionMode_strcmp_b(curSection) &&
                                 FlightMissionMode_strcmp_bxki(curKey)) {
-                            stride = static_cast<int32_T>(tline->size[0] *
+                            ibmat = static_cast<int32_T>(tline->size[0] *
                                 tline->size[1]);
                             tline->size[0] = 1;
                             tline->size[1] = curVal->size[1];
                             FlightMissionMode_emxEnsureCapacity_char_T_g(tline,
-                                stride);
-                            nv = curVal->size[1];
-                            for (i = 0; i <= static_cast<int32_T>(nv - 1); i++)
-                            {
+                                ibmat);
+                            iacol = curVal->size[1];
+                            for (i = 0; i <= static_cast<int32_T>(iacol - 1); i
+                                    ++) {
                                 tline->data[i] = curVal->data[i];
                             }
 
@@ -29239,14 +28992,14 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 b_x[1] = std::isnan(localDW->HomePoint[1]);
                 b_x[2] = std::isnan(localDW->HomePoint[2]);
                 isStable = false;
-                nread = 0;
+                iremain = 0;
                 exitg1 = false;
-                while ((!exitg1) && (nread < 3)) {
-                    if (b_x[nread]) {
+                while ((!exitg1) && (iremain < 3)) {
+                    if (b_x[iremain]) {
                         isStable = true;
                         exitg1 = true;
                     } else {
-                        nread = static_cast<int32_T>(nread + 1);
+                        iremain = static_cast<int32_T>(iremain + 1);
                     }
                 }
 
@@ -29458,7 +29211,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             Alt = rtu_MissionLocation->Alt - localDW->HomePoint[2];
 
             // Gain: '<S117>/Gain1'
-            d = 0.017453292519943295 * rtu_MissionLocation->degHDG;
+            y2 = 0.017453292519943295 * rtu_MissionLocation->degHDG;
 
             // Outputs for Atomic SubSystem: '<S116>/OneSidePercentage'
             // Gain: '<S119>/Gain' incorporates:
@@ -29521,13 +29274,13 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 }
 
                 // DataTypeConversion: '<S121>/DoubleFormationIDX'
-                rtb_Abs1_il = static_cast<real_T>(*rtu_FormationIDX);
+                d = static_cast<real_T>(*rtu_FormationIDX);
 
                 // Signum: '<S121>/Sign'
-                if (rtb_Abs1_il < 0.0) {
-                    rtb_Bias_mn = -1;
+                if (d < 0.0) {
+                    rtb_Abs1_il = -1.0;
                 } else {
-                    rtb_Bias_mn = (rtb_Abs1_il > 0.0);
+                    rtb_Abs1_il = static_cast<real_T>(d > 0.0);
                 }
 
                 // End of Signum: '<S121>/Sign'
@@ -29535,14 +29288,12 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 // Product: '<S121>/ProductRotAng' incorporates:
                 //   Product: '<S121>/ProductFlipRotAng'
 
-                rtb_Sum1_e_idx_0 = rtb_Sum1_e_idx_0 * static_cast<real_T>
-                    (rtb_Bias_mn) * distToCenter;
+                Lon = rtb_Sum1_e_idx_0 * rtb_Abs1_il * distToCenter;
 
                 // SignalConversion generated from: '<S121>/RotateATRunWayHdg' incorporates:
                 //   Constant: '<S121>/Zero'
 
-                rtb_TmpSignalConversionAtRotateATRunWayHdgInport1[0] =
-                    rtb_Sum1_e_idx_0;
+                rtb_TmpSignalConversionAtRotateATRunWayHdgInport1[0] = Lon;
                 rtb_TmpSignalConversionAtRotateATRunWayHdgInport1[1] = 0.0;
                 rtb_TmpSignalConversionAtRotateATRunWayHdgInport1[2] = 0.0;
                 FlightMissionMode_RotateATMissionHdg
@@ -29561,7 +29312,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 //   Constant: '<S121>/Constant'
 
                 rtb_MatrixConcatenate[3] = 0;
-                rtb_MatrixConcatenate[4] = static_cast<int8_T>(rtb_Bias_mn);
+                rtb_MatrixConcatenate[4] = static_cast<int8_T>(rtb_Abs1_il);
                 rtb_MatrixConcatenate[5] = 0;
 
                 // SignalConversion generated from: '<S121>/Matrix Concatenate' incorporates:
@@ -29573,10 +29324,10 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 rtb_MatrixConcatenate[8] = 1;
 
                 // Abs: '<S121>/Abs'
-                rtb_Sum1_e_idx_1 = std::abs(rtb_Abs1_il);
+                rtb_Sum1_e_idx_0 = std::abs(d);
 
                 // DataTypeConversion: '<S121>/DoubleMissionUAV'
-                rtb_Abs1_il = static_cast<real_T>(*rtu_MissionUAV);
+                d = static_cast<real_T>(*rtu_MissionUAV);
 
                 // MATLAB Function: '<S121>/StartPointGenerator' incorporates:
                 //   Concatenate: '<S121>/Matrix Concatenate WayPoint'
@@ -29584,9 +29335,9 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 //   Product: '<S121>/ProductOneSideUAV'
 
                 FlightMissionMode_StartPointGenerator(static_cast<real_T>
-                    (rtu_Parameters->Param3), rtb_Abs1_il * distToCenter,
-                    rtb_Sum1_e_idx_1, &localDW->MatrixConcatenateWayPoint[1536],
-                    startPose, &localDW->sf_StartPointGenerator_k);
+                    (rtu_Parameters->Param3), d * distToCenter, rtb_Sum1_e_idx_0,
+                    &localDW->MatrixConcatenateWayPoint[1536], startPose,
+                    &localDW->sf_StartPointGenerator_k);
 
                 // MATLAB Function: '<S121>/WayPointGenerator' incorporates:
                 //   Concatenate: '<S121>/Matrix Concatenate WayPoint'
@@ -29604,14 +29355,14 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 //   DataTypeConversion: '<S116>/Param1'
                 //   Product: '<S121>/ProductSepDis'
 
-                rtb_Abs1_il = distToCenter * static_cast<real_T>
-                    (rtu_Parameters->Param1) * static_cast<real_T>(rtb_Bias_mn);
+                d = distToCenter * static_cast<real_T>(rtu_Parameters->Param1) *
+                    rtb_Abs1_il;
 
                 // Reshape: '<S121>/Reshape' incorporates:
                 //   Constant: '<S121>/Zero'
 
                 u[0] = 0.0;
-                u[1] = rtb_Abs1_il;
+                u[1] = d;
                 u[2] = 0.0;
 
                 // Reshape: '<S121>/ReshapeRowVec' incorporates:
@@ -29631,7 +29382,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 // SignalConversion generated from: '<S121>/RotateATMissionHdg' incorporates:
                 //   Constant: '<S121>/Zero'
 
-                rtb_TmpSignalConversionAtRotateATMissionHdgInport1[0] = d;
+                rtb_TmpSignalConversionAtRotateATMissionHdgInport1[0] = y2;
                 rtb_TmpSignalConversionAtRotateATMissionHdgInport1[1] = 0.0;
                 rtb_TmpSignalConversionAtRotateATMissionHdgInport1[2] = 0.0;
                 FlightMissionMode_RotateATMissionHdg
@@ -29641,7 +29392,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 // Outputs for Iterator SubSystem: '<S121>/TransformWayPoint' incorporates:
                 //   ForEach: '<S155>/For Each'
 
-                for (i2 = 0; i2 < 5; i2++) {
+                for (iacol = 0; iacol < 5; iacol++) {
                     // Product: '<S155>/ProductFlipRunWay' incorporates:
                     //   Concatenate: '<S121>/Matrix Concatenate'
                     //   Concatenate: '<S121>/Matrix Concatenate WayPoint'
@@ -29649,26 +29400,27 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
 
                     for (i = 0; i < 128; i++) {
                         for (i1 = 0; i1 < 3; i1++) {
-                            b_exponent = static_cast<int32_T>
+                            rtb_Bias_mn = static_cast<int32_T>
                                 (static_cast<int32_T>(i1 << 7) + i);
-                            rtb_y_e[b_exponent] = 0.0;
+                            rtb_y_e[rtb_Bias_mn] = 0.0;
 
                             // ForEachSliceSelector generated from: '<S155>/RawRunWay' 
-                            iy = static_cast<int32_T>(static_cast<int32_T>(384 *
-                                i2) + i);
-                            rtb_y_e[b_exponent] += static_cast<real_T>
+                            iremain = static_cast<int32_T>(static_cast<int32_T>
+                                (384 * iacol) + i);
+                            rtb_y_e[rtb_Bias_mn] += static_cast<real_T>
                                 (rtb_MatrixConcatenate[static_cast<int32_T>(3 *
-                                  i1)]) * localDW->MatrixConcatenateWayPoint[iy];
-                            rtb_y_e[b_exponent] += static_cast<real_T>
+                                  i1)]) * localDW->
+                                MatrixConcatenateWayPoint[iremain];
+                            rtb_y_e[rtb_Bias_mn] += static_cast<real_T>
                                 (rtb_MatrixConcatenate[static_cast<int32_T>(
                                   static_cast<int32_T>(3 * i1) + 1)]) *
                                 localDW->MatrixConcatenateWayPoint
-                                [static_cast<int32_T>(iy + 128)];
-                            rtb_y_e[b_exponent] += static_cast<real_T>
+                                [static_cast<int32_T>(iremain + 128)];
+                            rtb_y_e[rtb_Bias_mn] += static_cast<real_T>
                                 (rtb_MatrixConcatenate[static_cast<int32_T>(
                                   static_cast<int32_T>(3 * i1) + 2)]) *
                                 localDW->MatrixConcatenateWayPoint
-                                [static_cast<int32_T>(iy + 256)];
+                                [static_cast<int32_T>(iremain + 256)];
                         }
                     }
 
@@ -29700,7 +29452,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                     // ForEachSliceAssignment generated from: '<S155>/nedWayPoint' 
                     std::memcpy
                         (&localDW->ImpAsg_InsertedFor_nedWayPoint_at_inport_0[
-                         static_cast<int32_T>(i2 * 384)],
+                         static_cast<int32_T>(iacol * 384)],
                          &rtb_nedWayPoint_CoreSubsysCanOut[0],
                          static_cast<uint32_T>(384U * sizeof(real_T)));
                 }
@@ -29709,8 +29461,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
 
                 // Product: '<S121>/ProductFlipStartPose'
                 localDW->ProductFlipStartPose[0] = startPose[0];
-                localDW->ProductFlipStartPose[1] = startPose[1] *
-                    static_cast<real_T>(rtb_Bias_mn);
+                localDW->ProductFlipStartPose[1] = startPose[1] * rtb_Abs1_il;
                 localDW->ProductFlipStartPose[2] = startPose[2];
                 localDW->ProductFlipStartPose[3] = startPose[3];
                 localDW->ProductFlipStartPose[4] = startPose[4];
@@ -29724,7 +29475,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
 
                 // Sum: '<S121>/BiasStartPose'
                 tmp_0[0] = u[0];
-                tmp_0[1] = u[1] - rtb_Abs1_il;
+                tmp_0[1] = u[1] - d;
                 tmp_0[2] = u[2];
 
                 // Product: '<S121>/RotateIndivWayPointStartpose' incorporates:
@@ -29740,8 +29491,8 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 // Sum: '<S121>/Sum' incorporates:
                 //   Product: '<S121>/ProductFlipStartHeading'
 
-                localDW->Sum = (d + rtb_Sum1_e_idx_0) + static_cast<real_T>
-                    (rtb_Bias_mn) * localDW->ProductFlipStartPose[3];
+                localDW->Sum = (y2 + Lon) + rtb_Abs1_il *
+                    localDW->ProductFlipStartPose[3];
             } else {
                 localDW->WayPointGenerator_MODE_m = false;
             }
@@ -29793,10 +29544,9 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
             real_T rtb_Abs1_il;
             real_T rtb_Sum1_e_idx_0;
             real_T rtb_Sum1_e_idx_1;
-            int32_T i;
-            int32_T ntoread;
-            int32_T nv;
-            int32_T stride;
+            int32_T i1;
+            int32_T iacol;
+            int32_T ibmat;
             real32_T tmp_4;
             boolean_T exitg1;
             if (static_cast<int32_T>(rtAction) != static_cast<int32_T>
@@ -29856,8 +29606,8 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                     j_data[i] = j[i];
                 }
 
-                nv = obj_Value_size[1];
-                for (i = 0; i <= static_cast<int32_T>(nv - 1); i++) {
+                iacol = obj_Value_size[1];
+                for (i = 0; i <= static_cast<int32_T>(iacol - 1); i++) {
                     j_data[static_cast<int32_T>(i + 14)] = obj_Value_data[i];
                 }
 
@@ -29878,8 +29628,8 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                         j_data[i] = j[i];
                     }
 
-                    nv = obj_Value_size[1];
-                    for (i = 0; i <= static_cast<int32_T>(nv - 1); i++) {
+                    iacol = obj_Value_size[1];
+                    for (i = 0; i <= static_cast<int32_T>(iacol - 1); i++) {
                         j_data[static_cast<int32_T>(i + 14)] = obj_Value_data[i];
                     }
 
@@ -29899,72 +29649,70 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                             rtb_Abs1_il++;
                             Lat = 0.0;
                             while (!(tline->size[1] == 0)) {
-                                int32_T n;
                                 Lat++;
-                                stride = static_cast<int32_T>(data->size[0] *
+                                ibmat = static_cast<int32_T>(data->size[0] *
                                     data->size[1]);
                                 data->size[0] = 1;
                                 data->size[1] = tline->size[1];
                                 FlightMissionMode_emxEnsureCapacity_char_T_g
-                                    (data, stride);
-                                nv = tline->size[1];
-                                for (i = 0; i <= static_cast<int32_T>(nv - 1); i
-                                        ++) {
+                                    (data, ibmat);
+                                iacol = tline->size[1];
+                                for (i = 0; i <= static_cast<int32_T>(iacol - 1);
+                                     i++) {
                                     data->data[i] = tline->data[i];
                                 }
 
-                                n = tline->size[1];
-                                nread = 0;
-                                while ((static_cast<int32_T>(nread + 1) <= n) &&
-                                       (tline->data[nread] == ',')) {
-                                    nread = static_cast<int32_T>(nread + 1);
+                                i1 = tline->size[1];
+                                iremain = 0;
+                                while ((static_cast<int32_T>(iremain + 1) <= i1)
+                                       && (tline->data[iremain] == ',')) {
+                                    iremain = static_cast<int32_T>(iremain + 1);
                                 }
 
-                                i1 = static_cast<int32_T>(nread + 1);
-                                while ((static_cast<int32_T>(nread + 1) <= n) &&
-                                       (tline->data[nread] != ',')) {
-                                    nread = static_cast<int32_T>(nread + 1);
+                                iy = static_cast<int32_T>(iremain + 1);
+                                while ((static_cast<int32_T>(iremain + 1) <= i1)
+                                       && (tline->data[iremain] != ',')) {
+                                    iremain = static_cast<int32_T>(iremain + 1);
                                 }
 
-                                if (static_cast<int32_T>(nread + 1) >
+                                if (static_cast<int32_T>(iremain + 1) >
                                         tline->size[1]) {
-                                    iy = 0;
-                                    i2 = 0;
+                                    i1 = 0;
+                                    i = 0;
                                 } else {
-                                    iy = nread;
-                                    i2 = tline->size[1];
+                                    i1 = iremain;
+                                    i = tline->size[1];
                                 }
 
-                                i2 = static_cast<int32_T>(i2 - iy);
-                                for (i = 0; i <= static_cast<int32_T>(i2 - 1); i
-                                        ++) {
+                                iacol = static_cast<int32_T>(i - i1);
+                                for (i = 0; i <= static_cast<int32_T>(iacol - 1);
+                                     i++) {
                                     tline->data[i] = tline->data
-                                        [static_cast<int32_T>(iy + i)];
+                                        [static_cast<int32_T>(i1 + i)];
                                 }
 
-                                stride = static_cast<int32_T>(tline->size[0] *
+                                ibmat = static_cast<int32_T>(tline->size[0] *
                                     tline->size[1]);
                                 tline->size[0] = 1;
-                                tline->size[1] = i2;
+                                tline->size[1] = iacol;
                                 FlightMissionMode_emxEnsureCapacity_char_T_g
-                                    (tline, stride);
-                                if (i1 > nread) {
+                                    (tline, ibmat);
+                                if (iy > iremain) {
                                     iy = 0;
-                                    i1 = 0;
+                                    iremain = 0;
                                 } else {
-                                    iy = static_cast<int32_T>(i1 - 1);
-                                    i1 = nread;
+                                    iy = static_cast<int32_T>(iy - 1);
                                 }
 
-                                stride = static_cast<int32_T>(curSection->size[0]
+                                ibmat = static_cast<int32_T>(curSection->size[0]
                                     * curSection->size[1]);
                                 curSection->size[0] = 1;
-                                nv = static_cast<int32_T>(i1 - iy);
-                                curSection->size[1] = nv;
+                                iacol = static_cast<int32_T>(iremain - iy);
+                                curSection->size[1] = iacol;
                                 FlightMissionMode_emxEnsureCapacity_char_T_g
-                                    (curSection, stride);
-                                for (i = 0; i <= static_cast<int32_T>(nv - 1); i
-                                        ++) {
+                                    (curSection, ibmat);
+                                for (i = 0; i <= static_cast<int32_T>(iacol - 1);
+                                     i++) {
                                     curSection->data[i] = data->data[
                                         static_cast<int32_T>(iy + i)];
                                 }
@@ -29974,59 +29722,60 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                       (rtb_Abs1_il) + static_cast<int32_T>(
                                        static_cast<int32_T>(static_cast<int32_T>
                                         (Lat) - 1) << 10)) - 1)] = (rtNaN);
-                                if (nv >= 1) {
-                                    ntoread = 0;
-                                    nread = 1;
+                                if (iacol >= 1) {
+                                    i1 = 0;
+                                    nrows = 1;
                                     exitg1 = false;
-                                    while ((!exitg1) && (nread <= nv)) {
+                                    while ((!exitg1) && (nrows <= iacol)) {
                                         char_T tmp_5;
                                         tmp_5 = data->data[static_cast<int32_T>(
-                                            static_cast<int32_T>(iy + nread) - 1)];
+                                            static_cast<int32_T>(iy + nrows) - 1)];
                                         if (o[static_cast<int32_T>
                                                 (static_cast<int32_T>(
                                                 static_cast<uint8_T>(tmp_5)) &
                                                  127)] || (tmp_5 == '\x00')) {
-                                            nread = static_cast<int32_T>(nread +
+                                            nrows = static_cast<int32_T>(nrows +
                                                 1);
                                         } else {
                                             exitg1 = true;
                                         }
                                     }
 
-                                    stride = static_cast<int32_T>(data->size[0] *
+                                    ibmat = static_cast<int32_T>(data->size[0] *
                                         data->size[1]);
                                     data->size[0] = 1;
-                                    data->size[1] = static_cast<int32_T>(nv + 2);
+                                    data->size[1] = static_cast<int32_T>(iacol +
+                                        2);
                                     FlightMissionMode_emxEnsureCapacity_char_T_g
-                                        (data, stride);
-                                    for (i = 0; i <= static_cast<int32_T>(nv + 1);
-                                         i++) {
+                                        (data, ibmat);
+                                    for (i = 0; i <= static_cast<int32_T>(iacol
+                                            + 1); i++) {
                                         data->data[i] = '\x00';
                                     }
 
-                                    i2 = 1;
-                                    FlightMissionMode_readfloat_n0(data, &i2,
-                                        curSection, &nread, static_cast<int32_T>
-                                        (i1 - iy), &isStable, &p, &Lon, &a__1,
-                                        &success);
+                                    i = 1;
+                                    FlightMissionMode_readfloat_n0(data, &i,
+                                        curSection, &nrows, static_cast<int32_T>
+                                        (iremain - iy), &isStable, &p, &Lon,
+                                        &a__1, &success);
                                     if (p) {
-                                        ntoread = 1;
+                                        i1 = 1;
                                     }
 
                                     if (static_cast<boolean_T>
-                                            (static_cast<int32_T>((nread <= nv)
-                                            & static_cast<int32_T>(success)))) {
-                                        data->data[static_cast<int32_T>(i2 - 1)]
-                                            = ' ';
-                                        i2 = static_cast<int32_T>(i2 + 1);
-                                        FlightMissionMode_readfloat_n0(data, &i2,
-                                            curSection, &nread,
-                                            static_cast<int32_T>(i1 - iy), &a__1,
-                                            &success, &Alt, &foundsign,
+                                            (static_cast<int32_T>((nrows <=
+                                            iacol) & static_cast<int32_T>
+                                            (success)))) {
+                                        data->data[static_cast<int32_T>(i - 1)] =
+                                            ' ';
+                                        i = static_cast<int32_T>(i + 1);
+                                        FlightMissionMode_readfloat_n0(data, &i,
+                                            curSection, &nrows,
+                                            static_cast<int32_T>(iremain - iy),
+                                            &a__1, &success, &Alt, &foundsign,
                                             &c_success);
                                         if (success) {
-                                            ntoread = static_cast<int32_T>
-                                                (ntoread + 1);
+                                            i1 = static_cast<int32_T>(i1 + 1);
                                         }
 
                                         success = static_cast<boolean_T>(
@@ -30036,9 +29785,9 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                             static_cast<int32_T>
                                             (static_cast<int32_T>
                                              (static_cast<boolean_T>(
-                                            static_cast<int32_T>((nread > nv) &
-                                            static_cast<int32_T>(c_success)))) &
-                                             static_cast<int32_T>
+                                            static_cast<int32_T>((nrows > iacol)
+                                            & static_cast<int32_T>(c_success))))
+                                             & static_cast<int32_T>
                                              (static_cast<boolean_T>(
                                             static_cast<int32_T>
                                             (static_cast<int32_T>(isStable) ^
@@ -30049,29 +29798,29 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                     }
 
                                     if (success) {
-                                        data->data[static_cast<int32_T>(i2 - 1)]
-                                            = '\x00';
-                                        switch (ntoread) {
+                                        data->data[static_cast<int32_T>(i - 1)] =
+                                            '\x00';
+                                        switch (i1) {
                                           case 2:
-                                            nread = sscanf(&data->data[0],
-                                                           "%lf %lf", &Lon, &Alt);
-                                            if (nread != 2) {
+                                            iy = sscanf(&data->data[0],
+                                                        "%lf %lf", &Lon, &Alt);
+                                            if (iy != 2) {
                                                 Lon = (rtNaN);
                                                 Alt = (rtNaN);
                                             }
                                             break;
 
                                           case 1:
-                                            nread = sscanf(&data->data[0], "%lf",
-                                                           &d);
+                                            iy = sscanf(&data->data[0], "%lf",
+                                                        &y2);
                                             if (p) {
-                                                if (nread == 1) {
-                                                    Lon = d;
+                                                if (iy == 1) {
+                                                    Lon = y2;
                                                 } else {
                                                     Lon = (rtNaN);
                                                 }
-                                            } else if (nread == 1) {
-                                                Alt = d;
+                                            } else if (iy == 1) {
+                                                Alt = y2;
                                             } else {
                                                 Alt = (rtNaN);
                                             }
@@ -30103,14 +29852,14 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                         filestar = FlightMissionMode_fileManager_b(static_cast<
                             real_T>(rtPrevAction), localDW);
                         if (filestar == a) {
-                            nread = 0;
+                            iremain = 0;
                         } else {
                             int st;
                             st = feof(filestar);
-                            nread = ((int32_T)st != 0);
+                            iremain = ((int32_T)st != 0);
                         }
 
-                        if (nread != 0) {
+                        if (iremain != 0) {
                             exitg2 = 1;
                         } else {
                             FlightMissionMode_fgetl(static_cast<real_T>
@@ -30136,11 +29885,11 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                     q_size[1] = 3;
                     i = 0;
                     for (i1 = 0; i1 < 3; i1++) {
-                        for (i2 = 0; i2 <= iy; i2++) {
-                            localDW->q_data[static_cast<int32_T>(i2 +
+                        for (iacol = 0; iacol <= iy; iacol++) {
+                            localDW->q_data[static_cast<int32_T>(iacol +
                                 static_cast<int32_T>(static_cast<int32_T>(iy + 1)
-                                * i1))] = localDW->MAT[static_cast<int32_T>(i2 +
-                                i)];
+                                * i1))] = localDW->MAT[static_cast<int32_T>
+                                (iacol + i)];
                         }
 
                         i = static_cast<int32_T>(i + 1024);
@@ -30163,36 +29912,34 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 }
 
                 // '<S192>:1:20'
-                rtb_Sum1_e_idx_0 = std::ceil(8192.0 / static_cast<real_T>
-                    (NED_WP_size[0]));
-                stride = static_cast<int32_T>(dummyWayPoint->size[0] *
+                d = std::ceil(8192.0 / static_cast<real_T>(NED_WP_size[0]));
+                ibmat = static_cast<int32_T>(dummyWayPoint->size[0] *
                     dummyWayPoint->size[1]);
 
                 // MATLAB Function: '<S166>/WayPointGenerator'
                 dummyWayPoint->size[0] = static_cast<int32_T>(NED_WP_size[0] *
-                    static_cast<int32_T>(rtb_Sum1_e_idx_0));
+                    static_cast<int32_T>(d));
                 dummyWayPoint->size[1] = 3;
                 FlightMissionMode_emxEnsureCapacity_real_T_c(dummyWayPoint,
-                    stride);
+                    ibmat);
 
                 // MATLAB Function: '<S166>/WayPointGenerator'
-                nv = NED_WP_size[0];
-                stride = static_cast<int32_T>(static_cast<int32_T>
-                    (rtb_Sum1_e_idx_0) - 1);
-                for (i1 = 0; i1 < 3; i1++) {
-                    int32_T npages;
-                    npages = static_cast<int32_T>(i1 * nv);
-                    nread = static_cast<int32_T>(static_cast<int32_T>(
-                        static_cast<int32_T>(nv * static_cast<int32_T>
-                        (rtb_Sum1_e_idx_0)) * i1) - 1);
-                    for (i2 = 0; i2 <= stride; i2++) {
-                        int32_T pageroot;
-                        pageroot = static_cast<int32_T>(static_cast<int32_T>(
-                            static_cast<int32_T>(i2 * nv) + nread) + 1);
-                        for (iy = 0; iy <= static_cast<int32_T>(nv - 1); iy++) {
-                            dummyWayPoint->data[static_cast<int32_T>(pageroot +
-                                iy)] = localDW->NED_WP_data[static_cast<int32_T>
-                                (npages + iy)];
+                nrows = NED_WP_size[0];
+                i = static_cast<int32_T>(static_cast<int32_T>(d) - 1);
+                for (iremain = 0; iremain < 3; iremain++) {
+                    iacol = static_cast<int32_T>(iremain * nrows);
+                    ibmat = static_cast<int32_T>(static_cast<int32_T>(
+                        static_cast<int32_T>(nrows * static_cast<int32_T>(d)) *
+                        iremain) - 1);
+                    for (i1 = 0; i1 <= i; i1++) {
+                        int32_T ibcol;
+                        ibcol = static_cast<int32_T>(static_cast<int32_T>(
+                            static_cast<int32_T>(i1 * nrows) + ibmat) + 1);
+                        for (iy = 0; iy <= static_cast<int32_T>(nrows - 1); iy++)
+                        {
+                            dummyWayPoint->data[static_cast<int32_T>(ibcol + iy)]
+                                = localDW->NED_WP_data[static_cast<int32_T>
+                                (iacol + iy)];
                         }
                     }
                 }
@@ -30298,22 +30045,22 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                     }
 
                     if (p && (iy != 0) && (i1 != 0)) {
-                        nread = 0;
+                        iremain = 0;
                         exitg1 = false;
-                        while ((!exitg1) && (nread <= static_cast<int32_T>(
+                        while ((!exitg1) && (iremain <= static_cast<int32_T>(
                                  static_cast<int32_T>(i1 * 3) - 1))) {
                             if (static_cast<boolean_T>(static_cast<int32_T>
                                                        ((localDW->obj_j.WaypointsInternal
                                     [static_cast<int32_T>(static_cast<int32_T>(
-                                     static_cast<int32_T>(nread / iy) << 13) +
-                                    nread % iy)] == localDW->WayPoint_k[
+                                     static_cast<int32_T>(iremain / iy) << 13) +
+                                    iremain % iy)] == localDW->WayPoint_k[
                                     static_cast<int32_T>(static_cast<int32_T>(
-                                     static_cast<int32_T>(nread / i1) << 13) +
-                                    nread % i1)]) ^ 1))) {
+                                     static_cast<int32_T>(iremain / i1) << 13) +
+                                    iremain % i1)]) ^ 1))) {
                                 p = false;
                                 exitg1 = true;
                             } else {
-                                nread = static_cast<int32_T>(nread + 1);
+                                iremain = static_cast<int32_T>(iremain + 1);
                             }
                         }
                     }
@@ -30322,8 +30069,9 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                         isStable = true;
                     }
 
-                    if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<
-                            int32_T>(isStable) ^ 1))) {
+                    if (static_cast<boolean_T>(static_cast<int32_T>
+                                               (static_cast<int32_T>(isStable) ^
+                          1))) {
                         guard1 = true;
                     }
                 }
@@ -30340,12 +30088,12 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                     localDW->distinctWptsIdx[i] = true;
                 }
 
-                for (nread = 0; nread < 8191; nread++) {
+                for (iremain = 0; iremain < 8191; iremain++) {
                     i = 0;
                     i1 = 0;
-                    for (i2 = 0; i2 < 3; i2++) {
-                        iy = static_cast<int32_T>(i1 + nread);
-                        localDW->x_f[static_cast<int32_T>(i + nread)] =
+                    for (iacol = 0; iacol < 3; iacol++) {
+                        iy = static_cast<int32_T>(i1 + iremain);
+                        localDW->x_g[static_cast<int32_T>(i + iremain)] =
                             (localDW->WayPoint[static_cast<int32_T>(iy + 1)] !=
                              localDW->WayPoint[iy]);
                         i = static_cast<int32_T>(i + 8191);
@@ -30354,53 +30102,54 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 }
 
                 i1 = 0;
-                i2 = 16382;
-                for (nread = 0; nread < 8191; nread++) {
-                    localDW->y[nread] = false;
+                i = 16382;
+                for (iremain = 0; iremain < 8191; iremain++) {
+                    localDW->y[iremain] = false;
                     i1 = static_cast<int32_T>(i1 + 1);
-                    i2 = static_cast<int32_T>(i2 + 1);
-                    ntoread = i1;
+                    i = static_cast<int32_T>(i + 1);
+                    nrows = i1;
                     exitg1 = false;
-                    while ((!exitg1) && (ntoread <= i2)) {
-                        if (localDW->x_f[static_cast<int32_T>(ntoread - 1)]) {
-                            localDW->y[nread] = true;
+                    while ((!exitg1) && (nrows <= i)) {
+                        if (localDW->x_g[static_cast<int32_T>(nrows - 1)]) {
+                            localDW->y[iremain] = true;
                             exitg1 = true;
                         } else {
-                            ntoread = static_cast<int32_T>(ntoread + 8191);
+                            nrows = static_cast<int32_T>(nrows + 8191);
                         }
                     }
 
-                    localDW->distinctWptsIdx[nread] = localDW->y[nread];
+                    localDW->distinctWptsIdx[iremain] = localDW->y[iremain];
                 }
 
-                i2 = 0;
+                i1 = 0;
                 for (iy = 0; iy < 8192; iy++) {
                     if (localDW->distinctWptsIdx[iy]) {
-                        i2 = static_cast<int32_T>(i2 + 1);
+                        i1 = static_cast<int32_T>(i1 + 1);
                     }
                 }
 
-                iy = 0;
-                for (nread = 0; nread < 8192; nread++) {
-                    if (localDW->distinctWptsIdx[nread]) {
-                        localDW->b_data[iy] = static_cast<int16_T>(static_cast<
-                            int32_T>(nread + 1));
-                        iy = static_cast<int32_T>(iy + 1);
+                iacol = i1;
+                i1 = 0;
+                for (iy = 0; iy < 8192; iy++) {
+                    if (localDW->distinctWptsIdx[iy]) {
+                        localDW->b_data[i1] = static_cast<int16_T>
+                            (static_cast<int32_T>(iy + 1));
+                        i1 = static_cast<int32_T>(i1 + 1);
                     }
                 }
 
-                stride = static_cast<int32_T>(b_waypointsIn->size[0] *
+                ibmat = static_cast<int32_T>(b_waypointsIn->size[0] *
                     b_waypointsIn->size[1]);
 
                 // MATLABSystem: '<S164>/Waypoint Follower'
-                b_waypointsIn->size[0] = i2;
+                b_waypointsIn->size[0] = iacol;
                 b_waypointsIn->size[1] = 3;
                 FlightMissionMode_emxEnsureCapacity_real_T_c(b_waypointsIn,
-                    stride);
+                    ibmat);
 
                 // MATLABSystem: '<S164>/Waypoint Follower'
                 for (i = 0; i < 3; i++) {
-                    for (i1 = 0; i1 <= static_cast<int32_T>(i2 - 1); i1++) {
+                    for (i1 = 0; i1 <= static_cast<int32_T>(iacol - 1); i1++) {
                         b_waypointsIn->data[static_cast<int32_T>(i1 +
                             static_cast<int32_T>(b_waypointsIn->size[0] * i))] =
                             localDW->WayPoint[static_cast<int32_T>
@@ -30410,7 +30159,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 }
 
                 localDW->obj_j.LookaheadDistance = 200.0;
-                if (i2 == 0) {
+                if (iacol == 0) {
                     // SignalConversion generated from: '<S164>/Waypoint Follower' incorporates:
                     //   Merge: '<S161>/MergeLAP'
 
@@ -30423,7 +30172,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                     rtb_MergeStatus = 1U;
                 } else {
                     guard1 = false;
-                    if (i2 == 1) {
+                    if (iacol == 1) {
                         if (localDW->obj_j.StartFlag) {
                             localDW->obj_j.InitialPose[0] = rtu_Pose[0];
                             localDW->obj_j.InitialPose[1] = rtu_Pose[1];
@@ -30450,20 +30199,20 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                         } else {
                             localDW->obj_j.StartFlag = false;
                             localDW->obj_j.NumWaypoints = 2.0;
-                            stride = static_cast<int32_T>(waypoints->size[0] *
+                            ibmat = static_cast<int32_T>(waypoints->size[0] *
                                 waypoints->size[1]);
                             waypoints->size[0] = static_cast<int32_T>
                                 (b_waypointsIn->size[0] + 1);
                             waypoints->size[1] = 3;
                             FlightMissionMode_emxEnsureCapacity_real_T_c
-                                (waypoints, stride);
-                            nv = b_waypointsIn->size[0];
+                                (waypoints, ibmat);
+                            iacol = b_waypointsIn->size[0];
                             for (i = 0; i < 3; i++) {
                                 waypoints->data[static_cast<int32_T>
                                     (waypoints->size[0] * i)] =
                                     localDW->obj_j.InitialPose[i];
-                                for (i1 = 0; i1 <= static_cast<int32_T>(nv - 1);
-                                     i1++) {
+                                for (i1 = 0; i1 <= static_cast<int32_T>(iacol -
+                                        1); i1++) {
                                     waypoints->data[static_cast<int32_T>(
                                         static_cast<int32_T>(i1 +
                                         static_cast<int32_T>(waypoints->size[0] *
@@ -30476,14 +30225,14 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                             guard1 = true;
                         }
                     } else {
-                        stride = static_cast<int32_T>(waypoints->size[0] *
+                        ibmat = static_cast<int32_T>(waypoints->size[0] *
                             waypoints->size[1]);
                         waypoints->size[0] = b_waypointsIn->size[0];
                         waypoints->size[1] = 3;
                         FlightMissionMode_emxEnsureCapacity_real_T_c(waypoints,
-                            stride);
-                        nv = static_cast<int32_T>(b_waypointsIn->size[0] * 3);
-                        for (i = 0; i <= static_cast<int32_T>(nv - 1); i++) {
+                            ibmat);
+                        iacol = static_cast<int32_T>(b_waypointsIn->size[0] * 3);
+                        for (i = 0; i <= static_cast<int32_T>(iacol - 1); i++) {
                             waypoints->data[i] = b_waypointsIn->data[i];
                         }
 
@@ -30491,7 +30240,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                     }
 
                     if (guard1) {
-                        real_T distToCenter_tmp_0;
+                        real_T distToCenter_tmp_tmp;
                         boolean_T guard2;
                         if (localDW->obj_j.SearchFlag) {
                             FlightMissionMode_WaypointFollowerBase_searchClosestPath
@@ -30556,15 +30305,15 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                 (waypoints->size[0] << 1) + static_cast<int32_T>
                                 (localDW->obj_j.WaypointIndex)) - 1)];
                             rtb_Sum1_e_idx_0 = FlightMissionMode_norm_pv(u);
-                            distToCenter_tmp_0 = FlightMissionMode_norm_pv
+                            distToCenter_tmp_tmp = FlightMissionMode_norm_pv
                                 (LLA0_gw);
-                            distToCenter = waypoints->data[static_cast<int32_T>(
+                            Alt = waypoints->data[static_cast<int32_T>(
                                 static_cast<int32_T>
                                 (localDW->obj_j.WaypointIndex) - 1)];
                             rtb_Abs1_il = waypoints->data[static_cast<int32_T>(
                                 static_cast<int32_T>
                                 (localDW->obj_j.WaypointIndex + 1.0) - 1)];
-                            Alt = waypoints->data[static_cast<int32_T>(
+                            distToCenter = waypoints->data[static_cast<int32_T>(
                                 static_cast<int32_T>(static_cast<int32_T>
                                 (localDW->obj_j.WaypointIndex) + waypoints->
                                 size[0]) - 1)];
@@ -30572,28 +30321,28 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                 static_cast<int32_T>(static_cast<int32_T>
                                 (localDW->obj_j.WaypointIndex + 1.0) +
                                 waypoints->size[0]) - 1)];
-                            turnVector_idx_2 = waypoints->data
-                                [static_cast<int32_T>(static_cast<int32_T>(
-                                static_cast<int32_T>(waypoints->size[0] << 1) +
-                                static_cast<int32_T>
+                            d = waypoints->data[static_cast<int32_T>(
+                                static_cast<int32_T>(static_cast<int32_T>
+                                (waypoints->size[0] << 1) + static_cast<int32_T>
                                 (localDW->obj_j.WaypointIndex)) - 1)];
                             Lon = waypoints->data[static_cast<int32_T>(
                                 static_cast<int32_T>(static_cast<int32_T>
                                 (localDW->obj_j.WaypointIndex + 1.0) +
                                 static_cast<int32_T>(waypoints->size[0] << 1)) -
                                 1)];
-                            d = ((rtb_Abs1_il - distToCenter) / rtb_Sum1_e_idx_0
-                                 * (LLA0_gw[0] / distToCenter_tmp_0) +
-                                 (rtb_Switch_l - Alt) / rtb_Sum1_e_idx_0 *
-                                 (LLA0_gw[1] / distToCenter_tmp_0)) + (Lon -
-                                turnVector_idx_2) / rtb_Sum1_e_idx_0 * (LLA0_gw
-                                [2] / distToCenter_tmp_0);
-                            if (std::isnan(d)) {
+                            y2 = ((rtb_Abs1_il - Alt) / rtb_Sum1_e_idx_0 *
+                                  (LLA0_gw[0] / distToCenter_tmp_tmp) +
+                                  (rtb_Switch_l - distToCenter) /
+                                  rtb_Sum1_e_idx_0 * (LLA0_gw[1] /
+                                   distToCenter_tmp_tmp)) + (Lon - d) /
+                                rtb_Sum1_e_idx_0 * (LLA0_gw[2] /
+                                                    distToCenter_tmp_tmp);
+                            if (std::isnan(y2)) {
                                 rtb_Sum1_e_idx_0 = (rtNaN);
-                            } else if (d < 0.0) {
+                            } else if (y2 < 0.0) {
                                 rtb_Sum1_e_idx_0 = -1.0;
                             } else {
-                                rtb_Sum1_e_idx_0 = static_cast<real_T>(d > 0.0);
+                                rtb_Sum1_e_idx_0 = static_cast<real_T>(y2 > 0.0);
                             }
 
                             if (rtb_Sum1_e_idx_0 >= 0.0) {
@@ -30618,13 +30367,13 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                 localDW->obj_j.WaypointIndex--;
                             }
 
-                            distToCenter = waypoints->data[static_cast<int32_T>(
+                            Alt = waypoints->data[static_cast<int32_T>(
                                 static_cast<int32_T>
                                 (localDW->obj_j.WaypointIndex) - 1)];
                             LLA0_gw[0] = waypoints->data[static_cast<int32_T>(
                                 static_cast<int32_T>
                                 (localDW->obj_j.WaypointIndex + 1.0) - 1)];
-                            Alt = waypoints->data[static_cast<int32_T>(
+                            distToCenter = waypoints->data[static_cast<int32_T>(
                                 static_cast<int32_T>(static_cast<int32_T>
                                 (localDW->obj_j.WaypointIndex) + waypoints->
                                 size[0]) - 1)];
@@ -30632,10 +30381,9 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                 static_cast<int32_T>(static_cast<int32_T>
                                 (localDW->obj_j.WaypointIndex + 1.0) +
                                 waypoints->size[0]) - 1)];
-                            turnVector_idx_2 = waypoints->data
-                                [static_cast<int32_T>(static_cast<int32_T>(
-                                static_cast<int32_T>(waypoints->size[0] << 1) +
-                                static_cast<int32_T>
+                            d = waypoints->data[static_cast<int32_T>(
+                                static_cast<int32_T>(static_cast<int32_T>
+                                (waypoints->size[0] << 1) + static_cast<int32_T>
                                 (localDW->obj_j.WaypointIndex)) - 1)];
                             LLA0_gw[2] = waypoints->data[static_cast<int32_T>(
                                 static_cast<int32_T>(static_cast<int32_T>
@@ -30644,22 +30392,22 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                 1)];
                         }
 
-                        rtb_Sum1_e_idx_1 = LLA0_gw[0] - distToCenter;
-                        rtb_Switch_l = rtu_Pose[0] - distToCenter;
-                        rtb_Sum1_e_idx_0 = LLA0_gw[1] - Alt;
-                        Lon = rtu_Pose[1] - Alt;
-                        distToCenter_tmp_0 = LLA0_gw[2] - turnVector_idx_2;
-                        d = rtu_Pose[2] - turnVector_idx_2;
+                        rtb_Sum1_e_idx_1 = LLA0_gw[0] - Alt;
+                        rtb_Switch_l = rtu_Pose[0] - Alt;
+                        rtb_Sum1_e_idx_0 = LLA0_gw[1] - distToCenter;
+                        Lon = rtu_Pose[1] - distToCenter;
+                        distToCenter_tmp_tmp = LLA0_gw[2] - d;
+                        y2 = rtu_Pose[2] - d;
                         rtb_Abs1_il = ((Lon * rtb_Sum1_e_idx_0 + rtb_Switch_l *
-                                        rtb_Sum1_e_idx_1) + d *
-                                       distToCenter_tmp_0) / ((rtb_Sum1_e_idx_0 *
-                            rtb_Sum1_e_idx_0 + rtb_Sum1_e_idx_1 *
-                            rtb_Sum1_e_idx_1) + distToCenter_tmp_0 *
-                            distToCenter_tmp_0);
+                                        rtb_Sum1_e_idx_1) + y2 *
+                                       distToCenter_tmp_tmp) /
+                            ((rtb_Sum1_e_idx_0 * rtb_Sum1_e_idx_0 +
+                              rtb_Sum1_e_idx_1 * rtb_Sum1_e_idx_1) +
+                             distToCenter_tmp_tmp * distToCenter_tmp_tmp);
                         if (rtb_Abs1_il < 0.0) {
                             u[0] = rtb_Switch_l;
                             u[1] = Lon;
-                            u[2] = d;
+                            u[2] = y2;
                             rtb_Abs1_il = FlightMissionMode_norm_pv(u);
                         } else if (rtb_Abs1_il > 1.0) {
                             u[0] = rtu_Pose[0] - LLA0_gw[0];
@@ -30668,49 +30416,44 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                             rtb_Abs1_il = FlightMissionMode_norm_pv(u);
                         } else {
                             u[0] = rtu_Pose[0] - (rtb_Abs1_il * rtb_Sum1_e_idx_1
-                                                  + distToCenter);
-                            u[1] = rtu_Pose[1] - (rtb_Abs1_il * rtb_Sum1_e_idx_0
                                                   + Alt);
+                            u[1] = rtu_Pose[1] - (rtb_Abs1_il * rtb_Sum1_e_idx_0
+                                                  + distToCenter);
                             u[2] = rtu_Pose[2] - (rtb_Abs1_il *
-                                                  distToCenter_tmp_0 +
-                                                  turnVector_idx_2);
+                                                  distToCenter_tmp_tmp + d);
                             rtb_Abs1_il = FlightMissionMode_norm_pv(u);
                         }
 
                         if (localDW->obj_j.LastWaypointFlag) {
-                            rtb_Abs1_il = (((rtu_Pose[0] - distToCenter) *
-                                            (LLA0_gw[0] - distToCenter) + Lon *
-                                            rtb_Sum1_e_idx_0) + (rtu_Pose[2] -
-                                            turnVector_idx_2) * (LLA0_gw[2] -
-                                            turnVector_idx_2)) / (((LLA0_gw[0] -
-                                distToCenter) * (LLA0_gw[0] - distToCenter) +
-                                rtb_Sum1_e_idx_0 * rtb_Sum1_e_idx_0) + (LLA0_gw
-                                [2] - turnVector_idx_2) * (LLA0_gw[2] -
-                                turnVector_idx_2));
+                            rtb_Abs1_il = (((rtu_Pose[0] - Alt) * (LLA0_gw[0] -
+                                             Alt) + Lon * rtb_Sum1_e_idx_0) +
+                                           (rtu_Pose[2] - d) * (LLA0_gw[2] - d))
+                                / (((LLA0_gw[0] - Alt) * (LLA0_gw[0] - Alt) +
+                                    rtb_Sum1_e_idx_0 * rtb_Sum1_e_idx_0) +
+                                   (LLA0_gw[2] - d) * (LLA0_gw[2] - d));
                             u[0] = rtu_Pose[0] - (rtb_Abs1_il * rtb_Sum1_e_idx_1
-                                                  + distToCenter);
-                            u[1] = rtu_Pose[1] - (rtb_Abs1_il * rtb_Sum1_e_idx_0
                                                   + Alt);
+                            u[1] = rtu_Pose[1] - (rtb_Abs1_il * rtb_Sum1_e_idx_0
+                                                  + distToCenter);
                             u[2] = rtu_Pose[2] - (rtb_Abs1_il *
-                                                  distToCenter_tmp_0 +
-                                                  turnVector_idx_2);
+                                                  distToCenter_tmp_tmp + d);
                             rtb_Abs1_il = FlightMissionMode_norm_pv(u);
                         }
 
-                        d = std::abs(rtb_Abs1_il);
+                        y2 = std::abs(rtb_Abs1_il);
                         if (static_cast<boolean_T>(static_cast<int32_T>(
-                                static_cast<int32_T>(std::isinf(d)) |
-                                static_cast<int32_T>(std::isnan(d))))) {
+                                static_cast<int32_T>(std::isinf(y2)) |
+                                static_cast<int32_T>(std::isnan(y2))))) {
                             Lon = (rtNaN);
                             rtb_Switch_l = (rtNaN);
-                        } else if (d < 4.4501477170144028E-308) {
+                        } else if (y2 < 4.4501477170144028E-308) {
                             Lon = 4.94065645841247E-324;
                             rtb_Switch_l = 4.94065645841247E-324;
                         } else {
-                            std::frexp(d, &rtb_Bias_mn);
+                            std::frexp(y2, &rtb_Bias_mn);
                             Lon = std::ldexp(1.0, static_cast<int32_T>
                                              (rtb_Bias_mn - 53));
-                            std::frexp(d, &b_exponent);
+                            std::frexp(y2, &b_exponent);
                             rtb_Switch_l = std::ldexp(1.0, static_cast<int32_T>
                                 (b_exponent - 53));
                         }
@@ -30721,34 +30464,33 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                 localDW->obj_j.LookaheadFactor * rtb_Abs1_il;
                         }
 
-                        d = distToCenter - rtu_Pose[0];
-                        u[0] = d;
-                        rtb_Switch_l = Alt - rtu_Pose[1];
+                        y2 = Alt - rtu_Pose[0];
+                        u[0] = y2;
+                        rtb_Switch_l = distToCenter - rtu_Pose[1];
                         u[1] = rtb_Switch_l;
-                        Lon = ((LLA0_gw[0] - distToCenter) * (LLA0_gw[0] -
-                                distToCenter) + (LLA0_gw[1] - Alt) * (LLA0_gw[1]
-                                - Alt)) + (LLA0_gw[2] - turnVector_idx_2) *
-                            (LLA0_gw[2] - turnVector_idx_2);
-                        xyCenter_idx_1 = turnVector_idx_2 - rtu_Pose[2];
+                        Lon = ((LLA0_gw[0] - Alt) * (LLA0_gw[0] - Alt) +
+                               (LLA0_gw[1] - distToCenter) * (LLA0_gw[1] -
+                                distToCenter)) + (LLA0_gw[2] - d) * (LLA0_gw[2]
+                            - d);
+                        xyCenter_idx_1 = d - rtu_Pose[2];
                         u[2] = xyCenter_idx_1;
-                        rtb_Abs1_il = ((rtb_Sum1_e_idx_1 * d + rtb_Sum1_e_idx_0 *
-                                        rtb_Switch_l) + distToCenter_tmp_0 *
+                        rtb_Abs1_il = ((rtb_Sum1_e_idx_1 * y2 + rtb_Sum1_e_idx_0
+                                        * rtb_Switch_l) + distToCenter_tmp_tmp *
                                        xyCenter_idx_1) * 2.0;
                         rtb_Switch_l = std::sqrt(rtb_Abs1_il * rtb_Abs1_il -
-                            (((d * d + rtb_Switch_l * rtb_Switch_l) +
+                            (((y2 * y2 + rtb_Switch_l * rtb_Switch_l) +
                               xyCenter_idx_1 * xyCenter_idx_1) -
                              localDW->obj_j.LookaheadDistance *
                              localDW->obj_j.LookaheadDistance) * (4.0 * Lon));
                         Lon = std::fmax((-rtb_Abs1_il + rtb_Switch_l) / 2.0 /
                                         Lon, (-rtb_Abs1_il - rtb_Switch_l) / 2.0
                                         / Lon);
-                        LLA0_gw[2] = (1.0 - Lon) * turnVector_idx_2 + Lon *
-                            LLA0_gw[2];
+                        LLA0_gw[2] = (1.0 - Lon) * d + Lon * LLA0_gw[2];
 
                         // SignalConversion generated from: '<S164>/Waypoint Follower' 
-                        rtb_Switch_l = rt_atan2d_snf(((1.0 - Lon) * Alt + Lon *
-                            LLA0_gw[1]) - rtu_Pose[1], ((1.0 - Lon) *
-                            distToCenter + Lon * LLA0_gw[0]) - rtu_Pose[0]);
+                        rtb_Switch_l = rt_atan2d_snf(((1.0 - Lon) * distToCenter
+                            + Lon * LLA0_gw[1]) - rtu_Pose[1], ((1.0 - Lon) *
+                            Alt + Lon * LLA0_gw[0]) - rtu_Pose[0]);
 
                         // SignalConversion generated from: '<S164>/Waypoint Follower' 
                         rtb_MergeStatus = 0U;
@@ -30827,22 +30569,22 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                     }
 
                     if (p && (iy != 0) && (i1 != 0)) {
-                        nread = 0;
+                        iremain = 0;
                         exitg1 = false;
-                        while ((!exitg1) && (nread <= static_cast<int32_T>(
+                        while ((!exitg1) && (iremain <= static_cast<int32_T>(
                                  static_cast<int32_T>(i1 * 3) - 1))) {
                             if (static_cast<boolean_T>(static_cast<int32_T>
                                                        ((localDW->obj.WaypointsInternal
                                     [static_cast<int32_T>(static_cast<int32_T>(
-                                     static_cast<int32_T>(nread / iy) << 13) +
-                                    nread % iy)] == localDW->WayPoint_k[
+                                     static_cast<int32_T>(iremain / iy) << 13) +
+                                    iremain % iy)] == localDW->WayPoint_k[
                                     static_cast<int32_T>(static_cast<int32_T>(
-                                     static_cast<int32_T>(nread / i1) << 13) +
-                                    nread % i1)]) ^ 1))) {
+                                     static_cast<int32_T>(iremain / i1) << 13) +
+                                    iremain % i1)]) ^ 1))) {
                                 p = false;
                                 exitg1 = true;
                             } else {
-                                nread = static_cast<int32_T>(nread + 1);
+                                iremain = static_cast<int32_T>(iremain + 1);
                             }
                         }
                     }
@@ -30851,8 +30593,9 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                         isStable = true;
                     }
 
-                    if (static_cast<boolean_T>(static_cast<int32_T>(static_cast<
-                            int32_T>(isStable) ^ 1))) {
+                    if (static_cast<boolean_T>(static_cast<int32_T>
+                                               (static_cast<int32_T>(isStable) ^
+                          1))) {
                         guard1 = true;
                     }
                 }
@@ -30868,12 +30611,12 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                     localDW->distinctWptsIdx[i] = true;
                 }
 
-                for (nread = 0; nread < 8191; nread++) {
+                for (iremain = 0; iremain < 8191; iremain++) {
                     i = 0;
                     i1 = 0;
-                    for (i2 = 0; i2 < 3; i2++) {
-                        iy = static_cast<int32_T>(i1 + nread);
-                        localDW->x_f[static_cast<int32_T>(i + nread)] =
+                    for (iacol = 0; iacol < 3; iacol++) {
+                        iy = static_cast<int32_T>(i1 + iremain);
+                        localDW->x_g[static_cast<int32_T>(i + iremain)] =
                             (localDW->WayPoint[static_cast<int32_T>(iy + 1)] !=
                              localDW->WayPoint[iy]);
                         i = static_cast<int32_T>(i + 8191);
@@ -30882,53 +30625,54 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 }
 
                 i1 = 0;
-                i2 = 16382;
-                for (nread = 0; nread < 8191; nread++) {
-                    localDW->y[nread] = false;
+                i = 16382;
+                for (iremain = 0; iremain < 8191; iremain++) {
+                    localDW->y[iremain] = false;
                     i1 = static_cast<int32_T>(i1 + 1);
-                    i2 = static_cast<int32_T>(i2 + 1);
-                    ntoread = i1;
+                    i = static_cast<int32_T>(i + 1);
+                    nrows = i1;
                     exitg1 = false;
-                    while ((!exitg1) && (ntoread <= i2)) {
-                        if (localDW->x_f[static_cast<int32_T>(ntoread - 1)]) {
-                            localDW->y[nread] = true;
+                    while ((!exitg1) && (nrows <= i)) {
+                        if (localDW->x_g[static_cast<int32_T>(nrows - 1)]) {
+                            localDW->y[iremain] = true;
                             exitg1 = true;
                         } else {
-                            ntoread = static_cast<int32_T>(ntoread + 8191);
+                            nrows = static_cast<int32_T>(nrows + 8191);
                         }
                     }
 
-                    localDW->distinctWptsIdx[nread] = localDW->y[nread];
+                    localDW->distinctWptsIdx[iremain] = localDW->y[iremain];
                 }
 
-                i2 = 0;
+                i1 = 0;
                 for (iy = 0; iy < 8192; iy++) {
                     if (localDW->distinctWptsIdx[iy]) {
-                        i2 = static_cast<int32_T>(i2 + 1);
+                        i1 = static_cast<int32_T>(i1 + 1);
                     }
                 }
 
-                iy = 0;
-                for (nread = 0; nread < 8192; nread++) {
-                    if (localDW->distinctWptsIdx[nread]) {
-                        localDW->b_data[iy] = static_cast<int16_T>(static_cast<
-                            int32_T>(nread + 1));
-                        iy = static_cast<int32_T>(iy + 1);
+                iacol = i1;
+                i1 = 0;
+                for (iy = 0; iy < 8192; iy++) {
+                    if (localDW->distinctWptsIdx[iy]) {
+                        localDW->b_data[i1] = static_cast<int16_T>
+                            (static_cast<int32_T>(iy + 1));
+                        i1 = static_cast<int32_T>(i1 + 1);
                     }
                 }
 
-                stride = static_cast<int32_T>(b_waypointsIn->size[0] *
+                ibmat = static_cast<int32_T>(b_waypointsIn->size[0] *
                     b_waypointsIn->size[1]);
 
                 // MATLABSystem: '<S165>/Waypoint Follower'
-                b_waypointsIn->size[0] = i2;
+                b_waypointsIn->size[0] = iacol;
                 b_waypointsIn->size[1] = 3;
                 FlightMissionMode_emxEnsureCapacity_real_T_c(b_waypointsIn,
-                    stride);
+                    ibmat);
 
                 // MATLABSystem: '<S165>/Waypoint Follower'
                 for (i = 0; i < 3; i++) {
-                    for (i1 = 0; i1 <= static_cast<int32_T>(i2 - 1); i1++) {
+                    for (i1 = 0; i1 <= static_cast<int32_T>(iacol - 1); i1++) {
                         b_waypointsIn->data[static_cast<int32_T>(i1 +
                             static_cast<int32_T>(b_waypointsIn->size[0] * i))] =
                             localDW->WayPoint[static_cast<int32_T>
@@ -30938,7 +30682,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                 }
 
                 localDW->obj.LookaheadDistance = 200.0;
-                if (i2 == 0) {
+                if (iacol == 0) {
                     // SignalConversion generated from: '<S165>/Waypoint Follower' incorporates:
                     //   Merge: '<S161>/MergeLAP'
 
@@ -30951,7 +30695,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                     rtb_MergeStatus = 1U;
                 } else {
                     guard1 = false;
-                    if (i2 == 1) {
+                    if (iacol == 1) {
                         if (localDW->obj.StartFlag) {
                             localDW->obj.InitialPose[0] = rtu_Pose[0];
                             localDW->obj.InitialPose[1] = rtu_Pose[1];
@@ -30978,20 +30722,20 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                         } else {
                             localDW->obj.StartFlag = false;
                             localDW->obj.NumWaypoints = 2.0;
-                            stride = static_cast<int32_T>(waypoints->size[0] *
+                            ibmat = static_cast<int32_T>(waypoints->size[0] *
                                 waypoints->size[1]);
                             waypoints->size[0] = static_cast<int32_T>
                                 (b_waypointsIn->size[0] + 1);
                             waypoints->size[1] = 3;
                             FlightMissionMode_emxEnsureCapacity_real_T_c
-                                (waypoints, stride);
-                            nv = b_waypointsIn->size[0];
+                                (waypoints, ibmat);
+                            iacol = b_waypointsIn->size[0];
                             for (i = 0; i < 3; i++) {
                                 waypoints->data[static_cast<int32_T>
                                     (waypoints->size[0] * i)] =
                                     localDW->obj.InitialPose[i];
-                                for (i1 = 0; i1 <= static_cast<int32_T>(nv - 1);
-                                     i1++) {
+                                for (i1 = 0; i1 <= static_cast<int32_T>(iacol -
+                                        1); i1++) {
                                     waypoints->data[static_cast<int32_T>(
                                         static_cast<int32_T>(i1 +
                                         static_cast<int32_T>(waypoints->size[0] *
@@ -31004,14 +30748,14 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                             guard1 = true;
                         }
                     } else {
-                        stride = static_cast<int32_T>(waypoints->size[0] *
+                        ibmat = static_cast<int32_T>(waypoints->size[0] *
                             waypoints->size[1]);
                         waypoints->size[0] = b_waypointsIn->size[0];
                         waypoints->size[1] = 3;
                         FlightMissionMode_emxEnsureCapacity_real_T_c(waypoints,
-                            stride);
-                        nv = static_cast<int32_T>(b_waypointsIn->size[0] * 3);
-                        for (i = 0; i <= static_cast<int32_T>(nv - 1); i++) {
+                            ibmat);
+                        iacol = static_cast<int32_T>(b_waypointsIn->size[0] * 3);
+                        for (i = 0; i <= static_cast<int32_T>(iacol - 1); i++) {
                             waypoints->data[i] = b_waypointsIn->data[i];
                         }
 
@@ -31019,7 +30763,6 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                     }
 
                     if (guard1) {
-                        real_T distToCenter_tmp_0;
                         boolean_T guard2;
                         isStable = false;
                         if (localDW->obj.WaypointIndex ==
@@ -31047,6 +30790,7 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                         if (FlightMissionMode_norm_pv(u) <= 30.0) {
                             guard2 = true;
                         } else {
+                            real_T distToCenter_tmp_tmp;
                             rtb_Abs1_il = waypoints->data[static_cast<int32_T>(
                                 static_cast<int32_T>(localDW->obj.WaypointIndex
                                 + 1.0) - 1)];
@@ -31077,15 +30821,15 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                 (waypoints->size[0] << 1) + static_cast<int32_T>
                                 (localDW->obj.WaypointIndex)) - 1)];
                             rtb_Sum1_e_idx_0 = FlightMissionMode_norm_pv(u);
-                            distToCenter_tmp_0 = FlightMissionMode_norm_pv
+                            distToCenter_tmp_tmp = FlightMissionMode_norm_pv
                                 (LLA0_gw);
-                            distToCenter = waypoints->data[static_cast<int32_T>(
+                            Alt = waypoints->data[static_cast<int32_T>(
                                 static_cast<int32_T>(localDW->obj.WaypointIndex)
                                 - 1)];
                             rtb_Abs1_il = waypoints->data[static_cast<int32_T>(
                                 static_cast<int32_T>(localDW->obj.WaypointIndex
                                 + 1.0) - 1)];
-                            Alt = waypoints->data[static_cast<int32_T>(
+                            distToCenter = waypoints->data[static_cast<int32_T>(
                                 static_cast<int32_T>(static_cast<int32_T>
                                 (localDW->obj.WaypointIndex) + waypoints->size[0])
                                 - 1)];
@@ -31093,28 +30837,28 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                 static_cast<int32_T>(static_cast<int32_T>
                                 (localDW->obj.WaypointIndex + 1.0) +
                                 waypoints->size[0]) - 1)];
-                            turnVector_idx_2 = waypoints->data
-                                [static_cast<int32_T>(static_cast<int32_T>(
-                                static_cast<int32_T>(waypoints->size[0] << 1) +
-                                static_cast<int32_T>(localDW->obj.WaypointIndex))
-                                - 1)];
+                            d = waypoints->data[static_cast<int32_T>(
+                                static_cast<int32_T>(static_cast<int32_T>
+                                (waypoints->size[0] << 1) + static_cast<int32_T>
+                                (localDW->obj.WaypointIndex)) - 1)];
                             Lon = waypoints->data[static_cast<int32_T>(
                                 static_cast<int32_T>(static_cast<int32_T>
                                 (localDW->obj.WaypointIndex + 1.0) +
                                 static_cast<int32_T>(waypoints->size[0] << 1)) -
                                 1)];
-                            d = ((rtb_Abs1_il - distToCenter) / rtb_Sum1_e_idx_0
-                                 * (LLA0_gw[0] / distToCenter_tmp_0) +
-                                 (rtb_Switch_l - Alt) / rtb_Sum1_e_idx_0 *
-                                 (LLA0_gw[1] / distToCenter_tmp_0)) + (Lon -
-                                turnVector_idx_2) / rtb_Sum1_e_idx_0 * (LLA0_gw
-                                [2] / distToCenter_tmp_0);
-                            if (std::isnan(d)) {
+                            y2 = ((rtb_Abs1_il - Alt) / rtb_Sum1_e_idx_0 *
+                                  (LLA0_gw[0] / distToCenter_tmp_tmp) +
+                                  (rtb_Switch_l - distToCenter) /
+                                  rtb_Sum1_e_idx_0 * (LLA0_gw[1] /
+                                   distToCenter_tmp_tmp)) + (Lon - d) /
+                                rtb_Sum1_e_idx_0 * (LLA0_gw[2] /
+                                                    distToCenter_tmp_tmp);
+                            if (std::isnan(y2)) {
                                 rtb_Sum1_e_idx_0 = (rtNaN);
-                            } else if (d < 0.0) {
+                            } else if (y2 < 0.0) {
                                 rtb_Sum1_e_idx_0 = -1.0;
                             } else {
-                                rtb_Sum1_e_idx_0 = static_cast<real_T>(d > 0.0);
+                                rtb_Sum1_e_idx_0 = static_cast<real_T>(y2 > 0.0);
                             }
 
                             if (rtb_Sum1_e_idx_0 >= 0.0) {
@@ -31139,13 +30883,13 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                 localDW->obj.WaypointIndex--;
                             }
 
-                            distToCenter = waypoints->data[static_cast<int32_T>(
+                            Alt = waypoints->data[static_cast<int32_T>(
                                 static_cast<int32_T>(localDW->obj.WaypointIndex)
                                 - 1)];
                             LLA0_gw[0] = waypoints->data[static_cast<int32_T>(
                                 static_cast<int32_T>(localDW->obj.WaypointIndex
                                 + 1.0) - 1)];
-                            Alt = waypoints->data[static_cast<int32_T>(
+                            distToCenter = waypoints->data[static_cast<int32_T>(
                                 static_cast<int32_T>(static_cast<int32_T>
                                 (localDW->obj.WaypointIndex) + waypoints->size[0])
                                 - 1)];
@@ -31153,11 +30897,10 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                 static_cast<int32_T>(static_cast<int32_T>
                                 (localDW->obj.WaypointIndex + 1.0) +
                                 waypoints->size[0]) - 1)];
-                            turnVector_idx_2 = waypoints->data
-                                [static_cast<int32_T>(static_cast<int32_T>(
-                                static_cast<int32_T>(waypoints->size[0] << 1) +
-                                static_cast<int32_T>(localDW->obj.WaypointIndex))
-                                - 1)];
+                            d = waypoints->data[static_cast<int32_T>(
+                                static_cast<int32_T>(static_cast<int32_T>
+                                (waypoints->size[0] << 1) + static_cast<int32_T>
+                                (localDW->obj.WaypointIndex)) - 1)];
                             LLA0_gw[2] = waypoints->data[static_cast<int32_T>(
                                 static_cast<int32_T>(static_cast<int32_T>
                                 (localDW->obj.WaypointIndex + 1.0) +
@@ -31165,20 +30908,20 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                 1)];
                         }
 
-                        Lat = LLA0_gw[0] - distToCenter;
-                        rtb_Switch_l = rtu_Pose[0] - distToCenter;
-                        rtb_Sum1_e_idx_0 = LLA0_gw[1] - Alt;
-                        Lon = rtu_Pose[1] - Alt;
-                        distToCenter_tmp_0 = LLA0_gw[2] - turnVector_idx_2;
-                        d = rtu_Pose[2] - turnVector_idx_2;
+                        Lat = LLA0_gw[0] - Alt;
+                        rtb_Switch_l = rtu_Pose[0] - Alt;
+                        rtb_Sum1_e_idx_0 = LLA0_gw[1] - distToCenter;
+                        Lon = rtu_Pose[1] - distToCenter;
+                        rtb_Sum1_e_idx_1 = LLA0_gw[2] - d;
+                        y2 = rtu_Pose[2] - d;
                         rtb_Abs1_il = ((Lon * rtb_Sum1_e_idx_0 + rtb_Switch_l *
-                                        Lat) + d * distToCenter_tmp_0) /
+                                        Lat) + y2 * rtb_Sum1_e_idx_1) /
                             ((rtb_Sum1_e_idx_0 * rtb_Sum1_e_idx_0 + Lat * Lat) +
-                             distToCenter_tmp_0 * distToCenter_tmp_0);
+                             rtb_Sum1_e_idx_1 * rtb_Sum1_e_idx_1);
                         if (rtb_Abs1_il < 0.0) {
                             u[0] = rtb_Switch_l;
                             u[1] = Lon;
-                            u[2] = d;
+                            u[2] = y2;
                             rtb_Abs1_il = FlightMissionMode_norm_pv(u);
                         } else if (rtb_Abs1_il > 1.0) {
                             u[0] = rtu_Pose[0] - LLA0_gw[0];
@@ -31186,48 +30929,42 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                             u[2] = rtu_Pose[2] - LLA0_gw[2];
                             rtb_Abs1_il = FlightMissionMode_norm_pv(u);
                         } else {
-                            u[0] = rtu_Pose[0] - (rtb_Abs1_il * Lat +
-                                                  distToCenter);
+                            u[0] = rtu_Pose[0] - (rtb_Abs1_il * Lat + Alt);
                             u[1] = rtu_Pose[1] - (rtb_Abs1_il * rtb_Sum1_e_idx_0
-                                                  + Alt);
-                            u[2] = rtu_Pose[2] - (rtb_Abs1_il *
-                                                  distToCenter_tmp_0 +
-                                                  turnVector_idx_2);
+                                                  + distToCenter);
+                            u[2] = rtu_Pose[2] - (rtb_Abs1_il * rtb_Sum1_e_idx_1
+                                                  + d);
                             rtb_Abs1_il = FlightMissionMode_norm_pv(u);
                         }
 
                         if (localDW->obj.LastWaypointFlag) {
                             rtb_Abs1_il = ((rtb_Switch_l * Lat + Lon *
-                                            rtb_Sum1_e_idx_0) + (rtu_Pose[2] -
-                                            turnVector_idx_2) * (LLA0_gw[2] -
-                                            turnVector_idx_2)) / ((Lat * Lat +
-                                rtb_Sum1_e_idx_0 * rtb_Sum1_e_idx_0) + (LLA0_gw
-                                [2] - turnVector_idx_2) * (LLA0_gw[2] -
-                                turnVector_idx_2));
-                            u[0] = rtu_Pose[0] - (rtb_Abs1_il * Lat +
-                                                  distToCenter);
+                                            rtb_Sum1_e_idx_0) + y2 *
+                                           rtb_Sum1_e_idx_1) / ((Lat * Lat +
+                                rtb_Sum1_e_idx_0 * rtb_Sum1_e_idx_0) +
+                                rtb_Sum1_e_idx_1 * rtb_Sum1_e_idx_1);
+                            u[0] = rtu_Pose[0] - (rtb_Abs1_il * Lat + Alt);
                             u[1] = rtu_Pose[1] - (rtb_Abs1_il * rtb_Sum1_e_idx_0
-                                                  + Alt);
-                            u[2] = rtu_Pose[2] - (rtb_Abs1_il *
-                                                  distToCenter_tmp_0 +
-                                                  turnVector_idx_2);
+                                                  + distToCenter);
+                            u[2] = rtu_Pose[2] - (rtb_Abs1_il * rtb_Sum1_e_idx_1
+                                                  + d);
                             rtb_Abs1_il = FlightMissionMode_norm_pv(u);
                         }
 
-                        d = std::abs(rtb_Abs1_il);
+                        y2 = std::abs(rtb_Abs1_il);
                         if (static_cast<boolean_T>(static_cast<int32_T>(
-                                static_cast<int32_T>(std::isinf(d)) |
-                                static_cast<int32_T>(std::isnan(d))))) {
+                                static_cast<int32_T>(std::isinf(y2)) |
+                                static_cast<int32_T>(std::isnan(y2))))) {
                             Lon = (rtNaN);
                             rtb_Switch_l = (rtNaN);
-                        } else if (d < 4.4501477170144028E-308) {
+                        } else if (y2 < 4.4501477170144028E-308) {
                             Lon = 4.94065645841247E-324;
                             rtb_Switch_l = 4.94065645841247E-324;
                         } else {
-                            std::frexp(d, &rtb_Bias_mn);
+                            std::frexp(y2, &rtb_Bias_mn);
                             Lon = std::ldexp(1.0, static_cast<int32_T>
                                              (rtb_Bias_mn - 53));
-                            std::frexp(d, &b_exponent);
+                            std::frexp(y2, &b_exponent);
                             rtb_Switch_l = std::ldexp(1.0, static_cast<int32_T>
                                 (b_exponent - 53));
                         }
@@ -31238,34 +30975,33 @@ void FlightMissionMode(const boolean_T *rtu_startFlight, const MissionModes
                                 localDW->obj.LookaheadFactor * rtb_Abs1_il;
                         }
 
-                        d = distToCenter - rtu_Pose[0];
-                        u[0] = d;
-                        rtb_Switch_l = Alt - rtu_Pose[1];
+                        y2 = Alt - rtu_Pose[0];
+                        u[0] = y2;
+                        rtb_Switch_l = distToCenter - rtu_Pose[1];
                         u[1] = rtb_Switch_l;
-                        Lon = ((LLA0_gw[0] - distToCenter) * (LLA0_gw[0] -
-                                distToCenter) + (LLA0_gw[1] - Alt) * (LLA0_gw[1]
-                                - Alt)) + (LLA0_gw[2] - turnVector_idx_2) *
-                            (LLA0_gw[2] - turnVector_idx_2);
-                        xyCenter_idx_1 = turnVector_idx_2 - rtu_Pose[2];
+                        Lon = ((LLA0_gw[0] - Alt) * (LLA0_gw[0] - Alt) +
+                               (LLA0_gw[1] - distToCenter) * (LLA0_gw[1] -
+                                distToCenter)) + (LLA0_gw[2] - d) * (LLA0_gw[2]
+                            - d);
+                        xyCenter_idx_1 = d - rtu_Pose[2];
                         u[2] = xyCenter_idx_1;
-                        rtb_Abs1_il = ((Lat * d + rtb_Sum1_e_idx_0 *
-                                        rtb_Switch_l) + distToCenter_tmp_0 *
+                        rtb_Abs1_il = ((Lat * y2 + rtb_Sum1_e_idx_0 *
+                                        rtb_Switch_l) + rtb_Sum1_e_idx_1 *
                                        xyCenter_idx_1) * 2.0;
                         rtb_Switch_l = std::sqrt(rtb_Abs1_il * rtb_Abs1_il -
-                            (((d * d + rtb_Switch_l * rtb_Switch_l) +
+                            (((y2 * y2 + rtb_Switch_l * rtb_Switch_l) +
                               xyCenter_idx_1 * xyCenter_idx_1) -
                              localDW->obj.LookaheadDistance *
                              localDW->obj.LookaheadDistance) * (4.0 * Lon));
                         Lon = std::fmax((-rtb_Abs1_il + rtb_Switch_l) / 2.0 /
                                         Lon, (-rtb_Abs1_il - rtb_Switch_l) / 2.0
                                         / Lon);
-                        LLA0_gw[2] = (1.0 - Lon) * turnVector_idx_2 + Lon *
-                            LLA0_gw[2];
+                        LLA0_gw[2] = (1.0 - Lon) * d + Lon * LLA0_gw[2];
 
                         // SignalConversion generated from: '<S165>/Waypoint Follower' 
-                        rtb_Switch_l = rt_atan2d_snf(((1.0 - Lon) * Alt + Lon *
-                            LLA0_gw[1]) - rtu_Pose[1], ((1.0 - Lon) *
-                            distToCenter + Lon * LLA0_gw[0]) - rtu_Pose[0]);
+                        rtb_Switch_l = rt_atan2d_snf(((1.0 - Lon) * distToCenter
+                            + Lon * LLA0_gw[1]) - rtu_Pose[1], ((1.0 - Lon) *
+                            Alt + Lon * LLA0_gw[0]) - rtu_Pose[0]);
 
                         // SignalConversion generated from: '<S165>/Waypoint Follower' 
                         rtb_MergeStatus = 0U;

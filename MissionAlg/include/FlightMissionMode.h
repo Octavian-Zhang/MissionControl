@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'FlightMissionMode'.
 //
-// Model version                  : 4.33
+// Model version                  : 4.42
 // Simulink Coder version         : 9.8 (R2022b) 13-May-2022
-// C/C++ source code generated on : Mon Nov 21 19:24:11 2022
+// C/C++ source code generated on : Fri Nov 25 19:13:34 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -136,7 +136,7 @@ struct DW_FlightMissionMode_f_T {
     uav_sluav_internal_system_WaypointFollower_FlightMissionMode_c_T obj;// '<S165>/Waypoint Follower' 
     uav_sluav_internal_system_WaypointFollower_FlightMissionMode_c_T obj_k;// '<S36>/Waypoint Follower' 
     uav_sluav_internal_system_OrbitFollower_FlightMissionMode_T obj_f;// '<S9>/Orbit Follower' 
-    DubinsObjSingleton_FlightMissionMode_T SingletonInstance;// '<S40>/CheckPointInterp' 
+    DubinsObjSingleton_FlightMissionMode_m_T SingletonInstance;// '<S40>/CheckPointInterp' 
     real_T WayPoint[24576];            // '<S166>/WayPointGenerator'
     real_T MatrixConcatenateWayPoint[1920];// '<S121>/Matrix Concatenate WayPoint' 
     real_T ProductFlipStartPose[5];    // '<S121>/ProductFlipStartPose'
@@ -194,7 +194,7 @@ struct DW_FlightMissionMode_f_T {
     MissionModes FlightMission;      // '<Root>/PreemptableMissionModeSelector'
     RunWayLineSegment RunWayLineMode;  // '<S120>/Chart'
     RunWayLineSegment RunWayLineMode_o;// '<S76>/Chart'
-    int16_T d_data[8192];
+    int16_T c_data_f[8192];
     int16_T b_data[8192];
     int8_T SwitchCase_ActiveSubsystem; // '<Root>/Switch Case'
     int8_T SwitchCase_ActiveSubsystem_c;// '<S161>/Switch Case'
@@ -204,7 +204,7 @@ struct DW_FlightMissionMode_f_T {
     boolean_T x[32768];
     boolean_T distinctWptsIdx[8192];
     boolean_T y[8191];
-    boolean_T x_f[24573];
+    boolean_T x_g[24573];
     boolean_T objisempty;              // '<S165>/Waypoint Follower'
     boolean_T objisempty_e;            // '<S164>/Waypoint Follower'
     boolean_T HomePoint_not_empty;     // '<S118>/ReadHomePoint'
@@ -383,35 +383,35 @@ extern const FixedWingGuidanceBus FlightMissionMode_rtZFixedWingGuidanceBus;// F
 //  '<S34>'  : 'FlightMissionMode/Mode1_CirclingNav/Mode1_Variant/Mode1/Location2XeHdg1/LLA to Flat Earth/Subsystem/Find Radian//Distance/e^4'
 //  '<S35>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant'
 //  '<S36>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2'
-//  '<S37>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg1'
+//  '<S37>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg'
 //  '<S38>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/MissionD2R'
 //  '<S39>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/StartD2R'
 //  '<S40>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/WayPoint'
 //  '<S41>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/WayPointGenerator'
-//  '<S42>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg1/LLA to Flat Earth'
-//  '<S43>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg1/ReadHomePoint'
-//  '<S44>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg1/LLA to Flat Earth/LatLong wrap'
-//  '<S45>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg1/LLA to Flat Earth/LatLong wrap LL0'
-//  '<S46>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg1/LLA to Flat Earth/Subsystem'
-//  '<S47>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg1/LLA to Flat Earth/pos_rad'
-//  '<S48>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg1/LLA to Flat Earth/LatLong wrap/Latitude Wrap 90'
-//  '<S49>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg1/LLA to Flat Earth/LatLong wrap/Wrap Longitude'
-//  '<S50>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg1/LLA to Flat Earth/LatLong wrap/Latitude Wrap 90/Compare To Constant'
-//  '<S51>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg1/LLA to Flat Earth/LatLong wrap/Latitude Wrap 90/Wrap Angle 180'
-//  '<S52>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg1/LLA to Flat Earth/LatLong wrap/Latitude Wrap 90/Wrap Angle 180/Compare To Constant'
-//  '<S53>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg1/LLA to Flat Earth/LatLong wrap/Wrap Longitude/Compare To Constant'
-//  '<S54>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg1/LLA to Flat Earth/LatLong wrap LL0/Latitude Wrap 90'
-//  '<S55>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg1/LLA to Flat Earth/LatLong wrap LL0/Wrap Longitude'
-//  '<S56>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg1/LLA to Flat Earth/LatLong wrap LL0/Latitude Wrap 90/Compare To Constant'
-//  '<S57>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg1/LLA to Flat Earth/LatLong wrap LL0/Latitude Wrap 90/Wrap Angle 180'
-//  '<S58>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg1/LLA to Flat Earth/LatLong wrap LL0/Latitude Wrap 90/Wrap Angle 180/Compare To Constant'
-//  '<S59>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg1/LLA to Flat Earth/LatLong wrap LL0/Wrap Longitude/Compare To Constant'
-//  '<S60>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg1/LLA to Flat Earth/Subsystem/Angle Conversion2'
-//  '<S61>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg1/LLA to Flat Earth/Subsystem/Find Radian//Distance'
-//  '<S62>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg1/LLA to Flat Earth/Subsystem/Find Radian//Distance/Angle Conversion2'
-//  '<S63>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg1/LLA to Flat Earth/Subsystem/Find Radian//Distance/denom'
-//  '<S64>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg1/LLA to Flat Earth/Subsystem/Find Radian//Distance/e'
-//  '<S65>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg1/LLA to Flat Earth/Subsystem/Find Radian//Distance/e^4'
+//  '<S42>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg/LLA to Flat Earth'
+//  '<S43>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg/ReadHomePoint'
+//  '<S44>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg/LLA to Flat Earth/LatLong wrap'
+//  '<S45>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg/LLA to Flat Earth/LatLong wrap LL0'
+//  '<S46>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg/LLA to Flat Earth/Subsystem'
+//  '<S47>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg/LLA to Flat Earth/pos_rad'
+//  '<S48>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg/LLA to Flat Earth/LatLong wrap/Latitude Wrap 90'
+//  '<S49>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg/LLA to Flat Earth/LatLong wrap/Wrap Longitude'
+//  '<S50>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg/LLA to Flat Earth/LatLong wrap/Latitude Wrap 90/Compare To Constant'
+//  '<S51>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg/LLA to Flat Earth/LatLong wrap/Latitude Wrap 90/Wrap Angle 180'
+//  '<S52>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg/LLA to Flat Earth/LatLong wrap/Latitude Wrap 90/Wrap Angle 180/Compare To Constant'
+//  '<S53>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg/LLA to Flat Earth/LatLong wrap/Wrap Longitude/Compare To Constant'
+//  '<S54>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg/LLA to Flat Earth/LatLong wrap LL0/Latitude Wrap 90'
+//  '<S55>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg/LLA to Flat Earth/LatLong wrap LL0/Wrap Longitude'
+//  '<S56>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg/LLA to Flat Earth/LatLong wrap LL0/Latitude Wrap 90/Compare To Constant'
+//  '<S57>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg/LLA to Flat Earth/LatLong wrap LL0/Latitude Wrap 90/Wrap Angle 180'
+//  '<S58>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg/LLA to Flat Earth/LatLong wrap LL0/Latitude Wrap 90/Wrap Angle 180/Compare To Constant'
+//  '<S59>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg/LLA to Flat Earth/LatLong wrap LL0/Wrap Longitude/Compare To Constant'
+//  '<S60>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg/LLA to Flat Earth/Subsystem/Angle Conversion2'
+//  '<S61>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg/LLA to Flat Earth/Subsystem/Find Radian//Distance'
+//  '<S62>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg/LLA to Flat Earth/Subsystem/Find Radian//Distance/Angle Conversion2'
+//  '<S63>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg/LLA to Flat Earth/Subsystem/Find Radian//Distance/denom'
+//  '<S64>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg/LLA to Flat Earth/Subsystem/Find Radian//Distance/e'
+//  '<S65>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/Location2XeHdg/LLA to Flat Earth/Subsystem/Find Radian//Distance/e^4'
 //  '<S66>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/WayPoint/CheckPointInterp'
 //  '<S67>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/WayPoint/biasNED'
 //  '<S68>'  : 'FlightMissionMode/Mode2_HorzScanNav/Mode2_Variant/Mode2/WayPoint/biasWayPoint'
