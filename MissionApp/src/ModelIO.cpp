@@ -33,7 +33,7 @@ void SendData_FCUCMD::
 void SendData_FlightLogging::
     SendData(const FlightLogging *data, int32_T length, int32_T *status)
 {
-    // DataLogging::wrtieLog(data);
+    DataLogging::wrtieLog(data);
 }
 
 // Arg 4

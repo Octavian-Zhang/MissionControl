@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'ImmedMission'.
 //
-// Model version                  : 4.1
+// Model version                  : 4.2
 // Simulink Coder version         : 9.8 (R2022b) 13-May-2022
-// C/C++ source code generated on : Fri Nov 25 19:06:19 2022
+// C/C++ source code generated on : Fri Dec  2 16:44:56 2022
 //
 #include "rtwtypes.h"
 #include "rt_modd_snf.h"

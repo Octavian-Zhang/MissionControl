@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 5.28
+// Model version                  : 5.38
 // Simulink Coder version         : 9.8 (R2022b) 13-May-2022
-// C/C++ source code generated on : Fri Nov 25 19:38:09 2022
+// C/C++ source code generated on : Fri Dec  2 17:15:53 2022
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: ARM Compatible->ARM 64-bit (LLP64)
@@ -113,29 +113,29 @@ class codegenReal2MissionModelClass final
         MdlrefDW_FlightMissionIterator_T ModelA_InstanceData;// '<S7>/ModelA'
         MdlrefDW_FlightMissionIterator_T ModelB_InstanceData;// '<S7>/ModelB'
         MdlrefDW_ImmedMission_T ImmedMission_InstanceData;// '<S8>/ImmedMission' 
-        MdlrefDW_Real2SimGuidance_T Real2SimGuidance_InstanceData;// '<S100>/Real2SimGuidance' 
+        MdlrefDW_Real2SimGuidance_T Real2SimGuidance_InstanceData;// '<S101>/Real2SimGuidance' 
         FILE* eml_openfiles[20];       // '<S9>/ReadHomePoint'
         FILE* eml_openfiles_m[20];     // '<S13>/ReadHomePoint'
         FILE* eml_openfiles_mq[20];    // '<S1>/ReadHomePoint'
-        FILE* eml_openfiles_b[20];     // '<S52>/ReadPursuitShiftPercentage'
+        FILE* eml_openfiles_b[20];     // '<S51>/ReadPursuitShiftPercentage'
         FILE* eml_openfiles_h[20];     // '<S94>/PrintOnboardLog'
         FILE* eml_openfiles_f[20];     // '<S2>/ReadParADRC'
-        Msg_IndividualUAVCmd Queue_Msg[16];// '<S83>/Queue'
-        FlightLogging Real2SimGuidance_o3;// '<S100>/Real2SimGuidance'
-        missionCmd MsgRT_Buf[2];       // '<S47>/MsgRT'
-        missionCmd MsgRT_Buf_a[2];     // '<S48>/MsgRT'
-        IndividualUAVCmd Receive_o2;   // '<S83>/Receive'
+        Msg_IndividualUAVCmd Queue_Msg[16];// '<S82>/Queue'
+        FlightLogging Real2SimGuidance_o3;// '<S101>/Real2SimGuidance'
+        missionCmd MsgRT_Buf[2];       // '<S46>/MsgRT'
+        missionCmd MsgRT_Buf_a[2];     // '<S47>/MsgRT'
+        IndividualUAVCmd Receive_o2;   // '<S82>/Receive'
         IndividualUAVCmd Receive;      // '<S91>/Receive'
-        IndividualUAVCmd Receive_o2_m; // '<S82>/Receive'
+        IndividualUAVCmd Receive_o2_m; // '<S81>/Receive'
         Buffer_IndividualUAVCmd
             Queue_InsertedFor_MissionValidation_at_inport_0_Queue;// synthesized block 
-        IndividualUAVCmd Memory_PreviousInput;// '<S83>/Memory'
+        IndividualUAVCmd Memory_PreviousInput;// '<S82>/Memory'
         FixedWingGuidanceStateBus TmpRTBAtSwitchMissionUAVStateInport1_Buf[2];// synthesized block 
         FixedWingGuidanceStateBus TmpRTBAtSwitchMissionUAVStateInport3_Buf[2];// synthesized block 
         missionCmd RcvNextMission;     // '<S2>/RcvNextMission'
         missionCmd RcvImmedCMD_o2;     // '<S2>/RcvImmedCMD'
-        missionCmd Receive_o2_d;       // '<S47>/Receive'
-        missionCmd Receive_o2_p;       // '<S48>/Receive'
+        missionCmd Receive_o2_d;       // '<S46>/Receive'
+        missionCmd Receive_o2_p;       // '<S47>/Receive'
         missionCmd ReceiveMissionA_o2; // '<S7>/ReceiveMissionA'
         missionCmd ReceiveMissionB_o2; // '<S7>/ReceiveMissionB'
         missionCmd ExecMsgA;           // '<S7>/MissionUAVScheduling'
@@ -153,8 +153,7 @@ class codegenReal2MissionModelClass final
         Buffer_missionCmd Queue_InsertedFor_ReceiveMissionB_at_inport_0_Queue;// synthesized block 
         Msg_missionCmd
             Queue_InsertedFor_MissionUAVScheduling_at_inport_2_Out1RecvBuffer;// synthesized block 
-        missionCmd CurrentFlightMission;// '<S2>/DataStoreMissionCmd'
-        missionCmd MissionCMD;         // '<S84>/DataStoreMissionCmd'
+        missionCmd MissionCMD;         // '<S83>/DataStoreMissionCmd'
         missionCmd ExecMsg_msgData;    // '<S7>/MissionUAVScheduling'
         missionCmd ExecMsgA_msgData;   // '<S7>/MissionUAVScheduling'
         missionCmd ExecMsgB_msgData;   // '<S7>/MissionUAVScheduling'
@@ -166,11 +165,11 @@ class codegenReal2MissionModelClass final
         ParamADRC ParamADRC_e;         // '<S2>/Data Store Memory'
         ParamADRC ParADRC;             // '<S2>/ReadParADRC'
         DangerInfo Receive_o2_a;       // '<S5>/Receive'
-        FCUCMD Real2SimGuidance_o1;    // '<S100>/Real2SimGuidance'
+        FCUCMD Real2SimGuidance_o1;    // '<S101>/Real2SimGuidance'
         Buffer_DangerInfo
             Queue_InsertedFor_DangerLidarScanPoints_at_inport_0_Queue;// synthesized block 
         FixedWingGuidanceBus ImmedMission_o4;// '<S8>/ImmedMission'
-        Queue_IndividualUAVCmd Queue_Queue;// '<S83>/Queue'
+        Queue_IndividualUAVCmd Queue_Queue;// '<S82>/Queue'
         VectorSpeed Receive_e;         // '<S3>/Receive'
         real_T RTLLA[3];               // '<Root>/RTLLA'
         real_T DeSerOtherUAV_m[4096];  // '<Root>/DeSerOtherUAV'
@@ -197,8 +196,8 @@ class codegenReal2MissionModelClass final
         real_T ModelB_o2;              // '<S7>/ModelB'
         real_T EnableA;                // '<S7>/MissionUAVScheduling'
         real_T EnableB;                // '<S7>/MissionUAVScheduling'
-        real_T DivideThree;            // '<S52>/DivideThree'
-        real_T PursuitShift;           // '<S52>/ReadPursuitShiftPercentage'
+        real_T DivideThree;            // '<S51>/DivideThree'
+        real_T PursuitShift;           // '<S51>/ReadPursuitShiftPercentage'
         void* RateTransition_d0_SEMAPHORE;// '<Root>/Rate Transition'
         void* RTLLA_d0_SEMAPHORE;      // '<Root>/RTLLA'
         void* ExecMsg_msgInterface;    // '<S7>/MissionUAVScheduling'
@@ -210,28 +209,28 @@ class codegenReal2MissionModelClass final
         int32_T SFunction_DIMS2[2];    // '<S13>/sizeconversion'
         int32_T SFunction_DIMS2_c[2];  // '<S13>/getDangerList'
         int32_T SFunction_DIMS2_i[2];  // '<S13>/InterpCircle'
-        int32_T DelayInput1_DSTATE;    // '<S87>/Delay Input1'
-        int32_T DelayInput1_DSTATE_e;  // '<S44>/Delay Input1'
+        int32_T DelayInput1_DSTATE;    // '<S86>/Delay Input1'
+        int32_T DelayInput1_DSTATE_e;  // '<S43>/Delay Input1'
         int32_T MemoryFlightStatus_PreviousInput;// '<S6>/MemoryFlightStatus'
         int32_T MemoryImmedStatus_PreviousInput;// '<S6>/MemoryImmedStatus'
         int8_T RateTransition_LstBufWR;// '<Root>/Rate Transition'
         int8_T RateTransition_RDBuf;   // '<Root>/Rate Transition'
         int8_T RTLLA_LstBufWR;         // '<Root>/RTLLA'
         int8_T RTLLA_RDBuf;            // '<Root>/RTLLA'
-        int8_T RateTransition_RdBufIdx;// '<S99>/Rate Transition'
-        int8_T RateTransition_WrBufIdx;// '<S99>/Rate Transition'
+        int8_T RateTransition_RdBufIdx;// '<S100>/Rate Transition'
+        int8_T RateTransition_WrBufIdx;// '<S100>/Rate Transition'
         int8_T EnableA_RdBufIdx;       // synthesized block
         int8_T EnableA_WrBufIdx;       // synthesized block
         int8_T EnableB_RdBufIdx;       // synthesized block
         int8_T EnableB_WrBufIdx;       // synthesized block
-        int8_T MsgRT_RdBufIdx;         // '<S47>/MsgRT'
-        int8_T MsgRT_WrBufIdx;         // '<S47>/MsgRT'
-        int8_T RateTransition_RdBufIdx_c;// '<S47>/Rate Transition'
-        int8_T RateTransition_WrBufIdx_j;// '<S47>/Rate Transition'
-        int8_T MsgRT_RdBufIdx_b;       // '<S48>/MsgRT'
-        int8_T MsgRT_WrBufIdx_b;       // '<S48>/MsgRT'
-        int8_T RateTransition_RdBufIdx_o;// '<S48>/Rate Transition'
-        int8_T RateTransition_WrBufIdx_h;// '<S48>/Rate Transition'
+        int8_T MsgRT_RdBufIdx;         // '<S46>/MsgRT'
+        int8_T MsgRT_WrBufIdx;         // '<S46>/MsgRT'
+        int8_T RateTransition_RdBufIdx_c;// '<S46>/Rate Transition'
+        int8_T RateTransition_WrBufIdx_j;// '<S46>/Rate Transition'
+        int8_T MsgRT_RdBufIdx_b;       // '<S47>/MsgRT'
+        int8_T MsgRT_WrBufIdx_b;       // '<S47>/MsgRT'
+        int8_T RateTransition_RdBufIdx_o;// '<S47>/Rate Transition'
+        int8_T RateTransition_WrBufIdx_h;// '<S47>/Rate Transition'
         int8_T TmpRTBAtSwitchMissionUAVStateInport1_RdBufIdx;// synthesized block 
         int8_T TmpRTBAtSwitchMissionUAVStateInport1_WrBufIdx;// synthesized block 
         int8_T TmpRTBAtSwitchMissionUAVStateInport3_RdBufIdx;// synthesized block 
@@ -245,7 +244,7 @@ class codegenReal2MissionModelClass final
         int8_T TmpRTBAtModelBInport3_RdBufIdx;// synthesized block
         int8_T TmpRTBAtModelBInport3_WrBufIdx;// synthesized block
         uint8_T ReceiveFlightMode;     // '<S3>/ReceiveFlightMode'
-        uint8_T EngagedFlag_Log;       // '<S100>/Real2SimGuidance'
+        uint8_T EngagedFlag_Log;       // '<S101>/Real2SimGuidance'
         uint8_T Memory_PreviousInput_l;// '<S2>/Memory'
         uint8_T is_active_c18_codegenReal2Mission;// '<S7>/NewMission'
         uint8_T is_MissionSwitch;      // '<S7>/MissionUAVScheduling'
@@ -255,35 +254,35 @@ class codegenReal2MissionModelClass final
         uint8_T is_active_FollowSwitch;// '<S7>/MissionUAVScheduling'
         boolean_T ImmedMission_o3[2];  // '<S8>/ImmedMission'
         boolean_T eml_autoflush[20];   // '<S94>/PrintOnboardLog'
-        boolean_T RateTransition_Buf_c[2];// '<S47>/Rate Transition'
-        boolean_T RateTransition_Buf_l[2];// '<S48>/Rate Transition'
+        boolean_T RateTransition_Buf_c[2];// '<S46>/Rate Transition'
+        boolean_T RateTransition_Buf_l[2];// '<S47>/Rate Transition'
         boolean_T followSwitch;        // '<S7>/MissionUAVScheduling'
         boolean_T OR;                  // '<S6>/OR'
         boolean_T ParADRC_not_empty;   // '<S2>/ReadParADRC'
         boolean_T HomePoint_not_empty; // '<S9>/ReadHomePoint'
         boolean_T Memory_PreviousInput_f;// '<S7>/Memory'
-        boolean_T Memory_PreviousInput_j;// '<S47>/Memory'
-        boolean_T Memory_PreviousInput_p;// '<S48>/Memory'
+        boolean_T Memory_PreviousInput_j;// '<S46>/Memory'
+        boolean_T Memory_PreviousInput_p;// '<S47>/Memory'
         volatile boolean_T RateTransition_Buffer0;// '<S7>/Rate Transition'
         boolean_T followSwitch_start;  // '<S7>/NewMission'
-        boolean_T PursuitShift_not_empty;// '<S52>/ReadPursuitShiftPercentage'
+        boolean_T PursuitShift_not_empty;// '<S51>/ReadPursuitShiftPercentage'
         boolean_T HomePoint_not_empty_k;// '<S13>/ReadHomePoint'
         boolean_T HomePoint_not_empty_o;// '<S1>/ReadHomePoint'
     };
 
     // Continuous states (default storage)
     struct X_codegenReal2Mission_T {
-        X_Real2SimGuidance_n_T Real2SimGuidance_CSTATE;// '<S100>/Real2SimGuidance' 
+        X_Real2SimGuidance_n_T Real2SimGuidance_CSTATE;// '<S101>/Real2SimGuidance' 
     };
 
     // State derivatives (default storage)
     struct XDot_codegenReal2Mission_T {
-        XDot_Real2SimGuidance_n_T Real2SimGuidance_CSTATE;// '<S100>/Real2SimGuidance' 
+        XDot_Real2SimGuidance_n_T Real2SimGuidance_CSTATE;// '<S101>/Real2SimGuidance' 
     };
 
     // State disabled
     struct XDis_codegenReal2Mission_T {
-        XDis_Real2SimGuidance_n_T Real2SimGuidance_CSTATE;// '<S100>/Real2SimGuidance' 
+        XDis_Real2SimGuidance_n_T Real2SimGuidance_CSTATE;// '<S101>/Real2SimGuidance' 
     };
 
     // Real-time Model Data Structure
@@ -340,7 +339,7 @@ class codegenReal2MissionModelClass final
             SimTimeStep simTimeStep;
             boolean_T stopRequestedFlag;
             time_T *t;
-            time_T tArray[5];
+            time_T tArray[6];
         } Timing;
     };
 
@@ -501,7 +500,7 @@ class codegenReal2MissionModelClass final
         emxArray_char_T_codegenReal2Mission_T *a);
     boolean_T codegenReal2Mission_pop_k(Buffer_IndividualUAVCmd *q,
         Msg_IndividualUAVCmd *elementOut);
-    int32_T codegenReal2Mission_Receive_RecvData(IndividualUAVCmd *data);
+    int32_T codegenReal2Mission_Receive_k_RecvData(IndividualUAVCmd *data);
     creal_T codegenReal2Mission_two_prod(real_T a);
     creal_T codegenReal2Mission_times(const creal_T a);
     creal_T codegenReal2Mission_two_sum(real_T a, real_T b);
@@ -573,11 +572,11 @@ class codegenReal2MissionModelClass final
     int32_T codegenReal2Mission_Queue_RecvData(IndividualUAVCmd *data);
     boolean_T codegenReal2Mission_push_b(Buffer_IndividualUAVCmd *q, const
         Msg_IndividualUAVCmd *element);
-    int32_T codegenReal2Mission_Receive_b_SendData(const IndividualUAVCmd *data);
+    int32_T codegenReal2Mission_Receive_SendData(const IndividualUAVCmd *data);
     Msg_DangerInfo codegenReal2Mission_createMsg_fl(const DangerInfo *data);
     boolean_T codegenReal2Mission_push_j(Buffer_DangerInfo *q, const
         Msg_DangerInfo *element);
-    int32_T codegenReal2Mission_Receive_SendData(const DangerInfo *data);
+    int32_T codegenReal2Mission_Receive_o_SendData(const DangerInfo *data);
     boolean_T codegenReal2Mission_pop_h(Buffer_missionCmd *q, Msg_missionCmd
         *elementOut);
     int32_T codegenReal2Mission_RcvNextMission_RecvData(missionCmd *data);
@@ -599,7 +598,7 @@ class codegenReal2MissionModelClass final
     void codegenReal2Mission_fread_e(real_T fileID,
         emxArray_char_T_codegenReal2Mission_T *A);
     int32_T codegenReal2Mission_cfclose_l(real_T fid);
-    int32_T codegenReal2Mission_Receive_d_RecvData(missionCmd *data);
+    int32_T codegenReal2Mission_Receive_RecvData(missionCmd *data);
     int32_T codegenReal2Mission_Receive_e_RecvData(missionCmd *data);
     int32_T codegenReal2Mission_RcvImmedCMD_RecvData(missionCmd *data);
     int8_T codegenReal2Mission_filedata_p(void) const;
@@ -658,7 +657,7 @@ class codegenReal2MissionModelClass final
 //  Block '<S15>/Sum' : Unused code path elimination
 //  Block '<S15>/Ze2height' : Unused code path elimination
 //  Block '<S13>/inverse' : Unused code path elimination
-//  Block '<S58>/Data Type Duplicate' : Unused code path elimination
+//  Block '<S57>/Data Type Duplicate' : Unused code path elimination
 //  Block '<S13>/Reshape' : Reshape block reduction
 //  Block '<S6>/Cast To uint8' : Eliminate redundant data type conversion
 //  Block '<S6>/intFormationPos' : Eliminate redundant data type conversion
@@ -724,54 +723,54 @@ class codegenReal2MissionModelClass final
 //  '<S38>'  : 'codegenReal2Mission/MissionLogic/DangerLidarScanPoints/GenPCD/LLA to Flat Earth/Subsystem/Find Radian//Distance/denom'
 //  '<S39>'  : 'codegenReal2Mission/MissionLogic/DangerLidarScanPoints/GenPCD/LLA to Flat Earth/Subsystem/Find Radian//Distance/e'
 //  '<S40>'  : 'codegenReal2Mission/MissionLogic/DangerLidarScanPoints/GenPCD/LLA to Flat Earth/Subsystem/Find Radian//Distance/e^4'
-//  '<S41>'  : 'codegenReal2Mission/MissionLogic/FeedbackCurrentMission/Compare To Constant'
-//  '<S42>'  : 'codegenReal2Mission/MissionLogic/FeedbackCurrentMission/TriggerCurrentMisisonFeedback'
-//  '<S43>'  : 'codegenReal2Mission/MissionLogic/FeedbackCurrentMission/TriggerCurrentMisisonFeedback/TimeConverter'
-//  '<S44>'  : 'codegenReal2Mission/MissionLogic/FlightMission/Detect Change'
-//  '<S45>'  : 'codegenReal2Mission/MissionLogic/FlightMission/JumpDelay'
-//  '<S46>'  : 'codegenReal2Mission/MissionLogic/FlightMission/MissionUAVScheduling'
-//  '<S47>'  : 'codegenReal2Mission/MissionLogic/FlightMission/MsgRateTransitionA'
-//  '<S48>'  : 'codegenReal2Mission/MissionLogic/FlightMission/MsgRateTransitionB'
-//  '<S49>'  : 'codegenReal2Mission/MissionLogic/FlightMission/NewMission'
-//  '<S50>'  : 'codegenReal2Mission/MissionLogic/FlightMission/TriggerNewMissionBroadcast'
-//  '<S51>'  : 'codegenReal2Mission/MissionLogic/FlightMission/getCurrentTime'
-//  '<S52>'  : 'codegenReal2Mission/MissionLogic/FlightMission/JumpDelay/ComputDelay'
-//  '<S53>'  : 'codegenReal2Mission/MissionLogic/FlightMission/JumpDelay/ComputDelay/ReadPursuitShiftPercentage'
-//  '<S54>'  : 'codegenReal2Mission/MissionLogic/FlightMission/getCurrentTime/CurrentTime'
-//  '<S55>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/Degrees to Radians'
-//  '<S56>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/Degrees to Radians1'
-//  '<S57>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/Degrees to Radians2'
-//  '<S58>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth'
-//  '<S59>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/ReadHomePoint'
-//  '<S60>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap'
-//  '<S61>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap LL0'
-//  '<S62>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth/Subsystem'
-//  '<S63>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth/pos_rad'
-//  '<S64>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap/Latitude Wrap 90'
-//  '<S65>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap/Wrap Longitude'
-//  '<S66>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap/Latitude Wrap 90/Compare To Constant'
-//  '<S67>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap/Latitude Wrap 90/Wrap Angle 180'
-//  '<S68>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap/Latitude Wrap 90/Wrap Angle 180/Compare To Constant'
-//  '<S69>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap/Wrap Longitude/Compare To Constant'
-//  '<S70>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap LL0/Latitude Wrap 90'
-//  '<S71>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap LL0/Wrap Longitude'
-//  '<S72>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap LL0/Latitude Wrap 90/Compare To Constant'
-//  '<S73>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap LL0/Latitude Wrap 90/Wrap Angle 180'
-//  '<S74>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap LL0/Latitude Wrap 90/Wrap Angle 180/Compare To Constant'
-//  '<S75>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap LL0/Wrap Longitude/Compare To Constant'
-//  '<S76>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth/Subsystem/Angle Conversion2'
-//  '<S77>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth/Subsystem/Find Radian//Distance'
-//  '<S78>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth/Subsystem/Find Radian//Distance/Angle Conversion2'
-//  '<S79>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth/Subsystem/Find Radian//Distance/denom'
-//  '<S80>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth/Subsystem/Find Radian//Distance/e'
-//  '<S81>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth/Subsystem/Find Radian//Distance/e^4'
-//  '<S82>'  : 'codegenReal2Mission/MissionLogic/PreProcessMissionCMD/MissionValidation'
-//  '<S83>'  : 'codegenReal2Mission/MissionLogic/PreProcessMissionCMD/QueueCMD'
-//  '<S84>'  : 'codegenReal2Mission/MissionLogic/PreProcessMissionCMD/MissionValidation/TriggerMissionDispatch'
-//  '<S85>'  : 'codegenReal2Mission/MissionLogic/PreProcessMissionCMD/MissionValidation/TriggerMissionDispatch/CommandCheck'
-//  '<S86>'  : 'codegenReal2Mission/MissionLogic/PreProcessMissionCMD/QueueCMD/Compare To Constant'
-//  '<S87>'  : 'codegenReal2Mission/MissionLogic/PreProcessMissionCMD/QueueCMD/Detect Change'
-//  '<S88>'  : 'codegenReal2Mission/MissionLogic/PreProcessMissionCMD/QueueCMD/IsAvoidDanger'
+//  '<S41>'  : 'codegenReal2Mission/MissionLogic/FeedbackCurrentMission/TriggerCurrentMisisonFeedback'
+//  '<S42>'  : 'codegenReal2Mission/MissionLogic/FeedbackCurrentMission/TriggerCurrentMisisonFeedback/TimeConverter'
+//  '<S43>'  : 'codegenReal2Mission/MissionLogic/FlightMission/Detect Change'
+//  '<S44>'  : 'codegenReal2Mission/MissionLogic/FlightMission/JumpDelay'
+//  '<S45>'  : 'codegenReal2Mission/MissionLogic/FlightMission/MissionUAVScheduling'
+//  '<S46>'  : 'codegenReal2Mission/MissionLogic/FlightMission/MsgRateTransitionA'
+//  '<S47>'  : 'codegenReal2Mission/MissionLogic/FlightMission/MsgRateTransitionB'
+//  '<S48>'  : 'codegenReal2Mission/MissionLogic/FlightMission/NewMission'
+//  '<S49>'  : 'codegenReal2Mission/MissionLogic/FlightMission/TriggerNewMissionBroadcast'
+//  '<S50>'  : 'codegenReal2Mission/MissionLogic/FlightMission/getCurrentTime'
+//  '<S51>'  : 'codegenReal2Mission/MissionLogic/FlightMission/JumpDelay/ComputDelay'
+//  '<S52>'  : 'codegenReal2Mission/MissionLogic/FlightMission/JumpDelay/ComputDelay/ReadPursuitShiftPercentage'
+//  '<S53>'  : 'codegenReal2Mission/MissionLogic/FlightMission/getCurrentTime/CurrentTime'
+//  '<S54>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/Degrees to Radians'
+//  '<S55>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/Degrees to Radians1'
+//  '<S56>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/Degrees to Radians2'
+//  '<S57>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth'
+//  '<S58>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/ReadHomePoint'
+//  '<S59>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap'
+//  '<S60>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap LL0'
+//  '<S61>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth/Subsystem'
+//  '<S62>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth/pos_rad'
+//  '<S63>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap/Latitude Wrap 90'
+//  '<S64>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap/Wrap Longitude'
+//  '<S65>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap/Latitude Wrap 90/Compare To Constant'
+//  '<S66>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap/Latitude Wrap 90/Wrap Angle 180'
+//  '<S67>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap/Latitude Wrap 90/Wrap Angle 180/Compare To Constant'
+//  '<S68>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap/Wrap Longitude/Compare To Constant'
+//  '<S69>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap LL0/Latitude Wrap 90'
+//  '<S70>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap LL0/Wrap Longitude'
+//  '<S71>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap LL0/Latitude Wrap 90/Compare To Constant'
+//  '<S72>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap LL0/Latitude Wrap 90/Wrap Angle 180'
+//  '<S73>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap LL0/Latitude Wrap 90/Wrap Angle 180/Compare To Constant'
+//  '<S74>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth/LatLong wrap LL0/Wrap Longitude/Compare To Constant'
+//  '<S75>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth/Subsystem/Angle Conversion2'
+//  '<S76>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth/Subsystem/Find Radian//Distance'
+//  '<S77>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth/Subsystem/Find Radian//Distance/Angle Conversion2'
+//  '<S78>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth/Subsystem/Find Radian//Distance/denom'
+//  '<S79>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth/Subsystem/Find Radian//Distance/e'
+//  '<S80>'  : 'codegenReal2Mission/MissionLogic/LatLon2NorthEast/LLA to Flat Earth/Subsystem/Find Radian//Distance/e^4'
+//  '<S81>'  : 'codegenReal2Mission/MissionLogic/PreProcessMissionCMD/MissionValidation'
+//  '<S82>'  : 'codegenReal2Mission/MissionLogic/PreProcessMissionCMD/QueueCMD'
+//  '<S83>'  : 'codegenReal2Mission/MissionLogic/PreProcessMissionCMD/MissionValidation/TriggerMissionDispatch'
+//  '<S84>'  : 'codegenReal2Mission/MissionLogic/PreProcessMissionCMD/MissionValidation/TriggerMissionDispatch/CommandCheck'
+//  '<S85>'  : 'codegenReal2Mission/MissionLogic/PreProcessMissionCMD/QueueCMD/Compare To Constant'
+//  '<S86>'  : 'codegenReal2Mission/MissionLogic/PreProcessMissionCMD/QueueCMD/Detect Change'
+//  '<S87>'  : 'codegenReal2Mission/MissionLogic/PreProcessMissionCMD/QueueCMD/IsAvoidDanger'
+//  '<S88>'  : 'codegenReal2Mission/MissionLogic/PreProcessMissionCMD/QueueCMD/MsgConvert'
 //  '<S89>'  : 'codegenReal2Mission/MissionLogic/PreProcessMissionCMD/QueueCMD/NotAvoidDanger'
 //  '<S90>'  : 'codegenReal2Mission/MissionLogic/PreProcessMissionCMD/QueueCMD/ProcessDanger'
 //  '<S91>'  : 'codegenReal2Mission/MissionLogic/PreProcessMissionCMD/QueueCMD/ReadOne'
@@ -780,10 +779,11 @@ class codegenReal2MissionModelClass final
 //  '<S94>'  : 'codegenReal2Mission/MissionLogic/PreProcessMissionCMD/QueueCMD/UplinkLog'
 //  '<S95>'  : 'codegenReal2Mission/MissionLogic/PreProcessMissionCMD/QueueCMD/getCurrentTime'
 //  '<S96>'  : 'codegenReal2Mission/MissionLogic/PreProcessMissionCMD/QueueCMD/smallerthanZero'
-//  '<S97>'  : 'codegenReal2Mission/MissionLogic/PreProcessMissionCMD/QueueCMD/UplinkLog/PrintOnboardLog'
-//  '<S98>'  : 'codegenReal2Mission/MissionLogic/PreProcessMissionCMD/QueueCMD/getCurrentTime/CurrentTime'
-//  '<S99>'  : 'codegenReal2Mission/MissionLogic/VisualizeUAV/VisualizeUAV'
-//  '<S100>' : 'codegenReal2Mission/TrackingControl/Real2SimGuidance'
+//  '<S97>'  : 'codegenReal2Mission/MissionLogic/PreProcessMissionCMD/QueueCMD/MsgConvert/TimeConverter'
+//  '<S98>'  : 'codegenReal2Mission/MissionLogic/PreProcessMissionCMD/QueueCMD/UplinkLog/PrintOnboardLog'
+//  '<S99>'  : 'codegenReal2Mission/MissionLogic/PreProcessMissionCMD/QueueCMD/getCurrentTime/CurrentTime'
+//  '<S100>' : 'codegenReal2Mission/MissionLogic/VisualizeUAV/VisualizeUAV'
+//  '<S101>' : 'codegenReal2Mission/TrackingControl/Real2SimGuidance'
 
 #endif                                 // RTW_HEADER_codegenReal2Mission_h_
 

@@ -1,6 +1,7 @@
 #ifndef DataLog
 #define DataLog
 
+#include <iostream>
 #include "sqlite_orm.h"
 #include "codegenReal2Mission.h"
 

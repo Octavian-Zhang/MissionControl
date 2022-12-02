@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'codegenReal2Mission'.
 //
-// Model version                  : 5.28
+// Model version                  : 5.38
 // Simulink Coder version         : 9.8 (R2022b) 13-May-2022
-// C/C++ source code generated on : Fri Nov 25 19:38:09 2022
+// C/C++ source code generated on : Fri Dec  2 17:15:53 2022
 //
 
 #ifndef RTW_HEADER_DatalinkInterface_h_
@@ -57,13 +57,6 @@ struct RealUAVStateBus
     real_T RollAngle_deg;
 };
 
-struct VectorSpeed
-{
-    real_T eastSpeed;
-    real_T northSpeed;
-    real_T skySpeed;
-};
-
 struct FCUCMD
 {
     real_T RefLatitude_deg;
@@ -72,6 +65,13 @@ struct FCUCMD
     real_T RefHdg_deg;
     real_T RefAirSpd_mps;
     real_T RefGndSpd_mps;
+};
+
+struct VectorSpeed
+{
+    real_T eastSpeed;
+    real_T northSpeed;
+    real_T skySpeed;
 };
 
 struct IndividualUAVCmd

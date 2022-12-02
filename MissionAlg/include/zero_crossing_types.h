@@ -5,7 +5,7 @@
 //
 // Model version                  : 4.1
 // Simulink Coder version         : 9.8 (R2022b) 13-May-2022
-// C/C++ source code generated on : Fri Nov 25 19:06:22 2022
+// C/C++ source code generated on : Fri Dec  2 16:44:56 2022
 //
 #ifndef ZERO_CROSSING_TYPES_H
 #define ZERO_CROSSING_TYPES_H
